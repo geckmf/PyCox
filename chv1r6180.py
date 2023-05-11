@@ -141,7 +141,7 @@ def allfunctions():
   bipartitions .................. all pairs of partitions of an integer
   lusztigsymbolB ................. symbol associated with a bipartition
   redlusztigsymbolB ...... reduced symbol associated with a bipartition
-  ainvbipartition ........................ the correspondig a-invariant
+  ainvbipartition ....................... the corresponding a-invariant
   partitiontuples .............. all tuples of partitions of an integer
   centralisertuple ....... order in wreath product with symmetric group
 
@@ -227,7 +227,7 @@ VF="""   This release contains, first of all, some bug fixes and minor (but
    also contains some  basic support for Kazhdan-Lusztig polynomials,
    cells and  W-graphs; see 'klcells', 'wgraphs' and 'klpolynomials'.
    Here, we make systematic use of  the concept  of induced cells and
-   relative  Kazhdan-Lusztig  polynomials.  The resulting algorthm is
+   relative  Kazhdan-Lusztig  polynomials.  The resulting algorithm is
    remarkably efficient.  For example,  the  function  'klcells'  can
    compute the  W-graphs  of all  left cells for groups of rank up to
    about 8 (except for type E8). Some timings:
@@ -374,7 +374,7 @@ VA="""   The original version of CHEVIE was developed for GAP3 (and MAPLE).
    more properly with the  irrational numbers involved in type H3, H4
    and  dihedral types. (Currently  I just use  float numbers,  which
    appears to be ok for H3 and H4.) Overall, the functions work  with
-   satisfactory efficieny, including type E8.
+   satisfactory efficiency, including type E8.
 
    Plans for the next version include:
     * basic  character table operations
@@ -417,7 +417,7 @@ class zeta5:
 
             a + b * (1+sqrt(5))/2   where  a,b are integers.
 
-  There is an optional argument 'iname' by which one can speficy how
+  There is an optional argument 'iname' by which one can specify how
   (1+sqrt(5))/2 is printed; the default value is 'ir5'.
 
   >>> zeta5(1,1)
@@ -780,7 +780,7 @@ class lpol:
         x*=self
       return x
   def __divmod__(self,g):
-    """divdes f (=self)  by g leaving remainder; here, all coefficients
+    """divides f (=self)  by g leaving remainder; here, all coefficients
     of f must be divisible by  the coefficient  of the highest power
     of the variable in g.
 
@@ -1562,7 +1562,7 @@ def decomposemat(mat):
   [[0, 2, 4], [1, 3]]
 
   Thus, there are two blocks, obtained by taking the submatrices
-  with row and colum indices (0,2,4) and (1,3), respectively.
+  with row and column indices (0,2,4) and (1,3), respectively.
   """
   l=list(range(len(mat[0])))
   orbs=[]
@@ -3307,7 +3307,7 @@ def conjgenperm(W,s,pw):
 #F conjugacyclass
 def conjugacyclass(W,pw):
   """returns the set of all elements in a conjugacy class,  ordered by
-  increasing lenth.  The argument is supposed  to be a  permutation
+  increasing length.  The argument is supposed  to be a  permutation
   and the elements in the resulting list are permutations. Elements
   of minimum length are more efficiently computed using 'classmin'.
 
@@ -3884,7 +3884,7 @@ def allmats(W,maxl=-1):
 
 #F allcoxelms
 def allcoxelms(W,maxl=-1):
-  """returns all elements of W of length at most maxl, representated
+  """returns all elements of W of length at most maxl, represented
   as coxelms, that is, permutations of the set of all roots where
   only the images of the simple roots are given.  This only works
   for finite W. (If maxl is not specified, then all elements will
@@ -5330,7 +5330,7 @@ def chartablehalfC(n,other=False):
 def chartableB(n):
   """returns the character table of the finite Coxeter group of type
   B_n.  The rows and  columns are indexed  by  pairs of partitions
-  of n, as ordered in partitiontuples(n,2). The function procedes
+  of n, as ordered in partitiontuples(n,2). The function proceeds
   by inflating characters of direct products  of groups of type A
   to direct products of groups of type B and then inducing to the
   whole group (see [Ge-Pf, 5.5.4]).
