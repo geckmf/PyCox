@@ -2105,11 +2105,11 @@ def cartanmatA(n):
 def cartanmat(typ,n):
   r"""returns a Cartan matrix (of finite Dynkin type) where typ is
   a string specifying  the type.  The  convention is such that
-  the (i,j)-entry of this matrix equals
+  the (i,j)-entry of this matrix equals::
 
-                  (e_i,e_j)
-                2 ---------
-                  (e_i,e_i)
+                (e_i,e_j)
+              2 ---------
+                (e_i,e_i)
 
   where  e_0, e_1, ... are the  simple  roots and  ( , ) is an
   invariant bilinear form.  (This is the same convention as in
@@ -2127,30 +2127,30 @@ def cartanmat(typ,n):
   [[2,-ir5],[-ir5,2]]                # definition of ir5
 
   The complete list of the graphs  with their labelling is as
-  follows:
+  follows::
 
-         0   1   2          n-1               0   1   2          n-1
-   A_n   o---o---o-- . . . --o          B_n   o=<=o---o-- . . . --o
+           0   1   2          n-1               0   1   2          n-1
+     A_n   o---o---o-- . . . --o          B_n   o=<=o---o-- . . . --o
 
-       1 o
-          \    3            n-1               0   1   2          n-1
-   D_n   2 o---o---  . . . --o          C_n   o=>=o---o-- . . . --o
-          /
-       0 o
+         1 o
+            \    3            n-1               0   1   2          n-1
+     D_n   2 o---o---  . . . --o          C_n   o=>=o---o-- . . . --o
+            /
+         0 o
 
-         0   1             0   1   2   3          0   2   3   4   5
-   G_2   0->-0        F_4  o---o=>=o---o     E_6  o---o---o---o---o
-           6                                              |
-                                                          o 1
+           0   1             0   1   2   3          0   2   3   4   5
+     G_2   0->-0        F_4  o---o=>=o---o     E_6  o---o---o---o---o
+             6                                              |
+                                                            o 1
 
-         0   2   3   4   5   6            0   2   3   4   5   6   7
-   E_7   o---o---o---o---o---o       E_8  o---o---o---o---o---o---o
-                 |                                |
-                 o 1                              o 1
+           0   2   3   4   5   6            0   2   3   4   5   6   7
+     E_7   o---o---o---o---o---o       E_8  o---o---o---o---o---o---o
+                   |                                |
+                   o 1                              o 1
 
-             0   1                 0   1   2          0   1   2   3
-   I_2(m)    o->-o            H_3  o---o---o     H_4  o---o---o---o
-               m                     5                  5
+               0   1                 0   1   2          0   1   2   3
+     I_2(m)    o->-o            H_3  o---o---o     H_4  o---o---o---o
+                 m                     5                  5
 
   """
   if typ[0]=='A':
@@ -5489,7 +5489,7 @@ def chartableD(n):
   where Ind denotes induction from H to W(D_n).
 
   Note that this function  uses the following  convention for the
-  embedding of W(D_n) into W(B_n):
+  embedding of W(D_n) into W(B_n)::
 
                     0   1   2          n-1
         B_n         o=<=o---o-- . . . --o
