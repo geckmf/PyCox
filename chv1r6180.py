@@ -1554,11 +1554,11 @@ def decomposemat(mat):
   result is range(len(mat[0]))  if  mat  can not be  decomposed.
   Otherwise, the lists of block indices are returned.
 
-  >>>d=decomposemat([[ 2, 0,-1, 0, 0],
-                     [ 0, 2, 0,-3, 0],
-                     [-2, 0, 2, 0,-1],
-                     [ 0,-1, 0, 2, 0],
-                     [ 0, 0,-1, 0, 2]]
+  >>> d=decomposemat([[ 2, 0,-1, 0, 0],
+  ...                 [ 0, 2, 0,-3, 0],
+  ...                 [-2, 0, 2, 0,-1],
+  ...                 [ 0,-1, 0, 2, 0],
+  ...                 [ 0, 0,-1, 0, 2]]
   [[0, 2, 4], [1, 3]]
 
   Thus, there are two blocks, obtained by taking the submatrices
@@ -1856,7 +1856,7 @@ def bipartitions(n):
 def partitiontuples(n,r):
   """returns the list of all r-tuples of partitions of n.
 
-  >>>partitiontuples(3,2)
+  >>> partitiontuples(3,2)
   [[[1,1,1],[]],
    [[1,1],[1]],
    [[1],[1,1]],
@@ -3422,7 +3422,7 @@ def classmin(W,w,minl=True):
   its class. Otherwise,  the extra argument  'minl' has to be
   set to some value unequal to 'True'.
 
-  >>>[W.permtoword(x) for x in classmin(W,[0,2,0],minl=0)]
+  >>> [W.permtoword(x) for x in classmin(W,[0,2,0],minl=0)]
   #I ++ Size of Cmin: 8
   [[2], [0], [3], [1], [4], [5], [6], [7]]
 
@@ -3985,7 +3985,7 @@ def redrightcosetreps(W,H):
   >>> [W.coxelmtoword(c) for c in a]
   [[], [3], [3,2], [3,2,1], [3,2,1,0]]
 
-  >>>W=coxeter("F",4);
+  >>> W=coxeter("F",4);
   >>> H=reflectionsubgroup(W,[3,1,2,W.N-1]);H.cartantype;
   [['C',[0,1,2]], ['A',[3]]]         # non-parabolic
   >>> [W.coxelmtoword(p) for p in redrightcosetreps(W,H)]
@@ -13178,7 +13178,7 @@ def allcellsleadingcoeffs(W,weightL,v,newnorm=False):
    [("5_r'",), ("3_s'",), ("1_r'",), ('3_s',), # special characters
     ('1_r',), ('5_r',), ("4_r'",)]]
 
-  >>>allcellsleadingcoeffs(coxeter("B",3),[2,1,1],v)
+  >>> allcellsleadingcoeffs(coxeter("B",3),[2,1,1],v)
   [[[[('[[1, 1], [1]]',), 1,  1],
      [('[[1], [2]]',),    1, -1]],
     [[('[[1], [2]]',), 1, -1],
