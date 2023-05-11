@@ -79,7 +79,7 @@ def writeto(fname,l):
 def allfunctions():
   """
   ---------------------------------------------------------------------
-          For more details type, for example, 'help(coxeter)'.         
+          For more details type, for example, 'help(coxeter)'.
   ---------------------------------------------------------------------
   coxeter ..................... creates Coxeter group (as python class)
   cartanmat ............................... Cartan matrix (finite type)
@@ -99,7 +99,7 @@ def allfunctions():
   redrightcosetreps ......... distinguished right coset representatives
   redinrightcoset ........ reduce to distinguished coset representative
   redleftcosetreps ........... distinguished left coset representatives
-                                                                       
+
   Characters:
   chartable ................. character table of a finite Coxeter group
   inducedchar ............ induced character from a reflection subgroup
@@ -109,14 +109,14 @@ def allfunctions():
   poincarepol ..................................... Poincare polynomial
   heckechartable .......... character table of an Iwahori-Hecke algebra
   heckecharvalues ........ character values on arbitrary basis elements
-  leadingcoefficients .................. Lusztig's leading coefficients 
+  leadingcoefficients .................. Lusztig's leading coefficients
   heckecentraltable ................. table of central character values
   schurelms ................ Schur elements of an Iwahori-Hecke algebra
   lcmschurelms ............ least common multiple of the Schur elements
   fakedegree ............................... fake degree of a character
   involutionmodel ...... involution model of Kottwitz and Lusztig-Vogan
   dimBu ................... dimension of the variety of Borel subgroups
-                                                                       
+
   Cells and Families:
   wgraph .................... Kazhdan-Lusztig W-graph (as python class)
   klpolynomials ........................... Kazhdan-Lusztig polynomials
@@ -125,7 +125,7 @@ def allfunctions():
   wgraphstarorbit ............... orbit of W-graph under star operation
   gentaucells ................... cells under generalised tau-invariant
   leftconnected ........ left-connected components of a set of elements
-  leftcellleadingcoeffs .......... leading coefficients for a left cell 
+  leftcellleadingcoeffs .......... leading coefficients for a left cell
   distinguishedinvolutions .... distinguished involutions in left cells
   constructible..................... Lusztig's constructible characters
   lusztigfamilies .... Lusztig's families and the partial order on them
@@ -133,7 +133,7 @@ def allfunctions():
   klcellreps .......................... basic information on left cells
   klcellrepelm ................... special representation of an element
   leftcellelm .......... the left cell (equal parameters) of an element
-                                                                       
+
   Combinatorics:
   partitions ............................. all partitions of an integer
   dualpartition ......................... dual (or conjugate) partition
@@ -144,7 +144,7 @@ def allfunctions():
   ainvbipartition ........................ the correspondig a-invariant
   partitiontuples .............. all tuples of partitions of an integer
   centralisertuple ....... order in wreath product with symmetric group
-                                                                       
+
   Polynomials and numbers:
   intlcm ........................ least common multiple of two integers
   gcdex .................... extended greatest common divisor algorithm
@@ -156,7 +156,7 @@ def allfunctions():
   interpolatepol ............................ interpolates a polynomial
   cyclpol ....................................... cyclotomic polynomial
   cycldec ........ decomposition into product of cyclotomic polynomials
-                                                                       
+
   Utility functions:
   cartesian ............................ cartesian product of two lists
   flatlist ............................................. flatten a list
@@ -178,42 +178,42 @@ def allfunctions():
    help menues may contain references to further functions available.)
   """
   print("#I Type 'help(allfunctions)'")
-  return None 
-  
-VG="""   This is intended to be the last major version of  PyCox 1.  (There 
-   will be further bug fix releases, but everything entirely new will 
-   go  into  what  may  eventually be called  PyCox 2.)  Now, the new 
-   things in this release are: the function 'displaymat' which allows  
-   for  a nice printing  of various  objects based on matrices, e.g., 
-   character tables,  induction tables,  and so on.  There  is also a 
-   much improved version of the function  'distinguishedinvolutions': 
-   it can compute  (by a general method, and for the first time)  the 
-   set of distinguished involutions for type E8;  this takes about 18 
+  return None
+
+VG="""   This is intended to be the last major version of  PyCox 1.  (There
+   will be further bug fix releases, but everything entirely new will
+   go  into  what  may  eventually be called  PyCox 2.)  Now, the new
+   things in this release are: the function 'displaymat' which allows
+   for  a nice printing  of various  objects based on matrices, e.g.,
+   character tables,  induction tables,  and so on.  There  is also a
+   much improved version of the function  'distinguishedinvolutions':
+   it can compute  (by a general method, and for the first time)  the
+   set of distinguished involutions for type E8;  this takes about 18
    days and 22GB main memory.
                                                       MG, 23 Apr 2012
 
    Patch 1.61:
-   The help to  'chartableD'  now contains a more precise description 
+   The help to  'chartableD'  now contains a more precise description
    of the conventions used,  especially for the case where n is even.
-   An error has been corrected in the list of characters  returned by 
+   An error has been corrected in the list of characters  returned by
    the function 'libdistinv'.
 
    Patch 1.618:
-   The behaviour of the  'range' function with respect to slicing has 
-   changed from Python 3.0 to 3.2.  This patch contains some fixes so 
-   that it works in all Python 3 versions. Also corrected a minor bug 
-   in decomposemat (the indices were not sorted before). 
+   The behaviour of the  'range' function with respect to slicing has
+   changed from Python 3.0 to 3.2.  This patch contains some fixes so
+   that it works in all Python 3 versions. Also corrected a minor bug
+   in decomposemat (the indices were not sorted before).
 
                                                       MG, 20 Dec 2012
 
    Patch 1.6180:
    Corrected an error in the function 'heckeirrdata' for type Dn with
-   small value of n. Added function 'classmin' to compute elements of 
-   minimal length in a conjugacy class.  Improved  functions  to deal  
-   with generalised tau-invariants  ('gentaucells' and 'gentaureps').  
+   small value of n. Added function 'classmin' to compute elements of
+   minimal length in a conjugacy class.  Improved  functions  to deal
+   with generalised tau-invariants  ('gentaucells' and 'gentaureps').
    Added data on left cells for E8 and new functions for working with
-   left and two-sided cells (equal parameter case); see 'klcellreps',  
-   'klcellrepelm' and 'leftcellelm'. 
+   left and two-sided cells (equal parameter case); see 'klcellreps',
+   'klcellrepelm' and 'leftcellelm'.
 
                                                       MG, 27 Jan 2014
 
@@ -221,92 +221,92 @@ VG="""   This is intended to be the last major version of  PyCox 1.  (There
    """
 
 VF="""   This release contains, first of all, some bug fixes and minor (but
-   hopefully useful) additions, like the function  'allelmsproperty'. 
+   hopefully useful) additions, like the function  'allelmsproperty'.
    There is now a simple arithmetic for cyctlotomic integers, so that
    we can deal with dihedral groups in general; see 'rootof1'. And it
-   also contains some  basic support for Kazhdan-Lusztig polynomials,  
-   cells and  W-graphs; see 'klcells', 'wgraphs' and 'klpolynomials'. 
-   Here, we make systematic use of  the concept  of induced cells and  
+   also contains some  basic support for Kazhdan-Lusztig polynomials,
+   cells and  W-graphs; see 'klcells', 'wgraphs' and 'klpolynomials'.
+   Here, we make systematic use of  the concept  of induced cells and
    relative  Kazhdan-Lusztig  polynomials.  The resulting algorthm is
-   remarkably efficient.  For example,  the  function  'klcells'  can 
-   compute the  W-graphs  of all  left cells for groups of rank up to 
-   about 8 (except for type E8). Some timings: 
+   remarkably efficient.  For example,  the  function  'klcells'  can
+   compute the  W-graphs  of all  left cells for groups of rank up to
+   about 8 (except for type E8). Some timings:
 
-            Type F4:     72 left cells, about   1 second. 
-            Type H4:    206 left cells, about 370 seconds. 
-            Type E6:    652 left cells, about  45 seconds. 
+            Type F4:     72 left cells, about   1 second.
+            Type H4:    206 left cells, about 370 seconds.
+            Type E6:    652 left cells, about  45 seconds.
             Type E7:   6364 left cells, about   4 hours.
-            Type A8:   2620 left cells, about 140 seconds. 
-            Type D8:  11504 left cells, about   4 hours. 
-            Type B8:  15304 left cells, about  58 hours. 
+            Type A8:   2620 left cells, about 140 seconds.
+            Type D8:  11504 left cells, about   4 hours.
+            Type B8:  15304 left cells, about  58 hours.
 
    (For B8 at least 9GB are required; otherwise, 4GB are sufficient.)
-   The programs  are not  yet  completely optimised but,  still,  the 
-   ultimate challenge, i.e., the computation of the 101796 left cells  
+   The programs  are not  yet  completely optimised but,  still,  the
+   ultimate challenge, i.e., the computation of the 101796 left cells
    in type E8, seems to remain out of reach for the time being.
 
                                                       MG, 27 Jan 2012
 
    The patch 1.51  contains a number of minor fixes;  it now also has
-   an implementation of 'relklpols' for unequal parameters. (E.g., it 
-   computes all left cells in type F_4, for any choice of parameters, 
-   in about 5 seconds;  it  is  capable  of dealing with type B_n and 
-   unequal  parameters for  n  up to around 7.) A further addition is 
-   the function  'dimBu' which I had written years ago for gap-chevie  
+   an implementation of 'relklpols' for unequal parameters. (E.g., it
+   computes all left cells in type F_4, for any choice of parameters,
+   in about 5 seconds;  it  is  capable  of dealing with type B_n and
+   unequal  parameters for  n  up to around 7.) A further addition is
+   the function  'dimBu' which I had written years ago for gap-chevie
    and which is now included here.
                                                       MG, 04 Feb 2012
 
    (For the previous version type 'versioninfo(1.4)'.)
    """
 
-VE="""   This module has now reached a state  where it contains a number of 
-   features which have never been included in the official gap-chevie 
-   release, for example: 
-      * Lusztig's constructible characters and families (this already  
+VE="""   This module has now reached a state  where it contains a number of
+   features which have never been included in the official gap-chevie
+   release, for example:
+      * Lusztig's constructible characters and families (this already
         appeared in version 1.1; see 'lusztigfamilies');
       * the algorithm for computing the sizes of special pieces  (see
-        'specialpieces'); 
+        'specialpieces');
       * the computation of character values on central elements  (see
         'heckecentraltable').
-   (However, there are also a number of features of gap-chevie  which 
+   (However, there are also a number of features of gap-chevie  which
    are not yet available in this module; for example, Coxeter cosets,
-   Kazhdan-Lusztig polynomials and  various things from Jean Michel's 
-   development version of gap-chevie.)  I intend to add  support  for 
-   Kazhdan-Lusztig cells and  their relative version  (with  possibly 
+   Kazhdan-Lusztig polynomials and  various things from Jean Michel's
+   development version of gap-chevie.)  I intend to add  support  for
+   Kazhdan-Lusztig cells and  their relative version  (with  possibly
    unequal parameters) to a later version.  I am certain that further
-   extensive  checking and  experimenting is  required to  make these 
-   programs as robust as possible.  At least there is now, I believe, 
-   sufficient material to develop further applications. 
+   extensive  checking and  experimenting is  required to  make these
+   programs as robust as possible.  At least there is now, I believe,
+   sufficient material to develop further applications.
 
                                                       MG, 30 Sep 2011
 
    (For the previous version type 'versioninfo(1.3)'.)
    """
 
-VD="""   This version contains basic support for Iwahori-Hecke algebras and 
+VD="""   This version contains basic support for Iwahori-Hecke algebras and
    their characters;  see 'heckechartable' and the further references
-   there. The functions are written in such a way that the parameters  
-   can  be any non-zero  elements in some  base ring. We also provide 
-   a simple  arithmetic for  Laurent polynomials in one variable (see  
-   'lpol'),  in order to be able  to work with  generic algebras  and 
-   their  characters.  If something more  efficient is required, then 
-   one has to import external modules (e.g., 'sympy')  or work within 
-   sage (an example is given in the help for 'classpolynomials').  
+   there. The functions are written in such a way that the parameters
+   can  be any non-zero  elements in some  base ring. We also provide
+   a simple  arithmetic for  Laurent polynomials in one variable (see
+   'lpol'),  in order to be able  to work with  generic algebras  and
+   their  characters.  If something more  efficient is required, then
+   one has to import external modules (e.g., 'sympy')  or work within
+   sage (an example is given in the help for 'classpolynomials').
 
-   Another addition in this version is  a simple arithmetic  for  the 
-   quadratic extension generated by the golden  ratio  (1+sqrt(5))/2, 
+   Another addition in this version is  a simple arithmetic  for  the
+   quadratic extension generated by the golden  ratio  (1+sqrt(5))/2,
    so that we now have exact arithmetic for the types I2(5), H_3, and
    H_4; see 'zeta5'. This also provides a more user-friendly printing
-   of the irrationalities. 
+   of the irrationalities.
                                                       MG, 23 Sep 2011
 
    (For the previous version type 'versioninfo(1.2)'.)
    """
 
 VC="""   This version mainly contains bug fixes  and internal  improvements
-   to some algorithms, in particular character tables of types A,B,D. 
-   For ranks at most 8 (i.e., cases that  are involved in exceptional 
-   types),  this now works reasonably very fast.  Some  examples  for 
+   to some algorithms, in particular character tables of types A,B,D.
+   For ranks at most 8 (i.e., cases that  are involved in exceptional
+   types),  this now works reasonably very fast.  Some  examples  for
    larger ranks:
 
      chartable(coxeter("A",15))  now takes about   5 seconds CPU.
@@ -316,14 +316,14 @@ VC="""   This version mainly contains bug fixes  and internal  improvements
      lusztigfamilies(coxeter("E",8)) takes about 100 seconds CPU.
 
    If this is not fast enough in some applications, then one needs to
-   re-write  the  functions in  the gap  library file 'ctsymmet.g' in 
+   re-write  the  functions in  the gap  library file 'ctsymmet.g' in
    python.
 
-   Also added some  utility functions:  'transposemat' (which made me 
+   Also added some  utility functions:  'transposemat' (which made me
    learn quite a bit about python ...) and flatlist. Having seen  how
    transposemat performs,  I also revise my statement  in versioninfo
    1.0 concerning general list handling:  some operations take longer
-   than in gap, but  others are faster,  for example, this version of 
+   than in gap, but  others are faster,  for example, this version of
    transposemat.  The test suite still runs faster in python 2.7 than
    in 3.2.
                                                       MG, 02 Sep 2011
@@ -331,48 +331,48 @@ VC="""   This version mainly contains bug fixes  and internal  improvements
    (For the previous version type 'versioninfo(1.1)'.)
    """
 
-VB="""   This second version now  includes  support  for ordinary character 
+VB="""   This second version now  includes  support  for ordinary character
    tables of finite Coxeter groups.  The material is developed to the
-   point  where one can compute induce/restrict tables,  a-invariants 
-   and Lusztig's families in python. See the help for 'chartable' and 
-   'lusztigfamilies' for more details. 
+   point  where one can compute induce/restrict tables,  a-invariants
+   and Lusztig's families in python. See the help for 'chartable' and
+   'lusztigfamilies' for more details.
 
    The whole module works both in python 2.7 and 3.2, but it seems to
-   run almost twice as fast in python 2.7 than in 3.2 !  (I have  not 
+   run almost twice as fast in python 2.7 than in 3.2 !  (I have  not
    yet tried to find out why.)
 
    On the whole, the programmes work out so I intend to continue with
    this project. Due to other obligations, development will slow down
-   now for a while. Some further testing and profiling is required to 
+   now for a while. Some further testing and profiling is required to
    see where performance could be improved, e.g., in 'chartableB' and
-   'fusionconjugacyclasses'. The next step  will be to  think about a 
-   package for polynomials, on which Hecke algebras,  their character 
-   tables and Kazhdan-Lusztig polynomials will rely. 
+   'fusionconjugacyclasses'. The next step  will be to  think about a
+   package for polynomials, on which Hecke algebras,  their character
+   tables and Kazhdan-Lusztig polynomials will rely.
 
                                                       MG, 28 Aug 2011
 
    (For the previous version type 'versioninfo(1.0)'.)
    """
 
-VA="""   The original version of CHEVIE was developed for GAP3 (and MAPLE). 
-   This module  now is the result of  my efforts  (1) to learn one of  
-   the more  modern programming languages and  (2) to see if at least 
-   parts of the gap part of chevie can  be implemented in it. I chose  
-   python (version 2.7)  mainly  because of its popularity,  and then 
-   also because 'sage' is based on python; in particular, this module 
-   can just be imported into 'sage'. 
+VA="""   The original version of CHEVIE was developed for GAP3 (and MAPLE).
+   This module  now is the result of  my efforts  (1) to learn one of
+   the more  modern programming languages and  (2) to see if at least
+   parts of the gap part of chevie can  be implemented in it. I chose
+   python (version 2.7)  mainly  because of its popularity,  and then
+   also because 'sage' is based on python; in particular, this module
+   can just be imported into 'sage'.
 
-   The functions in this version basically implement the purely group 
+   The functions in this version basically implement the purely group
    theoretical part: creation of a (possibly infinite) Coxeter group,
-   working with the elements.  For finite  Coxeter  groups, there are 
+   working with the elements.  For finite  Coxeter  groups, there are
    functions for reflection subgroups and conjugacy classes.
 
-   The main difficulty  was to  find good  replacements  for the fast 
+   The main difficulty  was to  find good  replacements  for the fast
    permutation arithmetic in gap. It also seems that,  in a number of
-   applications,  the general handling of lists is  considerably more 
+   applications,  the general handling of lists is  considerably more
    efficient in gap than in python. Some  work will be needed to deal
    more properly with the  irrational numbers involved in type H3, H4
-   and  dihedral types. (Currently  I just use  float numbers,  which 
+   and  dihedral types. (Currently  I just use  float numbers,  which
    appears to be ok for H3 and H4.) Overall, the functions work  with
    satisfactory efficieny, including type E8.
 
@@ -393,7 +393,7 @@ def versioninfo(nr):
   elif nr==1.0: print(VA)
   else: print("no information available")
   return None
- 
+
 ##########################################################################
 #I This file is organised in sections:
 #I ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -413,11 +413,11 @@ def versioninfo(nr):
 class zeta5:
   """creates elements in the quadatic extension generated by the golden
   ratio (1+sqrt(5))/2.  (This is relevant for Coxeter groups of type
-  H_3 and H_4.) Any such element is represented as 
+  H_3 and H_4.) Any such element is represented as
 
             a + b * (1+sqrt(5))/2   where  a,b are integers.
 
-  There is an optional argument 'iname' by which one can speficy how  
+  There is an optional argument 'iname' by which one can speficy how
   (1+sqrt(5))/2 is printed; the default value is 'ir5'.
 
   >>> zeta5(1,1)
@@ -428,9 +428,9 @@ class zeta5:
   5
   >>> W=coxeter("H",3)
   >>> W.roots[:W.N]
-  >>> [(1, 0, 0), (0, 1, 0), (0, 0, 1), (0, 1, 1), (ir5, 1, 0), 
-  (1, ir5, 0), (ir5, ir5, 0), (ir5, 1, 1), (1, ir5, ir5), (ir5, ir5, ir5), 
-  (ir5, 1+ir5, 1), (ir5, 1+ir5, ir5), (1+ir5, 1+ir5, 1), 
+  >>> [(1, 0, 0), (0, 1, 0), (0, 0, 1), (0, 1, 1), (ir5, 1, 0),
+  (1, ir5, 0), (ir5, ir5, 0), (ir5, 1, 1), (1, ir5, ir5), (ir5, ir5, ir5),
+  (ir5, 1+ir5, 1), (ir5, 1+ir5, ir5), (1+ir5, 1+ir5, 1),
   (1+ir5, 1+ir5, ir5), (1+ir5, 2*ir5, ir5)]
   """
   def __init__(self,a,b,iname='ir5'):
@@ -504,7 +504,7 @@ class zeta5:
     return self+f
   def __sub__(self,f):
     return self+(-f)
-  def __rsub__(self,f):  
+  def __rsub__(self,f):
     return f+(-self)
   def __mul__(self,f):
     if type(f)==type(0):
@@ -574,8 +574,8 @@ class zeta5:
 
 #F class-lpol: basic support for Laurent polynomials in one variable
 class lpol:
-  """creates a Laurent polynomial in one variable, from a list of 
-  coefficients, a valuation and a name. The result is a python 
+  """creates a Laurent polynomial in one variable, from a list of
+  coefficients, a valuation and a name. The result is a python
   class with components:
 
      coeffs     list of coefficients
@@ -587,12 +587,12 @@ class lpol:
   The usual  operations  (addition,  multiplication, ...)  are
   defined.  If, in the course  of performing such operations a
   Laurent polynomial reduces to 0, then only 0 (as an integer)
-  will be returned. 
+  will be returned.
 
   The coefficients can be taken from any commutative ring that
-  is available; for example, they  could  again be polynomials 
+  is available; for example, they  could  again be polynomials
   (in a different variable).
-  
+
   >>> v=lpol([1],1,'v')    # creates the indeterminate v
   >>> (v+1)**2-v**2-2*v-1
   0
@@ -603,10 +603,10 @@ class lpol:
   >>> p.degree
   1
   >>> p.valuation
-  -2 
+  -2
   >>> p.value(-1)
   -27
-  
+
   >>> u=lpol([1],1,'u')   # create another indeterminate
   >>> lpol([u**2+2,-3,u**(-1)],-17,'v')
   (2+u**2)*v**(-17)-3*v**(-16)+(u**(-1))*v**(-15)
@@ -638,7 +638,7 @@ class lpol:
     r=''
     for i in range(len(self.coeffs)):
       if self.coeffs[i]!=0:
-        if r!='' and not (type(self.coeffs[i])==type(0) and self.coeffs[i]<0): 
+        if r!='' and not (type(self.coeffs[i])==type(0) and self.coeffs[i]<0):
           r+='+'
         if i+self.val==0:
           if type(self.coeffs[i])==type(0):
@@ -677,7 +677,7 @@ class lpol:
       return y*x**self.val
   def __neg__(self):
     return lpol([-c for c in self.coeffs],self.val,self.vname)
-  def __eq__(self,f): 
+  def __eq__(self,f):
     if self.coeffs==[]:
       return f==0
     elif type(self)==type(f) and self.__class__==f.__class__:
@@ -705,14 +705,14 @@ class lpol:
         f.append(scal)
       else:
         f[-self.val]+=scal
-      return lpol(f,self.val,self.vname)      
+      return lpol(f,self.val,self.vname)
     elif self.val==0:
       f[0]+=scal
-      return lpol(f,self.val,self.vname)      
+      return lpol(f,self.val,self.vname)
     else:
       f=self.val*[0]+f
       f[0]=scal
-      return lpol(f,0,self.vname)      
+      return lpol(f,0,self.vname)
   def __add__(self,f):
     if type(f)!=type(self):
       return f+self
@@ -751,7 +751,7 @@ class lpol:
       if  self.vname==f.vname:
         m=len(self.coeffs)+len(f.coeffs)-1
         return lpol([sum(self.coeffs[i]*f.coeffs[k-i] for i in range(m)
-                           if i<len(self.coeffs) and 0<=k-i<len(f.coeffs)) 
+                           if i<len(self.coeffs) and 0<=k-i<len(f.coeffs))
                               for k in range(m)], self.val+f.val,self.vname)
       else:
         return lpol([self*c for c in f.coeffs],f.val,f.vname)
@@ -779,28 +779,28 @@ class lpol:
       for i in range(n):
         x*=self
       return x
-  def __divmod__(self,g):  
+  def __divmod__(self,g):
     """divdes f (=self)  by g leaving remainder; here, all coefficients
-    of f must be divisible by  the coefficient  of the highest power 
-    of the variable in g. 
-  
-    Assuming that f,g are Laurent polynomials in v, the function first 
-    expresses f and g in the form 
-  
+    of f must be divisible by  the coefficient  of the highest power
+    of the variable in g.
+
+    Assuming that f,g are Laurent polynomials in v, the function first
+    expresses f and g in the form
+
        f = v**f.val * nf    and   g = v**g.val * ng
-  
+
     where nf, ng are genuine polynomials in v  with non-zero  constant
-    terms. Then the function finds the expression nf=q*ng+r where q, r 
+    terms. Then the function finds the expression nf=q*ng+r where q, r
     are polynomials such that r=0 or degree(r)<degree(ng). This yields
-  
+
       f = v**(f.val-g.val) * q * g + v**f.val * r.
-  
+
     The function returns the tuple (v**(f.val-g.val)*q,v**f.val*r).
-  
+
     >>> v=lpol([1],1,"v")
     >>> divmod(v**2+2,-v**3*(v+v**(-1)))
     (-v**(-2),1)
-  
+
     In some cases this may lead to unexpected results:
     >>> divmod(2*v,v+1)
     (0, 2*v)
@@ -872,9 +872,9 @@ def cyclpol5(u):
 
 #F class-lpolmod: truncated polynomials
 class lpolmod:
-  """creates a polynomial in one variable with integer coefficients, 
-  similar to 'lpol'  but where  all arithmetic is  done  modulo a 
-  given monic polynomial.  The  resulting  python  class  has the 
+  """creates a polynomial in one variable with integer coefficients,
+  similar to 'lpol'  but where  all arithmetic is  done  modulo a
+  given monic polynomial.  The  resulting  python  class  has the
   following components:
 
      coeffs     list of coefficients
@@ -885,7 +885,7 @@ class lpolmod:
 
   In particular, by working modulo a cyclotomic polynomial,  this
   provides an arithmetic for cyclotomic integers.
-  
+
   See also 'rootof1'.
   """
   def __init__(self,coeffs,val,mpol,zname):
@@ -911,7 +911,7 @@ class lpolmod:
     r=''
     for i in range(len(self.coeffs)):
       if self.coeffs[i]!=0:
-        if r!='' and not (type(self.coeffs[i])==type(0) and self.coeffs[i]<0): 
+        if r!='' and not (type(self.coeffs[i])==type(0) and self.coeffs[i]<0):
           r+='+'
         if i+self.val==0:
           if type(self.coeffs[i])==type(0):
@@ -972,7 +972,7 @@ class lpolmod:
         return self.val==0 and len(self.coeffs)==1 and self.coeffs[0]==f
     else:
       if type(self)==type(f) and 'zname' in dir(f) and self.zname==f.zname:
-        return self.coeffs==f.coeffs and self.val==f.val and self.phi==f.phi 
+        return self.coeffs==f.coeffs and self.val==f.val and self.phi==f.phi
       else:
         return False
   def __ne__(self,f):
@@ -1067,7 +1067,7 @@ class lpolmod:
       l=self.phi.coeffs
       if self.phi.val>0 or (l[0]!=1 and l[0]!=-1):
         return False
-      else: 
+      else:
         return (lpolmod([-l[0]*i for i in l[1:]],0,self.phi,
                                          self.zname).truncate())**(-n)
     elif len(self.coeffs)==1 and self.coeffs[0] in [-1,1]:
@@ -1135,7 +1135,7 @@ def rootof1(n):
   >>> x**2
   2
   (Thus, x is the positive square root of 2.)
-  
+
   See also 'lpolmod' and 'zeta5'.
   """
   return lpolmod([1],1,cyclpol(n,lpol([1],1,'unity'+str(n))),'E('+str(n)+')')
@@ -1157,11 +1157,11 @@ ir5=ir(5)
 
 #F cycldec
 def cycldec(pol,maxe=1000):
-  """checks if a polynomial is a product of  cyclotomic polynomials, 
-  up to a constant and a power of the  indeterminate.  If this is 
-  the case, the function returns a triple (c,n,l)  where c is the 
-  constant, n is  the exponent of the  indeterminate, and  l is a 
-  list of pairs (e_i,m_i) such that 
+  """checks if a polynomial is a product of  cyclotomic polynomials,
+  up to a constant and a power of the  indeterminate.  If this is
+  the case, the function returns a triple (c,n,l)  where c is the
+  constant, n is  the exponent of the  indeterminate, and  l is a
+  list of pairs (e_i,m_i) such that
 
      pol = c * u^n * prod_i Phi_{e_i}(u)^{m_i};
 
@@ -1169,10 +1169,10 @@ def cycldec(pol,maxe=1000):
   will then be assigned to the vcyc component of pol.  If no such
   product decomposition exists, the function returns 'False'.  By
   default,  the function  only tries the polynomials Phi_e  where
-  e<=1000. One can increase  this  bound by setting the  optional 
+  e<=1000. One can increase  this  bound by setting the  optional
   argument 'maxe' to a higher value.
 
-  For  example, all  the Schur elements of  generic Iwahori-Hecke 
+  For  example, all  the Schur elements of  generic Iwahori-Hecke
   algebras admit such a decomposition.
 
   >>> p=poincarepol(coxeter("F",4),v); p
@@ -1210,7 +1210,7 @@ def cycldec(pol,maxe=1000):
     return pol.vcyc
   else:
     return False
-  
+
 #F lcmcyclpol
 def lcmcyclpol(pols):
   """returns the least common multiple of a list of polynomials which
@@ -1235,7 +1235,7 @@ def lcmcyclpol(pols):
 
 #F interpolate polynomial
 def interpolatepol(v,x,y):
-  """returns the unique polynomial in  v of degree less than n  which has 
+  """returns the unique polynomial in  v of degree less than n  which has
   value y[i] at x[i] for all i=0,...n-1. (Taken from the gap-library).
 
   >>> v=lpol([1],1,"v")
@@ -1243,7 +1243,7 @@ def interpolatepol(v,x,y):
   15-121/6*v+19/2*v**2-4/3*v**3
   >>> y=[p.value(x) for x in [1,2,3,4]]; y
   [Fraction(3,1),Fraction(2,1),Fraction(4,1),Fraction(1,1)]
-  >>> y==[3,2,4,1] 
+  >>> y==[3,2,4,1]
   True
   """
   from fractions import Fraction
@@ -1276,7 +1276,7 @@ def isprime(n):
 
 #F nextprime
 def nextprime(n):
-  """returns the next prime number greater than a given integer. 
+  """returns the next prime number greater than a given integer.
   (Taken from the gap-library.)
 
   >>> nextprime(10**8)
@@ -1303,7 +1303,7 @@ def nextprime(n):
 
 #F intlcm
 def intlcm(a,b):
-  """returns the least common multiple of two integers. 
+  """returns the least common multiple of two integers.
 
   See also 'intlcmlist'.
   """
@@ -1319,15 +1319,15 @@ def intlcmlist(l):
 
 #F gcdex
 def gcdex(m,n):
-  """Extended gcd algorithm for integers (taken from the  gap-library). The 
-  function returns a dictionary with entries gcd, coeff1, coeff2, coeff3 
+  """Extended gcd algorithm for integers (taken from the  gap-library). The
+  function returns a dictionary with entries gcd, coeff1, coeff2, coeff3
   and coeff4. We have
- 
+
       gcd = coeff1 * m + coeff2 * n  and  0 = coeff3 * m + coeff4 * n.
 
   >>> gcdex(4,15)
   {'coeff3': -15, 'coeff2': -1, 'coeff1': 4, 'gcd': 1, 'coeff4': 4}
- 
+
   (Thus, gcd(4,15)=1; we have 1=4*4+(-1)*15 and 0=(-15)*4+4*15.)
   """
   if 0<=m:
@@ -1351,7 +1351,7 @@ def gcdex(m,n):
 
 #F idmat
 def idmat(rng,scalar):
-  """returns the scalar matrix of size len(rng) with a given scalar 
+  """returns the scalar matrix of size len(rng) with a given scalar
   on the diagonal.
 
   >>> idmat([0,1,2],-3)
@@ -1364,7 +1364,7 @@ def idmat(rng,scalar):
 #F transposemat
 def transposemat(mat):
   """returns the transpose of a matrix.
-  
+
   >>> transposemat([[1,2,3],[4,5,6]])
   [[1,4], [2,5], [3,6]]
   """
@@ -1398,7 +1398,7 @@ def flatblockmat(blmat):
     for i in range(len(blmat[b][b])):
       a.append(flatlist(l[i] for l in blmat[b]))
   return a
- 
+
 #F transclos
 def transclos(n,r):
   """returns the transitive closure of a relation on the integers
@@ -1417,18 +1417,18 @@ def transclos(n,r):
       if m[j][i]==1:
         m[j]=[m[i][k] or m[j][k] for k in range(n)]
   return m
- 
+
 #F noduplicates
 def noduplicates(seq):
   """returns a new list in which all duplicates in the original list
-  have been removed.  Also works for non-hashable types. (Learned  
+  have been removed.  Also works for non-hashable types. (Learned
   this from stackoverflow.)
 
   >>> noduplicates([[1, 1], [2, 1], [1, 2], [1, 1], [3, 1]])
   [[1, 1], [2, 1], [1, 2], [3, 1]]
   """
   seen = set()
-  return [x for x in seq if str(x) not in seen and not seen.add(str(x))] 
+  return [x for x in seq if str(x) not in seen and not seen.add(str(x))]
 
 #F partitioncap
 def partitioncap(p1,p2):
@@ -1470,7 +1470,7 @@ def perminverse(p):
   for i in range(len(p)):
     np[p[i]]=i
   return tuple(np)
- 
+
 #F matadd
 def matadd(a,b):
   """returns the sum of two matrices.
@@ -1505,9 +1505,9 @@ def directsummat(a,b):
   >>> c=directsummat(cartanmat("A",2),cartanmat("G",2))
   [[2,-1,0,0],[-1,2,0,0],[0,0,2,-1],[0,0,-3,2]]
   """
-  if a==[[]]: 
+  if a==[[]]:
     return b
-  elif b==[[]]: 
+  elif b==[[]]:
     return a
   else:
     c=idmat(range(len(a[0])+len(b[0])),0)
@@ -1521,8 +1521,8 @@ def directsummat(a,b):
 
 #F kroneckerproduct
 def kroneckerproduct(mat1,mat2):
-  """returns the  Kronecker product of the matrices mat1 and mat2. If 
-  mat1  has size m times n and mat2  has  size p times q, then the 
+  """returns the  Kronecker product of the matrices mat1 and mat2. If
+  mat1  has size m times n and mat2  has  size p times q, then the
   Kronecker product is a matrix of size m*p times n*q.
 
   >>> mat1=[[ 0,-1, 1],
@@ -1530,12 +1530,12 @@ def kroneckerproduct(mat1,mat2):
   >>> mat2=[[1,1],
             [0,1]]
   >>> kroneckerproduct(mat1,mat2)
-  [[ 0, 0,-1,-1, 1, 1], 
-   [ 0, 0, 0,-1, 0, 1], 
-   [-2,-2, 0, 0,-2,-2], 
+  [[ 0, 0,-1,-1, 1, 1],
+   [ 0, 0, 0,-1, 0, 1],
+   [-2,-2, 0, 0,-2,-2],
    [ 0,-2, 0, 0, 0,-2]]
 
-  (The program is taken from the gap library and re-written almost 
+  (The program is taken from the gap library and re-written almost
   1-1 in python.)
   """
   krpr=[]
@@ -1549,19 +1549,19 @@ def kroneckerproduct(mat1,mat2):
 
 #F decomposemat
 def decomposemat(mat):
-  """tests if a matrix can be decomposed in block diagonal form; it 
-  is assumed that  mat[i][j]=0  if and only if  mat[j][i]=0. The 
-  result is range(len(mat[0]))  if  mat  can not be  decomposed. 
-  Otherwise, the lists of block indices are returned. 
+  """tests if a matrix can be decomposed in block diagonal form; it
+  is assumed that  mat[i][j]=0  if and only if  mat[j][i]=0. The
+  result is range(len(mat[0]))  if  mat  can not be  decomposed.
+  Otherwise, the lists of block indices are returned.
 
-  >>>d=decomposemat([[ 2, 0,-1, 0, 0], 
-                     [ 0, 2, 0,-3, 0], 
-                     [-2, 0, 2, 0,-1], 
-                     [ 0,-1, 0, 2, 0], 
+  >>>d=decomposemat([[ 2, 0,-1, 0, 0],
+                     [ 0, 2, 0,-3, 0],
+                     [-2, 0, 2, 0,-1],
+                     [ 0,-1, 0, 2, 0],
                      [ 0, 0,-1, 0, 2]]
   [[0, 2, 4], [1, 3]]
 
-  Thus, there are two blocks, obtained by taking the submatrices 
+  Thus, there are two blocks, obtained by taking the submatrices
   with row and colum indices (0,2,4) and (1,3), respectively.
   """
   l=list(range(len(mat[0])))
@@ -1572,7 +1572,7 @@ def decomposemat(mat):
       for i in l:
         if mat[o][i]!=0 and not i in orb:
           orb.append(i)
-    for i in orb: 
+    for i in orb:
       l.remove(i)
     orb.sort()
     orbs.append(orb)
@@ -1589,17 +1589,17 @@ def determinantmat1(mat):
       l=list(range(n))
       l.remove(k)
       if mat[k][0]!=0:
-        d+=(-1)**k*mat[k][0]*determinantmat1([[mat[i][j] 
+        d+=(-1)**k*mat[k][0]*determinantmat1([[mat[i][j]
                            for j in range(1,n)] for i in l])
     return d
 
 #F determinantmat
 def determinantmat(mat):
   """returns the determinant of a matrix. If all coefficients are integers,
-  the function uses a simplified version of the algorithm for  computing  
-  the elementary divisors of a matrix; in particular,  it does  not  use 
-  fractions. In general, it uses induction on the size of the matrix and 
-  expansion  along the first column.  (Thus,  it will  work for matrices 
+  the function uses a simplified version of the algorithm for  computing
+  the elementary divisors of a matrix; in particular,  it does  not  use
+  fractions. In general, it uses induction on the size of the matrix and
+  expansion  along the first column.  (Thus,  it will  work for matrices
   of moderate size over any commutative ring).
   """
   a=[list(l) for l in mat]
@@ -1642,7 +1642,7 @@ def determinantmat(mat):
 
 #F inversematp
 def inversematp(mat,p):
-  """checks if an integer matrix is invertible; if this is the case, the 
+  """checks if an integer matrix is invertible; if this is the case, the
   function  returns the inverse of that matrix  modulo a prime number.
   """
   n=len(mat[0])
@@ -1666,13 +1666,13 @@ def inversematp(mat,p):
       p1+=1
     for j in range(2*n):
       a[k][j]=(p1*a[k][j])%p
-    for i in range(n): 
+    for i in range(n):
       if i!=k:
         q=a[i][k]
         for j in range(2*n):
           a[i][j]=(a[i][j]-(q*a[k][j])%p)%p
   return [l[n:] for l in a]
-   
+
 #F cartesian2
 def cartesian2(liste,n,tup,i):
   if i==n:
@@ -1689,7 +1689,7 @@ def cartesian2(liste,n,tup,i):
 
 #F cartesian
 def cartesian(*arg):
-  """returns the cartesian product of lists. 
+  """returns the cartesian product of lists.
 
   >>> cartesian([1,2],[3,4],[4,5])
   [[1,3,4],[1,3,5],[1,4,4],[1,4,5],[2,3,4],[2,3,5],[2,4,4],[2,4,5]]
@@ -1698,11 +1698,11 @@ def cartesian(*arg):
 
   In the first form the argument is a comma-separated sequence l1, l2,
   ..., and the function returns the cartesian product of l1, l2, ...
-    
-  In the second form the argument is a list of lists [l1,l2,,...], and 
+
+  In the second form the argument is a list of lists [l1,l2,,...], and
   and the function returns the cartesian product of those lists.
 
-  If more than two lists are given,  cartesian(l1,l2,...) is the  same 
+  If more than two lists are given,  cartesian(l1,l2,...) is the  same
   (up to some nested bracketing) as cartesian(cartesian(l1,l2),...).
 
   >>> cartesian(cartesian([1,2],[3,4]),[4,5])
@@ -1740,14 +1740,14 @@ def helppartitions(n,m,part,i):
       part[l]=1
   return parts
 
-#F partitions 
+#F partitions
 def partitions(n):
   """returns the list of all partitions of n.
 
   >>> partitions(5)
   [[1,1,1,1,1],[2,1,1,1],[2,2,1],[3,1,1],[3,2],[4,1],[5]]
 
-  The ordering is exactly the same as in gap. (The program is actually 
+  The ordering is exactly the same as in gap. (The program is actually
   taken from the gap library and re-written almost 1-1 in python.)
 
   See also 'partitiontuples'.
@@ -1766,8 +1766,8 @@ def dualpartition(mu):
 #F centraliser partition
 def centraliserpartition(n,mu):
   """returns the order of the centraliser  of an element  of cycle
-  type of a given partition in the  full symmetric group.  (The 
-  program is  taken from the  gap library and re-written almost 
+  type of a given partition in the  full symmetric group.  (The
+  program is  taken from the  gap library and re-written almost
   1-1 in python.)
   """
   res,last,k=1,0,1
@@ -1785,10 +1785,10 @@ def centraliserpartition(n,mu):
 def differencepartitions(gamma,alpha):
   """returns  a dictionary with information about the  difference of
   two partitions (if it exists); this function is  needed for the
-  computation of character values in type B_n. It is taken almost 
+  computation of character values in type B_n. It is taken almost
   1-1 from the gap-chevie library.
- 
-  See also 'heckevalueB'. 
+
+  See also 'heckevalueB'.
   """
   dp={'cc':0, 'll':0}
   if len(alpha)>len(gamma):
@@ -1820,7 +1820,7 @@ def differencepartitions(gamma,alpha):
     dp['d']=old[0]-len(gamma)
   return dp
 
-#F bipartitions 
+#F bipartitions
 def bipartitions(n):
   """returns the list of all bipartitions of n (as in gap). The
   ordering is different from that of partitiontuples(n,2).
@@ -1851,7 +1851,7 @@ def bipartitions(n):
   res.append([[n],[]])
   res.extend(pm[n-1])
   return res;
-  
+
 #F partitiontuples
 def partitiontuples(n,r):
   """returns the list of all r-tuples of partitions of n.
@@ -1868,9 +1868,9 @@ def partitiontuples(n,r):
    [[3],[]],
    [[],[3]]]
 
-  The ordering is exactly the same as in gap. (The program is actually 
+  The ordering is exactly the same as in gap. (The program is actually
   taken from the gap library and re-written almost 1-1 in python.)
-  
+
   See also 'partitions'.
   """
   empty={'tup':[[] for x in range(r)],'pos':(n-1)*[1]}
@@ -1909,10 +1909,10 @@ def partitiontuples(n,r):
 
 #F centralisertuple
 def centralisertuple(n,r,mu):
-  """returns the order of the centraliser of an element of a given 
-  type (specified by an r-tuple of partitions mu) in the wreath 
-  product of a cyclic group of order r with the full  symmetric 
-  group of degree n. (The program is taken from the gap library 
+  """returns the order of the centraliser of an element of a given
+  type (specified by an r-tuple of partitions mu) in the wreath
+  product of a cyclic group of order r with the full  symmetric
+  group of degree n. (The program is taken from the gap library
   and re-written almost 1-1 in python.)
   """
   res=1
@@ -1931,17 +1931,17 @@ def centralisertuple(n,r,mu):
 #F lusztigsymbolB
 def lusztigsymbolB(n,vs,vt,dblpart):
   """returns the symbol associated with a  bipartition, as defined
-  by Lusztig,  taking into account  weights.  In this form, the 
-  total number of entries in a symbol only depends on n and the 
+  by Lusztig,  taking into account  weights.  In this form, the
+  total number of entries in a symbol only depends on n and the
   parameters (but not on the bipartition).
 
   >>> bipartitions(2)
   [[[1], [1]], [[1, 1], []], [[2], []], [[], [1, 1]], [[], [2]]]
   >>> [lusztigsymbolB(2,1,1,pi) for pi in bipartitions(2)]
-  [[[0, 1, 3], [0, 2]], 
-   [[0, 2, 3], [0, 1]], 
-   [[0, 1, 4], [0, 1]], 
-   [[0, 1, 2], [1, 2]], 
+  [[[0, 1, 3], [0, 2]],
+   [[0, 2, 3], [0, 1]],
+   [[0, 1, 4], [0, 1]],
+   [[0, 1, 2], [1, 2]],
    [[0, 1, 2], [0, 3]]]
 
   See also 'redlusztigsymbolB'.
@@ -1965,16 +1965,16 @@ def lusztigsymbolB(n,vs,vt,dblpart):
 
 #F redlusztigsymbolB
 def redlusztigsymbolB(vs,vt,dblpart):
-  """similar to 'lusztigsymbolB' but now the number of entries in a 
+  """similar to 'lusztigsymbolB' but now the number of entries in a
   symbol is as small as possible (depending on the bipartition).
 
   >>> bipartitions(2)
   [[[1], [1]], [[1, 1], []], [[2], []], [[], [1, 1]], [[], [2]]]
   >>> [redlusztigsymbolB(1,1,pi) for pi in bipartitions(2)]
-  [[[0, 2], [1]], 
-   [[1, 2], [0]], 
-   [[2], []], 
-   [[0, 1, 2], 
+  [[[0, 2], [1]],
+   [[1, 2], [0]],
+   [[2], []],
+   [[0, 1, 2],
    [1, 2]], [[0, 1], [2]]]
 
   See also 'lusztigsymbolB'.
@@ -1996,7 +1996,7 @@ def redlusztigsymbolB(vs,vt,dblpart):
 
 #F ainvbipartition
 def ainvbipartition(n,vs,vt,bip):
-  """returns the a-invariant of a  bipartition,  computed from 
+  """returns the a-invariant of a  bipartition,  computed from
   the associated Lusztig symbol. See also 'lusztigsymbolB'.
   """
   q,r=vt//vs,vt%vs
@@ -2016,9 +2016,9 @@ def ainvbipartition(n,vs,vt,bip):
 #F displaymat
 def displaymat(mat,rows=[],cols=[],width=78):
   """displays a matrix, where the optional arguments 'rows' and 'cols'
-  can be used to specify labels for the rows and columns.  There is 
-  a further  optional  argument by which one can set the 'width' of 
-  the display, i.e., the maximum number of characters printed  (the 
+  can be used to specify labels for the rows and columns.  There is
+  a further  optional  argument by which one can set the 'width' of
+  the display, i.e., the maximum number of characters printed  (the
   default value is 78 characters per line).
 
   >>> displaymat(chartable(coxeter("H",3))['irreducibles'])
@@ -2058,11 +2058,11 @@ def displaymat(mat,rows=[],cols=[],width=78):
       co=csp[j]
   if cut[:-1]!=n:
     cut.append(n)
-  for k in range(len(cut)-1): 
+  for k in range(len(cut)-1):
     if cols!=[]:
       lprint(width*'-')
       lprint('\n')
-      lprint(maxr*' ') 
+      lprint(maxr*' ')
       for j in range(cut[k],cut[k+1]):
         lprint((csp[j]-len(str(cols[j])))*' '+str(cols[j]))
       lprint('\n')
@@ -2081,7 +2081,7 @@ def displaymat(mat,rows=[],cols=[],width=78):
       lprint('\n')
     lprint('\n')
   return None
-  
+
 ##########################################################################
 ##
 #Y Section 2: Coxeter groups, Cartan matrices, reflections
@@ -2103,17 +2103,17 @@ def cartanmatA(n):
 
 #F cartanmat
 def cartanmat(typ,n):
-  """returns a Cartan matrix (of finite Dynkin type) where typ is 
-  a string specifying  the type.  The  convention is such that 
-  the (i,j)-entry of this matrix equals  
+  r"""returns a Cartan matrix (of finite Dynkin type) where typ is
+  a string specifying  the type.  The  convention is such that
+  the (i,j)-entry of this matrix equals
 
                   (e_i,e_j)
                 2 ---------
                   (e_i,e_i)
 
-  where  e_0, e_1, ... are the  simple  roots and  ( , ) is an 
-  invariant bilinear form.  (This is the same convention as in 
-  gap-chevie.) 
+  where  e_0, e_1, ... are the  simple  roots and  ( , ) is an
+  invariant bilinear form.  (This is the same convention as in
+  gap-chevie.)
 
   See also 'affinecartanmat', 'directsummat' and 'cartantotype'.
 
@@ -2123,7 +2123,7 @@ def cartanmat(typ,n):
   [[2,-2,0],[-1,2,-1], [0,-1,2]]
   >>> cartanmat("C",3)               # diagram    0 => 1 -- 2
   [2,-1,0],[-2,2,-1],[0,-1,2]]
-  >>> cartanmat("I5",2)              # see 'zeta5' for the 
+  >>> cartanmat("I5",2)              # see 'zeta5' for the
   [[2,-ir5],[-ir5,2]]                # definition of ir5
 
   The complete list of the graphs  with their labelling is as
@@ -2150,10 +2150,10 @@ def cartanmat(typ,n):
 
              0   1                 0   1   2          0   1   2   3
    I_2(m)    o->-o            H_3  o---o---o     H_4  o---o---o---o
-               m                     5                  5           
+               m                     5                  5
 
   """
-  if typ[0]=='A': 
+  if typ[0]=='A':
     return cartanmatA(n)
   if typ[0]=='B':
     a=cartanmatA(n)
@@ -2180,33 +2180,33 @@ def cartanmat(typ,n):
   if typ[0]=='G':
     return [[ 2,-1],
             [-3, 2]]
-  if typ[0]=='F': 
+  if typ[0]=='F':
     return [[ 2,-1, 0, 0],
             [-1, 2,-1, 0],
             [ 0,-2, 2,-1],
             [ 0, 0,-1, 2]]
-  if typ[0]=='E' and n==6: 
+  if typ[0]=='E' and n==6:
     return [[ 2, 0,-1, 0, 0, 0],
-            [ 0, 2, 0,-1, 0, 0], 
+            [ 0, 2, 0,-1, 0, 0],
             [-1, 0, 2,-1, 0, 0],
-            [ 0,-1,-1, 2,-1, 0], 
+            [ 0,-1,-1, 2,-1, 0],
             [ 0, 0, 0,-1, 2,-1],
-            [ 0, 0, 0, 0,-1, 2]] 
-  if typ[0]=='E' and n==7: 
+            [ 0, 0, 0, 0,-1, 2]]
+  if typ[0]=='E' and n==7:
     return [[ 2, 0,-1, 0, 0, 0, 0],
-            [ 0, 2, 0,-1, 0, 0, 0], 
+            [ 0, 2, 0,-1, 0, 0, 0],
             [-1, 0, 2,-1, 0, 0, 0],
-            [ 0,-1,-1, 2,-1, 0, 0], 
+            [ 0,-1,-1, 2,-1, 0, 0],
             [ 0, 0, 0,-1, 2,-1, 0],
-            [ 0, 0, 0, 0,-1, 2,-1], 
+            [ 0, 0, 0, 0,-1, 2,-1],
             [ 0, 0, 0, 0, 0,-1, 2]]
-  if typ[0]=='E' and n==8: 
+  if typ[0]=='E' and n==8:
     return [[ 2, 0,-1, 0, 0, 0, 0, 0],
-            [ 0, 2, 0,-1, 0, 0, 0, 0], 
+            [ 0, 2, 0,-1, 0, 0, 0, 0],
             [-1, 0, 2,-1, 0, 0, 0, 0],
-            [ 0,-1,-1, 2,-1, 0, 0, 0], 
+            [ 0,-1,-1, 2,-1, 0, 0, 0],
             [ 0, 0, 0,-1, 2,-1, 0, 0],
-            [ 0, 0, 0, 0,-1, 2,-1, 0], 
+            [ 0, 0, 0, 0,-1, 2,-1, 0],
             [ 0, 0, 0, 0, 0,-1, 2,-1],
             [ 0, 0, 0, 0, 0, 0,-1, 2]]
   if typ[0]=='H' and n==3:
@@ -2243,14 +2243,14 @@ def cartanmat(typ,n):
 
 #F affinecartanmat
 def affinecartanmat(typ,n):
-  """returns a generalised Cartan matrix of affine type, where typ 
-  is a string specifying the corresponding finite type. 
+  """returns a generalised Cartan matrix of affine type, where typ
+  is a string specifying the corresponding finite type.
 
   >>> affinecartanmat("A",1)
   [[2,-2],[-2,2]]
   >>> affinecartanmat("G",2)     # diagram  0 -- 1 >= 2
-  [[ 2,-1, 0], 
-   [-1, 2,-1], 
+  [[ 2,-1, 0],
+   [-1, 2,-1],
    [ 0,-3, 2]]
   >>> affinecartanmat("F",4)     # diagram  4 -- 0 -- 1 => 2 -- 3
   [[ 2,-1, 0, 0, 0],
@@ -2261,18 +2261,18 @@ def affinecartanmat(typ,n):
   >>> affinecartanmat("B",3)     # diagram  0 <= 2 -- 3
   [[ 2,-2, 0, 0],                                |
    [-1, 2,-1,-1],                                4
-   [ 0,-1, 2, 0], 
+   [ 0,-1, 2, 0],
    [ 0,-1, 0, 2]]
-  >>> affinecartanmat("C",3)     # diagram  0 => 1 -- 2 <= 3 
-  [[ 2,-1, 0, 0], 
-   [-2, 2,-1, 0], 
-   [ 0,-1, 2,-2], 
+  >>> affinecartanmat("C",3)     # diagram  0 => 1 -- 2 <= 3
+  [[ 2,-1, 0, 0],
+   [-2, 2,-1, 0],
+   [ 0,-1, 2,-2],
    [ 0, 0,-1, 2]]
 
   See also 'cartanmat'.
   """
   a=cartanmat(typ,n+1)
-  if typ[0]=='A' and n==1: 
+  if typ[0]=='A' and n==1:
     a[0][1]=-2
     a[1][0]=-2
     return a
@@ -2297,39 +2297,39 @@ def affinecartanmat(typ,n):
     a[n][n-2]=-1
     return a
   if typ[0]=='G':
-    return [[ 2,-1, 0], 
+    return [[ 2,-1, 0],
             [-1, 2,-1],
-            [ 0,-3, 2]] 
-  if typ[0]=='F': 
+            [ 0,-3, 2]]
+  if typ[0]=='F':
     return [[ 2,-1, 0, 0,-1],
             [-1, 2,-1, 0, 0],
             [ 0,-2, 2,-1, 0],
             [ 0, 0,-1, 2, 0],
             [-1, 0, 0, 0, 2]]
-  if typ[0]=='E' and n==6: 
+  if typ[0]=='E' and n==6:
     return [[ 2, 0,-1, 0, 0, 0, 0],
-            [ 0, 2, 0,-1, 0, 0,-1], 
+            [ 0, 2, 0,-1, 0, 0,-1],
             [-1, 0, 2,-1, 0, 0, 0],
-            [ 0,-1,-1, 2,-1, 0, 0], 
+            [ 0,-1,-1, 2,-1, 0, 0],
             [ 0, 0, 0,-1, 2,-1, 0],
             [ 0, 0, 0, 0,-1, 2, 0],
             [ 0,-1, 0, 0, 0, 0, 2]]
-  if typ[0]=='E' and n==7: 
+  if typ[0]=='E' and n==7:
     return [[ 2, 0,-1, 0, 0, 0, 0,-1],
-            [ 0, 2, 0,-1, 0, 0, 0, 0], 
+            [ 0, 2, 0,-1, 0, 0, 0, 0],
             [-1, 0, 2,-1, 0, 0, 0, 0],
-            [ 0,-1,-1, 2,-1, 0, 0, 0], 
+            [ 0,-1,-1, 2,-1, 0, 0, 0],
             [ 0, 0, 0,-1, 2,-1, 0, 0],
-            [ 0, 0, 0, 0,-1, 2,-1, 0], 
+            [ 0, 0, 0, 0,-1, 2,-1, 0],
             [ 0, 0, 0, 0, 0,-1, 2, 0],
             [-1, 0, 0, 0, 0, 0, 0, 2]]
-  if typ[0]=='E' and n==8: 
+  if typ[0]=='E' and n==8:
     return [[ 2, 0,-1, 0, 0, 0, 0, 0, 0],
-            [ 0, 2, 0,-1, 0, 0, 0, 0, 0], 
+            [ 0, 2, 0,-1, 0, 0, 0, 0, 0],
             [-1, 0, 2,-1, 0, 0, 0, 0, 0],
-            [ 0,-1,-1, 2,-1, 0, 0, 0, 0], 
+            [ 0,-1,-1, 2,-1, 0, 0, 0, 0],
             [ 0, 0, 0,-1, 2,-1, 0, 0, 0],
-            [ 0, 0, 0, 0,-1, 2,-1, 0, 0], 
+            [ 0, 0, 0, 0,-1, 2,-1, 0, 0],
             [ 0, 0, 0, 0, 0,-1, 2,-1, 0],
             [ 0, 0, 0, 0, 0, 0,-1, 2,-1],
             [ 0, 0, 0, 0, 0, 0, 0,-1, 2]]
@@ -2405,10 +2405,10 @@ def typecartanmat(mat):
           return [typ[cs.index(a)],p]
         else:
           return ["U",range(n)]
-    elif len(es)==3:    # three end nodes 
+    elif len(es)==3:    # three end nodes
       p0=[es[0]]
       for s in p0:
-        if len(nb[s])!=3: 
+        if len(nb[s])!=3:
           for j in nb[s]:
             if not j in p0: p0.append(j)
       p1=[es[1]]
@@ -2418,7 +2418,7 @@ def typecartanmat(mat):
             if not j in p1: p1.append(j)
       p2=[es[2]]
       for s in p2:
-        if len(nb[s])!=3: 
+        if len(nb[s])!=3:
           for j in nb[s]:
             if not j in p2: p2.append(j)
       ps=[p0,p1,p2]
@@ -2454,7 +2454,7 @@ def typecartanmat(mat):
         r=l1[0]
         for i in range(len(ps[r])):
           p[i+3]=ps[r][-i-1]
-        if not [[mat[i][j] for j in p] for i in p] in cs:  # testing  
+        if not [[mat[i][j] for j in p] for i in p] in cs:  # testing
           return ["U",range(n)]
         return [typ,p]
       else:
@@ -2516,10 +2516,10 @@ def finitetypemat(mat):
           else:
             p.reverse()
             return ['B',p]
-    else:    # three end nodes 
+    else:    # three end nodes
       p0=[es[0]]
       for s in p0:
-        if len(nb[s])!=3: 
+        if len(nb[s])!=3:
           for j in nb[s]:
             if not j in p0: p0.append(j)
       p1=[es[1]]
@@ -2529,7 +2529,7 @@ def finitetypemat(mat):
             if not j in p1: p1.append(j)
       p2=[es[2]]
       for s in p2:
-        if len(nb[s])!=3: 
+        if len(nb[s])!=3:
           for j in nb[s]:
             if not j in p2: p2.append(j)
       ps=[p0,p1,p2]
@@ -2565,16 +2565,16 @@ def finitetypemat(mat):
           p[i+3]=ps[r][-i-1]
         return [typ,p]
 
-#F cartantotype 
+#F cartantotype
 def cartantotype(mat):
-  """returns [['U',range(n)]] if mat is a  generalised Cartan matrix 
-  which is  not of  finite type, where n is the rank.  Otherwise, 
-  the function returns a sequence of pairs  (typ,l)  where typ is 
-  a string (Cartan type)  and l  is a list of integers  such that 
+  """returns [['U',range(n)]] if mat is a  generalised Cartan matrix
+  which is  not of  finite type, where n is the rank.  Otherwise,
+  the function returns a sequence of pairs  (typ,l)  where typ is
+  a string (Cartan type)  and l  is a list of integers  such that
 
      [[mat[i][j] for j in l] for i in l]==cartanmat(typ,len(l))
 
-  (exactly as in  gap-chevie). Thus, for finite types, the Cartan 
+  (exactly as in  gap-chevie). Thus, for finite types, the Cartan
   matrix is uniquely determined by the result of cartantotype.
 
   >>> cartantotype([[ 2, 0,-1, 0, 0],
@@ -2602,7 +2602,7 @@ def cartantotype(mat):
     t.sort(key=(lambda x: len(x[1])),reverse=True) # sort as in gap-chevie
     for c in t:  # testing
       if c[0][0]!='U' and c[0][0]!='I':
-        if [[mat[i][j] for j in c[1]] 
+        if [[mat[i][j] for j in c[1]]
                        for i in c[1]]!=cartanmat(c[0],len(c[1])):
           print("mist !")
           return "mist"
@@ -2611,18 +2611,18 @@ def cartantotype(mat):
 #F cartantypetomat
 def cartantypetomat(ct):
   """reconstructs the  Cartan matrix from its cartan type, if ct
-  corresponds to a list of finite type Cartan matrices. Thus, 
-  if c is a Cartan matrix of finite type, then 
+  corresponds to a list of finite type Cartan matrices. Thus,
+  if c is a Cartan matrix of finite type, then
 
-        c==cartantypetomat(cartantotype(c)). 
+        c==cartantypetomat(cartantotype(c)).
 
-  This function only works for finite type.  
+  This function only works for finite type.
 
   >>> cartantypetomat([['C',[0,2,4]],['G',[3,1]]])
-  [[ 2, 0, 1, 0, 0], 
-   [ 0, 2, 0,-3, 0], 
-   [-2, 0, 2, 0,-1], 
-   [ 0,-1, 0, 2, 0], 
+  [[ 2, 0, 1, 0, 0],
+   [ 0, 2, 0,-3, 0],
+   [-2, 0, 2, 0,-1],
+   [ 0,-1, 0, 2, 0],
    [ 0, 0,-1, 0, 2]]
   """
   b=[[]]
@@ -2637,18 +2637,19 @@ def cartantypetomat(ct):
 def degreesdata(typ,n):
   """returns  the reflection degrees of the finite Coxeter group
   of type 'typ'  and rank 'n'.  The data  are taken from  the
-  corresponding files in  gap-chevie.  By  Solomon's Theorem, 
-  the degrees  d_1, ..., d_r  (where r is the rank of W)  are 
-  determined by the equation
-                                     u^{d_i}-1 
-    sum_{w in W} u^{l(w)} = prod_i  ----------
-                                        u-1
+  corresponding files in  gap-chevie.  By  Solomon's Theorem,
+  the degrees  d_1, ..., d_r  (where r is the rank of W)  are
+  determined by the equation::
 
-  where i runs over 1, ..., r.  In particular, the product of 
-  all degrees is the order of W. -- When 'coxeter' is called,  
-  the resulting python class will have a component 'degrees'.  
-  (If W is not irreducible, the degrees of W are the disjoint 
-  union of the degrees of the irreducible components of W.) 
+                                       u^{d_i}-1
+      sum_{w in W} u^{l(w)} = prod_i  ----------
+                                          u-1
+
+  where i runs over 1, ..., r.  In particular, the product of
+  all degrees is the order of W. -- When 'coxeter' is called,
+  the resulting python class will have a component 'degrees'.
+  (If W is not irreducible, the degrees of W are the disjoint
+  union of the degrees of the irreducible components of W.)
 
   >>> W=coxeter("H",3)
   >>> W.degrees
@@ -2668,11 +2669,11 @@ def degreesdata(typ,n):
     return [2,6,8,10,12,14,18]
   if typ[0]=='E' and n==8:
     return [2,8,12,14,18,20,24,30]
-  if typ[0]=='A': 
+  if typ[0]=='A':
     return [i+2 for i in range(n)]
   if typ[0]=='B' or typ[0]=='C':
     return [2*(i+1) for i in range(n)]
-  if typ[0]=='D': 
+  if typ[0]=='D':
     l=[2*(i+1) for i in range(n)]
     l[-1]=n
     return l
@@ -2713,7 +2714,7 @@ def roots(cmat):
   return ([tuple(r) for r in l+[[-x for x in y] for y in l]],
           [elms[l1.index(r)][::-1] for r in l],
           [[l.index(r) for r in orb] for orb in orbits])
-  
+
 def roots1(cmat):
   rng=range(len(cmat[0]))
   l=idmat(rng,1)
@@ -2748,40 +2749,40 @@ def permroots(cmat,roots):
 
 #F class-coxeter
 class coxeter:
-  """creates a  Coxeter group (as a python 'class'), from a  Cartan 
-  matrix (see 'cartanmat') or from a pair (typ,r) where typ is a 
-  string specifying the type and r specifies the rank. 
+  """creates a  Coxeter group (as a python 'class'), from a  Cartan
+  matrix (see 'cartanmat') or from a pair (typ,r) where typ is a
+  string specifying the type and r specifies the rank.
 
   >>> c=cartanmat("G",2)
   [[2,-1],[-3,2]]
   >>> W=coxeter(c)
   >>> W.N                             # number of positive roots
-  6 
-  >>> W.roots                         # all roots 
+  6
+  >>> W.roots                         # all roots
   [( 1,0),(0, 1),( 1, 1),( 1, 2),( 1, 3),( 2, 3),
    (-1,0),(0,-1),(-1,-1),(-1,-2),(-1,-3),(-2,-3)]
 
   >>> W=coxeter("H",4); W.order
-  14400                 
+  14400
 
-  Alternatively, the input may in fact be any generalised Cartan 
-  matrix, leading to an infinite Coxeter group in general. 
+  Alternatively, the input may in fact be any generalised Cartan
+  matrix, leading to an infinite Coxeter group in general.
 
   >>> W=coxeter([[2,0,-1,0],[0,2,0,-1],[-1,0,2,0],[0,-3,0,2]]
   >>> W.cartantype
   [["A",[0,2]],["G",[1,3]]]
 
   >>> W=coxeter([[2,-2],[-2,2]]); W.cartantype
-  [["U",[0,1]]      # the letter "U" denotes any non-finite type          
+  [["U",[0,1]]      # the letter "U" denotes any non-finite type
 
-  If the  Cartan matrix is of  finite type, various more special 
-  methods are available  which  partly rely on  explicitly known 
-  information concerning finite Coxeter groups  (stored in files 
-  depending on this  module),  as in the  gap-chevie system; see  
+  If the  Cartan matrix is of  finite type, various more special
+  methods are available  which  partly rely on  explicitly known
+  information concerning finite Coxeter groups  (stored in files
+  depending on this  module),  as in the  gap-chevie system; see
 
-             http://www.math.rwth-aachen.de/~CHEVIE 
+             http://www.math.rwth-aachen.de/~CHEVIE
 
-  for further details. (While some knowledge  of  gap-chevie may 
+  for further details. (While some knowledge  of  gap-chevie may
   be useful, it is not a prerequisite for using this program.)
 
   The result of 'coxeter' always has the following attributes:
@@ -2789,7 +2790,7 @@ class coxeter:
     rank              list [0,...,r-1] where r is the rank
     coxetermat        Coxeter matrix
     cartantype        see 'cartantotype' for explanation
-    cartanname        unique string identifying this group 
+    cartanname        unique string identifying this group
     matgens           matrices of the simple reflections
     fusions           see 'reflectionsubgroup' for explanation
     weightL           see 'ainvariants' for explanation
@@ -2798,7 +2799,7 @@ class coxeter:
   If W is finite, there are further attributes:
     roots             full list of all roots (as in gap-chevie)
     N                 number of positive roots roots
-    rootorbits        orbits of the action on the set of roots 
+    rootorbits        orbits of the action on the set of roots
     rootsorbits1      simple root representative for each root
     symform           relative root lengths (symmetrizes cartan)
     degrees           reflection degrees
@@ -2811,21 +2812,21 @@ class coxeter:
   in python) lists are indexed starting  with 0.  In particular:
   the roots are numbered from  0 to 2*W.N-1, where the first W.N
   roots are positive;  these  are followed by the  corresponding
-  negative ones. We have for i in [0,..., W.N-1]: 
+  negative ones. We have for i in [0,..., W.N-1]:
 
-     *  W.roots[W.N+i]=-W.roots[i]   
-     *  W.roots[i] lies in W-orbit of the k-th simple root 
+     *  W.roots[W.N+i]=-W.roots[i]
+     *  W.roots[i] lies in W-orbit of the k-th simple root
                                    where k=W.rootorbits1[i]
 
-  Elements can be represented as reduced words, permutations  or 
-  matrices,  where we act from the right. (Thus,  row convention 
-  is used for matrices.) If w is given as a permutation and  s_i 
+  Elements can be represented as reduced words, permutations  or
+  matrices,  where we act from the right. (Thus,  row convention
+  is used for matrices.) If w is given as a permutation and  s_i
   is the i-th simple reflection, then we have:
-  
+
       l(s_iw)=l(w)+1  if and only if  w[i]<W.N.
 
-  A word is simply  a list of  indices specifying the generators 
-  s_i.  In some occasions,  it  may be useful to  convert such a 
+  A word is simply  a list of  indices specifying the generators
+  s_i.  In some occasions,  it  may be useful to  convert such a
   list into a string; this is conveniently done using the Python
   function 'join' (and its inverse 'split'):
 
@@ -2834,31 +2835,31 @@ class coxeter:
   >>> [int(i) for i in w.split('.')]
   [0, 1, 4, 3, 2]
 
-  A compact representation of  w in W  is given as follows.  For 
-  each i in W.rank,  let  r_i  be the  root obtained by applying 
-  w to the i-the simple root. Let a_i be the index of r_i in the  
-  list of roots; then w is uniquely determined by (a_1,...,a_r).  
-  Such tuples will be called 'coxelms'. For example,  the matrix 
-  of w (with respect to the basis given by the simple roots)  is  
+  A compact representation of  w in W  is given as follows.  For
+  each i in W.rank,  let  r_i  be the  root obtained by applying
+  w to the i-the simple root. Let a_i be the index of r_i in the
+  list of roots; then w is uniquely determined by (a_1,...,a_r).
+  Such tuples will be called 'coxelms'. For example,  the matrix
+  of w (with respect to the basis given by the simple roots)  is
   the list [W.roots[a_1],...,W.roots[a_r]]. If p is the complete
   permutation representing w,  then the corresponding coxelm  is
   p[:len(W.rank)]. Several built-in functions (as python methods
-  in W) convert between these formats. (In Python 3, we can also 
-  pack a list of 'coxelms' into a sequence of bytes; if the list 
-  of elements is long, a few  hundred thousands or millions say, 
-  then this way of storing requires roughly  r bytes per element 
+  in W) convert between these formats. (In Python 3, we can also
+  pack a list of 'coxelms' into a sequence of bytes; if the list
+  of elements is long, a few  hundred thousands or millions say,
+  then this way of storing requires roughly  r bytes per element
   where r is the rank of W.)
 
-  For  infinite Coxeter groups,  elements are represented either 
-  by  matrices or  reduced words,  and  the conversion functions 
+  For  infinite Coxeter groups,  elements are represented either
+  by  matrices or  reduced words,  and  the conversion functions
   work in the general case.
-  
+
   >>> W=coxeter("A",3)
   >>> w0=longestperm(W);   print w0        # the longest element
   (8,7,6,10,9,11,2,1,0,4,3,5)
   >>> W.permlength(w0)                         # the length of w
   6
-  >>> W.coxelmtoword(w0)    
+  >>> W.coxelmtoword(w0)
   [0,1,0,2,1,0]
   >>> W.reducedword([0,1,0,1,2,1,0],W)
   [1,0,2,1,0]
@@ -2868,29 +2869,29 @@ class coxeter:
   >>> W.wordtomat([0,1,0,1,0,1,0,1,0,1])
   ((-9,-10),(10,11))
 
-  The optional argument weightL is a list of integers specifying 
+  The optional argument weightL is a list of integers specifying
   a weight function in the sense of Lusztig. If the argument  is
-  itself an integer, then all weights on simple reflections will 
+  itself an integer, then all weights on simple reflections will
   be equal to that integer. The  default value is 0.  Similarly,
-  the optional argument  param  specifies  the  parameter of the 
-  corresponding  Iwahori-Hecke  algebra; the default value is 1, 
+  the optional argument  param  specifies  the  parameter of the
+  corresponding  Iwahori-Hecke  algebra; the default value is 1,
   in which case the Iwahori-Hecke algebra is a group algebra.
 
-  The optional argument 'split' is a list defining a permutation 
+  The optional argument 'split' is a list defining a permutation
   of the generators such that the induced map is a Coxeter group
-  automorphism. The default value is 'True' which corresponds to 
+  automorphism. The default value is 'True' which corresponds to
   the identity automorphism.
 
-  To see all available functions type 'help(allfunctions)'.  
- 
-  For further theoretical background see Chapter 1 of 
+  To see all available functions type 'help(allfunctions)'.
+
+  For further theoretical background see Chapter 1 of
 
   [Ge-Pf] M. Geck and G. Pfeiffer, Characters of finite Coxeter
           groups and Iwahori-Hecke algebras, OUP, Oxford, 2000.
   """
   def __init__(self,typ,rank=0,split=True,fusion=[],weightL=0,param=1):
-    if type(typ)==type([[]]): 
-      self.cartan=typ      
+    if type(typ)==type([[]]):
+      self.cartan=typ
       self.rank=range(len(typ[0]))
       self.cartantype=cartantotype(typ)
     else:
@@ -2948,7 +2949,7 @@ class coxeter:
           if self.coxetermat[s][t]!=self.coxetermat[split[s]][split[t]]:
             print("#W invalid permutation of generators !")
             self.split=False
-    self.fusions={self.cartanname:{'subJ':self.rank, 'parabolic':True}} 
+    self.fusions={self.cartanname:{'subJ':self.rank, 'parabolic':True}}
     if fusion!=[]:
       self.fusions[fusion[0]]={}
       for k in fusion[1].keys():
@@ -2964,7 +2965,7 @@ class coxeter:
     else:
       self.weightfunctions=[weightL[:]]
     self.param=param
-    if self.cartantype[0][0]!='U': 
+    if self.cartantype[0][0]!='U':
       self.roots,self.rootrepelms,self.rootorbits=roots(self.cartan)
       self.N=len(self.roots)//2
       for o in self.rootorbits: o.sort()
@@ -2972,7 +2973,7 @@ class coxeter:
       for o in range(len(self.rootorbits)):
         for i in self.rootorbits[o]:
           self.rootorbits1[i]=self.rootorbits[o][0]
-      self.coxgens=[tuple([self.roots.index(tuple(t)) for t in m]) 
+      self.coxgens=[tuple([self.roots.index(tuple(t)) for t in m])
                                              for m in self.matgens]
       self.permgens=permroots(self.cartan,self.roots)
       self.degrees=[]
@@ -3019,7 +3020,7 @@ class coxeter:
     else:
       return 'coxeter('+str(self.cartan)+')'
   def coxelmlength(self,elm):
-    """returns the length of a coxelm. 
+    """returns the length of a coxelm.
     """
     l=0
     idm=self.roots[:len(self.rank)]
@@ -3028,7 +3029,7 @@ class coxeter:
       s=0
       while all(m[s][t]>=0 for t in self.rank):
         s+=1
-      m=[tuple([m[t][u]-self.cartan[s][t]*m[s][u] 
+      m=[tuple([m[t][u]-self.cartan[s][t]*m[s][u]
                      for u in self.rank]) for t in self.rank]
       l+=1
     return l
@@ -3042,7 +3043,7 @@ class coxeter:
       s=0
       while all(m[s][t]>=0 for t in self.rank):
         s+=1
-      m=[tuple([m[t][u]-self.cartan[s][t]*m[s][u] 
+      m=[tuple([m[t][u]-self.cartan[s][t]*m[s][u]
                      for u in self.rank]) for t in self.rank]
       l+=1
     return l
@@ -3052,7 +3053,7 @@ class coxeter:
     """
     return len([i for i in p[:self.N] if i>=self.N])
   def coxelmtomat(self,elm):      # works for perms and coxelms
-    """converts  elm (assumed to be a coxelm)  into  a matrix  with 
+    """converts  elm (assumed to be a coxelm)  into  a matrix  with
     respect to the  simple reflections.   This also works if elm
     is a full permutation on the roots.
     """
@@ -3061,11 +3062,11 @@ class coxeter:
     """converts a coxelm to a full permutation on the set of roots.
     (Only works for finite W.)
     """
-    return tuple([self.roots.index(tuple([sum([r[i]*self.roots[elm[i]][s] 
+    return tuple([self.roots.index(tuple([sum([r[i]*self.roots[elm[i]][s]
           for i in self.rank]) for s in self.rank])) for r in self.roots])
   def coxelmtoword(self,elm):       # works for perms and coxelms
-    """converts a  coxelm into a  reduced expression  in the simple 
-    reflections. 
+    """converts a  coxelm into a  reduced expression  in the simple
+    reflections.
     """
     #m=[list(self.roots[r]) for r in elm[:len(self.rank)]]
     m=[self.roots[r] for r in elm[:len(self.rank)]]
@@ -3075,7 +3076,7 @@ class coxeter:
       s=0
       while s<len(self.rank) and all(m[s][t]>=0 for t in self.rank): s+=1
       if s<len(self.rank):
-        m=[[m[t][u]-self.cartan[s][t]*m[s][u] for u in self.rank] 
+        m=[[m[t][u]-self.cartan[s][t]*m[s][u] for u in self.rank]
                                                     for t in self.rank]
         word.append(s)
       else: weiter=False
@@ -3088,7 +3089,7 @@ class coxeter:
     """converts a matrix to a full permutation on the set of roots.
     (Only works for finite W.)
     """
-    return tuple([self.roots.index(tuple([sum([r[i]*mat[i][s] 
+    return tuple([self.roots.index(tuple([sum([r[i]*mat[i][s]
          for i in self.rank]) for s in self.rank])) for r in self.roots])
   def mattoword(self,mat):
     """converts  a  matrix to a  reduced expression  in the  simple
@@ -3101,7 +3102,7 @@ class coxeter:
       s=0
       while s<len(self.rank) and all(m[s][t]>=0 for t in self.rank): s+=1
       if s<len(self.rank):
-        m=[[m[t][u]-self.cartan[s][t]*m[s][u] for u in self.rank] 
+        m=[[m[t][u]-self.cartan[s][t]*m[s][u] for u in self.rank]
                                                     for t in self.rank]
         word.append(s)
       else: weiter=False
@@ -3124,7 +3125,7 @@ class coxeter:
     return word
   def wordtocoxelm(self,w):
     """converts any word in the simple reflections into a coxelm.
-    (Only works for finite W.) 
+    (Only works for finite W.)
     """
     c=list(self.rank)
     for s in w:
@@ -3137,7 +3138,7 @@ class coxeter:
     """
     m=idmat(self.rank,1)
     for s in w[::-1]:
-      m=[[m[t][u]-self.cartan[s][t]*m[s][u] for u in self.rank] 
+      m=[[m[t][u]-self.cartan[s][t]*m[s][u] for u in self.rank]
                                                     for t in self.rank]
     return tuple([tuple(l) for l in m])
   def wordtoperm(self,w):
@@ -3160,11 +3161,11 @@ class coxeter:
       return [int(i) for i in sw.split('.')]
   def reducedword(self,w,W1):
     """converts  any word  in the simple reflections into a reduced
-    expression in the  simple reflections.  If there is a fusion 
-    map into the Coxeter group W1, then the result is  expressed 
+    expression in the  simple reflections.  If there is a fusion
+    map into the Coxeter group W1, then the result is  expressed
     in the simple reflections of W1. In particular, this applies
-    to the case where W1=W; in this case, the function turns the 
-    given word  w in W  into a (canonical) reduced expression in 
+    to the case where W1=W; in this case, the function turns the
+    given word  w in W  into a (canonical) reduced expression in
     the simple reflections of W. This works for arbitrary W=W1.
     """
     f=self.fusions[W1.cartanname]['subJ']
@@ -3178,8 +3179,8 @@ class coxeter:
         nw.append(W1.rootorbits1[f[s]])
         nw.extend(W1.rootrepelms[f[s]][::-1])
     m=idmat(W1.rank,1)
-    for s in nw[::-1]: 
-      m=[[m[t][u]-W1.cartan[s][t]*m[s][u] for u in W1.rank] 
+    for s in nw[::-1]:
+      m=[[m[t][u]-W1.cartan[s][t]*m[s][u] for u in W1.rank]
                                                 for t in W1.rank]
     word=[]
     weiter=True
@@ -3187,13 +3188,13 @@ class coxeter:
       s=0
       while s<len(W1.rank) and all(m[s][t]>=0 for t in W1.rank): s+=1
       if s<len(W1.rank):
-        m=[[m[t][u]-W1.cartan[s][t]*m[s][u] for u in W1.rank] 
+        m=[[m[t][u]-W1.cartan[s][t]*m[s][u] for u in W1.rank]
                                                    for t in W1.rank]
         word.append(s)
       else: weiter=False
     return word
   def cycletyperoots(self,pw):
-    """returns the cycle type of an element in its action  on  each 
+    """returns the cycle type of an element in its action  on  each
     of the root orbits. Here, the element is assumed to be given
     as a full permutation on all the roots.
     """
@@ -3213,7 +3214,7 @@ class coxeter:
       ct.append(tuple(cl))
     return tuple(ct)
   def permorder(self,pw):
-    """returns the order of an element, given as a full  permutation 
+    """returns the order of an element, given as a full  permutation
     on all roots. (Only works for finite W.)
     """
     if pw==():
@@ -3221,7 +3222,7 @@ class coxeter:
     else:
       return intlcmlist(flatlist([list(x) for x in self.cycletyperoots(pw)]))
   def leftdescentsetperm(self,pw):
-    """returns the left descent set of an element, given as a coxelm 
+    """returns the left descent set of an element, given as a coxelm
     or a full permutation on all roots.
     """
     return [s for s in self.rank if pw[s]>=self.N]
@@ -3232,12 +3233,12 @@ class coxeter:
     ip=perminverse(pw)
     return [s for s in self.rank if ip[s]>=self.N]
   def leftdescentsetmat(self,mw):
-    """returns the left descent set of an element, given as a matrix 
+    """returns the left descent set of an element, given as a matrix
     with respect to the basis of simple roots.
     """
     return [s for s in self.rank if all(mw[s][t]<=0 for t in self.rank)]
   def rightdescentsetmat(self,mw):
-    """returns the right descent set of an element, given as a matrix 
+    """returns the right descent set of an element, given as a matrix
     with respect to the basis of simple roots.
     """
     m=self.wordtomat(self.mattoword(mw)[::-1])
@@ -3247,7 +3248,7 @@ class coxeter:
 #F rmultgenmat
 def rmultgenmat(W,s,m):
   """returns the result of multiplying an element of W on the right
-  by a simple reflection. The element is assumed to  be given as 
+  by a simple reflection. The element is assumed to  be given as
   a matrix.
 
   >>> W=coxeter("B",3)
@@ -3260,7 +3261,7 @@ def rmultgenmat(W,s,m):
   """
   nw=[list(m[x]) for x in W.rank]
   for t in W.rank:
-    nw[t][s]-=sum(nw[t][u]*W.cartan[s][u] for u in W.rank 
+    nw[t][s]-=sum(nw[t][u]*W.cartan[s][u] for u in W.rank
                                            if W.cartan[s][u]!=0)
   return nw
 
@@ -3272,7 +3273,7 @@ def lmultgenmat(W,s,m):
 
   See also 'rmultgenmat'.
   """
-  return tuple([tuple([m[t][u]-W.cartan[s][t]*m[s][u] for u in W.rank]) 
+  return tuple([tuple([m[t][u]-W.cartan[s][t]*m[s][u] for u in W.rank])
                                                        for t in W.rank])
 
 #F conjgenmat
@@ -3283,7 +3284,7 @@ def conjgenmat(W,s,m):
   """
   nw=[[m[t][u]-W.cartan[s][t]*m[s][u] for u in W.rank] for t in W.rank]
   for t in W.rank:
-    nw[t][s]-=sum(nw[t][u]*W.cartan[s][u] for u in W.rank 
+    nw[t][s]-=sum(nw[t][u]*W.cartan[s][u] for u in W.rank
                                                      if W.cartan[s][u]!=0)
   return tuple([tuple(l) for l in nw])
 
@@ -3291,21 +3292,21 @@ def conjgenmat(W,s,m):
 def conjgencoxelm(W,s,w):
   """conjugates an element (given as a coxelm) by a generator.
   """
-  return tuple([W.permgens[s][r] for r in 
-                   [W.roots.index(tuple([W.roots[w[t]][u]- 
-                             W.cartan[s][t]*W.roots[w[s]][u] 
+  return tuple([W.permgens[s][r] for r in
+                   [W.roots.index(tuple([W.roots[w[t]][u]-
+                             W.cartan[s][t]*W.roots[w[s]][u]
                                for u in W.rank])) for t in W.rank]])
 
 #F conjgenperm
 def conjgenperm(W,s,pw):
-  """conjugates an element (given as a full permutation on the set of 
+  """conjugates an element (given as a full permutation on the set of
   roots by a generator.
   """
   return tuple([W.permgens[s][pw[W.permgens[s][r]]] for r in range(2*W.N)])
 
 #F conjugacyclass
 def conjugacyclass(W,pw):
-  """returns the set of all elements in a conjugacy class,  ordered by 
+  """returns the set of all elements in a conjugacy class,  ordered by
   increasing lenth.  The argument is supposed  to be a  permutation
   and the elements in the resulting list are permutations. Elements
   of minimum length are more efficiently computed using 'classmin'.
@@ -3313,10 +3314,10 @@ def conjugacyclass(W,pw):
   >>> W=coxeter("F",4)
   >>> [W.permtoword(w) for w in conjugacyclass(W,W.permgens[1])]
   #I Size of class: 12
-  [[1], [0], [0, 1, 0], [2, 1, 2], [0, 2, 1, 0, 2], [3, 2, 1, 2, 3], 
-  [1, 0, 2, 1, 0, 2, 1], [0, 3, 2, 1, 0, 2, 3], 
-  [1, 0, 3, 2, 1, 0, 2, 1, 3], [2, 1, 0, 3, 2, 1, 0, 2, 1, 3, 2], 
-  [1, 2, 1, 0, 3, 2, 1, 0, 2, 1, 3, 2, 1], 
+  [[1], [0], [0, 1, 0], [2, 1, 2], [0, 2, 1, 0, 2], [3, 2, 1, 2, 3],
+  [1, 0, 2, 1, 0, 2, 1], [0, 3, 2, 1, 0, 2, 3],
+  [1, 0, 3, 2, 1, 0, 2, 1, 3], [2, 1, 0, 3, 2, 1, 0, 2, 1, 3, 2],
+  [1, 2, 1, 0, 3, 2, 1, 0, 2, 1, 3, 2, 1],
   [0, 1, 2, 1, 0, 3, 2, 1, 0, 2, 1, 3, 2, 1, 0]]
 
   See also 'conjugacyclasses', 'classmin' and 'involutions'.
@@ -3335,13 +3336,13 @@ def conjugacyclass(W,pw):
   l=list(range(len(cl)))
   l.sort(key=(lambda i:lc[i]))
   return [cl[i] for i in l]
-  
+
 #F involutions
 def involutions(W):
    """returns the list of involutions in a finite Coxeter groups
    (as full permutations on the roots).
    """
-   return flatlist([conjugacyclass(W,W.wordtoperm(w)) for w in 
+   return flatlist([conjugacyclass(W,W.wordtoperm(w)) for w in
      conjugacyclasses(W)['reps'] if W.wordtocoxelm(2*w)==tuple(W.rank)])
 
 #F cyclicshiftorbit
@@ -3364,11 +3365,11 @@ def testcyclicshift(W,pw):
   """tests if an element (given  as a full permutation on the roots)
   has minimal length in its conjugacy class; if this is the case,
   True is returned. Otherwise, the function returns a pair  (x,s)
-  where  x is an element and s  is a  simple reflection such that 
+  where  x is an element and s  is a  simple reflection such that
   l(x)<l(sxs) and sxs lies in the same cyclic chift class as pw.
 
   >>> W=coxeter("F",4)
-  >>> t=testcyclicshift(W,W.wordtoperm([0,1,2,1,0])); t 
+  >>> t=testcyclicshift(W,W.wordtoperm([0,1,2,1,0])); t
   [(13,32,2,9,4,29,12,7,25,3,10,16,6,0,18,15,11,22,14,19,20,21,17,23,37,
     8,26,33,28,5,36,31,1,27,34,40,30,24,42,39,35,46,38,43,44,45,41,47),0]
   >>> W.permtoword(t[0])
@@ -3388,13 +3389,13 @@ def testcyclicshift(W,pw):
         bahn.append(nw)
   return True
 
-#F conjtomin 
+#F conjtomin
 def conjtomin(W,pw):
-  """returns an element  of minimal length (as a reduced word) in 
+  """returns an element  of minimal length (as a reduced word) in
   the conjugacy class of pw.
 
   >>> W=coxeter("E",6); w0=longestperm(W); W.permlength(w0)
-  36 
+  36
   >>> conjtomin(W,w0)
   [1, 2, 3, 1, 2, 3, 4, 3, 1, 2, 3, 4]
 
@@ -3412,15 +3413,15 @@ def classmin(W,w,minl=True):
   """returns the elements of minimal length in a conjugacy class
   of a given element.
 
-  >>> W=coxeter("E",8) 
+  >>> W=coxeter("E",8)
   >>> [W.permtoword(x) for x in classmin(W,[0])]
   #I Size of Cmin: 8
   [[0], [2], [3], [1], [4], [5], [6], [7]]
 
-  It is assumed that the given element has  minimal length in 
+  It is assumed that the given element has  minimal length in
   its class. Otherwise,  the extra argument  'minl' has to be
   set to some value unequal to 'True'.
-  
+
   >>>[W.permtoword(x) for x in classmin(W,[0,2,0],minl=0)]
   #I ++ Size of Cmin: 8
   [[2], [0], [3], [1], [4], [5], [6], [7]]
@@ -3480,10 +3481,10 @@ def classmin(W,w,minl=True):
 
 #F longestperm
 def longestperm(W,J=0):
-  """returns  the unique element of maximal length in W  (where W is 
-  assumed to be finite) as a permutation of the set of all roots. 
-  If the additional argument J is specified, the function returns 
-  the longest element in the parabolic subgroup generated by J. 
+  """returns  the unique element of maximal length in W  (where W is
+  assumed to be finite) as a permutation of the set of all roots.
+  If the additional argument J is specified, the function returns
+  the longest element in the parabolic subgroup generated by J.
 
   >>> W=coxeter("F",4)
   >>> w0=longestperm(W)
@@ -3499,10 +3500,10 @@ def longestperm(W,J=0):
   if J==0:
     J=W.rank
   if J==W.rank and 'longestperm' in dir(W):
-    return W.longestperm 
+    return W.longestperm
   else:
     p=list(range(2*W.N))
-    while any(p[t]<W.N for t in J): 
+    while any(p[t]<W.N for t in J):
       s=0
       while p[J[s]]>=W.N: s+=1
       p=[p[i] for i in W.permgens[J[s]]]
@@ -3514,13 +3515,13 @@ def longestperm(W,J=0):
 
 #F bruhatmat
 def bruhatmat(W,y,w):
-  """returns true or false according to whether y is less than or equal 
-  to w in the Bruhat-Chevalley order on W. Here, y and w are assumed 
-  to be matrices. (This function also works for infinite W.) 
- 
-  The algorithm is based on the following recursion. Let w in W.  If  
-  w is not the identity, let s be  any  simple reflection such  that 
-  l(sw)=l(w)-1. Then y <= w if and only if sy<=sw  (if l(sy)=l(y)-1) 
+  """returns true or false according to whether y is less than or equal
+  to w in the Bruhat-Chevalley order on W. Here, y and w are assumed
+  to be matrices. (This function also works for infinite W.)
+
+  The algorithm is based on the following recursion. Let w in W.  If
+  w is not the identity, let s be  any  simple reflection such  that
+  l(sw)=l(w)-1. Then y <= w if and only if sy<=sw  (if l(sy)=l(y)-1)
   or y<=sw  (if l(sy)=l(y)+1).
 
   See also 'bruhatperm' and 'bruhat'.
@@ -3536,7 +3537,7 @@ def bruhatmat(W,y,w):
     if s==len(W.rank):
       print [y,w,s]
     nw=lmultgenmat(W,s,w)
-    if any(y[s][t]<0 for t in W.rank): 
+    if any(y[s][t]<0 for t in W.rank):
       ny=lmultgenmat(W,s,y)
       return bruhatmat(W,ny,nw)
     else:
@@ -3544,19 +3545,19 @@ def bruhatmat(W,y,w):
 
 #F bruhatcoxelm
 def bruhatcoxelm(W,y,w):
-  """returns true or false according to whether y is less than or equal 
-  to w in the Bruhat-Chevalley order on W. Here, y and w are assumed 
-  to be coxelms. 
- 
-  The algorithm is based on the following recursion. Let w in W.  If  
-  w is not the identity, let s be  any  simple reflection such  that 
-  l(sw)=l(w)-1. Then y <= w if and only if sy<=sw  (if l(sy)=l(y)-1) 
+  """returns true or false according to whether y is less than or equal
+  to w in the Bruhat-Chevalley order on W. Here, y and w are assumed
+  to be coxelms.
+
+  The algorithm is based on the following recursion. Let w in W.  If
+  w is not the identity, let s be  any  simple reflection such  that
+  l(sw)=l(w)-1. Then y <= w if and only if sy<=sw  (if l(sy)=l(y)-1)
   or y<=sw  (if l(sy)=l(y)+1).
 
   >>> W=coxeter("H",3);
   >>> w=W.wordtocoxelm([0,1,0,2])
   >>> b=list(filter(lambda y:bruhatcoxelm(W,y,w),redleftcosetreps(W)))
-  >>> [W.coxelmtoword(y) for y in b] 
+  >>> [W.coxelmtoword(y) for y in b]
   [[],[0],[1],[2],                      # all y in W such that y<=w
    [0,1],[0,2],[1,0],[1,2],[1,0,2],[0,1,0],[0,1,2],[0,1,0,2]]
 
@@ -3580,14 +3581,14 @@ def bruhatcoxelm(W,y,w):
 
 #F bruhatperm
 def bruhatperm(W,x,y,lx=False,ly=False):
-  """returns true or false according to whether y is less than or equal 
-  to w in the Bruhat-Chevalley order on W. Here, y and w are assumed 
-  to be  full permutations on the roots.  The lengths of  y,w can be 
+  """returns true or false according to whether y is less than or equal
+  to w in the Bruhat-Chevalley order on W. Here, y and w are assumed
+  to be  full permutations on the roots.  The lengths of  y,w can be
   passed as optional arguments.
- 
-  The algorithm is based on the following recursion. Let w in W.  If  
-  w is not the identity, let s be  any  simple reflection such  that 
-  l(sw)=l(w)-1. Then y <= w if and only if sy<=sw  (if l(sy)=l(y)-1) 
+
+  The algorithm is based on the following recursion. Let w in W.  If
+  w is not the identity, let s be  any  simple reflection such  that
+  l(sw)=l(w)-1. Then y <= w if and only if sy<=sw  (if l(sy)=l(y)-1)
   or y<=sw  (if l(sy)=l(y)+1).
 
   See also 'bruhat' and 'bruhatcoxelm'.
@@ -3613,20 +3614,20 @@ def bruhatperm(W,x,y,lx=False,ly=False):
 
 #F bruhat
 def bruhat(W,y,w):
-  """returns true or false according to whether y is less than or equal 
+  """returns true or false according to whether y is less than or equal
   to w in the Bruhat-Chevally order on W. This is a generic function
-  which checks the type of  y and  w  and then calls one of the more 
-  specialised functions, 'bruhatcoxelm', 'bruhatmat', 'bruhatperm'. 
- 
-  The function is based on the following recursion.  Let w in W.  If  
-  w is not the identity, let s be  any  simple reflection  such that 
-  l(sw)=l(w)-1.  Then y <= w if and only if sy<=sw (if l(sy)=l(y)-1) 
+  which checks the type of  y and  w  and then calls one of the more
+  specialised functions, 'bruhatcoxelm', 'bruhatmat', 'bruhatperm'.
+
+  The function is based on the following recursion.  Let w in W.  If
+  w is not the identity, let s be  any  simple reflection  such that
+  l(sw)=l(w)-1.  Then y <= w if and only if sy<=sw (if l(sy)=l(y)-1)
   or y<=sw  (if l(sy)=l(y)+1).
 
   >>> W=coxeter("H",3);
   >>> w=W.wordtocoxelm([0,1,0,2])
   >>> b=list(filter(lambda y:bruhat(W,y,w),redleftcosetreps(W)))
-  >>> [W.coxelmtoword(y) for y in b] 
+  >>> [W.coxelmtoword(y) for y in b]
   [[],[0],[1],[2],                       # all y in W such that y<=w
    [0,1],[0,2],[1,0],[1,2],[1,0,2],[0,1,0],[0,1,2],[0,1,0,2]]
 
@@ -3643,11 +3644,11 @@ def bruhat(W,y,w):
   else:
     return "mist !"
 
-#F reflections 
+#F reflections
 def reflections(W):
-  """returns the list of reflections of W (where W is assumed 
-  to be finite),  as permutations on the set of all roots. 
-  The  i-th element in  this list is the reflection  whose 
+  """returns the list of reflections of W (where W is assumed
+  to be finite),  as permutations on the set of all roots.
+  The  i-th element in  this list is the reflection  whose
   root is the i-th element of W.roots.
 
   >>> reflections(coxeter("I5",2))
@@ -3684,42 +3685,42 @@ def innerprodroots(W,r1,r2):
 
 #F reflectionsubgroup
 def reflectionsubgroup(W,J):
-  """returns the subgroup of  W generated by the reflections in the 
+  """returns the subgroup of  W generated by the reflections in the
   list J. The result is again a  Coxeter group in its own right;
-  the embedding into W is specified  in the attribute 'fusions'.  
+  the embedding into W is specified  in the attribute 'fusions'.
 
-  Any Coxeter group has such a  'fusions' attribute;  this  is a 
-  nested dictionary which contains at least one entry:  that  of  
-  the embedding of  W into itself.  (This  design  is  different 
-  from that in gap-chevie;  it  appears to be  better  suited to  
-  recursive algorithms involving various reflection  subgroups.) 
+  Any Coxeter group has such a  'fusions' attribute;  this  is a
+  nested dictionary which contains at least one entry:  that  of
+  the embedding of  W into itself.  (This  design  is  different
+  from that in gap-chevie;  it  appears to be  better  suited to
+  recursive algorithms involving various reflection  subgroups.)
 
-  Let H be a Coxeter group  created as  above,  as a subgroup of 
-  some bigger group W. Then 'H.fusions' will have an entry 
+  Let H be a Coxeter group  created as  above,  as a subgroup of
+  some bigger group W. Then 'H.fusions' will have an entry
 
       { W.cartanname: { "subJ": list, ... }, ... }
 
-  where  list gives the embedding of the simple reflections of H 
-  into the set of reflections of W. If J just consists of simple 
-  reflections of W, then H  is a parabolic subgroup and the list 
-  equals  J;  otherwise, list[i] is the index of the i-th simple 
-  reflection of the  subgroup in the  list of  reflections of W.  
-  (Further entries of 'H.fusions' may contain information on the 
+  where  list gives the embedding of the simple reflections of H
+  into the set of reflections of W. If J just consists of simple
+  reflections of W, then H  is a parabolic subgroup and the list
+  equals  J;  otherwise, list[i] is the index of the i-th simple
+  reflection of the  subgroup in the  list of  reflections of W.
+  (Further entries of 'H.fusions' may contain information on the
   fusion of conjugacy classes and so on.)
 
   See also 'reflections'.
 
-  >>> W=coxeter("F",4)   
+  >>> W=coxeter("F",4)
   >>> W.cartantype
   [["F",[0,1,2,3]]
   >>> W.cartanname
   "F4c0c1c2c3"
   >>> W.fusions              # W only has the fusion into itself
-  {"F4c0c1c2c3":{"subJ":[0,1,2,3], 'parabolic':True}}  
+  {"F4c0c1c2c3":{"subJ":[0,1,2,3], 'parabolic':True}}
 
-  >>> H=reflectionsubgroup(W,[1,2,3,23]) 
-  >>> H.cartantype 
-  [["C",[0,1,2]],["A",[3]] 
+  >>> H=reflectionsubgroup(W,[1,2,3,23])
+  >>> H.cartantype
+  [["C",[0,1,2]],["A",[3]]
   >>> H.cartanname
   "C3c0c1c2A1c3"
   >>> H.fusions        # H has the fusion into itself and into W
@@ -3737,21 +3738,21 @@ def reflectionsubgroup(W,J):
   >>> H=reflectionsubgroup(W,[1,2]); H.cartanname
   "G2c0c1"
   >>> H.fusions
-  {"G2c0c1":{'subJ':[0,1],     'parabolic':True}, 
+  {"G2c0c1":{'subJ':[0,1],     'parabolic':True},
     "U210121032":{'subJ':[1,2],'parabolic':False}}
-  >>> H.reducedword([0,1],W)  
+  >>> H.reducedword([0,1],W)
   [1,2]
 
   Remark: If J is a subset of the set of simple reflections of W
   then J will not be sorted internally.  So  this can be used to
   create a copy of W with the simple reflections relabelled.
 
-  >>> W=coxeter("F",4); 
+  >>> W=coxeter("F",4);
   >>> H=reflectionsubgroup(W,[1,3,0,2])
   >>> H.cartantype
   [['F', [2,0,3,1]]]
   >>> H.fusions
-  {'F4c0c1c2c3': {'parabolic': True, 'subJ': [1,3,0,2]}, 
+  {'F4c0c1c2c3': {'parabolic': True, 'subJ': [1,3,0,2]},
    'F4c2c0c3c1': {'parabolic': True, 'subJ': [0,1,2,3]}}
   >>> W.cartanname
   'F4c0c1c2c3'
@@ -3814,31 +3815,31 @@ def reducedunique(W,pw):
 
 #F allmats
 def allmats(W,maxl=-1):
-  """returns all elements of W of length at most maxl, represented 
-  as matrices.  Along the computation, the function  prints the 
+  """returns all elements of W of length at most maxl, represented
+  as matrices.  Along the computation, the function  prints the
   number of elements of length i for i between 0 and max.  This
-  function also works for infinite W. If the argument 'maxl' is 
+  function also works for infinite W. If the argument 'maxl' is
   omitted and W is finite,  all elements will be computed.
 
   >>> W=coxeter("A",2)
   >>> allmats(W)
-  #I 1 2 2 1 
+  #I 1 2 2 1
   #I total = 6
-  [[[[1,0],[0,1]]],                                 # length 0 
+  [[[[1,0],[0,1]]],                                 # length 0
    [((1,1),(0,-1)),((-1,0),(1,1))],                 # length 1
    [((0,1),(-1,-1)),((-1,-1),(1,0))],               # length 2
    [((0,-1),(-1,0))]]                               # length 3
 
-  >>> W=coxeter(affinecartanmat("G",2)); 
+  >>> W=coxeter(affinecartanmat("G",2));
   >>> W.cartantype
   [['U',[0,1,2]]]
   >>> print W.cartan
-  [[2,-1,0],[-1,2,-1],[0,-3,2]]) 
+  [[2,-1,0],[-1,2,-1],[0,-3,2]])
   >>> [[W.mattoword(m) for m in l] for l in allmats(W,3)]
-  #I 1 3 5 7 
+  #I 1 3 5 7
   #I total = 16
-  [[[]], 
-   [[2],[0],[1]], 
+  [[[]],
+   [[2],[0],[1]],
    [[1,0],[1,2],[2,1],[0,1],[0,2]],
    [[1,0,2],[2,1,0],[2,1,2],[1,2,1],[0,1,2],[0,1,0],[0,2,1]]]
 
@@ -3880,24 +3881,24 @@ def allmats(W,maxl=-1):
   #if W.cartantype[0][0]!='U' and max!=W.N:
   #  lprint('\n#I total = '+str(sum(poin))+'\n')
   return l
-  
+
 #F allcoxelms
 def allcoxelms(W,maxl=-1):
   """returns all elements of W of length at most maxl, representated
-  as coxelms, that is, permutations of the set of all roots where 
+  as coxelms, that is, permutations of the set of all roots where
   only the images of the simple roots are given.  This only works
   for finite W. (If maxl is not specified, then all elements will
   be returned.)
 
   >>> W=coxeter("A",2)
   >>> a=allcoxelms(W); print a
-  #I 1 2 2 1 
+  #I 1 2 2 1
   #I total = 6
   [[(0,1)],                         # length 0
    [(3,2),(2,4)],                   # length 1
    [(1, 5),(5,0)],                  # length 2
    [(4,3)]]                         # length 3
-  >>> [[W.coxelmtoword(i) for i in l] for l in a];  
+  >>> [[W.coxelmtoword(i) for i in l] for l in a];
   [[[]],[[0],[1]], [[1, 0], [0, 1]], [[0, 1, 0]]]
 
   (Use 'flatlist' to create one long list of the elements.)
@@ -3918,8 +3919,8 @@ def allcoxelms(W,maxl=-1):
       for w in l[i]:
         for s in W.rank:
           if w[s]<W.N:
-            nl.append(tuple([W.roots.index(tuple([W.roots[w[t]][u]- 
-                     W.cartan[s][t]*W.roots[w[s]][u] for u in W.rank])) 
+            nl.append(tuple([W.roots.index(tuple([W.roots[w[t]][u]-
+                     W.cartan[s][t]*W.roots[w[s]][u] for u in W.rank]))
                                                         for t in W.rank]))
       l.append(list(set(nl)))
     else:
@@ -3929,15 +3930,15 @@ def allcoxelms(W,maxl=-1):
   lprint('\n')
   #lprint('\n#I total = '+str(sum(poin))+'\n')
   return l
-  
+
 #F redleftcosetreps
 def redleftcosetreps(W,J=[]):
   """returns the list of  distinguished  left  coset representatives
-  of the  parabolic subgroup  H of W  which is  generated  by the 
+  of the  parabolic subgroup  H of W  which is  generated  by the
   simple reflections in J;  if no argument J is specified, then J
-  is set to be [].  An element w in W belongs to this  set if and 
-  only if w has minimal length in the coset w*H or, equivalently, 
-  l(ws)=l(w)+1  for all s in J.  The  elements  are  returned  as  
+  is set to be [].  An element w in W belongs to this  set if and
+  only if w has minimal length in the coset w*H or, equivalently,
+  l(ws)=l(w)+1  for all s in J.  The  elements  are  returned  as
   coxelms, ordered by increasing length.
 
   >>> W=coxeter("A",4)
@@ -3956,13 +3957,13 @@ def redleftcosetreps(W,J=[]):
     for w in ol:
       for s in W.rank:
         if w[s]<W.N:
-          nw=tuple([W.roots.index(tuple([W.roots[w[t]][u]- 
-                                W.cartan[s][t]*W.roots[w[s]][u] 
+          nw=tuple([W.roots.index(tuple([W.roots[w[t]][u]-
+                                W.cartan[s][t]*W.roots[w[s]][u]
                                    for u in W.rank])) for t in W.rank])
           if all(tuple([W.permgens[u][r] for r in w])!=nw for u in J):
             nl.append(nw)
     ol=set(nl)
-    if len(ol)>0: 
+    if len(ol)>0:
       l.extend(list(ol))
   #if J!=[]:
   #  lprint('#I total = '+str(len(l))+'\n')
@@ -3971,10 +3972,10 @@ def redleftcosetreps(W,J=[]):
 #F redrightcosetreps
 def redrightcosetreps(W,H):
   """returns the list of  distinguished right  coset representatives
-  of the reflection subgroup H of W. An element w in W belongs to 
-  this  set if and only if w has minimal length in the coset  H*w 
-  or, equivalently, w sends each simple root  of  H to a positive 
-  root of W. The  elements are  returned  as  coxelms, ordered by 
+  of the reflection subgroup H of W. An element w in W belongs to
+  this  set if and only if w has minimal length in the coset  H*w
+  or, equivalently, w sends each simple root  of  H to a positive
+  root of W. The  elements are  returned  as  coxelms, ordered by
   increasing length.
 
   >>> W=coxeter("A",4)
@@ -4010,7 +4011,7 @@ def redrightcosetreps(W,H):
             nl.append(nw)
     ol1=list(ol)
     ol=set(nl)
-    if len(ol)>0: 
+    if len(ol)>0:
       l.extend(list(ol))
   #if J!=[]:
   #  lprint('#I total = '+str(len(l))+'\n')
@@ -4020,9 +4021,9 @@ def redrightcosetreps(W,H):
 def redinrightcoset(W,H,w):
   """returns the unique reduced element in the coset H*w; this is
   defined by the condition that it sends all simple roots of H
-  to positive roots in W. Here, w can be either a coxelm  or a 
-  full permutation on the roots, and the output will be of the 
-  same type. 
+  to positive roots in W. Here, w can be either a coxelm  or a
+  full permutation on the roots, and the output will be of the
+  same type.
 
   >>> W=coxeter("F",4)
   >>> H=reflectionsubgroup(W,[0,1,8,15]); H.cartantype
@@ -4042,22 +4043,22 @@ def redinrightcoset(W,H,w):
     l=2*W.N
   while any(nw[u]>=W.N for u in J):
     s=0
-    while nw[J[s]]<W.N: 
+    while nw[J[s]]<W.N:
       s+=1
     nw=[nw[i] for i in refls[J[s]]]
   return tuple(nw[:l])
-    
+
 #F allelmchain(W)
 def allelmchain(W,depth=1):
-  """returns a  sequence  (corresponding to a chain of parabolic subgroups) 
-  of lists of  distinguished right coset representatives where,  at each 
+  """returns a  sequence  (corresponding to a chain of parabolic subgroups)
+  of lists of  distinguished right coset representatives where,  at each
   step  in the chain, the  rank decreases by  1 and the  chain decreases
-  until the rank equals the  optional argument  depth.  (More precisely, 
-  we remove the last simple reflection at each step.)  This can  be used 
-  to run through all elements of W  (where  W is  finite)  without first 
-  constructing a complete list; see also 'allelmsproperty'.  The various 
-  coset representatives are all expressed as reduced words in the simple 
-  reflections of W. This works efficiently even for groups of relatively 
+  until the rank equals the  optional argument  depth.  (More precisely,
+  we remove the last simple reflection at each step.)  This can  be used
+  to run through all elements of W  (where  W is  finite)  without first
+  constructing a complete list; see also 'allelmsproperty'.  The various
+  coset representatives are all expressed as reduced words in the simple
+  reflections of W. This works efficiently even for groups of relatively
   large rank (including all the groups of exceptional type).
 
   >>> W=coxeter("A",5)
@@ -4072,13 +4073,13 @@ def allelmchain(W,depth=1):
    [[],[4],[4,3],[4,3,2],[4,3,2,1],[4,3,2,1,0]]]
 
   Here, the 24 elements of a[0] are all the elements of the  parabolic
-  subgroup generated by 0,1,2 (type A_3); then a[1] contains the right 
-  coset representatives of the  latter subgroup  inside the  parabolic 
+  subgroup generated by 0,1,2 (type A_3); then a[1] contains the right
+  coset representatives of the  latter subgroup  inside the  parabolic
   subgroup generated by 0,1,2,3 (type A_4); finally, a[2] contains the
   right coset  representatives of the latter subgroup inside the whole
-  group. Thus,  
-  
-          { x + y + z | x in a[0], y in a[1], z in a[2] } 
+  group. Thus,
+
+          { x + y + z | x in a[0], y in a[1], z in a[2] }
 
   contains each element of W exactly once (where,  as usual in python,
   the '+' denotes concatenation of words).  Furthermore,  each reduced
@@ -4110,14 +4111,14 @@ def allelmchain(W,depth=1):
 
 #F allelmchain1
 def allelmchain1(W):
-  """returns a sequence  (corresponding to a chain of parabolic subgroups) 
-  of lists of  distinguished left  coset representatives where, at each 
+  """returns a sequence  (corresponding to a chain of parabolic subgroups)
+  of lists of  distinguished left  coset representatives where, at each
   step  in the chain, the  rank decreases by  1 and the chain decreases
-  until rank 3 is reached. (More precisely, we successfully remove  the 
-  last simple reflection at each step.) This can be used to run through 
-  all elements of W (where W is finite) without constructing a complete 
-  list. The  various left  coset representatives  are all  expressed as 
-  reduced words in the simple reflections of W. This  works efficiently  
+  until rank 3 is reached. (More precisely, we successfully remove  the
+  last simple reflection at each step.) This can be used to run through
+  all elements of W (where W is finite) without constructing a complete
+  list. The  various left  coset representatives  are all  expressed as
+  reduced words in the simple reflections of W. This  works efficiently
   even for groups of relatively large rank, e.g., type E_8.
 
   >>> W=coxeter("A",5)
@@ -4131,13 +4132,13 @@ def allelmchain1(W):
     [1,2,1],[2,1,0],[0,2,1],[1,2,1,0],[0,1,2,1],[1,0,2,1],[0,1,0,2],
     [0,2,1,0],[0,1,0,2,1],[0,1,2,1,0],[1,0,2,1,0],[0,1,0,2,1,0]]]
 
-  Here, the 6 elements of a[0] are the  left  coset representatives of  
-  the parabolic subgroup generated by 0,1,2,3 (of type A_4); then a[1] 
+  Here, the 6 elements of a[0] are the  left  coset representatives of
+  the parabolic subgroup generated by 0,1,2,3 (of type A_4); then a[1]
   contains the 5 left  coset representatives of the parabolic subgroup
   generated by 0,1,2 in the previous one;  finally,  a[2] contains all
-  24 elements of the parabolic subgroup generated by 0,1,2. Thus,  
-  
-          { x + y + z | x in a[0], y in a[1], z in a[2] } 
+  24 elements of the parabolic subgroup generated by 0,1,2. Thus,
+
+          { x + y + z | x in a[0], y in a[1], z in a[2] }
 
   contains each element of W exactly once (where,  as usual in python,
   the '+' denotes concatenation of words).
@@ -4164,12 +4165,12 @@ def allelmchain1(W):
 
 #F allelmsproperty
 def allelmsproperty(W,f,elm="word",pr=True):
-  """returns  all elements (as reduced expressions in the generators) for 
+  """returns  all elements (as reduced expressions in the generators) for
   which a given function f returns True. Here, f takes as argument one
   group element of W, given as a reduced expression.
 
-  This function uses  'allelmchain' so that it is possible to run even 
-  through all elements of very large groups without first constructing 
+  This function uses  'allelmchain' so that it is possible to run even
+  through all elements of very large groups without first constructing
   a complete list of all elements.
 
   >>> W=coxeter("A",2)
@@ -4187,7 +4188,7 @@ def allelmsproperty(W,f,elm="word",pr=True):
   """
   if len(W.rank)<=5:
     a=(5-len(W.rank))*[[[]]]+allelmchain(W)
-  else:  
+  else:
     a=allelmchain(W,depth=len(W.rank)-4)
   if pr==True and len(a[0])>1:
     lprint('#I ('+str(len(a[4]))+') ')
@@ -4214,11 +4215,11 @@ def allelmsproperty(W,f,elm="word",pr=True):
 #F allwords
 def allwords(W,maxl=-1):
   """returns all elements of a finite Coxeter group, as reduced
-  words, up to a given length. If the optional argument maxl 
-  is not specified, then all elements will be returned. Each 
-  w  in the resulting list  is  normalised in the sense that 
-  w=W.reducedword(w,W).  This function is one of the fastest 
-  ways to obtain a complete list  of all  elements of W. (It 
+  words, up to a given length. If the optional argument maxl
+  is not specified, then all elements will be returned. Each
+  w  in the resulting list  is  normalised in the sense that
+  w=W.reducedword(w,W).  This function is one of the fastest
+  ways to obtain a complete list  of all  elements of W. (It
   uses a call to 'allelmchain'.)
 
   >>>  W=coxeter("E",7);a=timer(allwords,W)
@@ -4226,7 +4227,7 @@ def allwords(W,maxl=-1):
   >>> len(a)
   2903040
 
-  See also 'allbitcoxelms', 'allelmchain', 'allelmsproperty' 
+  See also 'allbitcoxelms', 'allelmchain', 'allelmsproperty'
   and 'allmats'.
   """
   if maxl==-1:
@@ -4235,7 +4236,7 @@ def allwords(W,maxl=-1):
     maxlen=min(maxl,W.N)
   if len(W.rank)<=5:
     a=(5-len(W.rank))*[[[]]]+allelmchain(W)
-  else:  
+  else:
     a=allelmchain(W,depth=len(W.rank)-4)
   el=[]
   if maxlen==W.N:
@@ -4266,11 +4267,11 @@ def allwords(W,maxl=-1):
 #F allwordslength
 def allwordslength(W,l=-1):
   """returns all elements of a finite Coxeter group, as reduced
-  words, up to a given length. If the optional argument maxl 
-  is not specified, then all elements will be returned. Each 
-  w  in the resulting list  is  normalised in the sense that 
-  w=W.reducedword(w,W).  This function is one of the fastest 
-  ways to obtain a complete list  of all  elements of W. (It 
+  words, up to a given length. If the optional argument maxl
+  is not specified, then all elements will be returned. Each
+  w  in the resulting list  is  normalised in the sense that
+  w=W.reducedword(w,W).  This function is one of the fastest
+  ways to obtain a complete list  of all  elements of W. (It
   uses a call to 'allelmchain'.)
 
   >>>  W=coxeter("E",7);a=timer(allwords,W)
@@ -4278,7 +4279,7 @@ def allwordslength(W,l=-1):
   >>> len(a)
   2903040
 
-  See also 'allbitcoxelms', 'allelmchain', 'allelmsproperty' 
+  See also 'allbitcoxelms', 'allelmchain', 'allelmsproperty'
   and 'allmats'.
   """
   if l==-1:
@@ -4287,7 +4288,7 @@ def allwordslength(W,l=-1):
     maxlen=min(l,W.N)
   if len(W.rank)<=5:
     a=(5-len(W.rank))*[[[]]]+allelmchain(W)
-  else:  
+  else:
     a=allelmchain(W,depth=len(W.rank)-4)
   el=[]
   for i4 in a[4]:
@@ -4307,7 +4308,7 @@ def allwordslength(W,l=-1):
 #F allwordstrings
 def allwordstrings(W,maxl=-1):
   """same as allwords but this functions returns strings of reduced
-  words. 
+  words.
 
   >>>  W=coxeter("E",7); a=timer(allwordstrings,W)
   3.52    # time in seconds
@@ -4318,7 +4319,7 @@ def allwordstrings(W,maxl=-1):
   """
   if len(W.rank)<=5:
     a=(5-len(W.rank))*[[[]]]+allelmchain(W)
-  else:  
+  else:
     a=allelmchain(W,depth=len(W.rank)-4)
   sa=[]
   for ai in a:
@@ -4386,14 +4387,14 @@ def allbitcoxelms(W,maxl=-1,pr=False):
 
 #F allbitwords
 def allbitwords(W,maxl=-1,pr=False):
-  """returns all elements of  a finite Coxeter group,  as bit word 
-  strings, up to a given length. (Only works in Python 3 and if 
-  the rank of W is <=8). If the optional argument  maxl is  not  
-  specified,  then  all elements will be returned.  A  bit word  
+  """returns all elements of  a finite Coxeter group,  as bit word
+  strings, up to a given length. (Only works in Python 3 and if
+  the rank of W is <=8). If the optional argument  maxl is  not
+  specified,  then  all elements will be returned.  A  bit word
   string is the result of applying  the Python function 'bytes'
-  to a  word.  This function is useful (or even essential) when 
-  it is necessary to deal with all elements of a large group W, 
-  e.g., type E_7 or E_8.  
+  to a  word.  This function is useful (or even essential) when
+  it is necessary to deal with all elements of a large group W,
+  e.g., type E_7 or E_8.
 
   See also 'allwords', 'allcoxelms' and 'allmats'.
   """
@@ -4403,7 +4404,7 @@ def allbitwords(W,maxl=-1,pr=False):
     maxlen=min(maxl,W.N)
   if len(W.rank)<=5:
     a=(5-len(W.rank))*[[[]]]+allelmchain(W)
-  else:  
+  else:
     a=allelmchain(W,depth=len(W.rank)-4)
   el=[]
   if pr==True:
@@ -4439,13 +4440,13 @@ def allbitwords(W,maxl=-1,pr=False):
   el.sort(key=(lambda x:len(x)))
   return el
 
-#F longestcoxelm1 (for use in coxeterclasses) 
+#F longestcoxelm1 (for use in coxeterclasses)
 def longestcoxelm1(W,J):
   m=idmat(W.rank,1)
   weiter=True
   while weiter:
     s=0
-    while s<len(J) and all(m[J[s]][t]<=0 for t in W.rank): 
+    while s<len(J) and all(m[J[s]][t]<=0 for t in W.rank):
       s+=1
     if s<len(J):
       m=[[m[t][u]-W.cartan[J[s]][t]*m[J[s]][u]
@@ -4455,7 +4456,7 @@ def longestcoxelm1(W,J):
   #return tuple([W.roots.index(tuple(l)) for l in m])
   return [W.roots.index(tuple(m[s]))-W.N for s in J]
 
-#F longestcoxelm (for use in coxeterclasses) 
+#F longestcoxelm (for use in coxeterclasses)
 def longestcoxelm(W,J):
   if W.cartantype[0][0]=='U':
     return J
@@ -4464,7 +4465,7 @@ def longestcoxelm(W,J):
   weiter=True
   while weiter:
     s=0
-    while s<len(J) and all(m[s][t]<=0 for t in rgJ): 
+    while s<len(J) and all(m[s][t]<=0 for t in rgJ):
       s+=1
     if s<len(J):
       m=[[m[t][u]-W.cartan[J[s]][J[t]]*m[s][u] for u in rgJ] for t in rgJ]
@@ -4474,8 +4475,8 @@ def longestcoxelm(W,J):
 
 #F w0conjugation
 def w0conjugation(cmat):
-  """returns the permutations of the simple reflections induced by 
-  conjugation with the  longest element in the  finite  Coxeter 
+  """returns the permutations of the simple reflections induced by
+  conjugation with the  longest element in the  finite  Coxeter
   group corresponding to the given Cartan matrix.
   """
   p=list(range(len(cmat)))
@@ -4507,36 +4508,36 @@ def w0conjugation(cmat):
 
 #F coxeterclasses
 def coxeterclasses(W):
-  """returns a dictionary with information about the Coxeter classes 
-  of subsets of S, where S denotes the set of  simple reflections 
-  of W.  Let I,J be subsets of S.  Then I,J are said to belong to 
-  the same Coxeter class if and only if there exists some  w in W 
-  such that J = {wsw^-1 | s in I}.  This relation can be computed 
-  using the  algorithm described in  [Ge-Pf, 2.3.3].  The various 
+  """returns a dictionary with information about the Coxeter classes
+  of subsets of S, where S denotes the set of  simple reflections
+  of W.  Let I,J be subsets of S.  Then I,J are said to belong to
+  the same Coxeter class if and only if there exists some  w in W
+  such that J = {wsw^-1 | s in I}.  This relation can be computed
+  using the  algorithm described in  [Ge-Pf, 2.3.3].  The various
   subsets of S are described by bit strings.
 
   >>> coxeterclasses(coxeter("A",3))         #I 5 coxeter classes
-  {'010': {'J': [1], 'class': 1, 'w0J': [0, 1, 2]}, 
-   '011': {'J': [1, 2], 'class': 2, 'w0J': [0, 2, 1]}, 
-   '001': {'J': [2], 'class': 1, 'w0J': [0, 1, 2]}, 
-   '000': {'J': [], 'class': 0, 'w0J': [0, 1, 2]}, 
-   '111': {'J': [0, 1, 2], 'class': 4, 'w0J': [2, 1, 0]}, 
-   '110': {'J': [0, 1], 'class': 2, 'w0J': [1, 0, 2]}, 
-   '100': {'J': [0], 'class': 1, 'w0J': [0, 1, 2]}, 
+  {'010': {'J': [1], 'class': 1, 'w0J': [0, 1, 2]},
+   '011': {'J': [1, 2], 'class': 2, 'w0J': [0, 2, 1]},
+   '001': {'J': [2], 'class': 1, 'w0J': [0, 1, 2]},
+   '000': {'J': [], 'class': 0, 'w0J': [0, 1, 2]},
+   '111': {'J': [0, 1, 2], 'class': 4, 'w0J': [2, 1, 0]},
+   '110': {'J': [0, 1], 'class': 2, 'w0J': [1, 0, 2]},
+   '100': {'J': [0], 'class': 1, 'w0J': [0, 1, 2]},
    '101': {'J': [0, 2], 'class': 3, 'w0J': [0, 1, 2]},
    'coxclassreps': ['000', '100', '110', '101', '111']}
 
-  Thus, the bit strings  '010','011','001',.... correspond to the 
-  subsets [1],[1,2],[2],... of S=[0,1,2]. Representatives for the 
-  various Coxeter classes are given in  'coxclassreps'.  An entry 
+  Thus, the bit strings  '010','011','001',.... correspond to the
+  subsets [1],[1,2],[2],... of S=[0,1,2]. Representatives for the
+  various Coxeter classes are given in  'coxclassreps'.  An entry
   'class':i means that the given subset belongs to the class with
-  representative coxclassreps[i]. In the above example (type An), 
+  representative coxclassreps[i]. In the above example (type An),
   Coxeter classes correspond to the partitions of n+1.
   """
   if 'coxeterclasses' in dir(W):
     return W.coxeterclasses
   W.coxeterclasses={}
-  rest=[] 
+  rest=[]
   for s in cartesian(len(W.rank)*[[0,1]]):
     Jb=''
     subs=[]
@@ -4547,7 +4548,7 @@ def coxeterclasses(W):
         Jb+='1'
         subs.append(i)
     if len(subs)>8:
-      w0=[subs[s] for s in w0conjugation([[W.cartan[k][l] 
+      w0=[subs[s] for s in w0conjugation([[W.cartan[k][l]
                                for l in subs] for k in subs])]
     else:
       w0=longestcoxelm(W,subs)
@@ -4561,7 +4562,7 @@ def coxeterclasses(W):
   numb=0
   while rest!=[]:
     orb=[rest[0]]
-    rest.remove(orb[0]) 
+    rest.remove(orb[0])
     for subs in orb:
       for s in W.rank:
         if subs[s]=='0':
@@ -4579,11 +4580,11 @@ def coxeterclasses(W):
       W.coxeterclasses[subs]['class']=numb
     numb+=1
   W.coxeterclasses['coxclassreps']=classes[:]
-  #lprint(str(len(classes))+' coxeter classes\n'); 
+  #lprint(str(len(classes))+' coxeter classes\n');
   return W.coxeterclasses
 
 #F conjclassdata
-def conjclassdata(typ,n):    
+def conjclassdata(typ,n):
   """returns representatives of minimal length for all the conjugacy
   classes of the finite Coxeter group of type 'typ' and rank 'n'.
   The data are taken from the corresponding files in gap-chevie.
@@ -4592,7 +4593,7 @@ def conjclassdata(typ,n):
   names=[]
   cents=[]
   if typ[0]=='A':
-    for mu in partitions(n+1): 
+    for mu in partitions(n+1):
       w=[]
       i=0
       for l in mu:
@@ -4618,7 +4619,7 @@ def conjclassdata(typ,n):
     else:
       reps=[]
       for mu in partitiontuples(n,2):
-        w=[]  
+        w=[]
         i=1
         for l in mu[1][::-1]:  # reversed list
           #w.extend(range(2,i+1)[::-1])
@@ -4688,7 +4689,7 @@ def conjclassdata(typ,n):
       [1,2,3,4,2,3,4,6,5,4,2,3,4,5],[1,3,2,5],[1,3,4,3,2,4,5,6],
       [1,4,6,2,3,5],[1],[1,4,6],[1,3,4,3,2,4,3,5,4,3,2,4,5],[1,4,3],[1,3,2],
       [1,3,2,5,6],[1,4,6,3,5],[1,3,4,2,5],[1,4,3,2,6],[1,4,2,5,4,2,3]]
-    cents=[51840,1152,192,648,216,108,96,16,10,72,36,36,24,9,12,1440,96, 
+    cents=[51840,1152,192,648,216,108,96,16,10,72,36,36,24,9,12,1440,96,
                                                    96,32,36,36,12,8,10,12]
     names=[" ","4A_1","2A_1","3A_2","A_2","2A_2","D_4(a_1)","A_3+A_1",
        "A_4","E_6(a_2)","D_4","A_5+A_1","A_2+2A_1","E_6(a_1)","E_6","A_1",
@@ -4896,25 +4897,25 @@ def conjclassdata(typ,n):
 
 #F conjugacyclasses
 def conjugacyclasses(W):
-  """returns  representatives  of   minimal length  in the  conjugacy 
+  """returns  representatives  of   minimal length  in the  conjugacy
   classes of W. The result is a dictionary with entries:
 
     reps           list of representatives of minimal length
-    classlengths   list of sizes of conjugacy classes 
-    classnames     list of tuples of names for the classes put 
+    classlengths   list of sizes of conjugacy classes
+    classnames     list of tuples of names for the classes put
                    together from the irreducible components of W
 
   The conventions  are the same as in  gap-chevie;  in particular,
-  the  ordering  of the  classes is the same as in gap-chevie. 
+  the  ordering  of the  classes is the same as in gap-chevie.
 
   The raw data for the various types of irreducible finite Coxeter
-  groups are explicitly  stored in this module and called  via the 
-  function 'conjclassdata(typ,rank)'. For a general finite Coxeter 
-  group W the data  are then built  together from the  irreducible 
+  groups are explicitly  stored in this module and called  via the
+  function 'conjclassdata(typ,rank)'. For a general finite Coxeter
+  group W the data  are then built  together from the  irreducible
   components using 'W.cartantype'.
 
   >>> conjugacyclasses(coxeter("G",2))
-  {'reps'        : [[],[1],[0],[0,1],[0,1,0,1],[0,1,0,1,0,1]], 
+  {'reps'        : [[],[1],[0],[0,1],[0,1,0,1],[0,1,0,1,0,1]],
    'classlengths': [1,3,3,2,2,1],
    'classnames'  : [(' ',),('~A_1',),('A_1',),('G_2',),
                     ('A_2',),('A_1+~A_1',)]}
@@ -4922,14 +4923,14 @@ def conjugacyclasses(W):
   >>> W=coxeter([[2,0,-1,0],[0,2,0,-2],[-1,0,2,0],[0,-1,0,2]])
   >>> W.cartantype
   [['A',[0,2]],['C',[3,1]]]
-  >>> conjugacyclasses(W)['reps'] 
+  >>> conjugacyclasses(W)['reps']
   [[],[3],[3,1,3,1],[1],[3,1],[0],[0,3],[0,3,1,3,1],[0,1],
-   [0,3,1],[0,2],[0,2,3],[0,2,3,1,3,1],[0,2,1],[0,2,3,1]] 
+   [0,3,1],[0,2],[0,2,3],[0,2,3,1,3,1],[0,2,1],[0,2,3,1]]
 
-  The representatives of the classes are ``good'' in the sense of 
+  The representatives of the classes are ``good'' in the sense of
 
-    M. Geck and J. Michel, ``Good'' elements in finite Coxeter 
-        groups and representations of Iwahori--Hecke algebras, 
+    M. Geck and J. Michel, ``Good'' elements in finite Coxeter
+        groups and representations of Iwahori--Hecke algebras,
         Proc. London Math. Soc. (3) 74 (1997), 275-305.
 
   See also 'conjugacyclass' and 'conjtomin'.
@@ -4963,18 +4964,18 @@ def conjugacyclasses(W):
 #F identifyclasses
 def identifyclasses(W,elms,minrep=False):
   """identifies the conjugacy classes to which the elements (given as
-  reduced words)  in a list  belong.  If it is already known  that 
+  reduced words)  in a list  belong.  If it is already known  that
   the elements  have  minimal length  in their  conjugacy classes,
   then the optional argument 'minrep' should be set to True.
 
   >>> W=coxeter("A",5)
   >>> identifyclasses(W,[W.permtoword(longestperm(W))])
-  [3] 
+  [3]
   >>> conjugacyclasses(W)['reps']
   [[],[0],[0,2],[0,2,4],[0,1],[0,1,3],[0,1,3,4],[0,1,2],[0,1,2,4],
    [0,1,2,3],[0,1,2,3,4]]
 
-  (Thus, the longest  element belongs  to the conjugacy class with 
+  (Thus, the longest  element belongs  to the conjugacy class with
   respresentive [0,2,4].)
 
   See also 'fusionconjugacyclasses'.
@@ -5068,7 +5069,7 @@ def identifyclasses(W,elms,minrep=False):
           if dd<0:
             invH[troubleH[i]]+='m'
             invH[troubleH[i]]+=str(-dd)
-          else: 
+          else:
             invH[troubleH[i]]+=str(dd)
         for i in range(len(troubleW)):
           for k in W.rank:
@@ -5097,7 +5098,7 @@ def fusionconjugacyclasses(H,W):
   >>> H=reflectionsubgroup(W,[0,1,2]); print H.cartantype
   [['H',[0,1,2]]
   >>> H.fusions
-  {'H4c0c1c2c3': {'subJ':[0,1,2], 'parabolic':True}, 
+  {'H4c0c1c2c3': {'subJ':[0,1,2], 'parabolic':True},
    'H3c0c1c2'  : {'subJ':[0,1,2], 'parabolic':True}}
   >>> len(conjugaclasses(W)['reps']); len(conjugacyclasses(H)['reps'])
   34
@@ -5108,7 +5109,7 @@ def fusionconjugacyclasses(H,W):
   True
   >>> H.fusions
   {'H4c0c1c2c3': {'classes':[0,1,2,3,4,5,9,11,15,19],
-                                   'subJ':[0,1,2],'parabolic':True}, 
+                                   'subJ':[0,1,2],'parabolic':True},
    'H3c0c1c2'  : {'subJ':[0,1,2], 'parabolic':True}}
 
   (Now H.fusions has an additional entry containing the fusion
@@ -5128,7 +5129,7 @@ def fusionconjugacyclasses(H,W):
   ch=conjugacyclasses(H)
   if H.cartanname==W.cartanname:
     fh['classes']=range(len(ch['reps']))
-    return fh['classes'] 
+    return fh['classes']
   if fh['parabolic']==True:
     clH=[[fh['subJ'][s] for s in w] for w in ch['reps']]
   else:
@@ -5146,13 +5147,13 @@ def fusionconjugacyclasses(H,W):
 #F Clifford form of elements in B_n
 def cliffordB(W,w):
   """returns the  Clifford decomposition of an  element w in a
-  Coxeter group of  type B_n,  as defined by Bonnafe-Iancu: 
+  Coxeter group of  type B_n,  as defined by Bonnafe-Iancu:
 
              w = a_w * a_l * sigma * b_w^(-1)
 
-  where l is the t-length of w, a_l is the shortest element 
-  of W of  t-length l, sigma is an element of the parabolic 
-  subgroup  S_l x S_{n-l},  a_w, b_w are distinguished left 
+  where l is the t-length of w, a_l is the shortest element
+  of W of  t-length l, sigma is an element of the parabolic
+  subgroup  S_l x S_{n-l},  a_w, b_w are distinguished left
   coset representatives  with respect to this subgroup.
 
   The function returns the tuple [l,a_w,a_l,sigma,b_w].
@@ -5177,7 +5178,7 @@ def cliffordB(W,w):
   if permmult(aw,permmult(al,permmult(sigma,perminverse(bw))))!=pw:
     print('Mist !!!')
     return False
-  return [lt,aw,al,sigma,bw] 
+  return [lt,aw,al,sigma,bw]
 
 ##########################################################################
 ##
@@ -5186,9 +5187,9 @@ def cliffordB(W,w):
 
 #F inducedchar
 def inducedchar(W,H,psi):
-  """returns the values of the induced character Ind(psi) (from H to W) 
-  on the conjugacy classes of W, where the character psi is given by 
-  the list of its values on the conjugacy  classes of H. 
+  """returns the values of the induced character Ind(psi) (from H to W)
+  on the conjugacy classes of W, where the character psi is given by
+  the list of its values on the conjugacy  classes of H.
 
   >>> W=coxeter("A",5)
   >>> H=reflectionsubgroup(W,[0,1,2,3])
@@ -5207,14 +5208,14 @@ def inducedchar(W,H,psi):
       if i==fus[j] and psi[j]!=0:
         ind[i]+=(W.order*clH[j]*psi[j])//(clW[i]*H.order)
   return ind
-  
+
 # chartablesymmetric
 def chartablesymmetric(n):
   """returns the character table of the  symmetric group of degree n.
-  The  rows and  columns  are indexed  by  the partitons  of n, as 
+  The  rows and  columns  are indexed  by  the partitions  of n, as
   ordered in partitions(n). The function computes the  permutation
   characters on all  Young subgroups and then decomposes them into
-  irreducibles.  (The  implementation is much less  efficient than 
+  irreducibles.  (The  implementation is much less  efficient than
   that in gap3 but it reasonably works up to n around 15.)
 
   >>> partitions(4)
@@ -5222,8 +5223,8 @@ def chartablesymmetric(n):
   >>> chartablesymmetric(4)
   [[1,-1, 1, 1,-1],             # sign character
    [3,-1,-1, 0, 1],             # reflection character
-   [2, 0, 2,-1, 0], 
-   [3, 1,-1, 0,-1], 
+   [2, 0, 2,-1, 0],
+   [3, 1,-1, 0,-1],
    [1, 1, 1, 1, 1]]             # trivial character
   """
   W=coxeter("A",n-1)
@@ -5234,7 +5235,7 @@ def chartablesymmetric(n):
     l=0
     for i in mu:
       l+=i
-      J.remove(l-1) 
+      J.remove(l-1)
     H=reflectionsubgroup(W,J)
     ch=conjugacyclasses(H)
     cl=ch['classlengths']
@@ -5249,7 +5250,7 @@ def chartablesymmetric(n):
     H.fusions[W.cartanname]['classes']=fus[:]
     neu=inducedchar(W,H,len(cl)*[1])
     for irr in ti:
-      scal=sum(cl[c]*irr[fus[c]] for c in range(len(cl)))//H.order 
+      scal=sum(cl[c]*irr[fus[c]] for c in range(len(cl)))//H.order
       neu=[neu[i]-scal*irr[i] for i in range(len(neu))]
     ti.append(neu[:])
   return ti[::-1]
@@ -5264,7 +5265,7 @@ def oldsymm(n):
     l=0
     for i in mu:
       l+=i
-      J.remove(l-1) 
+      J.remove(l-1)
     H=reflectionsubgroup(W,J)
     ch=conjugacyclasses(H)
     nam=[partitions(len(t[1])+1) for t in H.cartantype]
@@ -5281,13 +5282,13 @@ def oldsymm(n):
   for i in range(len(tr)):
     neu=tr[-i-1][:]
     for j in range(i):
-      scal=sum(cw['classlengths'][k]*ti[j][k]*neu[k] 
+      scal=sum(cw['classlengths'][k]*ti[j][k]*neu[k]
                      for k in range(len(tr)) if neu[k]!=0)//W.order
       for k in range(len(tr)):
         neu[k]-=scal*ti[j][k]
     ti.append(neu)
   return ti[::-1]
-  
+
 #F cyclepermB
 def wordtopermB(n,w):
   pw=range(2*n) # first signed permutation
@@ -5299,13 +5300,13 @@ def wordtopermB(n,w):
       pw[n+i-1],pw[n+i]=pw[n+i],pw[n+i-1]
   sp=pw[:n]     # now roots
   return sp
-  
+
 #F chartablehalfC
 def chartablehalfC(n,other=False):
   """returns the part of the character table  of a  Coxeter group of
-  type B whose rows are labelled by all bipartitions (alpha,beta) 
-  where alpha is empty (or beta is empty if the optional argument 
-  'other' is set to True. 
+  type B whose rows are labelled by all bipartitions (alpha,beta)
+  where alpha is empty (or beta is empty if the optional argument
+  'other' is set to True.
   """
   ti=transposemat(chartablesymmetric(n))
   p=partitions(n)
@@ -5324,31 +5325,31 @@ def chartablehalfC(n,other=False):
       else:
         nti.append([-x for x in ti[p.index(a)]])
   return transposemat(nti)
-  
+
 #F chartableB
 def chartableB(n):
-  """returns the character table of the finite Coxeter group of type 
-  B_n.  The rows and  columns are indexed  by  pairs of partitons 
+  """returns the character table of the finite Coxeter group of type
+  B_n.  The rows and  columns are indexed  by  pairs of partitions
   of n, as ordered in partitiontuples(n,2). The function procedes
-  by inflating characters of direct products  of groups of type A 
-  to direct products of groups of type B and then inducing to the 
-  whole group (see [Ge-Pf, 5.5.4]). 
+  by inflating characters of direct products  of groups of type A
+  to direct products of groups of type B and then inducing to the
+  whole group (see [Ge-Pf, 5.5.4]).
 
-  (The implementation is less efficient than that in  gap3 but it 
+  (The implementation is less efficient than that in  gap3 but it
   reasonably works for  values  of n  up to around 10.)
 
   >>> partitiontuples(3,2)
   [[[1,1,1],[]],[[1,1],[1]],[[1],[1,1]],[[],[1,1,1]],[[2,1],[]],
    [[1],[2]],[[2],[1]],[[],[2,1]],[[3],[]],[[],[3]]]
   >>> chartableB(3)
-  [[1, 1, 1, 1,-1,-1,-1,-1, 1, 1], 
-   [3, 1,-1,-3,-1,-1, 1, 1, 0, 0], 
-   [3,-1,-1, 3,-1, 1,-1, 1, 0, 0], 
-   [1,-1, 1,-1,-1, 1, 1,-1, 1,-1],      # sign character 
-   [2, 2, 2, 2, 0, 0, 0, 0,-1,-1], 
-   [3,-1,-1, 3, 1,-1, 1,-1, 0, 0], 
+  [[1, 1, 1, 1,-1,-1,-1,-1, 1, 1],
+   [3, 1,-1,-3,-1,-1, 1, 1, 0, 0],
+   [3,-1,-1, 3,-1, 1,-1, 1, 0, 0],
+   [1,-1, 1,-1,-1, 1, 1,-1, 1,-1],      # sign character
+   [2, 2, 2, 2, 0, 0, 0, 0,-1,-1],
+   [3,-1,-1, 3, 1,-1, 1,-1, 0, 0],
    [3, 1,-1,-3, 1, 1,-1,-1, 0, 0],      # reflection character
-   [2,-2, 2,-2, 0, 0, 0, 0,-1, 1], 
+   [2,-2, 2,-2, 0, 0, 0, 0,-1, 1],
    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],      # trivial character
    [1,-1, 1,-1, 1,-1,-1, 1, 1,-1]]
 
@@ -5394,20 +5395,20 @@ def chartableB(n):
   ti.extend(chartablehalfC(n,other=True))
   labels.extend([[[],p] for p in partitions(n)])
   if n>=10:
-    lprint('\n'); 
+    lprint('\n');
   return [ti[labels.index(mu)] for mu in pt]
 
-# older version 
+# older version
 def chartableBold(n):
-  """returns the character table of the finite Coxeter group of type 
-  B_n.  The rows and  columns are indexed  by  pairs of partitons 
-  of n, as ordered in partitiontuples(n,2). The function computes 
-  the  permutation characters on  suitable  reflection  subgroups 
-  (products  of various  types B and D,  see [Ge-Pf, 5.5.3])  and 
+  """returns the character table of the finite Coxeter group of type
+  B_n.  The rows and  columns are indexed  by  pairs of partitions
+  of n, as ordered in partitiontuples(n,2). The function computes
+  the  permutation characters on  suitable  reflection  subgroups
+  (products  of various  types B and D,  see [Ge-Pf, 5.5.3])  and
   then decomposes them into irreducibles.  (The implementation is
-  much less  efficient than that in  gap3 but it reasonably works 
-  for  values of n  up to around 8; it is also an excellent  test 
-  for 'reflectionsubgroup' and 'fusionconjugacyclasses'). 
+  much less  efficient than that in  gap3 but it reasonably works
+  for  values of n  up to around 8; it is also an excellent  test
+  for 'reflectionsubgroup' and 'fusionconjugacyclasses').
   """
   W=coxeter("C",n)
   cw=conjugacyclasses(W)
@@ -5422,7 +5423,7 @@ def chartableBold(n):
   rho=[refls.index(W.wordtoperm(p)) for p in rho]
   trho=[refls.index(W.wordtoperm(p)) for p in trho]
   pt=partitiontuples(n,2)
-  binv=[2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i] 
+  binv=[2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
                    for i in range(len(mu[1])))+sum(mu[1]) for mu in pt]
   nn=list(range(len(binv)))
   nn.sort(key=(lambda i:binv[i]),reverse=True)
@@ -5435,7 +5436,7 @@ def chartableBold(n):
       if i>=2:
         J.append(trho[l])
       l+=i
-      J.remove(l) 
+      J.remove(l)
     for i in dualpartition(mu[1]):
       J.append(rho[l])
       l+=i
@@ -5455,51 +5456,51 @@ def chartableBold(n):
     sgn=[(-1)**len(w) for w in ch['reps']]
     neu=inducedchar(W,H,sgn)
     for irr in ti:
-      scal=sum(sgn[c]*cl[c]*irr[fus[c]] for c in range(len(cl)))//H.order 
+      scal=sum(sgn[c]*cl[c]*irr[fus[c]] for c in range(len(cl)))//H.order
       neu=[neu[i]-scal*irr[i] for i in range(len(neu))]
     ti.append(neu[:])
   return [ti[nn.index(i)] for i in range(len(nn))]
 
 #F chartableD
 def chartableD(n):
-  """returns the character table of the finite Coxeter group of type 
-  D_n.   The rows and  columns are  indexed  by suitable pairs of 
-  partitons of n, as in gap-chevie.  This  is  done by taking the 
-  irreducible characters of  type B_n  and restricting  them to a 
-  reflection subgroup of type D_n. (Hence, the efficiency of this 
-  program heavily relies on 'chartableB'.) If n is odd,  all  the 
-  restrictions are irreducible. If n is even, the restrictions of 
-  all those characters of B_n which are labelled  (alpha, alpha),  
-  where  alpha is a partition of  n/2, split into two irreducible 
-  components;  these two components are denoted by (alpha, +) and 
+  r"""returns the character table of the finite Coxeter group of type
+  D_n.   The rows and  columns are  indexed  by suitable pairs of
+  partitions of n, as in gap-chevie.  This  is  done by taking the
+  irreducible characters of  type B_n  and restricting  them to a
+  reflection subgroup of type D_n. (Hence, the efficiency of this
+  program heavily relies on 'chartableB'.) If n is odd,  all  the
+  restrictions are irreducible. If n is even, the restrictions of
+  all those characters of B_n which are labelled  (alpha, alpha),
+  where  alpha is a partition of  n/2, split into two irreducible
+  components;  these two components are denoted by (alpha, +) and
   (alpha, -). The notation is chosen as in Lusztig's book (4.6.2)
   (see also [Ge-Pf, 5.6.3] but note that the notation needs to be
   adjusted there, as indicated below).
 
   Let alpha  be a partition of n/2  and denote by alpha+alpha the
-  partition of n  obtained by taking  each part of  alpha exactly 
-  twice. Let  H be the parabolic  subgroup  of W(D_n) (isomorphic  
-  to the symmetric group of degree n)  which is  generated by the 
-  simple reflections labelled by 1,2,...,n-1. Then 
+  partition of n  obtained by taking  each part of  alpha exactly
+  twice. Let  H be the parabolic  subgroup  of W(D_n) (isomorphic
+  to the symmetric group of degree n)  which is  generated by the
+  simple reflections labelled by 1,2,...,n-1. Then
 
-    Ind(chi_{alpha+alpha})=chi_{(alpha,-)} + characters with 
+    Ind(chi_{alpha+alpha})=chi_{(alpha,-)} + characters with
                                              higher b-invariant,
 
   where Ind denotes induction from H to W(D_n).
 
-  Note that this function  uses the following  convention for the 
+  Note that this function  uses the following  convention for the
   embedding of W(D_n) into W(B_n):
 
                     0   1   2          n-1
         B_n         o=<=o---o-- . . . --o
 
                  1' o
-                     \    3'          (n-1)'       
-        D_n        2' o---o---  . . . --o          
+                     \    3'          (n-1)'
+        D_n        2' o---o---  . . . --o
                      /
                  0' o
 
-  where 0' -> 1, 1' -> 010, 2' -> 2, 3' -> 3, 4' -> 4, ...   
+  where 0' -> 1, 1' -> 010, 2' -> 2, 3' -> 3, 4' -> 4, ...
 
   Further note the following compatibility with the corresponding
   CHEVIE-GAP table in the case where n is even:
@@ -5508,20 +5509,20 @@ def chartableD(n):
     exactly the same.
   * If n/2 is odd, then labels are the same, but in the table, all
     rows corresponding to +/- characters have to be swapped.
-  
+
   >>> W=coxeter("D",4); chartable(W)['irreducibles']
-  [[3,-1, 3,-1, 1,-1, 3,-1,-1, 0, 0,-1, 1], 
-   [3,-1, 3,-1, 1,-1,-1, 3,-1, 0, 0, 1,-1], 
-   [4, 0,-4,-2, 0, 2, 0, 0, 0, 1,-1, 0, 0], 
-   [1, 1, 1,-1,-1,-1, 1, 1, 1, 1, 1,-1,-1], 
-   [6,-2, 6, 0, 0, 0,-2,-2, 2, 0, 0, 0, 0], 
-   [8, 0,-8, 0, 0, 0, 0, 0, 0,-1, 1, 0, 0], 
-   [3, 3, 3,-1,-1,-1,-1,-1,-1, 0, 0, 1, 1], 
-   [3,-1, 3, 1,-1, 1, 3,-1,-1, 0, 0, 1,-1], 
-   [3,-1, 3, 1,-1, 1,-1, 3,-1, 0, 0,-1, 1], 
-   [2, 2, 2, 0, 0, 0, 2, 2, 2,-1,-1, 0, 0], 
-   [4, 0,-4, 2, 0,-2, 0, 0, 0, 1,-1, 0, 0], 
-   [3, 3, 3, 1, 1, 1,-1,-1,-1, 0, 0,-1,-1], 
+  [[3,-1, 3,-1, 1,-1, 3,-1,-1, 0, 0,-1, 1],
+   [3,-1, 3,-1, 1,-1,-1, 3,-1, 0, 0, 1,-1],
+   [4, 0,-4,-2, 0, 2, 0, 0, 0, 1,-1, 0, 0],
+   [1, 1, 1,-1,-1,-1, 1, 1, 1, 1, 1,-1,-1],
+   [6,-2, 6, 0, 0, 0,-2,-2, 2, 0, 0, 0, 0],
+   [8, 0,-8, 0, 0, 0, 0, 0, 0,-1, 1, 0, 0],
+   [3, 3, 3,-1,-1,-1,-1,-1,-1, 0, 0, 1, 1],
+   [3,-1, 3, 1,-1, 1, 3,-1,-1, 0, 0, 1,-1],
+   [3,-1, 3, 1,-1, 1,-1, 3,-1, 0, 0,-1, 1],
+   [2, 2, 2, 0, 0, 0, 2, 2, 2,-1,-1, 0, 0],
+   [4, 0,-4, 2, 0,-2, 0, 0, 0, 1,-1, 0, 0],
+   [3, 3, 3, 1, 1, 1,-1,-1,-1, 0, 0,-1,-1],
    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
   >>> H=reflectionsubgroup(W,[1,2,3]); H.cartantype
   [['A', [0,1,2]]]
@@ -5575,10 +5576,10 @@ def chartableD(n):
   ti=[]   # table of restrictions
   for mu in pt:
     if sum(mu[0])>=sum(mu[1]):
-      b=(2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i] 
+      b=(2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
                                   for i in range(len(mu[1])))+sum(mu[1]))
     else:
-      b=(2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i] 
+      b=(2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
                                   for i in range(len(mu[1])))+sum(mu[0]))
     if mu[0]==mu[1]:
       trouble.append([mu[0][:],b])
@@ -5599,13 +5600,13 @@ def chartableD(n):
     l=0
     for i in [2*d for d in dualpartition(t[0])]:
       l+=i
-      J.remove(l-1) 
+      J.remove(l-1)
    # print t,J, suba,[suba[j] for j in J]
     H=reflectionsubgroup(W,[suba[j] for j in J])
     neu=inducedchar(W,H,[(-1)**len(w) for w in conjugacyclasses(H)['reps']])
     for i in range(len(cl)):
       if binv[i]>t[1]:
-        scal=sum(cl[k]*ti[i][k]*neu[k] for k in range(len(cl)) 
+        scal=sum(cl[k]*ti[i][k]*neu[k] for k in range(len(cl))
                                             if neu[k]!=0)//W.order
         for k in range(len(cl)):
           neu[k]-=scal*ti[i][k]
@@ -5616,15 +5617,15 @@ def chartableD(n):
 
 #F irrchardata
 def irrchardata(typ,n,chars=True):
-  """returns the irreducible characters of the finite Coxeter 
-  group of  type 'typ' and  rank 'n'.  The data  are taken 
-  from the corresponding files in gap-chevie.  
+  """returns the irreducible characters of the finite Coxeter
+  group of  type 'typ' and  rank 'n'.  The data  are taken
+  from the corresponding files in gap-chevie.
 
-  See also 'chartable, 'chartablesymmetric', 'chartableB', 
+  See also 'chartable, 'chartablesymmetric', 'chartableB',
   'chartableD'.
   """
   ti=[[False]]
-  if typ[0]=='A' and n==0: 
+  if typ[0]=='A' and n==0:
     if chars:
       ti=[[1]]
     nam=['1']
@@ -5651,12 +5652,12 @@ def irrchardata(typ,n,chars=True):
     if chars:
       ti=chartableD(n)
     binv,ainv,nam=[],[],[]
-    for mu in partitiontuples(n,2): 
+    for mu in partitiontuples(n,2):
       if sum(mu[0])>=sum(mu[1]):
-        b=(2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i] 
+        b=(2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
                                     for i in range(len(mu[1])))+sum(mu[1]))
       else:
-        b=(2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i] 
+        b=(2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
                                     for i in range(len(mu[1])))+sum(mu[0]))
       if mu[0]==mu[1]:
         binv.append(b)
@@ -5675,7 +5676,7 @@ def irrchardata(typ,n,chars=True):
           [1,-1,1,-1,1,-1],[2,0,0,1,-1,-2],[2,0,0,-1,-1,2]]
     binv=[0,6,3,3,1,2]
     ainv=[0,6,1,1,1,1]
-    nam=["phi_{1,0}","phi_{1,6}","phi_{1,3}'","phi_{1,3}''", 
+    nam=["phi_{1,0}","phi_{1,6}","phi_{1,3}'","phi_{1,3}''",
                                        "phi_{2,1}","phi_{2,2}"]
   if typ[0]=='F':
     if chars:
@@ -6494,8 +6495,8 @@ def irrchardata(typ,n,chars=True):
          "160_z'","448_w","400_z","400_z'","448_z","448_z'","560_z",
          "560_z'","1344_w","840_z","840_z'","1008_z","1008_z'","2016_w",
          "1296_z","1296_z'","1400_zz","1400_zz'","1400_z","1400_z'",
-         "2400_z","2400_z'","2800_z","2800_z'", "5600_w", "3240_z", 
-         "3240_z'", "3360_z", "3360_z'", "7168_w","4096_z", "4096_z'", 
+         "2400_z","2400_z'","2800_z","2800_z'", "5600_w", "3240_z",
+         "3240_z'", "3360_z", "3360_z'", "7168_w","4096_z", "4096_z'",
          "4200_z", "4200_z'", "4536_z", "4536_z'", "5600_z","5600_z'"]
   if typ[0]=='H' and n==3:
     ir5=ir(5);
@@ -6512,7 +6513,7 @@ def irrchardata(typ,n,chars=True):
           [4,0,-1,0,1,-1,-1,1,-1,4]]
     binv=[15,0,5,2,6,8,1,3,3,4]
     ainv=[15,0,5,2,6,6,1,1,3,3]
-    nam=["1_r'", "1_r", "5_r'", "5_r", "3_s", "overline{3}_s", "3_s'", 
+    nam=["1_r'", "1_r", "5_r'", "5_r", "3_s", "overline{3}_s", "3_s'",
           "overline{3}_s'", "4_r'", "4_r" ]
   if typ[0]=='H' and n==4:
     ir5=ir(5)
@@ -6625,14 +6626,14 @@ def irrchardata(typ,n,chars=True):
         ainv=[0,1,1,m]
         nam=["phi_{1,0}","phi_{1,"+str(m//2)+"}'","phi_{1,"+str(m//2)+"}''",
              "phi_{1,"+str(m)+"}"]
-        ti=[len(c)*[1],[(-1)**i.count(1) for i in c],[(-1)**i.count(0) 
+        ti=[len(c)*[1],[(-1)**i.count(1) for i in c],[(-1)**i.count(0)
                                    for i in c],[(-1)**len(i) for i in c]]
         for j in range(1,(m-2)//2+1):
           binv.append(j)
           ainv.append(1)
           nam.append("phi_{2,"+str(j)+"}")
           chi=[2,0,0]
-          chi.extend([z**(j*len(i)//2)+z**(-j*len(i)//2) for i in c[3:]]) 
+          chi.extend([z**(j*len(i)//2)+z**(-j*len(i)//2) for i in c[3:]])
           ti.append(chi)
       else:
         binv=[0,m]
@@ -6644,21 +6645,21 @@ def irrchardata(typ,n,chars=True):
           ainv.append(1)
           nam.append("phi_{2,"+str(j)+"}")
           chi=[2,0]
-          chi.extend([z**(j*len(i)//2)+z**(-j*len(i)//2) for i in c[2:]]) 
+          chi.extend([z**(j*len(i)//2)+z**(-j*len(i)//2) for i in c[2:]])
           ti.append(chi)
   return {'irreducibles':ti, 'names':nam, 'b':binv, 'a1':ainv}
-  
+
 #F chartable
 def chartable(W,chars=True):
-  """returns the  ordinary  character table  of W,  together with related 
+  """returns the  ordinary  character table  of W,  together with related
   additional information.
- 
+
   The result is a dictionary with at least the following entries:
 
     classlengths    sizes of the conjugacy classes
     classnames      see help to 'conjugacyclasses'
     classreps       representatives of minimal length
-    charnames       tuples of names for the characters put together 
+    charnames       tuples of names for the characters put together
                                   from the irreducible components of W
     irreducibles    square matrix of character values
     position_id     position of trivial character
@@ -6666,44 +6667,44 @@ def chartable(W,chars=True):
     position_refl   position of reflection character (W irreducible)
     permsgn         permutation induced by tensoring with sign
     b               b-invariants (see also 'fakedegree')
-    a               a-invariants (with respect to equal parameters; 
+    a               a-invariants (with respect to equal parameters;
                                               see also 'ainvariants').
 
-  The most expensive part of this function  is the  computation of the 
-  character table.  If the optional argument  'chars' is set to False, 
-  then the entry  'irreducibles'  will be omitted,  in which case  the 
-  result  of the  function  is roughly  equivalent  to the  gap-chevie 
+  The most expensive part of this function  is the  computation of the
+  character table.  If the optional argument  'chars' is set to False,
+  then the entry  'irreducibles'  will be omitted,  in which case  the
+  result  of the  function  is roughly  equivalent  to the  gap-chevie
   function 'ChevieCharInfo'.
 
-  The  raw data  for the  various types of  irreducible finite Coxeter 
-  groups  are   explicitly  stored  in  this   module  and  called via 
-  'irrchardata(typ,n)'.  For  a  general  W  the  data  are then built  
-  together  from the irreducible components using  'W.cartantype'. See 
+  The  raw data  for the  various types of  irreducible finite Coxeter
+  groups  are   explicitly  stored  in  this   module  and  called via
+  'irrchardata(typ,n)'.  For  a  general  W  the  data  are then built
+  together  from the irreducible components using  'W.cartantype'. See
   also 'chartablesymmetric', 'chartableB', 'chartableD'.
 
   >>> chartable(coxeter("G",2))
-  {'irreducibles'  : [[1, 1, 1, 1, 1, 1], 
-                      [1,-1,-1, 1, 1, 1], 
-                      [1, 1,-1,-1, 1,-1], 
-                      [1,-1, 1,-1, 1,-1], 
-                      [2, 0, 0, 1,-1,-2], 
-                      [2, 0, 0,-1,-1, 2]], 
+  {'irreducibles'  : [[1, 1, 1, 1, 1, 1],
+                      [1,-1,-1, 1, 1, 1],
+                      [1, 1,-1,-1, 1,-1],
+                      [1,-1, 1,-1, 1,-1],
+                      [2, 0, 0, 1,-1,-2],
+                      [2, 0, 0,-1,-1, 2]],
     'classnames'   : [(' ',),('~A_1',),('A_1',),('G_2',),('A_2',),
-                      ('A_1+~A_1',)], 
+                      ('A_1+~A_1',)],
     'classreps'    : [[],[1],[0],[0,1],[0,1,0,1],[0,1,0,1,0,1]],
     'classlengths' : [1,3,3,2,2,1],
-    'b'            : [0,6,3,3,1,2], 
-    'a'            : [0,6,1,1,1,1], 
+    'b'            : [0,6,3,3,1,2],
+    'a'            : [0,6,1,1,1,1],
     'charnames'    : [('phi_{1,0}',),('phi_{1,6}',),("phi_{1,3}'",),
-                      ("phi_{1,3}'',)",('phi_{2,1}',),('phi_{2,2}',)]], 
-    'position_id'  : 0,              
-    'position_sgn  : 1,              
-    'position_refl': 4,              
-    'permsgn       : [1,0,3,2,4,5]}  
+                      ("phi_{1,3}'',)",('phi_{2,1}',),('phi_{2,2}',)]],
+    'position_id'  : 0,
+    'position_sgn  : 1,
+    'position_refl': 4,
+    'permsgn       : [1,0,3,2,4,5]}
 
   See also 'displaychartable'.
   """
-  if 'chartable' in dir(W) and (chars==False or 
+  if 'chartable' in dir(W) and (chars==False or
                            'irreducibles' in W.chartable.keys()):
     return W.chartable
   t0=irrchardata(W.cartantype[0][0],len(W.cartantype[0][1]),chars)
@@ -6745,7 +6746,7 @@ def chartable(W,chars=True):
 
 #F displaychartable
 def displaychartable(ti):
-  """displays the character table of a Coxeter group (or of an 
+  """displays the character table of a Coxeter group (or of an
   Iwahori-Hecke algebra) in a user-friendly way,  where the
   labelling of the classes and characters is included.
 
@@ -6772,40 +6773,40 @@ def displaychartable(ti):
 
 #F inductiontable
 def inductiontable(H,W,display=False,invchar=False):
-  """computes  the decomposition  of the  induced characters from the 
-  subgroup H into irreducible characters of W. The rows correspond 
-  to the characters of  W,  the  columns to those of the subgroup. 
+  """computes  the decomposition  of the  induced characters from the
+  subgroup H into irreducible characters of W. The rows correspond
+  to the characters of  W,  the  columns to those of the subgroup.
   The result is a dictionary with entries:
-      
+
       scalar      : the induction table proper
-      charW       : names of the characters of W 
+      charW       : names of the characters of W
       charH       : names of the characters of H
 
     >>> W=coxeter("B",3)
     >>> H=reflectionsubgroup(W,[1,2,5]); H.cartantype
     [['A',[0,1,2]]]            # non-parabolic
     >>> inductiontable(H,W)
-    {'scalar': [[1, 0, 0, 0, 0], 
-                [0, 1, 0, 0, 0], 
-                [0, 1, 0, 0, 0], 
-                [1, 0, 0, 0, 0], 
-                [0, 0, 1, 0, 0], 
-                [0, 0, 0, 1, 0], 
-                [0, 0, 0, 1, 0], 
-                [0, 0, 1, 0, 0], 
-                [0, 0, 0, 0, 1], 
-                [0, 0, 0, 0, 1]], 
-     'charH' : [('[1,1,1,1]',), ('[2,1,1]',), ('[2,2]',), ('[3,1]',), 
-                ('[4]',)], 
+    {'scalar': [[1, 0, 0, 0, 0],
+                [0, 1, 0, 0, 0],
+                [0, 1, 0, 0, 0],
+                [1, 0, 0, 0, 0],
+                [0, 0, 1, 0, 0],
+                [0, 0, 0, 1, 0],
+                [0, 0, 0, 1, 0],
+                [0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 1],
+                [0, 0, 0, 0, 1]],
+     'charH' : [('[1,1,1,1]',), ('[2,1,1]',), ('[2,2]',), ('[3,1]',),
+                ('[4]',)],
      'charW' : [('[[1,1,1],[]]',), ('[[1,1],[1]]',), ('[[1],[1,1]]',),
-                ('[[],[1,1,1]]',), ('[[2,1],[]]',), ('[[1],[2]]',), 
-                ('[[2],[1]]',), ('[[],[2,1]]',), ('[[3],[]]',), 
+                ('[[],[1,1,1]]',), ('[[2,1],[]]',), ('[[1],[2]]',),
+                ('[[2],[1]]',), ('[[],[2,1]]',), ('[[3],[]]',),
                 ('[[],[3]]',)]}
 
   With the optional argument 'invchar' one can specify a numerical
-  function  on the  irreducible characters  by which the induction 
+  function  on the  irreducible characters  by which the induction
   will be truncated, for example:
-  
+
   >>> inductiontable(H,W,
   ...           invchar=(lambda G:chartable(G, chars=False)['b']))
 
@@ -6825,9 +6826,9 @@ def inductiontable(H,W,display=False,invchar=False):
     norm1=0
     j=0
     while j<m and norm1<norm:
-      vec[j]=sum(res[k]*ch['irreducibles'][j][k]* 
+      vec[j]=sum(res[k]*ch['irreducibles'][j][k]*
                 ch['classlengths'][k] for k in range(m))//H.order
-      #vec[j]=int(0.5+sum(res[k]*ch['irreducibles'][j][k]* 
+      #vec[j]=int(0.5+sum(res[k]*ch['irreducibles'][j][k]*
       #          ch['classlengths'][k] for k in range(m))//H.order)
       norm1+=vec[j]**2
       j+=1
@@ -6864,14 +6865,14 @@ def checkrepr(W,perms):
 def involutionmodel(W,poids=1):
   """returns the characters afforded by Kottwitz's involution module.
   This is equivalent  to the characters later described by Lusztig
-  and Vogan.  Let  M be a  vector space with a basis {a_w} where w 
-  runs over the set of involutions in W. According to 
+  and Vogan.  Let  M be a  vector space with a basis {a_w} where w
+  runs over the set of involutions in W. According to
 
-    R. Kottwitz, Involutions in Weyl groups, Represent. Theory 4 
+    R. Kottwitz, Involutions in Weyl groups, Represent. Theory 4
                                                     (2000), 1--15,
 
-    G. Lusztig and D. A. Vogan, Jr., Hecke algebras and 
-               involutions in Weyl groups, Bull. Inst. Math. Acad. 
+    G. Lusztig and D. A. Vogan, Jr., Hecke algebras and
+               involutions in Weyl groups, Bull. Inst. Math. Acad.
                                   Sinica (N.S.) 7 (2012), 323--354
 
   the group W acts on M via:
@@ -6884,14 +6885,14 @@ def involutionmodel(W,poids=1):
   conjugacy classes of involutions.
 
   The result is a dictionary with keys given by representatives of
-  the  conjugacy classes of  involutions  and values  given by the 
-  decompositions into irreducibles  of the corresponding pieces of 
+  the  conjugacy classes of  involutions  and values  given by the
+  decompositions into irreducibles  of the corresponding pieces of
   the  involution module.  (The representatives of involutions are
   taken from the 'reps' component of 'conjugacyclasses(W)').
 
   >>> involutionmodel(coxeter("H",3))
   #I Total decomposition:
-  #I [1,1,1,1,1,1,1,1,1,1]      
+  #I [1,1,1,1,1,1,1,1,1,1]
   {'[0,1,0,1,0,2,1,0,1,0,2,1,0,1,2]':[1,0,0,0,0,0,0,0,0,0],
    '[0,2]'                          :[0,0,0,1,1,1,0,0,0,1],
    '[0]'                            :[0,0,1,0,0,0,1,1,1,0],
@@ -6945,11 +6946,11 @@ def involutionmodel(W,poids=1):
           if p[i]==len(inv)+i:
             c-=1
         char.append(c)
-    chisigma[str(x)]=[sum([char[j]*chi[j]*ti['classlengths'][j] 
+    chisigma[str(x)]=[sum([char[j]*chi[j]*ti['classlengths'][j]
           for j in range(len(rr))])//W.order for chi in ti['irreducibles']]
     lprint('\n')
   lprint('#I Total decomposition:\n#I ')
-  lprint(str([sum([chisigma[chi][i] for chi in chisigma.keys()]) 
+  lprint(str([sum([chisigma[chi][i] for chi in chisigma.keys()])
                                          for i in range(len(rr))]))
   lprint('\n')
   return chisigma
@@ -6995,11 +6996,11 @@ def symbol2d(dblpart):
     b[i]+=2*i
   return [a,b]
 
-#F dimBu 
+#F dimBu
 def dimBu(W):
-  """returns, for every irreducible character of a  finite Weyl group, the 
-  dimension of the variety of Borel subgroups containing an  element in 
-  the unipotent class corresponding to that character via the  Springer 
+  """returns, for every irreducible character of a  finite Weyl group, the
+  dimension of the variety of Borel subgroups containing an  element in
+  the unipotent class corresponding to that character via the  Springer
   correspondence (where the underlying algebraic group is defined  over
   a field of characteristic p where either p=0 or p is a good prime.)
 
@@ -7009,11 +7010,11 @@ def dimBu(W):
   [0, 6, 1, 1, 1, 1]
   [0, 6, 3, 3, 1, 2]
 
-  This uses  the explicit  knowledge of the  Springer correspondence in 
-  all cases, as determined by Springer (1977) for A_n,G_2; Shoji (1979) 
+  This uses  the explicit  knowledge of the  Springer correspondence in
+  all cases, as determined by Springer (1977) for A_n,G_2; Shoji (1979)
   and  Lusztig (1984)  for B_n,C_n,D_n;  Shoji (1980)  for F_4;  Alvis-
-  Lusztig (1982) and Spaltenstein (1982) for E_6,E_7,E_8. 
-  
+  Lusztig (1982) and Spaltenstein (1982) for E_6,E_7,E_8.
+
   Note that the function yields different results for B_n and C_n:
 
   >>> dimBu(coxeter("B",3))
@@ -7102,40 +7103,40 @@ def dimBu(W):
                  7,37,19,10,30,11,29,7,37,15,21,13,25,17,9,31,12,24,17,11,26,
                  15,21,13,23,15,21])
     if db==[]:
-      print("#W only works for crystallographic types") 
+      print("#W only works for crystallographic types")
   return [sum(di) for di in cartesian(db)]
 
 #F ainvariants
 def ainvariants(W,weightL=0):
-  """computes  the a-invariants of the irreducible  characters of W with 
-  respect to a weight function. This is done by a recursive procedure 
+  """computes  the a-invariants of the irreducible  characters of W with
+  respect to a weight function. This is done by a recursive procedure
   based on Def. 4.1 in:
 
-    M. Geck, Some applications of CHEVIE in the theory of algebraic 
+    M. Geck, Some applications of CHEVIE in the theory of algebraic
              groups, Carpath. J. Math. 27 (2011), 64-94.
 
-  It requires the character tables and induction tables corresponding 
-  to the various parabolic subgroups of W. 
+  It requires the character tables and induction tables corresponding
+  to the various parabolic subgroups of W.
 
-  A weight function is given  by a sequence of non-negative  integers 
-  corresponding to the  simple reflections of W,  where  weights  for  
-  simple reflections  which are conjugate in W have to be equal. This 
-  gives rise to a weight function  L  from  W to the integers  in the 
-  sense of Lusztig; given w in W, we have 
+  A weight function is given  by a sequence of non-negative  integers
+  corresponding to the  simple reflections of W,  where  weights  for
+  simple reflections  which are conjugate in W have to be equal. This
+  gives rise to a weight function  L  from  W to the integers  in the
+  sense of Lusztig; given w in W, we have
 
        L(w) = weightL[s_1] + weightL[s_2] + ... + weightL[s_k]
 
-  where w=(s_1,...,s_k) is a reduced expression for w.  It is allowed 
-  that weightL is just an integer, in which case all weights will  be 
-  set  equal to that integer.  The default value for weightL is 0, in 
+  where w=(s_1,...,s_k) is a reduced expression for w.  It is allowed
+  that weightL is just an integer, in which case all weights will  be
+  set  equal to that integer.  The default value for weightL is 0, in
   which case all the a-invariants are equal to 0.
 
-  In the case where all weights are equal to 1, the  a-invariants are  
-  given  by the  order of vanishing of the generic degrees associated 
-  with  the  irreducible characters of W;  in this special case,  the 
-  a-invariants are already  contained as one component in the  result 
+  In the case where all weights are equal to 1, the  a-invariants are
+  given  by the  order of vanishing of the generic degrees associated
+  with  the  irreducible characters of W;  in this special case,  the
+  a-invariants are already  contained as one component in the  result
   of 'chartable' (and we use this information here).
- 
+
   See also 'chartable', 'constructible' and 'lusztigfamilies'.
 
   >>> W=coxeter("B",3)
@@ -7158,7 +7159,7 @@ def ainvariants(W,weightL=0):
   gens=[j for j in range(len(cw)) if len(cw[j])==1]
   ti=chartable(W)
   irr=ti['irreducibles']
-  omega=[sum(ti['classlengths'][s]*irr[t][s]*poids[cw[s][0]] 
+  omega=[sum(ti['classlengths'][s]*irr[t][s]*poids[cw[s][0]]
                  for s in gens)//irr[t][0] for t in range(len(cw))]
   tainv=len(irr)*[0]
   for s in W.rank:
@@ -7182,9 +7183,9 @@ def ainvariants(W,weightL=0):
 #F niceprintconstructible
 def niceprintconstructible(cnst,chn):
   if len(cnst)==1:
-    lprint('# one constructible character:\n') 
+    lprint('# one constructible character:\n')
   else:
-    lprint('# '+str(len(cnst))+' constructible characters:\n') 
+    lprint('# '+str(len(cnst))+' constructible characters:\n')
   for x in cnst:
     lprint('# ')
     z=0
@@ -7192,7 +7193,7 @@ def niceprintconstructible(cnst,chn):
       if x[i]!=0:
         if z==1:
           lprint(' + ')
-        if x[i]!=1: 
+        if x[i]!=1:
           lprint(str(x[i])+'*')
         if len(chn[i])==1:
           lprint(chn[i][0])
@@ -7200,33 +7201,33 @@ def niceprintconstructible(cnst,chn):
            lprint(str(chn[i]))
         z=1
     lprint('\n')
-  
+
 #F constructible
 def constructible(W,weightL=1,display=True):
   """computes the constructible characters of W as defined by
-  
-    G. Lusztig, A class of irreducible representations of a finite 
+
+    G. Lusztig, A class of irreducible representations of a finite
                 Weyl group II, Indag. Math. 44 (1982), 219-226.
 
   The result is a dictionary with components:
 
-  'constructibles' :  the matrix containing the multiplicities of the 
-      various irreducible characters in the constructible characters. 
+  'constructibles' :  the matrix containing the multiplicities of the
+      various irreducible characters in the constructible characters.
 
   'families'       : the partition of Irr(W) into families.
 
-  The constructible characters are computed by a recursive procedure, 
-  using induction of characters from parabolic subgroups,  truncation 
-  by a-invariants and tensoring with the sign character.  
+  The constructible characters are computed by a recursive procedure,
+  using induction of characters from parabolic subgroups,  truncation
+  by a-invariants and tensoring with the sign character.
 
-  In the equal parameter case (where weightL=1, default value), these 
-  are known  to be  equal  to the  characters afforded by the various 
+  In the equal parameter case (where weightL=1, default value), these
+  are known  to be  equal  to the  characters afforded by the various
   Kazhdan-Lusztig left cells of W.  The definition and the  algorithm
-  also make sense for general weightL,  but then the  connection with 
+  also make sense for general weightL,  but then the  connection with
   cells is still conjectural.
 
   If the optional argument 'display' is set to False, then  the  step
-  of  printing a  formatted list  of the  constructible characters is 
+  of  printing a  formatted list  of the  constructible characters is
   skipped.
 
   See also 'ainvariants' and 'lusztigfamilies'.
@@ -7238,8 +7239,8 @@ def constructible(W,weightL=1,display=True):
   # [[1], [1]] + [[], [2]]
   # [[1, 1], []] + [[1], [1]]
   # [[], [1, 1]]
-  {'constructibles': 
-     [[0, 0, 0, 1, 0], [0, 1, 0, 0, 1], [1, 1, 0, 0, 0], [0, 0, 1, 0, 0]], 
+  {'constructibles':
+     [[0, 0, 0, 1, 0], [0, 1, 0, 0, 1], [1, 1, 0, 0, 0], [0, 0, 1, 0, 0]],
    'families': [[3], [0, 1, 4], [2]]}
 
   >>> constructible(W,[1,2])       # unequal parameters
@@ -7249,8 +7250,8 @@ def constructible(W,weightL=1,display=True):
   # [[1], [1]]
   # [[], [2]]
   # [[], [1, 1]]
-  {'constructibles': [[0, 0, 0, 1, 0], [1, 0, 0, 0, 0], [0, 1, 0, 0, 0], 
-                      [0, 0, 0, 0, 1], [0, 0, 1, 0, 0]], 
+  {'constructibles': [[0, 0, 0, 1, 0], [1, 0, 0, 0, 0], [0, 1, 0, 0, 0],
+                      [0, 0, 0, 0, 1], [0, 0, 1, 0, 0]],
    'families': [[3], [0], [1], [4], [2]]}
 
   >>> constructible(W,[1,0])       # unequal parameters
@@ -7258,7 +7259,7 @@ def constructible(W,weightL=1,display=True):
   # [[2], []] + [[], [2]]
   # [[1], [1]]
   # [[1, 1], []] + [[], [1, 1]]
-  {'constructibles': [[0, 0, 0, 1, 1], [0, 1, 0, 0, 0], [1, 0, 1, 0, 0]], 
+  {'constructibles': [[0, 0, 0, 1, 1], [0, 1, 0, 0, 0], [1, 0, 1, 0, 0]],
    'families': [[3, 4], [1], [0, 2]]}
 
   >>> c=constructible(coxeter("F",4))
@@ -7349,8 +7350,8 @@ def constructible(W,weightL=1,display=True):
 
 #F lusztigpreceq
 def lusztigpreceq(W,poids,display=False):
-  """returns the incidence matrix needed for determining families 
-  and  the  pre-order relation on them;  see 'lusztigfamilies' 
+  """returns the incidence matrix needed for determining families
+  and  the  pre-order relation on them;  see 'lusztigfamilies'
   for further details.
   """
   ti=chartable(W)
@@ -7380,11 +7381,11 @@ def lusztigpreceq(W,poids,display=False):
     for psi1 in range(len(au)):
       for psi2 in range(len(au)):
         if fam1[psi1][psi2]:
-          for chi1 in filter(lambda i:ag[i]==au[psi1] and 
+          for chi1 in filter(lambda i:ag[i]==au[psi1] and
                                  it[i][psi1]!=0,range(len(ag))):
-            for chi2 in filter(lambda j:it[j][psi2]!=0,range(len(ag))): 
+            for chi2 in filter(lambda j:it[j][psi2]!=0,range(len(ag))):
               fam[chi1][chi2]=True
-              fam[ti['permsgn'][chi2]][ti['permsgn'][chi1]]=True  
+              fam[ti['permsgn'][chi2]][ti['permsgn'][chi1]]=True
     for chi in range(len(ag)):  # transitive closure
       orb=[chi]
       for chi1 in orb:
@@ -7393,13 +7394,13 @@ def lusztigpreceq(W,poids,display=False):
             orb.append(chi2)
       for chi1 in orb:
         fam[chi][chi1]=True
-  return fam 
-   
+  return fam
+
 #F lusztigfamilies
 def lusztigfamilies(W,weightL=1):
-  """returns the partition of the set of irreducible characters of W 
+  """returns the partition of the set of irreducible characters of W
   into families, as defined in Chapter 4 of:
-  
+
     G. Lusztig, Characters of reductive groups over a finite field
                 (Princeton University Press 1984).
 
@@ -7410,44 +7411,44 @@ def lusztigfamilies(W,weightL=1):
     'ainv'    :       constant values of a-invariants on families
     'hasse'   :       neighboring relations in partial order.
 
-  (See also 'ainvariants'.)  Here, we refer to  the partial order 
+  (See also 'ainvariants'.)  Here, we refer to  the partial order
   on families defined in:
 
-    M. Geck, On the Kazhdan-Lusztig order of cells and families 
-            (Comm.  Math. Helv. 87, pp. 905--927, 2012). 
+    M. Geck, On the Kazhdan-Lusztig order of cells and families
+            (Comm.  Math. Helv. 87, pp. 905--927, 2012).
 
-  The construction  uses a  recursive procedure,  similar to that 
-  for constructible characters.  (See  also 'constructible'.)  In  
-  the equal parameter case (where  weightL=1, default value), the 
-  families and the partial order  are known to  correspond to the 
-  two-sided  Kazhdan-Lusztig cells and the  natural partial order 
-  on them. 
+  The construction  uses a  recursive procedure,  similar to that
+  for constructible characters.  (See  also 'constructible'.)  In
+  the equal parameter case (where  weightL=1, default value), the
+  families and the partial order  are known to  correspond to the
+  two-sided  Kazhdan-Lusztig cells and the  natural partial order
+  on them.
 
   >>> lusztigfamilies(coxeter("H",3))
-  'families': {[[1], [6,7], [3], [8,9], [2], [4,5], [0]], 
-  'names'   :  [[('1_r',)], [("3_s'",), ("overline{3}_s'",)], 
-                [('5_r',)], [("4_r'",), ('4_r',)], [("5_r'",)], 
+  'families': {[[1], [6,7], [3], [8,9], [2], [4,5], [0]],
+  'names'   :  [[('1_r',)], [("3_s'",), ("overline{3}_s'",)],
+                [('5_r',)], [("4_r'",), ('4_r',)], [("5_r'",)],
                 [('3_s',), ('overline{3}_s',)], [("1_r'",)]],
-  'ainv'    : [0, 1, 2, 3, 5, 6, 15], 
-  'hasse'   : [[0,1], [1,2], [2,3], [3,4], [4,5], [5,6]]} 
+  'ainv'    : [0, 1, 2, 3, 5, 6, 15],
+  'hasse'   : [[0,1], [1,2], [2,3], [3,4], [4,5], [5,6]]}
 
-  Thus, there are 7 families in this case, and the partial  order 
+  Thus, there are 7 families in this case, and the partial  order
   is a linear order.
-  
-  >>> W=coxeter("B",2) 
+
+  >>> W=coxeter("B",2)
   >>> lusztigfamilies(W)      # equal parameters
-  'families': {[[3], [0,1,4], [2]], 
-  'names'  :  [[('[[2], []]',)], [('[[1,1], []]',), ('[[1], [1]]',), 
+  'families': {[[3], [0,1,4], [2]],
+  'names'  :  [[('[[2], []]',)], [('[[1,1], []]',), ('[[1], [1]]',),
                 ('[[], [2]]',)], [('[[], [1, 1]]',)]],
-  'ainv'   : [0, 1, 4], 
+  'ainv'   : [0, 1, 4],
   'hasse'  : [[0, 1], [1, 2]]}
 
   >>> lusztigfamilies(W,[2,1])
-  'families': [[3], [0], [1], [4], [2]], 
-  'names'   : [[('[[2], []]',)], [('[[1, 1], []]',)], [('[[1], [1]]',)], 
+  'families': [[3], [0], [1], [4], [2]],
+  'names'   : [[('[[2], []]',)], [('[[1, 1], []]',)], [('[[1], [1]]',)],
                [('[[], [2]]',)], [('[[], [1, 1]]',)]]}
-  'ainv'    : [0, 1, 2, 3, 6], 
-  'hasse'   : [[0, 1], [1, 2], [2, 3], [3, 4]], 
+  'ainv'    : [0, 1, 2, 3, 6],
+  'hasse'   : [[0, 1], [1, 2], [2, 3], [3, 4]],
   """
   if type(weightL)==type(0):
     poids=len(W.rank)*[weightL]
@@ -7461,7 +7462,7 @@ def lusztigfamilies(W,weightL=1):
       return {'hasse':[],'ainv':[0],'families':[[0,1]],
                                           'names':[['[1,1]','[2]']]}
     else:
-      return {'hasse':[[0,1]],'ainv':[0,1],'families':[[1],[0]], 
+      return {'hasse':[[0,1]],'ainv':[0,1],'families':[[1],[0]],
                                           'names':[['[2]'],['[1,1]']]}
 
   ag=ainvariants(W,poids)
@@ -7485,45 +7486,45 @@ def lusztigfamilies(W,weightL=1):
   rest=[]
   for chi1 in fam1:
     for chi2 in fam1:
-      if chi1!=chi2 and any(any(fam[psi1][psi2] 
+      if chi1!=chi2 and any(any(fam[psi1][psi2]
                             for psi2 in chi2) for psi1 in chi1):
         rest.append([fam1.index(chi1),fam1.index(chi2)])
   hasse=[]
   for chi1 in range(len(fam1)):
     for chi2 in range(len(fam1)):
       if chi1!=chi2 and [chi1,chi2] in rest:
-        if not any(chi!=chi1 and chi!=chi2 and [chi1,chi] in rest 
+        if not any(chi!=chi1 and chi!=chi2 and [chi1,chi] in rest
                     and [chi,chi2] in rest for chi in range(len(fam1))):
           hasse.append([chi1,chi2])
   for h in hasse:
     if ag[fam1[h[0]][0]]>ag[fam1[h[1]][0]]:
       check=False
   if len(fam1)==1:
-    lprint(' '+str(len(fam1))+' family; ') 
+    lprint(' '+str(len(fam1))+' family; ')
   else:
-    lprint(' '+str(len(fam1))+' families; ') 
-  lprint(' monotony of a-function is '+str(check)+'\n') 
-  return {'families':fam1, 'ainv':[ag[x[0]] for x in fam1],'hasse':hasse, 
+    lprint(' '+str(len(fam1))+' families; ')
+  lprint(' monotony of a-function is '+str(check)+'\n')
+  return {'families':fam1, 'ainv':[ag[x[0]] for x in fam1],'hasse':hasse,
           'names':[[ti['charnames'][i] for i in f] for f in fam1]}
 
 #F poincarepol
 def poincarepol(W,paramL):
   """returns the  Poincare polynomial  of a finite Coxeter group with
-  respect to a list of parameters. This is defined by 
+  respect to a list of parameters. This is defined by
 
                  P_W = sum_{w in W} ind(w)
 
-  where  ind(w)=paramL[s_1]* ... *paramL[s_k] and w=s_1...s_k is a 
+  where  ind(w)=paramL[s_1]* ... *paramL[s_k] and w=s_1...s_k is a
   reduced expression for w.  The parameters are a list of elements
-  in a base ring,  one for each  simple reflection in W, such that 
-  two  parameters are equal whenever the corresponding reflections  
-  are conjugate in  W.  For example,  a typical parameter list  is 
-  given by [u^a,u^b,...] where [a,b,...] form a list of weights as 
-  in 'ainvariants' and u is some indeterminate. It is allowed that 
-  the argument  paramL  is just  one element,  in  which  case all 
-  parameters will be set equal to that element; the  default value 
+  in a base ring,  one for each  simple reflection in W, such that
+  two  parameters are equal whenever the corresponding reflections
+  are conjugate in  W.  For example,  a typical parameter list  is
+  given by [u^a,u^b,...] where [a,b,...] form a list of weights as
+  in 'ainvariants' and u is some indeterminate. It is allowed that
+  the argument  paramL  is just  one element,  in  which  case all
+  parameters will be set equal to that element; the  default value
   is 1, in which case the function returns the group order.
- 
+
   >>> W=coxeter("G",2)
   >>> v=lpol([1],1,'v')
   >>> p=poincarepol(W,v); p
@@ -7554,10 +7555,10 @@ def poincarepol(W,paramL):
 #F classpolynomials
 def classpolynomials(W,paramL,pw):
   """computes the  class polynomials  of  an  element  (given as  a full
-  permutation on the roots)  with  respect  to a set  of  parameters. 
-  This is done by a recursive algorithm  (see  [Ge-Pf, 8.2.3, 8.2.7])  
-  based on 'testcyclishift'. More precisely, let f_{w,C} be the class 
-  polynomial for an element w in W and a conjugacy class C of W. Then  
+  permutation on the roots)  with  respect  to a set  of  parameters.
+  This is done by a recursive algorithm  (see  [Ge-Pf, 8.2.3, 8.2.7])
+  based on 'testcyclishift'. More precisely, let f_{w,C} be the class
+  polynomial for an element w in W and a conjugacy class C of W. Then
 
    f_{w,C} = 1 if w has minimal length in C;
 
@@ -7566,32 +7567,32 @@ def classpolynomials(W,paramL,pw):
    f_{w,C} = f_{w',C} if w,w' are conjugate by cyclic shift;
 
    f_{w,C} = paramL[s] f_{sws,C} + (paramL[s]-1) f_{sw,C}
-      
+
                                where s in S is such that l(sws)<l(w).
 
-  The parameters are a list of elements in a base ring,  one for each  
-  simple reflection in W, such that two parameters are equal whenever 
-  the corresponding reflections  are conjugate in W.  For example,  a 
-  typical parameter list  is given by  [u^a,u^b,...]  where [a,b,...] 
-  form a list of weights as used in the function 'ainvariants', and u 
-  is some indeterminate.  It is  allowed  that the argument paramL is 
-  just one element, in which case all parameters will be set equal to 
-  that element. 
+  The parameters are a list of elements in a base ring,  one for each
+  simple reflection in W, such that two parameters are equal whenever
+  the corresponding reflections  are conjugate in W.  For example,  a
+  typical parameter list  is given by  [u^a,u^b,...]  where [a,b,...]
+  form a list of weights as used in the function 'ainvariants', and u
+  is some indeterminate.  It is  allowed  that the argument paramL is
+  just one element, in which case all parameters will be set equal to
+  that element.
 
   The class polynomials are used to  compute the  character values of
-  Iwahori-Hecke algebras at basis elements  T_w for arbitrary w in W. 
-  See also 'heckechartable'. (Note that the parameters used there are 
-  square roots of the parameters used here.) 
+  Iwahori-Hecke algebras at basis elements  T_w for arbitrary w in W.
+  See also 'heckechartable'. (Note that the parameters used there are
+  square roots of the parameters used here.)
 
   The following example is done in sage:
 
   >>> W=coxeter("A",3)
   >>> R.<u>=QQ['u']
   >>> classpolynomials(W,[u,u,u],longestperm(W))
-  [0, 0, u^2, u^3-2*u^2+u, u^3-u^2+u-1]   
+  [0, 0, u^2, u^3-2*u^2+u, u^3-u^2+u-1]
 
-  See also 'allclasspolynomials',  especially  if you need the  class 
-  polynomials for several elements,  or  elements  of  relatively big 
+  See also 'allclasspolynomials',  especially  if you need the  class
+  polynomials for several elements,  or  elements  of  relatively big
   length.
   """
   if type(paramL)==type([]):
@@ -7610,7 +7611,7 @@ def classpolynomials(W,paramL,pw):
 
 #F testcyclicshift1
 def testcyclicshift1(W,w,pw):
-  """returns the cyclic shift orbit of an element together with some 
+  """returns the cyclic shift orbit of an element together with some
   additional information, for us in 'allclasspolynomials'.
   """
   bahn=[pw[:]]
@@ -7637,29 +7638,29 @@ def testcyclicshift1(W,w,pw):
 #F allclasspolynomials
 def allclasspolynomials(W,paramL,maxl=-1):
   """returns the class polynomials for all elements of a finite  Coxeter
-  group of length at most maxl. (In many situations, this may be more 
-  efficient than calling repeatedly 'classpolynomials'.)  If  maxl is 
+  group of length at most maxl. (In many situations, this may be more
+  efficient than calling repeatedly 'classpolynomials'.)  If  maxl is
   not specified, then the class polynomials for all elements  will be
   returned. The result is a dictionary with the elements of W as keys
   (given as coxelms) and values given by the class polynomials.
 
-  >>> W=coxeter("I5",2) 
+  >>> W=coxeter("I5",2)
   >>> c=allclasspolynomials(W,v); c
-  {(0, 1): [1, 0, 0, 0], 
-   (4, 7): [0, 0, 1, 0], 
-   (7, 0): [0, 0, 0, 1], 
-   (2, 9): [0, v, -1+v, 0], 
-   (9, 3): [0, v, -1+v, 0], 
-   (1, 8): [0, 0, 0, 1], 
-   (3, 6): [0, 1, 0, 0], 
-   (5, 2): [0, 1, 0, 0], 
-   (6, 5): [0, v**2, -v+v**2, -1+v], 
+  {(0, 1): [1, 0, 0, 0],
+   (4, 7): [0, 0, 1, 0],
+   (7, 0): [0, 0, 0, 1],
+   (2, 9): [0, v, -1+v, 0],
+   (9, 3): [0, v, -1+v, 0],
+   (1, 8): [0, 0, 0, 1],
+   (3, 6): [0, 1, 0, 0],
+   (5, 2): [0, 1, 0, 0],
+   (6, 5): [0, v**2, -v+v**2, -1+v],
    (8, 4): [0, 0, 1, 0]}
   >>> [W.coxelmtoword(w) for w in c.keys()]
-  [[], [1, 0], [0, 1, 0, 1], [1, 0, 1], [0, 1, 0], [1, 0, 1, 0], 
+  [[], [1, 0], [0, 1, 0, 1], [1, 0, 1], [0, 1, 0], [1, 0, 1, 0],
    [1], [0], [0, 1, 0, 1, 0], [0, 1]]
-  
-  See also 'classpolynomials' and 'heckecharvalues'. 
+
+  See also 'classpolynomials' and 'heckecharvalues'.
   """
   if maxl==-1:
     maxlen=W.N
@@ -7698,7 +7699,7 @@ def allclasspolynomials(W,paramL,maxl=-1):
     cps={}
     if maxlen>20:
       lprint('-')
-    while nl!=set([]): 
+    while nl!=set([]):
       cw=next(iter(nl))
       cw1=W.coxelmtoword(cw)
       pc1=W.wordtoperm(cw1)
@@ -7725,13 +7726,13 @@ def allclasspolynomials(W,paramL,maxl=-1):
   res={}
   for l in cpmat:
     for x in l.keys():
-      res[x]=l[x] 
+      res[x]=l[x]
   return res
 
 #F starkey
 def starkey(n,u):
   """returns the matrix required by Starkey's Rule (see [Ge-Pf, 9.2.11])
-  to  produce  the character table  of the  Iwahori-Hecke  algebra of 
+  to  produce  the character table  of the  Iwahori-Hecke  algebra of
   type A.
   """
   W=coxeter("A",n-1)
@@ -7767,7 +7768,7 @@ def starkey(n,u):
 #F heckevalueB
 def heckevalueB(n,q,Q,gamma,pi):
   """returns  a character value of the generic Iwahori-Hecke algebra
-  of type  B_n.  Here,  gamma and pi are bipartitions labelling a 
+  of type  B_n.  Here,  gamma and pi are bipartitions labelling a
   conjugacy class  and  an  irreducible character,  respectively.
   (This function is taken from the gap-chevie library.)  It works
   quite efficiently even for large values of n.
@@ -7778,9 +7779,9 @@ def heckevalueB(n,q,Q,gamma,pi):
     >>> [[heckevalueB(n,q,Q,a,b) for b in p] for a in p]
 
   will yield the complete character table (with the same ordering
-  of the rows and columns as in 'heckechartable'). If q,Q are set 
-  equal to 1,  then  'heckevalueB' yields an individual  entry of 
-  the ordinary character table of W(B_n). 
+  of the rows and columns as in 'heckechartable'). If q,Q are set
+  equal to 1,  then  'heckevalueB' yields an individual  entry of
+  the ordinary character table of W(B_n).
 
   >>> heckevalueB(20,v**2,v**3,[[8,6,2],[2,2]],[[4,4,4],[4,4]])
   -30*v**24+324*v**26-1620*v**28+4500*v**30-7719*v**32+8499*v**34
@@ -7815,7 +7816,7 @@ def heckevalueB(n,q,Q,gamma,pi):
         if dif!=False and dif['cc']==1:
           val+=Q*(-1)**(dif['ll'])*q**(n+dif['d'])*heckevalueB(n-k,q,Q,
             [alpha,gamma[1]],[pi[0],[pi[1][i] for i in range(1,len(pi[1]))]])
-    nn=sum(gamma[1]) 
+    nn=sum(gamma[1])
     if nn>=k:
       for alpha in partitions(nn-k):
         dif=differencepartitions(gamma[1],alpha)
@@ -7865,7 +7866,7 @@ def heckeD(n,v):
     nti1=heckechartable(W1,v)['irreducibles']
     for c in fus:
       if not c in cc:
-        tr.append([sum(i[j]*nti1[j][fus.index(c)] 
+        tr.append([sum(i[j]*nti1[j][fus.index(c)]
                       for j in range(len(nti1))) for i in ind])
         cc.append(c)
   #fint=transposemat([tr[cc.index(i)] for i in range(len(cc))])
@@ -7876,26 +7877,26 @@ def heckeD(n,v):
 #F heckeirrdata
 def heckeirrdata(typ,n,paramL):
   """returns a table of raw data for the computation of the character
-  table of the  Iwahori-Hecke algebra of type 'typ' and  rank 'n', 
+  table of the  Iwahori-Hecke algebra of type 'typ' and  rank 'n',
   with parameters given by 'paramL'.  More precisely, the function
-  returns a triple  [cc, ch, t1] where cc is a list of indices for 
+  returns a triple  [cc, ch, t1] where cc is a list of indices for
   conjugacy classes,  ch is a list of indices  for characters, and
-  t1 is the matrix of the corresponding character values. The data  
+  t1 is the matrix of the corresponding character values. The data
   are extracted from the corresponding files in  gap-chevie.  From
-  these data, the complete character table can  be computed  using 
+  these data, the complete character table can  be computed  using
   some standard procedures:
     * restriction to parabolic subalgebras (see [Ge-Pf, 9.1.9]),
     * taking dual characters (see [Ge-Pf, 9.4.1]),
-    * only in  types A,D,E,H:  taking roots of the longest element 
-      in the braid group (see [Ge-Pf, 9.2.8]);  
-  these procedures are performed in the function 'heckechartable'. 
+    * only in  types A,D,E,H:  taking roots of the longest element
+      in the braid group (see [Ge-Pf, 9.2.8]);
+  these procedures are performed in the function 'heckechartable'.
 
-  In this way, even for example in type E_8, we only need to store 
+  In this way, even for example in type E_8, we only need to store
   a table  of polynomials  of size  18x65 (instead of 112x112); in
   type A, nothing needs to be stored:  the whole table is computed
-  using the above procedures. 
+  using the above procedures.
   """
-  if typ[0]=='A' and n==0: 
+  if typ[0]=='A' and n==0:
     cc=[0]    # list of classes which are stored
     ch=[0]    # list of characters which are stored
     t1=[[1]]
@@ -7908,16 +7909,16 @@ def heckeirrdata(typ,n,paramL):
     #t=chartable(coxeter("A",n))['irreducibles']
     #t1=[[sum(t[i][k]*sti[k][j] for k in range(len(cl)))//cl[0]
     #                for j in range(len(cl))] for i in range(len(cl))]
-    cc=[]  
+    cc=[]
     ch=[]
     t1=[[]]
-  if typ[0]=='B' and n==2:   
+  if typ[0]=='B' and n==2:
     v=paramL[0]**2
     u=paramL[1]**2    #  v == u
     cc=[2,4]
     ch=[0,1,2,3,4]
     t1=[[u**2,-u],[-2*v*u,0],[1,1],[v**2*u**2,v*u],[v**2,-v]]
-  if typ[0]=='C' and n==2:   # u == v 
+  if typ[0]=='C' and n==2:   # u == v
     v=paramL[0]**2
     u=paramL[1]**2    #  u == v
     cc=[2,4]
@@ -7925,7 +7926,7 @@ def heckeirrdata(typ,n,paramL):
     t1=[[v**2,-v],[-2*v*u,0],[1,1],[v**2*u**2,v*u],[u**2,-u]]
   if (typ[0]=='B' or typ[0]=='C') and n>=3:
     v=paramL[0]**2
-    u=paramL[1]**2    #  v == u -- u -- ... --- u 
+    u=paramL[1]**2    #  v == u -- u -- ... --- u
     p=partitiontuples(n,2)
     cc=[i for i in range(len(p)) if p[i][0]==[]]
     ch=list(range(len(p)))
@@ -7963,15 +7964,15 @@ def heckeirrdata(typ,n,paramL):
       ch=list(range(len(t1)))
   if typ[0]=='G':
     u=paramL[0]**2
-    v=paramL[1]**2   # u === v 
+    v=paramL[1]**2   # u === v
     squv=paramL[0]*paramL[1]
     cc=[3,4,5]
     ch=[0,1,2,3,4,5]
-    t1=[[v*u,v**2*u**2,v**3*u**3],[1,1,1],[-v,v**2,-v**3],[-u,u**2,-u**3], 
+    t1=[[v*u,v**2*u**2,v**3*u**3],[1,1,1],[-v,v**2,-v**3],[-u,u**2,-u**3],
         [squv,-v*u,-2*squv**3],[-squv,-v*u,2*squv**3]]
   if typ[0]=='F':
     u=paramL[0]**2
-    v=paramL[2]**2    #  u -- u == v -- v 
+    v=paramL[2]**2    #  u -- u == v -- v
     cc=[i-1 for i in [2,5,6,8,9,10,11,24,25]]
     ch=[i-1 for i in [1,2,5,7,9,10,11,14,15,16,17,18,21,23,25]]
     t1=[[v**12*u**12,v**6*u**4,v**6*u**6,v**4*u**6,v**8*u**8,v**4*u**4,
@@ -8012,7 +8013,7 @@ def heckeirrdata(typ,n,paramL):
     ch=[i-1 for i in [1,3,4,6,7,9,11,13,15,17,18,19,20,22,24]]
     t1=[[v**28],[-v**16+2*v**14-v**12],[-2*v**22],[-2*v**14],
         [v**20+v**16],[v**20],[-v**22+2*v**20],[v**18-2*v**16],
-        [-v**16],[-v**16+2*v**14-v**12],[v**16+v**12], 
+        [-v**16],[-v**16+2*v**14-v**12],[v**16+v**12],
         [-v**16+2*v**14-v**12],[-2*v**16+v**14],[0],[0]]
   if typ[0]=="E" and n==7:
     v=paramL[0]
@@ -8204,7 +8205,7 @@ def heckeirrdata(typ,n,paramL):
          -v**54+6*v**56-9*v**58+4*v**60-2*v**62,0,0,0,0,0,0,
          4*v**56-3*v**58-v**62,0,0,0,-2*v**32+v**34],
         [-15*v**56-64*v**58+60*v**60-10*v**64+60*v**68-64*v**70-15*v**72,
-         18*v**40-48*v**42+18*v**44, 
+         18*v**40-48*v**42+18*v**44,
          5*v**40-32*v**42+42*v**44-32*v**46+5*v**48,
          4*v**60-36*v**64+64*v**66-36*v**68+4*v**72,
          v**24+6*v**32+v**40,v**40-12*v**42+18*v**44-12*v**46+v**48,
@@ -8539,19 +8540,19 @@ def heckeirrdata(typ,n,paramL):
 
 #F heckechartable
 def heckechartable(W,paramL=1):
-  """returns  the character table of the Iwahori-Hecke algebra of W. 
-  Here,  'paramL'  is a  list of elements in a base ring, one for 
-  each simple reflection in W, such that two parameters are equal 
-  whenever the corresponding reflections are conjugate in W.  For 
+  """returns  the character table of the Iwahori-Hecke algebra of W.
+  Here,  'paramL'  is a  list of elements in a base ring, one for
+  each simple reflection in W, such that two parameters are equal
+  whenever the corresponding reflections are conjugate in W.  For
   example, a typical parameter  list is given by  [u^a, u^b, ...]
   where [a,b,...] are a list of weights as in 'ainvariants'.
 
-  It is allowed that  paramL  is just one element,  in which case 
-  all parameters  will be set equal to that element.  The default 
+  It is allowed that  paramL  is just one element,  in which case
+  all parameters  will be set equal to that element.  The default
   value  is 1,  in which case  the function returns the  ordinary
   character table of W.
 
-  The Iwahori-Hecke algebra of W is an  associative algebra  with 
+  The Iwahori-Hecke algebra of W is an  associative algebra  with
   a basis {T_w | w in W}. The multiplication is given as follows:
 
    T_s*T_w=T_{sw}   if l(sw)=l(w)+1
@@ -8563,21 +8564,21 @@ def heckechartable(W,paramL=1):
   that v is  not a root of unity,  the algebra is  semisimple and
   abstractly isomorphic to the  group algebra of W. Its character
   table is a v-deformation of the ordinary character  table of W.
-  The  function returns the square matrix of character values  on 
-  the elements {v(w) T_w}  where  w runs over  a complete  set of 
-  representatives of minimal length in the conjugacy classes of W  
-  (as returned by 'conjugacyclasses(W)')  and v(w) is the product 
-  of the parameter values  paramL[s] where  s runs over a reduced 
-  expression of w.  If all parameters are  specialised to 1, then 
+  The  function returns the square matrix of character values  on
+  the elements {v(w) T_w}  where  w runs over  a complete  set of
+  representatives of minimal length in the conjugacy classes of W
+  (as returned by 'conjugacyclasses(W)')  and v(w) is the product
+  of the parameter values  paramL[s] where  s runs over a reduced
+  expression of w.  If all parameters are  specialised to 1, then
   the resulting matrix  is the ordinary character  table of W (as
   returned by 'chartable(W)').
 
   >>>  heckechartable(coxeter("B",2),[v**3,v**2])
-  {'irreducibles': [[1,    v**4,     v**8,      -1, -v**4], 
-                    [2, -1+v**4, -2*v**10, -1+v**6,     0], 
-                    [1,      -1,        1,      -1,     1], 
-                    [1,    v**4,    v**20,    v**6, v**10], 
-                    [1,      -1,    v**12,    v**6, -v**6]], 
+  {'irreducibles': [[1,    v**4,     v**8,      -1, -v**4],
+                    [2, -1+v**4, -2*v**10, -1+v**6,     0],
+                    [1,      -1,        1,      -1,     1],
+                    [1,    v**4,    v**20,    v**6, v**10],
+                    [1,      -1,    v**12,    v**6, -v**6]],
    'coxeter': coxeter('B',2), 'params': [v**3, v**2]}
 
   See also 'classpolynomials', 'heckecharvalues', 'schurelms' and
@@ -8622,7 +8623,7 @@ def heckechartable(W,paramL=1):
       for i in range(len(ch)):
         i1=ti['permsgn'][ch[i]]
         if i1>ch[i]:
-          matv.append([(-1)**lc[cc[j]]*cind[cc[j]]**2*tt1[i][j] 
+          matv.append([(-1)**lc[cc[j]]*cind[cc[j]]**2*tt1[i][j]
                                                for j in range(len(cc))])
           nch.append(i1)
       matv=[matv[nch.index(i)] for i in range(len(nch))]
@@ -8630,7 +8631,7 @@ def heckechartable(W,paramL=1):
       nti['irreducibles']=matv
     else:
       tr=transposemat(matv)
-      onegood=[c for c in range(len(cl)) if set(cl[c])==set(W.rank) and 
+      onegood=[c for c in range(len(cl)) if set(cl[c])==set(W.rank) and
                                                                 not c in cc]
       if list(onegood)!=[]:      # add 1-good classes
         for c in onegood:
@@ -8654,39 +8655,39 @@ def heckechartable(W,paramL=1):
         nti1=heckechartable(W1,[vs[u] for u in J])['irreducibles']
         for c in fus:
           if not c in cc:
-            tr.append([sum(i[j]*nti1[j][fus.index(c)] 
+            tr.append([sum(i[j]*nti1[j][fus.index(c)]
                           for j in range(len(nti1))) for i in ind])
             cc.append(c)
-      nti['irreducibles']=transposemat([tr[cc.index(i)] 
+      nti['irreducibles']=transposemat([tr[cc.index(i)]
                                           for i in range(len(cc))])
   return nti
-  
+
 #F heckecharvalues
 def heckecharvalues(W,paramL,lw,clpols=[]):
-  """returns  the  character values of a generic Iwahori-Hecke algebra 
-  on all basis elements  T_w  where  w runs  over a given list. The 
-  algebra is defined  with respect to  the parameters  specified by 
+  """returns  the  character values of a generic Iwahori-Hecke algebra
+  on all basis elements  T_w  where  w runs  over a given list. The
+  algebra is defined  with respect to  the parameters  specified by
   the argument paramL; see also 'heckechartable'. For w in W and an
-  irreducible character chi, we have 
+  irreducible character chi, we have
 
      chi(v(w) T_w) = sum_C  f_{w,C} chi(T_C)
 
-  where  f_{w,C}  are the class polynomials  and  chi(T_C) are  the 
-  entries  of the character table of the Iwahori-Hecke algebra. The 
-  argument  lw  contains the list of  elements,  given  as  reduced 
+  where  f_{w,C}  are the class polynomials  and  chi(T_C) are  the
+  entries  of the character table of the Iwahori-Hecke algebra. The
+  argument  lw  contains the list of  elements,  given  as  reduced
   expressions, for which the character values are to be computed.
 
   >>> W=coxeter("B",2)
   >>> a=allwords(W); a
   [[], [0], [1], [0, 1], [1, 0], [0, 1, 0], [1, 0, 1], [0, 1, 0, 1]]
   >>> heckecharvalues(W,[v**3,v**2],a)
-  [[    1,           2,  1,     1,      1], 
-   [   -1,     -1+v**6, -1,  v**6,   v**6], 
-   [ v**4,     -1+v**4, -1,  v**4,     -1], 
-   [-v**4,           0,  1, v**10,  -v**6], 
-   [-v**4,           0,  1, v**10,  -v**6], 
+  [[    1,           2,  1,     1,      1],
+   [   -1,     -1+v**6, -1,  v**6,   v**6],
+   [ v**4,     -1+v**4, -1,  v**4,     -1],
+   [-v**4,           0,  1, v**10,  -v**6],
+   [-v**4,           0,  1, v**10,  -v**6],
    [ v**4, -v**6+v**10, -1, v**16, -v**12],
-   [-v**8, -v**4+v**10, -1, v**14,   v**6], 
+   [-v**8, -v**4+v**10, -1, v**14,   v**6],
    [ v**8,    -2*v**10,  1, v**20,  v**12]]
 
   See also 'heckechartable' and 'classpolynomials'.
@@ -8711,31 +8712,31 @@ def heckecharvalues(W,paramL,lw,clpols=[]):
 
 #F heckecentraltable
 def heckecentraltable(W,paramL):
-  """returns the matrix of central character values on the standard basis of 
-  the  centre of a generic Iwahori-Hecke algebra. This matrix is uniquely 
+  """returns the matrix of central character values on the standard basis of
+  the  centre of a generic Iwahori-Hecke algebra. This matrix is uniquely
   determined  by the condition that its product with the transpose of the
-  character table of  the algebra  is the  diagonal matrix  with diagonal 
+  character table of  the algebra  is the  diagonal matrix  with diagonal
   entries given by the Schur elements.
 
-  (The current  implementation  uses class polynomials  and,  hence, will 
+  (The current  implementation  uses class polynomials  and,  hence, will
   only work for W  of order at most around 50000.  I intend to add a more
-  efficient version, which will also be meant to work  for W of type E_8, 
+  efficient version, which will also be meant to work  for W of type E_8,
   in a later version.)
 
   >>> W=coxeter("B",2)
   >>> v=lpol([1],1,'v')
   >>> ti=heckechartable(W,[v**2,v])
   >>> ct=heckecentraltable(W,[v**2,v]); ct
-  [[1,       v**(-4)+1, v**(-8),-v**(-4)-v**(-2),         -v**(-8)-v**(-2)], 
-   [1,      -v**(-2)+1,-v**(-6),      -v**(-4)+1,v**(-6)-v**(-4)-v**(-2)+1], 
-   [1,-v**(-6)-v**(-2),v**(-12),-v**(-6)-v**(-4),         v**(-10)+v**(-8)], 
-   [1,          1+v**4,       1,          1+v**2,                v**2+v**4], 
+  [[1,       v**(-4)+1, v**(-8),-v**(-4)-v**(-2),         -v**(-8)-v**(-2)],
+   [1,      -v**(-2)+1,-v**(-6),      -v**(-4)+1,v**(-6)-v**(-4)-v**(-2)+1],
+   [1,-v**(-6)-v**(-2),v**(-12),-v**(-6)-v**(-4),         v**(-10)+v**(-8)],
+   [1,          1+v**4,       1,          1+v**2,                v**2+v**4],
    [1,    -v**(-2)-v**2,v**(-4),       v**(-2)+1,            -v**(-4)-v**2]]
   >>> matmult(ti['irreducibles'],transposemat(ct))
-  [[v**(-6)+2*v**(-4)+2*v**(-2)+2+v**2, 0, 0, 0, 0], 
-   [0, v**(-4)+v**(-2)+v**2+v**4, 0, 0, 0], 
-   [0, 0, v**(-12)+v**(-10)+v**(-8)+2*v**(-6)+v**(-4)+v**(-2)+1, 0, 0], 
-   [0, 0, 0, 1+v**2+v**4+2*v**6+v**8+v**10+v**12, 0], 
+  [[v**(-6)+2*v**(-4)+2*v**(-2)+2+v**2, 0, 0, 0, 0],
+   [0, v**(-4)+v**(-2)+v**2+v**4, 0, 0, 0],
+   [0, 0, v**(-12)+v**(-10)+v**(-8)+2*v**(-6)+v**(-4)+v**(-2)+1, 0, 0],
+   [0, 0, 0, 1+v**2+v**4+2*v**6+v**8+v**10+v**12, 0],
    [0, 0, 0, 0, v**(-2)+2+2*v**2+2*v**4+v**6]]
   """
   if type(paramL)==type([]):
@@ -8748,7 +8749,7 @@ def heckecentraltable(W,paramL):
   for s in W.rank:
     if vs[s]==1 or vs[s]==-1:
       ivs.append(vs[s])
-    else: 
+    else:
       ivs.append(vs[s]**(-1))
   for w in aw:
     cind=1
@@ -8757,12 +8758,12 @@ def heckecentraltable(W,paramL):
     indw.append(cind)
   cpmat=allclasspolynomials(W,[p**2 for p in vs])
   cpmat=[cpmat[W.wordtocoxelm(w)] for w in aw]
-  cpmat=[[indw[i]*cpmat[i][j] for j in range(len(cpmat[0]))] 
+  cpmat=[[indw[i]*cpmat[i][j] for j in range(len(cpmat[0]))]
                                       for i in range(len(cpmat))]
   cpmat=matmult(heckechartable(W,vs)['irreducibles'],
                               matmult(transposemat(cpmat),cpmat))
   x1=[chi[0] for chi in chartable(W)['irreducibles']]
-  return [[divmod(z,x1[i])[0] for z in cpmat[i]] 
+  return [[divmod(z,x1[i])[0] for z in cpmat[i]]
                        for i in range(len(cpmat[0]))]
 
 #F schurelmA
@@ -8851,9 +8852,9 @@ def schurelmB(bip,v,u):
 
 #F schurelmdata
 def schurelmdata(typ,n,vs):
-  """returns  the Schur elements of the Iwahori-Hecke algebra of a 
-  given type and rank with respect to a list of parameters. The 
-  data are taken from the corresponding files in  gap-chevie.  
+  """returns  the Schur elements of the Iwahori-Hecke algebra of a
+  given type and rank with respect to a list of parameters. The
+  data are taken from the corresponding files in  gap-chevie.
   """
   if typ[0]=='A':
     return [schurelmA(alpha,vs[0]) for alpha in partitions(n+1)]
@@ -8951,7 +8952,7 @@ def schurelmdata(typ,n,vs):
     m=int(typ[1:])
     if m==5:
       ir5=ir(5)
-      u=vs[0]**2  
+      u=vs[0]**2
       if u==1 or u==-1:
         u1=u
       else:
@@ -9220,10 +9221,10 @@ def schurelmdata(typ,n,vs):
           (30+30*ir5)*u**(-6)*p2**4*p10a**2*p15b,
           u**(-5)*p2**4*p5**2*p10**2,u**(-15)*p2**4*p5**2*p10**2,
           40*u**(-6)*p3**2*p10**2,12*u**(-6)*p5**2*p12]
-          
+
 #F schurelms
 def schurelms(W,paramL):
-  """returns the Schur elements of an Iwahori-Hecke algebra associated
+  r"""returns the Schur elements of an Iwahori-Hecke algebra associated
   with a finite Coxeter group and a list of parameters.  These  are
   uniquely determined by the relations
                                           /  1 if w=1,
@@ -9231,39 +9232,39 @@ def schurelms(W,paramL):
                                           \  0 otherwise;
 
   here, the sum runs over all irreducible characters of the Iwahori-
-  Hecke algebra and s_chi denotes the corresponding Schur  elements. 
+  Hecke algebra and s_chi denotes the corresponding Schur  elements.
 
   See also 'heckechartable' (for explanations of the conventions for
   the parameters) and 'lcmschurelms'.
 
   >>> W=coxeter("B",2)
-  >>> v=lpol([1],1,'v')       # the built-in Lauent polynomials 
+  >>> v=lpol([1],1,'v')       # the built-in Lauent polynomials
 
   >>> schurelms(W,v)          # equal parameters
-  [2*v**(-2)+4+2*v**2, 
-   2*v**(-2)+2*v**2, 
-   v**(-8)+2*v**(-6)+2*v**(-4)+2*v**(-2)+1, 
-   1+2*v**2+2*v**4+2*v**6+v**8, 
+  [2*v**(-2)+4+2*v**2,
+   2*v**(-2)+2*v**2,
+   v**(-8)+2*v**(-6)+2*v**(-4)+2*v**(-2)+1,
+   1+2*v**2+2*v**4+2*v**6+v**8,
    2*v**(-2)+4+2*v**2]
 
   >>> schurelms(W,[v**3,v**2]) # unequal parameters
-  [v**(-8)+v**(-6)+v**(-4)+2*v**(-2)+1+v**2+v**4, 
-   v**(-6)+v**(-4)+v**4+v**6, 
-   v**(-20)+v**(-16)+v**(-14)+2*v**(-10)+v**(-6)+v**(-4)+1, 
-   1+v**4+v**6+2*v**10+v**14+v**16+v**20, 
+  [v**(-8)+v**(-6)+v**(-4)+2*v**(-2)+1+v**2+v**4,
+   v**(-6)+v**(-4)+v**4+v**6,
+   v**(-20)+v**(-16)+v**(-14)+2*v**(-10)+v**(-6)+v**(-4)+1,
+   1+v**4+v**6+2*v**10+v**14+v**16+v**20,
    v**(-4)+v**(-2)+1+2*v**2+v**4+v**6+v**8]
 
   Typically, the parameters will be powers of an indeterminate  (and
-  the program has been tested for this case particularly). But it is 
-  also possible to  take any  non-zero and invertible elements  in a 
+  the program has been tested for this case particularly). But it is
+  also possible to  take any  non-zero and invertible elements  in a
   commutative ring.  In such a case, it may happen that the function
   returns an error (because  it is running in difficulties with some
-  divisions). To get around  this, first  compute the Schur elements 
-  generically, and then  evaluate  the resulting polynomials  at the  
-  desired values. 
+  divisions). To get around  this, first  compute the Schur elements
+  generically, and then  evaluate  the resulting polynomials  at the
+  desired values.
 
   >>> [s.value(rootof1(6)) for s in schurelms(coxeter("B",4),v)]
-  [0, 0, -4+4*E(6), 0, 0, 2, 1, 0, 0, -2, 4*E(6), 0, -4*E(6), 
+  [0, 0, -4+4*E(6), 0, 0, 2, 1, 0, 0, -2, 4*E(6), 0, -4*E(6),
                                          0, 4-4*E(6), 0, 0, 2, 0, 0]
   """
   if type(paramL)==type([]):
@@ -9287,22 +9288,22 @@ def schurelms(W,paramL):
     else:
       s1=schurelmdata(ct[0],len(ct[1]),[vs[s]**2 for s in ct[1]])
     schur=flatlist([[x*sh for sh in s1] for x in schur])
-  return schur  
+  return schur
 
 #F lcmschurelms
 def lcmschurelms(W,paramL):
   """returns  the least common multiple  of all Schur elements of the
-  generic Iwahori-Hecke algebra  associated with  a finite Coxeter 
-  group and a list of parameters.  In the equal parameter case, it 
-  is well-known that this is just given by the Poincare polynomial 
+  generic Iwahori-Hecke algebra  associated with  a finite Coxeter
+  group and a list of parameters.  In the equal parameter case, it
+  is well-known that this is just given by the Poincare polynomial
   multiplied by a constant which is divisible by bad primes only.
 
   It is  also known that a  specialised  Iwahori-Hecke  algebra is
-  semisimple  if and only if  this  least common multiple  remains 
+  semisimple  if and only if  this  least common multiple  remains
   non-zero under the specialisation.
 
   >>> W=coxeter("B",2)
-  >>> v=lpol([1],1,'v')          # the built-in Lauent polynomials 
+  >>> v=lpol([1],1,'v')          # the built-in Lauent polynomials
   >>> lcmschurelms(W,v)          # equal parameters
   2+4*v**2+4*v**4+4*v**6+2*v**8
   >>> lcmschurelms(W,[v**2,v])   # unequal parameters
@@ -9322,7 +9323,7 @@ def lcmschurelms(W,paramL):
       if p!=vs1[0]:
         equ=False
     if equ==False:
-      if ct[0][0]=='I':         
+      if ct[0][0]=='I':
         lprint('#I Just taking product of Schur elements\n')
         sh=schurelms(coxeter(ct[0],len(ct[1])),vs1)
         p=1
@@ -9369,31 +9370,31 @@ def cocharpol(W,u):
   cp=[]
   for i in range(len(c['reps'])):
     m=[list(row) for row in W.wordtomat(c['reps'][i])]
-    for k in W.rank: 
+    for k in W.rank:
       for l in W.rank:
         if k==l:
           m[k][k]=u-m[k][k]*u**0
         else:
           m[k][l]=-m[k][l]*u**0
     cp.append(divmod(p,determinantmat(m))[0])
-  return [(-1)**len(c['reps'][i])*c['classlengths'][i]*cp[i] 
-                                          for i in range(len(cp))] 
+  return [(-1)**len(c['reps'][i])*c['classlengths'][i]*cp[i]
+                                          for i in range(len(cp))]
 
 #F fakedegree
 def fakedegree(W,u,chars):
-  """returns the fake degrees of characters  of a finite Coxeter group. 
-  Given an arbitrary class function f, the fake degree is defined by 
+  """returns the fake degrees of characters  of a finite Coxeter group.
+  Given an arbitrary class function f, the fake degree is defined by
 
                                              (-1)^l(w) f(w)
      R(f)=(1/|W|) * P (u-1)^r * sum_{w in W} --------------
                                               det(u.id - w)
 
   where r denotes the rank of W and P is the Poincare polynomial. We
-  always have that R(f) is a polynomial in u, where the coefficients 
-  are integers if f is a character. 
+  always have that R(f) is a polynomial in u, where the coefficients
+  are integers if f is a character.
 
-  If f is an irreducible character of W,  then the  b-invariant of f 
-  is defined to be the largest integer b such that u^b divides R(f).  
+  If f is an irreducible character of W,  then the  b-invariant of f
+  is defined to be the largest integer b such that u^b divides R(f).
   The b-invariants are contained in the result of 'chartable(W)'.
 
   >>> W=coxeter("G",2)
@@ -9404,7 +9405,7 @@ def fakedegree(W,u,chars):
   [0, 6, 3, 3, 1, 2]
   """
   cp=cocharpol(W,u)
-  return [divmod(sum(char[i]*cp[i] for i in range(len(cp))),W.order)[0] 
+  return [divmod(sum(char[i]*cp[i] for i in range(len(cp))),W.order)[0]
                                                        for char in chars]
 
 #F fakeomega
@@ -9414,33 +9415,33 @@ def fakeomega(W,u):
        u^W.N * R( chi tensor chi' tensor sign)
 
   where chi,chi' run over all irreducible characters of W; see also
-  'fakedegree''.  The entries of  this matrix are  polynomials with 
+  'fakedegree''.  The entries of  this matrix are  polynomials with
   integer coefficients;  furthermore, all principal  minors of this
-  matrix are non-zero; see 
+  matrix are non-zero; see
 
-  M. Geck and G. Malle, On special pieces in the unipotent variety. 
+  M. Geck and G. Malle, On special pieces in the unipotent variety.
                         Experimental Math. 8 (1999), 281--290.
 
-  One application of this matrix is the (conjectural) algorithm for 
-  computing the sizes of special pieces in the above article. It is 
+  One application of this matrix is the (conjectural) algorithm for
+  computing the sizes of special pieces in the above article. It is
   also used in the algorithm for computing the Green functions of a
-  finite (split) reductive group with Weyl group W.  Note  that the 
+  finite (split) reductive group with Weyl group W.  Note  that the
   function also works for W of non-crystallographic type.
-  """ 
+  """
   ti=chartable(W)
   cp=cocharpol(W,u)
   om=[len(ti['b'])*[0] for i in ti['b']]
   for i in range(len(ti['b'])):
     for j in range(i,len(ti['b'])):
       char=[ti['irreducibles'][ti['position_sgn']][k]*
-             ti['irreducibles'][i][k]*ti['irreducibles'][j][k] 
+             ti['irreducibles'][i][k]*ti['irreducibles'][j][k]
                                         for k in range(len(ti['b']))]
       om[i][j]=u**W.N*divmod(sum(char[i]*cp[i] for i in range(len(cp))),
-                                                              W.order)[0] 
+                                                              W.order)[0]
       if i!=j:
         om[j][i]=om[i][j]
   return om
-  
+
 #F some mod p functions needed for greenalgo
 def repintp(n,p):
   m=n%p
@@ -9456,7 +9457,7 @@ def powp(x,n,p):
   return y
 
 def matsubp(a,b,p):
-  return [[(a[i][j]-b[i][j])%p for j in range(len(a[0]))] 
+  return [[(a[i][j]-b[i][j])%p for j in range(len(a[0]))]
                                      for i in range(len(a))]
 
 def matmultp(a,b,p):
@@ -9490,12 +9491,12 @@ def applychinrem(mat1,mat2,m1,m2):
 #F blockLR
 def blockLR(mat,bl,diag,p):
   """returns the block LR decomposition of a symmetric matrix with integer
-  coefficients modulo a prime: 
-  
+  coefficients modulo a prime:
+
               P * L * P^{tr} = mat   (mod p)
-  
-  where L is a block diagonal matrix  (with blocks  specified  by 'bl') 
-  and P is  block lower triangular with  diagonal  blocks consisting of 
+
+  where L is a block diagonal matrix  (with blocks  specified  by 'bl')
+  and P is  block lower triangular with  diagonal  blocks consisting of
   scalar matrices (with scalars specified by 'diag'). If some principal
   minor of mat is zero modulo p, the function returns 'False'.
   """
@@ -9534,10 +9535,10 @@ def blockLR(mat,bl,diag,p):
   #                    matmult(resL,transposemat(resP))),mat1)),p):
   #  print("grosser mist!")
   return [flatblockmat(P),reduce(directsummat,L),fbl]
-  
+
 #F greenalgo
 def greenalgo(W,u,fam,avals,check=True,startpr=0):
-  """applies generalised version of the algorithm for computing Green 
+  """applies generalised version of the algorithm for computing Green
   functions.
   """
   gom=fakeomega(W,u)
@@ -9564,7 +9565,7 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0):
         for e in range(a):
           x=(x*i)%p
         ap.append(x)
-      bl=blockLR(omp,fam,ap,p) 
+      bl=blockLR(omp,fam,ap,p)
       if bl!=False:
         l.append(i)
         Ps.append(bl[0])
@@ -9596,7 +9597,7 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0):
           lprint(str(i)+' ')
         j=0
         while fertig and j<=i:
-          x=sum(P[j][s]*sum(P[i][r]*L[r][s] for r in range(i+1) 
+          x=sum(P[j][s]*sum(P[i][r]*L[r][s] for r in range(i+1)
                         if L[r][s]!=0) for s in range(j+1) if P[j][s]!=0)
           if x!=gom[fbl[i]][fbl[j]]:
             lprint(' ... change prime ...')
@@ -9610,26 +9611,26 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0):
 #F specialpieces
 def specialpieces(W,v):
   """returns  the polynomials giving the sizes of Lusztig's special pieces,
-  computed by the algorithm described in 
+  computed by the algorithm described in
 
     M. Geck and G. Malle, On special pieces in the unipotent variety.
                           Experimental Math. 8 (1999), 281--290.
 
-  The function returns a list of pairs (chi, s)  where chi runs over the 
-  special characters of W and s is the polynomial giving the size of the 
-  special  piece  associated  with  chi.  The  total size of all special 
+  The function returns a list of pairs (chi, s)  where chi runs over the
+  special characters of W and s is the polynomial giving the size of the
+  special  piece  associated  with  chi.  The  total size of all special
   pieces should be v^(2*N) where N is the number of positive roots.
 
   >>> W=coxeter("H",3)
   >>> v=lpol([1],1,'v')      # built-in polynomials
   >>> specialpieces(W,v)
   #I Total size of all special pieces: v**30
-  [[("1_r'",), 1], 
-   [('3_s',), -1-v**4-v**8+v**10+v**14+v**18], 
-   [("5_r'",), v**4-v**10-v**14+v**20], 
-   [("4_r'",), v**8-v**14-v**18+v**24], 
-   [('5_r',), v**10-v**16-v**20+v**26], 
-   [("3_s'",), -v**10+v**12+v**16-v**18+v**20-v**22-v**26+v**28], 
+  [[("1_r'",), 1],
+   [('3_s',), -1-v**4-v**8+v**10+v**14+v**18],
+   [("5_r'",), v**4-v**10-v**14+v**20],
+   [("4_r'",), v**8-v**14-v**18+v**24],
+   [('5_r',), v**10-v**16-v**20+v**26],
+   [("3_s'",), -v**10+v**12+v**16-v**18+v**20-v**22-v**26+v**28],
    [('1_r',), -v**12+v**14+v**18-v**20+v**22-v**24-v**28+v**30]]
   """
   ti=chartable(W)
@@ -9656,28 +9657,28 @@ def specialpieces(W,v):
 
 # class-wgraph
 class wgraph:
-  """creates  a W-graph  (as a python  `class')  for a finite Coxeter 
-  group W with respect to a weight function.  This consists of the 
+  """creates  a W-graph  (as a python  `class')  for a finite Coxeter
+  group W with respect to a weight function.  This consists of the
   following data:
 
-   * a set X together with a map I which assigns to each x in X 
+   * a set X together with a map I which assigns to each x in X
      a subset I(x) of S (the set of generators of W);
 
-   * a collection of elements {m_{x,y}^s} in A, where  x,y in X 
+   * a collection of elements {m_{x,y}^s} in A, where  x,y in X
      and  s in S are such that  s has weight >0,  s in I(x) and
      s is not in I(y);
 
    * a bijection s:X -> X for every s in S with weight 0.
 
-  (Here, A is the ring of Laurent polynomials  in one variable,  v 
-  say.)  These data are subject to the following requirements:  we 
+  (Here, A is the ring of Laurent polynomials  in one variable,  v
+  say.)  These data are subject to the following requirements:  we
   require that
 
    * v^L(s)m_{x,y}^s is an actual polynomial with constant term 0;
 
-   * and m_{x,y}(v^(-1)) = m_{x,y}^s for all relevant x,y,s. 
+   * and m_{x,y}(v^(-1)) = m_{x,y}^s for all relevant x,y,s.
 
-  Furthermore, let V be a free A-module with a basis {e_y|y in X}. 
+  Furthermore, let V be a free A-module with a basis {e_y|y in X}.
   For s in S, define an A-linear map rho_s: V -> V by
 
     e_y -> -v^{-L(s)} e_y   if s in I(y) and s has weight >0,
@@ -9687,10 +9688,10 @@ class wgraph:
                             if s not in I(y) and s has weight >0,
 
     e_y ->  e_{s.y}         if s has weight 0.
- 
-  Then we require that the map T_s->rho_s defines a representation 
-  of the generic Iwahori-Hecke algebra associated with W,L. Recall 
-  that the quadratic relations in this algebra are given by 
+
+  Then we require that the map T_s->rho_s defines a representation
+  of the generic Iwahori-Hecke algebra associated with W,L. Recall
+  that the quadratic relations in this algebra are given by
 
       T_s^2 = T_1 + (v^L(s) - v^(-L(s))) T_s   for all s in S.
 
@@ -9698,55 +9699,55 @@ class wgraph:
 
     W        the underlying group W
     var      the parameter (typically a variable v)
-    X        the base set (given as reduced expression in the case 
+    X        the base set (given as reduced expression in the case
              where the W-graph arises from a left cell)
     Isets    the sets I(x) for x in X
-    mpols    the list of all possible m-values 
-    mmat     a dictionary with keys given by pairs (y,x) where x,y 
-             in X and  m_{x,y}^s is not  0 for at least some s. If 
-             (y,x) is such a pair, then the value will be a string 
+    mpols    the list of all possible m-values
+    mmat     a dictionary with keys given by pairs (y,x) where x,y
+             in X and  m_{x,y}^s is not  0 for at least some s. If
+             (y,x) is such a pair, then the value will be a string
              pointing to the appropriate value in mpols.
     Xrep     a hashable set in bijection with X
 
   The input to  'wgraph'  can take several forms: For example, one
   can specify explicitly  the above components.  There are further
   possibilities; see 'relklpols' for some examples.
-  
+
   >>> W=coxeter("G",2)
   >>> k=klcells(W,1,v); k
   #I 4 left cells
-  >>> [wgraph(coxeter('G',2),[1,1], [[]]), 
+  >>> [wgraph(coxeter('G',2),[1,1], [[]]),
        wgraph(coxeter('G',2),[1,1],[[1],[0,1],[1,0,1],[0,1,0,1],
-                                                    [1,0,1,0,1]]), 
+                                                    [1,0,1,0,1]]),
        wgraph(coxeter('G',2),[1,1],[[0],[1,0],[0,1,0],[1,0,1,0],
-                                                    [0,1,0,1,0]]), 
+                                                    [0,1,0,1,0]]),
        wgraph(coxeter('G',2),[1,1],[[0,1,0,1,0,1]])]
-  >>> [l.matrices(True) for l in k]      # the correseponding left 
+  >>> [l.matrices(True) for l in k]      # the correseponding left
   #I defining relations are true         # cell representations
   #I defining relations are true
   #I defining relations are true
   #I defining relations are true
-  [[[[v**2]], [[v**2]]], 
-   [[[v**2,  v,    0,  0,    0], 
-     [   0, -1,    0,  0,    0], 
-     [   0,  v, v**2,  v,    0], 
-     [   0,  0,    0, -1,    0], 
-     [   0,  0,    0,  v, v**2]], 
-    [[-1,    0, 0, 0, 0], 
-     [ v, v**2,  v,    0, 0], 
-     [ 0,    0, -1,    0, 0], 
-     [ 0,    0,  v, v**2, v], 
-     [ 0,    0,  0,    0, -1]]], 
-   [[[-1,    0,  0,    0,  0], 
-     [ v, v**2,  v,    0,  0], 
-     [ 0,    0, -1,    0,  0], 
-     [ 0,    0,  v, v**2,  v], 
-     [ 0,    0,  0,    0, -1]], 
+  [[[[v**2]], [[v**2]]],
+   [[[v**2,  v,    0,  0,    0],
+     [   0, -1,    0,  0,    0],
+     [   0,  v, v**2,  v,    0],
+     [   0,  0,    0, -1,    0],
+     [   0,  0,    0,  v, v**2]],
+    [[-1,    0, 0, 0, 0],
+     [ v, v**2,  v,    0, 0],
+     [ 0,    0, -1,    0, 0],
+     [ 0,    0,  v, v**2, v],
+     [ 0,    0,  0,    0, -1]]],
+   [[[-1,    0,  0,    0,  0],
+     [ v, v**2,  v,    0,  0],
+     [ 0,    0, -1,    0,  0],
+     [ 0,    0,  v, v**2,  v],
+     [ 0,    0,  0,    0, -1]],
     [[v**2, v,    0,  0,    0],
-     [   0, -1,   0,  0,    0], 
-     [   0, v, v**2,  v,    0], 
-     [   0, 0,    0, -1,    0], 
-     [   0, 0,    0,  v, v**2]]], 
+     [   0, -1,   0,  0,    0],
+     [   0, v, v**2,  v,    0],
+     [   0, 0,    0, -1,    0],
+     [   0, 0,    0,  v, v**2]]],
    [[[-1]], [[-1]]]]
 
   See also 'reflectionwgraph', 'klcells' and 'wgraphstarorbit'.
@@ -9784,7 +9785,7 @@ class wgraph:
                 if s in self.Isets[x] and not s in self.Isets[y]:
                   if len(ms)==len(W.rank):
                     if ms[s]!='' and ms[s]!='0':
-                      m=-(-1)**(ll[y]+ll[x])*xset['mpols'][s][int(ms[s])] 
+                      m=-(-1)**(ll[y]+ll[x])*xset['mpols'][s][int(ms[s])]
                       if m in nmues[s]:
                         mstr+='c'+str(nmues[s].index(m))
                       else:
@@ -9794,7 +9795,7 @@ class wgraph:
                       mstr+='c0'
                   else:
                     if ms[0]!='' and ms[0]!='0':
-                      m=-(-1)**(ll[y]+ll[x])*xset['mpols'][int(ms[0])] 
+                      m=-(-1)**(ll[y]+ll[x])*xset['mpols'][int(ms[0])]
                       if m in nmues[s]:
                         mstr+='c'+str(nmues[s].index(m))
                       else:
@@ -9817,7 +9818,7 @@ class wgraph:
                   else:
                     mstr+='c0'
                 else: # self.weights[s]=0:
-                  sy=tuple([ap[y][i] for i in W.permgens[s]]) 
+                  sy=tuple([ap[y][i] for i in W.permgens[s]])
                   if sy in ap and ap[x]==sy:
                     mstr+='c1'
                   else:
@@ -9834,7 +9835,7 @@ class wgraph:
                 if t==s:
                   mm[(y,syi)]+='c1'
                 else:
-                  mm[(y,syi)]+='c0' 
+                  mm[(y,syi)]+='c0'
       #self.X=[W.permtoword(p) for p in ap]
       self.X=[w[:] for w in xset['elms']]
       self.Xrep=[p[:len(W.rank)] for p in ap]
@@ -9845,9 +9846,9 @@ class wgraph:
   def __repr__(self):
     return 'wgraph('+repr(self.W)+', '+str(self.weights)+', '+str(self.X)+')'
   def normalise(self):
-    """returns  a wgraph  (for the same representation) where the 
-    base set has been sorted.  If  the  base set  consists  of 
-    lists, then the lists will be sorted by increasing length. 
+    """returns  a wgraph  (for the same representation) where the
+    base set has been sorted.  If  the  base set  consists  of
+    lists, then the lists will be sorted by increasing length.
     Otherwise, a generic 'sort' will be applied.
     """
     lx=self.X[:]
@@ -9867,8 +9868,8 @@ class wgraph:
         m1[(l1[k[0]],l1[k[1]])]=self.mmat[k]
       return wgraph(self.W,self.weights,lx,self.var,i1,m1,self.mpols,x1r)
   def wgraphtoklmat(self):
-    """returns  a  dictionary which  can be used as input  to the 
-    function 'relklpols'. If G is a W-graph, then we have 
+    """returns  a  dictionary which  can be used as input  to the
+    function 'relklpols'. If G is a W-graph, then we have
 
             G=wgraph(W, 1, G.wgraphtoklmat(), v)
 
@@ -9876,7 +9877,7 @@ class wgraph:
     """
     mat=[]
     for j in range(len(self.X)):
-      mat.append(['f' for i in range(j+1)]) 
+      mat.append(['f' for i in range(j+1)])
     mues=[[0,1] for s in self.W.rank]
     for j in range(len(self.X)):
       for i in range(j):
@@ -9897,7 +9898,7 @@ class wgraph:
           mat[j][i]=mstr
     return {'elms':self.X,'mpols':mues,'klmat':mat}
   def decompose(self):
-    """checks if a W-graph is indecomposable and, if not, returns 
+    """checks if a W-graph is indecomposable and, if not, returns
     the list of W-graphs of the indecomposable composants.
     """
     pp0=[[w] for w in range(len(self.X))]
@@ -9929,13 +9930,13 @@ class wgraph:
       neu.append(wgraph(self.W,self.weights,x1,self.var,i1,m1,self.mpols,x1r))
     return neu
   def matrices(self,check=False,param='generic'):
-    """returns  the  representing  matrices for a  W-graph.  Note 
-    that, here, the  matrices  corresponding  to the  elements  
-    v**weightL[s] T_s are returned.  (The  advantage  of  this 
-    convention is that  no inverses of  elements  in the  base 
-    ring are required.)  If the optional argument  'check'  is 
-    set  to  'True',  then  the  defining  relations  will  be 
-    checked. There is a further optional argument 'param'.  It 
+    """returns  the  representing  matrices for a  W-graph.  Note
+    that, here, the  matrices  corresponding  to the  elements
+    v**weightL[s] T_s are returned.  (The  advantage  of  this
+    convention is that  no inverses of  elements  in the  base
+    ring are required.)  If the optional argument  'check'  is
+    set  to  'True',  then  the  defining  relations  will  be
+    checked. There is a further optional argument 'param'.  It
     can be used to specialise the base parameter. For example,
     setting param=1 yields representing matrices for W itself.
     """
@@ -9983,33 +9984,33 @@ class wgraph:
       lprint('true\n')
     return mats
   def character(self,v=1):
-    """returns  the  character  of the  underlying  Coxeter group 
-    afforded by the W-graph representation. The values are  on 
-    representatives of minimal length in the conjugacy classes 
-    of W, as returned by  'conjugacyclasses'.  The result will 
+    """returns  the  character  of the  underlying  Coxeter group
+    afforded by the W-graph representation. The values are  on
+    representatives of minimal length in the conjugacy classes
+    of W, as returned by  'conjugacyclasses'.  The result will
     be added as component 'char' to the wgraph class.
 
     >>> W=coxeter("A",3)
     >>> [l.character() for l in klcells(w,1,v)]
-    [[1,1,1,1,1], [3,1,-1,0,-1], [3,1,-1,0,-1], [2,0,2,-1,0], 
-     [3,-1,-1,0,1], [3,1,-1,0,-1], [2,0,2,-1,0], 
+    [[1,1,1,1,1], [3,1,-1,0,-1], [3,1,-1,0,-1], [2,0,2,-1,0],
+     [3,-1,-1,0,1], [3,1,-1,0,-1], [2,0,2,-1,0],
      [3,-1,-1,0,1], [3,-1,-1,0,1], [1,-1,1,1,-1]]
 
     Thus, the left cells 0, 1, 3, 4, 9 have pairwise different
-    characters and,  hence,  yield  a full set of  irreducible 
-    representations of W.  (It is known that,  in type A,  all 
+    characters and,  hence,  yield  a full set of  irreducible
+    representations of W.  (It is known that,  in type A,  all
     left cell representations are irreducible.)
     """
     m=self.matrices(param=v)
     c=[len(m[0])]
     for w in conjugacyclasses(self.W)['reps'][1:]:
-      c.append(sum([reduce(matmult,[m[s] for s in w])[i][i] 
+      c.append(sum([reduce(matmult,[m[s] for s in w])[i][i]
                                           for i in range(c[0])]))
     self.char=c
     return c
 # end of definition of class wgraph
 
-# reflectionwgraph 
+# reflectionwgraph
 def reflectionwgraph(W,weightL,v):
   """returns the W-graph corresponding to the reflection representation
   of a Coxeter group W with respect to a weight function.
@@ -10021,10 +10022,10 @@ def reflectionwgraph(W,weightL,v):
   >>> reflectionwgraph(coxeter("G",2),[7,1],v).matrices(True)
   [[[-v**(-7), 0], [v**(-6)+1+v**6, v**7]], [[v, 1], [0, -v**(-1)]]]
 
-  (The optional  argument  'True'  forces the function to check  the 
+  (The optional  argument  'True'  forces the function to check  the
   defining relations for the representing matrices.)
 
-  For the conventions regarding the argument specifying the weights, 
+  For the conventions regarding the argument specifying the weights,
   see the help of 'ainvariants' for further explanation.
 
   See also 'wgraph'.
@@ -10037,11 +10038,11 @@ def reflectionwgraph(W,weightL,v):
   mmat={}
   for y in W.rank:
     for x in W.rank:
-      if W.coxetermat[x][y]!=2 and (poids[x]<poids[y] 
+      if W.coxetermat[x][y]!=2 and (poids[x]<poids[y]
                              or (poids[x]==poids[y] and x<y)):
         mmat[(x,y)]=''
         mmat[(y,x)]=''
-        for s in W.rank: 
+        for s in W.rank:
           if s==x:
             mmat[(y,x)]+='c1'
           else:
@@ -10065,7 +10066,7 @@ def pospart(f):
   if type(f)==type(0):
     return 0
   elif f.val>0:
-    return f 
+    return f
   elif len(f.coeffs)>-f.val:
     return lpol([f.coeffs[i] for i in range(-f.val+1,len(f.coeffs))],
                                                             1,f.vname)
@@ -10076,7 +10077,7 @@ def nonnegpart(f):
   if type(f)==type(0):
     return f
   elif f.val>=0:
-    return f 
+    return f
   elif len(f.coeffs)>=-f.val:
     return lpol([f.coeffs[i] for i in range(-f.val,len(f.coeffs))],
                                                           0,f.vname)
@@ -10085,7 +10086,7 @@ def nonnegpart(f):
 
 def zeropart(f):
   if type(f)==type(0):
-    return f 
+    return f
   elif f.val<=0 and len(f.coeffs)>-f.val:
     return f.coeffs[-f.val]
   else:
@@ -10100,60 +10101,60 @@ def barpart(f):
 # klpolynomials
 def klpolynomials(W,weightL,v):
   """returns the matrix of all Kazhdan-Lusztig  polynomials,  and further
-  information on the corresponding left cells, with respect to a given 
+  information on the corresponding left cells, with respect to a given
   weight function. The result is a dictionary with components:
 
    elms   : all elements of W (as reduced words, in increasing order)
    klpols : the Kazhdan-Lusztig polynomials
    mpols  : the mue-polynomials
-   klmat  : a matrix indexed by pairs of elements of W,  whose entries 
-            are strings  encoding  information  on Kazhdan-Lusztig and 
-            mue polynomials.  If y<=w (Bruhat-Chevalley  order),  then 
+   klmat  : a matrix indexed by pairs of elements of W,  whose entries
+            are strings  encoding  information  on Kazhdan-Lusztig and
+            mue polynomials.  If y<=w (Bruhat-Chevalley  order),  then
             klmat[w][y] is of the form  'c<p>c<i0>c<i1> ...' where <p>
             refers to  a polynomial  in 'klpols' and  <i0>, <i1> refer
-            to the polynomials in 'mpols' for the generators  labelled 
+            to the polynomials in 'mpols' for the generators  labelled
             by 0,1,... Otherwise, klmat[w][y] equals 'f'.
    arrows : a complete list of all pairs (w,y) where y,w in W are such
             that C_y occurs in C_sC_w for some simple reflection s.
    lcells : the partition of W into left cells
-   duflo  : the corresponding distinguished involutions, together with 
+   duflo  : the corresponding distinguished involutions, together with
             their a-invariants and the sign n_d.
-   lorder : the partial order on left cells (given as an incidence 
+   lorder : the partial order on left cells (given as an incidence
                                                                matrix)
    lcells : the partition of W into left cells
    rcells : the partition of W into right cells
    tcells : the partition of W into two-sided cells
 
-  As in 'ainvariants', a weight function is given  by  a  sequence  of  
-  non-negative  integers corresponding to the simple reflections of W,  
-  where  weights  for simple reflections which are conjugate in W have 
-  to be equal.  This gives rise to a weight function  L from  W to the 
+  As in 'ainvariants', a weight function is given  by  a  sequence  of
+  non-negative  integers corresponding to the simple reflections of W,
+  where  weights  for simple reflections which are conjugate in W have
+  to be equal.  This gives rise to a weight function  L from  W to the
   integers  in  the sense of Lusztig; given w in W, we have
 
        L(w) = weightL[s_1] + weightL[s_2] + ... + weightL[s_k]
 
   where w=(s_1,...,s_k) is a reduced expression for w.  It is  allowed
   that weightL is just an integer, in which case all weights  will  be
-  set  equal to that integer.  
- 
+  set  equal to that integer.
+
   >>> W=coxeter("B",2)
   >>> kl=klpolynomials(W,[2,1],v)
   #I Number of elements = 8
   #I Initialising (Bruhat-Chevalley order etc.) ....
   #I Computing KL polynomials for elements of length:
-  #I        1 2 3 4 
+  #I        1 2 3 4
   #I 10 arrows >> 6 left cells >> checks are True
   >>> kl['klpols']
   [1, 1-v**2, 1+v**2]               # negative coefficients do occur!
   >>> kl['lcells']
-  [[0], [1, 4], [2], [3, 6], [5], [7]]      # elements represented by 
+  [[0], [1, 4], [2], [3, 6], [5], [7]]      # elements represented by
                                             # their index in 'elms'
   >>> [[kl['elms'][w] for w in c] for c in kl['lcells']]
-  [[[]],                                    
-   [[0], [1, 0]],                           
-   [[1]], 
-   [[0, 1], [1, 0, 1]], 
-   [[0, 1, 0]], 
+  [[[]],
+   [[0], [1, 0]],
+   [[1]],
+   [[0, 1], [1, 0, 1]],
+   [[0, 1, 0]],
    [[0, 1, 0, 1]]]
 
   >>> kl['elms'][5]
@@ -10164,25 +10165,25 @@ def klpolynomials(W,weightL,v):
   'c1cc'
   >>> kl['klpols'][int(kl['klmat'][5][0][1])]
   1-v**2
-  (Thus, we have P_{[],[0,1,0]}=1-v**2.) 
+  (Thus, we have P_{[],[0,1,0]}=1-v**2.)
 
-  In general, P_{elms[y],elms[w]} is given by 
+  In general, P_{elms[y],elms[w]} is given by
 
       kl['klpols'][int(kl['klmat'][w][y].split('c')[1])]
 
-  If weightL[s]>0 and sy<y<w<sw, then mu_{elms[y],elms[w]}^s is  given 
-  by 
+  If weightL[s]>0 and sy<y<w<sw, then mu_{elms[y],elms[w]}^s is  given
+  by
 
       kl['mpols'][s][int(kl['klmat'][w][y].split('c')[s+2])]
 
   >>> kl['duflo']
   [[0, 0, 1], [1, 2, 1], [2, 1, 1], [6, 2, 1], [5, 3, -1], [7, 6, 1]]
- 
-  Here, each triple consists of d,a(d),n_d where d is the index of the 
-  distinguished involution in the list 'elms',  a(d)  is the degree of 
-  the Kazhdan-Lusztig polynomial  P_{1,d} and  n_d the  coefficient of 
+
+  Here, each triple consists of d,a(d),n_d where d is the index of the
+  distinguished involution in the list 'elms',  a(d)  is the degree of
+  the Kazhdan-Lusztig polynomial  P_{1,d} and  n_d the  coefficient of
   the highest power of v in P_{1,d}. In the course of the computation,
-  it is checked if n_d is 1 or -1,  and also if the function w -> a(w)  
+  it is checked if n_d is 1 or -1,  and also if the function w -> a(w)
   reaches its mimumum at exactly one element of a  left cell (which is
   supposed to be the involution d). -- No counter examples are known!
 
@@ -10209,7 +10210,7 @@ def klpolynomials(W,weightL,v):
   w0=longestperm(W)
   aw0=[a.index(tuple([w0[i] for i in p])) for p in a]
   lprint('#I Initialising (Bruhat-Chevalley order etc.) ')
-  lft=[[inva1.index(tuple([s[i] for i in p])) 
+  lft=[[inva1.index(tuple([s[i] for i in p]))
                                  for s in W.permgens] for p in inva1]
   mat=[['c0'+len(W.rank)*'c']]
   for w in range(1,len(a)):
@@ -10225,7 +10226,7 @@ def klpolynomials(W,weightL,v):
         b.append(mat[aw0[y]][aw0[w]])
       else:
         if (lft[y][s]<y and lft[y][s]<=lft[w][s] and
-                  mat[lft[w][s]][lft[y][s]]=='c') or (lft[y][s]>y and 
+                  mat[lft[w][s]][lft[y][s]]=='c') or (lft[y][s]>y and
                                  y<=lft[w][s] and mat[lft[w][s]][y]=='c'):
           b.append('c')
         else:
@@ -10347,8 +10348,8 @@ def klpolynomials(W,weightL,v):
       if poids[s]==0 or (lft[w][s]>w and poids[s]>0):
         pp.append((w,lft[w][s]))
     for y in range(w):
-      if mat[w][y][0]=='c': 
-        if any(poids[s]>0 and lft[y][s]<y and lft[w][s]>w and 
+      if mat[w][y][0]=='c':
+        if any(poids[s]>0 and lft[y][s]<y and lft[w][s]>w and
             mues[s][int(mat[w][y].split('c')[s+2])]!=0 for s in W.rank):
           pp.append((w,y))
   lprint(str(len(pp))+' arrows ')
@@ -10424,11 +10425,11 @@ def klpolynomials(W,weightL,v):
       rest.remove(w)
   lprint('> checks are '+str(checks)+'\n')
   return {'elms':ap,'klpols':klpol,'mpols':mues,'klmat':mat,'arrows':pp,
-          'lcells':lcells,'duflo':duflo,'lorder':lorder, 'rcells':rcells, 
+          'lcells':lcells,'duflo':duflo,'lorder':lorder, 'rcells':rcells,
           'tcells':tcells,'klstar':klstar}
 
 def klpoly1(W,weightL,v):
-  """returns the left cells in a form which can be used as input to 
+  """returns the left cells in a form which can be used as input to
   the function 'wgraph'.
 
   See also 'klpolynomials' and 'wgraph'.
@@ -10436,7 +10437,7 @@ def klpoly1(W,weightL,v):
   k=klpolynomials(W,weightL,v)
   return [{'elms':[k['elms'][x] for x in c],
            'mpols':k['mpols'],'klpols':k['klpols'],
-           'klmat':[[k['klmat'][c[w]][c[y]] for y in range(w+1)] 
+           'klmat':[[k['klmat'][c[w]][c[y]] for y in range(w+1)]
                      for w in range(len(c))]} for c in k['lcells']]
 
 def relmue(lw,ly,p):
@@ -10448,66 +10449,66 @@ def relmue(lw,ly,p):
     else:
       return 0
   elif p.degree==lw-ly-1:
-    return p.coeffs[-1] 
+    return p.coeffs[-1]
   else:
     return 0
 
 #F relklpols
 def relklpols(W,W1,cell1,weightL,q):
-  """returns  the matrix of  relative  Kazhdan-Lusztig polynomials  with 
+  r"""returns  the matrix of  relative  Kazhdan-Lusztig polynomials  with
   respect to a left cell in a parabolic subgroup, following
 
-    M. Geck, On the induction of Kazhdan--Lusztig cells, Bull. London 
+    M. Geck, On the induction of Kazhdan--Lusztig cells, Bull. London
              Math. Soc. 35 (2003), 608--614.
 
   (This version is for equal parameters only.)
 
   More precisely, let W be a Coxeter group with generating S. Let J be
   a subset of S and W1 be the parabolic subgroup generated by J. Let X
-  be the set of minimal left coset representatives of  W1 in W.  For y 
-  in X and v in W1, we can write uniquely 
+  be the set of minimal left coset representatives of  W1 in W.  For y
+  in X and v in W1, we can write uniquely
 
          C_{yv}' = T_yC_v' + sum_{x,u} p_{xu,yv}^* T_xC_u'
 
-  where the sum  runs over all  x in X and u in W1  such that  x<y and 
-  u <=_L v (Kazhdan-Lusztig pre-order in W1);  here, p_{xu,yv}^*  is a 
-  Laurent polynomial  which only involves  strictly negative powers of 
-  the indeterminate.  There is an algorithm for  computing p_{xu,yv}^* 
-  by induction, similar to (but technically more complicated than) the 
-  usual algorithm for computing the  Kazhdan-Lusztig  polynomials. The 
-  relation to the traditional  Kazhdan-Lusztig polynomials is given by 
+  where the sum  runs over all  x in X and u in W1  such that  x<y and
+  u <=_L v (Kazhdan-Lusztig pre-order in W1);  here, p_{xu,yv}^*  is a
+  Laurent polynomial  which only involves  strictly negative powers of
+  the indeterminate.  There is an algorithm for  computing p_{xu,yv}^*
+  by induction, similar to (but technically more complicated than) the
+  usual algorithm for computing the  Kazhdan-Lusztig  polynomials. The
+  relation to the traditional  Kazhdan-Lusztig polynomials is given by
   the following formula:
 
                  / P_{u,v}^*                                  if x=y,
    P_{xu,yv}^* =
                  \ p_{xu,yv}^* + sum_w P_{u,w}^* p_{xw,yv}^*  if x<y,
 
-  where the sum runs over all  w in W1  such  that u<w.  The  function 
-  actually returns the renormalised polynomials 
+  where the sum runs over all  w in W1  such  that u<w.  The  function
+  actually returns the renormalised polynomials
 
-   p_{xu,yv} = v^{L(yv)-L(xu)} p_{xu,yv}^*. 
+   p_{xu,yv} = v^{L(yv)-L(xu)} p_{xu,yv}^*.
 
   The details of the recursion are described in Section 4 of
- 
-    M. Geck, PyCox - Computing with (finite) Coxeter groups and 
-       Iwahori-Hecke algebras.  Dedicated to the Memory of Prof. 
+
+    M. Geck, PyCox - Computing with (finite) Coxeter groups and
+       Iwahori-Hecke algebras.  Dedicated to the Memory of Prof.
        H. Pahlings. LMS J. of Comput. Math. 15 (2012), 231--256.
 
-  On the other hand, this algorithm can be run  in a relative setting, 
-  which just involves the elements in a set of the form X.C,  where  C 
-  is a fixed left cell of W1  (or, slightly more generally, a union of 
-  left cells of W1).  By the main result of the above article, the set 
-  X.C is a union of left cells of W. So this is done in this function:  
-  it returns  the  matrix of all  p_{xu,yv}^* where  x,y run over  all 
+  On the other hand, this algorithm can be run  in a relative setting,
+  which just involves the elements in a set of the form X.C,  where  C
+  is a fixed left cell of W1  (or, slightly more generally, a union of
+  left cells of W1).  By the main result of the above article, the set
+  X.C is a union of left cells of W. So this is done in this function:
+  it returns  the  matrix of all  p_{xu,yv}^* where  x,y run over  all
   elements of X and u,v run over all elements of W1 which lie in C.
 
-  Here,  C is given by a  dictionary which has at least the components 
-  'elms', 'klmat', 'mpols'. For example, such a dictionary is returned  
-  by the  function 'wgraphtoklmat' (see 'wgraph'). The result can then 
-  be used as input to  'wgraph',  where  it will produce  the  W-graph 
+  Here,  C is given by a  dictionary which has at least the components
+  'elms', 'klmat', 'mpols'. For example, such a dictionary is returned
+  by the  function 'wgraphtoklmat' (see 'wgraph'). The result can then
+  be used as input to  'wgraph',  where  it will produce  the  W-graph
   corresponding to the induced cell X.C.
 
-  It is also possible to use  the dictionary  returned by the function 
+  It is also possible to use  the dictionary  returned by the function
   'klpolynomials' applied to C=W1. Thus,
 
           relklpols(W, W1, klpolynomials(W1, 1, v), 1, v)
@@ -10517,9 +10518,9 @@ def relklpols(W,W1,cell1,weightL,q):
 
   >>> W=coxeter("A",3); W1=reflectionsubgroup(W,[0,1])
   >>> k1=klcells(W1,1,v); k1
-  [wgraph(coxeter('A',2), [1, 1], [[]]), 
-   wgraph(coxeter('A',2), [1, 1], [[1], [0, 1]]), 
-   wgraph(coxeter('A',2), [1, 1], [[0], [1, 0]]), 
+  [wgraph(coxeter('A',2), [1, 1], [[]]),
+   wgraph(coxeter('A',2), [1, 1], [[1], [0, 1]]),
+   wgraph(coxeter('A',2), [1, 1], [[0], [1, 0]]),
    wgraph(coxeter('A',2), [1, 1], [[0, 1, 0]])]
 
   (Thus, W1 of type A2 has  4 left cells:  {}, {1,01}, {0,10}, {010}.)
@@ -10528,7 +10529,7 @@ def relklpols(W,W1,cell1,weightL,q):
 
   >>> r=relklpols(W,W1,k1[0].wgraphtoklmat(),1,v)
   >>> G=wgraph(W,1,r,v).decompose()
-  [wgraph(coxeter('A',3), [1, 1, 1], [[]]), 
+  [wgraph(coxeter('A',3), [1, 1, 1], [[]]),
    wgraph(coxeter('A',3), [1, 1, 1], [[2], [1, 2], [0, 1, 2]])]
 
   (Thus, the induced graph has 2 components.)
@@ -10576,7 +10577,7 @@ def relklpols(W,W1,cell1,weightL,q):
     lft1[J[t]]=l
   bruhatX=[]
   for y in range(len(X1)):
-    bruhatX.append([bruhatperm(W,X1[x],X1[y],lx=Lw[x],ly=Lw[y]) 
+    bruhatX.append([bruhatperm(W,X1[x],X1[y],lx=Lw[x],ly=Lw[y])
                                                for x in range(y+1)])
   mat={}
   mues=[0,1]
@@ -10589,15 +10590,15 @@ def relklpols(W,W1,cell1,weightL,q):
             if (x==y and u==v) or Lw[x]+Lw1[u]<Lw[y]+Lw1[v]:
               mat[y,x][v][u]='c'
     mat[y,y]=[len(p1)*['f'] for i in range(len(p1))]
-    for i in range(len(p1)): 
+    for i in range(len(p1)):
       for j in range(i):
         if cell1['klmat'][i][j][0]=='c':
           mat[y,y][i][j]='c0'
           rk=cell1['klmat'][i][j].split('c')[2:]
           r=0
-          while r<len(rk) and (rk[r]=='' or rk[r]=='0'): 
+          while r<len(rk) and (rk[r]=='' or rk[r]=='0'):
             r+=1
-          if r<len(rk): 
+          if r<len(rk):
             m=cell1['mpols'][r][int(rk[r])]
             if m in mues:
               mat[y,y][i][j]+='c'+str(mues.index(m))
@@ -10641,7 +10642,7 @@ def relklpols(W,W1,cell1,weightL,q):
                 if mat[y,x][v][u][0]=='c':
                   mat[y,x][v][u]+='0c0'
             else:
-              #fs1=list(filter(lambda s2:lft[s2][x]<0 and   
+              #fs1=list(filter(lambda s2:lft[s2][x]<0 and
               #                              lft1[-1-lft[s2][x]][u]<u,ldy))
               if len(fs1)>0:
                 s=fs1[0]
@@ -10676,7 +10677,7 @@ def relklpols(W,W1,cell1,weightL,q):
                       if rk!='0':
                         h+=rklpols[int(rk)]
                     for w in range(u+1,len(p1)):
-                      if lft1[t][w]>w and (mat[sy,x][v][w][0]=='c' and 
+                      if lft1[t][w]>w and (mat[sy,x][v][w][0]=='c' and
                                              cell1['klmat'][w][u][0]=='c'):
                         m=mues[int(mat[0,0][w][u].split('c')[2])]
                         if m!=0:
@@ -10733,12 +10734,12 @@ def relklpols(W,W1,cell1,weightL,q):
 
 #F relklpolsuneq
 def relklpolsuneq(W,W1,cell1,weightL,q):
-  """This function implements the same algorithm as 'relklpols' but this 
-  is the version for unequal parameters  where the computation of the 
-  mue-polynomials is considerably more involved. For more details see 
+  """This function implements the same algorithm as 'relklpols' but this
+  is the version for unequal parameters  where the computation of the
+  mue-polynomials is considerably more involved. For more details see
 
-    M. Geck, PyCox - Computing with (finite) Coxeter groups and 
-       Iwahori-Hecke algebras.  Dedicated to the Memory of Prof. 
+    M. Geck, PyCox - Computing with (finite) Coxeter groups and
+       Iwahori-Hecke algebras.  Dedicated to the Memory of Prof.
        H. Pahlings. LMS J. of Comput. Math. 15 (2012), 231--256.
 
   See also 'relklpols'.
@@ -10810,7 +10811,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
               if lft1[t][i]>i and lft1[t][j]<j:
                 m=cell1['mpols'][J.index(t)][int(cell1['klmat'][i][
                                          j].split('c')[J.index(t)+2])]
-                if m in mues[s]: 
+                if m in mues[s]:
                   mat[y,y][i][j]+='c'+str(mues[s].index(m))
                 else:
                   mat[y,y][i][j]+='c'+str(len(mues[s]))
@@ -10863,7 +10864,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                 if mat[y,x][v][u][0]=='c':
                   mat[y,x][v][u]+='0'
             else:
-              #fs1=list(filter(lambda s2:lft[s2][x]<0 and   
+              #fs1=list(filter(lambda s2:lft[s2][x]<0 and
               #                              lft1[-1-lft[s2][x]][u]<u,ldy))
               if len(fs1)>0:
                 s=fs1[0]
@@ -10898,7 +10899,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                       if rk!='0':
                         h+=rklpols[int(rk)]
                     for w in range(u+1,len(p1)):
-                      if lft1[t][w]>w and (mat[sy,x][v][w][0]=='c' and 
+                      if lft1[t][w]>w and (mat[sy,x][v][w][0]=='c' and
                                              cell1['klmat'][w][u][0]=='c'):
                         m1=cell1['mpols'][J.index(t)][int(cell1['klmat'][
                                          w][u].split('c')[J.index(t)+2])]
@@ -10927,18 +10928,18 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
           for u in range(len(p1)):
             if mat[y,x][v][u][0]=='c':
               for r in W.rank:
-                if poids[r]>0 and (lft[r][y]>y or (lft[r][y]<0 and 
-                        v<lft1[-1-lft[r][y]][v])) and (0<=lft[r][x]<x or 
+                if poids[r]>0 and (lft[r][y]>y or (lft[r][y]<0 and
+                        v<lft1[-1-lft[r][y]][v])) and (0<=lft[r][x]<x or
                                (lft[r][x]<0 and lft1[-1-lft[r][x]][u]<u)):
                   if poids[r]==1:
                     m=relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],
                          rklpols[int(mat[y,x][v][u].split('c')[1])])
                   else:
-                    pis=0 
+                    pis=0
                     for z in range(x+1,y+1):
                       if bruhatX[z][x] and bruhatX[y][z]:
                         for w in range(len(p1)):
-                          if 0<=lft[r][z]<z or (lft[r][z]<0 and 
+                          if 0<=lft[r][z]<z or (lft[r][z]<0 and
                                                  lft1[-1-lft[r][z]][w]<w):
                             if mat[z,x][w][u][0]=='c' and mat[y,
                                                          z][v][w][0]=='c':
@@ -10971,7 +10972,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                     if pis!=0:
                       pis=barpart(pis)+pis-zeropart(pis)
                     m=-pis
-                  #if all(p==1 for p in poids): 
+                  #if all(p==1 for p in poids):
                   #  m1=relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],
                   #       rklpols[int(mat[y,x][v][u].split('c')[1])])
                   #  if m!=m1:
@@ -11012,26 +11013,26 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
 
 #F allrelklpols
 def allrelklpols(W,J,weightL,q):
-  """returns the matrix of all  relative Kazhdan-Lusztig polynomials with 
+  r"""returns the matrix of all  relative Kazhdan-Lusztig polynomials with
   respect to a parabolic subgroup, following
 
-    M. Geck, On the induction of Kazhdan--Lusztig cells, Bull. London 
+    M. Geck, On the induction of Kazhdan--Lusztig cells, Bull. London
              Math. Soc. 35 (2003), 608--614.
 
   (For the time being, it is only implemented for equal parameters.)
 
   More precisely, let W be a Coxeter group with generating S. Let J be
   a subset of S and X be the set of minimal left coset representatives
-  of W_J in W. For y in X and v in W_J, we can write uniquely 
+  of W_J in W. For y in X and v in W_J, we can write uniquely
 
          C_{yv}' = T_yC_v' + sum_{x,u} p_{xu,yv}^* T_xC_u'
 
-  where the sum  runs over all  x in X and u in W_J such that  x<y and 
-  u <=_L v (Kazhdan-Lusztig pre-order in W_J);  here, p_{xu,yv}^* is a 
-  Laurent polynomial  which only involves  strictly negative powers of 
-  the indeterminate.  There is an algorithm for  computing p_{xu,yv}^* 
-  by induction, similar to (but technically more complicated than) the 
-  usual  algorithm for computing the  Kazhdan-Lusztig polynomials. The 
+  where the sum  runs over all  x in X and u in W_J such that  x<y and
+  u <=_L v (Kazhdan-Lusztig pre-order in W_J);  here, p_{xu,yv}^* is a
+  Laurent polynomial  which only involves  strictly negative powers of
+  the indeterminate.  There is an algorithm for  computing p_{xu,yv}^*
+  by induction, similar to (but technically more complicated than) the
+  usual  algorithm for computing the  Kazhdan-Lusztig polynomials. The
   relation to the traditional  Kazhdan-Lusztig polynomials is given by
   the following formula:
 
@@ -11039,31 +11040,31 @@ def allrelklpols(W,J,weightL,q):
    P_{xu,yv}^* =
                  \ p_{xu,yv}^* + sum_w P_{u,w}^* p_{xw,yv}^*  if x<y,
 
-  where the sum runs over all  w in W_J  such  that u<w.  The function 
-  actually returns the renormalised polynomials 
+  where the sum runs over all  w in W_J  such  that u<w.  The function
+  actually returns the renormalised polynomials
 
-   p_{xu,yv} = v^{L(yv)-L(xu)} p_{xu,yv}^*. 
+   p_{xu,yv} = v^{L(yv)-L(xu)} p_{xu,yv}^*.
 
   >>> W=coxeter("B",2)
   >>> relklpols(W,[0],1,v)
-  {'allelms':  [[],[0],[1],[0,1],[1,0],[0,1,0],[1,0,1],[0,1,0,1]], 
-   'elmsX':    [[],[1],[0,1],[1,0,1]], 
-   'elmsJ':    [[],[0]], 
-   'klpols':   [1], 
-   'rklpols':  [0, 1], 
+  {'allelms':  [[],[0],[1],[0,1],[1,0],[0,1,0],[1,0,1],[0,1,0,1]],
+   'elmsX':    [[],[1],[0,1],[1,0,1]],
+   'elmsJ':    [[],[0]],
+   'klpols':   [1],
+   'rklpols':  [0, 1],
    'mues':     [0, 1],
-   'relklmat': {(0, 0): [['c1c0', 'f'   ], ['c0c1', 'c1c0']], 
-                (1, 0): [['c1c1', 'f'   ], ['c0c0', 'c1c1']], 
-                (1, 1): [['c1c0', 'f'   ], ['c0c1', 'c1c0']], 
-                (2, 0): [['c0c0', 'c1c1'], ['c0c0', 'c1c0']], 
-                (2, 1): [['c1c1', 'f'   ], ['c0c0', 'c1c1']], 
-                (2, 2): [['c1c0', 'f'   ], ['c0c1', 'c1c0']], 
-                (3, 0): [['c0c0', 'c1c0'], ['c0c0', 'c1c0']], 
-                (3, 1): [['c0c0', 'c1c1'], ['c0c0', 'c1c0']], 
-                (3, 2): [['c1c1', 'f'   ], ['c0c0', 'c1c1']], 
-                (3, 3): [['c1c0', 'f'   ], ['c0c1', 'c1c0']], 
-    'arrows':  [(0,1), (0,2), (1,4), (2,3), (4,5), (4,1), (3,6), (3,2), 
-                (5,7), (5,4), (6,7), (6,3)]} 
+   'relklmat': {(0, 0): [['c1c0', 'f'   ], ['c0c1', 'c1c0']],
+                (1, 0): [['c1c1', 'f'   ], ['c0c0', 'c1c1']],
+                (1, 1): [['c1c0', 'f'   ], ['c0c1', 'c1c0']],
+                (2, 0): [['c0c0', 'c1c1'], ['c0c0', 'c1c0']],
+                (2, 1): [['c1c1', 'f'   ], ['c0c0', 'c1c1']],
+                (2, 2): [['c1c0', 'f'   ], ['c0c1', 'c1c0']],
+                (3, 0): [['c0c0', 'c1c0'], ['c0c0', 'c1c0']],
+                (3, 1): [['c0c0', 'c1c1'], ['c0c0', 'c1c0']],
+                (3, 2): [['c1c1', 'f'   ], ['c0c0', 'c1c1']],
+                (3, 3): [['c1c0', 'f'   ], ['c0c1', 'c1c0']],
+    'arrows':  [(0,1), (0,2), (1,4), (2,3), (4,5), (4,1), (3,6), (3,2),
+                (5,7), (5,4), (6,7), (6,3)]}
 
   (Conventions in relklmat similar to those in 'klpolynomials'.
 
@@ -11103,7 +11104,7 @@ def allrelklpols(W,J,weightL,q):
     lft1[t]=[a1.index(tuple([w[i] for i in W.permgens[t]])) for w in a1]
   mat={}
   lprint('#I Initialising ')
-  mues=[0] 
+  mues=[0]
   for y in range(len(X1)):
     if y%100==0:
       lprint('.')
@@ -11119,7 +11120,7 @@ def allrelklpols(W,J,weightL,q):
       else:
         mat[y,x]=[len(a1)*['f'] for i in range(len(a1))]
     mat[y,y]=[len(a1)*['f'] for i in range(len(a1))]
-    for i in range(len(a1)): 
+    for i in range(len(a1)):
       for j in range(i):
         if m1['klmat'][i][j][0]=='c':
           mat[y,y][i][j]='c0'
@@ -11166,7 +11167,7 @@ def allrelklpols(W,J,weightL,q):
                 if mat[y,x][v][u][0]=='c':
                   mat[y,x][v][u]+='0c0'
             else:
-              #fs1=list(filter(lambda s2:lft[s2][x]<0 and   
+              #fs1=list(filter(lambda s2:lft[s2][x]<0 and
               #                              lft1[-1-lft[s2][x]][u]<u,ldy))
               if len(fs1)>0:
                 s=fs1[0]
@@ -11199,7 +11200,7 @@ def allrelklpols(W,J,weightL,q):
                       if rk!='0':
                         h+=rklpols[int(rk)]
                     for w in range(u+1,len(a1)):
-                      if lft1[t][w]>w and (mat[sy,x][v][w][0]=='c' and 
+                      if lft1[t][w]>w and (mat[sy,x][v][w][0]=='c' and
                                                 m1['klmat'][w][u][0]=='c'):
                         m=mues[int(mat[0,0][w][u].split('c')[2])]
                         if m!=0:
@@ -11243,12 +11244,12 @@ def allrelklpols(W,J,weightL,q):
           pp.append((bij[y,v],bij[lft[s][y],v]))
         elif lft[s][y]<0 and lft1[-1-lft[s][y]][v]>v:
           pp.append((bij[y,v],bij[y,lft1[-1-lft[s][y]][v]]))
-      for x in range(y+1): 
+      for x in range(y+1):
         for u in range(len(a1)):
           rk=mat[y,x][v][u]
           if rk[0]=='c' and rk.split('c')[2]!='0':
-            if any((0<=lft[s][x]<x or (lft[s][x]<0 and 
-                lft1[-1-lft[s][x]][u]<u)) and (lft[s][y]>y or (lft[s][y]<0 
+            if any((0<=lft[s][x]<x or (lft[s][x]<0 and
+                lft1[-1-lft[s][x]][u]<u)) and (lft[s][y]>y or (lft[s][y]<0
                                and lft1[-1-lft[s][y]][v]>v)) for s in W.rank):
               pp.append((bij[y,v],bij[x,u]))
   lprint(str(len(pp))+' arrows \n');
@@ -11278,14 +11279,14 @@ def allrelklpols(W,J,weightL,q):
 #F leftconnected
 def leftconnected(W,elms,pr=True):
   """returns the  left-connected components of a set elms. A set elms
-  if left-connected  if for any two elements x,y in elms, there is 
-  a sequence  s_1,...,s_n in S such that  y=s_n...s_2s_1x  and all 
-  intermediate elements  s_i...s_2s_1x for i=1,...,n-1 also lie in 
+  if left-connected  if for any two elements x,y in elms, there is
+  a sequence  s_1,...,s_n in S such that  y=s_n...s_2s_1x  and all
+  intermediate elements  s_i...s_2s_1x for i=1,...,n-1 also lie in
   elms. Otherwise, elms falls into left-connected components under
-  this relation. It is expected (Lusztig, 1983) that 
+  this relation. It is expected (Lusztig, 1983) that
 
-     * left cells of W are left-connected, and 
-     * the left-connected components of a two-sided cell are 
+     * left cells of W are left-connected, and
+     * the left-connected components of a two-sided cell are
        precisely the left cells in that two-sided cell.
 
   """
@@ -11294,7 +11295,7 @@ def leftconnected(W,elms,pr=True):
       pelms=set([w[:len(W.rank)] for w in elms])
     else:
       pelms=set(elms)
-  else: 
+  else:
     pelms=set([W.wordtocoxelm(w) for w in elms])
   orbs=[]
   while len(pelms)>0:
@@ -11307,7 +11308,7 @@ def leftconnected(W,elms,pr=True):
         if sx[:len(W.rank)] in pelms and (not sx[:len(W.rank)] in orb1):
           orb.append(sx)
           orb1.add(sx[:len(W.rank)])
-    orbs.append(orb) 
+    orbs.append(orb)
     for x in orb:
       pelms.remove(x[:len(W.rank)])
   if pr:
@@ -11316,12 +11317,12 @@ def leftconnected(W,elms,pr=True):
 
 #F klstaroperation
 def klstaroperation(W,s,t,pcell):
-  """returns the list containing the elements  w^* for w in cell, where  
-  w^* is obtained by the Kazhdan-Lusztig star operation with respect 
-  to  the generators  s,t in S such that  st has order 3. Here, cell 
-  is assumed to be a  list of elements in  W which all have the same 
-  right descent set (and which are given as full permutations).  The  
-  function  returns  'False'  if the  star operation with respect to 
+  """returns the list containing the elements  w^* for w in cell, where
+  w^* is obtained by the Kazhdan-Lusztig star operation with respect
+  to  the generators  s,t in S such that  st has order 3. Here, cell
+  is assumed to be a  list of elements in  W which all have the same
+  right descent set (and which are given as full permutations).  The
+  function  returns  'False'  if the  star operation with respect to
   s,t is not defined for the  elements  in the given set.
 
   >>> W=coxeter("D",4); W.coxetermat
@@ -11330,7 +11331,7 @@ def klstaroperation(W,s,t,pcell):
   >>> k=klcells(W,1,v);k[0][2]
   >>> k[0][2]   # example of a left cell
   c[[3], [2, 3], [0, 2, 3], [1, 2, 3]]
-  >>> klstaroperation(W,0,2,[W.wordtoperm(p) for p in k[0][2]]); 
+  >>> klstaroperation(W,0,2,[W.wordtoperm(p) for p in k[0][2]]);
   False
   >>> klstaroperation(W,1,2,[W.wordtoperm(p) for p in k[0][2]])
   False
@@ -11339,41 +11340,41 @@ def klstaroperation(W,s,t,pcell):
   False
   >>> [W.permtoword(p) for p in st]
   [[3, 2], [2], [0, 2], [1, 2]]
-  
+
   See also 'klstarorbit' and 'wgraphstarorbit'.
   """
   pw1=perminverse(pcell[0])
   if (pw1[s]>=W.N and pw1[t]>=W.N) or (pw1[s]<W.N and pw1[t]<W.N):
-    return False 
+    return False
   nl=[]
   for pw in pcell:
     ws=tuple([W.permgens[s][r] for r in pw])
     wsi=perminverse(ws)
-    if (wsi[s]>=W.N and wsi[t]<W.N) or (wsi[t]>=W.N and wsi[s]<W.N): 
+    if (wsi[s]>=W.N and wsi[t]<W.N) or (wsi[t]>=W.N and wsi[s]<W.N):
       nl.append(ws)
     else:
       nl.append(tuple([W.permgens[t][r] for r in pw]))
   return nl
-     
-#F klstarorbit 
+
+#F klstarorbit
 def klstarorbit(W,l,gens='each'):
-  """returns the orbit of a list 'l'  of elements  under repeated 
-  application of star operations. Here, it is assumed that all 
+  """returns the orbit of a list 'l'  of elements  under repeated
+  application of star operations. Here, it is assumed that all
   elements in 'l' have the same generalised tau-invariant. For
   example, 'l' could be a left cell (equal parameter case)  or
-  'l' could be a singleton set.  The optional argument  'gens' 
-  can be  used to specify  the generators  for which the  star 
+  'l' could be a singleton set.  The optional argument  'gens'
+  can be  used to specify  the generators  for which the  star
   operation will be considered.
 
   >>> W=coxeter("A",3);k=klcells(W,1,v)
   >>> k[1]
   wgraph(coxeter('A',3), [1, 1, 1], [[2], [1, 2], [0, 1, 2]])
   >>> klstarorbit(W,k[1].X)
-  [[[2], [1, 2], [0, 1, 2]], 
-   [[2, 1], [1], [0, 1]], 
+  [[[2], [1, 2], [0, 1, 2]],
+   [[2, 1], [1], [0, 1]],
    [[2, 1, 0], [1, 0], [0]]]
 
-  See  also  'klstaroperation', 'klstarorbitperm', 'klcells' and 
+  See  also  'klstaroperation', 'klstarorbitperm', 'klcells' and
   'gentaucells'.
   """
   if gens=='each':
@@ -11394,9 +11395,9 @@ def klstarorbit(W,l,gens='each'):
             orb1.append(set([x[:len(W.rank)] for x in nc]))
   return [[W.permtoword(p) for p in o] for o in orb]
 
-#F klstarorbitperm 
+#F klstarorbitperm
 def klstarorbitperm(W,l,gens='each'):
-  """same as klstarorbit but the function returns the elements as 
+  """same as klstarorbit but the function returns the elements as
   full permutations.
   """
   if gens=='each':
@@ -11416,7 +11417,7 @@ def klstarorbitperm(W,l,gens='each'):
             orb.append(nc)
             orb1.append(set([x[:len(W.rank)] for x in nc]))
   return orb
-  
+
 def klstarorbitchain(W,l,gens='each'):
   """same as 'klstarorbit' but only returns sequence of pairs of
   generators.
@@ -11436,11 +11437,11 @@ def klstarorbitchain(W,l,gens='each'):
             c1.append(str(s)+str(t))
     ch.append(c1)
   return ch
-  
+
 #F leftklstar
 def leftklstar(W,pw,s,t):
   """applies the left star operation with respect to generators
-  s and t to an element pw; here, it is already assumed that 
+  s and t to an element pw; here, it is already assumed that
   the product st has order 3 and that the star  operation is
   known to apply to pw.
 
@@ -11448,22 +11449,22 @@ def leftklstar(W,pw,s,t):
   """
   if pw[s]>=W.N and pw[t]<W.N:
     sw=tuple([pw[i] for i in W.permgens[s]])
-    if sw[t]>=W.N: 
+    if sw[t]>=W.N:
       return sw
     else:
       return tuple([pw[i] for i in W.permgens[t]])
   else:
     sw=tuple([pw[i] for i in W.permgens[t]])
-    if sw[s]>=W.N:      
+    if sw[s]>=W.N:
       return sw
     else:
       return tuple([pw[i] for i in W.permgens[s]])
 
 #F leftklstarorbitelm
 def leftklstarorbitelm(W,pw,gens='each'):
-  """returns the orbit of an element under the left star operations. 
+  """returns the orbit of an element under the left star operations.
   The element  is supposed to  be given as a  full permutation of
-  the set of roots (see 'coxeter'). 
+  the set of roots (see 'coxeter').
 
   See also 'leftklstar' and 'leftklstarorbits'.
   """
@@ -11506,7 +11507,7 @@ def leftklstarorbitelm1(W,pw,gens='each'):
 
 #F klstarorbitelm
 def klstarorbitelm(W,pw,gens='each'):
-  """returns the orbit of an element under the (right) star operations. 
+  """returns the orbit of an element under the (right) star operations.
 
   See also 'leftklstarorbitelm' and 'klstarorbit'.
   """
@@ -11515,11 +11516,11 @@ def klstarorbitelm(W,pw,gens='each'):
 
 #F leftklstarorbits
 def leftklstarorbits(W,l,lcells=False,gens='each'):
-  """returns the orbits of a set under the left star operations. 
-  If the given set 'l'  is known to be a union of left cells, 
-  the function performs  faster when  the additional argument  
+  """returns the orbits of a set under the left star operations.
+  If the given set 'l'  is known to be a union of left cells,
+  the function performs  faster when  the additional argument
   'lcells' is set to 'True'.
-  
+
   See also 'leftklstarorbitelm'.
   """
   if gens=='each':
@@ -11598,7 +11599,7 @@ def leftrightstarorbit(W,pw):
 
 def leftrightstarorbitinv(W,pw):
   """similar to 'leftrightstarorbit' but the computation terminates when
-  an involution  is  found in the orbit.  In this case,  the function 
+  an involution  is  found in the orbit.  In this case,  the function
   returns this involution; otherwise, the whole orbit is returned.
   """
   orb=[pw]
@@ -11627,11 +11628,11 @@ def leftrightstarorbitinv(W,pw):
 
 #F generalisedtau
 def generalisedtau(W,pw,maxd=10):
-  """returns Vogan's generalised  tau-invariant of an element of 
-  a finite Coxeter group. It is known that two elements which  
-  belong to the same left cell  (in the equal parameter case)  
+  """returns Vogan's generalised  tau-invariant of an element of
+  a finite Coxeter group. It is known that two elements which
+  belong to the same left cell  (in the equal parameter case)
   must have the same generalised tau-invariant.  The optional
-  argument  'maxd' can be used to set the depth to  which the 
+  argument  'maxd' can be used to set the depth to  which the
   star operations will be applied (default 10).
   """
   #pw=W.wordtoperm(w)
@@ -11669,7 +11670,7 @@ def gentauorbit2(W,l):
             rnd=[tuple(W.rightdescentsetperm(pw)) for pw in nc]
             srnd=set(rnd)
             if len(srnd)>1:
-              return [[l[i] for i in range(len(l)) if rnd[i]==s] 
+              return [[l[i] for i in range(len(l)) if rnd[i]==s]
                                                       for s in srnd]
             elif not nc[0][:len(W.rank)] in orb1:
               orb.append(nc)
@@ -11693,7 +11694,7 @@ def klstringoperation4(W,s,t,pcell):
       nl.append(stsx)
     elif pw==tsx:
       nl.append(tsx)
-    elif pw==stsx: 
+    elif pw==stsx:
       nl.append(sx)
     else:
       tx=tuple([W.permgens[t][r] for r in x])
@@ -11703,7 +11704,7 @@ def klstringoperation4(W,s,t,pcell):
         nl.append(tstx)
       elif pw==stx:
         nl.append(stx)
-      elif pw==tstx: 
+      elif pw==tstx:
         nl.append(tx)
       else:
         print('Mist')
@@ -11726,9 +11727,9 @@ def klstringoperation5(W,s,t,pcell):
       nl.append(tstsx)
     elif pw==tsx:
       nl.append(stsx)
-    elif pw==stsx: 
+    elif pw==stsx:
       nl.append(tsx)
-    elif pw==tstsx: 
+    elif pw==tstsx:
       nl.append(sx)
     else:
       tx=tuple([W.permgens[t][r] for r in x])
@@ -11739,9 +11740,9 @@ def klstringoperation5(W,s,t,pcell):
         nl.append(ststx)
       elif pw==stx:
         nl.append(tstx)
-      elif pw==tstx: 
+      elif pw==tstx:
         nl.append(stx)
-      elif pw==ststx: 
+      elif pw==ststx:
         nl.append(tx)
       else:
         print('Mist')
@@ -11790,11 +11791,11 @@ def checkh4(W,kl):
 
 # gentaucells
 def gentaucells(W,startset,pr=True,lcells=False,string=False,tlen=False):
-  """returns the partition  of a set of elements into equivalence 
-  classes  under  the  relation  given by Vogan's  generalised 
+  """returns the partition  of a set of elements into equivalence
+  classes  under  the  relation  given by Vogan's  generalised
   tau-invariant  (which amounts to repeated application of the
-  star operations).  If the startset is known to be a union of 
-  left cells, the function performs faster when the additional 
+  star operations).  If the startset is known to be a union of
+  left cells, the function performs faster when the additional
   argument 'lcells' is set to 'True'.
 
   >>> W=coxeter("E",6)
@@ -11802,24 +11803,24 @@ def gentaucells(W,startset,pr=True,lcells=False,string=False,tlen=False):
   >>> len(g)
   652
 
-  (In this case, the result is  precisely  the partition of  W 
-  into left cells; see the function  'klcells'.  The same also 
+  (In this case, the result is  precisely  the partition of  W
+  into left cells; see the function  'klcells'.  The same also
   happens for W of type A, as shown in the original article of
   Kazhdan and Lusztig.)
 
   If the optional argument 'string' is set to 'True', then the
   function also uses Lustig's method of strings for generators
-  s,t such that st has order bigger than 3  (see Section 10 in 
-  his article "Cells in affine Weyl groups I"). This is useful 
+  s,t such that st has order bigger than 3  (see Section 10 in
+  his article "Cells in affine Weyl groups I"). This is useful
   for dealing with groups of non simply-laced type:
 
   >>> W=coxeter("F",4)
   >>> len(gentaucells(W, allwords(W), string=True))
-  #I 1152 tau-cells: 16 36 58 72 
+  #I 1152 tau-cells: 16 36 58 72
   72
 
-  (In this case again,  the result  is precisely the partition 
-  of W into left cells, for the equal parameter case.) 
+  (In this case again,  the result  is precisely the partition
+  of W into left cells, for the equal parameter case.)
 
   See also 'klstarorbit' and 'gentaureps'.
   """
@@ -11878,7 +11879,7 @@ def gentaucells(W,startset,pr=True,lcells=False,string=False,tlen=False):
 #F gentaureps
 def gentaureps(W,pr=True):
   """returns a set of the representatives of the generalised
-  tau-cells under the star operations. 
+  tau-cells under the star operations.
 
   >>> W=coxeter("E",6)
   >>> g=gentaureps(W)
@@ -11911,7 +11912,7 @@ def gentaureps(W,pr=True):
         wx=W.wordtoperm(x)
         for d in dc:
           l.append(permmult(d,wx))
-      if not all(permmult(p,p)[:len(W.rank)]!=tuple(W.rank) or 
+      if not all(permmult(p,p)[:len(W.rank)]!=tuple(W.rank) or
                                p[:len(W.rank)] in cset for p in l):
         for gt in gentaucells(W,l,pr=0,lcells=True):
           if not any(x[:len(W.rank)] in cset for x in gt):
@@ -11919,13 +11920,13 @@ def gentaureps(W,pr=True):
               lprint('.')
             nset.append([W.permtoword(p) for p in gt])
             for o in klstarorbitperm(W,gt):
-              for e in o:  
+              for e in o:
                 if permmult(e,e)[:len(W.rank)]==tuple(W.rank):
                   cset.add(e[:len(W.rank)])
     if pr:
       lprint(' '+str(len(nset))+' reps\n')
   return nset
-  
+
 # klcellw0
 def klcellw0(W,wgr):
   """returns the W-graph of a left cell multiplied by the longest
@@ -11947,25 +11948,25 @@ def klcellw0(W,wgr):
 # wgraphstarorbit
 def wgraphstarorbit(W,wgr,gens='each'):
   """returns the orbit of a W-graph under the relation generated by the
-  Kazhdan-Lusztig star operation.  (Only works  in the case of equal 
+  Kazhdan-Lusztig star operation.  (Only works  in the case of equal
   parameters.)
 
   >>> W=coxeter("A",2); k=klcells(W,1,v); k
   #I 4 left cells (3 non-equivalent)
-  [[[[]], [[0, 1, 0]], [[1], [0, 1]], [[1, 0], [0]]], 
-   [wgraph(coxeter('A',2), [1, 1], [[]]), 
-    wgraph(coxeter('A',2), [1, 1], [[0, 1, 0]]), 
+  [[[[]], [[0, 1, 0]], [[1], [0, 1]], [[1, 0], [0]]],
+   [wgraph(coxeter('A',2), [1, 1], [[]]),
+    wgraph(coxeter('A',2), [1, 1], [[0, 1, 0]]),
     wgraph(coxeter('A',2), [1, 1], [[1], [0, 1]])]]
   >>> flatlist([wgraphstarorbit(W,g) for g in k[1]])
-  [wgraph(coxeter('A',2), [1, 1], [[]]), 
-   wgraph(coxeter('A',2), [1, 1], [[0, 1, 0]]), 
-   wgraph(coxeter('A',2), [1, 1], [[1], [0, 1]]), 
+  [wgraph(coxeter('A',2), [1, 1], [[]]),
+   wgraph(coxeter('A',2), [1, 1], [[0, 1, 0]]),
+   wgraph(coxeter('A',2), [1, 1], [[1], [0, 1]]),
    wgraph(coxeter('A',2), [1, 1], [[0], [1, 0]])]
 
-  See also 'klstaroperation', 'wgraph' and 'klcells'. 
+  See also 'klstaroperation', 'wgraph' and 'klcells'.
   """
   return [wgraph(W,wgr.weights,[W.permtoword(p) for p in l],wgr.var,wgr.Isets,
-                  wgr.mmat,wgr.mpols,[p[:len(W.rank)] for p in l]).normalise() 
+                  wgr.mmat,wgr.mpols,[p[:len(W.rank)] for p in l]).normalise()
                                        for l in klstarorbitperm(W,wgr.X,gens)]
 
 #F klcellsun
@@ -12011,35 +12012,35 @@ def klcellsun(W,weightL,v,pr=True):
 
 #F klcells
 def klcells(W,weightL,v,allcells=True,pr=True):
-  """returns the partition of a finite Coxeter group into left cells 
+  """returns the partition of a finite Coxeter group into left cells
   together with the corresponding W-graphs.
 
-  In the equal parameter case (where all weights are equal to 1), 
+  In the equal parameter case (where all weights are equal to 1),
   the function returns a pair [l,l1] where l is a list describing
-  the partition of W into left cells and  l1 is a list containing 
-  the  W-graphs for a set of a representatives  of the left cells 
+  the partition of W into left cells and  l1 is a list containing
+  the  W-graphs for a set of a representatives  of the left cells
   under the equivalence relation given by the star operation. (It
   is known that  star equivalent left cells give rise to the same
-  W-graphs.) The computation is done recursively, using induction 
-  of left cells from proper parabolic subgroups (see the function 
-  'relklpols'). This works very efficiently for groups of rank up 
-  to 6, including types H4 and E6. If one is  willing to wait for 
-  a few hours,  then type E7  is  also possible.  If the optional 
+  W-graphs.) The computation is done recursively, using induction
+  of left cells from proper parabolic subgroups (see the function
+  'relklpols'). This works very efficiently for groups of rank up
+  to 6, including types H4 and E6. If one is  willing to wait for
+  a few hours,  then type E7  is  also possible.  If the optional
   argument 'allcells' is set to 'False',  then for each left cell
-  the function  only returns  those elements whose inverses  also 
+  the function  only returns  those elements whose inverses  also
   lie in that left cell.
 
   In the case of unequal parameters,  we just return the W-graphs
-  corresponding to all the left cells of W.  
+  corresponding to all the left cells of W.
 
-  See   also   'klpolynomials',   'wgraphstarorbit',  'reklpols', 
+  See   also   'klpolynomials',   'wgraphstarorbit',  'reklpols',
   'wgraph', 'gentaucells' and 'twosidedcells'.
 
   >>> klcells(coxeter("B",3),[2,1,1],v)  # unequal parameters
   #I Number of elements = 48
   #I Initialising (Bruhat-Chevalley order etc.) .........
   #I Computing KL polynomials for elements of length:
-  #I        1 2 3 4 5 6 7 8 9 
+  #I        1 2 3 4 5 6 7 8 9
   #I 120 arrows >> 16 left cells >> checks are True
   [wgraph(coxeter('B',3),[2,1,1],[[]]),
    wgraph(coxeter('B',3),[2,1,1],[[0],[1,0],[2,1,0]]),
@@ -12070,72 +12071,72 @@ def klcells(W,weightL,v,allcells=True,pr=True):
 
   >>> klcells(coxeter("I5",2),1,v)
   #I 4 left cells (4 non-equivalent), mues: 1
-  [[[[]], 
-   [[0,1,0,1,0]], 
-   [[1], [0,1], [1,0,1], [0,1,0,1]], 
-   [[0], [1,0], [0,1,0], [1,0,1,0]]], 
-  [wgraph(coxeter('I5',2), [1,1], [[]]), 
-   wgraph(coxeter('I5',2), [1,1], [[0,1,0,1,0]]), 
-   wgraph(coxeter('I5',2), [1,1], [[1], [0,1], [1,0,1], [0,1,0,1]]), 
+  [[[[]],
+   [[0,1,0,1,0]],
+   [[1], [0,1], [1,0,1], [0,1,0,1]],
+   [[0], [1,0], [0,1,0], [1,0,1,0]]],
+  [wgraph(coxeter('I5',2), [1,1], [[]]),
+   wgraph(coxeter('I5',2), [1,1], [[0,1,0,1,0]]),
+   wgraph(coxeter('I5',2), [1,1], [[1], [0,1], [1,0,1], [0,1,0,1]]),
    wgraph(coxeter('I5',2), [1,1], [[0], [1,0], [0,1,0], [1,0,1,0]])]]
 
   >>> k=klcells(coxeter("H",4),1,v)         # takes < 7 minutes
-  #I 206 left cells (90 non-equivalent), mues: 1,2,3 
-  >>> set([len(c) for c in k[0]])  
+  #I 206 left cells (90 non-equivalent), mues: 1,2,3
+  >>> set([len(c) for c in k[0]])
   set([32,1,36,326,8,392,18,436,25])
 
   (Thus, W has left cells of size 1,8,18,25,33,36,326,392,436.)
 
-  The left cells in  type  H4 were first determined by 
+  The left cells in  type  H4 were first determined by
 
-     D. Alvis: The left cells of the Coxeter group of type H_4, 
-               J. Algebra 107 (1987), 160-168; see also 
-               http://mypage.iusb.edu/~alvis/h4data 
+     D. Alvis: The left cells of the Coxeter group of type H_4,
+               J. Algebra 107 (1987), 160-168; see also
+               http://mypage.iusb.edu/~alvis/h4data
 
   (I have checked that the result of 'klcells' indeed coincides
-  with Alvis' tables. Note that Alvis can actually compute  all 
-  the Kazhdan-Lusztig polynomials in type H4,  which would take 
-  a very long time with  'klpolynomials'.  If one is interested 
-  in  reproducing  this information,  then it is better to  use 
+  with Alvis' tables. Note that Alvis can actually compute  all
+  the Kazhdan-Lusztig polynomials in type H4,  which would take
+  a very long time with  'klpolynomials'.  If one is interested
+  in  reproducing  this information,  then it is better to  use
   DuCloux's Coxeter programe. Alternatively, one can also build
   all Kazhdan-Lusztig polynomials from the relative polynomials
   returned by 'allrelklpols'; this takes about 1 day cpu time.)
 
   >>> k=klcells(coxeter("E",6),1,v)    # takes about 45 seconds
   #I 652 left cells (21 non-equivalent), mues: 1
-  >>> set([len(c) for c in k[0]])  
+  >>> set([len(c) for c in k[0]])
   set([64,1,230,6,45,81,20,150,24,60,280])
 
-  (I have checked that the result of  'klcells'  coincides with 
+  (I have checked that the result of  'klcells'  coincides with
   the result for E6 produced by DuCloux's Coxeter programme.)
 
   >>> k=klcells(coxeter("D",7),1,v)         # takes < 4 minutes
   #I 2416 left cells (49 non-equivalent), mues: 1
-  >>> set([len(c) for c in k[0]])  
+  >>> set([len(c) for c in k[0]])
   set([1,98,35,6,7,105,231,140,15,112,49,210,147,20,21,56,84,
        154,175,63])
 
   >>> k=klcells(coxeter("E",7),1,v)       # takes about 4 hours
   #I 6364 left cells (56 non-equivalent), mues: 1,2,3,4,6,5
-  >>> set([len(c) for c in k[0]])  
-  set([1024,1,27,7,168,105,756,135,77,910,621,504,210,594,21, 
+  >>> set([len(c) for c in k[0]])
+  set([1024,1,27,7,168,105,756,135,77,910,621,504,210,594,21,
        225,665,378,91,189,875])
 
-  >>> k=klcells(coxeter("D",8),1,v)       # takes about 4 hours 
+  >>> k=klcells(coxeter("D",8),1,v)       # takes about 4 hours
   #I 11504 left cells (90 non-equivalent), mues: 1,2
-  set([1,7,8,140,21,1302,280,28,35,168,176,392,434,56,315,700, 
-       448,68,714,76,336,184,980,728,350,230,616,490,364,238, 
+  set([1,7,8,140,21,1302,280,28,35,168,176,392,434,56,315,700,
+       448,68,714,76,336,184,980,728,350,230,616,490,364,238,
        112,504,250,252])
 
-  >>> k=klcells(coxeter("A",9),1,v)    # takes about 50 minutes 
+  >>> k=klcells(coxeter("A",9),1,v)    # takes about 50 minutes
   #I 9496 left cells (42 non-equivalent), mues: 1
-  >>> set([len(c) for c in k[0]])  
-  set([768,1,9,525,160,35,36,42,300,567,315,448,288,450,75,210, 
+  >>> set([len(c) for c in k[0]])
+  set([768,1,9,525,160,35,36,42,300,567,315,448,288,450,75,210,
        84,90,350,225,252,126])
 
   The  program  essentially  works  in all cases  where one can
-  afford  to keep a  complete list  of all elements of W in the 
-  main memory.  Thus, type  B8 with its  10,321,920 elements is 
+  afford  to keep a  complete list  of all elements of W in the
+  main memory.  Thus, type  B8 with its  10,321,920 elements is
   about the limit:  it takes some  58 hours and  9GB  memory to
   compute the 15304 left cells and the corresponding W-graphs.
   """
@@ -12165,7 +12166,7 @@ def klcells(W,weightL,v,allcells=True,pr=True):
       kk=klcells(W1,[poids[s] for s in J],v,pr=False,allcells=False)
       if len(W.rank)>0:
         lprint('#I ')
-      lprint('('+str(len(kk[0]))+':'+str(len(kk[1]))+') ') 
+      lprint('('+str(len(kk[0]))+':'+str(len(kk[1]))+') ')
       nc,cr1,creps=[],[],[]
       celms=set([])
       i,tot=0,0
@@ -12173,7 +12174,7 @@ def klcells(W,weightL,v,allcells=True,pr=True):
         lprint('+')
         pairs=[W.wordtoperm(ci[0]+ci[1]) for ci in cartesian(X1p,
                               [[J[s] for s in w] for w in kk[1][i].X])]
-        if all(permmult(pa,pa)[:len(W.rank)]!=tuple(W.rank) or 
+        if all(permmult(pa,pa)[:len(W.rank)]!=tuple(W.rank) or
                            pa[:len(W.rank)] in celms for pa in pairs):
           lprint(str(0))
         else:
@@ -12210,16 +12211,16 @@ def klcells(W,weightL,v,allcells=True,pr=True):
               cr1.append(ii)
               for o in klstarorbitperm(W,ii.X):
                 #g=wgraph(W,ii.weights,[W.permtoword(x) for x in o],ii.var,
-                #                  ii.Isets,ii.mmat,ii.mpols,[x[:len(W.rank)] 
+                #                  ii.Isets,ii.mmat,ii.mpols,[x[:len(W.rank)]
                 #                                     for x in o]).normalise()
                 #nc.append(g)
                 #for e in g.Xrep:  celms.add(e)
                 if allcells==True:
                   nc.append([W.permtoword(x) for x in o])
                 else:
-                  nc.append([W.permtoword(x) for x in o 
+                  nc.append([W.permtoword(x) for x in o
                                     if perminverse(x) in o])
-                for e in o:  
+                for e in o:
                   if permmult(e,e)[:len(W.rank)]==tuple(W.rank):
                     celms.add(e[:len(W.rank)])
                 tot+=len(o)
@@ -12238,9 +12239,9 @@ def klcells(W,weightL,v,allcells=True,pr=True):
                   if allcells==True:
                     nc.append([W.permtoword(x) for x in o])
                   else:
-                    nc.append([W.permtoword(x) for x in o 
+                    nc.append([W.permtoword(x) for x in o
                                       if perminverse(x) in o])
-                  for e in o:  
+                  for e in o:
                     if permmult(e,e)[:len(W.rank)]==tuple(W.rank):
                       celms.add(e[:len(W.rank)])
                   tot+=len(o)
@@ -12252,7 +12253,7 @@ def klcells(W,weightL,v,allcells=True,pr=True):
       lprint('mues: '+','.join([str(i) for i in allmues])+'\n')
     #nc.sort(key=(lambda c:len(c)))
     ct=chartable(W)
-    if allcells==True and len(nc)!=sum([ct['irreducibles'][i][0] 
+    if allcells==True and len(nc)!=sum([ct['irreducibles'][i][0]
                  for i in range(len(ct['a'])) if ct['a'][i]==ct['b'][i]]):
       print("Mist!")
       return False
@@ -12263,7 +12264,7 @@ def klcells(W,weightL,v,allcells=True,pr=True):
     #k=klpolynomials(W,weightL,v)
     #return [wgraph(W,poids,{'elms':[k['elms'][x] for x in c],
     #          'mpols':k['mpols'],'klpols':k['klpols'],
-    #           'klmat':[[k['klmat'][c[w]][c[y]] for y in range(w+1)] 
+    #           'klmat':[[k['klmat'][c[w]][c[y]] for y in range(w+1)]
     #             for w in range(len(c))]},v) for c in k['lcells']]
 
 def zeroterm(p):
@@ -12283,38 +12284,38 @@ def zeroterm(p):
 
 #F leadingcoefficients
 def leadingcoefficients(W,weightL,lw,clpols=[]):
-  """returns  the  leading coefficients  (as  defined by  Lusztig)  of the 
-  character values of the generic Iwahori-Hecke algebra associated with 
-  W and given list of weights. For an irreducible representation E  and 
-  w in W, the coefficient c_{w,E} is defined by 
+  """returns  the  leading coefficients  (as  defined by  Lusztig)  of the
+  character values of the generic Iwahori-Hecke algebra associated with
+  W and given list of weights. For an irreducible representation E  and
+  w in W, the coefficient c_{w,E} is defined by
 
      Tr(T_w,E) = c_{w,E} v^(-a_E) + higher powers of v,
 
   where  a_E is the a-invariant of E (see 'ainvariants').  The argument
-  lw  contains  the  list  of  elements,  given as reduced expressions, 
+  lw  contains  the  list  of  elements,  given as reduced expressions,
   for  which the  leading values  are to be  computed.  The weights are
   specified as described in  'ainvariants'.  The  computations  use the
   character table of  the Iwahori--Hecke algebra (see 'heckechartable')
   and the class polynomials (see 'heckecharvalues').
 
-  (Note that Lusztig actually further multiplies c_{w,E}  by (-1)^l(w), 
+  (Note that Lusztig actually further multiplies c_{w,E}  by (-1)^l(w),
   but we omit this sign here.)
 
-  The  argument weightL specifies a weight function  as explained 
-  in 'ainvariants';  in particular,  the programme also works for 
+  The  argument weightL specifies a weight function  as explained
+  in 'ainvariants';  in particular,  the programme also works for
   unequal parameters.
 
   >>> W=coxeter("B",2)
   >>> a=allwords(W); a;
   [[], [0], [1], [0, 1], [1, 0], [0, 1, 0], [1, 0, 1], [0, 1, 0, 1]]
   >>> leadingcoefficients(W,[1,1],a)
-  [[ 0, 0, 0, 1, 0], 
-   [-1,-1, 0, 0, 0], 
-   [ 0,-1, 0, 0,-1], 
-   [ 0, 0, 0, 0, 0], 
-   [ 0, 0, 0, 0, 0], 
+  [[ 0, 0, 0, 1, 0],
+   [-1,-1, 0, 0, 0],
+   [ 0,-1, 0, 0,-1],
+   [ 0, 0, 0, 0, 0],
+   [ 0, 0, 0, 0, 0],
    [ 1,-1, 0, 0, 0],
-   [ 0,-1, 0, 0,-1], 
+   [ 0,-1, 0, 0,-1],
    [ 0, 0, 1, 0, 0]]
 
   See also 'leftcellleadingcoeffs'.
@@ -12337,16 +12338,16 @@ def leadingcoefficients(W,weightL,lw,clpols=[]):
     for i in w:
       cind+=poids[i]
     cp=cpmat[W.wordtocoxelm(w)]
-    #lc.append([zeroterm((-1)**len(w)*v**(ainv[i]-cind)*sum(cp[j]*ti[i][j] 
+    #lc.append([zeroterm((-1)**len(w)*v**(ainv[i]-cind)*sum(cp[j]*ti[i][j]
     #        for j in range(len(ainv)))) for i in range(len(ainv))])
-    lc.append([zeroterm(v**(ainv[i]-cind)*sum(cp[j]*ti[i][j] 
+    lc.append([zeroterm(v**(ainv[i]-cind)*sum(cp[j]*ti[i][j]
             for j in range(len(ainv)))) for i in range(len(ainv))])
   return lc
 
 #F leftcellleadingcoeffs
 def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
-  """returns  a dictionary with information  concerning  the leading 
-  coefficients in a given left cell. The components are: 
+  """returns  a dictionary with information  concerning  the leading
+  coefficients in a given left cell. The components are:
 
     elms    : the list of all w in the cell such that w^(-1) also
               lies in the cell;
@@ -12355,86 +12356,86 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
     nd      : the corresponding sign;
     special : the character for which all values are positive;
     char    : decomposition into irreducible characters of W.
- 
-  More precisely,  let  C  be a left cell.  Then  we consider the 
-  subalgebra of the asymptotic algebra J which is spanned  by all  
+
+  More precisely,  let  C  be a left cell.  Then  we consider the
+  subalgebra of the asymptotic algebra J which is spanned  by all
   basis elements  t_w where both  w and its inverse lie in C. The
   associated character table is the table of values
 
               ((-1)^l(d) n_d c_{w,E})_{E,w}
 
-  where  w runs over all w in C such that w^{-1} in C, and E runs 
-  over all E in Irr(W) such that E occurs in the left cell module 
-  given by C.  Here,  c_{w,E} are the leading coefficients of the 
-  character  values  of  the corresponding  generic Iwahori-Hecke 
-  algebra as defined by 
- 
-    G. Lusztig, Leading coefficients of character values of Hecke 
+  where  w runs over all w in C such that w^{-1} in C, and E runs
+  over all E in Irr(W) such that E occurs in the left cell module
+  given by C.  Here,  c_{w,E} are the leading coefficients of the
+  character  values  of  the corresponding  generic Iwahori-Hecke
+  algebra as defined by
+
+    G. Lusztig, Leading coefficients of character values of Hecke
      algebras, Proc. Symp. Pure Math. 47, AMS, 1987, pp. 235-262.
 
   (This  article  also contains a detailed study of the character
-  tables (c_{w,E}) in the equal parameter case.)  
+  tables (c_{w,E}) in the equal parameter case.)
 
   The distinguished involution d and the corresponding  sign 'nd'
-  are uniquely  determined by the  condition  that  nd*t_d is the 
+  are uniquely  determined by the  condition  that  nd*t_d is the
   identity element of the above subalgebra. It is known that nd=1
   in the equal parameter case;  in  the general unequal parameter
-  case, these properties are conjectural.  (In fact, the function 
+  case, these properties are conjectural.  (In fact, the function
   checks if such a distinguished involution exists.)
-  
-  The  argument weightL specifies a weight function  as explained 
-  in 'ainvariants';  in particular,  the programme also works for 
+
+  The  argument weightL specifies a weight function  as explained
+  in 'ainvariants';  in particular,  the programme also works for
   unequal parameters.
 
   >>> v=lpol([1],1,'v')
   >>> W=coxeter("B",2)
-  >>> [leftcellleadingcoeffs(W,1,v,l) 
+  >>> [leftcellleadingcoeffs(W,1,v,l)
                    for l in klcells(W,1,v)[0]] # equal parameters
   #I 4 left cells (4 non-equivalent), mues: 1
-  [{'elms': [[]], 'nd': 1, 'special': ('[[2], []]',), 
-    'distinv': [], 'ti': [[('[[2], []]',), [1]]]}, 
-   {'elms': [[0, 1, 0, 1]], 'nd': 1, 'special': ('[[], [1, 1]]',), 
-    'distinv': [0, 1, 0, 1], 'ti': [[('[[], [1, 1]]',), [1]]]}, 
-   {'elms': [[1], [1, 0, 1]], 'nd': 1, 'special': ('[[1], [1]]',), 
-    'distinv': [1], 'ti': [[('[[1], [1]]',), [1, 1]], 
-    [('[[], [2]]',), [1, -1]]]}, 
-   {'elms': [[0], [0, 1, 0]], 'nd': 1, 'special': ('[[1], [1]]',), 
-    'distinv': [0], 'ti': [[('[[1, 1], []]',), [1, -1]], 
+  [{'elms': [[]], 'nd': 1, 'special': ('[[2], []]',),
+    'distinv': [], 'ti': [[('[[2], []]',), [1]]]},
+   {'elms': [[0, 1, 0, 1]], 'nd': 1, 'special': ('[[], [1, 1]]',),
+    'distinv': [0, 1, 0, 1], 'ti': [[('[[], [1, 1]]',), [1]]]},
+   {'elms': [[1], [1, 0, 1]], 'nd': 1, 'special': ('[[1], [1]]',),
+    'distinv': [1], 'ti': [[('[[1], [1]]',), [1, 1]],
+    [('[[], [2]]',), [1, -1]]]},
+   {'elms': [[0], [0, 1, 0]], 'nd': 1, 'special': ('[[1], [1]]',),
+    'distinv': [0], 'ti': [[('[[1, 1], []]',), [1, -1]],
     [('[[1], [1]]',), [1, 1]]]}]
 
-  >>> leftcellleadingcoeffs(W,[2,1],v,l.X) 
+  >>> leftcellleadingcoeffs(W,[2,1],v,l.X)
                 for l in klcells(W,[2,1],v)]  # unequal parameters
   #I 10 arrows >> 6 left cells >> checks are True
-  [{'elms': [[]], 'nd': 1, 'special': ('[[2], []]',), 
-    'distinv': [], 'ti': [[('[[2], []]',), [1]]]}, 
-   {'elms': [[0]], 'nd': 1, 'special': ('[[1], [1]]',), 
-    'distinv': [0], 'ti': [[('[[1], [1]]',), [1]]]}, 
-    {'elms': [[1]], 'nd': 1, 'special': ('[[], [2]]',), 
-     'distinv': [1], 'ti': [[('[[], [2]]',), [1]]]}, 
-    {'elms': [[1, 0, 1]], 'nd': 1, 'special': ('[[1], [1]]',), 
-     'distinv': [1, 0, 1], 'ti': [[('[[1], [1]]',), [1]]]}, 
-    {'elms': [[0, 1, 0]], 'nd': -1, 'special': ('[[1, 1], []]',), 
-     'distinv': [0, 1, 0], 'ti': [[('[[1, 1], []]',), [1]]]}, 
-    {'elms': [[0, 1, 0, 1]], 'nd': 1, 'special': ('[[], [1, 1]]',), 
+  [{'elms': [[]], 'nd': 1, 'special': ('[[2], []]',),
+    'distinv': [], 'ti': [[('[[2], []]',), [1]]]},
+   {'elms': [[0]], 'nd': 1, 'special': ('[[1], [1]]',),
+    'distinv': [0], 'ti': [[('[[1], [1]]',), [1]]]},
+    {'elms': [[1]], 'nd': 1, 'special': ('[[], [2]]',),
+     'distinv': [1], 'ti': [[('[[], [2]]',), [1]]]},
+    {'elms': [[1, 0, 1]], 'nd': 1, 'special': ('[[1], [1]]',),
+     'distinv': [1, 0, 1], 'ti': [[('[[1], [1]]',), [1]]]},
+    {'elms': [[0, 1, 0]], 'nd': -1, 'special': ('[[1, 1], []]',),
+     'distinv': [0, 1, 0], 'ti': [[('[[1, 1], []]',), [1]]]},
+    {'elms': [[0, 1, 0, 1]], 'nd': 1, 'special': ('[[], [1, 1]]',),
      'distinv': [0, 1, 0, 1], 'ti': [[('[[], [1, 1]]',), [1]]]}]
 
   (Note the negative value for nd.)
 
   Remark:  The normalisiation by the sign  (-1)^l(d)*n_d  has the
-  effect that the above table  has a row in which all entries are 
-  strictly positive numbers.  (There can be at  most one row with 
+  effect that the above table  has a row in which all entries are
+  strictly positive numbers.  (There can be at  most one row with
   this property.)  It is known that, in the equal parameter case,
-  this row  is labelled by  the unique special character  (in the 
-  sense of Lusztig) which appears in the left cell representation 
+  this row  is labelled by  the unique special character  (in the
+  sense of Lusztig) which appears in the left cell representation
   carried by C.
 
   >>> W=coxeter("F",4); k=klcells(W,1,v)
   >>> l=leftcellleadingcoeffs(W,1,v,k[0][64]); l['ti']
-  [[('4_1',), [1,-1,-1, 1, 1, 0,-1,-1, 1]], 
-   [('9_2',), [1, 1,-1,-1,-1, 0,-1, 1, 1]], 
-   [('9_3',), [1,-1, 1,-1,-1, 0, 1,-1, 1]], 
-   [('6_2',), [1, 1, 1, 1, 1,-2, 1, 1, 1]], 
-   [('12',),  [1, 1, 1, 1, 1, 4, 1, 1, 1]], 
+  [[('4_1',), [1,-1,-1, 1, 1, 0,-1,-1, 1]],
+   [('9_2',), [1, 1,-1,-1,-1, 0,-1, 1, 1]],
+   [('9_3',), [1,-1, 1,-1,-1, 0, 1,-1, 1]],
+   [('6_2',), [1, 1, 1, 1, 1,-2, 1, 1, 1]],
+   [('12',),  [1, 1, 1, 1, 1, 4, 1, 1, 1]],
    [('16',),  [2, 0, 0, 0, 0, 0, 0, 0,-2]]]}
   >>> l['special']
   ('12',)
@@ -12447,7 +12448,7 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
   (Thus, indeed, the character labelled by '12' is special in the
   sense originally defined by Lusztig.)
 
-  See  also 'chartable', 'leadingcoeffients', 'klcells', 
+  See  also 'chartable', 'leadingcoeffients', 'klcells',
   'allcellsleadingcoeffs' and 'distinguishedinvolutions'.
   """
   if type(weightL)==type(0):
@@ -12466,7 +12467,7 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
   lc=transposemat(leadingcoefficients(W,weightL,lw,cpmat))
   ii=list(filter(lambda i:any(x!=0 for x in lc[i]),range(len(fshi))))
   ftot=1
-  for i in ii: 
+  for i in ii:
     ftot*=fshi[i]
   cof=[]
   for i in ii:
@@ -12475,9 +12476,9 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
       if i!=j:
         cf*=fshi[j]
     cof.append(cf)
-  nd=[(-1)**len(lw[w])*sum(cof[i]*lc[ii[i]][w] 
+  nd=[(-1)**len(lw[w])*sum(cof[i]*lc[ii[i]][w]
              for i in range(len(ii)))//ftot for w in range(len(lw))]
-  #nd1=[(-1)**len(lw[w])*sum((W.order*lc[i][w])//fshi[i] 
+  #nd1=[(-1)**len(lw[w])*sum((W.order*lc[i][w])//fshi[i]
   #       for i in range(len(fshi)))//W.order for w in range(len(lw))]
   #if nd1!=nd:
   #  print('mist!')
@@ -12498,15 +12499,15 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
   else:
     lc1=lc
   lc=[[(-1)**len(lw[i])*l[i] for i in range(len(lw))] for l in lc]
-  if not all(l[di]>=0 for l in lc): 
+  if not all(l[di]>=0 for l in lc):
     print('identity not OK for NEW normalisation')
-  if not all(l[di]>=0 for l in lc1): 
+  if not all(l[di]>=0 for l in lc1):
     print('identity not OK for OLD normalisation')
   #if set([(len(x)-len(lw[di]))%2 for x in lw])!=set([0]):
   #  lprint('#W odd lengths ')
   sp=0
-  while sp<len(ii) and not all(x>0 for x in lc[ii[sp]]): 
-    sp+=1 
+  while sp<len(ii) and not all(x>0 for x in lc[ii[sp]]):
+    sp+=1
   if sp==len(ii):
     print('no special character!')
   chi=[]
@@ -12552,75 +12553,75 @@ def strtopol(sp,vnam):
 
 #F distinguishedinvolutions
 def distinguishedinvolutions(W,weightL,distonly=True):
-  """returns the list of distinguished involutions with respect to a 
+  """returns the list of distinguished involutions with respect to a
   weight function, plus some additional information (as explained
   below). Here, we use the following  definition:
 
-  An element w in W is called distinguished if 
+  An element w in W is called distinguished if
 
-     n_w := (-1)^l(w) * sum_{E in Irr(W)} f_E^(-1) c_{w,E} 
+     n_w := (-1)^l(w) * sum_{E in Irr(W)} f_E^(-1) c_{w,E}
 
-  is non-zero, where  c_{w,E} are the leading coefficients of the  
-  character values of the generic  Iwahori-Hecke algebra  and f_E 
+  is non-zero, where  c_{w,E} are the leading coefficients of the
+  character values of the generic  Iwahori-Hecke algebra  and f_E
   are defined in terms of the corresponding Schur elements.  This
-  definition appeared in 
+  definition appeared in
 
     M. Geck, Leading coefficients and cellular bases of Hecke
     algebras, Proc. Edinburgh Math. Soc. 52 (2009), 653--677.
- 
+
   (This  is equivalent  to  Lusztig's  original definition in the
-  case of equal parameters and also in  types I_2(m), F_4 for any 
+  case of equal parameters and also in  types I_2(m), F_4 for any
   choice of parameters;  it is conjectured  that this equivalence
-  holds in general.)   
-   
-  One expects that all distinguished elements are involutions and 
-  that every left cell with respect to the given weight  function 
-  contains exactly one distinguished element.  (This  is known to 
+  holds in general.)
+
+  One expects that all distinguished elements are involutions and
+  that every left cell with respect to the given weight  function
+  contains exactly one distinguished element.  (This  is known to
   be true in the equal parameter case where it is also known that
   n_d=1 for all distinguished d in W.)
 
-  The function  returns  a list whose first component is the list 
-  of distinguished involutions and the second component is a list 
-  of pairs  
+  The function  returns  a list whose first component is the list
+  of distinguished involutions and the second component is a list
+  of pairs
 
-      (E_i, c_{d,E_i})   where E_i in Irr(W) and c_{d,E_i}<>0.  
+      (E_i, c_{d,E_i})   where E_i in Irr(W) and c_{d,E_i}<>0.
 
-  If not all n_d are equal to 1,  then there is a third component 
+  If not all n_d are equal to 1,  then there is a third component
   containing the values n_d.
 
   >>> W=coxeter("I8",2)
   >>> distinguishedinvolutions(W,[1,2])   # unequal parameters
   #I Number of distinguished involutions = 6 (4)
   [[[], [1], [0], [0,1,0], [1,0,1,0,1,0,1], [0,1,0,1,0,1,0,1]],
-   [[[('phi_{1,0}',),1]], 
-    [[('phi_{2,3}',),-1],[('phi_{2,2}',),-1], [('phi_{2,1}',),-1]], 
-    [[("phi_{1,4}''",),-1]], 
-    [[('phi_{2,3}',),-1],[('phi_{2,2}',),-1], [('phi_{2,1}',),-1]], 
-    [[("phi_{1,4}'",),1]], 
-    [[('phi_{1,8}',),1]]], 
+   [[[('phi_{1,0}',),1]],
+    [[('phi_{2,3}',),-1],[('phi_{2,2}',),-1], [('phi_{2,1}',),-1]],
+    [[("phi_{1,4}''",),-1]],
+    [[('phi_{2,3}',),-1],[('phi_{2,2}',),-1], [('phi_{2,1}',),-1]],
+    [[("phi_{1,4}'",),1]],
+    [[('phi_{1,8}',),1]]],
    [1, 1, 1, 1, -1, 1]]
 
   >>> W=coxeter("G",2)
   >>> distinguishedinvolutions(W,1)       # equal parameters
   #I Number of distinguished involutions = 4 (4)
-  [[[], [1], [0], [0,1,0,1,0,1]], 
-   [[[('phi_{1,0}',),1]], 
-    [[('phi_{2,2}',),-1], [('phi_{2,1}',),-1], [("phi_{1,3}''",),-1]], 
-    [[('phi_{2,2}',),-1], [('phi_{2,1}',),-1], [("phi_{1,3}'",),-1]], 
+  [[[], [1], [0], [0,1,0,1,0,1]],
+   [[[('phi_{1,0}',),1]],
+    [[('phi_{2,2}',),-1], [('phi_{2,1}',),-1], [("phi_{1,3}''",),-1]],
+    [[('phi_{2,2}',),-1], [('phi_{2,1}',),-1], [("phi_{1,3}'",),-1]],
     [[('phi_{1,6}',),1]]]]
   (Here, all signs n_d are known to be equal to 1.)
 
-  This function even works for  W of large rank:  For type H4, it 
-  takes about  25s;  for type E6, about  45s;  for type E7, about 
+  This function even works for  W of large rank:  For type H4, it
+  takes about  25s;  for type E6, about  45s;  for type E7, about
   40min; for type E8, about  18 days (and 22GB main memory).
 
   See  also  'distinguishedinvolutions_eq'  (optimised  for equal
   parameters),  'libdistinv', 'distinva',  'leadingcoefficients',
-  'schurelms' and 'leftcellleadingcoeffs'. 
+  'schurelms' and 'leftcellleadingcoeffs'.
 
-  Final remark: There is an optional argument 'distonly'. If this 
+  Final remark: There is an optional argument 'distonly'. If this
   is set to 'False',  then  the function returns similar lists as
-  described above, but now the first list contains all elements w 
+  described above, but now the first list contains all elements w
   such that c_{w,E} is non-zero for some E in Irr(W). Hence, this
   yields the complete table of all leading coefficients c_{w,E}.
   """
@@ -12656,7 +12657,7 @@ def distinguishedinvolutions(W,weightL,distonly=True):
   distinv,nvec=[[]],[1]
   lc=[zeroterm(v**(ainv[i])*ti[i][0]) for i in range(len(ainv))]
   char=[]
-  for i in range(len(ainv)): 
+  for i in range(len(ainv)):
     if lc[i]!=0:
       char.append([chn[i],lc[i]])
     #if lc[i]>0:
@@ -12718,17 +12719,17 @@ def distinguishedinvolutions(W,weightL,distonly=True):
         cp[t[2]]=1
       else:
         cp1=[strtopol(f,'v') for f in cpmat[l-1][mybytes(t[2])].split(';')]
-        cp2=[strtopol(f,'v') for f in cpmat[l][mybytes([W.permgens[t[3]][i] 
+        cp2=[strtopol(f,'v') for f in cpmat[l][mybytes([W.permgens[t[3]][i]
                                                 for i in t[2]])].split(';')]
         if poids[t[3]]==1:
           cp=[v*cp1[i]+(v-1)*cp2[i] for i in range(len(ainv))]
         else:
-          cp=[v**(poids[t[3]])*cp1[i]+(v**(poids[t[3]])-1)*cp2[i] 
+          cp=[v**(poids[t[3]])*cp1[i]+(v**(poids[t[3]])-1)*cp2[i]
                                            for i in range(len(ainv))]
       strcp=';'.join([poltostr(f) for f in cp])
       ic=len(spols)-1
       while ic>=0:
-        if strcp==spols[ic]: 
+        if strcp==spols[ic]:
           break
         ic-=1
       if ic==-1:
@@ -12742,7 +12743,7 @@ def distinguishedinvolutions(W,weightL,distonly=True):
           cx=perminverse(x)[:len(W.rank)]
           cps[mybytes(cx)]=spols[ic]
           nl.remove(mybytes(cx))
-      if len(t[1])==1 and (any(p!=1 for p in poids) or W.permorder(pw)==2 
+      if len(t[1])==1 and (any(p!=1 for p in poids) or W.permorder(pw)==2
                           or generalisedtau(W,pw,maxd=len(W.rank)**2)==
                                 generalisedtau(W,pw1,maxd=len(W.rank)**2)):
         zael+=1
@@ -12771,7 +12772,7 @@ def distinguishedinvolutions(W,weightL,distonly=True):
         ii=[i for i in range(len(ainv)) if lc[i]!=0]
         if ii!=[]:
           ftot=1
-          for i in ii: 
+          for i in ii:
             ftot*=fshi[i]
           cof=[]
           for i in ii:
@@ -12782,7 +12783,7 @@ def distinguishedinvolutions(W,weightL,distonly=True):
             cof.append(cf)
           nd=(-1)**len(w)*sum(cof[i]*lc[ii[i]] for i in range(len(ii)))
           if nd%ftot==0:
-            nd=nd//ftot 
+            nd=nd//ftot
           else:
             print("Mist!")
             return False
@@ -12803,14 +12804,14 @@ def distinguishedinvolutions(W,weightL,distonly=True):
           if maxl==W.N//2 and (W.N%2==1 or l<maxl-1):
             nd=sum(eps[ii[i]]*cof[i]*lc[ii[i]] for i in range(len(ii)))
             if nd%ftot==0:
-              nd=nd//ftot 
+              nd=nd//ftot
             else:
               print("Mist!")
               return False
             if nd!=0 or distonly!=True:
               distinv0.append(W.permtoword([w0[i] for i in pw]))
               nvec0.append(nd)
-              char0=[]  
+              char0=[]
               for i in range(len(ainv)):
                 if lc[i]!=0:
                   char0.append([signp[i],(-1)**(W.N+len(w))*eps[i]*lc[i]])
@@ -12846,21 +12847,21 @@ def distinguishedinvolutions(W,weightL,distonly=True):
 
 #F starorbitinv (for use in distinguishedinvolutions_eq and libdistinv)
 def starorbitinv(W,pw,lcell=[]):
-  """returns the orbit  of a  distinguished involution  (among others, 
-  for use in 'libdistinv' and in 'cellrepstarorbit') under  N. Xi's 
-  'double' star operation;  this shows that,  if d is distinguished 
-  and the star operation is defined for d (with respect to s,t such 
-  that st has order 3),  then ((d^*)^{-1})^* is also distinguished; 
-  see Section 1.4 in  
-     
-      N. Xi, The based ring of two-sided cells of affine Weyl groups
-      of type $~A_{n-1}$. Mem. Amer. Math. Soc.,  vol. 157, no. 749, 
-      Providence, R.I., 2002. 
+  """returns the orbit  of a  distinguished involution  (among others,
+  for use in 'libdistinv' and in 'cellrepstarorbit') under  N. Xi's
+  'double' star operation;  this shows that,  if d is distinguished
+  and the star operation is defined for d (with respect to s,t such
+  that st has order 3),  then ((d^*)^{-1})^* is also distinguished;
+  see Section 1.4 in
 
-  The optional  argument  'lcell' can be a  list of elements in the 
-  same left as the given element 'pw'; in this case, the star orbit 
-  of this list (see 'klstarorbit') is also returned  (with elements 
-  represented as 'coxelms'). 
+      N. Xi, The based ring of two-sided cells of affine Weyl groups
+      of type $~A_{n-1}$. Mem. Amer. Math. Soc.,  vol. 157, no. 749,
+      Providence, R.I., 2002.
+
+  The optional  argument  'lcell' can be a  list of elements in the
+  same left as the given element 'pw'; in this case, the star orbit
+  of this list (see 'klstarorbit') is also returned  (with elements
+  represented as 'coxelms').
   """
   orb=[pw[:]]
   orb1=set([pw[:len(W.rank)]])
@@ -12881,7 +12882,7 @@ def starorbitinv(W,pw,lcell=[]):
               orb.append(d1)
               orb1.add(d1[:len(W.rank)])
               if lcell!=[]:
-                ncell.append([mybytes(x) 
+                ncell.append([mybytes(x)
                       for x in klstaroperation(W,s,t,ncell[orb.index(d)])])
               #if W.permorder(d1)!=2:
               #  print("Mist!")
@@ -12890,7 +12891,7 @@ def starorbitinv(W,pw,lcell=[]):
     return orb
   else:
     return [orb,[[tuple(x[:len(W.rank)]) for x in l] for l in ncell]]
-  
+
 def starorbitinv1(W,distinv):
   """decomposes list of distinguished involutions into orbits
   under the star operation.
@@ -12913,7 +12914,7 @@ def starorbitinv1(W,distinv):
   return [i[1] for i in reps]
 
 def starorbitinv2(W):
-  """decomposes the list of involutions into orbits under the 
+  """decomposes the list of involutions into orbits under the
   star operation.
   """
   rest=involutions(W)
@@ -12934,12 +12935,12 @@ def starorbitinv2(W):
 
 #F distinguishedinvolutions_eq
 def distinguishedinvolutions_eq(W):
-  """similar to 'distinguishedinvolutions'  but this function only 
-  works in, and is optimised for, the case of equal parameters, 
-  where Lusztig's properties P1-P15  are known to hold  and  it 
+  """similar to 'distinguishedinvolutions'  but this function only
+  works in, and is optimised for, the case of equal parameters,
+  where Lusztig's properties P1-P15  are known to hold  and  it
   makes sense to use  the  star operations,  especially N. Xi's
-  double star operations  (see  'starorbitinv').  This function 
-  deals with type  H4 in 15s, with type E6 in 20s, with type E7 
+  double star operations  (see  'starorbitinv').  This function
+  deals with type  H4 in 15s, with type E6 in 20s, with type E7
   in  180s and with type E8 in about 33 hours.
 
   See also 'distinguishedinvolutions' and 'libdistinv'.
@@ -13036,13 +13037,13 @@ def distinguishedinvolutions_eq(W):
         cp[t[2]]=1
       else:
         cp1=[strtopol(f,'v') for f in cpmat[l-1][mybytes(t[2])].split(';')]
-        cp2=[strtopol(f,'v') for f in cpmat[l][mybytes([W.permgens[t[3]][i] 
+        cp2=[strtopol(f,'v') for f in cpmat[l][mybytes([W.permgens[t[3]][i]
                                                 for i in t[2]])].split(';')]
         cp=[v*cp1[i]+(v-1)*cp2[i] for i in range(len(ainv))]
       strcp=';'.join([poltostr(f) for f in cp])
       ic=len(spols)-1
       while ic>=0:
-        if strcp==spols[ic]: 
+        if strcp==spols[ic]:
           break
         ic-=1
       if ic==-1:
@@ -13078,7 +13079,7 @@ def distinguishedinvolutions_eq(W):
           lc.append(lcc)
         ii=[i for i in range(len(ainv)) if lc[i]!=0]
         ftot=1
-        for i in ii: 
+        for i in ii:
           ftot*=fshi[i]
         cof=[]
         for i in ii:
@@ -13089,7 +13090,7 @@ def distinguishedinvolutions_eq(W):
           cof.append(cf)
         nd=(-1)**len(w)*sum(cof[i]*lc[ii[i]] for i in range(len(ii)))
         if nd%ftot==0:
-          nd=nd//ftot 
+          nd=nd//ftot
         else:
           print("Mist!")
           return False
@@ -13098,7 +13099,7 @@ def distinguishedinvolutions_eq(W):
         if nd!=0:
           sto=starorbitinv(W,pw)
           distinv.extend(sto)
-          char=[]  
+          char=[]
           for i in range(len(ainv)):
             if lc[i]!=0:
               char.append([chn[i],lc[i]])
@@ -13113,14 +13114,14 @@ def distinguishedinvolutions_eq(W):
         if all(f%2==0 for f in W.degrees) and not pw0 in distinv:
           nd=sum(eps[ii[i]]*cof[i]*lc[ii[i]] for i in range(len(ii)))
           if nd%ftot==0:
-            nd=nd//ftot 
+            nd=nd//ftot
           else:
             print("Mist!")
             return False
           if nd!=0:
             sto0=starorbitinv(W,pw0)
             distinv.extend(sto0)
-            char0=[] 
+            char0=[]
             for i in range(len(ainv)):
               if lc[i]!=0:
                 char0.append([signp[i],(-1)**(W.N+len(w))*eps[i]*lc[i]])
@@ -13153,59 +13154,59 @@ def distinguishedinvolutions_eq(W):
 
 #F allcellsleadingcoeffs
 def allcellsleadingcoeffs(W,weightL,v,newnorm=False):
-  """returns a list which contains the pairwise different results of 
+  """returns a list which contains the pairwise different results of
   'leftcellleadingcoeffs' as we run over all left cells of W with
   at least two irreducible components.
-  
+
   >>> allcellsleadingcoeffs(coxeter("H",3),1,v)
-  [[[[("3_s'",), 1, ir5], [("overline{3}_s'",), 1, 1-ir5]], 
-    [[('3_s',), ir5, 1], [('overline{3}_s',), 1-ir5, 1]], 
-    [[("4_r'",), 1, -1], [('4_r',), 1, 1]]], 
+  [[[[("3_s'",), 1, ir5], [("overline{3}_s'",), 1, 1-ir5]],
+    [[('3_s',), ir5, 1], [('overline{3}_s',), 1-ir5, 1]],
+    [[("4_r'",), 1, -1], [('4_r',), 1, 1]]],
    [[[], 1],         # all distinguished involutions with signs
-    [[0, 1, 0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 1, 2], 1], 
-    [[2, 1, 0, 1, 0, 2, 1, 0, 1, 2], 1], 
-    [[0, 1, 0, 1, 0], 1], 
-    [[1, 0, 2, 1], 1], 
-    [[0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 0], 1], 
-    [[1, 0, 2, 1, 0, 1, 0, 2, 1], 1], 
-    [[0, 1, 0, 2, 1, 0], 1], 
-    [[2], 1], 
-    [[0, 1, 0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 1], 1], 
-    [[1, 0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 1, 2], 1], 
-    [[0], 1], [[1, 2, 1], 1], 
+    [[0, 1, 0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 1, 2], 1],
+    [[2, 1, 0, 1, 0, 2, 1, 0, 1, 2], 1],
+    [[0, 1, 0, 1, 0], 1],
+    [[1, 0, 2, 1], 1],
+    [[0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 0], 1],
+    [[1, 0, 2, 1, 0, 1, 0, 2, 1], 1],
+    [[0, 1, 0, 2, 1, 0], 1],
+    [[2], 1],
+    [[0, 1, 0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 1], 1],
+    [[1, 0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 1, 2], 1],
+    [[0], 1], [[1, 2, 1], 1],
     [[0, 1, 0, 1, 2, 1, 0, 1, 0], 1], [[1, 0, 1, 2, 1, 0, 1], 1]],
    [("5_r'",), ("3_s'",), ("1_r'",), ('3_s',), # special characters
     ('1_r',), ('5_r',), ("4_r'",)]]
 
   >>>allcellsleadingcoeffs(coxeter("B",3),[2,1,1],v)
-  [[[[('[[1, 1], [1]]',), 1,  1], 
-     [('[[1], [2]]',),    1, -1]], 
-    [[('[[1], [2]]',), 1, -1], 
-     [('[[], [3]]',),  1,  1]], 
-    [[('[[1, 1, 1], []]',), 1, -1], 
-     [('[[1, 1], [1]]',),   1,  1]]], 
-    [[[], 1], 
-     [[0], 1], 
-     [[1], 1], 
-     [[2], 1], 
-     [[1, 0, 1], 1], 
-     [[0, 2], 1], 
-     [[0, 1, 0], -1], 
-     [[2, 1, 0, 1, 2], 1], 
-     [[1, 0, 2, 1], 1], 
-     [[1, 2, 1], 1], 
-     [[0, 1, 0, 1], 1], 
-     [[0, 2, 1, 0, 1, 2], 1], 
-     [[1, 0, 1, 2, 1, 0, 1, 2], 1], 
-     [[0, 1, 0, 2, 1, 0, 1, 2], -1], 
-     [[0, 1, 0, 1, 2, 1, 0, 1], -1], 
+  [[[[('[[1, 1], [1]]',), 1,  1],
+     [('[[1], [2]]',),    1, -1]],
+    [[('[[1], [2]]',), 1, -1],
+     [('[[], [3]]',),  1,  1]],
+    [[('[[1, 1, 1], []]',), 1, -1],
+     [('[[1, 1], [1]]',),   1,  1]]],
+    [[[], 1],
+     [[0], 1],
+     [[1], 1],
+     [[2], 1],
+     [[1, 0, 1], 1],
+     [[0, 2], 1],
+     [[0, 1, 0], -1],
+     [[2, 1, 0, 1, 2], 1],
+     [[1, 0, 2, 1], 1],
+     [[1, 2, 1], 1],
+     [[0, 1, 0, 1], 1],
+     [[0, 2, 1, 0, 1, 2], 1],
+     [[1, 0, 1, 2, 1, 0, 1, 2], 1],
+     [[0, 1, 0, 2, 1, 0, 1, 2], -1],
+     [[0, 1, 0, 1, 2, 1, 0, 1], -1],
      [[0, 1, 0, 1, 2, 1, 0, 1, 2], 1]]
-    [('[[1], [2]]',), ('[[1], [1, 1]]',), ('[[1, 1, 1], []]',), 
+    [('[[1], [2]]',), ('[[1], [1, 1]]',), ('[[1, 1, 1], []]',),
      ('[[2], [1]]',), ('[[], [2, 1]]',), ('[[], [1, 1, 1]]',),
      ('[[3], []]',), ('[[2, 1], []]',)]]
 
   See also 'klcells' and 'leftcellleadingcoeffs'.
-  """ 
+  """
   if type(weightL)==type(0):
     poids=len(W.rank)*[weightL]
   else:
@@ -13245,39 +13246,39 @@ def allcellsleadingcoeffs(W,weightL,v,newnorm=False):
 
 #F libdistinv
 def libdistinv(W,weightL,unpack=True):
-  """returns a pre-computed and explicitly stored list  of distinguished 
-  involutions.  Among other properties, these elements  form a set of 
-  representatives for the left cells of W  with respect  to the given 
-  weight function.  This function only works  for  W of  type I_2(m), 
+  """returns a pre-computed and explicitly stored list  of distinguished
+  involutions.  Among other properties, these elements  form a set of
+  representatives for the left cells of W  with respect  to the given
+  weight function.  This function only works  for  W of  type I_2(m),
   F_4  (any weight  function)  and H_3,  H_4,  E_6,  E_7,  E8  (equal
-  parameters) and only if all the weights are strictly positive.   
+  parameters) and only if all the weights are strictly positive.
 
-  One  can reproduce these data  using 'distinguishedinvolutions' but 
-  this will take some time.  Also,  some further arguments are needed 
+  One  can reproduce these data  using 'distinguishedinvolutions' but
+  this will take some time.  Also,  some further arguments are needed
   to deal with all choices of unequal parameters for  I_2(m) and F_4.
-  Here, we rely on the results and techniques in 
+  Here, we rely on the results and techniques in
 
    M. Geck, Computing Kazhdan-Lusztig cells for unequal parameters,
             J. Algebra 281 (2004), 342--365.
-  
-  For the  large groups of  exceptional type,  we only store a set of 
+
+  For the  large groups of  exceptional type,  we only store a set of
   representatives under N. Xi's 'double'  star operation;  this shows
   that, if d is distinguished and the star operation is defined for d
   (with respect to generators s,t such that st has order 3), then the
-  element ((d^*)^{-1})^* is also distinguished; see Section 1.4 in  
-     
-      N. Xi, The based ring of two-sided cells of affine Weyl groups
-      of type $~A_{n-1}$. Mem. Amer. Math. Soc.,  vol. 157, no. 749, 
-      Providence, R.I., 2002. 
+  element ((d^*)^{-1})^* is also distinguished; see Section 1.4 in
 
-  It will take a couple of minutes or so to unpack  these data.  For 
-  example, in  type E8  there are  101796  distinguished involutions  
-  but  only  106  orbits  under  the  'double' star  operation.  The  
+      N. Xi, The based ring of two-sided cells of affine Weyl groups
+      of type $~A_{n-1}$. Mem. Amer. Math. Soc.,  vol. 157, no. 749,
+      Providence, R.I., 2002.
+
+  It will take a couple of minutes or so to unpack  these data.  For
+  example, in  type E8  there are  101796  distinguished involutions
+  but  only  106  orbits  under  the  'double' star  operation.  The
   'unpacking' is done by the function 'starorbitinv'.
 
   >>> W=coxeter("E",8);
   >>> d=timer(libdistinv,W,1)
-  188.06 
+  188.06
   >>> len(d)
   101796
 
@@ -13295,35 +13296,35 @@ def libdistinv(W,weightL,unpack=True):
   typ=W.cartantype[0][0]
   rk=list(W.cartantype[0][1])
   if typ=='H' and rk==[0,1,2]:
-    l=['', '0', '1', '2', '02', '121', '1021', '01010', '01210', '010210', 
-       '1012101', '0210102', '10102101', '010121010', '102101021', 
-       '2101021012', '01021010210', '1010210102101', '01010210102101', 
+    l=['', '0', '1', '2', '02', '121', '1021', '01010', '01210', '010210',
+       '1012101', '0210102', '10102101', '010121010', '102101021',
+       '2101021012', '01021010210', '1010210102101', '01010210102101',
        '01012101021012', '10102101021012', '010102101021012']
-    chrs0=['1.1', '7.1c6.1', '7.1c6.1', '7.1c6.1', '3.1', '9.1c8.1', '3.1', 
+    chrs0=['1.1', '7.1c6.1', '7.1c6.1', '7.1c6.1', '3.1', '9.1c8.1', '3.1',
            '2.1', '9.1c8.1', '3.1', '9.1c8.1', '2.1', '3.1', '9.1c8.1', '2.1',
            '3.1', '2.1', '2.1', '5.1c4.1', '5.1c4.1', '5.1c4.1', '0.1']
     ch=chartable(W,chars=False)['charnames']
-    chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])] 
+    chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
                               for k in i.split('c')] for i in chrs0]
     if unpack==True:
       return [[int(s) for s in i] for i in l]
     else:
       return [[[int(s) for s in l[i]],chars[i]] for i in range(len(l))]
   elif typ=='H' and rk==[0,1,2,3]:
-    l=['', '0', '1', '2', '3', '02', '03', '13', '121', '232', '1021', 
-       '0232', '2132', '01010', '01210', '12321', '010210', '010103', 
-       '102321', '121321', '1012101', '0210102', '0123210', '10102101', 
-       '02101032', '12101321', '01023210', '01213210', '010121010', 
-       '102101021', '101232101', '032101023', '2101021012', '1021010321', 
-       '0121013210', '1010232101', '1012132101', '0232101023', '01021010210', 
-       '01012321010', '21012321012', '10321010213', '010210103210', 
-       '101210132101', '010121321010', '121012321012', '210102321012', 
-       '102321010213', '321010210123', '1010210102101', '0210123210102', 
-       '0103210102103', '2103210102132', '01010210102101', '01012101021012', 
-       '10102101021012', '10102101032101', '01012101321010', 
-       '12101021321012', '01210123210102', '01023210102103', 
-       '23210102101232', '010102101021012', '102101232101021', 
-       '101032101021013', '021032101021032', '0121010213210102', 
+    l=['', '0', '1', '2', '3', '02', '03', '13', '121', '232', '1021',
+       '0232', '2132', '01010', '01210', '12321', '010210', '010103',
+       '102321', '121321', '1012101', '0210102', '0123210', '10102101',
+       '02101032', '12101321', '01023210', '01213210', '010121010',
+       '102101021', '101232101', '032101023', '2101021012', '1021010321',
+       '0121013210', '1010232101', '1012132101', '0232101023', '01021010210',
+       '01012321010', '21012321012', '10321010213', '010210103210',
+       '101210132101', '010121321010', '121012321012', '210102321012',
+       '102321010213', '321010210123', '1010210102101', '0210123210102',
+       '0103210102103', '2103210102132', '01010210102101', '01012101021012',
+       '10102101021012', '10102101032101', '01012101321010',
+       '12101021321012', '01210123210102', '01023210102103',
+       '23210102101232', '010102101021012', '102101232101021',
+       '101032101021013', '021032101021032', '0121010213210102',
        '1012101232101021', '1010232101021013', '0101321010210123',
        '1010321010210123', '1232101021012321', '01021012321010210',
        '10210321010210321', '01010321010210123', '21010321010210132',
@@ -13433,137 +13434,137 @@ def libdistinv(W,weightL,unpack=True):
        '01012101021012321010210123210102101232101021012321010210123',
        '10102101021012321010210123210102101232101021012321010210123',
        '010102101021012321010210123210102101232101021012321010210123']
-    chrs0=['0.1', '4.1c2.1', '4.1c2.1', '4.1c2.1', '4.1c2.1', '12.1c10.1', 
-           '12.1c10.1', '12.1c10.1', '19.1c17.1', '19.1c17.1', '12.1c10.1', 
-           '26.1', '12.1c10.1', '30.1', '19.1c17.1', '19.1c17.1', '12.1c10.1', 
-           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1', 
-           '26.1', '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1', 
-           '19.1c17.1', '30.1', '19.1c17.1', '12.1c10.1', 
-           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1', 
-           '26.1', '26.1', 
-           '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1', 
-           '19.1c17.1', '30.1', '19.1c17.1', '30.1', '12.1c10.1', 
-           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1', 
-           '26.1', '26.1', 
-           '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1', 
-           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1', 
-           '30.1', '19.1c17.1', '19.1c17.1', '30.1', 
-           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1', 
-           '26.1', '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1', 
-           '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1', '26.1', 
-           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1', 
-           '12.1c10.1', '30.1', '19.1c17.1', '30.1', '30.1', 
-           '33.2c32.2c29.2c28.2c25.1c24.1c23.1c22.1c16.1c15.1c7.1c6.1', 
-           '33.2c32.2c29.2c28.2c25.1c24.1c23.1c22.1c16.1c15.1c7.1c6.1', 
-           '33.2c32.2c29.2c28.2c25.1c24.1c23.1c22.1c16.1c15.1c7.1c6.1', 
-           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1', 
-           '26.1', '26.1', 
-           '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1', 
-           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1', 
-           '26.1', '31.1', '19.1c17.1', '30.1', '30.1', '26.1', 
-           '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1', 
-           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1', 
-           '33.2c32.2c29.2c28.2c25.1c24.1c23.1c22.1c16.1c15.1c7.1c6.1', 
-           '33.2c32.2c29.2c28.2c25.1c24.1c23.1c22.1c16.1c15.1c7.1c6.1', 
-           '26.1', '19.1c17.1', '30.1', '31.1', '30.1', '26.1', 
-           '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1', 
-           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1', 
-           '33.2c32.2c29.2c28.2c25.1c24.1c23.1c22.1c16.1c15.1c7.1c6.1', 
-           '26.1', '19.1c17.1', '30.1', '30.1', '31.1', '26.1', '26.1', 
-           '19.1c17.1', '30.1', '31.1', '30.1', '26.1', '26.1', '30.1', 
-           '31.1', '30.1', '19.1c17.1', '26.1', '31.1', '30.1', '30.1', 
-           '30.1', '27.1', '26.1', '31.1', '30.1', '31.1', '30.1', '26.1', 
-           '27.1', '31.1', '30.1', '30.1', '31.1', '26.1', '27.1', '30.1', 
-           '31.1', '30.1', '31.1', '26.1', '27.1', '31.1', '30.1', '30.1', 
-           '31.1', '20.1c18.1', '27.1', '26.1', '31.1', '31.1', '30.1', 
-           '31.1', '27.1', '20.1c18.1', '31.1', '31.1', '30.1', '27.1', 
-           '27.1', '20.1c18.1', '31.1', '31.1', '30.1', '27.1', '20.1c18.1', 
-           '27.1', '31.1', '30.1', '31.1', '27.1', '20.1c18.1', '27.1', 
-           '31.1', '31.1', '30.1', '27.1', '20.1c18.1', '27.1', '31.1', 
-           '31.1', '30.1', '27.1', '20.1c18.1', '20.1c18.1', '27.1', '27.1', 
-           '31.1', '31.1', '31.1', '13.1c11.1', '20.1c18.1', '27.1', '27.1', 
-           '20.1c18.1', '31.1', '31.1', '20.1c18.1', '27.1', '27.1', 
-           '13.1c11.1', '20.1c18.1', '31.1', '31.1', '20.1c18.1', 
-           '20.1c18.1', '27.1', '27.1', '20.1c18.1', '13.1c11.1', '31.1', 
-           '27.1', '20.1c18.1', '13.1c11.1', '31.1', '13.1c11.1', '27.1', 
-           '13.1c11.1', '13.1c11.1', '13.1c11.1', '13.1c11.1', '5.1c3.1', 
+    chrs0=['0.1', '4.1c2.1', '4.1c2.1', '4.1c2.1', '4.1c2.1', '12.1c10.1',
+           '12.1c10.1', '12.1c10.1', '19.1c17.1', '19.1c17.1', '12.1c10.1',
+           '26.1', '12.1c10.1', '30.1', '19.1c17.1', '19.1c17.1', '12.1c10.1',
+           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1',
+           '26.1', '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1',
+           '19.1c17.1', '30.1', '19.1c17.1', '12.1c10.1',
+           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1',
+           '26.1', '26.1',
+           '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1',
+           '19.1c17.1', '30.1', '19.1c17.1', '30.1', '12.1c10.1',
+           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1',
+           '26.1', '26.1',
+           '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1',
+           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1',
+           '30.1', '19.1c17.1', '19.1c17.1', '30.1',
+           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1',
+           '26.1', '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1',
+           '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1', '26.1',
+           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1',
+           '12.1c10.1', '30.1', '19.1c17.1', '30.1', '30.1',
+           '33.2c32.2c29.2c28.2c25.1c24.1c23.1c22.1c16.1c15.1c7.1c6.1',
+           '33.2c32.2c29.2c28.2c25.1c24.1c23.1c22.1c16.1c15.1c7.1c6.1',
+           '33.2c32.2c29.2c28.2c25.1c24.1c23.1c22.1c16.1c15.1c7.1c6.1',
+           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1',
+           '26.1', '26.1',
+           '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1',
+           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1',
+           '26.1', '31.1', '19.1c17.1', '30.1', '30.1', '26.1',
+           '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1',
+           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1',
+           '33.2c32.2c29.2c28.2c25.1c24.1c23.1c22.1c16.1c15.1c7.1c6.1',
+           '33.2c32.2c29.2c28.2c25.1c24.1c23.1c22.1c16.1c15.1c7.1c6.1',
+           '26.1', '19.1c17.1', '30.1', '31.1', '30.1', '26.1',
+           '33.2c32.1c29.1c28.1c25.1c24.1c23.1c22.1c21.1c9.1c8.1',
+           '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1',
+           '33.2c32.2c29.2c28.2c25.1c24.1c23.1c22.1c16.1c15.1c7.1c6.1',
+           '26.1', '19.1c17.1', '30.1', '30.1', '31.1', '26.1', '26.1',
+           '19.1c17.1', '30.1', '31.1', '30.1', '26.1', '26.1', '30.1',
+           '31.1', '30.1', '19.1c17.1', '26.1', '31.1', '30.1', '30.1',
+           '30.1', '27.1', '26.1', '31.1', '30.1', '31.1', '30.1', '26.1',
+           '27.1', '31.1', '30.1', '30.1', '31.1', '26.1', '27.1', '30.1',
+           '31.1', '30.1', '31.1', '26.1', '27.1', '31.1', '30.1', '30.1',
+           '31.1', '20.1c18.1', '27.1', '26.1', '31.1', '31.1', '30.1',
+           '31.1', '27.1', '20.1c18.1', '31.1', '31.1', '30.1', '27.1',
+           '27.1', '20.1c18.1', '31.1', '31.1', '30.1', '27.1', '20.1c18.1',
+           '27.1', '31.1', '30.1', '31.1', '27.1', '20.1c18.1', '27.1',
+           '31.1', '31.1', '30.1', '27.1', '20.1c18.1', '27.1', '31.1',
+           '31.1', '30.1', '27.1', '20.1c18.1', '20.1c18.1', '27.1', '27.1',
+           '31.1', '31.1', '31.1', '13.1c11.1', '20.1c18.1', '27.1', '27.1',
+           '20.1c18.1', '31.1', '31.1', '20.1c18.1', '27.1', '27.1',
+           '13.1c11.1', '20.1c18.1', '31.1', '31.1', '20.1c18.1',
+           '20.1c18.1', '27.1', '27.1', '20.1c18.1', '13.1c11.1', '31.1',
+           '27.1', '20.1c18.1', '13.1c11.1', '31.1', '13.1c11.1', '27.1',
+           '13.1c11.1', '13.1c11.1', '13.1c11.1', '13.1c11.1', '5.1c3.1',
            '5.1c3.1', '5.1c3.1', '5.1c3.1', '1.1']
     ch=chartable(W,chars=False)['charnames']
-    chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])] 
+    chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
                               for k in i.split('c')] for i in chrs0]
     if unpack==True:
       return [[int(s) for s in i] for i in l]
     else:
       return [[[int(s) for s in l[i]],chars[i]] for i in range(len(l))]
   elif typ=='F' and rk==[0,1,2,3]:
-    l1111=['', '0', '1', '2', '3', '02', '03', '13', '010', '232', '1021', 
-       '1212', '0103', '0232', '2132', '02102', '12321', '012102', 
-       '210212', '021032', '102321', '121321', '132123', '1021021', 
-       '0123210', '2123212', '0321023', '01021021', '10210321', 
-       '01213210', '21023212', '21232123', '01321023', '32102123', 
+    l1111=['', '0', '1', '2', '3', '02', '03', '13', '010', '232', '1021',
+       '1212', '0103', '0232', '2132', '02102', '12321', '012102',
+       '210212', '021032', '102321', '121321', '132123', '1021021',
+       '0123210', '2123212', '0321023', '01021021', '10210321',
+       '01213210', '21023212', '21232123', '01321023', '32102123',
        '010210212', '121232123', '021232102', '103210213', '01212321023',
-       '10212321021', '21032102132', '01032102123', '2102123210212', 
-       '0102123210213', '0210321021232', '1210321021321', 
-       '021021232102132', '012103210213210', '102103210212321', 
-       '321021232102123', '0102102123210212', '1210232102123212', 
-       '10210212321021321', '01021032102123210', '12102132102123212', 
-       '02321021232102123', '012102321021232102', '010321021232102123', 
-       '0102102123210213210', '0121021321021232102', '1021321021232102123', 
-       '1212321021232102123', '01021023210212321021', '02102321021232102123', 
-       '010210213210212321021', '010210321021232102123', 
-       '012102321021232102123', '210212321021232102123', 
-       '0121021232102123210212', '1021021232102123210212', 
+       '10212321021', '21032102132', '01032102123', '2102123210212',
+       '0102123210213', '0210321021232', '1210321021321',
+       '021021232102132', '012103210213210', '102103210212321',
+       '321021232102123', '0102102123210212', '1210232102123212',
+       '10210212321021321', '01021032102123210', '12102132102123212',
+       '02321021232102123', '012102321021232102', '010321021232102123',
+       '0102102123210213210', '0121021321021232102', '1021321021232102123',
+       '1212321021232102123', '01021023210212321021', '02102321021232102123',
+       '010210213210212321021', '010210321021232102123',
+       '012102321021232102123', '210212321021232102123',
+       '0121021232102123210212', '1021021232102123210212',
        '1021021321021232102123', '010210212321021232102123']
-    l1122=['', '0', '1', '2', '3', '02', '03', '13', '010', '121', '212', 
-       '232', '1021', '1212', '0103', '0232', '2132', '01210', '12321', 
-       '32123', '012102', '021032', '102321', '121321', '132123', '232123', 
-       '0123210', '2123212', '01021021', '01210212', '10210212', '10210321', 
+    l1122=['', '0', '1', '2', '3', '02', '03', '13', '010', '121', '212',
+       '232', '1021', '1212', '0103', '0232', '2132', '01210', '12321',
+       '32123', '012102', '021032', '102321', '121321', '132123', '232123',
+       '0123210', '2123212', '01021021', '01210212', '10210212', '10210321',
        '01023210', '01213210', '12123212', '21023212', '12132123', '21232123',
-       '01321023', '010210212', '121232123', '021232102', '0102103210', 
-       '0121232102', '0210232102', '0121321023', '0212321023', '0103210213', 
-       '0132102123', '1032102123', '01212321023', '10212321021', 
-       '01032102123', '010212321021', '102102321021', '102123210213', 
-       '021032102132', '2102123210212', '0102123210213', '0210321021232', 
-       '21021232102132', '10210321021321', '21232102123212', 
-       '021021232102132', '102103210212321', '321021232102123', 
-       '1210212321021321', '0102103210213210', '0212321021232102', 
-       '2321021232102123', '10210212321021321', '01021032102123210', 
-       '12102132102123212', '02321021232102123', '012102123210213210', 
-       '102123210212321021', '121321021232102123', '212321021232102123', 
-       '0102102123210213210', '0121021321021232102', '1021321021232102123', 
-       '1212321021232102123', '21021232102123210212', '01210321021232102123', 
-       '010210213210212321021', '010210321021232102123', 
-       '012102321021232102123', '01021021232102123210212', 
-       '01021021321021232102123', '01210212321021232102123', 
+       '01321023', '010210212', '121232123', '021232102', '0102103210',
+       '0121232102', '0210232102', '0121321023', '0212321023', '0103210213',
+       '0132102123', '1032102123', '01212321023', '10212321021',
+       '01032102123', '010212321021', '102102321021', '102123210213',
+       '021032102132', '2102123210212', '0102123210213', '0210321021232',
+       '21021232102132', '10210321021321', '21232102123212',
+       '021021232102132', '102103210212321', '321021232102123',
+       '1210212321021321', '0102103210213210', '0212321021232102',
+       '2321021232102123', '10210212321021321', '01021032102123210',
+       '12102132102123212', '02321021232102123', '012102123210213210',
+       '102123210212321021', '121321021232102123', '212321021232102123',
+       '0102102123210213210', '0121021321021232102', '1021321021232102123',
+       '1212321021232102123', '21021232102123210212', '01210321021232102123',
+       '010210213210212321021', '010210321021232102123',
+       '012102321021232102123', '01021021232102123210212',
+       '01021021321021232102123', '01210212321021232102123',
        '10210212321021232102123', '010210212321021232102123']
-    l1133=['', '0', '1', '2', '3', '02', '03', '13', '010', '121', '212', 
-       '232', '1021', '1212', '0103', '0232', '2132', '01210', '02102', 
-       '12321', '32123', '010210', '012102', '210212', '021032', '102321', 
-       '121321', '132123', '232123', '1021021', '0123210', '2123212', 
+    l1133=['', '0', '1', '2', '3', '02', '03', '13', '010', '121', '212',
+       '232', '1021', '1212', '0103', '0232', '2132', '01210', '02102',
+       '12321', '32123', '010210', '012102', '210212', '021032', '102321',
+       '121321', '132123', '232123', '1021021', '0123210', '2123212',
        '0321023', '01021021', '01210212', '10210212', '10210321', '01023210',
-       '01213210', '12123212', '21023212', '12132123', '21232123', 
-       '01321023', '32102123', '010210212', '121232123', '021232102', 
-       '103210213', '0102103210', '0121232102', '0210232102', '0121321023', 
+       '01213210', '12123212', '21023212', '12132123', '21232123',
+       '01321023', '32102123', '010210212', '121232123', '021232102',
+       '103210213', '0102103210', '0121232102', '0210232102', '0121321023',
        '0212321023', '0103210213', '0132102123', '1032102123', '01212321023',
-       '10212321021', '21032102132', '01032102123', '010212321021', 
-       '102102321021', '102123210213', '021032102132', '2102123210212', 
-       '0102123210213', '0210321021232', '1210321021321', '21021232102132', 
-       '10210321021321', '21232102123212', '021021232102132', 
-       '012103210213210', '102103210212321', '321021232102123', 
-       '0102102123210212', '1210212321021321', '0102103210213210', 
-       '1210232102123212', '0212321021232102', '2321021232102123', 
-       '10210212321021321', '01021032102123210', '12102132102123212', 
-       '02321021232102123', '012102123210213210', '012102321021232102', 
-       '102123210212321021', '010321021232102123', '121321021232102123', 
-       '212321021232102123', '0102102123210213210', '0121021321021232102', 
-       '1021321021232102123', '1212321021232102123', '01021023210212321021', 
-       '21021232102123210212', '01210321021232102123', 
-       '02102321021232102123', '010210213210212321021', 
-       '010210321021232102123', '012102321021232102123', 
-       '210212321021232102123', '0121021232102123210212', 
-       '1021021232102123210212', '1021021321021232102123', 
+       '10212321021', '21032102132', '01032102123', '010212321021',
+       '102102321021', '102123210213', '021032102132', '2102123210212',
+       '0102123210213', '0210321021232', '1210321021321', '21021232102132',
+       '10210321021321', '21232102123212', '021021232102132',
+       '012103210213210', '102103210212321', '321021232102123',
+       '0102102123210212', '1210212321021321', '0102103210213210',
+       '1210232102123212', '0212321021232102', '2321021232102123',
+       '10210212321021321', '01021032102123210', '12102132102123212',
+       '02321021232102123', '012102123210213210', '012102321021232102',
+       '102123210212321021', '010321021232102123', '121321021232102123',
+       '212321021232102123', '0102102123210213210', '0121021321021232102',
+       '1021321021232102123', '1212321021232102123', '01021023210212321021',
+       '21021232102123210212', '01210321021232102123',
+       '02102321021232102123', '010210213210212321021',
+       '010210321021232102123', '012102321021232102123',
+       '210212321021232102123', '0121021232102123210212',
+       '1021021232102123210212', '1021021321021232102123',
        '01021021232102123210212', '01021021321021232102123',
-       '01210212321021232102123', '10210212321021232102123', 
+       '01210212321021232102123', '10210212321021232102123',
        '010210212321021232102123']
     if poids[0]==poids[2]:
       return [[int(s) for s in i] for i in l1111]
@@ -13583,18 +13584,18 @@ def libdistinv(W,weightL,unpack=True):
       print('#W Sorry, not yet implemented')
       return False
   elif typ[0]=='E' and rk==[0,1,2,3,4,5]:
-    reps=['', '3', '12', '015', '232', '1315', '01454', '020454', '020320', 
-          '0131431', '0120454', '1314315431', '23123431234', '01203120325', 
-          '123123431234', '020320432054320', '02031203431203243', 
-          '01203120324312032431', '020312043120324315431203243', 
-          '0120312032431203243154312032431', 
+    reps=['', '3', '12', '015', '232', '1315', '01454', '020454', '020320',
+          '0131431', '0120454', '1314315431', '23123431234', '01203120325',
+          '123123431234', '020320432054320', '02031203431203243',
+          '01203120324312032431', '020312043120324315431203243',
+          '0120312032431203243154312032431',
           '012031203243120324315431203243154320']
-    chrs0=['0.1', '3.1', '10.1', '14.1c8.1', '14.1c6.1', '21.1', '19.1', 
-           '12.1', '23.1', '18.1c17.1c16.1', '17.1c16.1c2.1', '24.1', 
-           '18.2c17.1c5.1', '20.1', '13.1', '15.1c9.1', '22.1', '11.1', 
+    chrs0=['0.1', '3.1', '10.1', '14.1c8.1', '14.1c6.1', '21.1', '19.1',
+           '12.1', '23.1', '18.1c17.1c16.1', '17.1c16.1c2.1', '24.1',
+           '18.2c17.1c5.1', '20.1', '13.1', '15.1c9.1', '22.1', '11.1',
            '15.1c7.1', '4.1', '1.1']
     ch=chartable(W,chars=False)['charnames']
-    chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])] 
+    chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
                               for k in l.split('c')] for l in chrs0]
     if unpack==True:
       f=[W.permtoword(x) for x in flatlist([starorbitinv(W,
@@ -13604,44 +13605,44 @@ def libdistinv(W,weightL,unpack=True):
       f=[[[int(i) for i in reps[r]],chars[r]] for r in range(len(reps))]
     return f
   elif typ[0]=='E' and rk==[0,1,2,3,4,5,6]:
-    reps=['', '2', '12', '020', '124', '146', '0120', '1246', '01204', 
-          '020320', '020454', '012046', '0131431', '0120454', '1314316', 
-          '01314316', '020320565', '0120312032', '0120454654', 
-          '12312343123', '01203120325', '123123431234', '123123431236', 
-          '1231234312346', '0120312032565', '020320432054320', 
-          '231243123565432', '131431543165431', '123431235654312', 
-          '0131431543165431', '01203120324312032', '01203435436543120', 
-          '012031203243120326', '01203120324312032431', 
-          '12312343543126543123', '012031203243120324316', 
-          '020320432054320654320', '123120343120543126543123', 
-          '232432543123456543123456', '020312043120324315431203243', 
-          '1234312032543654312032431546', '12312343123454312345654312345', 
-          '123123431234543123456543123456', 
-          '0120312032431203243154312032431', 
-          '0120343254312036543120324315465', 
-          '0131431543120654312032431543654', 
-          '0203204320543120345654312032435465', 
-          '012031203243120324315431203243154320', 
-          '123123431234543120324315432654312345', 
-          '123123431203243543265431203243154326', 
-          '02032043120543120326543120324315432065432', 
-          '123120324312032431543123456543120324315432', 
-          '123123431203243154312032431543206543120324315432', 
-          '01203120324312032431543120324315432065431203243154320', 
-          '01203120324312032431543120324315432065431203243154320654312345', 
+    reps=['', '2', '12', '020', '124', '146', '0120', '1246', '01204',
+          '020320', '020454', '012046', '0131431', '0120454', '1314316',
+          '01314316', '020320565', '0120312032', '0120454654',
+          '12312343123', '01203120325', '123123431234', '123123431236',
+          '1231234312346', '0120312032565', '020320432054320',
+          '231243123565432', '131431543165431', '123431235654312',
+          '0131431543165431', '01203120324312032', '01203435436543120',
+          '012031203243120326', '01203120324312032431',
+          '12312343543126543123', '012031203243120324316',
+          '020320432054320654320', '123120343120543126543123',
+          '232432543123456543123456', '020312043120324315431203243',
+          '1234312032543654312032431546', '12312343123454312345654312345',
+          '123123431234543123456543123456',
+          '0120312032431203243154312032431',
+          '0120343254312036543120324315465',
+          '0131431543120654312032431543654',
+          '0203204320543120345654312032435465',
+          '012031203243120324315431203243154320',
+          '123123431234543120324315432654312345',
+          '123123431203243543265431203243154326',
+          '02032043120543120326543120324315432065432',
+          '123120324312032431543123456543120324315432',
+          '123123431203243154312032431543206543120324315432',
+          '01203120324312032431543120324315432065431203243154320',
+          '01203120324312032431543120324315432065431203243154320654312345',
           '012031203243120324315431203243154320654312032431543206543123456']
-    chrs0=['0.1', '3.1', '10.1', '17.1c6.1', '17.1c14.1', '9.1', 
-           '28.1c23.1', '28.1c5.1', '35.1', '38.1', '30.1', '24.1', 
-           '49.1c46.1c45.1', '49.1c46.1c19.1', '37.1', '54.1c43.1', '53.1', 
-           '56.1c51.1', '40.1', '49.1c45.2c13.1', '59.1c58.1', '26.1', 
-           '54.1c32.1', '57.1c21.1', '41.1', '55.1c42.1', '53.1', '27.1', 
-           '35.1', '48.1c47.1c18.1', '57.1c50.1', '59.1c58.1', '52.1', 
-           '36.1', '56.1c20.1', '31.1', '25.1', '40.1', '48.1c47.1c44.1', 
-           '55.1c33.1', '24.1', '39.1', '16.1c15.1', '29.1c22.1', '41.1', 
-           '25.1', '34.1', '8.1', '34.1', '52.1', '29.1c4.1', 
+    chrs0=['0.1', '3.1', '10.1', '17.1c6.1', '17.1c14.1', '9.1',
+           '28.1c23.1', '28.1c5.1', '35.1', '38.1', '30.1', '24.1',
+           '49.1c46.1c45.1', '49.1c46.1c19.1', '37.1', '54.1c43.1', '53.1',
+           '56.1c51.1', '40.1', '49.1c45.2c13.1', '59.1c58.1', '26.1',
+           '54.1c32.1', '57.1c21.1', '41.1', '55.1c42.1', '53.1', '27.1',
+           '35.1', '48.1c47.1c18.1', '57.1c50.1', '59.1c58.1', '52.1',
+           '36.1', '56.1c20.1', '31.1', '25.1', '40.1', '48.1c47.1c44.1',
+           '55.1c33.1', '24.1', '39.1', '16.1c15.1', '29.1c22.1', '41.1',
+           '25.1', '34.1', '8.1', '34.1', '52.1', '29.1c4.1',
            '48.1c44.2c12.1', '16.1c7.1', '11.1', '2.1', '1.1']
     ch=chartable(W,chars=False)['charnames']
-    chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])] 
+    chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
                               for k in l.split('c')] for l in chrs0]
     if unpack==True:
       f=[W.permtoword(x) for x in flatlist([starorbitinv(W,
@@ -13651,28 +13652,28 @@ def libdistinv(W,weightL,unpack=True):
       f=[[[int(i) for i in reps[r]],chars[r]] for r in range(len(reps))]
     return f
   elif typ[0]=='E' and rk==[0,1,2,3,4,5,6,7]:
-    reps=['', '7', '12', '020', '146', '0205', '1246', '14547', '232432', 
-          '020454', '012046', '0204547', '0565765', '01204676', '12454654', 
-          '131431676', '0120454654', '2324325432', '04546547654', 
-          '23123431234', '124546547654', '131234312346', '123123431234', 
-          '123123565765', '1231234312346', '0204546547654', '12312343123676', 
-          '01204546547654', '231243123565432', '343543654376543', 
-          '123123431234676', '123431235654312', '0120312032565765', 
-          '0131431543165431', '13143123454312345', '01203435436543120', 
-          '012031203243120326', '01203120324312032676', 
-          '01203120324312032431', '12312343543126543123', 
-          '232432543265432765432', '012031203243120324316', 
-          '0131431543165431765431', '13124312354312346765431', 
-          '12343123543123467654312', '01203120324312032431676', 
-          '131431543123456543123456', '124543206543120324315465', 
-          '123120343120324354312032431', '012034312354312034676543120', 
-          '1312043120324543120324315437', '0131234312032435657654312034', 
-          '1234312032543654312032431546', '0203204320543206543207654320', 
-          '12312343123454312345654312345', '123123431234543123456543123456', 
-          '123123431234546543123765431234', 
-          '1231203431203243543120324315432', 
-          '0131431543120654312032431543654', 
-          '0120343254312036543120324315465', 
+    reps=['', '7', '12', '020', '146', '0205', '1246', '14547', '232432',
+          '020454', '012046', '0204547', '0565765', '01204676', '12454654',
+          '131431676', '0120454654', '2324325432', '04546547654',
+          '23123431234', '124546547654', '131234312346', '123123431234',
+          '123123565765', '1231234312346', '0204546547654', '12312343123676',
+          '01204546547654', '231243123565432', '343543654376543',
+          '123123431234676', '123431235654312', '0120312032565765',
+          '0131431543165431', '13143123454312345', '01203435436543120',
+          '012031203243120326', '01203120324312032676',
+          '01203120324312032431', '12312343543126543123',
+          '232432543265432765432', '012031203243120324316',
+          '0131431543165431765431', '13124312354312346765431',
+          '12343123543123467654312', '01203120324312032431676',
+          '131431543123456543123456', '124543206543120324315465',
+          '123120343120324354312032431', '012034312354312034676543120',
+          '1312043120324543120324315437', '0131234312032435657654312034',
+          '1234312032543654312032431546', '0203204320543206543207654320',
+          '12312343123454312345654312345', '123123431234543123456543123456',
+          '123123431234546543123765431234',
+          '1231203431203243543120324315432',
+          '0131431543120654312032431543654',
+          '0120343254312036543120324315465',
           '01203120324312032431543120324317',
           '13143154316543123456765431234567',
           '0203204320543120345654312032435465',
@@ -13734,34 +13735,34 @@ def libdistinv(W,weightL,unpack=True):
              '676543120324315432065431234567654312032431543206543123456',
           '01203120324312032431543120324315432065431203243154320654312345'+\
              '6765431203243154320654312345676543120324315432065431234567']
-    chrs0=['0.1', '67.1', '4.1', '71.1c2.1', '71.1c9.1', '73.1c14.1', 
-           '14.1c7.1', '80.1', '23.1', '28.1c17.1', '76.1c28.1', 
-           '92.1c78.1c39.1', '92.1c85.1c39.1', '42.1c36.1c12.1', 
-           '44.1c42.1c36.1', '99.1', '90.1c50.1', '88.1c53.1', '104.1c61.1', 
-           '92.1c85.2c69.1', '101.1c63.1', '44.2c42.1c19.1', '21.1', 
-           '63.1c31.1', '96.1c26.1', '108.1', '83.1c50.1', '56.1', '99.1', 
-           '110.1c59.1', '106.1', '80.1', 
-           '103.1c87.1c82.1c52.1c49.1c46.1c16.1', 
-           '103.2c98.1c87.1c58.1c55.1c52.1c49.1c46.1c41.1', '96.1c47.1', 
-           '104.1c61.1', '65.1', '103.1c98.1c82.1c58.1c52.1c49.1c46.1c25.1', 
-           '38.1', '53.1c34.1', '107.1', '111.1c60.1', '57.1', '106.1', 
-           '99.1', '109.1', '103.2c98.2c58.2c55.2c52.1c49.1c41.1c33.1c30.1', 
-           '90.1c50.1', '110.1c94.1', '99.1', 
-           '103.1c98.2c75.1c58.2c55.1c52.1c46.1c33.1c25.1', '101.1c63.1', 
-           '76.1c28.1', '91.1c51.1', '111.1c95.1', '54.1c35.1', 
-           '103.1c98.1c82.1c58.1c55.1c52.1c49.2c30.1c11.1', '97.1c48.1', 
-           '107.1', '108.1', '105.1c62.1', '102.1c64.1', '66.1', 
-           '102.1c64.1', '22.1', '66.1', '65.1', '90.1c50.1', 
-           '93.1c79.1c40.1', '100.1', '97.1c27.1', '108.1', '77.1c29.1', 
-           '103.1c98.2c75.1c58.3c55.3c52.1c33.3c30.2c6.1', '109.1', '57.1', 
-           '89.1c54.1', '105.1c62.1', '91.1c51.1', '109.1', '56.1', 
-           '93.1c86.1c40.1', '100.1', '64.1c32.1', '106.1', '84.1c51.1', 
-           '91.1c51.1', '24.1', '72.1c10.1', '100.1', '77.1c29.1', 
-           '45.1c43.1c37.1', '107.1', '100.1', '29.1c18.1', '43.1c37.1c13.1', 
-           '81.1', '45.2c43.1c20.1', '81.1', '74.1c15.1', '93.1c86.2c70.1', 
+    chrs0=['0.1', '67.1', '4.1', '71.1c2.1', '71.1c9.1', '73.1c14.1',
+           '14.1c7.1', '80.1', '23.1', '28.1c17.1', '76.1c28.1',
+           '92.1c78.1c39.1', '92.1c85.1c39.1', '42.1c36.1c12.1',
+           '44.1c42.1c36.1', '99.1', '90.1c50.1', '88.1c53.1', '104.1c61.1',
+           '92.1c85.2c69.1', '101.1c63.1', '44.2c42.1c19.1', '21.1',
+           '63.1c31.1', '96.1c26.1', '108.1', '83.1c50.1', '56.1', '99.1',
+           '110.1c59.1', '106.1', '80.1',
+           '103.1c87.1c82.1c52.1c49.1c46.1c16.1',
+           '103.2c98.1c87.1c58.1c55.1c52.1c49.1c46.1c41.1', '96.1c47.1',
+           '104.1c61.1', '65.1', '103.1c98.1c82.1c58.1c52.1c49.1c46.1c25.1',
+           '38.1', '53.1c34.1', '107.1', '111.1c60.1', '57.1', '106.1',
+           '99.1', '109.1', '103.2c98.2c58.2c55.2c52.1c49.1c41.1c33.1c30.1',
+           '90.1c50.1', '110.1c94.1', '99.1',
+           '103.1c98.2c75.1c58.2c55.1c52.1c46.1c33.1c25.1', '101.1c63.1',
+           '76.1c28.1', '91.1c51.1', '111.1c95.1', '54.1c35.1',
+           '103.1c98.1c82.1c58.1c55.1c52.1c49.2c30.1c11.1', '97.1c48.1',
+           '107.1', '108.1', '105.1c62.1', '102.1c64.1', '66.1',
+           '102.1c64.1', '22.1', '66.1', '65.1', '90.1c50.1',
+           '93.1c79.1c40.1', '100.1', '97.1c27.1', '108.1', '77.1c29.1',
+           '103.1c98.2c75.1c58.3c55.3c52.1c33.3c30.2c6.1', '109.1', '57.1',
+           '89.1c54.1', '105.1c62.1', '91.1c51.1', '109.1', '56.1',
+           '93.1c86.1c40.1', '100.1', '64.1c32.1', '106.1', '84.1c51.1',
+           '91.1c51.1', '24.1', '72.1c10.1', '100.1', '77.1c29.1',
+           '45.1c43.1c37.1', '107.1', '100.1', '29.1c18.1', '43.1c37.1c13.1',
+           '81.1', '45.2c43.1c20.1', '81.1', '74.1c15.1', '93.1c86.2c70.1',
            '15.1c8.1', '72.1c3.1', '5.1', '68.1', '1.1']
     ch=chartable(W,chars=False)['charnames']
-    chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])] 
+    chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
                               for k in l.split('c')] for l in chrs0]
     if unpack==True:
       f=[W.permtoword(x) for x in flatlist([starorbitinv(W,
@@ -13796,12 +13797,12 @@ def libdistinv(W,weightL,unpack=True):
         return False
   else:
     return False
-  
+
 #F distinva
 def distinva(W,weightL=1):
-  """returns a  pair of lists where the first one contains the 
+  """returns a  pair of lists where the first one contains the
   distinguished involutions (as coxelms) and the second one
-  contains  the corresponding  a-invariants.  This uses the 
+  contains  the corresponding  a-invariants.  This uses the
   function 'libdistinv' for the types E6, E7, E8.
 
   >>> W=coxeter("G",2)
@@ -13810,8 +13811,8 @@ def distinva(W,weightL=1):
   [[(0, 1), (4, 7), (6, 2), (6, 7)], [0, 1, 1, 6]]
 
   Thus, the 4 involutions have a-invariants  0, 1, 1, 6.
-  
-  Using the optional  argument  'weightL',  one can specify 
+
+  Using the optional  argument  'weightL',  one can specify
   unequal parameters (as in 'ainvariants', for example).
 
   See also 'libdistinv' and 'distinguishedinvolutions'.
@@ -13859,7 +13860,7 @@ def distinva(W,weightL=1):
 #F distinva1
 def distinva1(W,weightL):
   """similar to 'distinva' but use families not just a-invariants.
-  """ 
+  """
   ti=chartable(W,chars=False)
   ch=ti['charnames']
   d=[list(l) for l in zip(*distinguishedinvolutions(W,weightL))]
@@ -13871,7 +13872,7 @@ def distinva1(W,weightL):
     a0=[ch.index(c[0]) for c in i[1]]
     aa0=[aa[ch.index(c[0])] for c in i[1]]
     f=0
-    while (f<len(ainv['families']) and 
+    while (f<len(ainv['families']) and
                   not all(x in ainv['families'][f] for x in a0)):
      f+=1
     if f>=len(ainv['families']):
@@ -13917,12 +13918,12 @@ def gentaudistcheck(W):
 
 #F klupsilonI
 def klupsilonI(W):
-  """returns  representatives  of the left star orbits in the 
-  various  tau-cells of the set  UpsilonI(W).  If an orbit 
-  contains a distinguished involution then this involution 
-  is taken as representatives; otherwise, it is checked if 
-  if there is at least some involution;  if yes, then this 
-  is  taken as  representative,  otherwise,  an element of 
+  """returns  representatives  of the left star orbits in the
+  various  tau-cells of the set  UpsilonI(W).  If an orbit
+  contains a distinguished involution then this involution
+  is taken as representatives; otherwise, it is checked if
+  if there is at least some involution;  if yes, then this
+  is  taken as  representative,  otherwise,  an element of
   minimal length in the orbit is returned.
   """
   J=list(range(len(W.rank)-1))
@@ -14007,14 +14008,14 @@ def cellsinvolutions(W):
   twos=[]
   for s in sp:
     t1=[]
-    for i in ind: 
+    for i in ind:
       if s in set([j[0] for j in d[1][i]]):
         t1.append(d[0][i])
     twos.append(t1)
   return [twos,sp]
 
 def leftcellsinvolutions(W):
-  """returns the partition of involutions into left cells 
+  """returns the partition of involutions into left cells
   (conjecturally).
   """
   t=chartable(W,chars=0)
@@ -14027,7 +14028,7 @@ def leftcellsinvolutions(W):
   twos=[]
   for s in sp:
     t1=[]
-    for i in ind: 
+    for i in ind:
       if s in set([j[0] for j in d[1][i]]):
         t1.append(d[0][i])
     twos.append(t1)
@@ -14050,7 +14051,7 @@ def twosidedcells(W,lcells):
   """
   pl=[[W.wordtoperm(w) for w in l] for l in lcells]
   pr=[set([perminverse(w)[:len(W.rank)] for w in l]) for l in pl]
-  mat=[[len([x for x in pl[i] if x[:len(W.rank)] in pr[j]]) 
+  mat=[[len([x for x in pl[i] if x[:len(W.rank)] in pr[j]])
                  for j in range(len(pr))] for i in range(len(pl))]
   two=[]
   for b in decomposemat(mat):
@@ -14062,187 +14063,187 @@ def twosidedcells(W,lcells):
 
 #F Data to construct the left cells in type E7 and E8
 
-E7KLCELLREPS=[{"a": 0, "distinv": "", "replstar": [""], "special": "1_a", 
-  "elms": [], "character": [["1_a", 1]], "size": 1}, {"a": 63, "distinv": 
-  "012031203243120324315431203243154320654312032431543206543123456", 
+E7KLCELLREPS=[{"a": 0, "distinv": "", "replstar": [""], "special": "1_a",
+  "elms": [], "character": [["1_a", 1]], "size": 1}, {"a": 63, "distinv":
+  "012031203243120324315431203243154320654312032431543206543123456",
   "replstar": ["0120312032431203243154312032431543206543120324315432065"+\
-  "43123456"], "special": "1_a'", "elms": [], "character": [["1_a'", 1]], 
-  "size": 1}, {"a": 1, "distinv": "0", "replstar": ["0"], "special": "7_a'", 
-  "elms": [], "character": [["7_a'", 1]], "size": 7}, {"a": 46, "distinv": 
-  "12031203243120324315431203243154320654312032431543206543123456", 
-  "replstar": ["012031203243120324315431203243154320654312032431543265431"], 
-  "special": "7_a", "elms": [], "character": [["7_a", 1]], "size": 7}, 
-  {"a": 3, "distinv": "654312032431543206543123456", "replstar": 
-  ["143206543123456"], "special": "21_b'", "elms": [], "character": 
-  [["21_b'", 1]], "size": 21}, {"a": 36, "distinv": 
-  "012031203243120324315431203243154320", "replstar": 
-  ["012031203243120324315431203243154320"], "special": "21_b", "elms": [], 
-  "character": [["21_b", 1]], "size": 21}, {"a": 2, "distinv": "02314320", 
-  "replstar": ["14320"], "special": "27_a", "elms": [], "character": 
-  [["27_a", 1]], "size": 27}, {"a": 37, "distinv": 
-  "1231234312345431203243154320654312032431543206543123456", "replstar": 
-  ["0120312032431203243154312032431543206543123456"], "special": "27_a'", 
-  "elms": [], "character": [["27_a'", 1]], "size": 27}, {"a": 3, "distinv": 
-  "02345654320", "replstar": ["0203456", "123432056"], "special": "56_a'", 
-  "elms": [], "character": [["56_a'", 1], ["21_a", 1]], "size": 77}, 
-  {"a": 30, "distinv": "123123431203243154312032431543206543120324315432", 
-  "replstar": ["12312343123454312345654312032431543265431", 
-  "012031203243120324315431203243546543120324315432"], "special": "56_a", 
-  "elms": [], "character": [["56_a", 1], ["21_a'", 1]], "size": 77}, {"a": 3, 
-  "distinv": "02314325431654320", "replstar": ["2431654320", 
-  "020314325431654320", "12343120325431654320"], "special": "56_a'", 
-  "elms": [], "character": [["56_a'", 1], ["35_b", 1]], "size": 91}, 
+  "43123456"], "special": "1_a'", "elms": [], "character": [["1_a'", 1]],
+  "size": 1}, {"a": 1, "distinv": "0", "replstar": ["0"], "special": "7_a'",
+  "elms": [], "character": [["7_a'", 1]], "size": 7}, {"a": 46, "distinv":
+  "12031203243120324315431203243154320654312032431543206543123456",
+  "replstar": ["012031203243120324315431203243154320654312032431543265431"],
+  "special": "7_a", "elms": [], "character": [["7_a", 1]], "size": 7},
+  {"a": 3, "distinv": "654312032431543206543123456", "replstar":
+  ["143206543123456"], "special": "21_b'", "elms": [], "character":
+  [["21_b'", 1]], "size": 21}, {"a": 36, "distinv":
+  "012031203243120324315431203243154320", "replstar":
+  ["012031203243120324315431203243154320"], "special": "21_b", "elms": [],
+  "character": [["21_b", 1]], "size": 21}, {"a": 2, "distinv": "02314320",
+  "replstar": ["14320"], "special": "27_a", "elms": [], "character":
+  [["27_a", 1]], "size": 27}, {"a": 37, "distinv":
+  "1231234312345431203243154320654312032431543206543123456", "replstar":
+  ["0120312032431203243154312032431543206543123456"], "special": "27_a'",
+  "elms": [], "character": [["27_a'", 1]], "size": 27}, {"a": 3, "distinv":
+  "02345654320", "replstar": ["0203456", "123432056"], "special": "56_a'",
+  "elms": [], "character": [["56_a'", 1], ["21_a", 1]], "size": 77},
+  {"a": 30, "distinv": "123123431203243154312032431543206543120324315432",
+  "replstar": ["12312343123454312345654312032431543265431",
+  "012031203243120324315431203243546543120324315432"], "special": "56_a",
+  "elms": [], "character": [["56_a", 1], ["21_a'", 1]], "size": 77}, {"a": 3,
+  "distinv": "02314325431654320", "replstar": ["2431654320",
+  "020314325431654320", "12343120325431654320"], "special": "56_a'",
+  "elms": [], "character": [["56_a'", 1], ["35_b", 1]], "size": 91},
   {"a": 30, "distinv": "123123431234543123456543123456", "replstar":
-  ["123123431234543123456543123456", 
-  "12312034312032435431203243154326543123456", 
-  "1231234312034543120324354654312032431543265431"], "special": "56_a", 
-  "elms": [], "character": [["56_a", 1], ["35_b'", 1]], "size": 91}, 
-  {"a": 15, "distinv": "023143205431203243154320654312032431543206543123456", 
-  "replstar": ["131431543120326543120324315432065"], "special": "105_c'", 
-  "elms": [], "character": [["105_c'", 1]], "size": 105}, {"a": 12, 
+  ["123123431234543123456543123456",
+  "12312034312032435431203243154326543123456",
+  "1231234312034543120324354654312032431543265431"], "special": "56_a",
+  "elms": [], "character": [["56_a", 1], ["35_b'", 1]], "size": 91},
+  {"a": 15, "distinv": "023143205431203243154320654312032431543206543123456",
+  "replstar": ["131431543120326543120324315432065"], "special": "105_c'",
+  "elms": [], "character": [["105_c'", 1]], "size": 105}, {"a": 12,
   "distinv": "123123431234", "replstar": ["123123431234"], "special": "105_c",
-  "elms": [], "character": [["105_c", 1]], "size": 105}, {"a": 6, "distinv": 
-  "03123431203254316543120324315436", "replstar": ["0120343123565431203", 
-  "123431203254316543120324315436"], "special": "105_b", "elms": [], 
-  "character": [["105_b", 1]], "size": 105}, {"a": 21, "distinv": 
-  "1203143154312032435465431203245", "replstar": 
-  ["02032043205432065431203245", "0131431543126543120324315432654"], 
+  "elms": [], "character": [["105_c", 1]], "size": 105}, {"a": 6, "distinv":
+  "03123431203254316543120324315436", "replstar": ["0120343123565431203",
+  "123431203254316543120324315436"], "special": "105_b", "elms": [],
+  "character": [["105_b", 1]], "size": 105}, {"a": 21, "distinv":
+  "1203143154312032435465431203245", "replstar":
+  ["02032043205432065431203245", "0131431543126543120324315432654"],
   "special": "105_b'", "elms": [], "character": [["105_b'", 1]], "size": 105},
-  {"a": 6, "distinv": "023454312032431654312032435465", "replstar": 
+  {"a": 6, "distinv": "023454312032431654312032435465", "replstar":
   ["012034312354654320", "12343120325431654312032435465"], "special": "105_b",
-  "elms": [], "character": [["105_b", 1]], "size": 105}, {"a": 21, "distinv": 
-  "123120343120324354320654312032431", "replstar": 
-  ["020320432054320654312032431", "01314315431654312032431543265431"], 
-  "special": "105_b'", "elms": [], "character": [["105_b'", 1]], "size": 105}, 
-  {"a": 4, "distinv": "031436", "replstar": ["01436", "02031436", 
-  "1234312036"], "special": "120_a", "elms": [], "character": [["120_a", 1], 
-  ["15_a'", 1]], "size": 135}, {"a": 25, "distinv": 
-  "120314312543120324315432065431203243154320654312345", "replstar": 
-  ["0120312032431203243154312032435465431203245", 
-  "0203204312054312032465431203243154320654312345", 
-  "0203204312032543120324315465431203243154320654312345"], "special": 
-  "120_a'", "elms": [], "character": [["120_a'", 1], ["15_a", 1]], "size": 
-  135}, {"a": 6, "distinv": "02314320654312032431543206", "replstar": 
-  ["0204315431203456"], "special": "168_a", "elms": [], "character": 
-  [["168_a", 1]], "size": 168}, {"a": 21, "distinv": 
-  "1231234312345431203243154320654312345", "replstar": 
-  ["01203120324312032431654312345"], "special": "168_a'", "elms": [], 
-  "character": [["168_a'", 1]], "size": 168}, {"a": 7, "distinv": 
-  "0231432054312345654312032431543206543123456", "replstar": 
-  ["1314312032543165431203456"], "special": "189_c'", "elms": [], 
-  "character": [["189_c'", 1]], "size": 189}, {"a": 20, "distinv": 
-  "12312343123454312345", "replstar": ["12312343123454312345"], "special": 
-  "189_c", "elms": [], "character": [["189_c", 1]], "size": 189}, {"a": 5, 
-  "distinv": "023143205654312032431543206", "replstar": ["0204312345654320", 
-  "1234312032543165431203456"], "special": "189_b'", "elms": [], "character": 
-  [["189_b'", 1]], "size": 189}, {"a": 22, "distinv": 
-  "123123431234543120324315432654312345", "replstar": 
+  "elms": [], "character": [["105_b", 1]], "size": 105}, {"a": 21, "distinv":
+  "123120343120324354320654312032431", "replstar":
+  ["020320432054320654312032431", "01314315431654312032431543265431"],
+  "special": "105_b'", "elms": [], "character": [["105_b'", 1]], "size": 105},
+  {"a": 4, "distinv": "031436", "replstar": ["01436", "02031436",
+  "1234312036"], "special": "120_a", "elms": [], "character": [["120_a", 1],
+  ["15_a'", 1]], "size": 135}, {"a": 25, "distinv":
+  "120314312543120324315432065431203243154320654312345", "replstar":
+  ["0120312032431203243154312032435465431203245",
+  "0203204312054312032465431203243154320654312345",
+  "0203204312032543120324315465431203243154320654312345"], "special":
+  "120_a'", "elms": [], "character": [["120_a'", 1], ["15_a", 1]], "size":
+  135}, {"a": 6, "distinv": "02314320654312032431543206", "replstar":
+  ["0204315431203456"], "special": "168_a", "elms": [], "character":
+  [["168_a", 1]], "size": 168}, {"a": 21, "distinv":
+  "1231234312345431203243154320654312345", "replstar":
+  ["01203120324312032431654312345"], "special": "168_a'", "elms": [],
+  "character": [["168_a'", 1]], "size": 168}, {"a": 7, "distinv":
+  "0231432054312345654312032431543206543123456", "replstar":
+  ["1314312032543165431203456"], "special": "189_c'", "elms": [],
+  "character": [["189_c'", 1]], "size": 189}, {"a": 20, "distinv":
+  "12312343123454312345", "replstar": ["12312343123454312345"], "special":
+  "189_c", "elms": [], "character": [["189_c", 1]], "size": 189}, {"a": 5,
+  "distinv": "023143205654312032431543206", "replstar": ["0204312345654320",
+  "1234312032543165431203456"], "special": "189_b'", "elms": [], "character":
+  [["189_b'", 1]], "size": 189}, {"a": 22, "distinv":
+  "123123431234543120324315432654312345", "replstar":
   ["0203204320543206543120324315432", "123123431234543120324315432654312345"],
-  "special": "189_b", "elms": [], "character": [["189_b", 1]], "size": 189}, 
-  {"a": 5, "distinv": "0312343123565431203", "replstar": ["124354312036", 
-  "12343123565431203"], "special": "189_b'", "elms": [], "character": 
-  [["189_b'", 1]], "size": 189}, {"a": 22, "distinv": 
-  "12031431205431203243154326543120324315432654", "replstar": 
-  ["123123431203454312032435465431203245", 
-  "020320432054312032456543120324315432654"], "special": "189_b", "elms": [], 
-  "character": [["189_b", 1]], "size": 189}, {"a": 6, "distinv": 
-  "0231432054312345654312032431543206", "replstar": ["12312034325431654320"], 
-  "special": "210_a", "elms": [], "character": [["210_a", 1]], "size": 210}, 
-  {"a": 21, "distinv": "12312343123454312345654312345", "replstar": 
-  ["1312431235431234654312345"], "special": "210_a'", "elms": [], "character": 
-  [["210_a'", 1]], "size": 210}, {"a": 13, "distinv": 
-  "0231203431205431203243165431203", "replstar": ["0120312032543165431203", 
-  "0120343543120365431203243154320"], "special": "210_b'", "elms": [], 
-  "character": [["210_b'", 1]], "size": 210}, {"a": 10, "distinv": 
-  "12343123543206543120324315432654", "replstar": ["012043543126543123456", 
-  "2312431203243543126543123456"], "special": "210_b", "elms": [], 
-  "character": [["210_b", 1]], "size": 210}, {"a": 10, "distinv": 
-  "031204546543", "replstar": ["01204546543", "131243120324546543"], 
-  "special": "210_b", "elms": [], "character": [["210_b", 1]], "size": 210}, 
-  {"a": 13, "distinv": "120324312032435431203243154365431203243154320654312", 
-  "replstar": ["01203120324354312365431203243154", 
-  "01203432543120324365431203243154320654312"], "special": "210_b'", 
-  "elms": [], "character": [["210_b'", 1]], "size": 210}, {"a": 4, "distinv": 
-  "065431203456", "replstar": ["01203456", "124312065431203456"], "special": 
-  "120_a", "elms": [], "character": [["120_a", 1], ["105_a'", 1]], 
-  "size": 225}, {"a": 25, "distinv": "1231203431203243543120324315432", 
-  "replstar": ["1231203431203243543120324315432", 
-  "02032043120354312032436543120324315432"], "special": "120_a'", "elms": [], 
-  "character": [["120_a'", 1], ["105_a", 1]], "size": 225}, {"a": 14, 
-  "distinv": "0231203431205431203243565431203243154320", "replstar": 
-  ["1231234312032431543165431203", "12312343120324354312654312032435"], 
-  "special": "378_a", "elms": [], "character": [["378_a", 1]], "size": 378}, 
-  {"a": 9, "distinv": "12343123543126543123456", "replstar": 
-  ["1231234543654312", "1243543126543123456"], "special": "378_a'", "elms": 
-  [], "character": [["378_a'", 1]], "size": 378}, {"a": 14, "distinv": 
-  "0312034312543120324654312032431543206543", "replstar": 
-  ["0120312032431203454365431203", "12312343120324543165431203243154365"], 
-  "special": "378_a", "elms": [], "character": [["378_a", 1]], "size": 378}, 
-  {"a": 9, "distinv": "12034312035431203654312", "replstar": 
-  ["0203120543654312", "23124312032543654312"], "special": "378_a'", 
-  "elms": [], "character": [["378_a'", 1]], "size": 378}, {"a": 13, 
-  "distinv": "031204543123456543120324356", "replstar": 
-  ["12312343120324546543", "12312343120345431206543", 
-  "123123431203454365431203"], "special": "420_a'", "elms": [], "character": 
-  [["420_a'", 1], ["84_a'", 1]], "size": 504}, {"a": 10, "distinv": 
+  "special": "189_b", "elms": [], "character": [["189_b", 1]], "size": 189},
+  {"a": 5, "distinv": "0312343123565431203", "replstar": ["124354312036",
+  "12343123565431203"], "special": "189_b'", "elms": [], "character":
+  [["189_b'", 1]], "size": 189}, {"a": 22, "distinv":
+  "12031431205431203243154326543120324315432654", "replstar":
+  ["123123431203454312032435465431203245",
+  "020320432054312032456543120324315432654"], "special": "189_b", "elms": [],
+  "character": [["189_b", 1]], "size": 189}, {"a": 6, "distinv":
+  "0231432054312345654312032431543206", "replstar": ["12312034325431654320"],
+  "special": "210_a", "elms": [], "character": [["210_a", 1]], "size": 210},
+  {"a": 21, "distinv": "12312343123454312345654312345", "replstar":
+  ["1312431235431234654312345"], "special": "210_a'", "elms": [], "character":
+  [["210_a'", 1]], "size": 210}, {"a": 13, "distinv":
+  "0231203431205431203243165431203", "replstar": ["0120312032543165431203",
+  "0120343543120365431203243154320"], "special": "210_b'", "elms": [],
+  "character": [["210_b'", 1]], "size": 210}, {"a": 10, "distinv":
+  "12343123543206543120324315432654", "replstar": ["012043543126543123456",
+  "2312431203243543126543123456"], "special": "210_b", "elms": [],
+  "character": [["210_b", 1]], "size": 210}, {"a": 10, "distinv":
+  "031204546543", "replstar": ["01204546543", "131243120324546543"],
+  "special": "210_b", "elms": [], "character": [["210_b", 1]], "size": 210},
+  {"a": 13, "distinv": "120324312032435431203243154365431203243154320654312",
+  "replstar": ["01203120324354312365431203243154",
+  "01203432543120324365431203243154320654312"], "special": "210_b'",
+  "elms": [], "character": [["210_b'", 1]], "size": 210}, {"a": 4, "distinv":
+  "065431203456", "replstar": ["01203456", "124312065431203456"], "special":
+  "120_a", "elms": [], "character": [["120_a", 1], ["105_a'", 1]],
+  "size": 225}, {"a": 25, "distinv": "1231203431203243543120324315432",
+  "replstar": ["1231203431203243543120324315432",
+  "02032043120354312032436543120324315432"], "special": "120_a'", "elms": [],
+  "character": [["120_a'", 1], ["105_a", 1]], "size": 225}, {"a": 14,
+  "distinv": "0231203431205431203243565431203243154320", "replstar":
+  ["1231234312032431543165431203", "12312343120324354312654312032435"],
+  "special": "378_a", "elms": [], "character": [["378_a", 1]], "size": 378},
+  {"a": 9, "distinv": "12343123543126543123456", "replstar":
+  ["1231234543654312", "1243543126543123456"], "special": "378_a'", "elms":
+  [], "character": [["378_a'", 1]], "size": 378}, {"a": 14, "distinv":
+  "0312034312543120324654312032431543206543", "replstar":
+  ["0120312032431203454365431203", "12312343120324543165431203243154365"],
+  "special": "378_a", "elms": [], "character": [["378_a", 1]], "size": 378},
+  {"a": 9, "distinv": "12034312035431203654312", "replstar":
+  ["0203120543654312", "23124312032543654312"], "special": "378_a'",
+  "elms": [], "character": [["378_a'", 1]], "size": 378}, {"a": 13,
+  "distinv": "031204543123456543120324356", "replstar":
+  ["12312343120324546543", "12312343120345431206543",
+  "123123431203454365431203"], "special": "420_a'", "elms": [], "character":
+  [["420_a'", 1], ["84_a'", 1]], "size": 504}, {"a": 10, "distinv":
   "120324312032435431234565431203243154", "replstar":
-  ["23243125431203243654312", "123123454365431203243154", 
-  "1231234354312365431203243154"], "special": "420_a", "elms": [], 
-  "character": [["420_a", 1], ["84_a", 1]], "size": 504}, {"a": 8, "distinv": 
+  ["23243125431203243654312", "123123454365431203243154",
+  "1231234354312365431203243154"], "special": "420_a", "elms": [],
+  "character": [["420_a", 1], ["84_a", 1]], "size": 504}, {"a": 8, "distinv":
   "0234543120324315432654312032435465", "replstar": ["2312431203456543120345",
-  "01312431203456543120345"], "special": "405_a", "elms": [], "character": 
-  [["405_a", 1], ["189_a", 1]], "size": 594}, {"a": 15, "distinv": 
-  "12312034312032435654312032431", "replstar": ["0203204320543120324316", 
-  "123123431203243154312346"], "special": "405_a'", "elms": [], "character": 
-  [["405_a'", 1], ["189_a'", 1]], "size": 594}, {"a": 8, "distinv": 
-  "0231234312543165431203", "replstar": ["124543165431203", 
-  "23243120324543165431203", "01203243120324543165431203"], "special": 
-  "405_a", "elms": [], "character": [["405_a", 1], ["216_a'", 1]], "size": 
-  621}, {"a": 15, "distinv": "1231431254312345654312345", "replstar": 
-  ["23243254312654312345", "123120343120324354312654312345", 
-  "01203120324315431203243154654312345"], "special": "405_a'", "elms": [], 
-  "character": [["405_a'", 1], ["216_a", 1]], "size": 621}, {"a": 7, 
-  "distinv": "0312343120354312365431203", "replstar": ["0131254365431203", 
-  "245431654312032431543", "01312345431654312032431543", 
-  "131243120324354312365431203", "0131243120324354312365431203", 
-  "01203431235431203243154365431203"], "special": "315_a'", "elms": [], 
-  "character": [["315_a'", 1], ["280_b", 1], ["70_a'", 1]], "size": 665}, 
-  {"a": 16, "distinv": "120314315431654312", "replstar": 
-  ["01314315431654312", "2324325432654312032456", 
-  "013143154312345654312032456", "0203204312054312032431543654312", 
+  "01312431203456543120345"], "special": "405_a", "elms": [], "character":
+  [["405_a", 1], ["189_a", 1]], "size": 594}, {"a": 15, "distinv":
+  "12312034312032435654312032431", "replstar": ["0203204320543120324316",
+  "123123431203243154312346"], "special": "405_a'", "elms": [], "character":
+  [["405_a'", 1], ["189_a'", 1]], "size": 594}, {"a": 8, "distinv":
+  "0231234312543165431203", "replstar": ["124543165431203",
+  "23243120324543165431203", "01203243120324543165431203"], "special":
+  "405_a", "elms": [], "character": [["405_a", 1], ["216_a'", 1]], "size":
+  621}, {"a": 15, "distinv": "1231431254312345654312345", "replstar":
+  ["23243254312654312345", "123120343120324354312654312345",
+  "01203120324315431203243154654312345"], "special": "405_a'", "elms": [],
+  "character": [["405_a'", 1], ["216_a", 1]], "size": 621}, {"a": 7,
+  "distinv": "0312343120354312365431203", "replstar": ["0131254365431203",
+  "245431654312032431543", "01312345431654312032431543",
+  "131243120324354312365431203", "0131243120324354312365431203",
+  "01203431235431203243154365431203"], "special": "315_a'", "elms": [],
+  "character": [["315_a'", 1], ["280_b", 1], ["70_a'", 1]], "size": 665},
+  {"a": 16, "distinv": "120314315431654312", "replstar":
+  ["01314315431654312", "2324325432654312032456",
+  "013143154312345654312032456", "0203204312054312032431543654312",
   "1231203431203243543120345654312", "0120312032435431206543120324315432654"],
-  "special": "315_a", "elms": [], "character": [["315_a", 1], ["280_b'", 1], 
-  ["70_a", 1]], "size": 665}, {"a": 10, "distinv": "0543120654312032435465", 
-  "replstar": ["0120312032435465", "020431543120654312032435465"], "special": 
-  "420_a", "elms": [], "character": [["420_a", 1], ["336_a'", 1]], "size": 
-  756}, {"a": 13, "distinv": "1203120324312032431", "replstar": 
-  ["0203204312032431", "124312054312032654312032431"], "special": "420_a'", 
-  "elms": [], "character": [["420_a'", 1], ["336_a", 1]], "size": 756}, {"a": 
-  7, "distinv": "0231432543123456543120345", "replstar": ["2454316543120345", 
-  "013123454316543120345", "2324312032435431654320", 
-  "12312034325431234654320", "0120324312032435431654320", 
-  "012034325431203243154654320"], "special": "315_a'", "elms": [], 
-  "character": [["315_a'", 1], ["280_b", 1], ["280_a'", 1]], "size": 875}, 
-  {"a": 16, "distinv": "12312343123454312365431234", "replstar": 
-  ["131431254312365431234", "0131431254312365431234", 
-  "232432543265431203243154326", "12312034312032435431203265431234", 
+  "special": "315_a", "elms": [], "character": [["315_a", 1], ["280_b'", 1],
+  ["70_a", 1]], "size": 665}, {"a": 10, "distinv": "0543120654312032435465",
+  "replstar": ["0120312032435465", "020431543120654312032435465"], "special":
+  "420_a", "elms": [], "character": [["420_a", 1], ["336_a'", 1]], "size":
+  756}, {"a": 13, "distinv": "1203120324312032431", "replstar":
+  ["0203204312032431", "124312054312032654312032431"], "special": "420_a'",
+  "elms": [], "character": [["420_a'", 1], ["336_a", 1]], "size": 756}, {"a":
+  7, "distinv": "0231432543123456543120345", "replstar": ["2454316543120345",
+  "013123454316543120345", "2324312032435431654320",
+  "12312034325431234654320", "0120324312032435431654320",
+  "012034325431203243154654320"], "special": "315_a'", "elms": [],
+  "character": [["315_a'", 1], ["280_b", 1], ["280_a'", 1]], "size": 875},
+  {"a": 16, "distinv": "12312343123454312365431234", "replstar":
+  ["131431254312365431234", "0131431254312365431234",
+  "232432543265431203243154326", "12312034312032435431203265431234",
   "01314315431234565431203243154326", "012031203243154312032431543265431234"],
-  "special": "315_a", "elms": [], "character": [["315_a", 1], ["280_b'", 1], 
-  ["280_a", 1]], "size": 875}, {"a": 7, "distinv": "025431234565431203456", 
-  "replstar": ["13143120345465", "013143120345465", "123123435432065", 
-  "1231203454312034565", "0120343154312034565"], "special": "315_a'", 
-  "elms": [], "character": [["315_a'", 1], ["280_a'", 2], ["35_a'", 1]], 
-  "size": 910}, {"a": 16, "distinv": 
-  "123120324312032431543123456543120324315432", "replstar": 
-  ["13143154312346543120324315432", "013143154312346543120324315432", 
-  "1314315431654312032431543265431", "12312343120324315431203265431234", 
-  "02032043120325431203243165431234"], "special": "315_a", "elms": [], 
- "character": [["315_a", 1], ["280_a", 2], ["35_a", 1]], "size": 910}, 
-  {"a": 11, "distinv": "02312034315431203", "replstar": ["01314315431203", 
-  "0120431543165431203", "012043254312654312032435"], "special": "512_a'", 
-  "elms": [], "character": [["512_a'", 1], ["512_a", 1]], "size": 1024}, 
-  {"a": 11, "distinv": "0312034354365431203", "replstar": ["034354365431203", 
-  "012034354365431203", "0120343543126543120324356"], "special": "512_a'", 
+  "special": "315_a", "elms": [], "character": [["315_a", 1], ["280_b'", 1],
+  ["280_a", 1]], "size": 875}, {"a": 7, "distinv": "025431234565431203456",
+  "replstar": ["13143120345465", "013143120345465", "123123435432065",
+  "1231203454312034565", "0120343154312034565"], "special": "315_a'",
+  "elms": [], "character": [["315_a'", 1], ["280_a'", 2], ["35_a'", 1]],
+  "size": 910}, {"a": 16, "distinv":
+  "123120324312032431543123456543120324315432", "replstar":
+  ["13143154312346543120324315432", "013143154312346543120324315432",
+  "1314315431654312032431543265431", "12312343120324315431203265431234",
+  "02032043120325431203243165431234"], "special": "315_a", "elms": [],
+ "character": [["315_a", 1], ["280_a", 2], ["35_a", 1]], "size": 910},
+  {"a": 11, "distinv": "02312034315431203", "replstar": ["01314315431203",
+  "0120431543165431203", "012043254312654312032435"], "special": "512_a'",
+  "elms": [], "character": [["512_a'", 1], ["512_a", 1]], "size": 1024},
+  {"a": 11, "distinv": "0312034354365431203", "replstar": ["034354365431203",
+  "012034354365431203", "0120343543126543120324356"], "special": "512_a'",
   "elms": [], "character": [["512_a'", 1], ["512_a", 1]], "size": 1024}]
 
 def E7CELLREPcheck():
@@ -14264,990 +14265,990 @@ def E7CELLREPcheck():
       return False
   return True
 
-# The i-th left cell in the following list contains a distinguished 
+# The i-th left cell in the following list contains a distinguished
 # involution which is double-star equivalent to the i-th involution
 # in libdistinv(W,unpack=0)
 
-E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "", 
-  "replstar": [""], "elms": [], "special": "1_x", "size": 1}, {"a": 1, 
+E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
+  "replstar": [""], "elms": [], "special": "1_x", "size": 1}, {"a": 1,
   "character": [["8_z", 1]], "distinv": "7", "replstar": ["7"], "elms": [],
-   "special": "8_z", "size": 8}, {"a": 2, "character": [["35_x", 1]], 
-  "distinv": "765431234567", "replstar": ["765431234567"], "elms": [], 
-  "special": "35_x", "size": 35}, {"a": 3, "character": [["112_z", 1], 
-  ["28_x", 1]], "distinv": "0234567654320", "replstar": ["1234320567", 
-  "0234567654320"], "elms": [], "special": "112_z", "size": 140}, {"a": 3, 
-  "character": [["112_z", 1], ["84_x", 1]], "distinv": 
-  "76543120324315432065431234567", "replstar": 
-  ["76543120324315432065431234567", "565431203243154320765431234567", 
-  "765431203243154320654312345676543120324315432065431234567"], "elms": [], 
-  "special": "112_z", "size": 196}, {"a": 4, "character": [["160_z", 1], 
+   "special": "8_z", "size": 8}, {"a": 2, "character": [["35_x", 1]],
+  "distinv": "765431234567", "replstar": ["765431234567"], "elms": [],
+  "special": "35_x", "size": 35}, {"a": 3, "character": [["112_z", 1],
+  ["28_x", 1]], "distinv": "0234567654320", "replstar": ["1234320567",
+  "0234567654320"], "elms": [], "special": "112_z", "size": 140}, {"a": 3,
+  "character": [["112_z", 1], ["84_x", 1]], "distinv":
+  "76543120324315432065431234567", "replstar":
+  ["76543120324315432065431234567", "565431203243154320765431234567",
+  "765431203243154320654312345676543120324315432065431234567"], "elms": [],
+  "special": "112_z", "size": 196}, {"a": 4, "character": [["160_z", 1],
   ["210_x", 1]], "distinv": "07654312034567", "replstar": ["07654312034567",
-  "1243120654312034567"], "elms": [], "special": "210_x", "size": 370}, 
-  {"a": 4, "character": [["210_x", 1], ["50_x", 1]], "distinv": "031436", 
-  "replstar": ["031436", "02031436", "031234312036"], "elms": [], 
-  "special": "210_x", "size": 260}, {"a": 5, "character": [["560_z", 1]], 
-  "distinv": "02345676543120324315432065431234567654320", "replstar": 
-  ["123431203254316543207654312034567", 
-  "02345676543120324315432065431234567654320"], "elms": [], "special": 
-  "560_z", "size": 560}, {"a": 6, "character": [["567_x", 1]], "distinv": 
-  "0765431203243154320654312345676543120324315432065431234567", "replstar": 
-  ["0765431203243154320654312345676543120324315432065431234567"], 
-  "elms": [], "special": "567_x", "size": 567}, {"a": 6, "character": 
-  [["700_x", 1], ["300_x", 1]], "distinv": "0231432076543120324315432067", 
-  "replstar": ["014320654317654312034567", "0231432076543120324315432067", 
-  "123431203254316543120324317654312034567"], "elms": [], "special": 
-  "700_x", "size": 1000}, {"a": 6, "character": [["400_z", 1], 
-  ["700_x", 1]], "distinv": "0234654312032431765431203243546576", 
-  "replstar": ["0204315431203456543123457654320", 
-  "1234312032543165431203243546576", "0234654312032431765431203243546576", 
-  "12343120325431654312032431543265431765431203243546576", 
-  "02345654312032431543207654312032431543206543123457654320"], "elms": [], 
-  "special": "700_x", "size": 1100}, {"a": 7, "character": [["1400_z", 1], 
-  ["448_z", 1], ["1344_x", 1]], "distinv": 
-  "65431203243154320676543120324315432065431234576", "replstar": 
-  ["145432065431203243154320676543123456", 
-  "2312431203243543123654312032765431203243546576", 
-  "12312034325431203243654312032765431203243546576", 
-  "65431203243154320676543120324315432065431234576", 
-  "65431203243154320654312345765431203243154320654312345676543123456", 
+  "1243120654312034567"], "elms": [], "special": "210_x", "size": 370},
+  {"a": 4, "character": [["210_x", 1], ["50_x", 1]], "distinv": "031436",
+  "replstar": ["031436", "02031436", "031234312036"], "elms": [],
+  "special": "210_x", "size": 260}, {"a": 5, "character": [["560_z", 1]],
+  "distinv": "02345676543120324315432065431234567654320", "replstar":
+  ["123431203254316543207654312034567",
+  "02345676543120324315432065431234567654320"], "elms": [], "special":
+  "560_z", "size": 560}, {"a": 6, "character": [["567_x", 1]], "distinv":
+  "0765431203243154320654312345676543120324315432065431234567", "replstar":
+  ["0765431203243154320654312345676543120324315432065431234567"],
+  "elms": [], "special": "567_x", "size": 567}, {"a": 6, "character":
+  [["700_x", 1], ["300_x", 1]], "distinv": "0231432076543120324315432067",
+  "replstar": ["014320654317654312034567", "0231432076543120324315432067",
+  "123431203254316543120324317654312034567"], "elms": [], "special":
+  "700_x", "size": 1000}, {"a": 6, "character": [["400_z", 1],
+  ["700_x", 1]], "distinv": "0234654312032431765431203243546576",
+  "replstar": ["0204315431203456543123457654320",
+  "1234312032543165431203243546576", "0234654312032431765431203243546576",
+  "12343120325431654312032431543265431765431203243546576",
+  "02345654312032431543207654312032431543206543123457654320"], "elms": [],
+  "special": "700_x", "size": 1100}, {"a": 7, "character": [["1400_z", 1],
+  ["448_z", 1], ["1344_x", 1]], "distinv":
+  "65431203243154320676543120324315432065431234576", "replstar":
+  ["145432065431203243154320676543123456",
+  "2312431203243543123654312032765431203243546576",
+  "12312034325431203243654312032765431203243546576",
+  "65431203243154320676543120324315432065431234576",
+  "65431203243154320654312345765431203243154320654312345676543123456",
   "6543120324315432065431234567654312032431543206543123456765431203243154"+\
-  "3206543123456"], "elms": [], "special": "1400_z", "size": 3192}, 
-  {"a": 7, "character": [["1400_z", 1], ["1008_z", 1], ["1344_x", 1]], 
-  "distinv": "023143205431234576543120324315432065431234567", "replstar": 
-  ["02043154312034576543120324315432067", 
-  "231243120325431265431207654312034567", 
-  "01203431235431203243165431207654312034567", 
-  "023143205431234576543120324315432065431234567", 
-  "023143205431234567654312032431543206543123456765431203243154320", 
-  "02314320765431203243154320654312345676543120324315432065431234567"], 
-  "elms": [], "special": "1400_z", "size": 3752}, {"a": 8, "character": 
-  [["1400_x", 1], ["1050_x", 1], ["175_x", 1]], "distinv": 
-  "0312343120325654312032435765431203", "replstar": 
-  ["0312343120325654312032435765431203", "03256543176543120324315436", 
-  "123120343120354312365765431203", "1231203432543120324365765431203", 
-  "03123431203546543120324315676543120324315436", 
-  "03123431203256543120324354765431203243154320654376"], "elms": [], 
-  "special": "1400_x", "size": 2625}, {"a": 8, "character": [["1575_x", 1], 
-  ["1400_x", 1], ["1050_x", 1]], "distinv": "03124367654312034567", 
-  "replstar": ["12312343120543676", "012043543120345676", 
-  "03124367654312034567", "0120343123543120345676", 
-  "031234312367654312034567", "0312431206765431203243154367"], "elms": [], 
+  "3206543123456"], "elms": [], "special": "1400_z", "size": 3192},
+  {"a": 7, "character": [["1400_z", 1], ["1008_z", 1], ["1344_x", 1]],
+  "distinv": "023143205431234576543120324315432065431234567", "replstar":
+  ["02043154312034576543120324315432067",
+  "231243120325431265431207654312034567",
+  "01203431235431203243165431207654312034567",
+  "023143205431234576543120324315432065431234567",
+  "023143205431234567654312032431543206543123456765431203243154320",
+  "02314320765431203243154320654312345676543120324315432065431234567"],
+  "elms": [], "special": "1400_z", "size": 3752}, {"a": 8, "character":
+  [["1400_x", 1], ["1050_x", 1], ["175_x", 1]], "distinv":
+  "0312343120325654312032435765431203", "replstar":
+  ["0312343120325654312032435765431203", "03256543176543120324315436",
+  "123120343120354312365765431203", "1231203432543120324365765431203",
+  "03123431203546543120324315676543120324315436",
+  "03123431203256543120324354765431203243154320654376"], "elms": [],
+  "special": "1400_x", "size": 2625}, {"a": 8, "character": [["1575_x", 1],
+  ["1400_x", 1], ["1050_x", 1]], "distinv": "03124367654312034567",
+  "replstar": ["12312343120543676", "012043543120345676",
+  "03124367654312034567", "0120343123543120345676",
+  "031234312367654312034567", "0312431206765431203243154367"], "elms": [],
   "special": "1400_x", "size": 4025}, {"a": 9, "character": [["3240_z", 1]],
-  "distinv": "12034312035431203654312", "replstar": ["23124312032543654312", 
-  "12034312035431203654312", "123431254312032437654312", 
-  "01203431254312032437654312"], "elms": [], "special": "3240_z", "size": 
-  3240}, {"a": 10, "character": [["1400_zz", 1], ["2240_x", 1]], "distinv": 
-  "031204546543", "replstar": ["031204546543", "131243120324546543", 
-  "13124312032465476543", "012034312543120324576543", 
-  "0312043543126543120324576543", "1231203431203543126543120324576543", 
-  "0120343123543120324315465476543120324356"], "elms": [], "special": 
-  "2240_x", "size": 3640}, {"a": 10, "character": [["1296_z", 1], 
-  ["2268_x", 1]], "distinv": 
-  "02345654320765431203243154320654312345676543120324315432065431234567", 
-  "replstar": ["12312343543206543120324315432067654312034567", 
-  "02345654320765431203243154320654312345676543120324315432065431234567"], 
-  "elms": [], "special": "2268_x", "size": 3564}, {"a": 11, "character": 
-  [["4096_z", 1], ["4096_x", 1]], "distinv": 
-  "0231432654312032431543206576543120324315432065431234576", "replstar": 
-  ["012043254312065431203243156765431203456", 
-  "1231203454312034654312032431543206765431203456", 
-  "0231432654312032431543206576543120324315432065431234576"], "elms": [], 
-  "special": "4096_z", "size": 8192}, {"a": 7, "character": [["1400_z", 1], 
-  ["1008_z", 2], ["56_z", 1]], "distinv": "0265431234567654312034567", 
-  "replstar": ["01314312034546576", "12312343543206576", 
-  "012034315431203456576", "013123431234543206576", 
-  "0265431234567654312034567"], "elms": [], "special": "1400_z", "size": 
-  3472}, {"a": 12, "character": [["3360_z", 1], ["4200_x", 1]], "distinv": 
-  "0312343120354654312034765431203243154320654376", "replstar": 
-  ["012043543120365431203243154365765431203", 
-  "123120354654312034765431203243154320654376", 
-  "0312343120354654312034765431203243154320654376", 
-  "0131243120324354654312034765431203243154320654376"], "elms": [], 
-  "special": "4200_x", "size": 7560}, {"a": 8, "character": [["1575_x", 2], 
-  ["1400_x", 1], ["350_x", 1]], "distinv": 
-  "0234654320765431203243154320654312345676", "replstar": 
-  ["01312431203456543120345676", "123123454312067654312034567", 
-  "020312054312034567654312034567", "0120431254312034567654312034567", 
-  "0234654320765431203243154320654312345676"], "elms": [], "special": 
-  "1400_x", "size": 4900}, {"a": 12, "character": [["525_x", 1]], "distinv": 
+  "distinv": "12034312035431203654312", "replstar": ["23124312032543654312",
+  "12034312035431203654312", "123431254312032437654312",
+  "01203431254312032437654312"], "elms": [], "special": "3240_z", "size":
+  3240}, {"a": 10, "character": [["1400_zz", 1], ["2240_x", 1]], "distinv":
+  "031204546543", "replstar": ["031204546543", "131243120324546543",
+  "13124312032465476543", "012034312543120324576543",
+  "0312043543126543120324576543", "1231203431203543126543120324576543",
+  "0120343123543120324315465476543120324356"], "elms": [], "special":
+  "2240_x", "size": 3640}, {"a": 10, "character": [["1296_z", 1],
+  ["2268_x", 1]], "distinv":
+  "02345654320765431203243154320654312345676543120324315432065431234567",
+  "replstar": ["12312343543206543120324315432067654312034567",
+  "02345654320765431203243154320654312345676543120324315432065431234567"],
+  "elms": [], "special": "2268_x", "size": 3564}, {"a": 11, "character":
+  [["4096_z", 1], ["4096_x", 1]], "distinv":
+  "0231432654312032431543206576543120324315432065431234576", "replstar":
+  ["012043254312065431203243156765431203456",
+  "1231203454312034654312032431543206765431203456",
+  "0231432654312032431543206576543120324315432065431234576"], "elms": [],
+  "special": "4096_z", "size": 8192}, {"a": 7, "character": [["1400_z", 1],
+  ["1008_z", 2], ["56_z", 1]], "distinv": "0265431234567654312034567",
+  "replstar": ["01314312034546576", "12312343543206576",
+  "012034315431203456576", "013123431234543206576",
+  "0265431234567654312034567"], "elms": [], "special": "1400_z", "size":
+  3472}, {"a": 12, "character": [["3360_z", 1], ["4200_x", 1]], "distinv":
+  "0312343120354654312034765431203243154320654376", "replstar":
+  ["012043543120365431203243154365765431203",
+  "123120354654312034765431203243154320654376",
+  "0312343120354654312034765431203243154320654376",
+  "0131243120324354654312034765431203243154320654376"], "elms": [],
+  "special": "4200_x", "size": 7560}, {"a": 8, "character": [["1575_x", 2],
+  ["1400_x", 1], ["350_x", 1]], "distinv":
+  "0234654320765431203243154320654312345676", "replstar":
+  ["01312431203456543120345676", "123123454312067654312034567",
+  "020312054312034567654312034567", "0120431254312034567654312034567",
+  "0234654320765431203243154320654312345676"], "elms": [], "special":
+  "1400_x", "size": 4900}, {"a": 12, "character": [["525_x", 1]], "distinv":
   "654312032431543206543123456765431203243154320654312345676543120324315"+\
   "432065431234567", "replstar": ["6543120324315432065431234567654312032"+\
-  "43154320654312345676543120324315432065431234567"], "elms": [], "special": 
-  "525_x", "size": 525}, {"a": 12, "character": [["4200_x", 1], 
-  ["840_x", 1]], "distinv": 
-  "023143546543120324315432067654312032431543206543123457654320", 
+  "43154320654312345676543120324315432065431234567"], "elms": [], "special":
+  "525_x", "size": 525}, {"a": 12, "character": [["4200_x", 1],
+  ["840_x", 1]], "distinv":
+  "023143546543120324315432067654312032431543206543123457654320",
   "replstar": ["023143546543120324315432067654312032431543206543123457654320",
-  "12435436543120327654312032431543206576", 
-  "0231435465431203243154657654312032431543206543123456765431203456", 
-  "0131234312032435436543120327654312032431543206576"], "elms": [], 
+  "12435436543120327654312032431543206576",
+  "0231435465431203243154657654312032431543206543123456765431203456",
+  "0131234312032435436543120327654312032431543206576"], "elms": [],
   "special": "4200_x", "size": 5040}, {"a": 13, "character": [["2800_z", 1],
-  ["700_xx", 1]], "distinv": 
-  "031436765431203243154320654312345676543120324315432065431234567", 
-  "replstar": ["123123431203245431203654312037654312034567", 
-  "031436765431203243154320654312345676543120324315432065431234567", 
-  "031234312036765431203243154320654312345676543120324315432065431234567"], 
-  "elms": [], "special": "2800_z", "size": 3500}, {"a": 13, "character": 
-  [["4536_z", 1]], "distinv": 
-  "0231432056543120345676543120324315432065431234567654312032431543206", 
-  "replstar": ["123120345432654312076543120324315432065431234567654320", 
-  "012034325431203265431203243154320657654312032431543206576", 
-  "0231432056543120345676543120324315432065431234567654312032431543206"], 
-  "elms": [], "special": "4536_z", "size": 4536}, {"a": 10, "character": 
-  [["840_z", 1], ["2240_x", 1]], "distinv": 
-  "023143256543120324315432657654312032431543206576", "replstar": 
-  ["013143120324565431765431203456", 
-  "1245431206543120324315432065431765431203456", 
-  "023143256543120324315432657654312032431543206576", 
-  "0120343125431203243154654327654312032431543206576"], "elms": [], 
+  ["700_xx", 1]], "distinv":
+  "031436765431203243154320654312345676543120324315432065431234567",
+  "replstar": ["123123431203245431203654312037654312034567",
+  "031436765431203243154320654312345676543120324315432065431234567",
+  "031234312036765431203243154320654312345676543120324315432065431234567"],
+  "elms": [], "special": "2800_z", "size": 3500}, {"a": 13, "character":
+  [["4536_z", 1]], "distinv":
+  "0231432056543120345676543120324315432065431234567654312032431543206",
+  "replstar": ["123120345432654312076543120324315432065431234567654320",
+  "012034325431203265431203243154320657654312032431543206576",
+  "0231432056543120345676543120324315432065431234567654312032431543206"],
+  "elms": [], "special": "4536_z", "size": 4536}, {"a": 10, "character":
+  [["840_z", 1], ["2240_x", 1]], "distinv":
+  "023143256543120324315432657654312032431543206576", "replstar":
+  ["013143120324565431765431203456",
+  "1245431206543120324315432065431765431203456",
+  "023143256543120324315432657654312032431543206576",
+  "0120343125431203243154654327654312032431543206576"], "elms": [],
   "special": "2240_x", "size": 3080}, {"a": 14, "character": [["2835_x", 1]],
-  "distinv": "02312034312035431203243154654312032435765431203243154320", 
-  "replstar": ["013123431203245431654317654312032431543206543127654320", 
-  "02312034312035431203243154654312032435765431203243154320"], "elms": [], 
-  "special": "2835_x", "size": 2835}, {"a": 9, "character": [["3240_z", 1]], 
-  "distinv": "023456543120324315432076543120324315432065431234567654320", 
-  "replstar": ["131431203265431765431203243546576", 
-  "12343123543120324316543120765431203243546576", 
-  "0120343123543120324316543120765431203243546576", 
-  "023456543120324315432076543120324315432065431234567654320"], "elms": [], 
-  "special": "3240_z", "size": 3240}, {"a": 15, "character": [["5600_z", 1], 
-  ["3200_x", 1]], "distinv": 
-  "023143205431203243154320654312032431543206543123456", "replstar": 
-  ["023143205431203243154320654312032431543206543123456", 
-  "123123431203243543123465431203276543120324315432065", 
+  "distinv": "02312034312035431203243154654312032435765431203243154320",
+  "replstar": ["013123431203245431654317654312032431543206543127654320",
+  "02312034312035431203243154654312032435765431203243154320"], "elms": [],
+  "special": "2835_x", "size": 2835}, {"a": 9, "character": [["3240_z", 1]],
+  "distinv": "023456543120324315432076543120324315432065431234567654320",
+  "replstar": ["131431203265431765431203243546576",
+  "12343123543120324316543120765431203243546576",
+  "0120343123543120324316543120765431203243546576",
+  "023456543120324315432076543120324315432065431234567654320"], "elms": [],
+  "special": "3240_z", "size": 3240}, {"a": 15, "character": [["5600_z", 1],
+  ["3200_x", 1]], "distinv":
+  "023143205431203243154320654312032431543206543123456", "replstar":
+  ["023143205431203243154320654312032431543206543123456",
+  "123123431203243543123465431203276543120324315432065",
   "0231432054312032431543206543120324315432065431234567654312032431543206"+\
-  "543123456"], "elms": [], "special": "5600_z", "size": 8800}, {"a": 15, 
-  "character": [["4200_z", 1]], "distinv": 
-  "1203431205431234654376543120324315467", "replstar": 
-  ["231243123543120324565437654312", "1203431205431234654376543120324315467", 
-  "12312343120324354316543120324315432065437654312"], "elms": [], "special": 
-  "4200_z", "size": 4200}, {"a": 5, "character": [["560_z", 1]], "distinv": 
-  "0312343123565431203", "replstar": ["124354312036", "0312343123565431203"], 
-  "elms": [], "special": "560_z", "size": 560}, {"a": 16, "character": 
-  [["7168_w", 1], ["2016_w", 1], ["1344_w", 1], ["4480_y", 1], ["4200_y", 1], 
-  ["3150_y", 1], ["420_y", 1]], "distinv": 
-  "0231203431205431203265431765431203", "replstar": 
-  ["1231234312032431565431765431203", "034354365431203765431203243154320", 
-  "0231203431205431203265431765431203", 
-  "12312343120324546543765431203243154320", 
-  "020320431203254312032431565431765431203", 
-  "123120343120324315431203265431765431203", 
-  "131431254312346543120324315436765431203", 
-  "0131431254312346543120324315436765431203", 
-  "12312034312032431546543765431203243154320", 
-  "123123431203454365431203765431203243154320", 
-  "02312034312054312032456543765431203243154320", 
-  "232432543120346543120324315432065431765431203", 
-  "0203120431203243154365431203765431203243154320", 
-  "02032043120354312032431546543765431203243154320", 
-  "013143123543120346543120324315432065431765431203", 
-  "123120343120324315431203245654312032431765431203", 
-  "123123431203245465431234576543120324315432065437", 
-  "1231203431203243154312032456543765431203243154320", 
-  "02312034312054312032435465431203765431203243154320", 
-  "123120343120324315465431234576543120324315432065437", 
-  "023120343120543120324565431234576543120324315432065437", 
-  "123123431203245431654317654312032431543206543127654320", 
-  "1314312543120324654312032431543206543765431203243154320", 
-  "01314312543120324654312032431543206543765431203243154320", 
-  "0231203431203543120324315465431234576543120324315432065437", 
-  "1231203431203243154312032456543120324356765431203243154320", 
-  "1231234312032454326543120347654312032431543206543127654320", 
-  "12312034312032431543120324565431234576543120324315432065437", 
-  "1231203431203243154326543120347654312032431543206543127654320", 
-  "0231203431203543120324356543120347654312032431543206543127654320", 
+  "543123456"], "elms": [], "special": "5600_z", "size": 8800}, {"a": 15,
+  "character": [["4200_z", 1]], "distinv":
+  "1203431205431234654376543120324315467", "replstar":
+  ["231243123543120324565437654312", "1203431205431234654376543120324315467",
+  "12312343120324354316543120324315432065437654312"], "elms": [], "special":
+  "4200_z", "size": 4200}, {"a": 5, "character": [["560_z", 1]], "distinv":
+  "0312343123565431203", "replstar": ["124354312036", "0312343123565431203"],
+  "elms": [], "special": "560_z", "size": 560}, {"a": 16, "character":
+  [["7168_w", 1], ["2016_w", 1], ["1344_w", 1], ["4480_y", 1], ["4200_y", 1],
+  ["3150_y", 1], ["420_y", 1]], "distinv":
+  "0231203431205431203265431765431203", "replstar":
+  ["1231234312032431565431765431203", "034354365431203765431203243154320",
+  "0231203431205431203265431765431203",
+  "12312343120324546543765431203243154320",
+  "020320431203254312032431565431765431203",
+  "123120343120324315431203265431765431203",
+  "131431254312346543120324315436765431203",
+  "0131431254312346543120324315436765431203",
+  "12312034312032431546543765431203243154320",
+  "123123431203454365431203765431203243154320",
+  "02312034312054312032456543765431203243154320",
+  "232432543120346543120324315432065431765431203",
+  "0203120431203243154365431203765431203243154320",
+  "02032043120354312032431546543765431203243154320",
+  "013143123543120346543120324315432065431765431203",
+  "123120343120324315431203245654312032431765431203",
+  "123123431203245465431234576543120324315432065437",
+  "1231203431203243154312032456543765431203243154320",
+  "02312034312054312032435465431203765431203243154320",
+  "123120343120324315465431234576543120324315432065437",
+  "023120343120543120324565431234576543120324315432065437",
+  "123123431203245431654317654312032431543206543127654320",
+  "1314312543120324654312032431543206543765431203243154320",
+  "01314312543120324654312032431543206543765431203243154320",
+  "0231203431203543120324315465431234576543120324315432065437",
+  "1231203431203243154312032456543120324356765431203243154320",
+  "1231234312032454326543120347654312032431543206543127654320",
+  "12312034312032431543120324565431234576543120324315432065437",
+  "1231203431203243154326543120347654312032431543206543127654320",
+  "0231203431203543120324356543120347654312032431543206543127654320",
   "023120343120354312032431546543120324315765431203243154320654312347654"+\
-  "31203"], "elms": [], "special": "4480_y", "size": 22778}, {"a": 16, 
-  "character": [["7168_w", 2], ["5600_w", 1], ["2016_w", 1], ["5670_y", 1], 
-  ["4536_y", 1], ["4480_y", 1], ["4200_y", 1], ["3150_y", 1], ["2688_y", 1]], 
-  "distinv": "0231234312035431654312076543120324315432654317654320", 
-  "replstar": ["1231203431203243543120324565431765431203", 
-  "1314315431203465431203243154365765431203", 
-  "012031203243543265432076543120324315432067", 
-  "123120343120324354654376543120324315432067", 
-  "1231234312034543265432076543120324315432067", 
-  "1314312543120324654312032431543265431765431203", 
-  "01203120324312034543265432076543120324315432067", 
-  "01314312543120324654312032431543265431765431203", 
-  "012031203254654312076543120324315432654317654320", 
-  "1231234312034546543120345765431203243154320654376", 
-  "01203120324312034543120324565431203243156765431203", 
-  "01203120324354316543120345765431203243154320654376", 
-  "13143154312032431654312032431543206543123765431203", 
-  "23243254312036543120324315432065431237654312034567", 
-  "012031203243120345431203245654376543120324315432067", 
-  "123120343120324354312032456543120324317654312034567", 
-  "0203204312054312032431543265432076543120324315432067", 
-  "0231234312035431654312076543120324315432654317654320", 
-  "1231203431203243543120324565432076543120324315432067", 
-  "01203120324312034546543120345765431203243154320654376", 
-  "12312343120324354316543120345765431203243154320654376", 
-  "12312343120324354654312076543120324315432654317654320", 
-  "123120343120324315431203243654765431203243154320654376", 
-  "123120343120324354316543120345765431203243154320654376", 
-  "123123431203243154654312076543120324315432654317654320", 
-  "1231234312032435431654312076543120324315432654317654320", 
-  "01203120324543126543120324576543120324315432654317654320", 
-  "02312343120543126543120324576543120324315432654317654320", 
-  "13143125431203265431203243154320654376543120324315432067", 
-  "1314315431203243165431203243154320654376543120324315432067", 
-  "12312034312032431543120345654312032435676543120324315432067", 
-  "12312343120324543126543120324576543120324315432654317654320", 
-  "012031203245432654312037654312032431543206543123456765431203", 
-  "023123431205432654312037654312032431543206543123456765431203", 
-  "123120343120324315431203456543120345765431203243154320654376", 
-  "02312343120325432654312037654312032431543206543123456765431203", 
-  "12312034312032431543120324654312076543120324315432654317654320", 
-  "12312034312032431543126543120324576543120324315432654317654320", 
-  "123123431203243154312032456543120324354765431203243154320654376", 
-  "123123431203245432654312037654312032431543206543123456765431203", 
-  "1231234312032431543123654312032431543654765431203243154320654376", 
-  "012031203243543126543120324317654312032431543206543123456765431203", 
-  "023123431203543126543120324317654312032431543206543123456765431203", 
-  "123120343120324315432654312037654312032431543206543123456765431203", 
-  "1231203431203243543120345654312032431576543120324315432654317654320", 
-  "1231234312032435431236543120324317654312032431543206543123765431203", 
-  "023123431203254312346543120324315437654312032431543206543123456765431203", 
-  "123120343120324354312032435654312037654312032431543206543123456765431203", 
+  "31203"], "elms": [], "special": "4480_y", "size": 22778}, {"a": 16,
+  "character": [["7168_w", 2], ["5600_w", 1], ["2016_w", 1], ["5670_y", 1],
+  ["4536_y", 1], ["4480_y", 1], ["4200_y", 1], ["3150_y", 1], ["2688_y", 1]],
+  "distinv": "0231234312035431654312076543120324315432654317654320",
+  "replstar": ["1231203431203243543120324565431765431203",
+  "1314315431203465431203243154365765431203",
+  "012031203243543265432076543120324315432067",
+  "123120343120324354654376543120324315432067",
+  "1231234312034543265432076543120324315432067",
+  "1314312543120324654312032431543265431765431203",
+  "01203120324312034543265432076543120324315432067",
+  "01314312543120324654312032431543265431765431203",
+  "012031203254654312076543120324315432654317654320",
+  "1231234312034546543120345765431203243154320654376",
+  "01203120324312034543120324565431203243156765431203",
+  "01203120324354316543120345765431203243154320654376",
+  "13143154312032431654312032431543206543123765431203",
+  "23243254312036543120324315432065431237654312034567",
+  "012031203243120345431203245654376543120324315432067",
+  "123120343120324354312032456543120324317654312034567",
+  "0203204312054312032431543265432076543120324315432067",
+  "0231234312035431654312076543120324315432654317654320",
+  "1231203431203243543120324565432076543120324315432067",
+  "01203120324312034546543120345765431203243154320654376",
+  "12312343120324354316543120345765431203243154320654376",
+  "12312343120324354654312076543120324315432654317654320",
+  "123120343120324315431203243654765431203243154320654376",
+  "123120343120324354316543120345765431203243154320654376",
+  "123123431203243154654312076543120324315432654317654320",
+  "1231234312032435431654312076543120324315432654317654320",
+  "01203120324543126543120324576543120324315432654317654320",
+  "02312343120543126543120324576543120324315432654317654320",
+  "13143125431203265431203243154320654376543120324315432067",
+  "1314315431203243165431203243154320654376543120324315432067",
+  "12312034312032431543120345654312032435676543120324315432067",
+  "12312343120324543126543120324576543120324315432654317654320",
+  "012031203245432654312037654312032431543206543123456765431203",
+  "023123431205432654312037654312032431543206543123456765431203",
+  "123120343120324315431203456543120345765431203243154320654376",
+  "02312343120325432654312037654312032431543206543123456765431203",
+  "12312034312032431543120324654312076543120324315432654317654320",
+  "12312034312032431543126543120324576543120324315432654317654320",
+  "123123431203243154312032456543120324354765431203243154320654376",
+  "123123431203245432654312037654312032431543206543123456765431203",
+  "1231234312032431543123654312032431543654765431203243154320654376",
+  "012031203243543126543120324317654312032431543206543123456765431203",
+  "023123431203543126543120324317654312032431543206543123456765431203",
+  "123120343120324315432654312037654312032431543206543123456765431203",
+  "1231203431203243543120345654312032431576543120324315432654317654320",
+  "1231234312032435431236543120324317654312032431543206543123765431203",
+  "023123431203254312346543120324315437654312032431543206543123456765431203",
+  "123120343120324354312032435654312037654312032431543206543123456765431203",
   "0231234312035465431203243567654312032431543206543123456765431203243154"+\
   "3206", "02312343120354316543120324356765431203243154320654312345676543"+\
   "12032431543206", "0231234312032543123465431203243567654312032431543206"+\
   "5431234567654312032431543206", "023123431203254316543120324315432654376"+\
-  "543120324315432065431234567654312032431543206"], "elms": [], "special": 
-  "4480_y", "size": 46676}, {"a": 13, "character": [["2800_z", 1], 
-  ["2100_x", 1]], "distinv": 
-  "0231456543120324315432065431234567654312032431543206543123457654320", 
-  "replstar": ["123123431203243543165431203243156765431203456", 
-  "0231456543120324315432065431234567654312032431543206543123457654320"], 
-  "elms": [], "special": "2800_z", "size": 4900}, {"a": 11, "character": 
-  [["4096_z", 1], ["4096_x", 1]], "distinv": 
-  "031234320565437654312032431543206543123456765431203", "replstar": 
-  ["1454326543120765431203243154367", 
-  "031234320565437654312032431543206543123456765431203", 
-  "03143206543123456765431203243154320654312345676543120324315436"], "elms": 
- [], "special": "4096_z", "size": 8192}, {"a": 14, "character": 
+  "543120324315432065431234567654312032431543206"], "elms": [], "special":
+  "4480_y", "size": 46676}, {"a": 13, "character": [["2800_z", 1],
+  ["2100_x", 1]], "distinv":
+  "0231456543120324315432065431234567654312032431543206543123457654320",
+  "replstar": ["123123431203243543165431203243156765431203456",
+  "0231456543120324315432065431234567654312032431543206543123457654320"],
+  "elms": [], "special": "2800_z", "size": 4900}, {"a": 11, "character":
+  [["4096_z", 1], ["4096_x", 1]], "distinv":
+  "031234320565437654312032431543206543123456765431203", "replstar":
+  ["1454326543120765431203243154367",
+  "031234320565437654312032431543206543123456765431203",
+  "03143206543123456765431203243154320654312345676543120324315436"], "elms":
+ [], "special": "4096_z", "size": 8192}, {"a": 14, "character":
   [["6075_x", 1]], "distinv": "023143205654312032431543206765431203243154"+\
-  "320654312345676543120324315432065431234567", "replstar": 
-  ["1231234312032435431236543120324354657654312032431543206576", 
+  "320654312345676543120324315432065431234567", "replstar":
+  ["1231234312032435431236543120324354657654312032431543206576",
   "02314320565431203243154320676543120324315432065431234567654312032431543"+\
-  "2065431234567"], "elms": [], "special": "6075_x", "size": 6075}, 
-  {"a": 16, "character": [["7168_w", 1], ["5600_w", 1], ["1344_w", 1], 
-  ["5670_y", 1], ["4480_y", 1], ["4200_y", 1], ["3150_y", 1], ["1134_y", 1]], 
-  "distinv": "023120343120543120324654312032431765431203", "replstar": 
-  ["0120312032546543765431203243154320", 
-  "02032043120325431203243165431765431203", 
-  "12312343120324315431203265431765431203", 
-  "13143125431234654312032431543765431203", 
-  "013143125431234654312032431543765431203", 
-  "123123431234546547654312032431543206543", 
-  "023120343120543120324654312032431765431203", 
-  "1231234312345436543127654312032431543206543", 
-  "01203120324546543123457654312032431543206543", 
-  "23243254312346543120324315432065431765431203", 
-  "01314312354312346543120324315432065431765431203", 
-  "02032043120325431203243154654312032431765431203", 
-  "12312034312032431543120324654312032431765431203", 
-  "12312343120324546543123457654312032431543206543", 
-  "012031203243543126543123457654312032431543206543", 
-  "020320431203254312032431546543765431203243154320", 
-  "034325432654312347654312032431543206543127654320", 
-  "123120343120324315431203246543765431203243154320", 
-  "12312034312032431543123456547654312032431543206543", 
-  "0231203431205431203245654312032435765431203243154320", 
-  "012031203245432654312347654312032431543206543127654320", 
-  "023120343120543120324565431234567654312032431543206543", 
-  "232432543120324654312032431543206543765431203243154320", 
-  "1231234312032435654312347654312032431543206543127654320", 
-  "02032043120354312032431546543123457654312032431543206543", 
-  "013143123543120324654312032431543206543765431203243154320", 
-  "020320431203543120324315465431234567654312032431543206543", 
-  "123120343120324315431203245654312032435765431203243154320", 
-  "123123431203245432654312347654312032431543206543127654320", 
-  "0231203431203543120324315465431234567654312032431543206543", 
-  "1231203431203243154312032456543123457654312032431543206543", 
-  "12312034312032431543120324565431234567654312032431543206543", 
-  "12312343120324354654312376543120324315432065431234765431203", 
-  "02312034312035431203243565431203243154657654312032431543206543", 
-  "0120312032435432654312032431576543120324315432065431234765431203", 
-  "1231234354312032654312032431576543120324315432065431234765431203", 
-  "23124312035431203243154320654312347654312032431543206543127654320", 
-  "0231203431203543120324365431203243154367654312032431543206543127654320", 
+  "2065431234567"], "elms": [], "special": "6075_x", "size": 6075},
+  {"a": 16, "character": [["7168_w", 1], ["5600_w", 1], ["1344_w", 1],
+  ["5670_y", 1], ["4480_y", 1], ["4200_y", 1], ["3150_y", 1], ["1134_y", 1]],
+  "distinv": "023120343120543120324654312032431765431203", "replstar":
+  ["0120312032546543765431203243154320",
+  "02032043120325431203243165431765431203",
+  "12312343120324315431203265431765431203",
+  "13143125431234654312032431543765431203",
+  "013143125431234654312032431543765431203",
+  "123123431234546547654312032431543206543",
+  "023120343120543120324654312032431765431203",
+  "1231234312345436543127654312032431543206543",
+  "01203120324546543123457654312032431543206543",
+  "23243254312346543120324315432065431765431203",
+  "01314312354312346543120324315432065431765431203",
+  "02032043120325431203243154654312032431765431203",
+  "12312034312032431543120324654312032431765431203",
+  "12312343120324546543123457654312032431543206543",
+  "012031203243543126543123457654312032431543206543",
+  "020320431203254312032431546543765431203243154320",
+  "034325432654312347654312032431543206543127654320",
+  "123120343120324315431203246543765431203243154320",
+  "12312034312032431543123456547654312032431543206543",
+  "0231203431205431203245654312032435765431203243154320",
+  "012031203245432654312347654312032431543206543127654320",
+  "023120343120543120324565431234567654312032431543206543",
+  "232432543120324654312032431543206543765431203243154320",
+  "1231234312032435654312347654312032431543206543127654320",
+  "02032043120354312032431546543123457654312032431543206543",
+  "013143123543120324654312032431543206543765431203243154320",
+  "020320431203543120324315465431234567654312032431543206543",
+  "123120343120324315431203245654312032435765431203243154320",
+  "123123431203245432654312347654312032431543206543127654320",
+  "0231203431203543120324315465431234567654312032431543206543",
+  "1231203431203243154312032456543123457654312032431543206543",
+  "12312034312032431543120324565431234567654312032431543206543",
+  "12312343120324354654312376543120324315432065431234765431203",
+  "02312034312035431203243565431203243154657654312032431543206543",
+  "0120312032435432654312032431576543120324315432065431234765431203",
+  "1231234354312032654312032431576543120324315432065431234765431203",
+  "23124312035431203243154320654312347654312032431543206543127654320",
+  "0231203431203543120324365431203243154367654312032431543206543127654320",
   "023120343120354312032435465431203243154367654312032431543206543127654320",
   "0231203431235431203243154365431203243154365765431203243154320654312347"+\
-  "65431203"], "elms": [], "special": "4480_y", "size": 32746}, {"a": 20, 
+  "65431203"], "elms": [], "special": "4480_y", "size": 32746}, {"a": 20,
   "character": [["2100_y", 1]], "distinv": "02314320543120324315432065431"+\
-  "2032431543206543123456765431203243154320654312345765431203243154320", 
+  "2032431543206543123456765431203243154320654312345765431203243154320",
   "replstar": ["023143205431203243154320654312032431543206543123456765431"+\
-  "203243154320654312345765431203243154320"], "elms": [], "special": 
-  "2100_y", "size": 2100}, {"a": 10, "character": [["2268_x", 1], 
-  ["972_x", 1]], "distinv": "120324312032435431234565431203243154", 
+  "203243154320654312345765431203243154320"], "elms": [], "special":
+  "2100_y", "size": 2100}, {"a": 10, "character": [["2268_x", 1],
+  ["972_x", 1]], "distinv": "120324312032435431234565431203243154",
   "replstar": ["23243125431203243654312", "12034312035431234565431203243154",
-  "120324312032435431234565431203243154"], "elms": [], "special": "2268_x", 
-  "size": 3240}, {"a": 21, "character": [["4200_z'", 1]], "distinv": 
-  "1203143154312032435465431203245", "replstar": 
-  ["0131431543126543120324315432654", "1203143154312032435465431203245", 
-  "12312343120324354326543120324576543120324315432654"], "elms": [], 
+  "120324312032435431234565431203243154"], "elms": [], "special": "2268_x",
+  "size": 3240}, {"a": 21, "character": [["4200_z'", 1]], "distinv":
+  "1203143154312032435465431203245", "replstar":
+  ["0131431543126543120324315432654", "1203143154312032435465431203245",
+  "12312343120324354326543120324576543120324315432654"], "elms": [],
   "special": "4200_z'", "size": 4200}, {"a": 21, "character": [["5600_z'", 1],
-  ["3200_x'", 1]], "distinv": "12312343123476543120324315432065431234567", 
-  "replstar": ["12312343123476543120324315432065431234567", 
- "231243123543123465431203243154320765431234567", 
-  "123123431234765431203243154320654312345676543120324315432065431234567"], 
-  "elms": [], "special": "5600_z'", "size": 8800}, {"a": 22, "character": 
-  [["2835_x'", 1]], "distinv": 
-  "120314312543120324315436543120324354765431203245", "replstar": 
-  ["013143125431236543120324315432065432765431203245", 
-  "120314312543120324315436543120324354765431203245"], "elms": [], 
+  ["3200_x'", 1]], "distinv": "12312343123476543120324315432065431234567",
+  "replstar": ["12312343123476543120324315432065431234567",
+ "231243123543123465431203243154320765431234567",
+  "123123431234765431203243154320654312345676543120324315432065431234567"],
+  "elms": [], "special": "5600_z'", "size": 8800}, {"a": 22, "character":
+  [["2835_x'", 1]], "distinv":
+  "120314312543120324315436543120324354765431203245", "replstar":
+  ["013143125431236543120324315432065432765431203245",
+  "120314312543120324315436543120324354765431203245"], "elms": [],
   "special": "2835_x'", "size": 2835}, {"a": 15, "character": [["4200_z", 1]],
-  "distinv": "02312034312354312032431543654312032431547654312032435", 
-  "replstar": ["1231234312032436543127654312032435", 
-  "02312034312354312032431543654312032431547654312032435", 
-  "0120343254312032431654312032431543206543127654312032435"], "elms": [], 
-  "special": "4200_z", "size": 4200}, {"a": 9, "character": [["3240_z", 1]], 
-  "distinv": "0312343123565431237654312034567", "replstar": 
-  ["12312345436543120376", "12312343125436543120376", 
-  "01203431235431234565765431203", "0312343123565431237654312034567"], 
-  "elms": [], "special": "3240_z", "size": 3240}, {"a": 23, "character": 
-  [["4536_z'", 1]], "distinv": "123123431234543120324315432067654312345", 
-  "replstar": ["123123431234543120324315432067654312345", 
-  "013143154316543120324376543120324315432", 
-  "23124312354312346543120324315432067654312345"], "elms": [], "special": 
-  "4536_z'", "size": 4536}, {"a": 16, "character": [["7168_w", 2], 
-  ["5600_w", 2], ["5670_y", 2], ["4536_y", 2], ["4480_y", 1], ["4200_y", 1], 
-  ["2688_y", 1], ["1680_y", 1], ["1400_y", 1]], "distinv": 
-  "023154312032436543120324315432765431203243154320654765", "replstar": 
-  ["013143154312365431203243154320654765", 
-  "12312343120324565431207654312032435465", 
-  "02032043120354312032431567654312032435465", 
-  "12312034312032431565431207654312032435465", 
-  "013143123543120324365431203243154320654765", 
-  "123123431203243154312032456543120324354765", 
-  "1231234312032431543120324567654312032435465", 
-  "12312343120346543123765431203243154320654765", 
-  "012031203254316543123765431203243154320654765", 
-  "032432543123654312345765431203243154320654765", 
-  "123123431203243165431237654312032431543654765", 
-  "1231234312032436543120327654312032431543654765", 
-  "02032043120354312032431565431207654312032435465", 
-  "020312043120324316543123765431203243154320654765", 
-  "0120312032543265431203243765431203243154320654765", 
-  "1231234312032431543120324565431207654312032435465", 
-  "01314312543120346543120324315432067654312032435465", 
-  "12312343120345465432765431203243154320654312345765", 
-  "020320431203543120324315432765431203243154320654765", 
-  "123120343120324354312032435765431203243154320654765", 
-  "123123431203243154316543123765431203243154320654765", 
-  "0254312032436543120324315432765431203243154320654765", 
-  "1231203431203243543123456543120324317654312032435465", 
-  "1231234312032431543120326543120324567654312032435465", 
-  "02032043120325431203243165431237654312032431543654765", 
-  "12312343120324315431203265431237654312032431543654765", 
-  "020312043120324315465432765431203243154320654312345765", 
-  "023154312032436543120324315432765431203243154320654765", 
-  "123123431203243543123654312345765431203243154320654765", 
-  "123123431203243543265431203243765431203243154320654765", 
-  "123123431234543654312032765431203243154320654312345765", 
-  "0120312032454365431203245765431203243154320654312345765", 
-  "1231203431203243543120346543123765431203243154320654765", 
-  "1231234312032431543120346543123765431203243154320654765", 
-  "1231234312032431543265431203243765431203243154320654765", 
-  "01314312543120345654312032431543206543127654312032435465", 
-  "0120312032431234543654312032765431203243154320654312345765", 
-  "1231234312032454365431203245765431203243154320654312345765", 
-  "01203120324354312365431203245765431203243154320654312345765", 
-  "01312343120324543120324315436543123765431203243154320654765", 
-  "02032043120543120324315465432765431203243154320654312345765", 
-  "123120343120324354312032436543120324317654312032431543654765", 
-  "0203120431203243154312345654312032435765431203243154320654765", 
-  "1231203431203243154312034565432765431203243154320654312345765", 
-  "1231203431203243154365431203245765431203243154320654312345765", 
-  "1231203431203243543120324365431203243765431203243154320654765", 
-  "1312431235431203243154320654312032435765431203243154320654765", 
-  "01314312354312346543120324315432065431237654312032431543654765", 
-  "02315431203243165431203243154320765431203243154320654312345765", 
-  "05431203246543120324315432065432765431203243154320654312345765", 
-  "12312343120324354312365431203245765431203243154320654312345765", 
-  "020320431203254312032431543265431203243765431203243154320654765", 
-  "0235431203246543120324315432065432765431203243154320654312345765", 
-  "1231234312032456543120345676543120324315432065431234576543120345", 
-  "12312343120324543126543120345676543120324315432065431234576543120345", 
-  "123120343120324315431203243565431203245765431203243154320654312345765", 
-  "0234543120345654312032431543206576543120324315432065431234576543120345", 
-  "1231203431203243154312032435654312032456765431203243154320654312345765", 
-  "1231234312032435465431234576543120324315432065431234567654312032435465", 
+  "distinv": "02312034312354312032431543654312032431547654312032435",
+  "replstar": ["1231234312032436543127654312032435",
+  "02312034312354312032431543654312032431547654312032435",
+  "0120343254312032431654312032431543206543127654312032435"], "elms": [],
+  "special": "4200_z", "size": 4200}, {"a": 9, "character": [["3240_z", 1]],
+  "distinv": "0312343123565431237654312034567", "replstar":
+  ["12312345436543120376", "12312343125436543120376",
+  "01203431235431234565765431203", "0312343123565431237654312034567"],
+  "elms": [], "special": "3240_z", "size": 3240}, {"a": 23, "character":
+  [["4536_z'", 1]], "distinv": "123123431234543120324315432067654312345",
+  "replstar": ["123123431234543120324315432067654312345",
+  "013143154316543120324376543120324315432",
+  "23124312354312346543120324315432067654312345"], "elms": [], "special":
+  "4536_z'", "size": 4536}, {"a": 16, "character": [["7168_w", 2],
+  ["5600_w", 2], ["5670_y", 2], ["4536_y", 2], ["4480_y", 1], ["4200_y", 1],
+  ["2688_y", 1], ["1680_y", 1], ["1400_y", 1]], "distinv":
+  "023154312032436543120324315432765431203243154320654765", "replstar":
+  ["013143154312365431203243154320654765",
+  "12312343120324565431207654312032435465",
+  "02032043120354312032431567654312032435465",
+  "12312034312032431565431207654312032435465",
+  "013143123543120324365431203243154320654765",
+  "123123431203243154312032456543120324354765",
+  "1231234312032431543120324567654312032435465",
+  "12312343120346543123765431203243154320654765",
+  "012031203254316543123765431203243154320654765",
+  "032432543123654312345765431203243154320654765",
+  "123123431203243165431237654312032431543654765",
+  "1231234312032436543120327654312032431543654765",
+  "02032043120354312032431565431207654312032435465",
+  "020312043120324316543123765431203243154320654765",
+  "0120312032543265431203243765431203243154320654765",
+  "1231234312032431543120324565431207654312032435465",
+  "01314312543120346543120324315432067654312032435465",
+  "12312343120345465432765431203243154320654312345765",
+  "020320431203543120324315432765431203243154320654765",
+  "123120343120324354312032435765431203243154320654765",
+  "123123431203243154316543123765431203243154320654765",
+  "0254312032436543120324315432765431203243154320654765",
+  "1231203431203243543123456543120324317654312032435465",
+  "1231234312032431543120326543120324567654312032435465",
+  "02032043120325431203243165431237654312032431543654765",
+  "12312343120324315431203265431237654312032431543654765",
+  "020312043120324315465432765431203243154320654312345765",
+  "023154312032436543120324315432765431203243154320654765",
+  "123123431203243543123654312345765431203243154320654765",
+  "123123431203243543265431203243765431203243154320654765",
+  "123123431234543654312032765431203243154320654312345765",
+  "0120312032454365431203245765431203243154320654312345765",
+  "1231203431203243543120346543123765431203243154320654765",
+  "1231234312032431543120346543123765431203243154320654765",
+  "1231234312032431543265431203243765431203243154320654765",
+  "01314312543120345654312032431543206543127654312032435465",
+  "0120312032431234543654312032765431203243154320654312345765",
+  "1231234312032454365431203245765431203243154320654312345765",
+  "01203120324354312365431203245765431203243154320654312345765",
+  "01312343120324543120324315436543123765431203243154320654765",
+  "02032043120543120324315465432765431203243154320654312345765",
+  "123120343120324354312032436543120324317654312032431543654765",
+  "0203120431203243154312345654312032435765431203243154320654765",
+  "1231203431203243154312034565432765431203243154320654312345765",
+  "1231203431203243154365431203245765431203243154320654312345765",
+  "1231203431203243543120324365431203243765431203243154320654765",
+  "1312431235431203243154320654312032435765431203243154320654765",
+  "01314312354312346543120324315432065431237654312032431543654765",
+  "02315431203243165431203243154320765431203243154320654312345765",
+  "05431203246543120324315432065432765431203243154320654312345765",
+  "12312343120324354312365431203245765431203243154320654312345765",
+  "020320431203254312032431543265431203243765431203243154320654765",
+  "0235431203246543120324315432065432765431203243154320654312345765",
+  "1231234312032456543120345676543120324315432065431234576543120345",
+  "12312343120324543126543120345676543120324315432065431234576543120345",
+  "123120343120324315431203243565431203245765431203243154320654312345765",
+  "0234543120345654312032431543206576543120324315432065431234576543120345",
+  "1231203431203243154312032435654312032456765431203243154320654312345765",
+  "1231234312032435465431234576543120324315432065431234567654312032435465",
   "054312032465431203243154365476543120324315432065431234567654312032435465",
   "023154312032456543120324315432065431765431203243154320654312345765431"+\
   "20345", "025431203456543120324315432065431234567654312032431543206543"+\
   "1234576543120345", "02354312032436543120324315432654317654312032431543"+\
   "2065431234567654312032435465", "023543120324316543120324315432065431234"+\
-  "576543120324315432065431234567654312032435465"], "elms": [], "special": 
-  "4480_y", "size": 60396}, {"a": 10, "character": [["1400_zz", 1], 
-  ["2240_x", 1]], "distinv": 
-  "02314325431654312032431543276543120324315432654317654320", "replstar": 
-  ["012043543265431203243154657654320", 
-  "131243120324354654327654312032431543206576", 
-  "0131243120324354654327654312032431543206576", 
-  "0120343123543120324354657654312032431543206576", 
-  "02314325431654312032431543276543120324315432654317654320", 
-  "01203431235431203243154365431203276543120324315432654317654320", 
+  "576543120324315432065431234567654312032435465"], "elms": [], "special":
+  "4480_y", "size": 60396}, {"a": 10, "character": [["1400_zz", 1],
+  ["2240_x", 1]], "distinv":
+  "02314325431654312032431543276543120324315432654317654320", "replstar":
+  ["012043543265431203243154657654320",
+  "131243120324354654327654312032431543206576",
+  "0131243120324354654327654312032431543206576",
+  "0120343123543120324354657654312032431543206576",
+  "02314325431654312032431543276543120324315432654317654320",
+  "01203431235431203243154365431203276543120324315432654317654320",
   "023143254316543120324315432654317654312032431543206543123456765431203456"],
-  "elms": [], "special": "2240_x", "size": 3640}, {"a": 15, "character": 
+  "elms": [], "special": "2240_x", "size": 3640}, {"a": 15, "character":
   [["5600_z", 1], ["2400_z", 1]], "distinv": "0231432054312345654312032431"+\
-  "543206765431203243154320654312345676543120324315432065431234567", 
-  "replstar": ["13143154312032654312032431543206576543120324315432067", 
+  "543206765431203243154320654312345676543120324315432065431234567",
+  "replstar": ["13143154312032654312032431543206576543120324315432067",
   "0231432054312345654312032431543206765431203243154320654312345676543120"+\
-  "324315432065431234567"], "elms": [], "special": "5600_z", "size": 8000}, 
-  {"a": 9, "character": [["3240_z", 1]], "distinv": 
-  "031234312032543654312032431543654765431203243154320654376", "replstar": 
-  ["123120343256543176543120324315436", 
-  "123123431205432654312032435765431203", 
-  "12312343543120326543176543120324315436", 
-  "031234312032543654312032431543654765431203243154320654376"], "elms": [], 
-  "special": "3240_z", "size": 3240}, {"a": 16, "character": [["7168_w", 1], 
-  ["5600_w", 2], ["448_w", 1], ["5670_y", 2], ["4536_y", 1], ["4480_y", 1], 
-  ["3150_y", 1], ["1680_y", 1], ["1134_y", 1]], "distinv": 
-  "02315431203243156543120324576543120324315432065431234765", "replstar": 
-  ["0203204312054312032431546576543120345", 
-  "12312034312032431565431276543120324354657", 
-  "012031203254365431203765431203243154320654765", 
-  "123120343120324316543765431203243154320654765", 
-  "131431543120324654312032431543206576543120345", 
-  "0131431543120324654312032431543206576543120345", 
-  "0203204312035431203243156543120345676543120345", 
-  "02032043120354312032431565431276543120324354657", 
-  "13143154312032654312032431543206543176543120345", 
-  "123123431203243154312032456543120345676543120345", 
-  "01314312543120346543120324315432676543120324354657", 
-  "12312343120324354365431203765431203243154320654765", 
-  "12312343120345465432076543120324315432065431234765", 
-  "123123431203243154365431203765431203243154320654765", 
-  "12312345431206543120324576543120324315432065431234765", 
-  "012031203243120345465432076543120324315432065431234765", 
-  "0120312032454316543120324576543120324315432065431234765", 
-  "0203204312035431203243546576543120324315432065431234765", 
-  "1314312543120346543120324315432065431276543120324354657", 
-  "01314312543120346543120324315432065431276543120324354657", 
-  "02315431203243156543120324576543120324315432065431234765", 
-  "0120312032431203456543120324576543120324315432065431234765", 
-  "0203204312032543120324315436543120324315676543120324354657", 
-  "1231203431203243154312032436543120324315676543120324354657", 
-  "1231234312032454316543120324576543120324315432065431234765", 
-  "02032043120325431203243154365431203765431203243154320654765", 
-  "02032043120543120324315465432076543120324315432065431234765", 
-  "1231203431203243154316543120324576543120324315432065431234765", 
-  "02032043120325431203243154654312032435765431203243154320654765", 
-  "02032043120543120324315432654312032435765431203243154320654765", 
-  "12312034312032431543120324654312032435765431203243154320654765", 
-  "12312034312032435431203245654312032435765431203243154320654765", 
-  "0235431203243156543120345765431203243154320654312345676543120345", 
-  "1231234312032456543120345765431203243154320654312345676543120345", 
-  "01203120324543126543120345765431203243154320654312345676543120345", 
-  "123123431203243154312034565431203245676543120324315432065431234765", 
-  "123123431203243543123654312032456765431203243154320654312347654320", 
-  "1231203431203243156543120345765431203243154320654312345676543120345", 
-  "01203120324354312032654312032431543206543123765431203243154320654765", 
-  "12312343120324543126543120345765431203243154320654312345676543120345", 
-  "12312034312032431543126543120345765431203243154320654312345676543120345", 
-  "023154312032435465431203243154320765431203243154320654312345676543120345", 
-  "023454312032431543206543120324315765431203243154320654312345676543120345", 
+  "324315432065431234567"], "elms": [], "special": "5600_z", "size": 8000},
+  {"a": 9, "character": [["3240_z", 1]], "distinv":
+  "031234312032543654312032431543654765431203243154320654376", "replstar":
+  ["123120343256543176543120324315436",
+  "123123431205432654312032435765431203",
+  "12312343543120326543176543120324315436",
+  "031234312032543654312032431543654765431203243154320654376"], "elms": [],
+  "special": "3240_z", "size": 3240}, {"a": 16, "character": [["7168_w", 1],
+  ["5600_w", 2], ["448_w", 1], ["5670_y", 2], ["4536_y", 1], ["4480_y", 1],
+  ["3150_y", 1], ["1680_y", 1], ["1134_y", 1]], "distinv":
+  "02315431203243156543120324576543120324315432065431234765", "replstar":
+  ["0203204312054312032431546576543120345",
+  "12312034312032431565431276543120324354657",
+  "012031203254365431203765431203243154320654765",
+  "123120343120324316543765431203243154320654765",
+  "131431543120324654312032431543206576543120345",
+  "0131431543120324654312032431543206576543120345",
+  "0203204312035431203243156543120345676543120345",
+  "02032043120354312032431565431276543120324354657",
+  "13143154312032654312032431543206543176543120345",
+  "123123431203243154312032456543120345676543120345",
+  "01314312543120346543120324315432676543120324354657",
+  "12312343120324354365431203765431203243154320654765",
+  "12312343120345465432076543120324315432065431234765",
+  "123123431203243154365431203765431203243154320654765",
+  "12312345431206543120324576543120324315432065431234765",
+  "012031203243120345465432076543120324315432065431234765",
+  "0120312032454316543120324576543120324315432065431234765",
+  "0203204312035431203243546576543120324315432065431234765",
+  "1314312543120346543120324315432065431276543120324354657",
+  "01314312543120346543120324315432065431276543120324354657",
+  "02315431203243156543120324576543120324315432065431234765",
+  "0120312032431203456543120324576543120324315432065431234765",
+  "0203204312032543120324315436543120324315676543120324354657",
+  "1231203431203243154312032436543120324315676543120324354657",
+  "1231234312032454316543120324576543120324315432065431234765",
+  "02032043120325431203243154365431203765431203243154320654765",
+  "02032043120543120324315465432076543120324315432065431234765",
+  "1231203431203243154316543120324576543120324315432065431234765",
+  "02032043120325431203243154654312032435765431203243154320654765",
+  "02032043120543120324315432654312032435765431203243154320654765",
+  "12312034312032431543120324654312032435765431203243154320654765",
+  "12312034312032435431203245654312032435765431203243154320654765",
+  "0235431203243156543120345765431203243154320654312345676543120345",
+  "1231234312032456543120345765431203243154320654312345676543120345",
+  "01203120324543126543120345765431203243154320654312345676543120345",
+  "123123431203243154312034565431203245676543120324315432065431234765",
+  "123123431203243543123654312032456765431203243154320654312347654320",
+  "1231203431203243156543120345765431203243154320654312345676543120345",
+  "01203120324354312032654312032431543206543123765431203243154320654765",
+  "12312343120324543126543120345765431203243154320654312345676543120345",
+  "12312034312032431543126543120345765431203243154320654312345676543120345",
+  "023154312032435465431203243154320765431203243154320654312345676543120345",
+  "023454312032431543206543120324315765431203243154320654312345676543120345",
   "023543120324354654312032431546765431203243154320654312345676543120324"+\
   "35465", "0254312032431543265431203243154676543120324315432065431234567"+\
   "654312032435465", "0231543120324315436543120324315436547654312032431543"+\
   "20654312345676543120324315432065", "0234543120324315432065431203243546"+\
-  "57654312032431543206543123456765431203243154320654312345"], "elms": [], 
+  "57654312032431543206543123456765431203243154320654312345"], "elms": [],
   "special": "4480_y", "size": 45136}, {"a": 12, "character": [["3360_z", 1],
-  ["4200_x", 1]], "distinv": 
-  "0312343120565437654312032431543206543123456765431203", "replstar": 
-  ["01454326543120765431203243154367", 
-  "1231203454326543120765431203243154367", 
-  "0312343120565437654312032431543206543123456765431203", 
-  "031234312032543654312037654312032431543206543123456765431203"], 
-  "elms": [], "special": "4200_x", "size": 7560}, {"a": 6, "character": 
+  ["4200_x", 1]], "distinv":
+  "0312343120565437654312032431543206543123456765431203", "replstar":
+  ["01454326543120765431203243154367",
+  "1231203454326543120765431203243154367",
+  "0312343120565437654312032431543206543123456765431203",
+  "031234312032543654312037654312032431543206543123456765431203"],
+  "elms": [], "special": "4200_x", "size": 7560}, {"a": 6, "character":
   [["400_z", 1], ["700_x", 1]], "distinv": "03123431203254316543120324315436",
-  "replstar": ["0120343123565431203", "020314326543176543120324315436", 
-  "03123431203254316543120324315436", "12343120326543176543120324315436", 
-  "031234312032543165431203243154326543176543120324315436"], "elms": [], 
+  "replstar": ["0120343123565431203", "020314326543176543120324315436",
+  "03123431203254316543120324315436", "12343120326543176543120324315436",
+  "031234312032543165431203243154326543176543120324315436"], "elms": [],
   "special": "700_x", "size": 1100}, {"a": 28, "character": [["1400_zz'", 1],
-  ["2240_x'", 1]], "distinv": "12031431543120324354654320765431203245", 
-  "replstar": ["12031431543120324354654320765431203245", 
-  "0120312032431203243154320654320765431203245", 
-  "12312343120324315431203243154320654320765431203245", 
-  "120314315431203243546543120345676543120324315432654765", 
-  "0131431543123456543120345676543120324315432654765", 
-  "02032043120325431203243156543120324315432065432765431203245", 
-  "12312343120345431203243546543120345676543120324315432654765"], "elms": [], 
+  ["2240_x'", 1]], "distinv": "12031431543120324354654320765431203245",
+  "replstar": ["12031431543120324354654320765431203245",
+  "0120312032431203243154320654320765431203245",
+  "12312343120324315431203243154320654320765431203245",
+  "120314315431203243546543120345676543120324315432654765",
+  "0131431543123456543120345676543120324315432654765",
+  "02032043120325431203243156543120324315432065432765431203245",
+  "12312343120345431203243546543120345676543120324315432654765"], "elms": [],
   "special": "2240_x'", "size": 3640}, {"a": 21, "character": [["5600_z'", 1],
-  ["2400_z'", 1]], "distinv": "12312343123454312345654312345", "replstar": 
-  ["12312343123454312345654312345", "123123431234543123457654312345"], 
-  "elms": [], "special": "5600_z'", "size": 8000}, {"a": 30, "character": 
+  ["2400_z'", 1]], "distinv": "12312343123454312345654312345", "replstar":
+  ["12312343123454312345654312345", "123123431234543123457654312345"],
+  "elms": [], "special": "5600_z'", "size": 8000}, {"a": 30, "character":
   [["2268_x'", 1], ["972_x'", 1]], "distinv": "03120454312345654312032435"+\
-  "6765431203243154320654312345676543120324315432065431234567", "replstar": 
-  ["12312034312032431543120324315432065431203243154320654765431203243567", 
+  "6765431203243154320654312345676543120324315432065431234567", "replstar":
+  ["12312034312032431543120324315432065431203243154320654765431203243567",
   "0312045431234565431203243567654312032431543206543123456765431203243154"+\
   "32065431234567", "031203431254312345654312032435676543120324315432065"+\
-  "4312345676543120324315432065431234567"], "elms": [], "special": "2268_x'", 
-  "size": 3240}, {"a": 16, "character": [["7168_w", 1], ["5600_w", 1], 
-  ["1344_w", 1], ["5670_y", 1], ["4536_y", 1], ["4480_y", 1], ["4200_y", 2], 
-  ["1400_y", 1], ["168_y", 1]], "distinv": 
-  "031203431254312345654312345676543120324356", "replstar": 
-  ["131431254312346543120324576543", "0131431254312346543120324576543", 
-  "03120454312345654312345676543120324356", 
-  "031203431254312345654312345676543120324356", 
-  "232432543126543120324315432065476543", 
-  "0312043154312345654312032431546576543120324356", 
-  "012031203245465431234576543120324356", 
-  "0120312032435431265431234576543120324356", 
-  "01314312543123456543120324315432065476543", 
-  "0343254326543127654312032431543206543765", 
-  "02032043120324315465476543120324356", 
-  "020320431203243154365431276543120324356", 
-  "12312034312032435431203246543120324576543", 
-  "123120343120324354312032465476543120324356", 
-  "123120343120324315465431234576543120324356", 
-  "02032043120543120324565431234576543120324356", 
-  "020320431203245431203243154326543120324576543", 
-  "0203204312032454312032431543265476543120324356", 
-  "020320431203543120324315465431234576543120324356", 
-  "34354365431203243576543120324315432065431276543", 
-  "0120312032454326543127654312032431543206543765", 
-  "123120343120324315431234565476543120324356", 
-  "12312034312032431543120324565431234576543120324356", 
-  "1312431203254312032431543206543120324576543120324356", 
-  "123123431203243154312654312032431543265476543120324356", 
-  "020320431205431203245654312345676543120324356", 
-  "0203204312035431203243154654312345676543120324356", 
-  "013143123543120324654312032431543265476543120324356", 
-  "031204354312346543120324315467654312032431543206543765", 
-  "123120343120324356543127654312032431543206543765", 
-  "03120343543123456543120324315467654312032431543206543765", 
-  "03120431543120346543120324315467654312032431543206543765", 
-  "123123431203243546543276543120324315432065431276543", 
-  "1231203431203243154326543127654312032431543206543765", 
-  "1231203431203243543120324356543127654312032431543206543765", 
-  "0120312032435436543120324317654312032431543206543765", 
-  "01203120324354365431203243576543120324315432065431276543", 
-  "0203204312035431203243154326543127654312032431543206543765", 
-  "1231234354312036543120324317654312032431543206543765", 
-  "03120343123543123465431203243546576543120324315432065431276543", 
-  "031204312543123456543120324315432654376543120324315432065431276543", 
-  "123120343120324315431203245654312345676543120324356", 
-  "231243120354312032431543206543127654312032431543206543765", 
-  "012031203243120345436543120324317654312032431543206543765", 
-  "0120312032431203454365431203243576543120324315432065431276543", 
-  "020312043120324315431203456543120324315467654312032431543206543765", 
+  "4312345676543120324315432065431234567"], "elms": [], "special": "2268_x'",
+  "size": 3240}, {"a": 16, "character": [["7168_w", 1], ["5600_w", 1],
+  ["1344_w", 1], ["5670_y", 1], ["4536_y", 1], ["4480_y", 1], ["4200_y", 2],
+  ["1400_y", 1], ["168_y", 1]], "distinv":
+  "031203431254312345654312345676543120324356", "replstar":
+  ["131431254312346543120324576543", "0131431254312346543120324576543",
+  "03120454312345654312345676543120324356",
+  "031203431254312345654312345676543120324356",
+  "232432543126543120324315432065476543",
+  "0312043154312345654312032431546576543120324356",
+  "012031203245465431234576543120324356",
+  "0120312032435431265431234576543120324356",
+  "01314312543123456543120324315432065476543",
+  "0343254326543127654312032431543206543765",
+  "02032043120324315465476543120324356",
+  "020320431203243154365431276543120324356",
+  "12312034312032435431203246543120324576543",
+  "123120343120324354312032465476543120324356",
+  "123120343120324315465431234576543120324356",
+  "02032043120543120324565431234576543120324356",
+  "020320431203245431203243154326543120324576543",
+  "0203204312032454312032431543265476543120324356",
+  "020320431203543120324315465431234576543120324356",
+  "34354365431203243576543120324315432065431276543",
+  "0120312032454326543127654312032431543206543765",
+  "123120343120324315431234565476543120324356",
+  "12312034312032431543120324565431234576543120324356",
+  "1312431203254312032431543206543120324576543120324356",
+  "123123431203243154312654312032431543265476543120324356",
+  "020320431205431203245654312345676543120324356",
+  "0203204312035431203243154654312345676543120324356",
+  "013143123543120324654312032431543265476543120324356",
+  "031204354312346543120324315467654312032431543206543765",
+  "123120343120324356543127654312032431543206543765",
+  "03120343543123456543120324315467654312032431543206543765",
+  "03120431543120346543120324315467654312032431543206543765",
+  "123123431203243546543276543120324315432065431276543",
+  "1231203431203243154326543127654312032431543206543765",
+  "1231203431203243543120324356543127654312032431543206543765",
+  "0120312032435436543120324317654312032431543206543765",
+  "01203120324354365431203243576543120324315432065431276543",
+  "0203204312035431203243154326543127654312032431543206543765",
+  "1231234354312036543120324317654312032431543206543765",
+  "03120343123543123465431203243546576543120324315432065431276543",
+  "031204312543123456543120324315432654376543120324315432065431276543",
+  "123120343120324315431203245654312345676543120324356",
+  "231243120354312032431543206543127654312032431543206543765",
+  "012031203243120345436543120324317654312032431543206543765",
+  "0120312032431203454365431203243576543120324315432065431276543",
+  "020312043120324315431203456543120324315467654312032431543206543765",
   "031204543123456543120324315432067654312032431543206543123457654312032435",
-  "131431254312032431654312032431543206543127654312032431543206543765", 
+  "131431254312032431654312032431543206543127654312032431543206543765",
   "0312034312543123456543120324315432067654312032431543206543123457654312"+\
-  "032435"], "elms": [], "special": "4480_y", "size": 38766}, {"a": 25, 
-  "character": [["2800_z'", 1], ["2100_x'", 1]], "distinv": 
-  "1231234312034543120324354676543120324315432", "replstar": 
-  ["1231234312034543120324354676543120324315432", 
-  "02032043205431203243546543120324315432654317"], "elms": [], "special": 
-  "2800_z'", "size": 4900}, {"a": 21, "character": [["4200_z'", 1]], 
-  "distinv": "123120343120324354320654312032431", "replstar": 
-  ["020320432054320654312032431", "123120343120324354320654312032431", 
-  "123123431203243543265431203457654312032431543265431"], "elms": [], 
+  "032435"], "elms": [], "special": "4480_y", "size": 38766}, {"a": 25,
+  "character": [["2800_z'", 1], ["2100_x'", 1]], "distinv":
+  "1231234312034543120324354676543120324315432", "replstar":
+  ["1231234312034543120324354676543120324315432",
+  "02032043205431203243546543120324315432654317"], "elms": [], "special":
+  "2800_z'", "size": 4900}, {"a": 21, "character": [["4200_z'", 1]],
+  "distinv": "123120343120324354320654312032431", "replstar":
+  ["020320432054320654312032431", "123120343120324354320654312032431",
+  "123123431203243543265431203457654312032431543265431"], "elms": [],
   "special": "4200_z'", "size": 4200}, {"a": 13, "character": [["4536_z", 1]],
   "distinv": "03123431203265431234567654312032431543206543123456765431203"+\
-  "24315436", "replstar": ["0203204312032456543120765431203243154367", 
-  "0312343120326543123456765431203243154320654312345676543120324315436", 
-  "123120345432654312032435765431203243154320654312345676"], "elms": [], 
-  "special": "4536_z", "size": 4536}, {"a": 26, "character": [["4096_z'", 1], 
-  ["4096_x'", 1]], "distinv": 
-  "1231234312034543120324315432065432076543120324315432", "replstar": 
-  ["0203204320543120324316543120324315432067654312345", 
-  "1231234312034543120324315432065432076543120324315432", 
-  "013143154312346543120345676543120324315432065431234765431234"], 
-  "elms": [], "special": "4096_x'", "size": 8192}, {"a": 24, "character": 
-  [["3360_z'", 1], ["4200_x'", 1]], "distinv": 
-  "1203143154312032435465431203245676543120324315432654", "replstar": 
-  ["013143154312345654312345676543120324315432654765", 
-  "01203120324312032431543165431276543120324315432654", 
-  "1203143154312032435465431203245676543120324315432654", 
+  "24315436", "replstar": ["0203204312032456543120765431203243154367",
+  "0312343120326543123456765431203243154320654312345676543120324315436",
+  "123120345432654312032435765431203243154320654312345676"], "elms": [],
+  "special": "4536_z", "size": 4536}, {"a": 26, "character": [["4096_z'", 1],
+  ["4096_x'", 1]], "distinv":
+  "1231234312034543120324315432065432076543120324315432", "replstar":
+  ["0203204320543120324316543120324315432067654312345",
+  "1231234312034543120324315432065432076543120324315432",
+  "013143154312346543120345676543120324315432065431234765431234"],
+  "elms": [], "special": "4096_x'", "size": 8192}, {"a": 24, "character":
+  [["3360_z'", 1], ["4200_x'", 1]], "distinv":
+  "1203143154312032435465431203245676543120324315432654", "replstar":
+  ["013143154312345654312345676543120324315432654765",
+  "01203120324312032431543165431276543120324315432654",
+  "1203143154312032435465431203245676543120324315432654",
   "013143154312365431203243156765431203243154320654312347654312"], "elms": [],
-  "special": "4200_x'", "size": 7560}, {"a": 22, "character": 
+  "special": "4200_x'", "size": 7560}, {"a": 22, "character":
   [["6075_x'", 1]], "distinv": "12031431205431203243154326543120324315432654",
-  "replstar": ["123123431203454312032435465431203245", 
-  "12031431205431203243154326543120324315432654"], "elms": [], "special": 
-  "6075_x'", "size": 6075}, {"a": 24, "character": [["3360_z'", 1], 
-  ["4200_x'", 1]], "distinv": 
-  "120314315431203243154654312032431543265476543120324315432654", "replstar": 
-  ["13143154312346543120324576543120324315432654", 
-  "120314315431203243154654312032431543265476543120324315432654", 
-  "0120312032431203243154326543120324576543120324315432654", 
-  "12031431235431203243154326543120324315432065431276543120324315432654"], 
-  "elms": [], "special": "4200_x'", "size": 7560}, {"a": 36, "character": 
-  [["525_x'", 1]], "distinv": "012031203243120324315431203243154320", 
-  "replstar": ["012031203243120324315431203243154320"], "elms": [], 
-  "special": "525_x'", "size": 525}, {"a": 22, "character": [["6075_x'", 1]], 
-  "distinv": "12312343123454312032431543267654312345", "replstar": 
-  ["02032043205432065431203243154327", 
+  "replstar": ["123123431203454312032435465431203245",
+  "12031431205431203243154326543120324315432654"], "elms": [], "special":
+  "6075_x'", "size": 6075}, {"a": 24, "character": [["3360_z'", 1],
+  ["4200_x'", 1]], "distinv":
+  "120314315431203243154654312032431543265476543120324315432654", "replstar":
+  ["13143154312346543120324576543120324315432654",
+  "120314315431203243154654312032431543265476543120324315432654",
+  "0120312032431203243154326543120324576543120324315432654",
+  "12031431235431203243154326543120324315432065431276543120324315432654"],
+  "elms": [], "special": "4200_x'", "size": 7560}, {"a": 36, "character":
+  [["525_x'", 1]], "distinv": "012031203243120324315431203243154320",
+  "replstar": ["012031203243120324315431203243154320"], "elms": [],
+  "special": "525_x'", "size": 525}, {"a": 22, "character": [["6075_x'", 1]],
+  "distinv": "12312343123454312032431543267654312345", "replstar":
+  ["02032043205432065431203243154327",
   "12312343123454312032431543267654312345"], "elms": [], "special": "6075_x'",
-  "size": 6075}, {"a": 14, "character": [["6075_x", 1]], "distinv": 
+  "size": 6075}, {"a": 14, "character": [["6075_x", 1]], "distinv":
   "0312343123565431203765431203243154320654312345676543120324315432065431"+\
-  "234567", "replstar": ["1231203431203243154312654312032437654312034567", 
+  "234567", "replstar": ["1231203431203243154312654312032437654312034567",
   "031234312356543120376543120324315432065431234567654312032431543206543"+\
-  "1234567"], "elms": [], "special": "6075_x", "size": 6075}, {"a": 10, 
-  "character": [["1400_zz", 1], ["2240_x", 1]], "distinv": 
-  "031234312032543165431203243154327654312032431543206543123765431203", 
-  "replstar": ["01204354312365431203243154365765431203", 
-  "124354312032654312032431543206543123765431203", 
-  "13124312032435465431234765431203243154320654376", 
-  "013124312032435465431234765431203243154320654376", 
-  "031234312032543165431203243154327654312032431543206543123765431203", 
-  "2312431203243543123654312032431543654765431203243154320654376", 
+  "1234567"], "elms": [], "special": "6075_x", "size": 6075}, {"a": 10,
+  "character": [["1400_zz", 1], ["2240_x", 1]], "distinv":
+  "031234312032543165431203243154327654312032431543206543123765431203",
+  "replstar": ["01204354312365431203243154365765431203",
+  "124354312032654312032431543206543123765431203",
+  "13124312032435465431234765431203243154320654376",
+  "013124312032435465431234765431203243154320654376",
+  "031234312032543165431203243154327654312032431543206543123765431203",
+  "2312431203243543123654312032431543654765431203243154320654376",
   "031234312032543165431203243154326543176543120324315432065431234567654"+\
   "3120324315436"], "elms": [], "special": "2240_x", "size": 3640}, {"a": 37,
-  "character": [["1400_z'", 1], ["448_z'", 1], ["1344_x'", 1]], "distinv": 
-  "0120312032431203243154312032431543207", "replstar": 
-  ["0120312032431203243154312032431543207", 
-  "12312343123454312345654312032431543206543123457", 
-  "0120312032431203243154312032431543206765431203243154320", 
-  "1231234312345431203456543120324315432065431234765431203243154320", 
-  "1231203431203243543120324315432654312032431543206765431203243154320", 
+  "character": [["1400_z'", 1], ["448_z'", 1], ["1344_x'", 1]], "distinv":
+  "0120312032431203243154312032431543207", "replstar":
+  ["0120312032431203243154312032431543207",
+  "12312343123454312345654312032431543206543123457",
+  "0120312032431203243154312032431543206765431203243154320",
+  "1231234312345431203456543120324315432065431234765431203243154320",
+  "1231203431203243543120324315432654312032431543206765431203243154320",
   "0120312032431203243154312032431543206543123457654312032431543206543"+\
-  "123457"], "elms": [], "special": "1400_z'", "size": 3192}, {"a": 31, 
+  "123457"], "elms": [], "special": "1400_z'", "size": 3192}, {"a": 31,
   "character": [["3240_z'", 1]], "distinv": "1203143120543120324315432654"+\
-  "3120324315432065476543120324315432065431234576543120324315432", 
+  "3120324315432065476543120324315432065431234576543120324315432",
   "replstar": ["123123431234543120324354654312032431543206543127654312032"+\
   "4315432654", "0203204320543120654312032457654312032431543206543123457"+\
   "6543120324315432", "01203120324312032431543120324315465431203243154326"+\
   "5476543120324315432654", "1203143120543120324315432654312032431543206"+\
-  "5476543120324315432065431234576543120324315432"], "elms": [], "special": 
-  "3240_z'", "size": 3240}, {"a": 25, "character": [["2800_z'", 1], 
-  ["700_xx'", 1]], "distinv": 
-  "120314312543120324315432065431203243154320654312345", "replstar": 
-  ["0120312032431203243154312032435465431203245", 
-  "120314312543120324315432065431203243154320654312345", 
-  "120312343120324543120324315432065431203243154320654312345"], "elms": [], 
+  "5476543120324315432065431234576543120324315432"], "elms": [], "special":
+  "3240_z'", "size": 3240}, {"a": 25, "character": [["2800_z'", 1],
+  ["700_xx'", 1]], "distinv":
+  "120314312543120324315432065431203243154320654312345", "replstar":
+  ["0120312032431203243154312032435465431203245",
+  "120314312543120324315432065431203243154320654312345",
+  "120312343120324543120324315432065431203243154320654312345"], "elms": [],
   "special": "2800_z'", "size": 3500}, {"a": 13, "character": [["4536_z", 1]],
   "distinv": "02314320654312032431543206543123457654312032431543206543123"+\
-  "4567654312032431543206", "replstar": 
-  ["02045431654312034576543120324315432065431234576", 
-  "012034354312032465431203243154320654327654312032431543206576", 
+  "4567654312032431543206", "replstar":
+  ["02045431654312034576543120324315432065431234576",
+  "012034354312032465431203243154320654327654312032431543206576",
   "0231432065431203243154320654312345765431203243154320654312345676543120"+\
-  "32431543206"], "elms": [], "special": "4536_z", "size": 4536}, {"a": 42, 
-  "character": [["400_z'", 1], ["700_x'", 1]], "distinv": 
-  "120314315431203243546543207654312032431543206543123456765431203245", 
-  "replstar": 
-  ["12312034312032435431203243154326543120345676543120324315432654765", 
-  "120314315431203243546543207654312032431543206543123456765431203245", 
-  "0120312032431203243154312032431543206543120345676543120324315432654765", 
+  "32431543206"], "elms": [], "special": "4536_z", "size": 4536}, {"a": 42,
+  "character": [["400_z'", 1], ["700_x'", 1]], "distinv":
+  "120314315431203243546543207654312032431543206543123456765431203245",
+  "replstar":
+  ["12312034312032435431203243154326543120345676543120324315432654765",
+  "120314315431203243546543207654312032431543206543123456765431203245",
+  "0120312032431203243154312032431543206543120345676543120324315432654765",
   "0203204312054312032654312032431546765431203243154320654312345676543120"+\
   "324315432654", "120314315431203243546543120324576543120324315432065431"+\
-  "2345676543120324315432065431234567"], "elms": [], "special": "700_x'", 
-  "size": 1100}, {"a": 16, "character": [["7168_w", 1], ["5600_w", 2], 
-  ["448_w", 1], ["5670_y", 3], ["4536_y", 3], ["4480_y", 1], ["1680_y", 3], 
-  ["1400_y", 2], ["70_y", 1]], "distinv": 
-  "0231543120654312032431543207654312032431543206543123456765", "replstar": 
-  ["1314315431203265431203243154320654765", 
-  "01314315431203265431203243154320654765", 
-  "02032043120543120324315465431203456765", 
-  "020320431205431203243154657654312034567", 
-  "131431543120324365431203243154320654765", 
-  "1231234312032456543120765431203243546576", 
-  "12312034312032431543120345657654312034567", 
-  "0203204312035431203243156765431203243546576", 
-  "1231203431203243156543120765431203243546576", 
-  "12312343120324654320765431203243154320654765", 
-  "123123431203243154312032456765431203243546576", 
-  "123123543120654312032765431203243154320654765", 
-  "01203120325431654312032765431203243154320654765", 
-  "02032043120354312032435765431203243154320654765", 
-  "12312034312032431654320765431203243154320654765", 
-  "13143154312032465431203243154320657654312034567", 
-  "013143154312032465431203243154320657654312034567", 
-  "020320431203543120324315654312034567654312034567", 
-  "0203204312035431203243156543120765431203243546576", 
-  "1314315431203265431203243154320654317654312034567", 
-  "01203120324312034654312032765431203243154320654765", 
-  "23124312035431203243154320765431203243154320654765", 
-  "123123431203243154312032456543120765431203243546576", 
-  "0131431254312034654312032431543206765431203243546576", 
-  "1231234312032435431654312032765431203243154320654765", 
-  "1231234312034546543207654312032431543206543123456765", 
-  "12312343120324315431654312032765431203243154320654765", 
-  "13143154312065431203243154320654312765431203243546576", 
-  "23243254312065431203243154320654312765431203243546576", 
-  "020320431203254312032431654312032456765431203243546576", 
-  "1231234312032431543120324654320765431203243154320654765", 
-  "1231234543120654312032457654312032431543206543123456765", 
-  "02031204312032431546543207654312032431543206543123456765", 
-  "12312343120324354312365431203243765431203243154320654765", 
-  "12312343120324354312365431203245765431203243154320654765", 
-  "012031203245431654312032457654312032431543206543123456765", 
-  "020320431203543120324354657654312032431543206543123456765", 
-  "123120343120324354312034654312032765431203243154320654765", 
-  "123123431203243154312034654312032765431203243154320654765", 
-  "0131431254312034565431203243154320654312765431203243546576", 
-  "0231543120654312032431543207654312032431543206543123456765", 
-  "0254312654312034567654312032431543206543123456765431203456", 
-  "013123431203245431203243154365431203243156765431203243546576", 
-  "020312043120324315654312032457654312032431543206543123456765", 
-  "123123431203245431654312032457654312032431543206543123456765", 
-  "131243120325431203243154320657654312032431543206543123456765", 
-  "0131234312032454312032431543654312032765431203243154320654765", 
-  "0343254312654312034567654312032431543206543123456765431203456", 
-  "02345431654312032431567654312032431543206543123456765431203456", 
-  "123120343120324315431203456543207654312032431543206543123456765", 
-  "123120343120324315431654312032457654312032431543206543123456765", 
-  "0131234312032454312032431543654312032435765431203243154320654765", 
-  "0131234312034543120324315432654312032435765431203243154320654765", 
-  "054320654312032431546576543120324315432065431234567654312032435465", 
-  "123123431203245654312034567654312032431543206543123456765431203456", 
-  "1231234312032431543120345654312032457654312032431543206543123456765", 
-  "12312343120324354312365431203245676543120324315432065431234567654320", 
-  "0234543123456543120324315432067654312032431543206543123456765431203456", 
-  "1231234312032454312654312034567654312032431543206543123456765431203456", 
-  "023454312034654312032431546576543120324315432065431234567654312032435465", 
+  "2345676543120324315432065431234567"], "elms": [], "special": "700_x'",
+  "size": 1100}, {"a": 16, "character": [["7168_w", 1], ["5600_w", 2],
+  ["448_w", 1], ["5670_y", 3], ["4536_y", 3], ["4480_y", 1], ["1680_y", 3],
+  ["1400_y", 2], ["70_y", 1]], "distinv":
+  "0231543120654312032431543207654312032431543206543123456765", "replstar":
+  ["1314315431203265431203243154320654765",
+  "01314315431203265431203243154320654765",
+  "02032043120543120324315465431203456765",
+  "020320431205431203243154657654312034567",
+  "131431543120324365431203243154320654765",
+  "1231234312032456543120765431203243546576",
+  "12312034312032431543120345657654312034567",
+  "0203204312035431203243156765431203243546576",
+  "1231203431203243156543120765431203243546576",
+  "12312343120324654320765431203243154320654765",
+  "123123431203243154312032456765431203243546576",
+  "123123543120654312032765431203243154320654765",
+  "01203120325431654312032765431203243154320654765",
+  "02032043120354312032435765431203243154320654765",
+  "12312034312032431654320765431203243154320654765",
+  "13143154312032465431203243154320657654312034567",
+  "013143154312032465431203243154320657654312034567",
+  "020320431203543120324315654312034567654312034567",
+  "0203204312035431203243156543120765431203243546576",
+  "1314315431203265431203243154320654317654312034567",
+  "01203120324312034654312032765431203243154320654765",
+  "23124312035431203243154320765431203243154320654765",
+  "123123431203243154312032456543120765431203243546576",
+  "0131431254312034654312032431543206765431203243546576",
+  "1231234312032435431654312032765431203243154320654765",
+  "1231234312034546543207654312032431543206543123456765",
+  "12312343120324315431654312032765431203243154320654765",
+  "13143154312065431203243154320654312765431203243546576",
+  "23243254312065431203243154320654312765431203243546576",
+  "020320431203254312032431654312032456765431203243546576",
+  "1231234312032431543120324654320765431203243154320654765",
+  "1231234543120654312032457654312032431543206543123456765",
+  "02031204312032431546543207654312032431543206543123456765",
+  "12312343120324354312365431203243765431203243154320654765",
+  "12312343120324354312365431203245765431203243154320654765",
+  "012031203245431654312032457654312032431543206543123456765",
+  "020320431203543120324354657654312032431543206543123456765",
+  "123120343120324354312034654312032765431203243154320654765",
+  "123123431203243154312034654312032765431203243154320654765",
+  "0131431254312034565431203243154320654312765431203243546576",
+  "0231543120654312032431543207654312032431543206543123456765",
+  "0254312654312034567654312032431543206543123456765431203456",
+  "013123431203245431203243154365431203243156765431203243546576",
+  "020312043120324315654312032457654312032431543206543123456765",
+  "123123431203245431654312032457654312032431543206543123456765",
+  "131243120325431203243154320657654312032431543206543123456765",
+  "0131234312032454312032431543654312032765431203243154320654765",
+  "0343254312654312034567654312032431543206543123456765431203456",
+  "02345431654312032431567654312032431543206543123456765431203456",
+  "123120343120324315431203456543207654312032431543206543123456765",
+  "123120343120324315431654312032457654312032431543206543123456765",
+  "0131234312032454312032431543654312032435765431203243154320654765",
+  "0131234312034543120324315432654312032435765431203243154320654765",
+  "054320654312032431546576543120324315432065431234567654312032435465",
+  "123123431203245654312034567654312032431543206543123456765431203456",
+  "1231234312032431543120345654312032457654312032431543206543123456765",
+  "12312343120324354312365431203245676543120324315432065431234567654320",
+  "0234543123456543120324315432067654312032431543206543123456765431203456",
+  "1231234312032454312654312034567654312032431543206543123456765431203456",
+  "023454312034654312032431546576543120324315432065431234567654312032435465",
   "0231543120345654312032435465765431203243154320654312345676543120324315"+\
   "432065", "023454316543120345676543120324315432065431234567654312032431"+\
-  "5432065431234567"], "elms": [], "special": "4480_y", "size": 61824}, 
-  {"a": 23, "character": [["4536_z'", 1]], "distinv": 
-  "12031431543120324315432065431203243154320765431203245", "replstar": 
-  ["01203120324312032431654320765431203245", 
-  "12031431543120324315432065431203243154320765431203245", 
-  "123123431234543120324315436543120324354765431203245"], "elms": [], 
-  "special": "4536_z'", "size": 4536}, {"a": 22, "character": 
-  [["2835_x'", 1]], "distinv": 
-  "12312034312032435431203465431203243547654312032431", "replstar": 
-  ["01314315431654317654312032431543265431", 
-  "12312034312032435431203465431203243547654312032431"], "elms": [], 
-  "special": "2835_x'", "size": 2835}, {"a": 30, "character": 
-  [["1296_z'", 1], ["2268_x'", 1]], "distinv": 
-  "123123431203243154312032431543206543120324315432", "replstar": 
-  ["12312343123454312345654312032431543265431", 
-  "123123431203243154312032431543206543120324315432"], "elms": [], "special": 
-  "2268_x'", "size": 3564}, {"a": 26, "character": [["4096_z'", 1], 
-  ["4096_x'", 1]], "distinv": 
-  "1203123431234543120324315432065431203243154320765431203245", "replstar": 
-  ["01203120324312032431543120324354765431203245", 
-  "1203123431234543120324315432065431203243154320765431203245", 
-  "120314312345431203243154326543120324315432065431276543120324315432654"], 
-  "elms": [], "special": "4096_x'", "size": 8192}, {"a": 28, "character": 
-  [["1400_zz'", 1], ["2240_x'", 1]], "distinv": 
-  "1203143120543120324315432654312032431543265476543120324315432654", 
-  "replstar": ["0203204320543206543120324576543120324315432654", 
-  "01314315431234565431203243156765431203243154320654312347654312", 
-  "02032043205432065431203243156765431203243154320654312347654312", 
-  "123123431203243154312032431543206543120324576543120324315432654", 
-  "1203143120543120324315432654312032431543265476543120324315432654", 
-  "020320431203254312032431546543120324315432065431234576543120324315432654", 
+  "5432065431234567"], "elms": [], "special": "4480_y", "size": 61824},
+  {"a": 23, "character": [["4536_z'", 1]], "distinv":
+  "12031431543120324315432065431203243154320765431203245", "replstar":
+  ["01203120324312032431654320765431203245",
+  "12031431543120324315432065431203243154320765431203245",
+  "123123431234543120324315436543120324354765431203245"], "elms": [],
+  "special": "4536_z'", "size": 4536}, {"a": 22, "character":
+  [["2835_x'", 1]], "distinv":
+  "12312034312032435431203465431203243547654312032431", "replstar":
+  ["01314315431654317654312032431543265431",
+  "12312034312032435431203465431203243547654312032431"], "elms": [],
+  "special": "2835_x'", "size": 2835}, {"a": 30, "character":
+  [["1296_z'", 1], ["2268_x'", 1]], "distinv":
+  "123123431203243154312032431543206543120324315432", "replstar":
+  ["12312343123454312345654312032431543265431",
+  "123123431203243154312032431543206543120324315432"], "elms": [], "special":
+  "2268_x'", "size": 3564}, {"a": 26, "character": [["4096_z'", 1],
+  ["4096_x'", 1]], "distinv":
+  "1203123431234543120324315432065431203243154320765431203245", "replstar":
+  ["01203120324312032431543120324354765431203245",
+  "1203123431234543120324315432065431203243154320765431203245",
+  "120314312345431203243154326543120324315432065431276543120324315432654"],
+  "elms": [], "special": "4096_x'", "size": 8192}, {"a": 28, "character":
+  [["1400_zz'", 1], ["2240_x'", 1]], "distinv":
+  "1203143120543120324315432654312032431543265476543120324315432654",
+  "replstar": ["0203204320543206543120324576543120324315432654",
+  "01314315431234565431203243156765431203243154320654312347654312",
+  "02032043205432065431203243156765431203243154320654312347654312",
+  "123123431203243154312032431543206543120324576543120324315432654",
+  "1203143120543120324315432654312032431543265476543120324315432654",
+  "020320431203254312032431546543120324315432065431234576543120324315432654",
   "1203143120543120324315432065431203243154326543176543120324315432065431"+\
-  "2347654312"], "elms": [], "special": "2240_x'", "size": 3640}, {"a": 23, 
-  "character": [["4536_z'", 1]], "distinv": 
-  "1231234312345431203243154326543276543120324315432654317", "replstar": 
-  ["012031203243120324315654312347654312345", 
-  "0131431543165431234576543120324315432654317", 
-  "1231234312345431203243154326543276543120324315432654317"], "elms": [], 
+  "2347654312"], "elms": [], "special": "2240_x'", "size": 3640}, {"a": 23,
+  "character": [["4536_z'", 1]], "distinv":
+  "1231234312345431203243154326543276543120324315432654317", "replstar":
+  ["012031203243120324315654312347654312345",
+  "0131431543165431234576543120324315432654317",
+  "1231234312345431203243154326543276543120324315432654317"], "elms": [],
   "special": "4536_z'", "size": 4536}, {"a": 14, "character": [["2835_x", 1]],
   "distinv": "03123431203546543120324315676543120324315432065431234567654"+\
   "3120324315436", "replstar": ["0120435431654312034765431203243154320654376",
   "031234312035465431203243156765431203243154320654312345676543120324315436"],
-  "elms": [], "special": "2835_x", "size": 2835}, {"a": 37, "character": 
-  [["1400_z'", 1], ["1008_z'", 1], ["1344_x'", 1]], "distinv": 
-  "1231234312345431203243154320654312032431543206543123456", "replstar": 
-  ["01203120324312032431543120324315432076543123456", 
-  "1231234312345431203243154320654312032431543206543123456", 
-  "123123431234543123456543120324315432065431234576543123456", 
-  "01203120324312032431543120324315432067654312032431543206543123456", 
-  "01203120324312032431543120324315654312032431543207654312032431543265431", 
+  "elms": [], "special": "2835_x", "size": 2835}, {"a": 37, "character":
+  [["1400_z'", 1], ["1008_z'", 1], ["1344_x'", 1]], "distinv":
+  "1231234312345431203243154320654312032431543206543123456", "replstar":
+  ["01203120324312032431543120324315432076543123456",
+  "1231234312345431203243154320654312032431543206543123456",
+  "123123431234543123456543120324315432065431234576543123456",
+  "01203120324312032431543120324315432067654312032431543206543123456",
+  "01203120324312032431543120324315654312032431543207654312032431543265431",
   "123123431234543123456543120324315432065431234567654312032431543206543"+\
-  "123456"], "elms": [], "special": "1400_z'", "size": 3752}, {"a": 31, 
-  "character": [["3240_z'", 1]], "distinv": 
-  "120314315431203243154654312032765431203243154320654312347654312", 
-  "replstar": ["123123431234543120345654312032435465765431203245", 
-  "1231234312345431203243156543120324315432065432765431203245", 
-  "12312034312032435431203243154320654312032435465765431203245", 
-  "120314315431203243154654312032765431203243154320654312347654312"], 
-  "elms": [], "special": "3240_z'", "size": 3240}, {"a": 24, "character": 
-  [["4200_x'", 1], ["840_x'", 1]], "distinv": 
-  "123123431203245431203243154365431234576543120324315432654317", "replstar": 
-  ["232432543123465431234576543120324315432654317", 
-  "12312343120324543120324315436543120324376543120324315432", 
-  "013143123543123465431234576543120324315432654317", 
+  "123456"], "elms": [], "special": "1400_z'", "size": 3752}, {"a": 31,
+  "character": [["3240_z'", 1]], "distinv":
+  "120314315431203243154654312032765431203243154320654312347654312",
+  "replstar": ["123123431234543120345654312032435465765431203245",
+  "1231234312345431203243156543120324315432065432765431203245",
+  "12312034312032435431203243154320654312032435465765431203245",
+  "120314315431203243154654312032765431203243154320654312347654312"],
+  "elms": [], "special": "3240_z'", "size": 3240}, {"a": 24, "character":
+  [["4200_x'", 1], ["840_x'", 1]], "distinv":
+  "123123431203245431203243154365431234576543120324315432654317", "replstar":
+  ["232432543123465431234576543120324315432654317",
+  "12312343120324543120324315436543120324376543120324315432",
+  "013143123543123465431234576543120324315432654317",
   "123123431203245431203243154365431234576543120324315432654317"], "elms": [],
   "special": "4200_x'", "size": 5040}, {"a": 15, "character": [["4200_z", 1]],
   "distinv": "03123431203254316543120324315436765431203243154320654312345"+\
-  "676543120324315432065431234567", "replstar": 
-  ["1231234312032435431654312034765431203243154320654376", 
-  "1231234312032454312034654312034765431203243154320654376", 
+  "676543120324315432065431234567", "replstar":
+  ["1231234312032435431654312034765431203243154320654376",
+  "1231234312032454312034654312034765431203243154320654376",
   "03123431203254316543120324315436765431203243154320654312345676543120"+\
-  "324315432065431234567"], "elms": [], "special": "4200_z", "size": 4200}, 
-  {"a": 28, "character": [["840_z'", 1], ["2240_x'", 1]], "distinv": 
+  "324315432065431234567"], "elms": [], "special": "4200_z", "size": 4200},
+  {"a": 28, "character": [["840_z'", 1], ["2240_x'", 1]], "distinv":
   "1231234312032435431203243154326543120347654312032431543206543123476543"+\
-  "1234", "replstar": ["020320432054320654312032435476543120324315432654317", 
-  "1231234312034543120324354654312032435476543120324315432654317", 
-  "0131431254312345654312032431543676543120324315432065431234765431234", 
+  "1234", "replstar": ["020320432054320654312032435476543120324315432654317",
+  "1231234312034543120324354654312032435476543120324315432654317",
+  "0131431254312345654312032431543676543120324315432065431234765431234",
   "12312343120324354312032431543265431203476543120324315432065431234765"+\
-  "431234"], "elms": [], "special": "2240_x'", "size": 3080}, {"a": 28, 
-  "character": [["1400_zz'", 1], ["2240_x'", 1]], "distinv": 
+  "431234"], "elms": [], "special": "2240_x'", "size": 3080}, {"a": 28,
+  "character": [["1400_zz'", 1], ["2240_x'", 1]], "distinv":
   "1203243120324543120324356543120324315436765431203243154320654312345"+\
-  "6765431203243154320654312", "replstar": 
-  ["020320432054312065431203243576543120324315432065431237654312", 
-  "0120312032431203243154312065431203243576543120324315432065431237654312", 
+  "6765431203243154320654312", "replstar":
+  ["020320432054312065431203243576543120324315432065431237654312",
+  "0120312032431203243154312065431203243576543120324315432065431237654312",
   "020320432054312036543120324315436765431203243154320654312345676543120"+\
   "3243154", "12312034312032431543120324315432065431203243576543120324315"+\
   "432065431237654312", "12312343120345431203243154365431203243154367654312"+\
   "032431543206543123456765431203243154", "1203243120324543120324356543120"+\
   "3243154367654312032431543206543123456765431203243154320654312", "120324"+\
   "312032435431203243154365431203243154320654312765431203243154320654312"+\
-  "345676543120324315432065431234567"], "elms": [], "special": "2240_x'", 
-  "size": 3640}, {"a": 46, "character": [["567_x'", 1]], "distinv": 
-  "12031203243120324315431203243154320654312032431543206543123456", 
+  "345676543120324315432065431234567"], "elms": [], "special": "2240_x'",
+  "size": 3640}, {"a": 46, "character": [["567_x'", 1]], "distinv":
+  "12031203243120324315431203243154320654312032431543206543123456",
   "replstar": ["120312032431203243154312032431543206543120324315432065431"+\
-  "23456"], "elms": [], "special": "567_x'", "size": 567}, {"a": 63, 
-  "character": [["112_z'", 1], ["84_x'", 1]], "distinv": 
-  "012031203243120324315431203243154320654312032431543206543123456", 
+  "23456"], "elms": [], "special": "567_x'", "size": 567}, {"a": 63,
+  "character": [["112_z'", 1], ["84_x'", 1]], "distinv":
+  "012031203243120324315431203243154320654312032431543206543123456",
   "replstar": ["01203120324312032431543120324315432065431203243154320654"+\
   "3123456", "12312034312032435431203243154326543120324315432065431234576"+\
   "54312032431543206543123456", "01203120324312032431543120324315432065431"+\
-  "20324315432065431234567654312032431543206543123456"], "elms": [], 
-  "special": "112_z'", "size": 196}, {"a": 31, "character": [["3240_z'", 1]], 
+  "20324315432065431234567654312032431543206543123456"], "elms": [],
+  "special": "112_z'", "size": 196}, {"a": 31, "character": [["3240_z'", 1]],
   "distinv": "1231203431203243543120324315432654312345676543120324315432"+\
-  "65431", "replstar": ["23124312354312346543123457654312032431543265431", 
-  "020320432054320654312032431765431203243154320654312345", 
-  "123120343120324354312032431543265431234567654312032431543265431", 
-  "01203120324312032431543265432765431203243154320654312347654312032431"], 
-  "elms": [], "special": "3240_z'", "size": 3240}, {"a": 42, "character": 
-  [["400_z'", 1], ["700_x'", 1]], "distinv": 
-  "1231203431203243543120324315432654312345676543120324315432654317", 
-  "replstar": ["12312343123454312345654312345676543120324315432654317", 
-  "1231203431203243543120324315432654312345676543120324315432654317", 
-  "012031203243120324315431203243154320654312345676543120324315432654317", 
+  "65431", "replstar": ["23124312354312346543123457654312032431543265431",
+  "020320432054320654312032431765431203243154320654312345",
+  "123120343120324354312032431543265431234567654312032431543265431",
+  "01203120324312032431543265432765431203243154320654312347654312032431"],
+  "elms": [], "special": "3240_z'", "size": 3240}, {"a": 42, "character":
+  [["400_z'", 1], ["700_x'", 1]], "distinv":
+  "1231203431203243543120324315432654312345676543120324315432654317",
+  "replstar": ["12312343123454312345654312345676543120324315432654317",
+  "1231203431203243543120324315432654312345676543120324315432654317",
+  "012031203243120324315431203243154320654312345676543120324315432654317",
   "123123431234543120345654312032435465765431203243154320654312347654312"+\
   "032431", "123120343120324354312032431543206543120324354657654312032431"+\
-  "54320654312347654312032431"], "elms": [], "special": "700_x'", "size": 
-  1100}, {"a": 32, "character": [["1575_x'", 1], ["1400_x'", 1], 
+  "54320654312347654312032431"], "elms": [], "special": "700_x'", "size":
+  1100}, {"a": 32, "character": [["1575_x'", 1], ["1400_x'", 1],
   ["1050_x'", 1]], "distinv": "120312431203245431203243154320654312032431"+\
-  "5432065431234576543120324315432065431234576543120324315432", "replstar": 
+  "5432065431234576543120324315432065431234576543120324315432", "replstar":
   ["020320432054312032654312032431546576543120324315432065431234576543120"+\
   "324315432", "123120343120324354312032431543206543120324315432065476543"+\
   "1203243154320654312345", "0203204320543120324654312032431543265476543"+\
   "120324315432065431234576543120324315432", "120312431235431203243154320"+\
-  "65431203243154320654312345765431203243154320654312345765431203245", 
+  "65431203243154320654312345765431203243154320654312345765431203245",
   "12031431205431203243154320654312032431543206543123457654312032431543206"+\
   "5431234576543120324315432", "12031243120324543120324315432065431203243"+\
-  "15432065431234576543120324315432065431234576543120324315432"], "elms": [], 
-  "special": "1400_x'", "size": 4025}, {"a": 21, "character": 
+  "15432065431234576543120324315432065431234576543120324315432"], "elms": [],
+  "special": "1400_x'", "size": 4025}, {"a": 21, "character":
   [["4200_z'", 1]], "distinv": "031203431235431203456543120324315432065"+\
-  "43127654312032431543206543123457654312032435", "replstar": 
-  ["0203204320543120324654312032431543265476543120324356", 
-  "013143125431203246543120324315432065431234576543120324356", 
+  "43127654312032431543206543123457654312032435", "replstar":
+  ["0203204320543120324654312032431543265476543120324356",
+  "013143125431203246543120324315432065431234576543120324356",
   "03120343123543120345654312032431543206543127654312032431543206543123"+\
-  "457654312032435"], "elms": [], "special": "4200_z'", "size": 4200}, 
-  {"a": 31, "character": [["3240_z'", 1]], "distinv": 
+  "457654312032435"], "elms": [], "special": "4200_z'", "size": 4200},
+  {"a": 31, "character": [["3240_z'", 1]], "distinv":
   "03120343125431203246543120324315432065437654312032431543206543123456"+\
-  "76543120324315432065431234567", "replstar": 
-  ["123123431234543120345654312032431543206547654312032431543206543765", 
+  "76543120324315432065431234567", "replstar":
+  ["123123431234543120345654312032431543206547654312032431543206543765",
   "02032043205431203654312032431546765431203243154320654312345676543120"+\
   "324356", "1231203431203243543120324315432065431203243154320654765431203"+\
   "2431543206543765", "03120343125431203246543120324315432065437654312032"+\
-  "43154320654312345676543120324315432065431234567"], "elms": [], "special": 
-  "3240_z'", "size": 3240}, {"a": 42, "character": [["700_x'", 1], 
+  "43154320654312345676543120324315432065431234567"], "elms": [], "special":
+  "3240_z'", "size": 3240}, {"a": 42, "character": [["700_x'", 1],
   ["300_x'", 1]], "distinv": "123123431234543120324315432065431203243154"+\
-  "32065431234567654312032431543206543123457654312345", "replstar": 
-  ["1231234312345431234565431234567654312032431543206543123457654312345", 
+  "32065431234567654312032431543206543123457654312345", "replstar":
+  ["1231234312345431234565431234567654312032431543206543123457654312345",
   "123120343120324354312032431543265431234567654312032431543206543123457"+\
   "654312345", "1231234312345431203243154320654312032431543206543123456"+\
-  "7654312032431543206543123457654312345"], "elms": [], "special": "700_x'", 
-  "size": 1000}, {"a": 32, "character": [["1400_x'", 1], ["1050_x'", 1], 
+  "7654312032431543206543123457654312345"], "elms": [], "special": "700_x'",
+  "size": 1000}, {"a": 32, "character": [["1400_x'", 1], ["1050_x'", 1],
   ["175_x'", 1]], "distinv": "12031431543120324315432654312032431546765"+\
-  "431203243154320654312345676543120324315432654", "replstar": 
-  ["123123431234543120324565431203243154365476543120324315432654765", 
-  "1203143154312032431543265431203243156765431203243154320654312347654312", 
+  "431203243154320654312345676543120324315432654", "replstar":
+  ["123123431234543120324565431203243154365476543120324315432654765",
+  "1203143154312032431543265431203243156765431203243154320654312347654312",
   "120314312543120324315436543120324354765431203243154320654312345676543"+\
   "1203245", "1231234312345431203243546543120324315432065431765431203243"+\
   "15432654765", "1231203431203243154312032431543206543120324315436547654"+\
   "3120324315432654765", "1203143154312032431543265431203243154676543120"+\
-  "3243154320654312345676543120324315432654"], "elms": [], "special": 
-  "1400_x'", "size": 2625}, {"a": 47, "character": [["560_z'", 1]], 
+  "3243154320654312345676543120324315432654"], "elms": [], "special":
+  "1400_x'", "size": 2625}, {"a": 47, "character": [["560_z'", 1]],
   "distinv": "12031431205431203243154326543120324315432654765431203243"+\
-  "154320654312345676543120324315432065431234567", "replstar": 
+  "154320654312345676543120324315432065431234567", "replstar":
   ["012031203243120324315431203243154320654312032431543206543176543120324"+\
   "315432654765", "12031431205431203243154326543120324315432654765431203"+\
-  "243154320654312345676543120324315432065431234567"], "elms": [], 
-  "special": "560_z'", "size": 560}, {"a": 32, "character": [["1575_x'", 2], 
+  "243154320654312345676543120324315432065431234567"], "elms": [],
+  "special": "560_z'", "size": 560}, {"a": 32, "character": [["1575_x'", 2],
   ["1400_x'", 1], ["350_x'", 1]], "distinv": "1231203431203243543120324"+\
-  "3154320654312032431543265431765431203243154320654312345", "replstar": 
-  ["12312343123454312345654312032431543206543276543120324315432", 
-  "123123431234543123456543120324315432654317654312032431543265431", 
-  "020320432054320654312032435465765431203243154320654312347654312032431", 
-  "123123431234543120345654312032431543265431765431203243154320654312345", 
+  "3154320654312032431543265431765431203243154320654312345", "replstar":
+  ["12312343123454312345654312032431543206543276543120324315432",
+  "123123431234543123456543120324315432654317654312032431543265431",
+  "020320432054320654312032435465765431203243154320654312347654312032431",
+  "123123431234543120345654312032431543265431765431203243154320654312345",
   "123120343120324354312032431543206543120324315432654317654312032431543"+\
-  "20654312345"], "elms": [], "special": "1400_x'", "size": 4900}, {"a": 47, 
+  "20654312345"], "elms": [], "special": "1400_x'", "size": 4900}, {"a": 47,
   "character": [["560_z'", 1]], "distinv": "12312034312032435431203243"+\
-  "15432654312032431543206543123457654312032431543265431", "replstar": 
+  "15432654312032431543206543123457654312032431543265431", "replstar":
   ["123123431234543123456543123456765431203243154320654312345765431203243"+\
   "15432", "1231203431203243543120324315432654312032431543206543123457654"+\
-  "312032431543265431"], "elms": [], "special": "560_z'", "size": 560}, 
+  "312032431543265431"], "elms": [], "special": "560_z'", "size": 560},
   {"a": 52, "character": [["160_z'", 1], ["210_x'", 1]], "distinv":
   "123120343120324354312032431543265431203243154320654312345676543120324"+\
   "31543206543123456", "replstar": ["12312034312032435431203243154326543"+\
   "120324315432065431234567654312032431543206543123456", "1231234312345431"+\
-  "20324356543120324315432654376543120324315432065431234576543120324315432"], 
-  "elms": [], "special": "210_x'", "size": 370}, {"a": 37, "character": 
-  [["1400_z'", 1], ["1008_z'", 2], ["56_z'", 1]], "distinv": 
+  "20324356543120324315432654376543120324315432065431234576543120324315432"],
+  "elms": [], "special": "210_x'", "size": 370}, {"a": 37, "character":
+  [["1400_z'", 1], ["1008_z'", 2], ["56_z'", 1]], "distinv":
   "1231203243120324315431203243154320654312032431543207654312032431543"+\
-  "2065431234576543120324315432", "replstar": 
-  ["012031203243120324315431203243154320654312032435476543120324315432", 
-  "0120312032431203243154312032431543206543123457654312032431543265431", 
-  "01203120324312032431543120324315432065431234567654312032431543265431", 
+  "2065431234576543120324315432", "replstar":
+  ["012031203243120324315431203243154320654312032435476543120324315432",
+  "0120312032431203243154312032431543206543123457654312032431543265431",
+  "01203120324312032431543120324315432065431234567654312032431543265431",
   "01203120324312032431543120324315432065431203243154327654312032431543"+\
   "265431", "1231203243120324315431203243154320654312032431543207654312"+\
-  "0324315432065431234576543120324315432"], "elms": [], "special": "1400_z'", 
-  "size": 3472}, {"a": 52, "character": [["210_x'", 1], ["50_x'", 1]], 
+  "0324315432065431234576543120324315432"], "elms": [], "special": "1400_z'",
+  "size": 3472}, {"a": 52, "character": [["210_x'", 1], ["50_x'", 1]],
   "distinv": "1203123431203245431203243154320654312032431543206543123457"+\
-  "65431203243154320654312345676543120324315432065431234567", "replstar": 
+  "65431203243154320654312345676543120324315432065431234567", "replstar":
   ["012031203243120324315431203243154320654312032431543206543276543120324"+\
   "31543206543123456765431203245", "1203143125431203243154320654312032431"+\
-  "54320654312345765431203243154320654312345676543120324315432065431234567", 
+  "54320654312345765431203243154320654312345676543120324315432065431234567",
   "1203123431203245431203243154320654312032431543206543123457654312032431"+\
-  "54320654312345676543120324315432065431234567"], "elms": [], "special": 
-  "210_x'", "size": 260}, {"a": 63, "character": [["112_z'", 1], 
-  ["28_x'", 1]], "distinv": 
+  "54320654312345676543120324315432065431234567"], "elms": [], "special":
+  "210_x'", "size": 260}, {"a": 63, "character": [["112_z'", 1],
+  ["28_x'", 1]], "distinv":
   "12312343120324315431203243154320654312032431543206543123456765431203"+\
   "24315432065431234576543120324315432", "replstar": ["0120312032431203"+\
-  "243154312032431543206543120324315432065431234567654312032431543265431", 
+  "243154312032431543206543120324315432065431234567654312032431543265431",
   "123123431203243154312032431543206543120324315432065431234567654312032"+\
-  "4315432065431234576543120324315432"], "elms": [], "special": "112_z'", 
-  "size": 140}, {"a": 74, "character": [["35_x'", 1]], "distinv": 
+  "4315432065431234576543120324315432"], "elms": [], "special": "112_z'",
+  "size": 140}, {"a": 74, "character": [["35_x'", 1]], "distinv":
   "01203120324312032431543120324315432065431203243154320654312345676543"+\
-  "1203243154320654312345765431203243154320", "replstar": 
+  "1203243154320654312345765431203243154320", "replstar":
   ["0120312032431203243154312032431543206543120324315432065431234567654"+\
-  "31203243154320654312345765431203243154320"], "elms": [], "special": 
-  "35_x'", "size": 35}, {"a": 91, "character": [["8_z'", 1]], "distinv": 
+  "31203243154320654312345765431203243154320"], "elms": [], "special":
+  "35_x'", "size": 35}, {"a": 91, "character": [["8_z'", 1]], "distinv":
   "0120312032431203243154312032431543206543120324315432065431234567654"+\
-  "3120324315432065431234567654312032431543206543123456", "replstar": 
+  "3120324315432065431234567654312032431543206543123456", "replstar":
   ["012031203243120324315431203243154320654312032431543206543123456765"+\
-  "43120324315432065431234567654312032431543206543123456"], "elms": [], 
-  "special": "8_z'", "size": 8}, {"a": 120, "character": [["1_x'", 1]], 
+  "43120324315432065431234567654312032431543206543123456"], "elms": [],
+  "special": "8_z'", "size": 8}, {"a": 120, "character": [["1_x'", 1]],
   "distinv": "0120312032431203243154312032431543206543120324315432065431"+\
-  "23456765431203243154320654312345676543120324315432065431234567", 
+  "23456765431203243154320654312345676543120324315432065431234567",
   "replstar": ["012031203243120324315431203243154320654312032431543206"+\
-  "543123456765431203243154320654312345676543120324315432065431234567"], 
+  "543123456765431203243154320654312345676543120324315432065431234567"],
   "elms": [], "special": "1_x'", "size": 1}]
 
-# sizes and star orbit lenghts:
+# sizes and star orbit lengths:
 
-E8KLCELLREPORBITS=[[1, 1], [8, 8], [35, 35], [140, 28], [196, 84], 
-  [370, 160], [260, 50], [560, 510], [567, 567], [1000, 300], [1100, 350], 
-  [3192, 448], [3752, 896], [2625, 175], [4025, 875], [3240, 972], 
-  [3640, 651], [3564, 1296], [8192, 3445], [3472, 56], [7560, 2709], 
-  [4900, 350], [525, 525], [5040, 840], [3500, 700], [4536, 3045], 
+E8KLCELLREPORBITS=[[1, 1], [8, 8], [35, 35], [140, 28], [196, 84],
+  [370, 160], [260, 50], [560, 510], [567, 567], [1000, 300], [1100, 350],
+  [3192, 448], [3752, 896], [2625, 175], [4025, 875], [3240, 972],
+  [3640, 651], [3564, 1296], [8192, 3445], [3472, 56], [7560, 2709],
+  [4900, 350], [525, 525], [5040, 840], [3500, 700], [4536, 3045],
   [3080, 840], [2835, 2184], [3240, 1218], [8800, 3200], [4200, 168],
-  [560, 50], [22778, 420], [46676, 1596], [4900, 2100], [8192, 651], 
-  [6075, 5375], [32746, 756], [2100, 2100], [3240, 972], [4200, 700], 
-  [8800, 3200], [2835, 651], [4200, 3332], [3240, 875], [4536, 840], 
-  [60396, 1092], [3640, 574], [8000, 2400], [3240, 175], [45136, 378], 
-  [7560, 651], [1100, 50], [3640, 175], [8000, 2400], [3240, 972], 
+  [560, 50], [22778, 420], [46676, 1596], [4900, 2100], [8192, 651],
+  [6075, 5375], [32746, 756], [2100, 2100], [3240, 972], [4200, 700],
+  [8800, 3200], [2835, 651], [4200, 3332], [3240, 875], [4536, 840],
+  [60396, 1092], [3640, 574], [8000, 2400], [3240, 175], [45136, 378],
+  [7560, 651], [1100, 50], [3640, 175], [8000, 2400], [3240, 972],
   [38766, 168], [4900, 2100], [4200, 3332], [4536, 651], [8192, 3445],
-  [7560, 2709], [6075, 700], [7560, 651], [525, 525], [6075, 5375], 
-  [6075, 700], [3640, 175], [3192, 448], [3240, 875], [3500, 700], 
+  [7560, 2709], [6075, 700], [7560, 651], [525, 525], [6075, 5375],
+  [6075, 700], [3640, 175], [3192, 448], [3240, 875], [3500, 700],
   [4536, 840], [1100, 50], [61824, 70], [4536, 651], [2835, 2184],
   [3564, 1296], [8192, 651], [3640, 574], [4536, 3045], [2835, 651],
-  [3752, 896], [3240, 175], [5040, 840], [4200, 700], [3080, 840], 
+  [3752, 896], [3240, 175], [5040, 840], [4200, 700], [3080, 840],
   [3640, 651], [567, 567], [196, 84], [3240, 1218], [1100, 350],
-  [4025, 875], [4200, 168], [3240, 972], [1000, 300], [2625, 175], 
-  [560, 50], [4900, 350], [560, 510], [370, 160], [3472, 56], [260, 50], 
+  [4025, 875], [4200, 168], [3240, 972], [1000, 300], [2625, 175],
+  [560, 50], [4900, 350], [560, 510], [370, 160], [3472, 56], [260, 50],
   [140, 28], [35, 35], [8, 8], [1, 1]]
 
 def E8CELLREPcheck():
@@ -15271,35 +15272,35 @@ def E8CELLREPcheck():
 
 #F klcellreps
 def klcellreps(W):
-  """returns a list of dictionaries  containing basic information about 
-  a set of representatives of the left cells of W (equal parameters)  
+  """returns a list of dictionaries  containing basic information about
+  a set of representatives of the left cells of W (equal parameters)
   under repeated application of star operations. For W of type E7 or
   E8, this uses pre-computed data (which are in the global variables
   E7KLCELLREPS and E8KLCELLREPS). Otherwise, everything is  computed
-  using general functions in this system. 
+  using general functions in this system.
 
   The components of the dictionary are:
 
      size:       the number of elements in the left cell
      elms:       the elements in the left cell
      distinv:    the distinguished involution of the left cell
-     character:  the irreducible characters occuring in the 
+     character:  the irreducible characters occurring in the
                  corresponding left cell representation
      a:          the a-invariant of the characters
-     special:    the unique special representation occuring in 
+     special:    the unique special representation occurring in
                  the character of the left cell representation
      index:      the position in this list of dictionaries
-  
+
   >>> len(klcellreps(coxeter("E", 6)))
-  21 
+  21
   >>> len(klcellreps(coxeter("E", 7)))
-  56 
+  56
   >>> len(klcellreps(coxeter("E", 8)))
-  106 
+  106
 
   For further details, see Section 6 of:
 
-    M. Geck and A. Halls, On the Kazhdan--Lusztig cells in 
+    M. Geck and A. Halls, On the Kazhdan--Lusztig cells in
                                  type E_8, arXiv:1401.6804.
 
   See also 'klcellrepelm', 'cellrepstarorbit' and 'leftcellelm'.
@@ -15317,7 +15318,7 @@ def klcellreps(W):
       lprint('#I =====> '+str(len(klcr))+' (unpacking data) ')
       for l in range(len(klcr)):
         c=[]
-        for r in [W.wordtoperm([int(i) for i in w]) 
+        for r in [W.wordtoperm([int(i) for i in w])
                             for w in klcr[l]['replstar']]:
           c.extend([x[:len(W.rank)] for x in leftklstarorbitelm(W,r)])
         if l%10==0:
@@ -15341,7 +15342,7 @@ def klcellreps(W):
     neu=[[''.join([str(s) for s in d1[i]]) for i in res],
                                            [d2[i] for i in res]]
     t=chartable(W)
-    sp=[[t['charnames'][i][0],t['a'][i]] for i in range(len(t['a'])) 
+    sp=[[t['charnames'][i][0],t['a'][i]] for i in range(len(t['a']))
                                                if t['a'][i]==t['b'][i]]
     klcr1=[]
     for l in range(len(klcr)):
@@ -15352,17 +15353,17 @@ def klcellreps(W):
         c+=1
       klcr1.append({'size':len(klcr[l]), 'index':l,
         'elms': set([W.wordtocoxelm(x) for x in klcr[l]]),
-        'distinv':neu[0][l], 'character':neu[1][l], 'a':sp[c][1], 
-        'replstar':[''.join([str(s) for s in W.permtoword(x)]) for x in lrep], 
+        'distinv':neu[0][l], 'character':neu[1][l], 'a':sp[c][1],
+        'replstar':[''.join([str(s) for s in W.permtoword(x)]) for x in lrep],
         'special':sp[c][0]})
     W.klcellreps=klcr1
     return klcr1
 
 #F cellrepstarorbit
 def cellrepstarorbit(W,c):
-  """returns the orbit of a left cell from 'klcellreps' under the 
-  star operations.  Hence,  if we apply  this function  to all 
-  the left cells in 'klcellreps',  then we obtain all the left 
+  """returns the orbit of a left cell from 'klcellreps' under the
+  star operations.  Hence,  if we apply  this function  to all
+  the left cells in 'klcellreps',  then we obtain all the left
   cells of W.
 
   >>> W=coxeter("E",8)
@@ -15377,7 +15378,7 @@ def cellrepstarorbit(W,c):
   >>> set(l1)
   set([1])
 
-  Thus, all left cells in type E7 are left-connected. The same 
+  Thus, all left cells in type E7 are left-connected. The same
   also works for type E8 (but takes a couple of days).
 
   See also 'klcellreps' and 'cellrepcheck2'.
@@ -15392,15 +15393,15 @@ def cellrepstarorbit(W,c):
                 'special':c['special'], 'elms':set(cc[1][i]),
                 'index':c['index'],
                 'distinv': ''.join([str(s) for s in W.permtoword(cc[0][i])])})
-                #'replstar':[''.join([str(s) for s in W.permtoword(w)]) 
+                #'replstar':[''.join([str(s) for s in W.permtoword(w)])
                 #                    for w in leftklstarreps(W,cc[1][i])]})
   return orb
 
 #F klcellrepelm
 def klcellrepelm(W,w,pr=False):
-  """returns a dictionary, as in 'klcellreps', corresponding to the 
+  """returns a dictionary, as in 'klcellreps', corresponding to the
   given element,  but where  the components  'distiv' and 'elms'
-  are left empty.  In particular, this yields the two-sided cell 
+  are left empty.  In particular, this yields the two-sided cell
   in which the element lies, and its a-invariant.
 
   >>> W=coxeter("E",8)
@@ -15413,19 +15414,19 @@ def klcellrepelm(W,w,pr=False):
   #I cell number 37
   '4480_y'
 
-  The function repeatedly applies star operations to w until one 
-  of the left cells in 'klcellreps' is reached. (If the optional 
-  argument 'pr' is set to 'True',  then the function prints  the  
+  The function repeatedly applies star operations to w until one
+  of the left cells in 'klcellreps' is reached. (If the optional
+  argument 'pr' is set to 'True',  then the function prints  the
   index in the 'klcellreps' list to which w is star equivalent.)
 
   For further details, see Section 6 of:
 
-    M. Geck and A. Halls, On the Kazhdan--Lusztig cells in 
+    M. Geck and A. Halls, On the Kazhdan--Lusztig cells in
                                  type E_8, arXiv:1401.6804.
 
-  When this function is run  for the first time, some data needs 
-  to be computed or unpacked from a  condensed  format.  So this 
-  will take  a few moments;  after that, the function should run 
+  When this function is run  for the first time, some data needs
+  to be computed or unpacked from a  condensed  format.  So this
+  will take  a few moments;  after that, the function should run
   reasonably fast.
 
   See also 'klcellreps', 'cellrepstarorbit' and 'leftcellelm'.
@@ -15443,7 +15444,7 @@ def klcellrepelm(W,w,pr=False):
           if pr==True:
             lprint('#I cell number '+str(c)+'\n')
           return {'size':e8c[c]['size'], 'character':e8c[c]['character'],
-                  'a':e8c[c]['a'], 'special':e8c[c]['special'], 
+                  'a':e8c[c]['a'], 'special':e8c[c]['special'],
                   'index':e8c[c]['index'], 'elms': False, 'distinv': False}
       for s in W.rank:
         for t in range(s):
@@ -15455,9 +15456,9 @@ def klcellrepelm(W,w,pr=False):
                   if pr==True:
                     lprint('#I cell number '+str(c)+'\n')
                   return {'size':e8c[c]['size'], 'character':
-                          e8c[c]['character'], 'a':e8c[c]['a'], 
-                          'special':e8c[c]['special'], 
-                          'index':e8c[c]['index'], 'elms': False, 
+                          e8c[c]['character'], 'a':e8c[c]['a'],
+                          'special':e8c[c]['special'],
+                          'index':e8c[c]['index'], 'elms': False,
                           'distinv': False}
               orb.append(nc[0])
               orb1.add(nc[0][:len(W.rank)])
@@ -15468,52 +15469,52 @@ def klcellrepelm(W,w,pr=False):
 def cellreplstars(W):
   """returns a list of dictionaries (as in 'klcellreps') corresponding
   to all the left cells of W, but where only representatives of the
-  elements in a given left cell under the  left star operations are 
-  returned  (in the component  'replstar' of  the dictionary).  The  
+  elements in a given left cell under the  left star operations are
+  returned  (in the component  'replstar' of  the dictionary).  The
   elements in each left star  orbit are taken as coxelms, then they
   are sorted, and the first element  in the sorted list is taken as
-  representative. 
+  representative.
 
   >>> W=coxeter("B",2)
   >>> cellreplstars(W)
   [...]
   #I Total number OK
-  [{'a': 0, 
-    'index': 0, 
-    'character': [['[[2], []]', 1]], 
-    'distinv': (0, 1), 
-    'replstar': [(0, 1)], 
-    'elms': False, 
-    'special': '[[2], []]', 
-    'size': 1}, 
+  [{'a': 0,
+    'index': 0,
+    'character': [['[[2], []]', 1]],
+    'distinv': (0, 1),
+    'replstar': [(0, 1)],
+    'elms': False,
+    'special': '[[2], []]',
+    'size': 1},
    [...]
-   {'a': 1, 
-    'index': 3, 
-    'character': [['[[1], [1]]', 1], ['[[1, 1], []]', 1]], 
-    'distinv': (4, 3), 
-    'replstar': [(2, 7), (6, 1), (4, 3)], 
-    'elms': False, 
-    'special': '[[1], [1]]', 
+   {'a': 1,
+    'index': 3,
+    'character': [['[[1], [1]]', 1], ['[[1, 1], []]', 1]],
+    'distinv': (4, 3),
+    'replstar': [(2, 7), (6, 1), (4, 3)],
+    'elms': False,
+    'special': '[[1], [1]]',
     'size': 3}]
 
   Using this function,  one can identify the left cell in which any
   given element w lies: compute the left star orbit of w (using the
-  function  'leftklstarorbitelm'),  take the elements in this orbit 
-  as coxelms, and  sort them. The first element  in the sorted list  
-  will appear in  exactly one of the 'replstar' entries of the list 
+  function  'leftklstarorbitelm'),  take the elements in this orbit
+  as coxelms, and  sort them. The first element  in the sorted list
+  will appear in  exactly one of the 'replstar' entries of the list
   returned by 'cellreplstars'.
 
-  The complete list of elements in the cell corresponding to such a 
-  dictionary is  obtained  by computing the left star orbits of the  
-  elements in 'replstar' (again using 'leftklstarorbitelm'). 
+  The complete list of elements in the cell corresponding to such a
+  dictionary is  obtained  by computing the left star orbits of the
+  elements in 'replstar' (again using 'leftklstarorbitelm').
 
-  For type E8, the function 'cellreplstars' takes  about 1 week and  
-  requires about 32 GB of main memory.  In this case, the output is 
-  also available from 
+  For type E8, the function 'cellreplstars' takes  about 1 week and
+  requires about 32 GB of main memory.  In this case, the output is
+  also available from
 
      www.mathematik.uni-stuttgart.de/~geckmf/e8celldata.py
 
-  (Just download  this file  and place  it  in the current  working 
+  (Just download  this file  and place  it  in the current  working
   directory. When you start PyCox, the system checks if the file is
   available;  if yes,  then  it will  automatically load and use it
   upon calling 'cellreplstars'.)
@@ -15537,7 +15538,7 @@ def cellreplstars(W):
       for x in E8ALLKLCELLS:
         e8all.append({'a':E8KLCELLREPS[x[0]]['a'], 'index':x[0],
           'elms':False, 'character':E8KLCELLREPS[x[0]]['character'],
-          'size':E8KLCELLREPS[x[0]]['size'], 
+          'size':E8KLCELLREPS[x[0]]['size'],
           'special':E8KLCELLREPS[x[0]]['special'],
           'distinv': tuple([int(i) for i in x[1].split('.')]),
           'replstar': [tuple([int(i) for i in w.split('.')]) for w in x[2]]})
@@ -15556,8 +15557,8 @@ def cellreplstars(W):
         reps.append(o[0])
         for w in o:
           rest.remove(w)
-      neu.append({'size':orb['size'], 'character': orb['character'], 
-                 'a':orb['a'], 'special':orb['special'], 
+      neu.append({'size':orb['size'], 'character': orb['character'],
+                 'a':orb['a'], 'special':orb['special'],
                  'index':orb['index'], 'elms': False, 'replstar':reps,
                  'distinv':W.wordtocoxelm([int(i) for i in orb['distinv']])})
   if alls!=W.order:
@@ -15569,18 +15570,18 @@ def cellreplstars(W):
 
 #F leftcellelm
 def leftcellelm(W,w,replstars=False):
-  """returns the left cell with  respect to equal parameters (as 
-  a dictionary  with components as described in  'kcellreps') 
-  containing a  given element w.  This is  done in two steps: 
+  """returns the left cell with  respect to equal parameters (as
+  a dictionary  with components as described in  'kcellreps')
+  containing a  given element w.  This is  done in two steps:
   First, star operations are repeatedly applied to w until an
-  element is found which lies in a cell in 'klcellreps'. Then 
-  star operations are applied  to this  cell until a  cell is 
-  found which contains the given w. 
+  element is found which lies in a cell in 'klcellreps'. Then
+  star operations are applied  to this  cell until a  cell is
+  found which contains the given w.
 
-  This algorithm works fine if only a few elements  w need to 
-  be considered. Otherwise (especially in E7, E8), it is more 
-  efficient to first apply  the function 'cellreplstars' to W 
-  and then give the output as additional argument. 
+  This algorithm works fine if only a few elements  w need to
+  be considered. Otherwise (especially in E7, E8), it is more
+  efficient to first apply  the function 'cellreplstars' to W
+  and then give the output as additional argument.
 
   >>> W=coxeter("F",4)
   >>> t0=time.clock()
@@ -15603,12 +15604,12 @@ def leftcellelm(W,w,replstars=False):
     for c in replstars:
       if orb[0] in c['replstar']:
         return {'size':c['size'], 'a':c['a'], 'character':c['character'],
-          'special':c['special'], 'index':c['index'], 'elms': c['elms'], 
+          'special':c['special'], 'index':c['index'], 'elms': c['elms'],
           'replstar':c['replstar'],
           'distinv': ''.join([str(s) for s in W.coxelmtoword(c['distinv'])])}
   if replstars!=False:
     print('Mist !!!!')
-    return False 
+    return False
   w1=W.wordtoperm(w)
   orb=[w1]
   orb1=set([orb[0]])
@@ -15621,7 +15622,7 @@ def leftcellelm(W,w,replstars=False):
         if y[:len(W.rank)] in e8c[c]['elms']:
           weiter=False
           c0=c
-      if weiter==True: 
+      if weiter==True:
         for s in W.rank:
           for t in range(s):
             if W.coxetermat[s][t]==3:
@@ -15629,7 +15630,7 @@ def leftcellelm(W,w,replstars=False):
               if nc!=False and not nc[0][:len(W.rank)] in orb1:
                 for c in range(len(e8c)):
                   if nc[0][:len(W.rank)] in e8c[c]['elms']:
-                    weiter=False  
+                    weiter=False
                     c0=c
                 if weiter==True:
                   orb.append(nc[0])
@@ -15662,10 +15663,10 @@ def leftcellelm(W,w,replstars=False):
                   print('Mist !!!')
                   return False
                 lprint('\n')
-                return {'size':e8c[c0]['size'], 'a':e8c[c0]['a'], 
+                return {'size':e8c[c0]['size'], 'a':e8c[c0]['a'],
                     'character':e8c[c0]['character'],
                     'special':e8c[c0]['special'],'index':e8c[c0]['index'],
-                    'elms': set([x[:len(W.rank)] for x in n1]), 
+                    'elms': set([x[:len(W.rank)] for x in n1]),
                     'distinv': ''.join([str(s) for s in W.permtoword(d1)])}
               else:
                 ncell.append([mybytes(x) for x in n1])
@@ -15679,7 +15680,7 @@ def klcellsclasses(W):
   cp=[x for x in conjugacyclasses(W)['reps'] if len(set(x))==len(W.rank)]
   lprint('#I '+str(len(cp))+' cuspidal casses: ')
   t=chartable(W,chars=0)
-  sp=[t['charnames'][i][0] for i in range(len(t['a'])) 
+  sp=[t['charnames'][i][0] for i in range(len(t['a']))
                                            if t['a'][i]==t['b'][i]]
   mat=[]
   for c in cp:
@@ -15689,7 +15690,7 @@ def klcellsclasses(W):
     row=[len([i for i in cs if i==char]) for char in sp]
     mat.append(row)
   lprint('\n')
-  return mat  
+  return mat
 
 #F cellrepcheck1
 def cellrepcheck1(W,klcr):
@@ -15708,21 +15709,21 @@ def cellrepcheck1(W,klcr):
     elms=[]
     for w in l:
       elms.extend(leftklstarorbitelm(W,W.wordtoperm(w)))
-    if not(d1==len(elms) and d1==c['size'] and W.wordtoperm([int(i) 
+    if not(d1==len(elms) and d1==c['size'] and W.wordtoperm([int(i)
                                              for i in c['distinv']]) in elms):
       return False
   return True
 
 #F cellrepcheck2
 def cellrepcheck2(W):
-  """returns True if the union over all cellrepstarorbits in 
-  klcellrep is the set of  all elements of W;  otherwise, 
+  """returns True if the union over all cellrepstarorbits in
+  klcellrep is the set of  all elements of W;  otherwise,
   returns False. In particular, this function creates all
   left cells of W  by computing the orbits under the star
   operations of all left cells from 'klcellreps'.
 
   >>> t=timer(cellrepcheck2,coxeter("E",7))
-  #I 56 (unpacking data) ...... OK 
+  #I 56 (unpacking data) ...... OK
   #I cell of size 1; orbit with 1 cells
   #I cell of size 1; orbit with 1 cells
   #I cell of size 7; orbit with 7 cells
@@ -15731,7 +15732,7 @@ def cellrepcheck2(W):
   192.58
 
   >>> t=timer(cellrepcheck2,coxeter("E",8))
-  #I 106 (unpacking data) ...... OK 
+  #I 106 (unpacking data) ...... OK
   #I cell of size 1; orbit with 1 cells
   #I cell of size 8; orbit with 8 cells
   #I cell of size 35; orbit with 35 cells
@@ -15779,7 +15780,7 @@ def cellrepcheck3(W):
 #F checkleftctd
 def checkleftctd(W):
   """checks left-connectedness of all left cells of W.
-  
+
   >>> W=coxeter("H",3)
   >>> checkleftctd(W)
   set([1])
@@ -15804,7 +15805,7 @@ def checkkottwitz(W):
   ii=involutionmodel(W)
   rr=conjugacyclasses(W)['reps']
   invcl=[w for w in rr if W.wordtocoxelm(2*w)==tuple(W.rank)]
-  elmscl=[set([x[:len(W.rank)] for x in conjugacyclass(W,W.wordtoperm(i))]) 
+  elmscl=[set([x[:len(W.rank)] for x in conjugacyclass(W,W.wordtoperm(i))])
                                                              for i in invcl]
   ti=chartable(W)
   ch=[c[0] for c in chartable(W)['charnames']]
@@ -15826,7 +15827,7 @@ def checkkottwitz(W):
       check.append(kott1==kott2)
   print(len(check))
   return set(check)
-  
+
 ##########################################################################
 ##
 #Y Section 5: Tests
@@ -15835,8 +15836,8 @@ def checkkottwitz(W):
 #F timer
 def timer(func,*pargs,**kargs):
   """returns the result of applying a function and prints the time used
-  in seconds. (Taken from M. Lutz's "Learning Python" book.) 
-  
+  in seconds. (Taken from M. Lutz's "Learning Python" book.)
+
   >>> t=timer(klcells,coxeter("F",4),1,v)
   #I 72 left cells (29 non-equivalent)
   1.02
@@ -15850,9 +15851,9 @@ def timer(func,*pargs,**kargs):
 #F checksh
 def checksh(W,paramL):
   """checks if the relation characterising the  Schur elements is true;
-  see the help to 'schurelms'.  (This  is  a good  test for  various  
-  functions:  'heckechartable',  'schurelms',  'lpol', 'zeta5', ...; 
-  it does not yet work for type I_2(m), n>7, because some operations 
+  see the help to 'schurelms'.  (This  is  a good  test for  various
+  functions:  'heckechartable',  'schurelms',  'lpol', 'zeta5', ...;
+  it does not yet work for type I_2(m), n>7, because some operations
   for the general cyclotomic arithmetic are not implemented.)
   """
   p=lcmschurelms(W,paramL)
@@ -15873,16 +15874,16 @@ def test():
   v=lpol([1],1,'v')
   somechecks=[]
   # test all cartan types (finite and affine)
-  W=coxeter('A',1); 
+  W=coxeter('A',1);
   chartable(W)
-  W=coxeter('A',2); 
+  W=coxeter('A',2);
   chartable(W)
   W=coxeter('A',3)
   chartable(W)
   somechecks.append(checksh(W,v))
   W=coxeter('A',4)
   t=chartable(W)
-  somechecks.append(ainvariants(W,1)==t['a']) 
+  somechecks.append(ainvariants(W,1)==t['a'])
   somechecks.append(checksh(W,v))
   W=coxeter('B',2)
   chartable(W)
@@ -15894,7 +15895,7 @@ def test():
   W=coxeter('B',4)
   somechecks.append(checksh(W,v))
   t=chartable(W)
-  somechecks.append(ainvariants(W,1)==t['a']) 
+  somechecks.append(ainvariants(W,1)==t['a'])
   lprint(str(t['a'])+'\n')
   W=coxeter('B',5)
   chartable(W)
@@ -15906,16 +15907,16 @@ def test():
   W=coxeter('C',4)
   t=chartable(W)
   somechecks.append(checksh(W,v))
-  somechecks.append(ainvariants(W,1)==t['a']) 
+  somechecks.append(ainvariants(W,1)==t['a'])
   W=coxeter('C',5)
   chartable(W)
   W=coxeter('D',4)
   somechecks.append(checksh(W,v))
   t=chartable(W)
-  somechecks.append(ainvariants(W,1)==t['a']) 
+  somechecks.append(ainvariants(W,1)==t['a'])
   W=coxeter('D',5)
   t=chartable(W)
-  #somechecks.append(ainvariants(W,1)==t['a']) 
+  #somechecks.append(ainvariants(W,1)==t['a'])
   W=coxeter('D',6)
   W=coxeter('D',7)
   W=coxeter('D',8)
@@ -15928,7 +15929,7 @@ def test():
   somechecks.append(sum(x[1] for x in specialpieces(W,v))==v**(2*W.N))
   W=coxeter('F',4)
   t=chartable(W)
-  somechecks.append(ainvariants(W,1)==t['a']) 
+  somechecks.append(ainvariants(W,1)==t['a'])
   somechecks.append(checksh(W,[v**2,v**2,v,v]))
   somechecks.append(sum(x[1] for x in specialpieces(W,v))==v**(2*W.N))
   W=coxeter('I5',2)
@@ -15940,26 +15941,26 @@ def test():
   chartable(W)
   W=coxeter('E',6)
   t=chartable(W)
-  #somechecks.append(ainvariants(W,1)==t['a']) 
+  #somechecks.append(ainvariants(W,1)==t['a'])
   somechecks.append(checksh(W,v))
   W=coxeter('E',7)
   chartable(W)
   W=coxeter('E',8)
   chartable(W)
   W=coxeter(affinecartanmat("A",1))
-  W=coxeter(affinecartanmat("A",2)) 
-  W=coxeter(affinecartanmat("A",3)) 
-  W=coxeter(affinecartanmat("A",4)) 
-  W=coxeter(affinecartanmat("B",3)) 
-  W=coxeter(affinecartanmat("B",4)) 
-  W=coxeter(affinecartanmat("B",5)) 
-  W=coxeter(affinecartanmat("C",2)) 
-  W=coxeter(affinecartanmat("C",3)) 
-  W=coxeter(affinecartanmat("C",4)) 
-  W=coxeter(affinecartanmat("D",4)) 
-  W=coxeter(affinecartanmat("D",5)) 
+  W=coxeter(affinecartanmat("A",2))
+  W=coxeter(affinecartanmat("A",3))
+  W=coxeter(affinecartanmat("A",4))
+  W=coxeter(affinecartanmat("B",3))
+  W=coxeter(affinecartanmat("B",4))
+  W=coxeter(affinecartanmat("B",5))
+  W=coxeter(affinecartanmat("C",2))
+  W=coxeter(affinecartanmat("C",3))
+  W=coxeter(affinecartanmat("C",4))
+  W=coxeter(affinecartanmat("D",4))
+  W=coxeter(affinecartanmat("D",5))
   W=coxeter(affinecartanmat("D",6))
-  W=coxeter(affinecartanmat("G",2)) 
+  W=coxeter(affinecartanmat("G",2))
   W=coxeter(affinecartanmat("F",4))
   W=coxeter(affinecartanmat("E",6))
   W=coxeter(affinecartanmat("E",7))
@@ -16069,18 +16070,18 @@ def test():
   for x in gh3:
     y=leftcellleadingcoeffs(W,1,v,x,cl)
     l.append(y['ti'])
-  somechecks.append(l==[[[('1_r',), [1]]], [[("3_s'",), [1, ir5]], 
-     [("overline{3}_s'",), [1, 1-ir5]]], [[('5_r',), [1]]], 
-     [[("4_r'",), [1, 1]], [('4_r',), [1, -1]]], [[("5_r'",), [1]]], 
-     [[('3_s',), [ir5, 1]], [('overline{3}_s',), [1-ir5, 1]]], 
-     [[("1_r'",), [1]]], [[('5_r',), [1]]], [[("4_r'",), [1, 1]], 
-     [('4_r',), [1, -1]]], [[("5_r'",), [1]]], [[("5_r'",), [1]]], 
-     [[('3_s',), [ir5, 1]], [('overline{3}_s',), [1-ir5, 1]]], 
-     [[("3_s'",), [1, ir5]], [("overline{3}_s'",), [1, 1-ir5]]], 
-     [[('5_r',), [1]]], [[("4_r'",), [1, 1]], [('4_r',), [1, -1]]], 
-     [[('5_r',), [1]]], [[("5_r'",), [1]]], [[("4_r'",), [1, 1]], 
-     [('4_r',), [1, -1]]], [[("5_r'",), [1]]], [[('3_s',), [ir5, 1]], 
-     [('overline{3}_s',), [1-ir5, 1]]], [[("3_s'",), [1, ir5]], 
+  somechecks.append(l==[[[('1_r',), [1]]], [[("3_s'",), [1, ir5]],
+     [("overline{3}_s'",), [1, 1-ir5]]], [[('5_r',), [1]]],
+     [[("4_r'",), [1, 1]], [('4_r',), [1, -1]]], [[("5_r'",), [1]]],
+     [[('3_s',), [ir5, 1]], [('overline{3}_s',), [1-ir5, 1]]],
+     [[("1_r'",), [1]]], [[('5_r',), [1]]], [[("4_r'",), [1, 1]],
+     [('4_r',), [1, -1]]], [[("5_r'",), [1]]], [[("5_r'",), [1]]],
+     [[('3_s',), [ir5, 1]], [('overline{3}_s',), [1-ir5, 1]]],
+     [[("3_s'",), [1, ir5]], [("overline{3}_s'",), [1, 1-ir5]]],
+     [[('5_r',), [1]]], [[("4_r'",), [1, 1]], [('4_r',), [1, -1]]],
+     [[('5_r',), [1]]], [[("5_r'",), [1]]], [[("4_r'",), [1, 1]],
+     [('4_r',), [1, -1]]], [[("5_r'",), [1]]], [[('3_s',), [ir5, 1]],
+     [('overline{3}_s',), [1-ir5, 1]]], [[("3_s'",), [1, ir5]],
      [("overline{3}_s'",), [1, 1-ir5]]], [[('5_r',), [1]]]])
   c=allcellsleadingcoeffs(W,1,v)
   c=constructible(W,1)
@@ -16116,9 +16117,9 @@ def test():
   b2a=list(filter(lambda x: bruhat(W,x,w),elms))
   mats=[W.coxelmtomat(c) for c in ah]
   b3a=list(filter(lambda x: bruhat(W,x,w),elms))
-  somechecks.append([W.coxelmtoword(p) 
+  somechecks.append([W.coxelmtoword(p)
                for p in b2]==[W.coxelmtoword(p) for p in b1])
-  somechecks.append([W.coxelmtoword(p) 
+  somechecks.append([W.coxelmtoword(p)
                for p in b2a]==[W.coxelmtoword(p) for p in b1a])
   W=coxeter('F',4)
   f=lusztigfamilies(W,0)
@@ -16162,4 +16163,3 @@ def test():
     return False
   else:
     return True
-
