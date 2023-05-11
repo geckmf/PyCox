@@ -2830,7 +2830,7 @@ class coxeter:
   list into a string; this is conveniently done using the Python
   function 'join' (and its inverse 'split'):
 
-  >>>  w='.'.join([str(i) for i in [0,1,4,3,2]]); w
+  >>> w='.'.join([str(i) for i in [0,1,4,3,2]]); w
   '0.1.4.3.2'
   >>> [int(i) for i in w.split('.')]
   [0, 1, 4, 3, 2]
@@ -2855,7 +2855,7 @@ class coxeter:
   work in the general case.
 
   >>> W=coxeter("A",3)
-  >>> w0=longestperm(W);   print w0        # the longest element
+  >>> w0=longestperm(W);   print(w0)        # the longest element
   (8,7,6,10,9,11,2,1,0,4,3,5)
   >>> W.permlength(w0)                         # the length of w
   6
@@ -3535,7 +3535,7 @@ def bruhatmat(W,y,w):
     s=0
     while s<len(W.rank) and all(w[s][t]>=0 for t in W.rank): s+=1
     if s==len(W.rank):
-      print [y,w,s]
+      print([y,w,s])
     nw=lmultgenmat(W,s,w)
     if any(y[s][t]<0 for t in W.rank):
       ny=lmultgenmat(W,s,y)
@@ -3653,7 +3653,7 @@ def reflections(W):
 
   >>> reflections(coxeter("I5",2))
   >>> W=coxeter("I5",2)
-  >>> r=reflections(W); print r
+  >>> r=reflections(W); print(r)
   [(5,2,1,4,3,0,7,6,9,8),(3,6,4,0,2,8,1,9,5,7),(9,3,7,1,5,4,8,2,6,0),
    (2,9,0,8,6,7,4,5,3,1),(6,5,8,7,9,1,0,3,2,4)]
   >>> [W.permtoword(p) for p in r]
@@ -3833,7 +3833,7 @@ def allmats(W,maxl=-1):
   >>> W=coxeter(affinecartanmat("G",2));
   >>> W.cartantype
   [['U',[0,1,2]]]
-  >>> print W.cartan
+  >>> print(W.cartan)
   [[2,-1,0],[-1,2,-1],[0,-3,2]])
   >>> [[W.mattoword(m) for m in l] for l in allmats(W,3)]
   #I 1 3 5 7
@@ -3891,7 +3891,7 @@ def allcoxelms(W,maxl=-1):
   be returned.)
 
   >>> W=coxeter("A",2)
-  >>> a=allcoxelms(W); print a
+  >>> a=allcoxelms(W); print(a)
   #I 1 2 2 1
   #I total = 6
   [[(0,1)],                         # length 0
@@ -4222,7 +4222,7 @@ def allwords(W,maxl=-1):
   ways to obtain a complete list  of all  elements of W. (It
   uses a call to 'allelmchain'.)
 
-  >>>  W=coxeter("E",7);a=timer(allwords,W)
+  >>> W=coxeter("E",7);a=timer(allwords,W)
   8.65    # time in seconds
   >>> len(a)
   2903040
@@ -4274,7 +4274,7 @@ def allwordslength(W,l=-1):
   ways to obtain a complete list  of all  elements of W. (It
   uses a call to 'allelmchain'.)
 
-  >>>  W=coxeter("E",7);a=timer(allwords,W)
+  >>> W=coxeter("E",7);a=timer(allwords,W)
   8.65    # time in seconds
   >>> len(a)
   2903040
@@ -4310,7 +4310,7 @@ def allwordstrings(W,maxl=-1):
   """same as allwords but this functions returns strings of reduced
   words.
 
-  >>>  W=coxeter("E",7); a=timer(allwordstrings,W)
+  >>> W=coxeter("E",7); a=timer(allwordstrings,W)
   3.52    # time in seconds
   >>> len(a)
   2903040
@@ -5095,7 +5095,7 @@ def fusionconjugacyclasses(H,W):
   subgroup H into the whole group W. (See also 'identifyclasses'.)
 
   >>> W=coxeter("H",4)
-  >>> H=reflectionsubgroup(W,[0,1,2]); print H.cartantype
+  >>> H=reflectionsubgroup(W,[0,1,2]); print(H.cartantype)
   [['H',[0,1,2]]
   >>> H.fusions
   {'H4c0c1c2c3': {'subJ':[0,1,2], 'parabolic':True},
@@ -5594,14 +5594,14 @@ def chartableD(n):
       binv.append(b)
       ti.append([ct[pt.index(mu)][j] for j in fus])
   trouble.sort(reverse=True,key=(lambda t:t[1]))
-  #print W.cartantype,W.fusions
+  #print(W.cartantype,W.fusions)
   for t in trouble:
     J=list(range(n))
     l=0
     for i in [2*d for d in dualpartition(t[0])]:
       l+=i
       J.remove(l-1)
-   # print t,J, suba,[suba[j] for j in J]
+   # print(t,J, suba,[suba[j] for j in J])
     H=reflectionsubgroup(W,[suba[j] for j in J])
     neu=inducedchar(W,H,[(-1)**len(w) for w in conjugacyclasses(H)['reps']])
     for i in range(len(cl)):
@@ -8573,7 +8573,7 @@ def heckechartable(W,paramL=1):
   the resulting matrix  is the ordinary character  table of W (as
   returned by 'chartable(W)').
 
-  >>>  heckechartable(coxeter("B",2),[v**3,v**2])
+  >>> heckechartable(coxeter("B",2),[v**3,v**2])
   {'irreducibles': [[1,    v**4,     v**8,      -1, -v**4],
                     [2, -1+v**4, -2*v**10, -1+v**6,     0],
                     [1,      -1,        1,      -1,     1],
