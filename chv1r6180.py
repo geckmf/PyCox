@@ -16,7 +16,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.    #
 #############################################################################
 #  Import into python:       'from chv1r6180 import *'                      #
-#  Cythenize:                                                               #
+#  Cythonize:                                                               #
 #     cp chv1r6180.py cychv.pyx                                             #
 #     cython3 -a cychv.pyx                                                  #
 #     gcc -shared -pthread -fPIC -fwrapv -O2 -Wall -fno-strict-aliasing \   #
@@ -2581,7 +2581,7 @@ def cartantotype(mat):
   ...               [ 0, 2, 0,-3, 0],
   ...               [-2, 0, 2, 0,-1],
   ...               [ 0,-1, 0, 2, 0],
-  ...               [ 0, 0,-1, 0, 2]]
+  ...               [ 0, 0,-1, 0, 2]])
   [['C',[0,2,4]],['G',[3,1]]]
   >>> cartantotype([[ 2, -2], [-2, 2]])
   [['U',[0,1]]
@@ -2597,7 +2597,7 @@ def cartantotype(mat):
       c=typecartanmat([[mat[i][j] for j in l1] for i in l1])
       t.append([c[0],[l1[i] for i in c[1]]])
       if c[0][0]=='U':      # not of finite type: exit
-        return [['U',range(len(mat[0]))]]
+        return [['U',list(range(len(mat[0])))]]
     t.sort()
     t.sort(key=(lambda x: len(x[1])),reverse=True) # sort as in gap-chevie
     for c in t:  # testing
@@ -2768,7 +2768,7 @@ class coxeter:
   Alternatively, the input may in fact be any generalised Cartan
   matrix, leading to an infinite Coxeter group in general.
 
-  >>> W=coxeter([[2,0,-1,0],[0,2,0,-1],[-1,0,2,0],[0,-3,0,2]]
+  >>> W=coxeter([[2,0,-1,0],[0,2,0,-1],[-1,0,2,0],[0,-3,0,2]])
   >>> W.cartantype
   [["A",[0,2]],["G",[1,3]]]
 
@@ -5100,7 +5100,7 @@ def fusionconjugacyclasses(H,W):
   >>> H.fusions
   {'H4c0c1c2c3': {'subJ':[0,1,2], 'parabolic':True},
    'H3c0c1c2'  : {'subJ':[0,1,2], 'parabolic':True}}
-  >>> len(conjugaclasses(W)['reps']); len(conjugacyclasses(H)['reps'])
+  >>> len(conjugacyclasses(W)['reps']); len(conjugacyclasses(H)['reps'])
   34
   10
   >>> f=fusionconjugacyclasses(H,W); f
@@ -7586,9 +7586,9 @@ def classpolynomials(W,paramL,pw):
 
   The following example is done in sage:
 
-  >>> W=coxeter("A",3)
-  >>> R.<u>=QQ['u']
-  >>> classpolynomials(W,[u,u,u],longestperm(W))
+  sage: W=coxeter("A",3)
+  sage: R.<u>=QQ['u']
+  sage: classpolynomials(W,[u,u,u],longestperm(W))
   [0, 0, u^2, u^3-2*u^2+u, u^3-u^2+u-1]
 
   See also 'allclasspolynomials',  especially  if you need the  class
@@ -9717,12 +9717,12 @@ class wgraph:
   >>> k=klcells(W,1,v); k
   #I 4 left cells
   >>> [wgraph(coxeter('G',2),[1,1], [[]]),
-       wgraph(coxeter('G',2),[1,1],[[1],[0,1],[1,0,1],[0,1,0,1],
-                                                    [1,0,1,0,1]]),
-       wgraph(coxeter('G',2),[1,1],[[0],[1,0],[0,1,0],[1,0,1,0],
-                                                    [0,1,0,1,0]]),
-       wgraph(coxeter('G',2),[1,1],[[0,1,0,1,0,1]])]
-  >>> [l.matrices(True) for l in k]      # the correseponding left
+  ...  wgraph(coxeter('G',2),[1,1],[[1],[0,1],[1,0,1],[0,1,0,1],
+  ...                                               [1,0,1,0,1]]),
+  ...  wgraph(coxeter('G',2),[1,1],[[0],[1,0],[0,1,0],[1,0,1,0],
+  ...                                               [0,1,0,1,0]]),
+  ...  wgraph(coxeter('G',2),[1,1],[[0,1,0,1,0,1]])]
+  >>> [l.matrices(True) for l in k]      # the corresponding left
   #I defining relations are true         # cell representations
   #I defining relations are true
   #I defining relations are true
