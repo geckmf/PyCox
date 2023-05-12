@@ -632,13 +632,14 @@ class lpol:
       self.coeffs=coeffs[a:e]
       self.val=val+a
       self.degree=val+e-1
+
   def __repr__(self):
-    if self.coeffs==[]:
+    if not self.coeffs:
       return '0'
     r=''
     for i in range(len(self.coeffs)):
       if self.coeffs[i]!=0:
-        if r!='' and not (type(self.coeffs[i])==type(0) and self.coeffs[i]<0):
+        if r and not (type(self.coeffs[i])==type(0) and self.coeffs[i]<0):
           r+='+'
         if i+self.val==0:
           if type(self.coeffs[i])==type(0):
@@ -660,9 +661,10 @@ class lpol:
         if i+self.val>1:
           r+='**'+str(i+self.val)
     return r
+
   def __str__(self):
-    r='lpol('+str(self.coeffs)+','+str(self.val)+",'"+str(self.vname)+"')"
-    return r
+    return 'lpol('+str(self.coeffs)+','+str(self.val)+",'"+str(self.vname)+"')"
+
   def value(self,x):
     """evaluates a polynomial.
     """
@@ -675,8 +677,10 @@ class lpol:
       return y*x**(-self.val)
     else:
       return y*x**self.val
+
   def __neg__(self):
     return lpol([-c for c in self.coeffs],self.val,self.vname)
+
   def __eq__(self,f):
     if self.coeffs==[]:
       return f==0
@@ -686,6 +690,7 @@ class lpol:
       return len(self.coeffs)==1 and self.val==0 and self.coeffs[0]==f
     else:
       return False
+
   def __ne__(self,f):
     return not self==f
   #def __div__(self,f):  # division by power of variable, python3: truediv
@@ -3899,7 +3904,7 @@ def allcoxelms(W,maxl=-1):
    [(1, 5),(5,0)],                  # length 2
    [(4,3)]]                         # length 3
   >>> [[W.coxelmtoword(i) for i in l] for l in a];
-  [[[]],[[0],[1]], [[1, 0], [0, 1]], [[0, 1, 0]]]
+  [[[]], [[0], [1]], [[1, 0], [0, 1]], [[0, 1, 0]]]
 
   (Use 'flatlist' to create one long list of the elements.)
 
@@ -3980,14 +3985,14 @@ def redrightcosetreps(W,H):
 
   >>> W=coxeter("A",4)
   >>> a=redrightcosetreps(W,[0,1,2])
-  [(0,1,2,3), (0,1,6,13), (0,5,3,16), (4,2,3,18), (1,2,3,19)]
+  [(0, 1, 2, 3), (0, 1, 6, 13), (0, 5, 3, 16), (4, 2, 3, 18), (1, 2, 3, 19)]
   #I total = 5
   >>> [W.coxelmtoword(c) for c in a]
   [[], [3], [3,2], [3,2,1], [3,2,1,0]]
 
   >>> W=coxeter("F",4);
   >>> H=reflectionsubgroup(W,[3,1,2,W.N-1]);H.cartantype;
-  [['C',[0,1,2]], ['A',[3]]]         # non-parabolic
+  [['C', [0, 1, 2]], ['A', [3]]]         # non-parabolic
   >>> [W.coxelmtoword(p) for p in redrightcosetreps(W,H)]
   #I total = 12
   [[],[0],[0,1],[0,1,2],[0,1,2,3],[0,1,2,1],[0,1,2,1,3],[0,1,2,1,0],
@@ -4026,10 +4031,10 @@ def redinrightcoset(W,H,w):
   same type.
 
   >>> W=coxeter("F",4)
-  >>> H=reflectionsubgroup(W,[0,1,8,15]); H.cartantype
-  [['D', [1,2,0,3]]]          # non-parabolic
+  >>> H=reflectionsubgroup(W,[0,1,8,15]); H.cartantype     # non-parabolic
+  [['D', [1, 2, 0, 3]]]
   >>> W.coxelmtoword(redinrightcoset(W,H,W.wordtocoxelm([2,1,2,3,2,1])))
-  [3,2]
+  [3, 2]
 
   See also 'redrightcosetreps'.
   """
@@ -4900,10 +4905,10 @@ def conjugacyclasses(W):
   """returns  representatives  of   minimal length  in the  conjugacy
   classes of W. The result is a dictionary with entries:
 
-    reps           list of representatives of minimal length
-    classlengths   list of sizes of conjugacy classes
-    classnames     list of tuples of names for the classes put
-                   together from the irreducible components of W
+  - reps          -- list of representatives of minimal length
+  - classlengths  -- list of sizes of conjugacy classes
+  - classnames    -- list of tuples of names for the classes put
+    together from the irreducible components of W
 
   The conventions  are the same as in  gap-chevie;  in particular,
   the  ordering  of the  classes is the same as in gap-chevie.
@@ -4922,16 +4927,16 @@ def conjugacyclasses(W):
 
   >>> W=coxeter([[2,0,-1,0],[0,2,0,-2],[-1,0,2,0],[0,-1,0,2]])
   >>> W.cartantype
-  [['A',[0,2]],['C',[3,1]]]
+  [['A', [0, 2]], ['C', [3, 1]]]
   >>> conjugacyclasses(W)['reps']
   [[],[3],[3,1,3,1],[1],[3,1],[0],[0,3],[0,3,1,3,1],[0,1],
    [0,3,1],[0,2],[0,2,3],[0,2,3,1,3,1],[0,2,1],[0,2,3,1]]
 
-  The representatives of the classes are ``good'' in the sense of
+  The representatives of the classes are ``good`` in the sense of::
 
-    M. Geck and J. Michel, ``Good'' elements in finite Coxeter
-        groups and representations of Iwahori--Hecke algebras,
-        Proc. London Math. Soc. (3) 74 (1997), 275-305.
+      M. Geck and J. Michel, Good elements in finite Coxeter
+      groups and representations of Iwahori--Hecke algebras,
+      Proc. London Math. Soc. (3) 74 (1997), 275-305.
 
   See also 'conjugacyclass' and 'conjtomin'.
   """
@@ -5096,7 +5101,7 @@ def fusionconjugacyclasses(H,W):
 
   >>> W=coxeter("H",4)
   >>> H=reflectionsubgroup(W,[0,1,2]); print(H.cartantype)
-  [['H',[0,1,2]]
+  [['H', [0, 1, 2]]
   >>> H.fusions
   {'H4c0c1c2c3': {'subJ':[0,1,2], 'parabolic':True},
    'H3c0c1c2'  : {'subJ':[0,1,2], 'parabolic':True}}
@@ -5104,7 +5109,7 @@ def fusionconjugacyclasses(H,W):
   34
   10
   >>> f=fusionconjugacyclasses(H,W); f
-  [0,1,2,3,4,5,9,11,15,19]
+  [0, 1, 2, 3, 4, 5, 9, 11, 15, 19]
   >>> f==identifyclasses(W,conjugacyclasses(H)['reps'],minrep=True)
   True
   >>> H.fusions
@@ -5118,7 +5123,7 @@ def fusionconjugacyclasses(H,W):
   >>> W=coxeter("B",6)
   >>> H=reflectionsubgroup(W,[1,2,3,4,5,11])
   >>> H.cartantype               # non-parabolic
-  [['D',[0,5,1,2,3,4]]]
+  [['D', [0, 5, 1, 2, 3, 4]]]
   >>> fusionconjugacyclasses(H,W)
   [0,2,4,6,7,10,11,14,15,17,19,21,23,25,26,26,28,30,33,34,37,38,
                       41,43,44,46,48,49,52,53,55,55,58,59,62,63,63]
@@ -5195,7 +5200,7 @@ def inducedchar(W,H,psi):
   >>> H=reflectionsubgroup(W,[0,1,2,3])
   >>> c=conjugacyclasses(H)
   >>> c=conjugacyclasses(H)['reps']; c
-  [[], [0], [0,2], [0,1], [0,1,3], [0,1,2], [0,1,2,3]]
+  [[], [0], [0, 2], [0, 1], [0, 1, 3], [0, 1, 2], [0, 1, 2, 3]]
   >>> inducedchar(W,H,[(-1)**len(w) for w in c])  # induce sign character
   [6, -4, 2, 0, 3, -1, 0, -2, 0, 1, 0]
   """
@@ -5219,7 +5224,7 @@ def chartablesymmetric(n):
   that in gap3 but it reasonably works up to n around 15.)
 
   >>> partitions(4)
-  [[1,1,1,1],[2,1,1],[2,2],[3,1],[4]]
+  [[1, 1, 1, 1], [2, 1, 1], [2, 2], [3, 1],[4]]
   >>> chartablesymmetric(4)
   [[1,-1, 1, 1,-1],             # sign character
    [3,-1,-1, 0, 1],             # reflection character
@@ -5525,25 +5530,25 @@ def chartableD(n):
    [3, 3, 3, 1, 1, 1,-1,-1,-1, 0, 0,-1,-1],
    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
   >>> H=reflectionsubgroup(W,[1,2,3]); H.cartantype
-  [['A', [0,1,2]]]
+  [['A', [0, 1, 2]]]
   >>> t=inductiontable(H,W)
   >>> t1=transposemat(t['scalar'])
   >>> t['charH']
-  [('[1,1,1,1]',), ('[2,1,1]',), ('[2,2]',), ('[3,1]',), ('[4]',)]
+  [('[1, 1, 1, 1]',), ('[2, 1, 1]',), ('[2, 2]',), ('[3, 1]',), ('[4]',)]
   >>> chartable(W)['b']
   [6, 6, 7, 12, 4, 3, 6, 2, 2, 4, 1, 2, 0]
   >>> [chartable(W)['charnames'][i] for i in [0,1,7,8]]
-  [('[[1,1],+]',), ('[[1,1],-]',), ('[[2],+]',), ('[[2],-]',)]
+  [('[[1, 1], +]',), ('[[1, 1], -]',), ('[[2], +]',), ('[[2], -]',)]
 
   >>> t1[0]     # take alpha=(1,1), position 0 in t['charH']
   [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   >>> t['charW'][1]
-  ('[[1,1],-]',)
+  ('[[1, 1], -]',)
 
   >>> t1[2]     # take alpha=(2), position 2 in t['charH']
   [0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0]
   >>> t['charW'][8]
-  ('[[2],-]',)
+  ('[[2], -]',)
   """
   W1=coxeter("B",n)
   r1=reflections(W1)
@@ -6656,19 +6661,19 @@ def chartable(W,chars=True):
 
   The result is a dictionary with at least the following entries:
 
-    classlengths    sizes of the conjugacy classes
-    classnames      see help to 'conjugacyclasses'
-    classreps       representatives of minimal length
-    charnames       tuples of names for the characters put together
-                                  from the irreducible components of W
-    irreducibles    square matrix of character values
-    position_id     position of trivial character
-    position_sgn    position of sign character
-    position_refl   position of reflection character (W irreducible)
-    permsgn         permutation induced by tensoring with sign
-    b               b-invariants (see also 'fakedegree')
-    a               a-invariants (with respect to equal parameters;
-                                              see also 'ainvariants').
+  - classlengths  --  sizes of the conjugacy classes
+  - classnames    --  see help to 'conjugacyclasses'
+  - classreps     --  representatives of minimal length
+  - charnames     --  tuples of names for the characters put together
+    from the irreducible components of W
+  - irreducibles  --  square matrix of character values
+  - position_id   --  position of trivial character
+  - position_sgn  --  position of sign character
+  - position_refl --  position of reflection character (W irreducible)
+  - permsgn       --  permutation induced by tensoring with sign
+  - b             --  b-invariants (see also 'fakedegree')
+  - a             --  a-invariants (with respect to equal parameters;
+    see also 'ainvariants').
 
   The most expensive part of this function  is the  computation of the
   character table.  If the optional argument  'chars' is set to False,
@@ -6782,9 +6787,9 @@ def inductiontable(H,W,display=False,invchar=False):
       charW       : names of the characters of W
       charH       : names of the characters of H
 
-    >>> W=coxeter("B",3)
-    >>> H=reflectionsubgroup(W,[1,2,5]); H.cartantype
-    [['A',[0,1,2]]]            # non-parabolic
+    >>> W = coxeter("B",3)
+    >>> H = reflectionsubgroup(W,[1,2,5]); H.cartantype  # non-parabolic
+    [['A', [0, 1, 2]]]
     >>> inductiontable(H,W)
     {'scalar': [[1, 0, 0, 0, 0],
                 [0, 1, 0, 0, 0],
@@ -7139,13 +7144,13 @@ def ainvariants(W,weightL=0):
 
   See also 'chartable', 'constructible' and 'lusztigfamilies'.
 
-  >>> W=coxeter("B",3)
+  >>> W = coxeter("B",3)
   >>> ainvariants(W,1)            # all weights equal to 1
-  [4,3,4,9,1,2,1,4,0,1]
+  [4, 3, 4, 9, 1, 2, 1, 4, 0, 1]
   >>> ainvariants(W,[3,2,2,2])    # weights [3,2,2,2]
-  [7,6,10,21,2,5,3,11,0,4]
+  [7, 6, 10, 21, 2, 5, 3, 11, 0, 4]
   >>> ainvariants(W,[0,1,1,1])    # weights [0,1,1,1]
-  [6,3,3,6,2,1,1,2,0,0]
+  [6, 3, 3, 6, 2, 1, 1, 2, 0, 0]
   """
   cw=conjugacyclasses(W)['reps']
   if type(weightL)==type(0):
@@ -7514,7 +7519,7 @@ def poincarepol(W,paramL):
 
                  P_W = sum_{w in W} ind(w)
 
-  where  ind(w)=paramL[s_1]* ... *paramL[s_k] and w=s_1...s_k is a
+  where ``ind(w)=paramL[s_1]* ... *paramL[s_k]`` and w=s_1...s_k is a
   reduced expression for w.  The parameters are a list of elements
   in a base ring,  one for each  simple reflection in W, such that
   two  parameters are equal whenever the corresponding reflections
@@ -7586,10 +7591,10 @@ def classpolynomials(W,paramL,pw):
 
   The following example is done in sage:
 
-  sage: W=coxeter("A",3)
-  sage: R.<u>=QQ['u']
+  sage: W = coxeter("A",3)
+  sage: R.<u> = QQ['u']
   sage: classpolynomials(W,[u,u,u],longestperm(W))
-  [0, 0, u^2, u^3-2*u^2+u, u^3-u^2+u-1]
+  [0, 0, u^2, u^3 - 2*u^2 + u, u^3 - u^2 + u - 1]
 
   See also 'allclasspolynomials',  especially  if you need the  class
   polynomials for several elements,  or  elements  of  relatively big
@@ -7885,10 +7890,12 @@ def heckeirrdata(typ,n,paramL):
   are extracted from the corresponding files in  gap-chevie.  From
   these data, the complete character table can  be computed  using
   some standard procedures:
-    * restriction to parabolic subalgebras (see [Ge-Pf, 9.1.9]),
-    * taking dual characters (see [Ge-Pf, 9.4.1]),
-    * only in  types A,D,E,H:  taking roots of the longest element
-      in the braid group (see [Ge-Pf, 9.2.8]);
+
+  * restriction to parabolic subalgebras (see [Ge-Pf, 9.1.9]),
+  * taking dual characters (see [Ge-Pf, 9.4.1]),
+  * only in  types A,D,E,H:  taking roots of the longest element
+    in the braid group (see [Ge-Pf, 9.2.8]);
+
   these procedures are performed in the function 'heckechartable'.
 
   In this way, even for example in type E_8, we only need to store
@@ -9226,7 +9233,8 @@ def schurelmdata(typ,n,vs):
 def schurelms(W,paramL):
   r"""returns the Schur elements of an Iwahori-Hecke algebra associated
   with a finite Coxeter group and a list of parameters.  These  are
-  uniquely determined by the relations
+  uniquely determined by the relations::
+
                                           /  1 if w=1,
           sum_chi chi(T_w)*s_chi**(-1) =
                                           \  0 otherwise;
@@ -9383,7 +9391,8 @@ def cocharpol(W,u):
 #F fakedegree
 def fakedegree(W,u,chars):
   """returns the fake degrees of characters  of a finite Coxeter group.
-  Given an arbitrary class function f, the fake degree is defined by
+
+  Given an arbitrary class function f, the fake degree is defined by::
 
                                              (-1)^l(w) f(w)
      R(f)=(1/|W|) * P (u-1)^r * sum_{w in W} --------------
@@ -9657,26 +9666,26 @@ def specialpieces(W,v):
 
 # class-wgraph
 class wgraph:
-  """creates  a W-graph  (as a python  `class')  for a finite Coxeter
+  """creates  a W-graph  (as a python class)  for a finite Coxeter
   group W with respect to a weight function.  This consists of the
   following data:
 
-   * a set X together with a map I which assigns to each x in X
-     a subset I(x) of S (the set of generators of W);
+  * a set X together with a map I which assigns to each x in X
+    a subset I(x) of S (the set of generators of W);
 
-   * a collection of elements {m_{x,y}^s} in A, where  x,y in X
-     and  s in S are such that  s has weight >0,  s in I(x) and
-     s is not in I(y);
+  * a collection of elements {m_{x,y}^s} in A, where  x,y in X
+    and  s in S are such that  s has weight >0,  s in I(x) and
+    s is not in I(y);
 
-   * a bijection s:X -> X for every s in S with weight 0.
+  * a bijection s:X -> X for every s in S with weight 0.
 
   (Here, A is the ring of Laurent polynomials  in one variable,  v
   say.)  These data are subject to the following requirements:  we
-  require that
+  require that:
 
-   * v^L(s)m_{x,y}^s is an actual polynomial with constant term 0;
+  * v^L(s)m_{x,y}^s is an actual polynomial with constant term 0;
 
-   * and m_{x,y}(v^(-1)) = m_{x,y}^s for all relevant x,y,s.
+  * and m_{x,y}(v^(-1)) = m_{x,y}^s for all relevant x,y,s.
 
   Furthermore, let V be a free A-module with a basis {e_y|y in X}.
   For s in S, define an A-linear map rho_s: V -> V by
@@ -9697,17 +9706,17 @@ class wgraph:
 
   The result of 'wgraph' is a class with the following components:
 
-    W        the underlying group W
-    var      the parameter (typically a variable v)
-    X        the base set (given as reduced expression in the case
-             where the W-graph arises from a left cell)
-    Isets    the sets I(x) for x in X
-    mpols    the list of all possible m-values
-    mmat     a dictionary with keys given by pairs (y,x) where x,y
-             in X and  m_{x,y}^s is not  0 for at least some s. If
-             (y,x) is such a pair, then the value will be a string
-             pointing to the appropriate value in mpols.
-    Xrep     a hashable set in bijection with X
+  - W       -- the underlying group W
+  - var     -- the parameter (typically a variable v)
+  - X       -- the base set (given as reduced expression in the case
+    where the W-graph arises from a left cell)
+  - Isets   -- the sets I(x) for x in X
+  - mpols   -- the list of all possible m-values
+  - mmat    -- a dictionary with keys given by pairs (y,x) where x,y
+    in X and  m_{x,y}^s is not  0 for at least some s. If
+    (y,x) is such a pair, then the value will be a string
+    pointing to the appropriate value in mpols.
+  - Xrep    -- a hashable set in bijection with X
 
   The input to  'wgraph'  can take several forms: For example, one
   can specify explicitly  the above components.  There are further
@@ -10104,26 +10113,26 @@ def klpolynomials(W,weightL,v):
   information on the corresponding left cells, with respect to a given
   weight function. The result is a dictionary with components:
 
-   elms   : all elements of W (as reduced words, in increasing order)
-   klpols : the Kazhdan-Lusztig polynomials
-   mpols  : the mue-polynomials
-   klmat  : a matrix indexed by pairs of elements of W,  whose entries
-            are strings  encoding  information  on Kazhdan-Lusztig and
-            mue polynomials.  If y<=w (Bruhat-Chevalley  order),  then
-            klmat[w][y] is of the form  'c<p>c<i0>c<i1> ...' where <p>
-            refers to  a polynomial  in 'klpols' and  <i0>, <i1> refer
-            to the polynomials in 'mpols' for the generators  labelled
-            by 0,1,... Otherwise, klmat[w][y] equals 'f'.
-   arrows : a complete list of all pairs (w,y) where y,w in W are such
-            that C_y occurs in C_sC_w for some simple reflection s.
-   lcells : the partition of W into left cells
-   duflo  : the corresponding distinguished involutions, together with
-            their a-invariants and the sign n_d.
-   lorder : the partial order on left cells (given as an incidence
-                                                               matrix)
-   lcells : the partition of W into left cells
-   rcells : the partition of W into right cells
-   tcells : the partition of W into two-sided cells
+  - elms   : all elements of W (as reduced words, in increasing order)
+  - klpols : the Kazhdan-Lusztig polynomials
+  - mpols  : the mue-polynomials
+  - klmat  : a matrix indexed by pairs of elements of W,  whose entries
+    are strings  encoding  information  on Kazhdan-Lusztig and
+    mue polynomials.  If y<=w (Bruhat-Chevalley  order),  then
+    klmat[w][y] is of the form  'c<p>c<i0>c<i1> ...' where <p>
+    refers to  a polynomial  in 'klpols' and  <i0>, <i1> refer
+    to the polynomials in 'mpols' for the generators  labelled
+    by 0,1,... Otherwise, klmat[w][y] equals 'f'.
+  - arrows : a complete list of all pairs (w,y) where y,w in W are such
+    that C_y occurs in C_sC_w for some simple reflection s.
+  - lcells : the partition of W into left cells
+  - duflo  : the corresponding distinguished involutions, together with
+    their a-invariants and the sign n_d.
+  - lorder : the partial order on left cells (given as an incidence
+    matrix)
+  - lcells : the partition of W into left cells
+  - rcells : the partition of W into right cells
+  - tcells : the partition of W into two-sided cells
 
   As in 'ainvariants', a weight function is given  by  a  sequence  of
   non-negative  integers corresponding to the simple reflections of W,
@@ -10144,8 +10153,8 @@ def klpolynomials(W,weightL,v):
   #I Computing KL polynomials for elements of length:
   #I        1 2 3 4
   #I 10 arrows >> 6 left cells >> checks are True
-  >>> kl['klpols']
-  [1, 1-v**2, 1+v**2]               # negative coefficients do occur!
+  >>> kl['klpols']   # negative coefficients do occur!
+  [1, 1-v**2, 1+v**2]
   >>> kl['lcells']
   [[0], [1, 4], [2], [3, 6], [5], [7]]      # elements represented by
                                             # their index in 'elms'
@@ -10477,11 +10486,11 @@ def relklpols(W,W1,cell1,weightL,q):
   by induction, similar to (but technically more complicated than) the
   usual algorithm for computing the  Kazhdan-Lusztig  polynomials. The
   relation to the traditional  Kazhdan-Lusztig polynomials is given by
-  the following formula:
+  the following formula::
 
-                 / P_{u,v}^*                                  if x=y,
-   P_{xu,yv}^* =
-                 \ p_{xu,yv}^* + sum_w P_{u,w}^* p_{xw,yv}^*  if x<y,
+                   / P_{u,v}^*                                  if x=y,
+     P_{xu,yv}^* =
+                   \ p_{xu,yv}^* + sum_w P_{u,w}^* p_{xw,yv}^*  if x<y,
 
   where the sum runs over all  w in W1  such  that u<w.  The  function
   actually returns the renormalised polynomials
@@ -11034,11 +11043,11 @@ def allrelklpols(W,J,weightL,q):
   by induction, similar to (but technically more complicated than) the
   usual  algorithm for computing the  Kazhdan-Lusztig polynomials. The
   relation to the traditional  Kazhdan-Lusztig polynomials is given by
-  the following formula:
+  the following formula::
 
-                 / P_{u,v}^*                                  if x=y,
-   P_{xu,yv}^* =
-                 \ p_{xu,yv}^* + sum_w P_{u,w}^* p_{xw,yv}^*  if x<y,
+                   / P_{u,v}^*                                  if x=y,
+     P_{xu,yv}^* =
+                   \ p_{xu,yv}^* + sum_w P_{u,w}^* p_{xw,yv}^*  if x<y,
 
   where the sum runs over all  w in W_J  such  that u<w.  The function
   actually returns the renormalised polynomials
@@ -11330,7 +11339,7 @@ def klstaroperation(W,s,t,pcell):
 
   >>> k=klcells(W,1,v);k[0][2]
   >>> k[0][2]   # example of a left cell
-  c[[3], [2, 3], [0, 2, 3], [1, 2, 3]]
+  [[3], [2, 3], [0, 2, 3], [1, 2, 3]]
   >>> klstaroperation(W,0,2,[W.wordtoperm(p) for p in k[0][2]]);
   False
   >>> klstaroperation(W,1,2,[W.wordtoperm(p) for p in k[0][2]])
@@ -12080,9 +12089,9 @@ def klcells(W,weightL,v,allcells=True,pr=True):
    wgraph(coxeter('I5',2), [1,1], [[1], [0,1], [1,0,1], [0,1,0,1]]),
    wgraph(coxeter('I5',2), [1,1], [[0], [1,0], [0,1,0], [1,0,1,0]])]]
 
-  >>> k=klcells(coxeter("H",4),1,v)         # takes < 7 minutes
+  >>> k=klcells(coxeter("H",4),1,v)     # long time    # takes < 7 minutes
   #I 206 left cells (90 non-equivalent), mues: 1,2,3
-  >>> set([len(c) for c in k[0]])
+  >>> set([len(c) for c in k[0]])       # long time
   set([32,1,36,326,8,392,18,436,25])
 
   (Thus, W has left cells of size 1,8,18,25,33,36,326,392,436.)
@@ -12349,13 +12358,13 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
   """returns  a dictionary with information  concerning  the leading
   coefficients in a given left cell. The components are:
 
-    elms    : the list of all w in the cell such that w^(-1) also
-              lies in the cell;
-    ti      : the associated character table;
-    distinv : the distinguished involution in the cell;
-    nd      : the corresponding sign;
-    special : the character for which all values are positive;
-    char    : decomposition into irreducible characters of W.
+  - elms    : the list of all w in the cell such that w^(-1) also
+    lies in the cell;
+  - ti      : the associated character table;
+  - distinv : the distinguished involution in the cell;
+  - nd      : the corresponding sign;
+  - special : the character for which all values are positive;
+  - char    : decomposition into irreducible characters of W.
 
   More precisely,  let  C  be a left cell.  Then  we consider the
   subalgebra of the asymptotic algebra J which is spanned  by all
@@ -12368,10 +12377,10 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
   over all E in Irr(W) such that E occurs in the left cell module
   given by C.  Here,  c_{w,E} are the leading coefficients of the
   character  values  of  the corresponding  generic Iwahori-Hecke
-  algebra as defined by
+  algebra as defined by::
 
-    G. Lusztig, Leading coefficients of character values of Hecke
-     algebras, Proc. Symp. Pure Math. 47, AMS, 1987, pp. 235-262.
+      G. Lusztig, Leading coefficients of character values of Hecke
+      algebras, Proc. Symp. Pure Math. 47, AMS, 1987, pp. 235-262.
 
   (This  article  also contains a detailed study of the character
   tables (c_{w,E}) in the equal parameter case.)
@@ -15281,15 +15290,15 @@ def klcellreps(W):
 
   The components of the dictionary are:
 
-     size:       the number of elements in the left cell
-     elms:       the elements in the left cell
-     distinv:    the distinguished involution of the left cell
-     character:  the irreducible characters occurring in the
-                 corresponding left cell representation
-     a:          the a-invariant of the characters
-     special:    the unique special representation occurring in
-                 the character of the left cell representation
-     index:      the position in this list of dictionaries
+  - size:      -- the number of elements in the left cell
+  - elms:      -- the elements in the left cell
+  - distinv:   -- the distinguished involution of the left cell
+  - character: -- the irreducible characters occurring in the
+    corresponding left cell representation
+  - a:         -- the a-invariant of the characters
+  - special:   -- the unique special representation occurring in
+    the character of the left cell representation
+  - index:     -- the position in this list of dictionaries
 
   >>> len(klcellreps(coxeter("E", 6)))
   21
@@ -15584,14 +15593,14 @@ def leftcellelm(W,w,replstars=False):
   and then give the output as additional argument.
 
   >>> W=coxeter("F",4)
-  >>> t0=time.clock()
+  >>> t0=time.time()
   >>> l0=[leftcellelm(W,x) for x in allwords(W)]
-  >>> time.clock()-t0
+  >>> time.time()-t0
   9.92
   >>> r=cellreplstars(W)
-  >>> t0=time.clock()
+  >>> t0=time.time()
   >>> l1=[leftcellelm(W,x,r) for x in allwords(W)]
-  >>> time.clock()-t0
+  >>> time.time()-t0
   0.22
   >>> [i['distinv'] for i in l0]==[i['distinv'] for i in l1]
   True
@@ -15842,9 +15851,9 @@ def timer(func,*pargs,**kargs):
   #I 72 left cells (29 non-equivalent)
   1.02
   """
-  start=time.clock()
+  start=time.time()
   ret=func(*pargs,**kargs)
-  elapsed=time.clock()-start
+  elapsed=time.time()-start
   print(elapsed)
   return ret
 
