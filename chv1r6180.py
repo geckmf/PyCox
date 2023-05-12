@@ -426,9 +426,9 @@ class zeta5:
   0
   >>> (2*zeta5(0,1)-1)**2
   5
-  >>> W=coxeter("H",3)
+  >>> W = coxeter("H",3)
   >>> W.roots[:W.N]
-  >>> [(1, 0, 0), (0, 1, 0), (0, 0, 1), (0, 1, 1), (ir5, 1, 0),
+  [(1, 0, 0), (0, 1, 0), (0, 0, 1), (0, 1, 1), (ir5, 1, 0),
   (1, ir5, 0), (ir5, ir5, 0), (ir5, 1, 1), (1, ir5, ir5), (ir5, ir5, ir5),
   (ir5, 1+ir5, 1), (ir5, 1+ir5, ir5), (1+ir5, 1+ir5, 1),
   (1+ir5, 1+ir5, ir5), (1+ir5, 2*ir5, ir5)]
@@ -602,7 +602,7 @@ class lpol:
   lpol([-1, 6, -12, 8],-2,'v')
   >>> p.degree
   1
-  >>> p.valuation
+  >>> p.val
   -2
   >>> p.value(-1)
   -27
@@ -614,7 +614,7 @@ class lpol:
   # Warning: different variables !
   False
   >>> u*v**0+v     # force u to be treated as constant polynomial in v
-  u+v
+  (u)+v
 
   See also 'interpolatepol'
   """
@@ -804,7 +804,7 @@ class lpol:
 
     >>> v=lpol([1],1,"v")
     >>> divmod(v**2+2,-v**3*(v+v**(-1)))
-    (-v**(-2),1)
+    (-v**(-2), 1)
 
     In some cases this may lead to unexpected results:
     >>> divmod(2*v,v+1)
@@ -1130,8 +1130,11 @@ def rootof1(n):
   >>> z**2
   -1
   >>> A=cartanmat("I8",2); A
-  [[2, -1], [-2-E(8)+E(8)**3, 2]]   # E(8) default name (as in GAP)
-  >>> W=coxeter(A); W.cartantype
+  [[2, -1], [-2-E(8)+E(8)**3, 2]]
+
+  Here E(8) is the default name (as in GAP)
+
+  >>> W = coxeter(A); W.cartantype
   [['I8', [0, 1]]]
   >>> a=rootof1(8); x=a-a**3; x
   E(8)-E(8)**3
@@ -1139,6 +1142,7 @@ def rootof1(n):
   True
   >>> x**2
   2
+
   (Thus, x is the positive square root of 2.)
 
   See also 'lpolmod' and 'zeta5'.
@@ -1182,9 +1186,9 @@ def cycldec(pol,maxe=1000):
 
   >>> p=poincarepol(coxeter("F",4),v); p
   1+4*v+9*v**2+16*v**3+25*v**4+36*v**5+48*v**6+60*v**7+71*v**8+
-   80*v**9+87*v**10+92*v**11+94*v**12+92*v**13+87*v**14+80*v**15+
-   71*v**16+60*v**17+48*v**18+36*v**19+25*v**20+16*v**21+9*v**22+
-   4*v**23+v**24
+  80*v**9+87*v**10+92*v**11+94*v**12+92*v**13+87*v**14+80*v**15+
+  71*v**16+60*v**17+48*v**18+36*v**19+25*v**20+16*v**21+9*v**22+
+  4*v**23+v**24
   >>> p.vcyc
   False
   >>> cycldec(p)
@@ -1247,7 +1251,7 @@ def interpolatepol(v,x,y):
   >>> p=interpolatepol(v,[1,2,3,4],[3,2,4,1]); p
   15-121/6*v+19/2*v**2-4/3*v**3
   >>> y=[p.value(x) for x in [1,2,3,4]]; y
-  [Fraction(3,1),Fraction(2,1),Fraction(4,1),Fraction(1,1)]
+  [Fraction(3, 1), Fraction(2, 1), Fraction(4, 1), Fraction(1, 1)]
   >>> y==[3,2,4,1]
   True
   """
@@ -1371,7 +1375,7 @@ def transposemat(mat):
   """returns the transpose of a matrix.
 
   >>> transposemat([[1,2,3],[4,5,6]])
-  [[1,4], [2,5], [3,6]]
+  [[1, 4], [2, 5], [3, 6]]
   """
   return list(map(lambda *row: list(row), *mat))
 #  return zip(*mat)
@@ -1382,7 +1386,7 @@ def flatlist(lst):
   list or in any of its sublists. (Taken from the gap library.)
 
   >>> flatlist([1,[2,3],[[1,2],3]])
-  [1,2,3,1,2,3]
+  [1, 2, 3, 1, 2, 3]
   >>> flatlist([]);
   []
   """
@@ -1462,6 +1466,7 @@ def printfunction(f):
 
   >>> printfunction(transposemat)
   def transposemat(mat):
+    ...
     return list(map(lambda *row: list(row), *mat))
   """
   import inspect
@@ -1507,8 +1512,8 @@ def scalmatmult(a,b):
 def directsummat(a,b):
   """returns the matrix direct sum of the matrices a and b.
 
-  >>> c=directsummat(cartanmat("A",2),cartanmat("G",2))
-  [[2,-1,0,0],[-1,2,0,0],[0,0,2,-1],[0,0,-3,2]]
+  >>> c=directsummat(cartanmat("A",2),cartanmat("G",2)); c
+  [[2, -1, 0, 0], [-1, 2, 0, 0], [0, 0, 2, -1], [0, 0, -3, 2]]
   """
   if a==[[]]:
     return b
@@ -1531,14 +1536,14 @@ def kroneckerproduct(mat1,mat2):
   Kronecker product is a matrix of size m*p times n*q.
 
   >>> mat1=[[ 0,-1, 1],
-            [-2, 0,-2]]
+  ...       [-2, 0,-2]]
   >>> mat2=[[1,1],
-            [0,1]]
+  ...       [0,1]]
   >>> kroneckerproduct(mat1,mat2)
-  [[ 0, 0,-1,-1, 1, 1],
-   [ 0, 0, 0,-1, 0, 1],
-   [-2,-2, 0, 0,-2,-2],
-   [ 0,-2, 0, 0, 0,-2]]
+  [[0, 0, -1, -1, 1, 1],
+   [0, 0, 0, -1, 0, 1],
+   [-2, -2, 0, 0, -2, -2],
+   [0, -2, 0, 0, 0, -2]]
 
   (The program is taken from the gap library and re-written almost
   1-1 in python.)
@@ -1563,7 +1568,8 @@ def decomposemat(mat):
   ...                 [ 0, 2, 0,-3, 0],
   ...                 [-2, 0, 2, 0,-1],
   ...                 [ 0,-1, 0, 2, 0],
-  ...                 [ 0, 0,-1, 0, 2]]
+  ...                 [ 0, 0,-1, 0, 2]])
+  >>> d
   [[0, 2, 4], [1, 3]]
 
   Thus, there are two blocks, obtained by taking the submatrices
@@ -1697,9 +1703,9 @@ def cartesian(*arg):
   """returns the cartesian product of lists.
 
   >>> cartesian([1,2],[3,4],[4,5])
-  [[1,3,4],[1,3,5],[1,4,4],[1,4,5],[2,3,4],[2,3,5],[2,4,4],[2,4,5]]
+  [[1, 3, 4], [1, 3, 5], [1, 4, 4], [1, 4, 5], [2, 3, 4], [2, 3, 5], [2, 4, 4], [2, 4, 5]]
   >>> cartesian([1,2,2],[1,1,2])
-  [[1,1],[1,1],[1,2],[2,1],[2,1],[2,2],[2,1],[2,1],[2,2]]
+  [[1, 1], [1, 1], [1, 2], [2, 1], [2, 1], [2, 2], [2, 1], [2, 1], [2, 2]]
 
   In the first form the argument is a comma-separated sequence l1, l2,
   ..., and the function returns the cartesian product of l1, l2, ...
@@ -1711,8 +1717,8 @@ def cartesian(*arg):
   (up to some nested bracketing) as cartesian(cartesian(l1,l2),...).
 
   >>> cartesian(cartesian([1,2],[3,4]),[4,5])
-  [[1,3],4],[[1,3],5],[[1,4],4],[[1,4],5],[[2,3],4],
-                                  [[2,3],5],[[2,4],4],[[2,4],5]]
+  [[[1, 3], 4], [[1, 3], 5], [[1, 4], 4], [[1, 4], 5], [[2, 3], 4], 
+   [[2, 3], 5], [[2, 4], 4], [[2, 4], 5]]
 
   The ordering is exactly the same as in gap. (The program is actually
   taken from the gap library and re-written almost 1-1 in python.)
@@ -1750,7 +1756,7 @@ def partitions(n):
   """returns the list of all partitions of n.
 
   >>> partitions(5)
-  [[1,1,1,1,1],[2,1,1,1],[2,2,1],[3,1,1],[3,2],[4,1],[5]]
+  [[1, 1, 1, 1, 1], [2, 1, 1, 1], [2, 2, 1], [3, 1, 1], [3, 2], [4, 1], [5]]
 
   The ordering is exactly the same as in gap. (The program is actually
   taken from the gap library and re-written almost 1-1 in python.)
@@ -1862,16 +1868,16 @@ def partitiontuples(n,r):
   """returns the list of all r-tuples of partitions of n.
 
   >>> partitiontuples(3,2)
-  [[[1,1,1],[]],
-   [[1,1],[1]],
-   [[1],[1,1]],
-   [[],[1,1,1]],
-   [[2,1],[]],
-   [[1],[2]],
-   [[2],[1]],
-   [[],[2,1]],
-   [[3],[]],
-   [[],[3]]]
+  [[[1, 1, 1], []],
+   [[1, 1], [1]],
+   [[1], [1, 1]],
+   [[], [1, 1, 1]],
+   [[2, 1], []],
+   [[1], [2]],
+   [[2], [1]],
+   [[], [2, 1]],
+   [[3], []],
+   [[], [3]]]
 
   The ordering is exactly the same as in gap. (The program is actually
   taken from the gap library and re-written almost 1-1 in python.)
@@ -2123,13 +2129,15 @@ def cartanmat(typ,n):
   See also 'affinecartanmat', 'directsummat' and 'cartantotype'.
 
   >>> cartanmat("A",2)
-  [[2,-1],[-1,2]]
+  [[2, -1], [-1, 2]]
   >>> cartanmat("B",3)               # diagram    0 <= 1 -- 2
-  [[2,-2,0],[-1,2,-1], [0,-1,2]]
+  [[2, -2, 0], [-1, 2, -1], [0, -1, 2]]
   >>> cartanmat("C",3)               # diagram    0 => 1 -- 2
-  [2,-1,0],[-2,2,-1],[0,-1,2]]
-  >>> cartanmat("I5",2)              # see 'zeta5' for the
-  [[2,-ir5],[-ir5,2]]                # definition of ir5
+  [[2, -1, 0], [-2, 2, -1], [0, -1, 2]]
+  >>> cartanmat("I5",2)
+  [[2, -ir5], [-ir5, 2]]
+
+  See 'zeta5' for the definition of ir5=.
 
   The complete list of the graphs  with their labelling is as
   follows::
@@ -2252,27 +2260,27 @@ def affinecartanmat(typ,n):
   is a string specifying the corresponding finite type.
 
   >>> affinecartanmat("A",1)
-  [[2,-2],[-2,2]]
+  [[2, -2], [-2, 2]]
   >>> affinecartanmat("G",2)     # diagram  0 -- 1 >= 2
-  [[ 2,-1, 0],
-   [-1, 2,-1],
-   [ 0,-3, 2]]
+  [[2, -1, 0],
+   [-1, 2, -1],
+   [0, -3, 2]]
   >>> affinecartanmat("F",4)     # diagram  4 -- 0 -- 1 => 2 -- 3
-  [[ 2,-1, 0, 0, 0],
-   [-1, 2,-1, 0, 0],
-   [ 0,-1, 2,-1, 0],
-   [ 0, 0,-2, 2,-1],
-   [ 0, 0, 0,-1, 2]]
+  [[2, -1, 0, 0, 0],
+   [-1, 2, -1, 0, 0],
+   [0, -1, 2, -1, 0],
+   [0, 0, -2, 2, -1],
+   [0, 0, 0, -1, 2]]
   >>> affinecartanmat("B",3)     # diagram  0 <= 2 -- 3
-  [[ 2,-2, 0, 0],                                |
-   [-1, 2,-1,-1],                                4
-   [ 0,-1, 2, 0],
-   [ 0,-1, 0, 2]]
+  [[2, -2, 0, 0],                                |
+   [-1, 2, -1, -1],                                4
+   [0, -1, 2, 0],
+   [0, -1, 0, 2]]
   >>> affinecartanmat("C",3)     # diagram  0 => 1 -- 2 <= 3
-  [[ 2,-1, 0, 0],
-   [-2, 2,-1, 0],
-   [ 0,-1, 2,-2],
-   [ 0, 0,-1, 2]]
+  [[2, -1, 0, 0],
+   [-2, 2, -1, 0],
+   [0, -1, 2, -2],
+   [0, 0, -1, 2]]
 
   See also 'cartanmat'.
   """
@@ -2344,8 +2352,10 @@ def typecartanmat(mat):
   """identifies the type of an indecomposable Cartan matrix.
   """
   n=len(mat[0])
-  if n==0: return ['A',[]]
-  if n==1: return ['A',[0]]
+  if n==0:
+    return ['A',[]]
+  if n==1:
+    return ['A',[0]]
   if n==2:
     if mat[0][1]*mat[1][0]<4:
       if mat[1][0]==-3: return ['G',[0,1]]
@@ -2587,9 +2597,9 @@ def cartantotype(mat):
   ...               [-2, 0, 2, 0,-1],
   ...               [ 0,-1, 0, 2, 0],
   ...               [ 0, 0,-1, 0, 2]])
-  [['C',[0,2,4]],['G',[3,1]]]
+  [['C', [0, 2, 4]], ['G', [3, 1]]]
   >>> cartantotype([[ 2, -2], [-2, 2]])
-  [['U',[0,1]]
+  [['U', [0, 1]]]
 
   See also 'cartantypetomat'.
   """
@@ -2624,11 +2634,11 @@ def cartantypetomat(ct):
   This function only works for finite type.
 
   >>> cartantypetomat([['C',[0,2,4]],['G',[3,1]]])
-  [[ 2, 0, 1, 0, 0],
-   [ 0, 2, 0,-3, 0],
+  [[2, 0, 1, 0, 0],
+   [0, 2, 0,-3, 0],
    [-2, 0, 2, 0,-1],
-   [ 0,-1, 0, 2, 0],
-   [ 0, 0,-1, 0, 2]]
+   [0,-1, 0, 2, 0],
+   [0, 0,-1, 0, 2]]
   """
   b=[[]]
   p=[]
@@ -2656,7 +2666,7 @@ def degreesdata(typ,n):
   (If W is not irreducible, the degrees of W are the disjoint
   union of the degrees of the irreducible components of W.)
 
-  >>> W=coxeter("H",3)
+  >>> W = coxeter("H",3)
   >>> W.degrees
   [2, 6, 10]
   >>> W.order
@@ -2758,27 +2768,29 @@ class coxeter:
   matrix (see 'cartanmat') or from a pair (typ,r) where typ is a
   string specifying the type and r specifies the rank.
 
-  >>> c=cartanmat("G",2)
-  [[2,-1],[-3,2]]
-  >>> W=coxeter(c)
+  >>> c=cartanmat("G",2); c
+  [[2, -1], [-3, 2]]
+  >>> W = coxeter(c)
   >>> W.N                             # number of positive roots
   6
   >>> W.roots                         # all roots
-  [( 1,0),(0, 1),( 1, 1),( 1, 2),( 1, 3),( 2, 3),
-   (-1,0),(0,-1),(-1,-1),(-1,-2),(-1,-3),(-2,-3)]
+  [(1, 0), (0, 1), (1, 1), (1, 2), (1, 3), (2, 3), 
+   (-1, 0), (0, -1), (-1, -1), (-1, -2), (-1, -3), (-2, -3)]
 
-  >>> W=coxeter("H",4); W.order
+  >>> W = coxeter("H",4); W.order
   14400
 
   Alternatively, the input may in fact be any generalised Cartan
   matrix, leading to an infinite Coxeter group in general.
 
-  >>> W=coxeter([[2,0,-1,0],[0,2,0,-1],[-1,0,2,0],[0,-3,0,2]])
+  >>> W = coxeter([[2,0,-1,0],[0,2,0,-1],[-1,0,2,0],[0,-3,0,2]])
   >>> W.cartantype
-  [["A",[0,2]],["G",[1,3]]]
+  [['A', [0, 2]], ['G', [1, 3]]]
 
-  >>> W=coxeter([[2,-2],[-2,2]]); W.cartantype
-  [["U",[0,1]]      # the letter "U" denotes any non-finite type
+  >>> W = coxeter([[2,-2],[-2,2]]); W.cartantype
+  [['U', [0, 1]]]
+
+  Here the letter "U" denotes any non-finite type.
 
   If the  Cartan matrix is of  finite type, various more special
   methods are available  which  partly rely on  explicitly known
@@ -2859,20 +2871,20 @@ class coxeter:
   by  matrices or  reduced words,  and  the conversion functions
   work in the general case.
 
-  >>> W=coxeter("A",3)
+  >>> W = coxeter("A",3)
   >>> w0=longestperm(W);   print(w0)        # the longest element
-  (8,7,6,10,9,11,2,1,0,4,3,5)
+  (8, 7, 6, 10, 9, 11, 2, 1, 0, 4, 3, 5)
   >>> W.permlength(w0)                         # the length of w
   6
   >>> W.coxelmtoword(w0)
-  [0,1,0,2,1,0]
+  [0, 1, 0, 2, 1, 0]
   >>> W.reducedword([0,1,0,1,2,1,0],W)
-  [1,0,2,1,0]
+  [1, 0, 2, 1, 0]
 
-  >>> W=coxeter([[2,-2],[-2,2]]); W.cartantype
-  [['U',[0,1]]]
+  >>> W = coxeter([[2,-2],[-2,2]]); W.cartantype
+  [['U', [0, 1]]]
   >>> W.wordtomat([0,1,0,1,0,1,0,1,0,1])
-  ((-9,-10),(10,11))
+  ((-9, -10), (10, 11))
 
   The optional argument weightL is a list of integers specifying
   a weight function in the sense of Lusztig. If the argument  is
@@ -3256,11 +3268,11 @@ def rmultgenmat(W,s,m):
   by a simple reflection. The element is assumed to  be given as
   a matrix.
 
-  >>> W=coxeter("B",3)
-  >>> m=rmultgenmat(W,2,W.wordtomat([0,1]))
-  [[-1,-1,-1],[2,1,1],[0,1,0]]
+  >>> W = coxeter("B",3)
+  >>> m=rmultgenmat(W,2,W.wordtomat([0,1])); m
+  [[-1, -1, -1], [2, 1, 1], [0, 1, 0]]
   >>> W.mattoword(m)
-  [0,1,2]
+  [0, 1, 2]
 
   See also 'lmultmatgen' and 'conjgenmat'.
   """
@@ -3316,7 +3328,7 @@ def conjugacyclass(W,pw):
   and the elements in the resulting list are permutations. Elements
   of minimum length are more efficiently computed using 'classmin'.
 
-  >>> W=coxeter("F",4)
+  >>> W = coxeter("F",4)
   >>> [W.permtoword(w) for w in conjugacyclass(W,W.permgens[1])]
   #I Size of class: 12
   [[1], [0], [0, 1, 0], [2, 1, 2], [0, 2, 1, 0, 2], [3, 2, 1, 2, 3],
@@ -3373,12 +3385,12 @@ def testcyclicshift(W,pw):
   where  x is an element and s  is a  simple reflection such that
   l(x)<l(sxs) and sxs lies in the same cyclic chift class as pw.
 
-  >>> W=coxeter("F",4)
+  >>> W = coxeter("F",4)
   >>> t=testcyclicshift(W,W.wordtoperm([0,1,2,1,0])); t
   [(13,32,2,9,4,29,12,7,25,3,10,16,6,0,18,15,11,22,14,19,20,21,17,23,37,
     8,26,33,28,5,36,31,1,27,34,40,30,24,42,39,35,46,38,43,44,45,41,47),0]
   >>> W.permtoword(t[0])
-  [1,2,1]
+  [1, 2, 1]
 
   See also 'classpolynomials'.
   """
@@ -3399,7 +3411,7 @@ def conjtomin(W,pw):
   """returns an element  of minimal length (as a reduced word) in
   the conjugacy class of pw.
 
-  >>> W=coxeter("E",6); w0=longestperm(W); W.permlength(w0)
+  >>> W = coxeter("E",6); w0=longestperm(W); W.permlength(w0)
   36
   >>> conjtomin(W,w0)
   [1, 2, 3, 1, 2, 3, 4, 3, 1, 2, 3, 4]
@@ -3418,9 +3430,9 @@ def classmin(W,w,minl=True):
   """returns the elements of minimal length in a conjugacy class
   of a given element.
 
-  >>> W=coxeter("E",8)
+  >>> W = coxeter("E",8)
   >>> [W.permtoword(x) for x in classmin(W,[0])]
-  #I Size of Cmin: 8
+  #I ...
   [[0], [2], [3], [1], [4], [5], [6], [7]]
 
   It is assumed that the given element has  minimal length in
@@ -3491,16 +3503,16 @@ def longestperm(W,J=0):
   If the additional argument J is specified, the function returns
   the longest element in the parabolic subgroup generated by J.
 
-  >>> W=coxeter("F",4)
-  >>> w0=longestperm(W)
+  >>> W = coxeter("F",4)
+  >>> w0=longestperm(W); w0
   (24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,
    46,47,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23)
   >>> W.permtoword(w0)                   # reduced expression
-  [0,1,0,2,1,0,2,1,2,3,2,1,0,2,1,2,3,2,1,0,2,1,2,3]
+  [0, 1, 0, 2, 1, 0, 2, 1, 2, 3, 2, 1, 0, 2, 1, 2, 3, 2, 1, 0, 2, 1, 2, 3]
   >>> [W.roots[i] for i in w0]           # as a matrix
   [(-1, 0, 0, 0), (0, -1, 0, 0), (0, 0, -1, 0), (0, 0, 0, -1)]
   >>> W.permtoword(longestperm(W,[1,2])) # parabolic of type C_2
-  [1,2,1,2]
+  [1, 2, 1, 2]
   """
   if J==0:
     J=W.rank
@@ -3559,7 +3571,7 @@ def bruhatcoxelm(W,y,w):
   l(sw)=l(w)-1. Then y <= w if and only if sy<=sw  (if l(sy)=l(y)-1)
   or y<=sw  (if l(sy)=l(y)+1).
 
-  >>> W=coxeter("H",3);
+  >>> W = coxeter("H",3);
   >>> w=W.wordtocoxelm([0,1,0,2])
   >>> b=list(filter(lambda y:bruhatcoxelm(W,y,w),redleftcosetreps(W)))
   >>> [W.coxelmtoword(y) for y in b]
@@ -3629,12 +3641,14 @@ def bruhat(W,y,w):
   l(sw)=l(w)-1.  Then y <= w if and only if sy<=sw (if l(sy)=l(y)-1)
   or y<=sw  (if l(sy)=l(y)+1).
 
-  >>> W=coxeter("H",3);
+  >>> W = coxeter("H",3);
   >>> w=W.wordtocoxelm([0,1,0,2])
   >>> b=list(filter(lambda y:bruhat(W,y,w),redleftcosetreps(W)))
   >>> [W.coxelmtoword(y) for y in b]
-  [[],[0],[1],[2],                       # all y in W such that y<=w
+  [[],[0],[1],[2],                      
    [0,1],[0,2],[1,0],[1,2],[1,0,2],[0,1,0],[0,1,2],[0,1,0,2]]
+
+  These are all y in W such that y<=w.
 
   If y,w are known to be coxelms, then it is more efficient to  call
   directly 'bruhatcoxelm(W,y,w)'.  Similarly  for matrices  and full
@@ -3653,16 +3667,19 @@ def bruhat(W,y,w):
 def reflections(W):
   """returns the list of reflections of W (where W is assumed
   to be finite),  as permutations on the set of all roots.
+
   The  i-th element in  this list is the reflection  whose
   root is the i-th element of W.roots.
 
-  >>> reflections(coxeter("I5",2))
-  >>> W=coxeter("I5",2)
-  >>> r=reflections(W); print(r)
-  [(5,2,1,4,3,0,7,6,9,8),(3,6,4,0,2,8,1,9,5,7),(9,3,7,1,5,4,8,2,6,0),
-   (2,9,0,8,6,7,4,5,3,1),(6,5,8,7,9,1,0,3,2,4)]
+  >>> W = coxeter("I5",2)
+  >>> r=reflections(W); r
+  [(5, 2, 1, 4, 3, 0, 7, 6, 9, 8),
+   (3, 6, 4, 0, 2, 8, 1, 9, 5, 7),
+   (9, 3, 7, 1, 5, 4, 8, 2, 6, 0),
+   (2, 9, 0, 8, 6, 7, 4, 5, 3, 1),
+   (6, 5, 8, 7, 9, 1, 0, 3, 2, 4)]
   >>> [W.permtoword(p) for p in r]
-  [0],[1],[0,1,0],[1,0,1],[0,1,0,1,0]]
+  [[0], [1], [0, 1, 0], [1, 0, 1], [0, 1, 0, 1, 0]]
 
   See also 'reflectionsubgroup'.
   """
@@ -3715,47 +3732,47 @@ def reflectionsubgroup(W,J):
 
   See also 'reflections'.
 
-  >>> W=coxeter("F",4)
+  >>> W = coxeter("F",4)
   >>> W.cartantype
-  [["F",[0,1,2,3]]
+  [['F', [0, 1, 2, 3]]
   >>> W.cartanname
-  "F4c0c1c2c3"
+  'F4c0c1c2c3'
   >>> W.fusions              # W only has the fusion into itself
-  {"F4c0c1c2c3":{"subJ":[0,1,2,3], 'parabolic':True}}
+  {'F4c0c1c2c3':{"subJ":[0,1,2,3], 'parabolic':True}}
 
   >>> H=reflectionsubgroup(W,[1,2,3,23])
   >>> H.cartantype
-  [["C",[0,1,2]],["A",[3]]
+  [['C', [0, 1, 2]], ['A', [3]]]
   >>> H.cartanname
-  "C3c0c1c2A1c3"
+  'C3c0c1c2A1c3'
   >>> H.fusions        # H has the fusion into itself and into W
   {"C3c0c1c2A1c3":{"subJ": [0,1,2,3], "parabolic":True},
    "F4c0c1c2c3"  :{"subJ":[1,2,3,23], "parabolic":False}}
-  >>> w=longestperm(H)
-  (10,11,12,13)
-  >>> w1=H.permtoword(w)    # reduced word inside H
-  [0,1,0,1,2,1,0,1,2,3]
+  >>> w=longestperm(H); w
+  (10, 11, 12, 13)
+  >>> w1=H.permtoword(w); w1    # reduced word inside H
+  [0, 1, 0, 1, 2, 1, 0, 1, 2, 3]
   >>> H.reducedword(w1,W)   # and now in W, using the fusion map
-  [0,1,0,2,1,0,2,1,2,3,2,1,0,2,1,2,3,2,1,0,2,1,2,3]
+  [0, 1, 0, 2, 1, 0, 2, 1, 2, 3, 2, 1, 0, 2, 1, 2, 3, 2, 1, 0, 2, 1, 2, 3]
 
-  >>> W=coxeter(affinecartanmat("G",2)); W.cartanname
-  "U210121032"
+  >>> W = coxeter(affinecartanmat("G",2)); W.cartanname
+  'U210121032'
   >>> H=reflectionsubgroup(W,[1,2]); H.cartanname
-  "G2c0c1"
+  'G2c0c1'
   >>> H.fusions
   {"G2c0c1":{'subJ':[0,1],     'parabolic':True},
     "U210121032":{'subJ':[1,2],'parabolic':False}}
   >>> H.reducedword([0,1],W)
-  [1,2]
+  [1, 2]
 
   Remark: If J is a subset of the set of simple reflections of W
   then J will not be sorted internally.  So  this can be used to
   create a copy of W with the simple reflections relabelled.
 
-  >>> W=coxeter("F",4);
+  >>> W = coxeter("F",4);
   >>> H=reflectionsubgroup(W,[1,3,0,2])
   >>> H.cartantype
-  [['F', [2,0,3,1]]]
+  [['F', [2, 0, 3, 1]]]
   >>> H.fusions
   {'F4c0c1c2c3': {'parabolic': True, 'subJ': [1,3,0,2]},
    'F4c2c0c3c1': {'parabolic': True, 'subJ': [0,1,2,3]}}
@@ -3826,7 +3843,7 @@ def allmats(W,maxl=-1):
   function also works for infinite W. If the argument 'maxl' is
   omitted and W is finite,  all elements will be computed.
 
-  >>> W=coxeter("A",2)
+  >>> W = coxeter("A",2)
   >>> allmats(W)
   #I 1 2 2 1
   #I total = 6
@@ -3835,11 +3852,11 @@ def allmats(W,maxl=-1):
    [((0,1),(-1,-1)),((-1,-1),(1,0))],               # length 2
    [((0,-1),(-1,0))]]                               # length 3
 
-  >>> W=coxeter(affinecartanmat("G",2));
+  >>> W = coxeter(affinecartanmat("G",2));
   >>> W.cartantype
-  [['U',[0,1,2]]]
+  [['U', [0, 1, 2]]]
   >>> print(W.cartan)
-  [[2,-1,0],[-1,2,-1],[0,-3,2]])
+  [[2, -1, 0], [-1, 2, -1], [0, -3, 2]])
   >>> [[W.mattoword(m) for m in l] for l in allmats(W,3)]
   #I 1 3 5 7
   #I total = 16
@@ -3895,7 +3912,7 @@ def allcoxelms(W,maxl=-1):
   for finite W. (If maxl is not specified, then all elements will
   be returned.)
 
-  >>> W=coxeter("A",2)
+  >>> W = coxeter("A",2)
   >>> a=allcoxelms(W); print(a)
   #I 1 2 2 1
   #I total = 6
@@ -3946,13 +3963,13 @@ def redleftcosetreps(W,J=[]):
   l(ws)=l(w)+1  for all s in J.  The  elements  are  returned  as
   coxelms, ordered by increasing length.
 
-  >>> W=coxeter("A",4)
+  >>> W = coxeter("A",4)
   >>> a=redleftcosetreps(W,[0,1,2])
   #I total = 5
   >>> a
-  [(0,1,2,3), (0,1,6,13), (0,8,16,2), (9,18,1,2), (19,0,1,2)]
+  [(0, 1, 2, 3), (0, 1, 6, 13), (0, 8, 16, 2), (9, 18, 1, 2), (19, 0, 1, 2)]
   >>> [W.coxelmtoword(c) for c in a]
-  [[], [3], [2,3], [1,2,3], [0,1,2,3]]
+  [[], [3], [2, 3], [1, 2, 3], [0, 1, 2, 3]]
 
   See also 'redrightcosetreps' and 'redinrightcoset'.
   """
@@ -3983,16 +4000,16 @@ def redrightcosetreps(W,H):
   root of W. The  elements are  returned  as  coxelms, ordered by
   increasing length.
 
-  >>> W=coxeter("A",4)
+  >>> W = coxeter("A",4)
   >>> a=redrightcosetreps(W,[0,1,2])
   [(0, 1, 2, 3), (0, 1, 6, 13), (0, 5, 3, 16), (4, 2, 3, 18), (1, 2, 3, 19)]
   #I total = 5
   >>> [W.coxelmtoword(c) for c in a]
   [[], [3], [3,2], [3,2,1], [3,2,1,0]]
 
-  >>> W=coxeter("F",4);
-  >>> H=reflectionsubgroup(W,[3,1,2,W.N-1]);H.cartantype;
-  [['C', [0, 1, 2]], ['A', [3]]]         # non-parabolic
+  >>> W = coxeter("F",4);
+  >>> H=reflectionsubgroup(W,[3,1,2,W.N-1]);H.cartantype   # non-parabolic
+  [['C', [0, 1, 2]], ['A', [3]]]
   >>> [W.coxelmtoword(p) for p in redrightcosetreps(W,H)]
   #I total = 12
   [[],[0],[0,1],[0,1,2],[0,1,2,3],[0,1,2,1],[0,1,2,1,3],[0,1,2,1,0],
@@ -4030,7 +4047,7 @@ def redinrightcoset(W,H,w):
   full permutation on the roots, and the output will be of the
   same type.
 
-  >>> W=coxeter("F",4)
+  >>> W = coxeter("F",4)
   >>> H=reflectionsubgroup(W,[0,1,8,15]); H.cartantype     # non-parabolic
   [['D', [1, 2, 0, 3]]]
   >>> W.coxelmtoword(redinrightcoset(W,H,W.wordtocoxelm([2,1,2,3,2,1])))
@@ -4066,7 +4083,7 @@ def allelmchain(W,depth=1):
   reflections of W. This works efficiently even for groups of relatively
   large rank (including all the groups of exceptional type).
 
-  >>> W=coxeter("A",5)
+  >>> W = coxeter("A",5)
   >>> a=allelmchain(W,depth=3)
   #I total = 6
   #I total = 5
@@ -4126,7 +4143,7 @@ def allelmchain1(W):
   reduced words in the simple reflections of W. This  works efficiently
   even for groups of relatively large rank, e.g., type E_8.
 
-  >>> W=coxeter("A",5)
+  >>> W = coxeter("A",5)
   >>> a=allelmchain(W)
   #I total = 6
   #I total = 5
@@ -4178,16 +4195,19 @@ def allelmsproperty(W,f,elm="word",pr=True):
   through all elements of very large groups without first constructing
   a complete list of all elements.
 
-  >>> W=coxeter("A",2)
-  >>> allelmsproperty(W,lambda x:W.wordtocoxelm(2*x)==(0,1))
-  #I Number of elements = 3
-  [[], [0], [1], [0, 1, 0]]                # all elements of order <=2
+  All elements of order <=2:
 
-  >>> W=coxeter("B",2)
+  >>> W = coxeter("A",2)
+  >>> allelmsproperty(W,lambda x:W.wordtocoxelm(2*x)==(0,1))
+  #I Number of elements = 4
+  [[], [0], [1], [0, 1, 0]]
+
+  All elements whose reduced expressions contain all generators:
+
+  >>> W = coxeter("B",2)
   >>> allelmsproperty(W,lambda x: set(x)==set([0,1]))
   #I Number of elements = 5
   [[0, 1], [1, 0], [0, 1, 0], [1, 0, 1], [0, 1, 0, 1]]
-       # all elements whose reduced expressions contain all generators
 
   See also 'allelmchain'.
   """
@@ -4227,7 +4247,7 @@ def allwords(W,maxl=-1):
   ways to obtain a complete list  of all  elements of W. (It
   uses a call to 'allelmchain'.)
 
-  >>> W=coxeter("E",7);a=timer(allwords,W)
+  >>> W = coxeter("E",7);a=timer(allwords,W)   # random
   8.65    # time in seconds
   >>> len(a)
   2903040
@@ -4279,7 +4299,7 @@ def allwordslength(W,l=-1):
   ways to obtain a complete list  of all  elements of W. (It
   uses a call to 'allelmchain'.)
 
-  >>> W=coxeter("E",7);a=timer(allwords,W)
+  >>> W = coxeter("E",7);a=timer(allwords,W)  # random
   8.65    # time in seconds
   >>> len(a)
   2903040
@@ -4315,7 +4335,7 @@ def allwordstrings(W,maxl=-1):
   """same as allwords but this functions returns strings of reduced
   words.
 
-  >>> W=coxeter("E",7); a=timer(allwordstrings,W)
+  >>> W = coxeter("E",7); a=timer(allwordstrings,W)  # random
   3.52    # time in seconds
   >>> len(a)
   2903040
@@ -4925,7 +4945,7 @@ def conjugacyclasses(W):
    'classnames'  : [(' ',),('~A_1',),('A_1',),('G_2',),
                     ('A_2',),('A_1+~A_1',)]}
 
-  >>> W=coxeter([[2,0,-1,0],[0,2,0,-2],[-1,0,2,0],[0,-1,0,2]])
+  >>> W = coxeter([[2,0,-1,0],[0,2,0,-2],[-1,0,2,0],[0,-1,0,2]])
   >>> W.cartantype
   [['A', [0, 2]], ['C', [3, 1]]]
   >>> conjugacyclasses(W)['reps']
@@ -4973,7 +4993,7 @@ def identifyclasses(W,elms,minrep=False):
   the elements  have  minimal length  in their  conjugacy classes,
   then the optional argument 'minrep' should be set to True.
 
-  >>> W=coxeter("A",5)
+  >>> W = coxeter("A",5)
   >>> identifyclasses(W,[W.permtoword(longestperm(W))])
   [3]
   >>> conjugacyclasses(W)['reps']
@@ -5099,9 +5119,9 @@ def fusionconjugacyclasses(H,W):
   """returns  the embedding of the conjugacy classes of a  reflection
   subgroup H into the whole group W. (See also 'identifyclasses'.)
 
-  >>> W=coxeter("H",4)
+  >>> W = coxeter("H",4)
   >>> H=reflectionsubgroup(W,[0,1,2]); print(H.cartantype)
-  [['H', [0, 1, 2]]
+  [['H', [0, 1, 2]]]
   >>> H.fusions
   {'H4c0c1c2c3': {'subJ':[0,1,2], 'parabolic':True},
    'H3c0c1c2'  : {'subJ':[0,1,2], 'parabolic':True}}
@@ -5120,7 +5140,7 @@ def fusionconjugacyclasses(H,W):
   (Now H.fusions has an additional entry containing the fusion
   of conjugacyclasses.)
 
-  >>> W=coxeter("B",6)
+  >>> W = coxeter("B",6)
   >>> H=reflectionsubgroup(W,[1,2,3,4,5,11])
   >>> H.cartantype               # non-parabolic
   [['D', [0, 5, 1, 2, 3, 4]]]
@@ -5196,7 +5216,7 @@ def inducedchar(W,H,psi):
   on the conjugacy classes of W, where the character psi is given by
   the list of its values on the conjugacy  classes of H.
 
-  >>> W=coxeter("A",5)
+  >>> W = coxeter("A",5)
   >>> H=reflectionsubgroup(W,[0,1,2,3])
   >>> c=conjugacyclasses(H)
   >>> c=conjugacyclasses(H)['reps']; c
@@ -5224,7 +5244,7 @@ def chartablesymmetric(n):
   that in gap3 but it reasonably works up to n around 15.)
 
   >>> partitions(4)
-  [[1, 1, 1, 1], [2, 1, 1], [2, 2], [3, 1],[4]]
+  [[1, 1, 1, 1], [2, 1, 1], [2, 2], [3, 1], [4]]
   >>> chartablesymmetric(4)
   [[1,-1, 1, 1,-1],             # sign character
    [3,-1,-1, 0, 1],             # reflection character
@@ -5515,7 +5535,7 @@ def chartableD(n):
   * If n/2 is odd, then labels are the same, but in the table, all
     rows corresponding to +/- characters have to be swapped.
 
-  >>> W=coxeter("D",4); chartable(W)['irreducibles']
+  >>> W = coxeter("D",4); chartable(W)['irreducibles']
   [[3,-1, 3,-1, 1,-1, 3,-1,-1, 0, 0,-1, 1],
    [3,-1, 3,-1, 1,-1,-1, 3,-1, 0, 0, 1,-1],
    [4, 0,-4,-2, 0, 2, 0, 0, 0, 1,-1, 0, 0],
@@ -7009,7 +7029,7 @@ def dimBu(W):
   correspondence (where the underlying algebraic group is defined  over
   a field of characteristic p where either p=0 or p is a good prime.)
 
-  >>> W=coxeter("G",2)
+  >>> W = coxeter("G",2)
   >>> dimBu(W); chartable(W)['a']; chartable(W)['b']
   [0, 6, 1, 3, 1, 2]
   [0, 6, 1, 1, 1, 1]
@@ -7237,7 +7257,7 @@ def constructible(W,weightL=1,display=True):
 
   See also 'ainvariants' and 'lusztigfamilies'.
 
-  >>> W=coxeter("B",2)
+  >>> W = coxeter("B",2)
   >>> constructible(W)             # equal parameter case
   # 4 constructible characters:
   # [[2], []]
@@ -7440,7 +7460,7 @@ def lusztigfamilies(W,weightL=1):
   Thus, there are 7 families in this case, and the partial  order
   is a linear order.
 
-  >>> W=coxeter("B",2)
+  >>> W = coxeter("B",2)
   >>> lusztigfamilies(W)      # equal parameters
   'families': {[[3], [0,1,4], [2]],
   'names'  :  [[('[[2], []]',)], [('[[1,1], []]',), ('[[1], [1]]',),
@@ -7530,7 +7550,7 @@ def poincarepol(W,paramL):
   parameters will be set equal to that element; the  default value
   is 1, in which case the function returns the group order.
 
-  >>> W=coxeter("G",2)
+  >>> W = coxeter("G",2)
   >>> v=lpol([1],1,'v')
   >>> p=poincarepol(W,v); p
   1+2*v+2*v**2+2*v**3+2*v**4+2*v**5+v**6
@@ -7649,7 +7669,7 @@ def allclasspolynomials(W,paramL,maxl=-1):
   returned. The result is a dictionary with the elements of W as keys
   (given as coxelms) and values given by the class polynomials.
 
-  >>> W=coxeter("I5",2)
+  >>> W = coxeter("I5",2)
   >>> c=allclasspolynomials(W,v); c
   {(0, 1): [1, 0, 0, 0],
    (4, 7): [0, 0, 1, 0],
@@ -7780,8 +7800,8 @@ def heckevalueB(n,q,Q,gamma,pi):
 
   In particular, the commands:
 
-    >>> p=partitiontuples(n,2)
-    >>> [[heckevalueB(n,q,Q,a,b) for b in p] for a in p]
+    >>> p=partitiontuples(n,2)    # not tested
+    >>> [[heckevalueB(n,q,Q,a,b) for b in p] for a in p]    # not tested
 
   will yield the complete character table (with the same ordering
   of the rows and columns as in 'heckechartable'). If q,Q are set
@@ -7790,8 +7810,8 @@ def heckevalueB(n,q,Q,gamma,pi):
 
   >>> heckevalueB(20,v**2,v**3,[[8,6,2],[2,2]],[[4,4,4],[4,4]])
   -30*v**24+324*v**26-1620*v**28+4500*v**30-7719*v**32+8499*v**34
-          -5940*v**36+2778*v**38-1608*v**40+1590*v**42-1050*v**44
-                           +210*v**46+141*v**48-93*v**50+18*v**52
+  -5940*v**36+2778*v**38-1608*v**40+1590*v**42-1050*v**44
+  +210*v**46+141*v**48-93*v**50+18*v**52
   >>> heckevalueB(20,1,1,[[8,6,2],[2,2]],[[4,4,4],[4,4]])
   0
 
@@ -8684,7 +8704,7 @@ def heckecharvalues(W,paramL,lw,clpols=[]):
   argument  lw  contains the list of  elements,  given  as  reduced
   expressions, for which the character values are to be computed.
 
-  >>> W=coxeter("B",2)
+  >>> W = coxeter("B",2)
   >>> a=allwords(W); a
   [[], [0], [1], [0, 1], [1, 0], [0, 1, 0], [1, 0, 1], [0, 1, 0, 1]]
   >>> heckecharvalues(W,[v**3,v**2],a)
@@ -8730,7 +8750,7 @@ def heckecentraltable(W,paramL):
   efficient version, which will also be meant to work  for W of type E_8,
   in a later version.)
 
-  >>> W=coxeter("B",2)
+  >>> W = coxeter("B",2)
   >>> v=lpol([1],1,'v')
   >>> ti=heckechartable(W,[v**2,v])
   >>> ct=heckecentraltable(W,[v**2,v]); ct
@@ -9245,7 +9265,7 @@ def schurelms(W,paramL):
   See also 'heckechartable' (for explanations of the conventions for
   the parameters) and 'lcmschurelms'.
 
-  >>> W=coxeter("B",2)
+  >>> W = coxeter("B",2)
   >>> v=lpol([1],1,'v')       # the built-in Lauent polynomials
 
   >>> schurelms(W,v)          # equal parameters
@@ -9310,7 +9330,7 @@ def lcmschurelms(W,paramL):
   semisimple  if and only if  this  least common multiple  remains
   non-zero under the specialisation.
 
-  >>> W=coxeter("B",2)
+  >>> W = coxeter("B",2)
   >>> v=lpol([1],1,'v')          # the built-in Lauent polynomials
   >>> lcmschurelms(W,v)          # equal parameters
   2+4*v**2+4*v**4+4*v**6+2*v**8
@@ -9406,7 +9426,7 @@ def fakedegree(W,u,chars):
   is defined to be the largest integer b such that u^b divides R(f).
   The b-invariants are contained in the result of 'chartable(W)'.
 
-  >>> W=coxeter("G",2)
+  >>> W = coxeter("G",2)
   >>> v=lpol([1],1,'v')
   >>> fakedegree(W,v,chartable(W)['irreducibles'])
   [1, v**6, v**3, v**3, v+v**5, v**2+v**4]
@@ -9630,7 +9650,7 @@ def specialpieces(W,v):
   special  piece  associated  with  chi.  The  total size of all special
   pieces should be v^(2*N) where N is the number of positive roots.
 
-  >>> W=coxeter("H",3)
+  >>> W = coxeter("H",3)
   >>> v=lpol([1],1,'v')      # built-in polynomials
   >>> specialpieces(W,v)
   #I Total size of all special pieces: v**30
@@ -9722,7 +9742,7 @@ class wgraph:
   can specify explicitly  the above components.  There are further
   possibilities; see 'relklpols' for some examples.
 
-  >>> W=coxeter("G",2)
+  >>> W = coxeter("G",2)
   >>> k=klcells(W,1,v); k
   #I 4 left cells
   >>> [wgraph(coxeter('G',2),[1,1], [[]]),
@@ -9999,7 +10019,7 @@ class wgraph:
     of W, as returned by  'conjugacyclasses'.  The result will
     be added as component 'char' to the wgraph class.
 
-    >>> W=coxeter("A",3)
+    >>> W = coxeter("A",3)
     >>> [l.character() for l in klcells(w,1,v)]
     [[1,1,1,1,1], [3,1,-1,0,-1], [3,1,-1,0,-1], [2,0,2,-1,0],
      [3,-1,-1,0,1], [3,1,-1,0,-1], [2,0,2,-1,0],
@@ -10146,7 +10166,7 @@ def klpolynomials(W,weightL,v):
   that weightL is just an integer, in which case all weights  will  be
   set  equal to that integer.
 
-  >>> W=coxeter("B",2)
+  >>> W = coxeter("B",2)
   >>> kl=klpolynomials(W,[2,1],v)
   #I Number of elements = 8
   #I Initialising (Bruhat-Chevalley order etc.) ....
@@ -10156,8 +10176,8 @@ def klpolynomials(W,weightL,v):
   >>> kl['klpols']   # negative coefficients do occur!
   [1, 1-v**2, 1+v**2]
   >>> kl['lcells']
-  [[0], [1, 4], [2], [3, 6], [5], [7]]      # elements represented by
-                                            # their index in 'elms'
+  [[0], [1, 4], [2], [3, 6], [5], [7]]
+  >>> # elements represented by their index in 'elms'
   >>> [[kl['elms'][w] for w in c] for c in kl['lcells']]
   [[[]],
    [[0], [1, 0]],
@@ -10174,6 +10194,7 @@ def klpolynomials(W,weightL,v):
   'c1cc'
   >>> kl['klpols'][int(kl['klmat'][5][0][1])]
   1-v**2
+
   (Thus, we have P_{[],[0,1,0]}=1-v**2.)
 
   In general, P_{elms[y],elms[w]} is given by
@@ -10525,7 +10546,7 @@ def relklpols(W,W1,cell1,weightL,q):
   will return all  relative  Kazhdan-Lusztig  polynomials  p_{xu,yv}^*
   where x,y run over all of X and u,v run over all of W1.
 
-  >>> W=coxeter("A",3); W1=reflectionsubgroup(W,[0,1])
+  >>> W = coxeter("A",3); W1=reflectionsubgroup(W,[0,1])
   >>> k1=klcells(W1,1,v); k1
   [wgraph(coxeter('A',2), [1, 1], [[]]),
    wgraph(coxeter('A',2), [1, 1], [[1], [0, 1]]),
@@ -11054,7 +11075,7 @@ def allrelklpols(W,J,weightL,q):
 
    p_{xu,yv} = v^{L(yv)-L(xu)} p_{xu,yv}^*.
 
-  >>> W=coxeter("B",2)
+  >>> W = coxeter("B",2)
   >>> relklpols(W,[0],1,v)
   {'allelms':  [[],[0],[1],[0,1],[1,0],[0,1,0],[1,0,1],[0,1,0,1]],
    'elmsX':    [[],[1],[0,1],[1,0,1]],
@@ -11334,7 +11355,7 @@ def klstaroperation(W,s,t,pcell):
   function  returns  'False'  if the  star operation with respect to
   s,t is not defined for the  elements  in the given set.
 
-  >>> W=coxeter("D",4); W.coxetermat
+  >>> W = coxeter("D",4); W.coxetermat
   [[1, 2, 3, 2], [2, 1, 3, 2], [3, 3, 1, 3], [2, 2, 3, 1]]
 
   >>> k=klcells(W,1,v);k[0][2]
@@ -11375,7 +11396,7 @@ def klstarorbit(W,l,gens='each'):
   can be  used to specify  the generators  for which the  star
   operation will be considered.
 
-  >>> W=coxeter("A",3);k=klcells(W,1,v)
+  >>> W = coxeter("A",3);k=klcells(W,1,v)
   >>> k[1]
   wgraph(coxeter('A',3), [1, 1, 1], [[2], [1, 2], [0, 1, 2]])
   >>> klstarorbit(W,k[1].X)
@@ -11807,7 +11828,7 @@ def gentaucells(W,startset,pr=True,lcells=False,string=False,tlen=False):
   left cells, the function performs faster when the additional
   argument 'lcells' is set to 'True'.
 
-  >>> W=coxeter("E",6)
+  >>> W = coxeter("E",6)
   >>> g=gentaucells(W, allwords(W))
   >>> len(g)
   652
@@ -11823,7 +11844,7 @@ def gentaucells(W,startset,pr=True,lcells=False,string=False,tlen=False):
   his article "Cells in affine Weyl groups I"). This is useful
   for dealing with groups of non simply-laced type:
 
-  >>> W=coxeter("F",4)
+  >>> W = coxeter("F",4)
   >>> len(gentaucells(W, allwords(W), string=True))
   #I 1152 tau-cells: 16 36 58 72
   72
@@ -11890,13 +11911,13 @@ def gentaureps(W,pr=True):
   """returns a set of the representatives of the generalised
   tau-cells under the star operations.
 
-  >>> W=coxeter("E",6)
+  >>> W = coxeter("E",6)
   >>> g=gentaureps(W)
   >>> len(g)
   21
   >>> g1=[]
   >>> for x in g:
-  >>>   g1.extend(klstarorbit(W,x))
+  ...     g1.extend(klstarorbit(W,x))
   >>> len(g1)
   652
 
@@ -11960,7 +11981,7 @@ def wgraphstarorbit(W,wgr,gens='each'):
   Kazhdan-Lusztig star operation.  (Only works  in the case of equal
   parameters.)
 
-  >>> W=coxeter("A",2); k=klcells(W,1,v); k
+  >>> W = coxeter("A",2); k=klcells(W,1,v); k
   #I 4 left cells (3 non-equivalent)
   [[[[]], [[0, 1, 0]], [[1], [0, 1]], [[1, 0], [0]]],
    [wgraph(coxeter('A',2), [1, 1], [[]]),
@@ -12119,25 +12140,25 @@ def klcells(W,weightL,v,allcells=True,pr=True):
   (I have checked that the result of  'klcells'  coincides with
   the result for E6 produced by DuCloux's Coxeter programme.)
 
-  >>> k=klcells(coxeter("D",7),1,v)         # takes < 4 minutes
+  >>> k=klcells(coxeter("D",7),1,v)    # not tested # takes < 4 minutes
   #I 2416 left cells (49 non-equivalent), mues: 1
   >>> set([len(c) for c in k[0]])
   set([1,98,35,6,7,105,231,140,15,112,49,210,147,20,21,56,84,
        154,175,63])
 
-  >>> k=klcells(coxeter("E",7),1,v)       # takes about 4 hours
+  >>> k=klcells(coxeter("E",7),1,v)    # not tested # takes about 4 hours
   #I 6364 left cells (56 non-equivalent), mues: 1,2,3,4,6,5
   >>> set([len(c) for c in k[0]])
   set([1024,1,27,7,168,105,756,135,77,910,621,504,210,594,21,
        225,665,378,91,189,875])
 
-  >>> k=klcells(coxeter("D",8),1,v)       # takes about 4 hours
+  >>> k=klcells(coxeter("D",8),1,v)     # not tested # takes about 4 hours
   #I 11504 left cells (90 non-equivalent), mues: 1,2
   set([1,7,8,140,21,1302,280,28,35,168,176,392,434,56,315,700,
        448,68,714,76,336,184,980,728,350,230,616,490,364,238,
        112,504,250,252])
 
-  >>> k=klcells(coxeter("A",9),1,v)    # takes about 50 minutes
+  >>> k=klcells(coxeter("A",9),1,v)    # not tested # takes about 50 minutes
   #I 9496 left cells (42 non-equivalent), mues: 1
   >>> set([len(c) for c in k[0]])
   set([768,1,9,525,160,35,36,42,300,567,315,448,288,450,75,210,
@@ -12314,7 +12335,7 @@ def leadingcoefficients(W,weightL,lw,clpols=[]):
   in 'ainvariants';  in particular,  the programme also works for
   unequal parameters.
 
-  >>> W=coxeter("B",2)
+  >>> W = coxeter("B",2)
   >>> a=allwords(W); a;
   [[], [0], [1], [0, 1], [1, 0], [0, 1, 0], [1, 0, 1], [0, 1, 0, 1]]
   >>> leadingcoefficients(W,[1,1],a)
@@ -12397,7 +12418,7 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
   unequal parameters.
 
   >>> v=lpol([1],1,'v')
-  >>> W=coxeter("B",2)
+  >>> W = coxeter("B",2)
   >>> [leftcellleadingcoeffs(W,1,v,l)
                    for l in klcells(W,1,v)[0]] # equal parameters
   #I 4 left cells (4 non-equivalent), mues: 1
@@ -12438,14 +12459,14 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
   sense of Lusztig) which appears in the left cell representation
   carried by C.
 
-  >>> W=coxeter("F",4); k=klcells(W,1,v)
+  >>> W = coxeter("F",4); k=klcells(W,1,v)
   >>> l=leftcellleadingcoeffs(W,1,v,k[0][64]); l['ti']
-  [[('4_1',), [1,-1,-1, 1, 1, 0,-1,-1, 1]],
-   [('9_2',), [1, 1,-1,-1,-1, 0,-1, 1, 1]],
-   [('9_3',), [1,-1, 1,-1,-1, 0, 1,-1, 1]],
-   [('6_2',), [1, 1, 1, 1, 1,-2, 1, 1, 1]],
+  [[('4_1',), [1, -1, -1, 1, 1, 0, -1, -1, 1]],
+   [('9_2',), [1, 1, -1, -1, -1, 0, -1, 1, 1]],
+   [('9_3',), [1, -1, 1, -1, -1, 0, 1, -1, 1]],
+   [('6_2',), [1, 1, 1, 1, 1, -2, 1, 1, 1]],
    [('12',),  [1, 1, 1, 1, 1, 4, 1, 1, 1]],
-   [('16',),  [2, 0, 0, 0, 0, 0, 0, 0,-2]]]}
+   [('16',),  [2, 0, 0, 0, 0, 0, 0, 0, -2]]]}
   >>> l['special']
   ('12',)
   >>> t=chartable(W); t['charnames'].index('12')
@@ -12598,7 +12619,7 @@ def distinguishedinvolutions(W,weightL,distonly=True):
   If not all n_d are equal to 1,  then there is a third component
   containing the values n_d.
 
-  >>> W=coxeter("I8",2)
+  >>> W = coxeter("I8",2)
   >>> distinguishedinvolutions(W,[1,2])   # unequal parameters
   #I Number of distinguished involutions = 6 (4)
   [[[], [1], [0], [0,1,0], [1,0,1,0,1,0,1], [0,1,0,1,0,1,0,1]],
@@ -12610,7 +12631,7 @@ def distinguishedinvolutions(W,weightL,distonly=True):
     [[('phi_{1,8}',),1]]],
    [1, 1, 1, 1, -1, 1]]
 
-  >>> W=coxeter("G",2)
+  >>> W = coxeter("G",2)
   >>> distinguishedinvolutions(W,1)       # equal parameters
   #I Number of distinguished involutions = 4 (4)
   [[[], [1], [0], [0,1,0,1,0,1]],
@@ -13255,7 +13276,7 @@ def allcellsleadingcoeffs(W,weightL,v,newnorm=False):
 
 #F libdistinv
 def libdistinv(W,weightL,unpack=True):
-  """returns a pre-computed and explicitly stored list  of distinguished
+  r"""returns a pre-computed and explicitly stored list  of distinguished
   involutions.  Among other properties, these elements  form a set of
   representatives for the left cells of W  with respect  to the given
   weight function.  This function only works  for  W of  type I_2(m),
@@ -13265,16 +13286,16 @@ def libdistinv(W,weightL,unpack=True):
   One  can reproduce these data  using 'distinguishedinvolutions' but
   this will take some time.  Also,  some further arguments are needed
   to deal with all choices of unequal parameters for  I_2(m) and F_4.
-  Here, we rely on the results and techniques in
+  Here, we rely on the results and techniques in::
 
-   M. Geck, Computing Kazhdan-Lusztig cells for unequal parameters,
-            J. Algebra 281 (2004), 342--365.
+      M. Geck, Computing Kazhdan-Lusztig cells for unequal parameters,
+      J. Algebra 281 (2004), 342--365.
 
   For the  large groups of  exceptional type,  we only store a set of
   representatives under N. Xi's 'double'  star operation;  this shows
   that, if d is distinguished and the star operation is defined for d
   (with respect to generators s,t such that st has order 3), then the
-  element ((d^*)^{-1})^* is also distinguished; see Section 1.4 in
+  element ((d^*)^{-1})^* is also distinguished; see Section 1.4 in::
 
       N. Xi, The based ring of two-sided cells of affine Weyl groups
       of type $~A_{n-1}$. Mem. Amer. Math. Soc.,  vol. 157, no. 749,
@@ -13285,10 +13306,10 @@ def libdistinv(W,weightL,unpack=True):
   but  only  106  orbits  under  the  'double' star  operation.  The
   'unpacking' is done by the function 'starorbitinv'.
 
-  >>> W=coxeter("E",8);
-  >>> d=timer(libdistinv,W,1)
+  >>> W = coxeter("E",8);
+  >>> d=timer(libdistinv,W,1)   # not tested
   188.06
-  >>> len(d)
+  >>> len(d)   # not tested
   101796
 
   See also 'distinguishedinvolutions' and 'distinva'.
@@ -13814,7 +13835,7 @@ def distinva(W,weightL=1):
   contains  the corresponding  a-invariants.  This uses the
   function 'libdistinv' for the types E6, E7, E8.
 
-  >>> W=coxeter("G",2)
+  >>> W = coxeter("G",2)
   >>> distinva(W)
   #I Number of distinguished involutions = 4 (4)
   [[(0, 1), (4, 7), (6, 2), (6, 7)], [0, 1, 1, 6]]
@@ -15375,12 +15396,12 @@ def cellrepstarorbit(W,c):
   the left cells in 'klcellreps',  then we obtain all the left
   cells of W.
 
-  >>> W=coxeter("E",8)
+  >>> W = coxeter("E",8)
   >>> c=klcellreps(W)
   >>> a=cellrepstarorbit(W,c[1])
   #I orbit with 8 cells
 
-  >>> W=coxeter("E",7); l1=[]
+  >>> W = coxeter("E",7); l1=[]
   >>> for c in klcellreps(W):
   ...   for l in cellrepstarorbit(W,c):
   ...     l1.append(len(leftconnected(W,list(l['elms']),pr=0)))
@@ -15413,7 +15434,7 @@ def klcellrepelm(W,w,pr=False):
   are left empty.  In particular, this yields the two-sided cell
   in which the element lies, and its a-invariant.
 
-  >>> W=coxeter("E",8)
+  >>> W = coxeter("E",8)
   >>> w=conjugacyclasses(W)['reps'][10]
   >>> len(w)
   40
@@ -15484,7 +15505,7 @@ def cellreplstars(W):
   are sorted, and the first element  in the sorted list is taken as
   representative.
 
-  >>> W=coxeter("B",2)
+  >>> W = coxeter("B",2)
   >>> cellreplstars(W)
   [...]
   #I Total number OK
@@ -15592,7 +15613,7 @@ def leftcellelm(W,w,replstars=False):
   efficient to first apply  the function 'cellreplstars' to W
   and then give the output as additional argument.
 
-  >>> W=coxeter("F",4)
+  >>> W = coxeter("F",4)
   >>> t0=time.time()
   >>> l0=[leftcellelm(W,x) for x in allwords(W)]
   >>> time.time()-t0
@@ -15790,7 +15811,7 @@ def cellrepcheck3(W):
 def checkleftctd(W):
   """checks left-connectedness of all left cells of W.
 
-  >>> W=coxeter("H",3)
+  >>> W = coxeter("H",3)
   >>> checkleftctd(W)
   set([1])
 
