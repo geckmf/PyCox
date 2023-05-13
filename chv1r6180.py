@@ -2137,7 +2137,7 @@ def cartanmat(typ,n):
   >>> cartanmat("I5",2)
   [[2, -ir5], [-ir5, 2]]
 
-  See 'zeta5' for the definition of ir5=.
+  See 'zeta5' for the definition of ir5.
 
   The complete list of the graphs  with their labelling is as
   follows::
@@ -2404,7 +2404,7 @@ def typecartanmat(mat):
     nb=[[j for j in range(n) if i!=j and mat[i][j]!=0] for i in range(n)]
     es=[i for i in range(n) if len(nb[i])==1]   # end nodes
     if len(es)==0:     # circle
-      return ['U',range(n)]
+      return ['U', list(range(n))]
     elif len(es)==2:   # straight line
       p=[es[0]]
       for s in p:
@@ -2419,7 +2419,7 @@ def typecartanmat(mat):
         if a in cs:
           return [typ[cs.index(a)],p]
         else:
-          return ["U",range(n)]
+          return ["U",list(range(n))]
     elif len(es)==3:    # three end nodes
       p0=[es[0]]
       for s in p0:
@@ -2454,7 +2454,7 @@ def typecartanmat(mat):
         p[0]=ps[l1[0]][0]
         p[1]=ps[l1[1]][0]
         if not [[mat[i][j] for j in p] for i in p] in cs:  # testing
-          return ["U",range(n)]
+          return ["U", list(range(n))]
         return [typ,p]
       elif lp1 in [[2,3,3],[2,3,4],[2,3,5]]: # type E
         typ='E'
@@ -2470,12 +2470,13 @@ def typecartanmat(mat):
         for i in range(len(ps[r])):
           p[i+3]=ps[r][-i-1]
         if not [[mat[i][j] for j in p] for i in p] in cs:  # testing
-          return ["U",range(n)]
-        return [typ,p]
+          return ["U", list(range(n))]
+        return [typ, p]
       else:
-        return ["U",range(n)]
+        return ["U", list(range(n))]
     else:
-      return ["U",range(n)]
+      return ["U", list(range(n))]
+
 
 def finitetypemat(mat):
   """identifies the type of an indecomposable Cartan matrix, which
@@ -2919,7 +2920,7 @@ class coxeter:
       elif rank==2 and typ=='D':
         self.cartantype=[['A',[0]],['A',[1]]]
       else:
-        self.cartantype=[[typ,range(rank)]]
+        self.cartantype=[[typ, list(range(rank))]]
     if self.cartantype[0][0]=='U':
       self.cartanname=str('U')
       for l in self.cartan:
@@ -2969,7 +2970,7 @@ class coxeter:
     self.fusions={self.cartanname:{'subJ':self.rank, 'parabolic':True}}
     if fusion!=[]:
       self.fusions[fusion[0]]={}
-      for k in fusion[1].keys():
+      for k in fusion[1]:
         self.fusions[fusion[0]][k]=fusion[1][k]
     self.matgens=[]
     for s in self.rank:
@@ -3462,7 +3463,7 @@ def classmin(W,w,minl=True):
     J0=set(w1)
   cl1=set([mybytes(cl[0][:len(W.rank)])])
   subs={}
-  for cc in coxeterclasses(W).keys():
+  for cc in coxeterclasses(W):
     Jb=[i for i in range(len(cc)) if cc[i]=='1']
     if len(Jb)==len(J0)+1:
       subs[tuple(Jb)]=longestperm(W,Jb)
@@ -3734,7 +3735,7 @@ def reflectionsubgroup(W,J):
 
   >>> W = coxeter("F",4)
   >>> W.cartantype
-  [['F', [0, 1, 2, 3]]
+  [['F', [0, 1, 2, 3]]]
   >>> W.cartanname
   'F4c0c1c2c3'
   >>> W.fusions              # W only has the fusion into itself
@@ -3856,7 +3857,7 @@ def allmats(W,maxl=-1):
   >>> W.cartantype
   [['U', [0, 1, 2]]]
   >>> print(W.cartan)
-  [[2, -1, 0], [-1, 2, -1], [0, -3, 2]])
+  [[2, -1, 0], [-1, 2, -1], [0, -3, 2]]
   >>> [[W.mattoword(m) for m in l] for l in allmats(W,3)]
   #I 1 3 5 7
   #I total = 16
@@ -4049,7 +4050,7 @@ def redinrightcoset(W,H,w):
 
   >>> W = coxeter("F",4)
   >>> H=reflectionsubgroup(W,[0,1,8,15]); H.cartantype     # non-parabolic
-  [['D', [1, 2, 0, 3]]]
+  [['D', [1, 3, 0, 2]]]
   >>> W.coxelmtoword(redinrightcoset(W,H,W.wordtocoxelm([2,1,2,3,2,1])))
   [3, 2]
 
@@ -5149,7 +5150,7 @@ def fusionconjugacyclasses(H,W):
                       41,43,44,46,48,49,52,53,55,55,58,59,62,63,63]
   """
   fh=H.fusions[W.cartanname]
-  if 'classes' in fh.keys():
+  if 'classes' in fh:
     return fh['classes']
   ch=conjugacyclasses(H)
   if H.cartanname==W.cartanname:
@@ -5364,8 +5365,8 @@ def chartableB(n):
   reasonably works for  values  of n  up to around 10.)
 
   >>> partitiontuples(3,2)
-  [[[1,1,1],[]],[[1,1],[1]],[[1],[1,1]],[[],[1,1,1]],[[2,1],[]],
-   [[1],[2]],[[2],[1]],[[],[2,1]],[[3],[]],[[],[3]]]
+  [[[1, 1, 1], []], [[1, 1], [1]], [[1], [1, 1]], [[], [1, 1, 1]],
+   [[2, 1], []], [[1], [2]], [[2], [1]], [[], [2, 1]], [[3], []], [[], [3]]]
   >>> chartableB(3)
   [[1, 1, 1, 1,-1,-1,-1,-1, 1, 1],
    [3, 1,-1,-3,-1,-1, 1, 1, 0, 0],
@@ -6730,7 +6731,7 @@ def chartable(W,chars=True):
   See also 'displaychartable'.
   """
   if 'chartable' in dir(W) and (chars==False or
-                           'irreducibles' in W.chartable.keys()):
+                           'irreducibles' in W.chartable):
     return W.chartable
   t0=irrchardata(W.cartantype[0][0],len(W.cartantype[0][1]),chars)
   mat=t0['irreducibles']
@@ -6788,7 +6789,7 @@ def displaychartable(ti):
 
   See also 'displaymat'.
   """
-  if not 'charnames' in ti.keys():
+  if not 'charnames' in ti:
     rows=['|'.join(c) for c in ti['coxeter'].chartable['charnames']]
     cols=['|'.join(c) for c in ti['coxeter'].chartable['classnames']]
   else:
@@ -6975,7 +6976,7 @@ def involutionmodel(W,poids=1):
           for j in range(len(rr))])//W.order for chi in ti['irreducibles']]
     lprint('\n')
   lprint('#I Total decomposition:\n#I ')
-  lprint(str([sum([chisigma[chi][i] for chi in chisigma.keys()])
+  lprint(str([sum([chisigma[chi][i] for chi in chisigma])
                                          for i in range(len(rr))]))
   lprint('\n')
   return chisigma
@@ -7681,9 +7682,17 @@ def allclasspolynomials(W,paramL,maxl=-1):
    (5, 2): [0, 1, 0, 0],
    (6, 5): [0, v**2, -v+v**2, -1+v],
    (8, 4): [0, 0, 1, 0]}
-  >>> [W.coxelmtoword(w) for w in c.keys()]
-  [[], [1, 0], [0, 1, 0, 1], [1, 0, 1], [0, 1, 0], [1, 0, 1, 0],
-   [1], [0], [0, 1, 0, 1, 0], [0, 1]]
+  >>> sorted([W.coxelmtoword(w) for w in c])
+  [[],
+   [0],
+   [0, 1],
+   [0, 1, 0],
+   [0, 1, 0, 1],
+   [0, 1, 0, 1, 0],
+   [1],
+   [1, 0],
+   [1, 0, 1],
+   [1, 0, 1, 0]]
 
   See also 'classpolynomials' and 'heckecharvalues'.
   """
@@ -7713,8 +7722,8 @@ def allclasspolynomials(W,paramL,maxl=-1):
     if maxlen>20:
       lprint(str(l+1))
     nl=set([])
-    ol=set(cpmat[l-1].keys())
-    for w in cpmat[l].keys():
+    ol=set(cpmat[l-1])
+    for w in cpmat[l]:
       for s in W.permgens:
         nw=tuple([s[i] for i in w])
         if not nw in ol:
@@ -7750,7 +7759,7 @@ def allclasspolynomials(W,paramL,maxl=-1):
     lprint('\n')
   res={}
   for l in cpmat:
-    for x in l.keys():
+    for x in l:
       res[x]=l[x]
   return res
 
@@ -9893,7 +9902,7 @@ class wgraph:
       x1r=[self.Xrep[i] for i in l]
       i1=[self.Isets[i] for i in l]
       m1={}
-      for k in self.mmat.keys():
+      for k in self.mmat:
         m1[(l1[k[0]],l1[k[1]])]=self.mmat[k]
       return wgraph(self.W,self.weights,lx,self.var,i1,m1,self.mpols,x1r)
   def wgraphtoklmat(self):
@@ -9910,7 +9919,7 @@ class wgraph:
     mues=[[0,1] for s in self.W.rank]
     for j in range(len(self.X)):
       for i in range(j):
-        if (j,i) in self.mmat.keys():
+        if (j,i) in self.mmat:
           mstr='c0'   # exact value will not be used anywhere
           eps=-(-1)**(len(self.X[i])+len(self.X[j]))
           rk=self.mmat[(j,i)].split('c')[1:]
@@ -9931,7 +9940,7 @@ class wgraph:
     the list of W-graphs of the indecomposable composants.
     """
     pp0=[[w] for w in range(len(self.X))]
-    for p in self.mmat.keys():
+    for p in self.mmat:
       pp0[p[0]].append(p[1])
     pp1=[p[:] for p in pp0]
     for z in pp1:
@@ -9953,7 +9962,7 @@ class wgraph:
       x1r=[self.Xrep[i] for i in l]
       i1=[self.Isets[i] for i in l]
       m1={}
-      for k in self.mmat.keys():
+      for k in self.mmat:
         if k[0] in l and k[1] in l:
           m1[(l.index(k[0]),l.index(k[1]))]=self.mmat[k]
       neu.append(wgraph(self.W,self.weights,x1,self.var,i1,m1,self.mpols,x1r))
@@ -9983,7 +9992,7 @@ class wgraph:
             mats[s][y][y]=v**(2*self.weights[s])
           for x in range(len(self.X)):
             if self.weights[s]==0 or s in self.Isets[x]:
-              if (y,x) in self.mmat.keys():
+              if (y,x) in self.mmat:
                 mats[s][y][x]=v**(self.weights[s])*self.mpols[s][
                                     int(self.mmat[y,x].split('c')[s+1])]
     if check!=False:
@@ -11970,7 +11979,7 @@ def klcellw0(W,wgr):
   else:
     ni=[W.leftdescentsetperm(p) for p in np]
     nmat={}
-    for k in wgr.mmat.keys():
+    for k in wgr.mmat:
       nmat[(k[1],k[0])]=wgr.mmat[k]
     return wgraph(W,wgr.weights,[W.permtoword(p) for p in np],wgr.var,
                 ni,nmat,wgr.mpols,[p[:len(W.rank)] for p in np]).normalise()
@@ -12227,7 +12236,7 @@ def klcells(W,weightL,v,allcells=True,pr=True):
               x1r=[ind1.Xrep[ih] for ih in l]
               i1=[ind1.Isets[ih] for ih in l]
               m1={}
-              for kh in ind1.mmat.keys():
+              for kh in ind1.mmat:
                 if kh[0] in l and kh[1] in l:
                   m1[(l.index(kh[0]),l.index(kh[1]))]=ind1.mmat[kh]
               ind.extend(wgraph(ind1.W,ind1.weights,x1,ind1.var,i1,
@@ -12727,8 +12736,8 @@ def distinguishedinvolutions(W,weightL,distonly=True):
     if l==0:
       ol=[]
     else:
-      ol=set(cpmat[l-1].keys())
-    for w in cpmat[l].keys():
+      ol=set(cpmat[l-1])
+    for w in cpmat[l]:
       for s in W.permgens:
         nw=mybytes([s[i] for i in w])
         if not nw in ol:
@@ -13045,8 +13054,8 @@ def distinguishedinvolutions_eq(W):
     if l==0:
       ol=[]
     else:
-      ol=set(cpmat[l-1].keys())
-    for w in cpmat[l].keys():
+      ol=set(cpmat[l-1])
+    for w in cpmat[l]:
       for s in W.permgens:
         nw=mybytes([s[i] for i in w])
         if not nw in ol:
