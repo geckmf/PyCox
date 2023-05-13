@@ -942,7 +942,7 @@ class lpolmod:
     r='lpolmod('+str(self.coeffs)+','+str(self.val)+",'"+str(self.zname)+"')"
     return r
   def truncate(self):
-    if self.truncated==True:
+    if self.truncated:
       return self
     else:
       v=lpol([1],1,self.phi.vname)
@@ -2958,7 +2958,7 @@ class coxeter:
             self.coxetermat[s][t],self.coxetermat[t][s]=m,m
           else:
             self.coxetermat[s][t],self.coxetermat[t][s]='U','U'
-    if split==True:
+    if split:
       self.split=self.rank
     else:
       self.split=split
@@ -3028,8 +3028,7 @@ class coxeter:
           if i!=j and t1[i][j]!=t1[j][i]:
             print("mist !")
             return "mist"
-    #if type(typ)==type([[]]):
-    #  lprint('#I type: '+str(self.cartantype)+'\n')
+
   def __repr__(self):
     ct=self.cartantype
     if (len(ct)==1 and ct[0][0]!='U' and list(ct[0][1])==
@@ -3037,6 +3036,7 @@ class coxeter:
       return "coxeter('"+ct[0][0]+"',"+str(len(ct[0][1]))+')'
     else:
       return 'coxeter('+str(self.cartan)+')'
+
   def coxelmlength(self,elm):
     """returns the length of a coxelm.
     """
@@ -3188,7 +3188,7 @@ class coxeter:
     """
     f=self.fusions[W1.cartanname]['subJ']
     #if all(s in W1.rank for s in f):
-    if self.fusions[W1.cartanname]['parabolic']==True:
+    if self.fusions[W1.cartanname]['parabolic']:
       nw=[f[s] for s in w]
     else:
       nw=[]
@@ -3323,7 +3323,7 @@ def conjgenperm(W,s,pw):
   return tuple([W.permgens[s][pw[W.permgens[s][r]]] for r in range(2*W.N)])
 
 #F conjugacyclass
-def conjugacyclass(W,pw):
+def conjugacyclass(W, pw, verbose=False):
   """returns the set of all elements in a conjugacy class,  ordered by
   increasing length.  The argument is supposed  to be a  permutation
   and the elements in the resulting list are permutations. Elements
@@ -3349,7 +3349,8 @@ def conjugacyclass(W,pw):
       if not bsxs in cl1:
         cl.append(sxs)
         cl1.add(bsxs)
-  lprint('#I Size of class: '+str(len(cl))+'\n')
+  if verbose:
+    lprint('#I Size of class: '+str(len(cl))+'\n')
   lc=[W.permlength(w) for w in cl]
   l=list(range(len(cl)))
   l.sort(key=(lambda i:lc[i]))
@@ -3427,7 +3428,7 @@ def conjtomin(W,pw):
   return W.permtoword(alt)
 
 #F classmin
-def classmin(W,w,minl=True):
+def classmin(W,w,minl=True, verbose=False):
   """returns the elements of minimal length in a conjugacy class
   of a given element.
 
@@ -3446,8 +3447,9 @@ def classmin(W,w,minl=True):
 
   See also 'conjugacyclass', 'cyclicshiftclass' and 'conjtomin'.
   """
-  lprint('#I ')
-  if minl==True:
+  if verbose:
+    lprint('#I ')
+  if minl:
     l=len(w)
     J0=set(w)
     cl=[W.wordtoperm(w)]
@@ -3488,7 +3490,8 @@ def classmin(W,w,minl=True):
       if W.permlength(nw)==l and not nw1 in cl1:
         cl.append(nw)
         cl1.add(nw1)
-  lprint('Size of Cmin: '+str(len(cl))+'\n')
+  if verbose:
+    lprint('Size of Cmin: '+str(len(cl))+'\n')
   # test
   #cm=[x for x in conjugacyclass(W,cl[0]) if W.permlength(x)==l]
   #lprint(str(len(cm))+' r')
@@ -3741,7 +3744,7 @@ def reflectionsubgroup(W,J):
   >>> W.fusions              # W only has the fusion into itself
   {'F4c0c1c2c3':{"subJ":[0,1,2,3], 'parabolic':True}}
 
-  >>> H=reflectionsubgroup(W,[1,2,3,23])
+  >>> H = reflectionsubgroup(W,[1,2,3,23])
   >>> H.cartantype
   [['C', [0, 1, 2]], ['A', [3]]]
   >>> H.cartanname
@@ -3758,7 +3761,7 @@ def reflectionsubgroup(W,J):
 
   >>> W = coxeter(affinecartanmat("G",2)); W.cartanname
   'U210121032'
-  >>> H=reflectionsubgroup(W,[1,2]); H.cartanname
+  >>> H = reflectionsubgroup(W,[1,2]); H.cartanname
   'G2c0c1'
   >>> H.fusions
   {"G2c0c1":{'subJ':[0,1],     'parabolic':True},
@@ -3771,7 +3774,7 @@ def reflectionsubgroup(W,J):
   create a copy of W with the simple reflections relabelled.
 
   >>> W = coxeter("F",4);
-  >>> H=reflectionsubgroup(W,[1,3,0,2])
+  >>> H = reflectionsubgroup(W,[1,3,0,2])
   >>> H.cartantype
   [['F', [2, 0, 3, 1]]]
   >>> H.fusions
@@ -3837,7 +3840,7 @@ def reducedunique(W,pw):
       return reducedunique(W,tuple(pw[i] for i in W.permgens[l[0]]))
 
 #F allmats
-def allmats(W,maxl=-1):
+def allmats(W,maxl=-1, verbose=False):
   """returns all elements of W of length at most maxl, represented
   as matrices.  Along the computation, the function  prints the
   number of elements of length i for i between 0 and max.  This
@@ -3875,13 +3878,11 @@ def allmats(W,maxl=-1):
       maxlen=min(maxl,W.N)
   else:
     maxlen=maxl
-  if all(type(x)==type(0) for x in flatlist(W.cartan)):
-    cryst=True
-  else:
-    cryst=False
+  cryst = all(type(x)==type(0) for x in flatlist(W.cartan))
   l=[[tuple(tuple(l) for l in idmat(W.rank,1))]]
   poin=[1]
-  lprint('#I 1 ')
+  if verbose:
+    lprint('#I 1 ')
   for i in range(maxlen):
     nl=[]
     for w in l[i]:
@@ -3889,7 +3890,7 @@ def allmats(W,maxl=-1):
         if all(w[s][t]>=0 for t in W.rank):
           nl.append(tuple([tuple([w[t][u]-W.cartan[s][t]*w[s][u]
                                  for u in W.rank]) for t in W.rank]))
-    if cryst==True:
+    if cryst:
       l.append(list(set(nl)))
     else:
       nl1=[]
@@ -3898,15 +3899,17 @@ def allmats(W,maxl=-1):
           nl1.append(x)
       l.append(nl1[:])
     poin.append(len(l[i+1]))
-    lprint(str(len(l[i+1]))+' ')
+    if verbose:
+      lprint(str(len(l[i+1]))+' ')
   W.allmats=[l[i] for i in range(maxlen+1)]
-  lprint('\n')
+  if verbose:
+    lprint('\n')
   #if W.cartantype[0][0]!='U' and max!=W.N:
   #  lprint('\n#I total = '+str(sum(poin))+'\n')
   return l
 
 #F allcoxelms
-def allcoxelms(W,maxl=-1):
+def allcoxelms(W, maxl=-1, verbose=False):
   """returns all elements of W of length at most maxl, represented
   as coxelms, that is, permutations of the set of all roots where
   only the images of the simple roots are given.  This only works
@@ -3914,14 +3917,12 @@ def allcoxelms(W,maxl=-1):
   be returned.)
 
   >>> W = coxeter("A",2)
-  >>> a=allcoxelms(W); print(a)
-  #I 1 2 2 1
-  #I total = 6
-  [[(0,1)],                         # length 0
-   [(3,2),(2,4)],                   # length 1
-   [(1, 5),(5,0)],                  # length 2
-   [(4,3)]]                         # length 3
-  >>> [[W.coxelmtoword(i) for i in l] for l in a];
+  >>> a = allcoxelms(W); a
+  [[(0, 1)],
+   [(3, 2), (2, 4)],
+   [(1, 5), (5, 0)],
+   [(4, 3)]]
+  >>> [[W.coxelmtoword(i) for i in l] for l in a]
   [[[]], [[0], [1]], [[1, 0], [0, 1]], [[0, 1, 0]]]
 
   (Use 'flatlist' to create one long list of the elements.)
@@ -3935,7 +3936,8 @@ def allcoxelms(W,maxl=-1):
   l=[[tuple(W.rank)]]
   poin=[1]
   ll=longestperm(W)
-  lprint('#I 1 ')
+  if verbose:
+    lprint('#I 1 ')
   for i in range(maxlen):
     if i<W.N/2:
       nl=[]
@@ -3949,8 +3951,10 @@ def allcoxelms(W,maxl=-1):
     else:
       l.append([tuple([ll[w[s]] for s in W.rank]) for w in l[W.N-i-1]])
     poin.append(len(l[i+1]))
-    lprint(str(len(l[i+1]))+' ')
-  lprint('\n')
+    if verbose:
+      lprint(str(len(l[i+1]))+' ')
+  if verbose:
+    lprint('\n')
   #lprint('\n#I total = '+str(sum(poin))+'\n')
   return l
 
@@ -3988,8 +3992,6 @@ def redleftcosetreps(W,J=[]):
     ol=set(nl)
     if len(ol)>0:
       l.extend(list(ol))
-  #if J!=[]:
-  #  lprint('#I total = '+str(len(l))+'\n')
   return l
 
 #F redrightcosetreps
@@ -4009,12 +4011,12 @@ def redrightcosetreps(W,H):
   [[], [3], [3,2], [3,2,1], [3,2,1,0]]
 
   >>> W = coxeter("F",4);
-  >>> H=reflectionsubgroup(W,[3,1,2,W.N-1]);H.cartantype   # non-parabolic
+  >>> H = reflectionsubgroup(W,[3,1,2,W.N-1]);H.cartantype   # non-parabolic
   [['C', [0, 1, 2]], ['A', [3]]]
   >>> [W.coxelmtoword(p) for p in redrightcosetreps(W,H)]
-  #I total = 12
-  [[],[0],[0,1],[0,1,2],[0,1,2,3],[0,1,2,1],[0,1,2,1,3],[0,1,2,1,0],
-        [0,1,2,1,0,3],[0,1,2,1,3,2],[0,1,2,1,0,3,2],[0,1,2,1,3,2,1]]
+  [[], [0], [0, 1], [0, 1, 2], [0, 1, 2, 3], [0, 1, 2, 1], [0, 1, 2, 1, 3],
+  [0, 1, 2, 1, 0], [0, 1, 2, 1, 0, 3], [0, 1, 2, 1, 3, 2],
+  [0, 1, 2, 1, 0, 3, 2], [0, 1, 2, 1, 3, 2, 1]]
 
   See also 'redinrightcoset' and 'redleftcosetreps'.
   """
@@ -4036,8 +4038,6 @@ def redrightcosetreps(W,H):
     ol=set(nl)
     if len(ol)>0:
       l.extend(list(ol))
-  #if J!=[]:
-  #  lprint('#I total = '+str(len(l))+'\n')
   return [p[:len(W.rank)] for p in l]
 
 #F redinrightcoset
@@ -4049,7 +4049,7 @@ def redinrightcoset(W,H,w):
   same type.
 
   >>> W = coxeter("F",4)
-  >>> H=reflectionsubgroup(W,[0,1,8,15]); H.cartantype     # non-parabolic
+  >>> H = reflectionsubgroup(W,[0,1,8,15]); H.cartantype     # non-parabolic
   [['D', [1, 3, 0, 2]]]
   >>> W.coxelmtoword(redinrightcoset(W,H,W.wordtocoxelm([2,1,2,3,2,1])))
   [3, 2]
@@ -4187,7 +4187,7 @@ def allelmchain1(W):
   return el
 
 #F allelmsproperty
-def allelmsproperty(W,f,elm="word",pr=True):
+def allelmsproperty(W,f,elm="word", verbose=False):
   """returns  all elements (as reduced expressions in the generators) for
   which a given function f returns True. Here, f takes as argument one
   group element of W, given as a reduced expression.
@@ -4200,14 +4200,12 @@ def allelmsproperty(W,f,elm="word",pr=True):
 
   >>> W = coxeter("A",2)
   >>> allelmsproperty(W,lambda x:W.wordtocoxelm(2*x)==(0,1))
-  #I Number of elements = 4
   [[], [0], [1], [0, 1, 0]]
 
   All elements whose reduced expressions contain all generators:
 
   >>> W = coxeter("B",2)
   >>> allelmsproperty(W,lambda x: set(x)==set([0,1]))
-  #I Number of elements = 5
   [[0, 1], [1, 0], [0, 1, 0], [1, 0, 1], [0, 1, 0, 1]]
 
   See also 'allelmchain'.
@@ -4216,11 +4214,11 @@ def allelmsproperty(W,f,elm="word",pr=True):
     a=(5-len(W.rank))*[[[]]]+allelmchain(W)
   else:
     a=allelmchain(W,depth=len(W.rank)-4)
-  if pr==True and len(a[0])>1:
+  if verbose and len(a[0])>1:
     lprint('#I ('+str(len(a[4]))+') ')
   el=[]
   for i4 in a[4]:
-    if pr==True and len(a[0])>1:
+    if verbose and len(a[0])>1:
       lprint('+')
     for i3 in a[3]:
       for i2 in a[2]:
@@ -4229,12 +4227,12 @@ def allelmsproperty(W,f,elm="word",pr=True):
         for i1 in a[1]:
           for i0 in a[0]:
             e=i0+i1+e1
-            if f(e)==True:
+            if f(e):
               el1.append(e)
         el.extend(el1)
-  if pr==True and len(a[0])>1:
+  if verbose and len(a[0])>1:
     lprint('\n')
-  if pr==True:
+  if verbose:
     lprint('#I Number of elements = '+str(len(el))+'\n')
   return el
 
@@ -4373,7 +4371,7 @@ def allwordstrings(W,maxl=-1):
   return el
 
 #F allbitcoxelms
-def allbitcoxelms(W,maxl=-1,pr=False):
+def allbitcoxelms(W, maxl=-1, verbose=False):
   """returns all elements of a finite Coxeter group, as coxelm bit
   strings, up to a given length. (Only works in Python 3 and if
   the rank of W is <=8). If the optional argument  maxl is  not
@@ -4393,7 +4391,8 @@ def allbitcoxelms(W,maxl=-1,pr=False):
   l=[[mybytes(W.rank)]]
   poin=[1]
   ll=longestperm(W)
-  lprint('#I 1 ')
+  if verbose:
+    lprint('#I 1 ')
   for i in range(maxlen):
     if i<W.N/2:
       nl=[]
@@ -4407,12 +4406,14 @@ def allbitcoxelms(W,maxl=-1,pr=False):
     else:
       l.append([mybytes([ll[w[s]] for s in W.rank]) for w in l[W.N-i-1]])
     poin.append(len(l[i+1]))
-    lprint(str(len(l[i+1]))+' ')
-  lprint('\n')
+    if verbose:
+      lprint(str(len(l[i+1]))+' ')
+  if verbose:
+    lprint('\n')
   return l
 
 #F allbitwords
-def allbitwords(W,maxl=-1,pr=False):
+def allbitwords(W, maxl=-1, verbose=False):
   """returns all elements of  a finite Coxeter group,  as bit word
   strings, up to a given length. (Only works in Python 3 and if
   the rank of W is <=8). If the optional argument  maxl is  not
@@ -4433,11 +4434,11 @@ def allbitwords(W,maxl=-1,pr=False):
   else:
     a=allelmchain(W,depth=len(W.rank)-4)
   el=[]
-  if pr==True:
+  if verbose:
     lprint('#I ')
   if maxlen==W.N:
     for i4 in a[4]:
-      if pr==True:
+      if verbose:
         lprint('+')
       for i3 in a[3]:
         for i2 in a[2]:
@@ -4449,7 +4450,7 @@ def allbitwords(W,maxl=-1,pr=False):
           el.extend(el1)
   else:
     for i4 in a[4]:
-      if pr==True:
+      if verbose:
         lprint('+')
       for i3 in a[3]:
         for i2 in a[2]:
@@ -4461,7 +4462,7 @@ def allbitwords(W,maxl=-1,pr=False):
               if len(e)<=maxlen:
                 el1.append(mybytes(e))
           el.extend(el1)
-  if pr==True:
+  if verbose:
     lprint('\n')
   el.sort(key=(lambda x:len(x)))
   return el
@@ -5121,7 +5122,7 @@ def fusionconjugacyclasses(H,W):
   subgroup H into the whole group W. (See also 'identifyclasses'.)
 
   >>> W = coxeter("H",4)
-  >>> H=reflectionsubgroup(W,[0,1,2]); print(H.cartantype)
+  >>> H = reflectionsubgroup(W,[0,1,2]); print(H.cartantype)
   [['H', [0, 1, 2]]]
   >>> H.fusions
   {'H4c0c1c2c3': {'subJ':[0,1,2], 'parabolic':True},
@@ -5142,7 +5143,7 @@ def fusionconjugacyclasses(H,W):
   of conjugacyclasses.)
 
   >>> W = coxeter("B",6)
-  >>> H=reflectionsubgroup(W,[1,2,3,4,5,11])
+  >>> H = reflectionsubgroup(W,[1,2,3,4,5,11])
   >>> H.cartantype               # non-parabolic
   [['D', [0, 5, 1, 2, 3, 4]]]
   >>> fusionconjugacyclasses(H,W)
@@ -5218,7 +5219,7 @@ def inducedchar(W,H,psi):
   the list of its values on the conjugacy  classes of H.
 
   >>> W = coxeter("A",5)
-  >>> H=reflectionsubgroup(W,[0,1,2,3])
+  >>> H = reflectionsubgroup(W,[0,1,2,3])
   >>> c=conjugacyclasses(H)
   >>> c=conjugacyclasses(H)['reps']; c
   [[], [0], [0, 2], [0, 1], [0, 1, 3], [0, 1, 2], [0, 1, 2, 3]]
@@ -5247,11 +5248,11 @@ def chartablesymmetric(n):
   >>> partitions(4)
   [[1, 1, 1, 1], [2, 1, 1], [2, 2], [3, 1], [4]]
   >>> chartablesymmetric(4)
-  [[1,-1, 1, 1,-1],             # sign character
-   [3,-1,-1, 0, 1],             # reflection character
-   [2, 0, 2,-1, 0],
-   [3, 1,-1, 0,-1],
-   [1, 1, 1, 1, 1]]             # trivial character
+  [[1, -1, 1, 1, -1],
+   [3, -1, -1, 0, 1],
+   [2, 0, 2, -1, 0],
+   [3, 1, -1, 0, -1],
+   [1, 1, 1, 1, 1]]
   """
   W=coxeter("A",n-1)
   pt=partitions(n)
@@ -5550,7 +5551,7 @@ def chartableD(n):
    [4, 0,-4, 2, 0,-2, 0, 0, 0, 1,-1, 0, 0],
    [3, 3, 3, 1, 1, 1,-1,-1,-1, 0, 0,-1,-1],
    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
-  >>> H=reflectionsubgroup(W,[1,2,3]); H.cartantype
+  >>> H = reflectionsubgroup(W,[1,2,3]); H.cartantype
   [['A', [0, 1, 2]]]
   >>> t=inductiontable(H,W)
   >>> t1=transposemat(t['scalar'])
@@ -6888,7 +6889,7 @@ def checkrepr(W,perms):
   return res
 
 #F involutionmodel
-def involutionmodel(W,poids=1):
+def involutionmodel(W,poids=1, verbose=False):
   """returns the characters afforded by Kottwitz's involution module.
   This is equivalent  to the characters later described by Lusztig
   and Vogan.  Let  M be a  vector space with a basis {a_w} where w
@@ -6944,7 +6945,8 @@ def involutionmodel(W,poids=1):
     perms=[]
     lprint('#I ')
     for s in W.rank:
-      lprint(str(s)+' ')
+      if verbose:
+        lprint(str(s)+' ')
       p=(2*len(inv))*[0]
       for i in range(len(inv)):
         i1=cinv.index(bytes(conjgenperm(W,s,inv[i])[:len(W.rank)]))
@@ -6956,9 +6958,7 @@ def involutionmodel(W,poids=1):
           p[len(inv)+i]=len(inv)+i1
       perms.append(p)
     char=[]
-    #lprint('\n#I char values: ')
     for w in rr:
-     # lprint('+')
       if w==[]:
         char.append(len(inv))
       else:
@@ -6974,11 +6974,13 @@ def involutionmodel(W,poids=1):
         char.append(c)
     chisigma[str(x)]=[sum([char[j]*chi[j]*ti['classlengths'][j]
           for j in range(len(rr))])//W.order for chi in ti['irreducibles']]
+    if verbose:
+      lprint('\n')
+  if verbose:
+    lprint('#I Total decomposition:\n#I ')
+    lprint(str([sum([chisigma[chi][i] for chi in chisigma])
+                for i in range(len(rr))]))
     lprint('\n')
-  lprint('#I Total decomposition:\n#I ')
-  lprint(str([sum([chisigma[chi][i] for chi in chisigma])
-                                         for i in range(len(rr))]))
-  lprint('\n')
   return chisigma
 
 #F symbol2c, symbol2b, symbol2d needed for dimBu
@@ -9575,7 +9577,7 @@ def blockLR(mat,bl,diag,p):
   return [flatblockmat(P),reduce(directsummat,L),fbl]
 
 #F greenalgo
-def greenalgo(W,u,fam,avals,check=True,startpr=0):
+def greenalgo(W,u,fam,avals,check=True,startpr=0, verbose=False):
   """applies generalised version of the algorithm for computing Green
   functions.
   """
@@ -9586,17 +9588,20 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0):
   else:
     p=startpr
   fertig=False
-  lprint('#I Prime: ')
-  while fertig==False:
+  if verbose:
+    lprint('#I Prime: ')
+  while not fertig:
     p=nextprime(p+100)
     Ps,Ls=[],[]
-    lprint(str(p)+'; ')
+    if verbose:
+      lprint(str(p)+'; ')
     i=2
     l=[]
     while i<=2*p and len(l)<=2*sum(W.degrees)+2:
       omp=[[valuep(f,i,p) for f in row] for row in gom]
       if len(l)%10==0:
-        lprint(str(len(l))+' ')
+        if verbose:
+          lprint(str(len(l))+' ')
       ap=[]
       for a in avals:
         x=1
@@ -9612,14 +9617,16 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0):
         i=-i
       else:
         i=1-i
-    lprint('\n')
-    lprint('#I Now interpolating ')
+    if verbose:
+      lprint('\n')
+      lprint('#I Now interpolating ')
     vm=inversematp([[powp(x,i,p) for x in l] for i in range(len(l))],p)
     if vm!=False:
       P,L=idmat(fbl,0),idmat(fbl,0)
       for i in range(len(fbl)):
         if i%5==0:
-          lprint('.')
+          if verbose:
+            lprint('.')
         for j in range(len(fbl)):
           if j<=i and any(m[i][j]!=0 for m in Ps):
             coeffs0=matmultp([[m[i][j] for m in Ps]],vm,p)[0]
@@ -9628,7 +9635,8 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0):
             coeffs1=matmultp([[m[i][j] for m in Ls]],vm,p)[0]
             L[i][j]=lpol([repintp(c,p) for c in coeffs1],0,v.vname)
       fertig=True
-      lprint('\n#I Checking: ')
+      if verbose:
+        lprint('\n#I Checking: ')
       i=0
       while fertig and i<len(fbl):
         if i%5==0:
@@ -9638,16 +9646,19 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0):
           x=sum(P[j][s]*sum(P[i][r]*L[r][s] for r in range(i+1)
                         if L[r][s]!=0) for s in range(j+1) if P[j][s]!=0)
           if x!=gom[fbl[i]][fbl[j]]:
-            lprint(' ... change prime ...')
+            if verbose:
+              lprint(' ... change prime ...')
             fertig=False
           j+=1
         i+=1
-    lprint(' '+str(fertig)+' ')
-  lprint('\n')
-  return [P,L,fbl]
+    if verbose:
+      lprint(' '+str(fertig)+' ')
+  if verbose:
+    lprint('\n')
+  return [P, L, fbl]
 
 #F specialpieces
-def specialpieces(W,v):
+def specialpieces(W, v, verbose=False):
   """returns  the polynomials giving the sizes of Lusztig's special pieces,
   computed by the algorithm described in
 
@@ -9662,7 +9673,6 @@ def specialpieces(W,v):
   >>> W = coxeter("H",3)
   >>> v=lpol([1],1,'v')      # built-in polynomials
   >>> specialpieces(W,v)
-  #I Total size of all special pieces: v**30
   [[("1_r'",), 1],
    [('3_s',), -1-v**4-v**8+v**10+v**14+v**18],
    [("5_r'",), v**4-v**10-v**14+v**20],
@@ -9683,9 +9693,10 @@ def specialpieces(W,v):
     if ti['a'][ch]==ti['b'][ch]:
       spec.append([ti['charnames'][ch],g[1][i][i]])
       tot+=g[1][i][i]
-  lprint('#I Total size of all special pieces: ')
-  lprint(repr(tot))
-  lprint('\n')
+  if verbose:
+    lprint('#I Total size of all special pieces: ')
+    lprint(repr(tot))
+    lprint('\n')
   return spec
 
 ##########################################################################
@@ -11113,10 +11124,7 @@ def allrelklpols(W,J,weightL,q):
     poids=weightL
   else:
     poids=len(W.rank)*[weightL]
-  if all(i==1 for i in poids):
-    uneq=False
-  else:
-    uneq=True
+  uneq = not all(i == 1 for i in poids)
   ap=allwords(W)
   W1=reflectionsubgroup(W,J)
   m1=klpolynomials(W1,[poids[s] for s in J],q)
@@ -11316,7 +11324,7 @@ def allrelklpols(W,J,weightL,q):
           'mues':mues,'relklmat':mat,'klpols':klpols,'arrows':pp}
 
 #F leftconnected
-def leftconnected(W,elms,pr=True):
+def leftconnected(W, elms, verbose=False):
   """returns the  left-connected components of a set elms. A set elms
   if left-connected  if for any two elements x,y in elms, there is
   a sequence  s_1,...,s_n in S such that  y=s_n...s_2s_1x  and all
@@ -11337,7 +11345,7 @@ def leftconnected(W,elms,pr=True):
   else:
     pelms=set([W.wordtocoxelm(w) for w in elms])
   orbs=[]
-  while len(pelms)>0:
+  while pelms:
     w1=next(iter(pelms))
     orb=[W.coxelmtoperm(w1)]
     orb1=set([w1])
@@ -11350,7 +11358,7 @@ def leftconnected(W,elms,pr=True):
     orbs.append(orb)
     for x in orb:
       pelms.remove(x[:len(W.rank)])
-  if pr:
+  if verbose:
     lprint('#I '+str(len(orbs))+' left-connected components\n')
   return orbs
 
@@ -11406,9 +11414,9 @@ def klstarorbit(W,l,gens='each'):
   operation will be considered.
 
   >>> W = coxeter("A",3);k=klcells(W,1,v)
-  >>> k[1]
+  >>> cell = k[1][3]; cell
   wgraph(coxeter('A',3), [1, 1, 1], [[2], [1, 2], [0, 1, 2]])
-  >>> klstarorbit(W,k[1].X)
+  >>> klstarorbit(W, cell.X)
   [[[2], [1, 2], [0, 1, 2]],
    [[2, 1], [1], [0, 1]],
    [[2, 1, 0], [1, 0], [0]]]
@@ -11829,7 +11837,7 @@ def checkh4(W,kl):
   return True
 
 # gentaucells
-def gentaucells(W,startset,pr=True,lcells=False,string=False,tlen=False):
+def gentaucells(W,startset, verbose=False, lcells=False,string=False,tlen=False):
   """returns the partition  of a set of elements into equivalence
   classes  under  the  relation  given by Vogan's  generalised
   tau-invariant  (which amounts to repeated application of the
@@ -11838,8 +11846,8 @@ def gentaucells(W,startset,pr=True,lcells=False,string=False,tlen=False):
   argument 'lcells' is set to 'True'.
 
   >>> W = coxeter("E",6)
-  >>> g=gentaucells(W, allwords(W))
-  >>> len(g)
+  >>> g=gentaucells(W, allwords(W))  # not tested
+  >>> len(g)                         # not tested
   652
 
   (In this case, the result is  precisely  the partition of  W
@@ -11855,7 +11863,6 @@ def gentaucells(W,startset,pr=True,lcells=False,string=False,tlen=False):
 
   >>> W = coxeter("F",4)
   >>> len(gentaucells(W, allwords(W), string=True))
-  #I 1152 tau-cells: 16 36 58 72
   72
 
   (In this case again,  the result  is precisely the partition
@@ -11870,12 +11877,12 @@ def gentaucells(W,startset,pr=True,lcells=False,string=False,tlen=False):
       aset=[W.coxelmtoperm(w) for w in startset]
   else:
     aset=[W.wordtoperm(w) for w in startset]
-  if lcells==False:
+  if not lcells:
     pset=aset
   else:
     rset=leftklstarorbits(W,aset,lcells)
     pset=[l[0] for l in rset]
-  if pr:
+  if verbose:
     lprint('#I '+str(len(pset))+' tau-cells: ')
   #new try: use additional function tlen which is constant on left cells
   #and returns a non-negative numerical value
@@ -11891,7 +11898,7 @@ def gentaucells(W,startset,pr=True,lcells=False,string=False,tlen=False):
   res=[]
   weiter=True
   while weiter:
-    if pr:
+    if verbose:
       lprint(str(len(res)+len(rest))+' ')
     if string==False:
       cg=[gentauorbit2(W,r) for r in rest]
@@ -11901,7 +11908,7 @@ def gentaucells(W,startset,pr=True,lcells=False,string=False,tlen=False):
     rest=[]
     for i in range(len(cg)):
       if len(cg[i])==1:
-        if lcells==False:
+        if not lcells:
           res.append(cg[i][0])
         else:
           neu=[]
@@ -11911,12 +11918,12 @@ def gentaucells(W,startset,pr=True,lcells=False,string=False,tlen=False):
       else:
         rest.extend(cg[i])
         weiter=True
-  if pr:
+  if verbose:
     lprint('\n')
   return res
 
 #F gentaureps
-def gentaureps(W,pr=True):
+def gentaureps(W, verbose=False):
   """returns a set of the representatives of the generalised
   tau-cells under the star operations.
 
@@ -11941,10 +11948,10 @@ def gentaureps(W,pr=True):
     nset=[]
     cset=set([])
     gt1=gentaureps(W1)
-    if pr:
+    if verbose:
       lprint('#I ')
     for g in gt1:
-      if pr:
+      if verbose:
         lprint('+')
       l=[]
       for x in g:
@@ -11953,16 +11960,16 @@ def gentaureps(W,pr=True):
           l.append(permmult(d,wx))
       if not all(permmult(p,p)[:len(W.rank)]!=tuple(W.rank) or
                                p[:len(W.rank)] in cset for p in l):
-        for gt in gentaucells(W,l,pr=0,lcells=True):
+        for gt in gentaucells(W,l,verbose=False,lcells=True):
           if not any(x[:len(W.rank)] in cset for x in gt):
-            if pr:
+            if verbose:
               lprint('.')
             nset.append([W.permtoword(p) for p in gt])
             for o in klstarorbitperm(W,gt):
               for e in o:
                 if permmult(e,e)[:len(W.rank)]==tuple(W.rank):
                   cset.add(e[:len(W.rank)])
-    if pr:
+    if verbose:
       lprint(' '+str(len(nset))+' reps\n')
   return nset
 
@@ -12009,7 +12016,7 @@ def wgraphstarorbit(W,wgr,gens='each'):
                                        for l in klstarorbitperm(W,wgr.X,gens)]
 
 #F klcellsun
-def klcellsun(W,weightL,v,pr=True):
+def klcellsun(W, weightL, v, verbose=False):
   if type(weightL)==type([]):
     poids=weightL
   else:
@@ -12023,7 +12030,7 @@ def klcellsun(W,weightL,v,pr=True):
     else:
       J.remove(len(W.rank)-1)
     W1=reflectionsubgroup(W,J)
-    kk=klcellsun(W1,[poids[s] for s in J],v,pr=False)
+    kk=klcellsun(W1,[poids[s] for s in J],v, verbose=False)
     if len(W.rank)>0:
       lprint('#I ')
     lprint('('+str(len(kk))+') ')
@@ -12041,7 +12048,7 @@ def klcellsun(W,weightL,v,pr=True):
       for ii in ind:
         cr1.append(ii)
     lprint('\n')
-  if pr==True and len(W.rank)>0:
+  if verbose and len(W.rank)>0:
     lprint('#I '+str(len(cr1))+' left cells, mues: ')
     for s in W.rank:
       lprint('['+', '.join([repr(i) for i in allmues[s]])+'] ')
@@ -12050,7 +12057,7 @@ def klcellsun(W,weightL,v,pr=True):
   return cr1
 
 #F klcells
-def klcells(W,weightL,v,allcells=True,pr=True):
+def klcells(W,weightL, v, allcells=True, verbose=False):
   """returns the partition of a finite Coxeter group into left cells
   together with the corresponding W-graphs.
 
@@ -12137,7 +12144,7 @@ def klcells(W,weightL,v,allcells=True,pr=True):
   the Kazhdan-Lusztig polynomials in type H4,  which would take
   a very long time with  'klpolynomials'.  If one is interested
   in  reproducing  this information,  then it is better to  use
-  DuCloux's Coxeter programe. Alternatively, one can also build
+  DuCloux's Coxeter programme. Alternatively, one can also build
   all Kazhdan-Lusztig polynomials from the relative polynomials
   returned by 'allrelklpols'; this takes about 1 day cpu time.)
 
@@ -12183,12 +12190,9 @@ def klcells(W,weightL,v,allcells=True,pr=True):
     poids=weightL
   else:
     poids=len(W.rank)*[weightL]
-  if any(i<0 for i in poids):
-    print('#W All parameters must be non-negative')
-    return False
+  if any(i < 0 for i in poids):
+    raise ValueError('all parameters must be non-negative')
   if all(i==1 for i in poids):
-    #if pr==True and len(W.rank)>0:
-    #  lprint('#I')
     if len(W.rank)==0:
       nc=[[[]]]
       cr1=[wgraph(W,poids,[[]],v,[[]],{},[],[()])]
@@ -12202,18 +12206,20 @@ def klcells(W,weightL,v,allcells=True,pr=True):
         J.remove(len(W.rank)-1)
       W1=reflectionsubgroup(W,J)
       X1p=[W.coxelmtoword(x1) for x1 in redleftcosetreps(W,J)]
-      kk=klcells(W1,[poids[s] for s in J],v,pr=False,allcells=False)
-      if len(W.rank)>0:
+      kk=klcells(W1,[poids[s] for s in J],v,verbose=False,allcells=False)
+      if verbose and len(W.rank)>0:
         lprint('#I ')
-      lprint('('+str(len(kk[0]))+':'+str(len(kk[1]))+') ')
+      if verbose:
+        lprint('('+str(len(kk[0]))+':'+str(len(kk[1]))+') ')
       nc,cr1,creps=[],[],[]
-      celms=set([])
+      celms=set()
       i,tot=0,0
       while tot<W.order:
-        lprint('+')
+        if verbose:
+          lprint('+')
         pairs=[W.wordtoperm(ci[0]+ci[1]) for ci in cartesian(X1p,
                               [[J[s] for s in w] for w in kk[1][i].X])]
-        if all(permmult(pa,pa)[:len(W.rank)]!=tuple(W.rank) or
+        if verbose and all(permmult(pa,pa)[:len(W.rank)]!=tuple(W.rank) or
                            pa[:len(W.rank)] in celms for pa in pairs):
           lprint(str(0))
         else:
@@ -12228,7 +12234,8 @@ def klcells(W,weightL,v,allcells=True,pr=True):
               rht=[tuple(W.rightdescentsetperm(p)) for p in rk['perm']]
             srht=list(set(rht))
             ind1=wgraph(W,poids,rk,v)
-            lprint(str(len(srht))+'!')
+            if verbose:
+              lprint(str(len(srht))+'!')
             ind=[]
             for rh in srht:
               l=list(filter(lambda x:rht[x]==rh,range(len(rht))))
@@ -12243,7 +12250,8 @@ def klcells(W,weightL,v,allcells=True,pr=True):
                                             m1,ind1.mpols,x1r).decompose())
           else:
             ind=wgraph(W,poids,rk,v).decompose()
-          lprint(str(len(ind)))
+          if verbose:
+            lprint(str(len(ind)))
           for ii in ind:
             if tot<W.order and not any(xii in celms for xii in ii.Xrep):
               creps.append(ii.Xrep[0])
@@ -12263,7 +12271,8 @@ def klcells(W,weightL,v,allcells=True,pr=True):
                   if permmult(e,e)[:len(W.rank)]==tuple(W.rank):
                     celms.add(e[:len(W.rank)])
                 tot+=len(o)
-            lprint('.')
+            if verbose:
+              lprint('.')
             if tot<W.order:
               ii0=klcellw0(W,ii)
               if not any(xii0 in celms for xii0 in ii0.Xrep):
@@ -12285,8 +12294,9 @@ def klcells(W,weightL,v,allcells=True,pr=True):
                       celms.add(e[:len(W.rank)])
                   tot+=len(o)
         i+=1
+    if verbose:
       lprint('\n')
-    if pr==True and len(W.rank)>0:
+    if verbose and len(W.rank)>0:
       lprint('#I '+str(len(nc))+' left cells (')
       lprint(str(len(creps))+' non-equivalent), ')
       lprint('mues: '+','.join([str(i) for i in allmues])+'\n')
@@ -12299,27 +12309,21 @@ def klcells(W,weightL,v,allcells=True,pr=True):
     cr1.sort(key=(lambda c:len(c.X)))
     return [nc,cr1]
   else:
-    return klcellsun(W,weightL,v,pr=True)
+    return klcellsun(W,weightL, v, verbose=False)
     #k=klpolynomials(W,weightL,v)
     #return [wgraph(W,poids,{'elms':[k['elms'][x] for x in c],
     #          'mpols':k['mpols'],'klpols':k['klpols'],
     #           'klmat':[[k['klmat'][c[w]][c[y]] for y in range(w+1)]
     #             for w in range(len(c))]},v) for c in k['lcells']]
 
-def zeroterm(p):
-  if type(p)==type(0):
-    return p
-  else:
-    if p.val>0 or p.coeffs==[]:
-      return 0
-    else:
-      return p.coeffs[0]
 
-#def zeroterm(p):
-#  if type(p)==type(0):
-#    return p
-#  else:
-#    return p.value(0)
+def zeroterm(p):
+  if type(p) == type(0):
+    return p
+  if p.val > 0 or not p.coeffs:
+    return 0
+  return p.coeffs[0]
+
 
 #F leadingcoefficients
 def leadingcoefficients(W,weightL,lw,clpols=[]):
@@ -12426,10 +12430,10 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
   in 'ainvariants';  in particular,  the programme also works for
   unequal parameters.
 
-  >>> v=lpol([1],1,'v')
+  >>> v = lpol([1],1,'v')
   >>> W = coxeter("B",2)
   >>> [leftcellleadingcoeffs(W,1,v,l)
-                   for l in klcells(W,1,v)[0]] # equal parameters
+  ...          for l in klcells(W,1,v)[0]] # equal parameters
   #I 4 left cells (4 non-equivalent), mues: 1
   [{'elms': [[]], 'nd': 1, 'special': ('[[2], []]',),
     'distinv': [], 'ti': [[('[[2], []]',), [1]]]},
@@ -12442,8 +12446,8 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
     'distinv': [0], 'ti': [[('[[1, 1], []]',), [1, -1]],
     [('[[1], [1]]',), [1, 1]]]}]
 
-  >>> leftcellleadingcoeffs(W,[2,1],v,l.X)
-                for l in klcells(W,[2,1],v)]  # unequal parameters
+  >>> [leftcellleadingcoeffs(W,[2,1],v,l.X)
+  ...            for l in klcells(W,[2,1],v)]  # unequal parameters
   #I 10 arrows >> 6 left cells >> checks are True
   [{'elms': [[]], 'nd': 1, 'special': ('[[2], []]',),
     'distinv': [], 'ti': [[('[[2], []]',), [1]]]},
@@ -12460,7 +12464,7 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
 
   (Note the negative value for nd.)
 
-  Remark:  The normalisiation by the sign  (-1)^l(d)*n_d  has the
+  Remark:  The normalisation by the sign  (-1)^l(d)*n_d  has the
   effect that the above table  has a row in which all entries are
   strictly positive numbers.  (There can be at  most one row with
   this property.)  It is known that, in the equal parameter case,
@@ -12591,7 +12595,7 @@ def strtopol(sp,vnam):
   return lpol([int(i) for i in spl[1:]],val=int(spl[0]),vname=vnam)
 
 #F distinguishedinvolutions
-def distinguishedinvolutions(W,weightL,distonly=True):
+def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
   """returns the list of distinguished involutions with respect to a
   weight function, plus some additional information (as explained
   below). Here, we use the following  definition:
@@ -12726,12 +12730,14 @@ def distinguishedinvolutions(W,weightL,distonly=True):
   cps={}
   nega=False
   zael=0
-  lprint('#I length  0 - 1 element, 1 class polynomial; 1 distinv\n')
+  if verbose:
+    lprint('#I length  0 - 1 element, 1 class polynomial; 1 distinv\n')
   for l in range(maxl):
-    if l<9:
-      lprint('#I length  '+str(l+1))
-    else:
-      lprint('#I length '+str(l+1))
+    if verbose:
+      if l<9:
+        lprint('#I length  '+str(l+1))
+      else:
+        lprint('#I length '+str(l+1))
     nl=set([])
     if l==0:
       ol=[]
@@ -12745,7 +12751,8 @@ def distinguishedinvolutions(W,weightL,distonly=True):
       if len(nl)==poin[l+1]:
         break
     cps={}
-    lprint(' - ')
+    if verbose:
+      lprint(' - ')
     ll=len(nl)
     spols=[]
     while nl!=set([]):
@@ -12862,8 +12869,9 @@ def distinguishedinvolutions(W,weightL,distonly=True):
               charvec0.append([[chn[i[0]],i[1]] for i in char0])
               if nega==False and nd!=1:
                 nega=True
-    lprint(str(ll)+' elements, '+str(len(spols))+' class polynomials; ')
-    lprint(str(len(distinv)+len(distinv0))+' distinvs\n')
+    if verbose:
+      lprint(str(ll)+' elements, '+str(len(spols))+' class polynomials; ')
+      lprint(str(len(distinv)+len(distinv0))+' distinvs\n')
     if l>0:
       cpmat[l-1]=0
     cpmat.append(cps)
@@ -12877,12 +12885,11 @@ def distinguishedinvolutions(W,weightL,distonly=True):
   #  return [distinv,d1]
   #else:
   #  lprint('True')
-  lprint('#I Number of distinguished involutions = '+str(len(distinv)))
-  lprint(' ('+str(zael)+')\n')
-  if nega==True:
-    return [distinv,charvec,nvec]
-  else:
-    return [distinv,charvec]
+  if verbose:
+    lprint('#I Number of distinguished involutions = '+str(len(distinv)))
+    lprint(' ('+str(zael)+')\n')
+  return [distinv, charvec, nvec] if nega else [distinv, charvec]
+
 
 #F starorbitinv (for use in distinguishedinvolutions_eq and libdistinv)
 def starorbitinv(W,pw,lcell=[]):
@@ -12973,7 +12980,7 @@ def starorbitinv2(W):
   return [i[0] for i in reps]
 
 #F distinguishedinvolutions_eq
-def distinguishedinvolutions_eq(W):
+def distinguishedinvolutions_eq(W, verbose=False):
   """similar to 'distinguishedinvolutions'  but this function only
   works in, and is optimised for, the case of equal parameters,
   where Lusztig's properties P1-P15  are known to hold  and  it
@@ -12994,7 +13001,7 @@ def distinguishedinvolutions_eq(W):
   rest=involutions(W)
   repsinv=[]
   if any(f%2==1 for f in W.degrees):
-    while rest!=[]:
+    while rest:
       pw=rest[0]
       orb=starorbitinv(W,pw)
       for x in orb:
@@ -13003,7 +13010,7 @@ def distinguishedinvolutions_eq(W):
       l1=min(l)
       repsinv.append(orb[l.index(l1)])
   else:
-    while rest!=[]:
+    while rest:
       pw=rest[0]
       orb=starorbitinv(W,pw)
       for x in orb:
@@ -13017,8 +13024,9 @@ def distinguishedinvolutions_eq(W):
         repsinv.append(permmult(orb[l.index(l2)],w0))
   repsinv.sort(key=(lambda x: W.permlength(x)))
   maxl=W.permlength(repsinv[-1])
-  lprint('#I maximum length: '+str(maxl)+',')
-  lprint(' number of left cells: '+str(maxn)+'\n')
+  if verbose:
+    lprint('#I maximum length: '+str(maxl)+',')
+    lprint(' number of left cells: '+str(maxn)+'\n')
   ti=heckechartable(W,v)['irreducibles']
   schur=schurelms(W,v)
   fshi=[s.coeffs[0] for s in schur]
@@ -13044,12 +13052,14 @@ def distinguishedinvolutions_eq(W):
   cp[0]=1
   cpmat.append({mybytes(W.rank):';'.join([poltostr(f) for f in cp])})
   cps={}
-  lprint('#I length  0 - 1 element, 1 class polynomial; 1 distinv\n')
+  if verbose:
+    lprint('#I length  0 - 1 element, 1 class polynomial; 1 distinv\n')
   for l in range(maxl):
-    if l<9:
-      lprint('#I length  '+str(l+1))
-    else:
-      lprint('#I length '+str(l+1))
+    if verbose:
+      if l<9:
+        lprint('#I length  '+str(l+1))
+      else:
+        lprint('#I length '+str(l+1))
     nl=set([])
     if l==0:
       ol=[]
@@ -13063,7 +13073,8 @@ def distinguishedinvolutions_eq(W):
       if len(nl)==poin[l+1]:
         break
     cps={}
-    lprint(' - ')
+    if verbose:
+      lprint(' - ')
     ll=len(nl)
     spols=[]
     while nl!=set([]):
@@ -13172,8 +13183,9 @@ def distinguishedinvolutions_eq(W):
             char0=[[chn[i[0]],i[1]] for i in char0]
             for i in sto0:
               charvec.append(char0)
-    lprint(str(ll)+' elements, '+str(len(spols))+' class polynomials; ')
-    lprint(str(len(distinv))+' distinvs\n')
+    if verbose:
+      lprint(str(ll)+' elements, '+str(len(spols))+' class polynomials; ')
+      lprint(str(len(distinv))+' distinvs\n')
     if l>0:
       cpmat[l-1]=0
     cpmat.append(cps)
@@ -13838,7 +13850,7 @@ def libdistinv(W,weightL,unpack=True):
     return False
 
 #F distinva
-def distinva(W,weightL=1):
+def distinva(W,weightL=1, verbose=False):
   """returns a  pair of lists where the first one contains the
   distinguished involutions (as coxelms) and the second one
   contains  the corresponding  a-invariants.  This uses the
@@ -13846,7 +13858,6 @@ def distinva(W,weightL=1):
 
   >>> W = coxeter("G",2)
   >>> distinva(W)
-  #I Number of distinguished involutions = 4 (4)
   [[(0, 1), (4, 7), (6, 2), (6, 7)], [0, 1, 1, 6]]
 
   Thus, the 4 involutions have a-invariants  0, 1, 1, 6.
@@ -13876,7 +13887,8 @@ def distinva(W,weightL=1):
     ainv=ainvariants(W,poids)
     typEH=False
   a1=[]
-  lprint('#I '+str(len(d))+' ')
+  if verbose:
+    lprint('#I '+str(len(d))+' ')
   for i in d:
     a0=[ainv[ch.index(c[0])] for c in i[1]]
     if len(set(a0))>1:
@@ -13885,7 +13897,6 @@ def distinva(W,weightL=1):
     a1.append(a0[0])
   nd,na=[],[]
   for r in range(len(d)):
-    #lprint('.')
     if typEH==True:
       for st in starorbitinv(W,W.wordtoperm(d[r][0])):
         nd.append(st[:len(W.rank)])
@@ -13893,7 +13904,8 @@ def distinva(W,weightL=1):
     else:
       nd.append(W.wordtocoxelm(d[r][0]))
       na.append(a1[r])
-  lprint('\n')
+  if verbose:
+    lprint('\n')
   return [nd,na]
 
 #F distinva1
@@ -15310,7 +15322,7 @@ def E8CELLREPcheck():
   return True
 
 #F klcellreps
-def klcellreps(W):
+def klcellreps(W, verbose=False):
   """returns a list of dictionaries  containing basic information about
   a set of representatives of the left cells of W (equal parameters)
   under repeated application of star operations. For W of type E7 or
@@ -15330,11 +15342,11 @@ def klcellreps(W):
     the character of the left cell representation
   - index:     -- the position in this list of dictionaries
 
-  >>> len(klcellreps(coxeter("E", 6)))
+  >>> len(klcellreps(coxeter("E", 6)))    # long time
   21
-  >>> len(klcellreps(coxeter("E", 7)))
+  >>> len(klcellreps(coxeter("E", 7)))   # not tested
   56
-  >>> len(klcellreps(coxeter("E", 8)))
+  >>> len(klcellreps(coxeter("E", 8)))  # not tested
   106
 
   For further details, see Section 6 of:
@@ -15354,21 +15366,25 @@ def klcellreps(W):
     else:
       klcr=E8KLCELLREPS
     if any((len(l['elms'])==0 or l['elms']==False) for l in klcr):
-      lprint('#I =====> '+str(len(klcr))+' (unpacking data) ')
+      if verbose:
+        lprint('#I =====> '+str(len(klcr))+' (unpacking data) ')
       for l in range(len(klcr)):
         c=[]
         for r in [W.wordtoperm([int(i) for i in w])
                             for w in klcr[l]['replstar']]:
           c.extend([x[:len(W.rank)] for x in leftklstarorbitelm(W,r)])
         if l%10==0:
-          lprint('.')
+          if verbose:
+            lprint('.')
         klcr[l]['elms']=set(c)
         klcr[l]['index']=l
-      lprint(' OK <=====\n')
+      if verbose:
+        lprint(' OK <=====\n')
     W.klcellreps=klcr
     return klcr
   else:
-    lprint('#I =====> pre-processing (done only once) <=====\n')
+    if verbose:
+      lprint('#I =====> pre-processing (done only once) <=====\n')
     klcr=[c.X for c in klcells(W,1,v)[1]]
     dd=distinguishedinvolutions(W,1)
     d1=dd[0]
@@ -15406,15 +15422,15 @@ def cellrepstarorbit(W,c):
   cells of W.
 
   >>> W = coxeter("E",8)
-  >>> c=klcellreps(W)
-  >>> a=cellrepstarorbit(W,c[1])
+  >>> c=klcellreps(W)     # not tested
+  >>> a=cellrepstarorbit(W,c[1])  # not tested
   #I orbit with 8 cells
 
   >>> W = coxeter("E",7); l1=[]
-  >>> for c in klcellreps(W):
+  >>> for c in klcellreps(W):   # not tested
   ...   for l in cellrepstarorbit(W,c):
-  ...     l1.append(len(leftconnected(W,list(l['elms']),pr=0)))
-  >>> set(l1)
+  ...     l1.append(len(leftconnected(W,list(l['elms']),verbose=False)))
+  >>> set(l1)  # not tested
   set([1])
 
   Thus, all left cells in type E7 are left-connected. The same
@@ -15437,20 +15453,19 @@ def cellrepstarorbit(W,c):
   return orb
 
 #F klcellrepelm
-def klcellrepelm(W,w,pr=False):
+def klcellrepelm(W, w, verbose=False):
   """returns a dictionary, as in 'klcellreps', corresponding to the
   given element,  but where  the components  'distiv' and 'elms'
   are left empty.  In particular, this yields the two-sided cell
   in which the element lies, and its a-invariant.
 
   >>> W = coxeter("E",8)
-  >>> w=conjugacyclasses(W)['reps'][10]
+  >>> w = conjugacyclasses(W)['reps'][10]
   >>> len(w)
   40
   >>> W.permorder(W.wordtoperm(w))
   6
-  >>> klcellrepelm(W,w,pr=True)['special']
-  #I cell number 37
+  >>> klcellrepelm(W,w,verbose=False)['special']
   '4480_y'
 
   The function repeatedly applies star operations to w until one
@@ -15480,7 +15495,7 @@ def klcellrepelm(W,w,pr=False):
     for y in orb:
       for c in range(len(e8c)):
         if y[:len(W.rank)] in e8c[c]['elms']:
-          if pr==True:
+          if verbose:
             lprint('#I cell number '+str(c)+'\n')
           return {'size':e8c[c]['size'], 'character':e8c[c]['character'],
                   'a':e8c[c]['a'], 'special':e8c[c]['special'],
@@ -15492,7 +15507,7 @@ def klcellrepelm(W,w,pr=False):
             if nc!=False and not nc[0][:len(W.rank)] in orb1:
               for c in range(len(e8c)):
                 if nc[0][:len(W.rank)] in e8c[c]['elms']:
-                  if pr==True:
+                  if verbose:
                     lprint('#I cell number '+str(c)+'\n')
                   return {'size':e8c[c]['size'], 'character':
                           e8c[c]['character'], 'a':e8c[c]['a'],
@@ -15625,12 +15640,12 @@ def leftcellelm(W,w,replstars=False):
   >>> W = coxeter("F",4)
   >>> t0=time.time()
   >>> l0=[leftcellelm(W,x) for x in allwords(W)]
-  >>> time.time()-t0
+  >>> time.time()-t0  # random
   9.92
   >>> r=cellreplstars(W)
   >>> t0=time.time()
   >>> l1=[leftcellelm(W,x,r) for x in allwords(W)]
-  >>> time.time()-t0
+  >>> time.time()-t0  # random
   0.22
   >>> [i['distinv'] for i in l0]==[i['distinv'] for i in l1]
   True
@@ -15711,24 +15726,27 @@ def leftcellelm(W,w,replstars=False):
                 ncell.append([mybytes(x) for x in n1])
 
 #F klcellsclasses
-def klcellsclasses(W):
+def klcellsclasses(W, verbose=False):
   """determines intersections of two-sided cells with elements
   of minimal length in cuspidal classes of W.
   """
   kl1=klcellreps(W)
   cp=[x for x in conjugacyclasses(W)['reps'] if len(set(x))==len(W.rank)]
-  lprint('#I '+str(len(cp))+' cuspidal casses: ')
+  if verbose:
+    lprint('#I '+str(len(cp))+' cuspidal casses: ')
   t=chartable(W,chars=0)
   sp=[t['charnames'][i][0] for i in range(len(t['a']))
                                            if t['a'][i]==t['b'][i]]
   mat=[]
   for c in cp:
     c1=cyclicshiftorbit(W,W.wordtoperm(c))
-    lprint(str(len(c1))+' ')
+    if verbose:
+      lprint(str(len(c1))+' ')
     cs=[klcellrepelm(W,x)['special'] for x in c1]
     row=[len([i for i in cs if i==char]) for char in sp]
     mat.append(row)
-  lprint('\n')
+  if verbose:
+    lprint('\n')
   return mat
 
 #F cellrepcheck1
@@ -15761,7 +15779,7 @@ def cellrepcheck2(W):
   left cells of W  by computing the orbits under the star
   operations of all left cells from 'klcellreps'.
 
-  >>> t=timer(cellrepcheck2,coxeter("E",7))
+  >>> t=timer(cellrepcheck2,coxeter("E",7))  # not tested
   #I 56 (unpacking data) ...... OK
   #I cell of size 1; orbit with 1 cells
   #I cell of size 1; orbit with 1 cells
@@ -15770,7 +15788,7 @@ def cellrepcheck2(W):
   #I cell of size 1024; orbit with 70 cells
   192.58
 
-  >>> t=timer(cellrepcheck2,coxeter("E",8))
+  >>> t=timer(cellrepcheck2,coxeter("E",8))  # not tested
   #I 106 (unpacking data) ...... OK
   #I cell of size 1; orbit with 1 cells
   #I cell of size 8; orbit with 8 cells
@@ -15793,7 +15811,7 @@ def cellrepcheck2(W):
 
   See also 'klcellreps' and 'cellrepstarorbit'.
   """
-  alls=set([])
+  alls=set()
   numb=0
   for l in klcellreps(W):
     for x in cellrepstarorbit(W,l):
@@ -15805,7 +15823,7 @@ def cellrepcheck2(W):
 def cellrepcheck3(W):
   """check for function 'cellreplstars'.
   """
-  alls=set([])
+  alls=set()
   for l in cellreplstars(W):
     numb=0
     for r in l['replstar']:
@@ -15830,7 +15848,7 @@ def checkleftctd(W):
   cc=klcellreps(W)
   for c in range(len(cc)):
     for l in cellrepstarorbit(W,cc[c]):
-      lc=len(leftconnected(W,list(l['elms']),pr=0))
+      lc=len(leftconnected(W,list(l['elms']), verbose=False))
       lprint(str(lc))
       res.append(lc)
     lprint(' (cell no '+str(c)+')')
@@ -15877,8 +15895,7 @@ def timer(func,*pargs,**kargs):
   """returns the result of applying a function and prints the time used
   in seconds. (Taken from M. Lutz's "Learning Python" book.)
 
-  >>> t=timer(klcells,coxeter("F",4),1,v)
-  #I 72 left cells (29 non-equivalent)
+  >>> t=timer(klcells,coxeter("F",4),1,v)  # random
   1.02
   """
   start=time.time()
@@ -15890,6 +15907,7 @@ def timer(func,*pargs,**kargs):
 #F checksh
 def checksh(W,paramL):
   """checks if the relation characterising the  Schur elements is true;
+
   see the help to 'schurelms'.  (This  is  a good  test for  various
   functions:  'heckechartable',  'schurelms',  'lpol', 'zeta5', ...;
   it does not yet work for type I_2(m), n>7, because some operations
@@ -15908,6 +15926,8 @@ def checksh(W,paramL):
 #F test
 def test():
   """runs a test suite.
+
+  >>> test()  # long time
   """
   lprint('# ==>  Should finish in less than 1 minute CPU time\n')
   v=lpol([1],1,'v')
@@ -16193,12 +16213,9 @@ def test():
   somechecks.append(cellrepcheck1(W,klcellreps(W)))
   lprint('###############################################\n')
   lprint('## '+ str(len(somechecks))+' true/false checks performed ')
-  if False in somechecks:
+  if not all(somechecks):
     lprint(' ==> !!! There are problems !!!\n')
   else:
     lprint(' ==> Tests ok\n')
   lprint('###############################################\n')
-  if False in somechecks:
-    return False
-  else:
-    return True
+  return all(somechecks)
