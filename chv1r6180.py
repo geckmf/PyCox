@@ -24,11 +24,16 @@
 #############################################################################
 import sys  # uses sys.write and sys.version
 import time
-import math
 
-from zeta5 import zeta5
-from polynomials import lpol, lpolmod, ir
-from matrices import *
+from polynomials import lpol, ir, ir5, lcmcyclpol, rootof1
+from matrices import (permmult, perminverse, decomposemat, flatlist,
+                      matmult, scalmatmult, cartesian, transposemat,
+                      displaymat, kroneckerproduct, redlusztigsymbolB,
+                      intlcmlist, ainvbipartition,
+                      directsummat, flatblockmat, nextprime, idmat, matadd,
+                      determinantmat, gcdex, inversematp,
+                      partitiontuples, centralisertuple, centraliserpartition,
+                      dualpartition, differencepartitions, partitions)
 
 BANNER = '''
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -48,6 +53,9 @@ BANNER = '''
 '''
 # print(BANNER)
 
+# standard variable
+v = lpol([1], 1, 'v')
+
 # define our own print
 
 
@@ -62,7 +70,6 @@ try:
 except ImportError:
     print("Module readline not available.")
 else:
-    import rlcompleter
     readline.parse_and_bind("tab: complete")
 
 CURRENTVERSION=sys.version_info
@@ -3940,7 +3947,6 @@ def chartableB(n, verbose=False):
     """
     W=coxeter("C",n)     # use C_n because of B_2=C_2 convention.
     pt=partitiontuples(n,2)
-    cw=conjugacyclasses(W)
     refls=reflections(W)
     wrho=[[0]]
     for i in range(n-1):
@@ -5918,7 +5924,6 @@ def constructible(W,weightL=1,display=True):
         J=list(W.rank)
         J.remove(s)
         H=reflectionsubgroup(W,J)
-        tr=chartable(H)
         it=inductiontable(H,W)['scalar']
         poidsJ=[poids[j] for j in J]
         au=ainvariants(H,poidsJ)
@@ -5995,7 +6000,6 @@ def lusztigpreceq(W,poids,display=False):
         J=list(W.rank)
         J.remove(s)
         H=reflectionsubgroup(W,J)
-        tr=chartable(H)
         it=inductiontable(H,W)['scalar']
         poidsJ=[poids[j] for j in J]
         au=ainvariants(H,poidsJ)
@@ -6305,11 +6309,11 @@ def allclasspolynomials(W,paramL,maxl=-1, verbose=False):
 
     See also 'classpolynomials' and 'heckecharvalues'.
     """
-    if maxl==-1:
+    if maxl == -1:
         maxlen=W.N
     else:
-        maxlen=min(maxl,W.N)
-    if type(paramL) == type([]):
+        maxlen=min(maxl, W.N)
+    if isinstance(paramL, (list, tuple)):
         vs=paramL[:]
     else:
         vs=len(W.rank)*[paramL]
@@ -6504,10 +6508,9 @@ def heckeD(n,v):
         elif mu[0]<mu[1]:
             vals=[heckevalueB(n,v**2,1,mu,pt[j]) for j in fus]
             t1.append(vals)
-    ch=list(range(len(t1)))
-    tr=transposemat(t1)
-    s=len(W.rank)
-    while len(cc)<len(cw):     # add non-cuspidal classes
+    tr = transposemat(t1)
+    s = len(W.rank)
+    while len(cc) < len(cw):     # add non-cuspidal classes
         s-=1
         J=list(W.rank)
         J.remove(s)
@@ -7642,26 +7645,27 @@ def schurelmdata(typ,n,vs):
         W=coxeter(typ,n)
         ti=chartable(W)['irreducibles']
         return [(W.order//d[0])*u**0 for d in ti]
-    p1=u-1
-    p2=u+1
-    p3=u**2+u+1
-    p4=u**2+1
-    p5=u**4+u**3+u**2+u+1
-    p6=u**2-u+1
+    # p1 = u-1
+    p2 = u+1
+    p3 = u**2+u+1
+    p4 = u**2+1
+    p5 = u**4+u**3+u**2+u+1
+    p6 = u**2-u+1
     p7=u**6+u**5+u**4+u**3+u**2+u+1
     p8=u**4+1
     p9=u**6+u**3+1
     p10=u**4-u**3+u**2-u+1
-    p11=u**10+u**9+u**8+u**7+u**6+u**5+u**4+u**3+u**2+u+1
+    # p11 = u**10+u**9+u**8+u**7+u**6+u**5+u**4+u**3+u**2+u+1
     p12=u**4-u**2+1
-    p13=u**12+u**11+u**10+u**9+u**8+u**7+u**6+u**5+u**4+u**3+u**2+u+1
+    # p13 = u**12+u**11+u**10+u**9+u**8+u**7+u**6+u**5+u**4+u**3+u**2+u+1
     p14=u**6-u**5+u**4-u**3+u**2-u+1
     p15=u**8-u**7+u**5-u**4+u**3-u+1
     p18=u**6-u**3+1
     p20=u**8-u**6+u**4-u**2+1
     p24=u**8-u**4+1
     p30=u**8+u**7-u**5-u**4-u**3+u+1
-    if typ[0]=='E' and n==6:
+
+    if typ[0] == 'E' and n == 6:
         return [u**(0)*p2**4*p3**3*p4**2*p5*p6**2*p8*p9*p12,
               u**(-36)*p2**4*p3**3*p4**2*p5*p6**2*p8*p9*p12,
               3*u**(-7)*p2**4*p3**3*p4**2,u**(-1)*
@@ -8227,13 +8231,11 @@ def blockLR(mat,bl,diag,p):
                     Pij=matsubp(Pij,matmultp(P[i][k],matmultp(L[k],
                                               transposemat(P[j][k]),p),p),p)
                 P[i][j]=matmultp([[(x*d1) %p for x in r] for r in Pij],invj,p)
-    resP=flatblockmat(P)
-    resL=reduce(directsummat,L)
     #mat1=[[mat[r][s] for s in fbl] for r in fbl]
     #if not all(x%p==0 for x in flatlist(matsubp(matmult(resP,
     #                    matmult(resL,transposemat(resP))),mat1)),p):
     #  print("grosser mist!")
-    return [flatblockmat(P),reduce(directsummat,L),fbl]
+    return [flatblockmat(P), reduce(directsummat, L), fbl]
 
 #F greenalgo
 
@@ -9294,19 +9296,16 @@ def relklpols(W,W1,cell1,weightL,q):
 
     See also 'klpolynomials', 'klcells', 'wgraph' and 'allrelklpols'.
     """
-    if type(weightL) == type([]):
-        poids=weightL
+    if isinstance(weightL, (list, tuple)):
+        poids = weightL
     else:
-        poids=len(W.rank)*[weightL]
-    if all(i==1 for i in poids):
-        uneq=False
-    else:
-        uneq=True
-    J=W1.fusions[W.cartanname]['subJ']
-    X1w=[W.coxelmtoword(c) for c in redleftcosetreps(W,J)]
-    X1=[W.wordtoperm(w) for w in X1w]
-    Lw=[sum([poids[s] for s in w]) for w in X1w]
-    lft=[]
+        poids = len(W.rank)*[weightL]
+    uneq = not all(i == 1 for i in poids)
+    J = W1.fusions[W.cartanname]['subJ']
+    X1w = [W.coxelmtoword(c) for c in redleftcosetreps(W,J)]
+    X1 = [W.wordtoperm(w) for w in X1w]
+    Lw = [sum([poids[s] for s in w]) for w in X1w]
+    lft = []
     for s in W.rank:
         ls=[]
         for w in X1:
@@ -11372,40 +11371,17 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
                 'nd':nd[di],'elms':lw,'special':ch[ii[sp]],'char':chi}
 
 #F poltostr
-
-
 def poltostr(f):
-    if type(f) == type(0):
-        return ('0.'+str(f))
-    elif f.coeffs==[]:
-        return ('0.0')
-    else:
-        return str(f.val)+'.'+'.'.join([str(i) for i in f.coeffs])
+    if isinstance(f, int):
+        return '0.' + str(f)
+    if not f.coeffs:
+        return '0.0'
+    return str(f.val) + '.' + '.'.join(str(i) for i in f.coeffs)
 
 #F strtopol
-
-
-def strtopol(sp,vnam):
-    spl=sp.split('.')
-    return lpol([int(i) for i in spl[1:]],val=int(spl[0]),vname=vnam)
-
-#F poltostr
-
-
-def poltostr(f):
-    if type(f) == type(0):
-        return ('0.'+str(f))
-    elif f.coeffs==[]:
-        return ('0.0')
-    else:
-        return str(f.val)+'.'+'.'.join([str(i) for i in f.coeffs])
-
-#F strtopol
-
-
-def strtopol(sp,vnam):
-    spl=sp.split('.')
-    return lpol([int(i) for i in spl[1:]],val=int(spl[0]),vname=vnam)
+def strtopol(sp, vnam):
+    spl = sp.split('.')
+    return lpol([int(i) for i in spl[1:]], val=int(spl[0]), vname=vnam)
 
 #F distinguishedinvolutions
 
@@ -15064,16 +15040,16 @@ def test():
                  for p in b2]==[W.coxelmtoword(p) for p in b1])
     somechecks.append([W.coxelmtoword(p)
                  for p in b2a]==[W.coxelmtoword(p) for p in b1a])
-    W=coxeter('F',4)
-    f=lusztigfamilies(W,0)
-    f=lusztigfamilies(W,1)
-    f=lusztigfamilies(W,[3,3,2,2])
-    f=lusztigfamilies(W,[2,2,1,1])
-    c=constructible(W,[2,2,1,1])
-    f=lusztigfamilies(W,[3,3,1,1])
+    W = coxeter('F',4)
+    lusztigfamilies(W, 0)
+    lusztigfamilies(W, 1)
+    lusztigfamilies(W, [3,3,2,2])
+    lusztigfamilies(W, [2,2,1,1])
+    constructible(W, [2,2,1,1])
+    lusztigfamilies(W, [3,3,1,1])
     lprint('#I ')
-    p=[3,2,1,0]
-    nc=[[W.cartan[i][j] for j in p] for i in p]
+    p = [3,2,1,0]
+    nc = [[W.cartan[i][j] for j in p] for i in p]
     somechecks.append(nc==cartantypetomat(cartantotype(nc)))
     aa=redleftcosetreps(W)
     w1=[0,2,1,0,2,3,2,1,0,2,1,2,3,2,1,0,2,1,2,3]

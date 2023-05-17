@@ -38,7 +38,7 @@ class zeta5:
                 if self.b > 0:
                     r = repr(self.a) + '+'
                 else:
-                    if type(self.b) == type(0):
+                    if isinstance(self.b, int):
                         r = repr(self.a)
                     else:
                         r = repr(self.a) + '+'

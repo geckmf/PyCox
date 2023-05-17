@@ -162,7 +162,6 @@ class lpol:
             if all(c == 0 for c in ng):
                 return 0
             else:
-                a, e = 0, len(ng)
                 return lpol(ng, f.val, self.vname)
         else:
             nf = (f.val - self.val) * [0] + f.coeffs
@@ -702,6 +701,7 @@ def lcmcyclpol(pols):
     """returns the least common multiple of a list of polynomials which
     have a decomposition as returned by 'cycldec'.
     """
+    from matrices import intlcm
     if len(pols) == 1:
         return pols[0]
     q = lpol([1], 1, pols[0].vname)
