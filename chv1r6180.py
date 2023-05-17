@@ -3664,9 +3664,9 @@ def bruhatperm(W,x,y,lx=False,ly=False):
   elif y==tuple(range(2*W.N)):
     return x==y
   else:
-    if lx==False:
+    if lx is False:
       lx=W.permlength(x)
-    if ly==False:
+    if ly is False:
       ly=W.permlength(y)
     while lx<ly and lx!=0 and ly!=0:
       s=0
@@ -4025,20 +4025,20 @@ def redleftcosetreps(W,J=[]):
 
   See also 'redrightcosetreps' and 'redinrightcoset'.
   """
-  l,ol=[tuple(W.rank)],[tuple(W.rank)]
-  while len(ol)>0:
-    nl=[]
+  l, ol = [tuple(W.rank)], [tuple(W.rank)]
+  while ol:
+    nl = []
     for w in ol:
       for s in W.rank:
-        if w[s]<W.N:
+        if w[s] < W.N:
           nw=tuple([W.roots.index(tuple([W.roots[w[t]][u]-
                                 W.cartan[s][t]*W.roots[w[s]][u]
                                    for u in W.rank])) for t in W.rank])
-          if all(tuple([W.permgens[u][r] for r in w])!=nw for u in J):
+          if all(tuple([W.permgens[u][r] for r in w]) != nw for u in J):
             nl.append(nw)
     ol=set(nl)
-    if len(ol)>0:
-      l.extend(list(ol))
+    if ol:
+      l.extend(ol)
   return l
 
 #F redrightcosetreps
@@ -5090,7 +5090,7 @@ def identifyclasses(W,elms,minrep=False, verbose=False):
       fpw+=str(len([i for i in w if i in o]))
     invW.append(fpw)
   invH=[]
-  if minrep==False:
+  if minrep:
     elms1=[conjtomin(W,W.wordtoperm(w)) for w in elms]
   else:
     elms1=elms
@@ -5408,7 +5408,7 @@ def chartablehalfC(n,other=False):
   for mu in range(len(pt)):
     a=flatlist(pt[mu])
     a.sort(reverse=True)
-    if other==False:
+    if not other:
       nti.append(ti[p.index(a)])
     else:
       if cw[mu].count(0)%2==0:
@@ -6926,7 +6926,7 @@ def inductiontable(H,W,display=False,invchar=False):
       j+=1
     mat.append(vec)
     #tab['scalar'].append(vec[:])
-  if invchar!=False:
+  if invchar is not False:
     aW=invchar(W)
     aH=invchar(H)
     for i in range(len(mat)):
@@ -6934,7 +6934,7 @@ def inductiontable(H,W,display=False,invchar=False):
         if aW[i]!=aH[j]:
           mat[i][j]=0
   tab['scalar']=mat
-  if not display==False:
+  if display:
     displaymat(mat,tab['charW'],tab['charH'])
   return tab
 
@@ -9427,7 +9427,7 @@ def lcmschurelms(W,paramL):
     for p in vs1[1:]:
       if p!=vs1[0]:
         equ=False
-    if equ==False:
+    if not equ:
       if ct[0][0]=='I':
         lprint('#I Just taking product of Schur elements\n')
         sh=schurelms(coxeter(ct[0],len(ct[1])),vs1)
@@ -9863,7 +9863,7 @@ class wgraph:
 
   See also 'reflectionwgraph', 'klcells' and 'wgraphstarorbit'.
   """
-  def __init__(self,W,weightL,xset,v,isets=[],mmat=[],mues=[],xrep=[]):
+  def __init__(self,W,weightL,xset,v,isets=None,mmat=[],mues=[],xrep=[]):
     if type(weightL)==type(0):
       self.weights=len(W.rank)*[weightL]
     else:
@@ -9872,7 +9872,7 @@ class wgraph:
     self.W=W
     self.X=xset
     self.var=v
-    if isets!=[]:
+    if isets is not None:
       self.Isets=isets
       self.mpols=mues
       self.mmat=mmat
@@ -9888,7 +9888,7 @@ class wgraph:
           if xset['klmat'][y][x][0]=='c':
             ms=xset['klmat'][y][x].split('c')[2:]
             mstr=''
-            if uneq==False:
+            if not uneq:
               for s in W.rank:
                 if s in self.Isets[x] and not s in self.Isets[y]:
                   if len(ms)==len(W.rank):
@@ -9949,10 +9949,13 @@ class wgraph:
       self.Xrep=[p[:len(W.rank)] for p in ap]
       self.mpols=nmues
       self.mmat=mm
+
   def __eq__(self,wgr):
     return self.Xrep==wgr.Xrep
+
   def __repr__(self):
     return 'wgraph('+repr(self.W)+', '+str(self.weights)+', '+str(self.X)+')'
+
   def normalise(self):
     """returns  a wgraph  (for the same representation) where the
     base set has been sorted.  If  the  base set  consists  of
@@ -9975,6 +9978,7 @@ class wgraph:
       for k in self.mmat:
         m1[(l1[k[0]],l1[k[1]])]=self.mmat[k]
       return wgraph(self.W,self.weights,lx,self.var,i1,m1,self.mpols,x1r)
+
   def wgraphtoklmat(self):
     """returns  a  dictionary which  can be used as input  to the
     function 'relklpols'. If G is a W-graph, then we have
@@ -10005,6 +10009,7 @@ class wgraph:
               mstr+='c0'
           mat[j][i]=mstr
     return {'elms':self.X,'mpols':mues,'klmat':mat}
+
   def decompose(self):
     """checks if a W-graph is indecomposable and, if not, returns
     the list of W-graphs of the indecomposable composants.
@@ -10103,7 +10108,7 @@ class wgraph:
     be added as component 'char' to the wgraph class.
 
     >>> W = coxeter("A",3)
-    >>> [l.character() for l in klcells(W,1,v)[1]]
+    >>> [l.character() for l in klcells(W,1,v)[0]]
     [[1,1,1,1,1], [3,1,-1,0,-1], [3,1,-1,0,-1], [2,0,2,-1,0],
      [3,-1,-1,0,1], [3,1,-1,0,-1], [2,0,2,-1,0],
      [3,-1,-1,0,1], [3,-1,-1,0,1], [1,-1,1,1,-1]]
@@ -10113,11 +10118,11 @@ class wgraph:
     representations of W.  (It is known that,  in type A,  all
     left cell representations are irreducible.)
     """
-    m=self.matrices(param=v)
-    c=[len(m[0])]
+    m = self.matrices(param=v)
+    c = [len(m[0])]
     for w in conjugacyclasses(self.W)['reps'][1:]:
-      c.append(sum([reduce(matmult,[m[s] for s in w])[i][i]
-                                          for i in range(c[0])]))
+      c.append(sum([reduce(matmult, [m[s] for s in w])[i][i]
+                    for i in range(c[0])]))
     self.char=c
     return c
 # end of definition of class wgraph
@@ -11461,7 +11466,7 @@ def klstaroperation(W,s,t,pcell):
   >>> klstaroperation(W,1,2,[W.wordtoperm(p) for p in cell])
   False
   >>> st=klstaroperation(W,2,3,[W.wordtoperm(p) for p in cell])
-  >>> st==False
+  >>> st is False
   False
   >>> [W.permtoword(p) for p in st]
   [[3, 2], [2], [0, 2], [1, 2]]
@@ -11652,8 +11657,8 @@ def leftklstarorbits(W,l,lcells=False,gens='each'):
     gens=list(W.rank)
   orbs=[]
   rest=[x for x in l]
-  while rest!=[]:
-    if lcells==False:
+  while rest:
+    if not lcells:
       o=[x for x in leftklstarorbitelm(W,rest[0],gens) if x in l]
     else:
       o=leftklstarorbitelm(W,rest[0],gens)
@@ -11983,7 +11988,7 @@ def gentaucells(W,startset, verbose=False, lcells=False,string=False,tlen=False)
   while weiter:
     if verbose:
       lprint(str(len(res)+len(rest))+' ')
-    if string==False:
+    if not string:
       cg=[gentauorbit2(W,r) for r in rest]
     else:
       cg=[genstringorbit2(W,r) for r in rest]
@@ -12094,8 +12099,8 @@ def wgraphstarorbit(W,wgr,gens='each'):
   See also 'klstaroperation', 'wgraph' and 'klcells'.
   """
   return [wgraph(W,wgr.weights,[W.permtoword(p) for p in l],wgr.var,wgr.Isets,
-                  wgr.mmat,wgr.mpols,[p[:len(W.rank)] for p in l]).normalise()
-                                       for l in klstarorbitperm(W,wgr.X,gens)]
+                 wgr.mmat,wgr.mpols,[p[:len(W.rank)] for p in l]).normalise()
+          for l in klstarorbitperm(W,wgr.X,gens)]
 
 #F klcellsun
 def klcellsun(W, weightL, v, verbose=False):
@@ -12548,16 +12553,16 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
   carried by C.
 
   >>> W = coxeter("F",4); k=klcells(W,1,v)
-  >>> l=leftcellleadingcoeffs(W,1,v,k[0][64]); l['ti']
+  >>> l = leftcellleadingcoeffs(W,1,v,k[0][64]); l['ti']
   [[('4_1',), [1, -1, -1, 1, 1, 0, -1, -1, 1]],
    [('9_2',), [1, 1, -1, -1, -1, 0, -1, 1, 1]],
    [('9_3',), [1, -1, 1, -1, -1, 0, 1, -1, 1]],
    [('6_2',), [1, 1, 1, 1, 1, -2, 1, 1, 1]],
-   [('12',),  [1, 1, 1, 1, 1, 4, 1, 1, 1]],
-   [('16',),  [2, 0, 0, 0, 0, 0, 0, 0, -2]]]}
+   [('12',), [1, 1, 1, 1, 1, 4, 1, 1, 1]],
+   [('16',), [2, 0, 0, 0, 0, 0, 0, 0, -2]]]
   >>> l['special']
   ('12',)
-  >>> t=chartable(W); t['charnames'].index('12')
+  >>> t = chartable(W); t['charnames'].index('12')
   15
   >>> t['a'][15]; t['b'][15]
   4
@@ -14113,7 +14118,6 @@ def checkatau(W):
       if len(set(af1))<len(af1):
         print([a1,af1,l])
         return False
-  print('#I tau-a characterisation OK')
   return True
 
 #F cellsinvolutions
@@ -14159,8 +14163,8 @@ def leftcellsinvolutions(W):
   neu=[]
   for l1 in g:
     for l2 in c:
-      l3=list([x for x in l1 if x in l2])
-      if l3!=[]:
+      l3=[x for x in l1 if x in l2]
+      if l3:
         neu.append([W.coxelmtoword(x) for x in l3])
   lprint('# Number of left cells = '+str(nsp)+'/'+str(len(neu))+'\n')
   return neu
