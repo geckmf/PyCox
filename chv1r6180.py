@@ -1774,6 +1774,8 @@ def helppartitions(n,m,part,i):
 def partitions(n):
   """returns the list of all partitions of n.
 
+  This should be an iterator.
+
   >>> partitions(5)
   [[1, 1, 1, 1, 1], [2, 1, 1, 1], [2, 2, 1], [3, 1, 1], [3, 2], [4, 1], [5]]
 
@@ -1788,10 +1790,9 @@ def partitions(n):
 def dualpartition(mu):
   """returns the dual (or conjugate) partition to mu.
   """
-  if mu==[]:
+  if not mu:
     return []
-  else:
-    return [len([l for l in mu if l>j]) for j in range(mu[0])]
+  return [len([1 for l in mu if l > j]) for j in range(mu[0])]
 
 #F centraliser partition
 def centraliserpartition(n,mu):
@@ -1885,6 +1886,8 @@ def bipartitions(n):
 #F partitiontuples
 def partitiontuples(n,r):
   """returns the list of all r-tuples of partitions of n.
+
+  This should be an iterator.
 
   >>> partitiontuples(3,2)
   [[[1, 1, 1], []],
@@ -5178,7 +5181,7 @@ def fusionconjugacyclasses(H,W):
   if H.cartanname==W.cartanname:
     fh['classes']=range(len(ch['reps']))
     return fh['classes']
-  if fh['parabolic']==True:
+  if fh['parabolic']:
     clH=[[fh['subJ'][s] for s in w] for w in ch['reps']]
   else:
     clH=[]
@@ -5359,7 +5362,7 @@ def chartablehalfC(n,other=False):
   ti=transposemat(chartablesymmetric(n))
   p=partitions(n)
   pt=partitiontuples(n,2)
-  if other==True:
+  if other:
     cw=conjugacyclasses(coxeter("C",n))['reps']
   nti=[]
   for mu in range(len(pt)):
@@ -7651,7 +7654,7 @@ def classpolynomials(W,paramL,pw):
   else:
     vs=len(W.rank)*[paramL]
   t=testcyclicshift(W,pw)
-  if t==True:
+  if t:
     cp=len(conjugacyclasses(W)['reps'])*[0]
     cp[identifyclasses(W,[W.permtoword(pw)],minrep=True)[0]]=1
   else:
@@ -10060,7 +10063,7 @@ class wgraph:
     be added as component 'char' to the wgraph class.
 
     >>> W = coxeter("A",3)
-    >>> [l.character() for l in klcells(w,1,v)]
+    >>> [l.character() for l in klcells(W,1,v)]
     [[1,1,1,1,1], [3,1,-1,0,-1], [3,1,-1,0,-1], [2,0,2,-1,0],
      [3,-1,-1,0,1], [3,1,-1,0,-1], [2,0,2,-1,0],
      [3,-1,-1,0,1], [3,-1,-1,0,1], [1,-1,1,1,-1]]
@@ -10474,7 +10477,7 @@ def klpolynomials(W,weightL, v, verbose=False):
   lorder=[[d2[0] in pp1[d1[0]] for d2 in duflo] for d1 in duflo]
   for c1 in range(len(lcells)):
     for c2 in range(len(lcells)):
-      if c1!=c2 and lorder[c1][c2]==True and duflo[c1][1]>=duflo[c2][1]:
+      if c1!=c2 and lorder[c1][c2] and duflo[c1][1]>=duflo[c2][1]:
         checks=False
   if verbose:
     lprint('>')
@@ -12290,7 +12293,7 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
                 #                                     for x in o]).normalise()
                 #nc.append(g)
                 #for e in g.Xrep:  celms.add(e)
-                if allcells==True:
+                if allcells:
                   nc.append([W.permtoword(x) for x in o])
                 else:
                   nc.append([W.permtoword(x) for x in o
@@ -12312,7 +12315,7 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
                   #                  [x[:len(W.rank)] for x in o]).normalise()
                   #nc.append(g)
                   #for e in g.Xrep:  celms.add(e)
-                  if allcells==True:
+                  if allcells:
                     nc.append([W.permtoword(x) for x in o])
                   else:
                     nc.append([W.permtoword(x) for x in o
@@ -12330,7 +12333,7 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
       lprint('mues: '+','.join([str(i) for i in allmues])+'\n')
     #nc.sort(key=(lambda c:len(c)))
     ct=chartable(W)
-    if allcells==True and len(nc)!=sum([ct['irreducibles'][i][0]
+    if allcells and len(nc)!=sum([ct['irreducibles'][i][0]
                  for i in range(len(ct['a'])) if ct['a'][i]==ct['b'][i]]):
       print("Mist!")
       return False
@@ -12463,7 +12466,6 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
   >>> W = coxeter("B",2)
   >>> [leftcellleadingcoeffs(W,1,v,l)
   ...          for l in klcells(W,1,v)[0]] # equal parameters
-  #I 4 left cells (4 non-equivalent), mues: 1
   [{'elms': [[]], 'nd': 1, 'special': ('[[2], []]',),
     'distinv': [], 'ti': [[('[[2], []]',), [1]]]},
    {'elms': [[0, 1, 0, 1]], 'nd': 1, 'special': ('[[], [1, 1]]',),
@@ -12477,7 +12479,6 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
 
   >>> [leftcellleadingcoeffs(W,[2,1],v,l.X)
   ...            for l in klcells(W,[2,1],v)]  # unequal parameters
-  #I 10 arrows >> 6 left cells >> checks are True
   [{'elms': [[]], 'nd': 1, 'special': ('[[2], []]',),
     'distinv': [], 'ti': [[('[[2], []]',), [1]]]},
    {'elms': [[0]], 'nd': 1, 'special': ('[[1], [1]]',),
@@ -12588,7 +12589,7 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
       chi.append(lc[i][di])
     else:
       chi.append(0)
-  if newnorm==True:
+  if newnorm:
     return {'ti':[[ch[i],lc[i]] for i in ii],'distinv':lw[di],
             'nd':nd[di],'elms':lw,'special':ch[ii[sp]],'char':chi}
   else:
@@ -13386,7 +13387,7 @@ def libdistinv(W,weightL,unpack=True):
     ch=chartable(W,chars=False)['charnames']
     chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
                               for k in i.split('c')] for i in chrs0]
-    if unpack==True:
+    if unpack:
       return [[int(s) for s in i] for i in l]
     else:
       return [[[int(s) for s in l[i]],chars[i]] for i in range(len(l))]
@@ -13572,7 +13573,7 @@ def libdistinv(W,weightL,unpack=True):
     ch=chartable(W,chars=False)['charnames']
     chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
                               for k in i.split('c')] for i in chrs0]
-    if unpack==True:
+    if unpack:
       return [[int(s) for s in i] for i in l]
     else:
       return [[[int(s) for s in l[i]],chars[i]] for i in range(len(l))]
@@ -13677,7 +13678,7 @@ def libdistinv(W,weightL,unpack=True):
     ch=chartable(W,chars=False)['charnames']
     chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
                               for k in l.split('c')] for l in chrs0]
-    if unpack==True:
+    if unpack:
       f=[W.permtoword(x) for x in flatlist([starorbitinv(W,
                W.wordtoperm([int(i) for i in r])) for r in reps])]
       f.sort(key=(lambda x:len(x)))
@@ -13724,7 +13725,7 @@ def libdistinv(W,weightL,unpack=True):
     ch=chartable(W,chars=False)['charnames']
     chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
                               for k in l.split('c')] for l in chrs0]
-    if unpack==True:
+    if unpack:
       f=[W.permtoword(x) for x in flatlist([starorbitinv(W,
                W.wordtoperm([int(i) for i in r])) for r in reps])]
       f.sort(key=(lambda x:len(x)))
@@ -13844,7 +13845,7 @@ def libdistinv(W,weightL,unpack=True):
     ch=chartable(W,chars=False)['charnames']
     chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
                               for k in l.split('c')] for l in chrs0]
-    if unpack==True:
+    if unpack:
       f=[W.permtoword(x) for x in flatlist([starorbitinv(W,
                W.wordtoperm([int(i) for i in r])) for r in reps])]
       f.sort(key=(lambda x:len(x)))
@@ -13926,7 +13927,7 @@ def distinva(W,weightL=1, verbose=False):
     a1.append(a0[0])
   nd,na=[],[]
   for r in range(len(d)):
-    if typEH==True:
+    if typEH:
       for st in starorbitinv(W,W.wordtoperm(d[r][0])):
         nd.append(st[:len(W.rank)])
         na.append(a1[r])
@@ -15562,8 +15563,6 @@ def cellreplstars(W, verbose=False):
 
   >>> W = coxeter("B",2)
   >>> cellreplstars(W)
-  [...]
-  #I Total number OK
   [{'a': 0,
     'index': 0,
     'character': [['[[2], []]', 1]],
@@ -15702,13 +15701,13 @@ def leftcellelm(W,w,replstars=False, verbose=False):
   e8c=klcellreps(W)
   weiter=True
   c0=-1
-  while weiter==True:
+  while weiter:
     for y in orb:
       for c in range(len(e8c)):
         if y[:len(W.rank)] in e8c[c]['elms']:
           weiter=False
           c0=c
-      if weiter==True:
+      if weiter:
         for s in W.rank:
           for t in range(s):
             if W.coxetermat[s][t]==3:
@@ -15718,7 +15717,7 @@ def leftcellelm(W,w,replstars=False, verbose=False):
                   if nc[0][:len(W.rank)] in e8c[c]['elms']:
                     weiter=False
                     c0=c
-                if weiter==True:
+                if weiter:
                   orb.append(nc[0])
                   orb1.add(nc[0][:len(W.rank)])
   if c0==-1:
@@ -16142,14 +16141,14 @@ def test():
     lc.append(len(kl['lcells']))
   somechecks.append(lc==[10,14,16,20])
   k=[i.matrices(True) for i in klcells(W,1,v)[1]]
-  somechecks.append(all([type(m)==type([]) for m in k])==True)
+  somechecks.append(all([type(m)==type([]) for m in k]))
   k=[i.matrices(True) for i in klcells(W,[3,2,2],v)]
-  somechecks.append(all([type(m)==type([]) for m in k])==True)
+  somechecks.append(all([type(m)==type([]) for m in k]))
   W=coxeter("I14",2)
   k=[i.matrices(True) for i in klcells(W,1,v)[1]]
-  somechecks.append(all([type(m)==type([]) for m in k])==True)
+  somechecks.append(all([type(m)==type([]) for m in k]))
   k=[i.matrices(True) for i in klcells(W,[5,3],v)]
-  somechecks.append(all([type(m)==type([]) for m in k])==True)
+  somechecks.append(all([type(m)==type([]) for m in k]))
   # test all conversions:
   W=coxeter("H",3)
   somechecks.append(cellrepcheck1(W,klcellreps(W)))
