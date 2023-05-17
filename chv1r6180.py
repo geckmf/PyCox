@@ -28,6 +28,7 @@ import math
 
 from zeta5 import zeta5
 from polynomials import lpol, lpolmod, ir
+from matrices import *
 
 BANNER = '''
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -423,909 +424,6 @@ def versioninfo(nr):
 #Y Section 1: Numbers, polynomials, other utility functions
 #
 
-
-#F isprime
-def isprime(n):
-    if n==0 or n==1:
-        return False
-    if n<0:
-        return isprime(-n)
-    i=2
-    while i*i<=n:
-        if n%i==0:
-            return False
-        i+=1
-    return True
-
-#F nextprime
-
-
-def nextprime(n):
-    """returns the next prime number greater than a given integer.
-    (Taken from the gap-library.)
-
-    >>> nextprime(10**8)
-    100000007
-    >>> isprime(100000007)
-    True
-
-    See also 'isprime'.
-    """
-    if -3==n:
-        n=-2
-    elif -3<n<2:
-        n=2
-    elif n%2==0:
-        n+=1
-    else:
-        n+=2
-    while not isprime(n):
-        if n%6==1:
-            n+=4
-        else:
-            n+=2
-    return n
-
-#F intlcm
-
-
-def intlcm(a,b):
-    """returns the least common multiple of two integers.
-
-    See also 'intlcmlist'.
-    """
-    gcd,tmp=a,b
-    while tmp!=0:
-        gcd,tmp=tmp,gcd%tmp
-    return (a*b)//gcd
-
-
-def intlcmlist(l):
-    """returns the least common multiple of a list of integers.
-    """
-    return reduce(intlcm,l)
-
-#F gcdex
-
-
-def gcdex(m,n):
-    """Extended gcd algorithm for integers (taken from the  gap-library). The
-    function returns a dictionary with entries gcd, coeff1, coeff2, coeff3
-    and coeff4. We have
-
-        gcd = coeff1 * m + coeff2 * n  and  0 = coeff3 * m + coeff4 * n.
-
-    >>> sorted(gcdex(4,15).items())
-    {'coeff3': -15, 'coeff2': -1, 'coeff1': 4, 'gcd': 1, 'coeff4': 4}
-
-    (Thus, gcd(4,15)=1; we have 1=4*4+(-1)*15 and 0=(-15)*4+4*15.)
-    """
-    if 0<=m:
-        f,fm=m,1
-    else:
-        f,fm=-m,-1
-    if 0<=n:
-        g,gm=n,0
-    else:
-        g,gm=-n,0
-    while g!=0:
-        q,h,hm=f//g,g,gm
-        g=f-q*g
-        gm=fm-q*gm
-        f,fm=h,hm
-    if n==0:
-        return {'gcd':f,'coeff1':fm,'coeff2':0,'coeff3':gm,'coeff4':1}
-    else:
-        return {'gcd':f,'coeff1':fm,'coeff2':(f-fm*m)//n,'coeff3':gm,
-                'coeff4':(0-gm*m)//n}
-
-#F idmat
-
-
-def idmat(rng,scalar):
-    """returns the scalar matrix of size len(rng) with a given scalar
-    on the diagonal.
-
-    >>> idmat([0,1,2],-3)
-    [[-3, 0, 0], [0, -3, 0], [0, 0, -3]]
-    """
-    m=[len(rng)*[0] for x in rng]
-    for x in range(len(rng)):
-        m[x][x]=scalar
-    return m
-
-#F transposemat
-
-
-def transposemat(mat):
-    """returns the transpose of a matrix.
-
-    >>> transposemat([[1,2,3],[4,5,6]])
-    [[1, 4], [2, 5], [3, 6]]
-    """
-    return list(map(lambda *row: list(row), *mat))
-#  return zip(*mat)
-
-#F flatlist
-
-
-def flatlist(lst):
-    """returns the list of all elements that are contained in a given
-    list or in any of its sublists. (Taken from the gap library.)
-
-    >>> flatlist([1,[2,3],[[1,2],3]])
-    [1, 2, 3, 1, 2, 3]
-    >>> flatlist([]);
-    []
-    """
-    flt=[]
-    for elm in lst:
-        if type(elm)!=type([]):
-            flt.append(elm)
-        else:
-            flt.extend(flatlist(elm))
-    return flt
-
-#F flatblockmat
-
-
-def flatblockmat(blmat):
-    """flattens a block matrix.
-    """
-    a=[]
-    for b in range(len(blmat)):
-        for i in range(len(blmat[b][b])):
-            a.append(flatlist(l[i] for l in blmat[b]))
-    return a
-
-#F transclos
-
-
-def transclos(n,r):
-    """returns the transitive closure of a relation on the integers
-    0,1,...,n-1 given by a list of pairs in r.
-    """
-    m=[]
-    for i in range(n):
-        l=n*[False]
-        l[i]=True
-        for p in r:
-            if p[0]==i:
-                l[p[1]]=True
-        m.append(l)
-    for i in range(n):
-        for j in range(n):
-            if m[j][i]==1:
-                m[j]=[m[i][k] or m[j][k] for k in range(n)]
-    return m
-
-#F noduplicates
-
-
-def noduplicates(seq):
-    """returns a new list in which all duplicates in the original list
-    have been removed.  Also works for non-hashable types. (Learned
-    this from stackoverflow.)
-
-    >>> noduplicates([[1, 1], [2, 1], [1, 2], [1, 1], [3, 1]])
-    [[1, 1], [2, 1], [1, 2], [3, 1]]
-    """
-    seen = set()
-    return [x for x in seq if str(x) not in seen and not seen.add(str(x))]
-
-#F partitioncap
-
-
-def partitioncap(p1,p2):
-    """returns the common refinement of two partitions of the same set.
-    """
-    s2=[set([str(x) for x in l]) for l in p2]
-    neu=[]
-    for p in p1:
-        s=[str(x) for x in p]
-        for j in range(len(s2)):
-            nn=[p[i] for i in range(len(s)) if s[i] in s2[j]]
-            if nn!=[]:
-                neu.append(nn)
-    return neu
-
-#F permmult
-
-
-def permmult(p,q):
-    """returns the composition of two permutations (acting from the
-    right.)
-    """
-    return tuple([q[i] for i in p])
-
-#F printfunction
-
-
-def printfunction(f):
-    """prints the source code of a function.
-
-    >>> printfunction(transposemat)
-    def transposemat(mat):
-      ...
-      return list(map(lambda *row: list(row), *mat))
-    """
-    import inspect
-    print(''.join(inspect.getsourcelines(f)[0]))
-
-#F perminverse
-
-
-def perminverse(p):
-    """returns the inverse of a permutation.
-    """
-    np=len(p)*[0]
-    for i in range(len(p)):
-        np[p[i]]=i
-    return tuple(np)
-
-#F matadd
-
-
-def matadd(a,b):
-    """returns the sum of two matrices.
-    """
-    return [[a[i][j]+b[i][j] for j in range(len(a[0]))] for i in range(len(a))]
-
-#F matsub
-
-
-def matsub(a,b):
-    """returns the difference of two matrices.
-    """
-    return [[a[i][j]-b[i][j] for j in range(len(a[0]))] for i in range(len(a))]
-
-#F matmult
-
-
-def matmult(a,b):
-    """returns the matrix product of the matrices a and b.
-
-    See also 'matadd' and 'scalmatmult'.
-    """
-    return [[sum(row[k]*b[k][j] for k in range(len(b)))
-                          for j in range(len(b[0]))] for row in a]
-
-#F scalmatmult
-
-
-def scalmatmult(a,b):
-    """multiplies a matrix b with a scalar a.
-    """
-    return [[a*b[i][j] for j in range(len(b[0]))] for i in range(len(b))]
-
-#F directsummat
-
-
-def directsummat(a,b):
-    """returns the matrix direct sum of the matrices a and b.
-
-    >>> c=directsummat(cartanmat("A",2),cartanmat("G",2)); c
-    [[2, -1, 0, 0], [-1, 2, 0, 0], [0, 0, 2, -1], [0, 0, -3, 2]]
-    """
-    if a==[[]]:
-        return b
-    elif b==[[]]:
-        return a
-    else:
-        c=idmat(range(len(a[0])+len(b[0])),0)
-        for i in range(len(a[0])):
-            for j in range(len(a[0])):
-                c[i][j]=a[i][j]
-        for i in range(len(b[0])):
-            for j in range(len(b[0])):
-                c[len(a[0])+i][len(a[0])+j]=b[i][j]
-        return c
-
-#F kroneckerproduct
-
-
-def kroneckerproduct(mat1,mat2):
-    """returns the  Kronecker product of the matrices mat1 and mat2. If
-    mat1  has size m times n and mat2  has  size p times q, then the
-    Kronecker product is a matrix of size m*p times n*q.
-
-    >>> mat1=[[ 0,-1, 1],
-    ...       [-2, 0,-2]]
-    >>> mat2=[[1,1],
-    ...       [0,1]]
-    >>> kroneckerproduct(mat1,mat2)
-    [[0, 0, -1, -1, 1, 1],
-     [0, 0, 0, -1, 0, 1],
-     [-2, -2, 0, 0, -2, -2],
-     [0, -2, 0, 0, 0, -2]]
-
-    (The program is taken from the gap library and re-written almost
-    1-1 in python.)
-    """
-    krpr=[]
-    for row1 in mat1:
-        for row2 in mat2:
-            row=[]
-            for i in row1:
-                row.extend([i*x for x in row2])
-            krpr.append(row)
-    return krpr
-
-#F decomposemat
-
-
-def decomposemat(mat):
-    """tests if a matrix can be decomposed in block diagonal form; it
-    is assumed that  mat[i][j]=0  if and only if  mat[j][i]=0. The
-    result is range(len(mat[0]))  if  mat  can not be  decomposed.
-    Otherwise, the lists of block indices are returned.
-
-    >>> d=decomposemat([[ 2, 0,-1, 0, 0],
-    ...                 [ 0, 2, 0,-3, 0],
-    ...                 [-2, 0, 2, 0,-1],
-    ...                 [ 0,-1, 0, 2, 0],
-    ...                 [ 0, 0,-1, 0, 2]])
-    >>> d
-    [[0, 2, 4], [1, 3]]
-
-    Thus, there are two blocks, obtained by taking the submatrices
-    with row and column indices (0,2,4) and (1,3), respectively.
-    """
-    l=list(range(len(mat[0])))
-    orbs=[]
-    while l!=[]:
-        orb=[l[0]]
-        for o in orb:
-            for i in l:
-                if mat[o][i]!=0 and not i in orb:
-                    orb.append(i)
-        for i in orb:
-            l.remove(i)
-        orb.sort()
-        orbs.append(orb)
-    return orbs
-
-#F determinantmat1
-
-
-def determinantmat1(mat):
-    n=len(mat[0])
-    if n==1:
-        return mat[0][0]
-    else:
-        d=0
-        for k in range(n):
-            l=list(range(n))
-            l.remove(k)
-            if mat[k][0]!=0:
-                d+=(-1)**k*mat[k][0]*determinantmat1([[mat[i][j]
-                                   for j in range(1,n)] for i in l])
-        return d
-
-#F determinantmat
-
-
-def determinantmat(mat):
-    """returns the determinant of a matrix. If all coefficients are integers,
-    the function uses a simplified version of the algorithm for  computing
-    the elementary divisors of a matrix; in particular,  it does  not  use
-    fractions. In general, it uses induction on the size of the matrix and
-    expansion  along the first column.  (Thus,  it will  work for matrices
-    of moderate size over any commutative ring).
-    """
-    a=[list(l) for l in mat]
-    if not all(type(x)==type(0) for x in flatlist(a)):
-        return determinantmat1(mat)
-    n=len(mat[0])
-    d=1
-    for p in range(n-1):
-        i=p
-        while i<n and a[i][p]==0:
-            i+=1
-        if i>=n:
-            return 0
-        if i!=p:
-            d=-d
-            for j in range(n):
-                x=a[p][j]
-                a[p][j]=a[i][j]
-                a[i][j]=x
-        fertig=False
-        i=p+1
-        while i<n and not fertig:
-            if a[i][p]!=0:
-                q=a[i][p]//a[p][p]
-                for j in range(n):
-                    a[i][j]-=q*a[p][j]
-                if a[i][p]!=0:
-                    for j in range(n):
-                        x=a[p][j]
-                        a[p][j]=a[i][j]
-                        a[i][j]=x
-                    d=-d
-                else:
-                    i+=1
-            else:
-                i+=1
-        d*=a[p][p]
-    d*=a[n-1][n-1]
-    return d
-
-#F inversematp
-
-
-def inversematp(mat,p):
-    """checks if an integer matrix is invertible; if this is the case, the
-    function  returns the inverse of that matrix  modulo a prime number.
-    """
-    n=len(mat[0])
-    a=[]
-    for i in range(n):
-        l=[mat[i][j]%p for j in range(n)]
-        l.extend(n*[0])
-        l[n+i]=1
-        a.append(l)
-    for k in range(n):
-        k1=k
-        while k1<n and a[k1][k]%p==0:
-            k1+=1
-        if k1==n:
-            return False
-        if k!=k1:
-            for j in range(2*n):
-                a[k][j],a[k1][j]=a[k1][j],a[k][j]
-        p1=1
-        while (p1*a[k][k])%p!=1:
-            p1+=1
-        for j in range(2*n):
-            a[k][j]=(p1*a[k][j])%p
-        for i in range(n):
-            if i!=k:
-                q=a[i][k]
-                for j in range(2*n):
-                    a[i][j]=(a[i][j]-(q*a[k][j])%p)%p
-    return [l[n:] for l in a]
-
-#F cartesian2
-
-
-def cartesian2(liste,n,tup,i):
-    if i==n:
-        tups=[tup[:]]
-    else:
-        tups=[]
-        for l in liste[i]:
-            if i==len(tup):
-                tup.append(l)
-            else:
-                tup[i]=l
-            tups.extend(cartesian2(liste,n,tup,i+1))
-    return tups
-
-#F cartesian
-
-
-def cartesian(*arg):
-    """returns the cartesian product of lists.
-
-    >>> cartesian([1,2],[3,4],[4,5])
-    [[1, 3, 4], [1, 3, 5], [1, 4, 4], [1, 4, 5], [2, 3, 4], [2, 3, 5], [2, 4, 4], [2, 4, 5]]
-    >>> cartesian([1,2,2],[1,1,2])
-    [[1, 1], [1, 1], [1, 2], [2, 1], [2, 1], [2, 2], [2, 1], [2, 1], [2, 2]]
-
-    In the first form the argument is a comma-separated sequence l1, l2,
-    ..., and the function returns the cartesian product of l1, l2, ...
-
-    In the second form the argument is a list of lists [l1,l2,,...], and
-    and the function returns the cartesian product of those lists.
-
-    If more than two lists are given,  cartesian(l1,l2,...) is the  same
-    (up to some nested bracketing) as cartesian(cartesian(l1,l2),...).
-
-    >>> cartesian(cartesian([1,2],[3,4]),[4,5])
-    [[[1, 3], 4], [[1, 3], 5], [[1, 4], 4], [[1, 4], 5], [[2, 3], 4],
-     [[2, 3], 5], [[2, 4], 4], [[2, 4], 5]]
-
-    The ordering is exactly the same as in gap. (The program is actually
-    taken from the gap library and re-written almost 1-1 in python.)
-    """
-    if len(arg)==1:
-        return cartesian2(arg[0],len(arg[0]),[],0)
-    else:
-        return cartesian2(arg,len(arg),[],0)
-
-#F helppartitions
-
-
-def helppartitions(n,m,part,i):
-    if n==0:
-        part=part[:]
-        parts=[part]
-    elif n<=m:
-        part=part[:]
-        parts=[part]
-        for l in range(2,n+1):
-            part[i]=l
-            parts.extend(helppartitions(n-l,l,part,i+1))
-        for l in range(i,i+n):
-            part[l]=1
-    else:
-        part=part[:]
-        parts=[part]
-        for l in range(2,m+1):
-            part[i]=l
-            parts.extend(helppartitions(n-l,l,part,i+1))
-        for l in range(i,i + n):
-            part[l]=1
-    return parts
-
-#F partitions
-
-
-def partitions(n):
-    """returns the list of all partitions of n.
-
-    This should be an iterator.
-
-    >>> partitions(5)
-    [[1, 1, 1, 1, 1], [2, 1, 1, 1], [2, 2, 1], [3, 1, 1], [3, 2], [4, 1], [5]]
-
-    The ordering is exactly the same as in gap. (The program is actually
-    taken from the gap library and re-written almost 1-1 in python.)
-
-    See also 'partitiontuples'.
-    """
-    return [[x for x in p if x>0] for p in helppartitions(n,n,n*[0],0)]
-
-#F dualpartition
-
-
-def dualpartition(mu):
-    """returns the dual (or conjugate) partition to mu.
-    """
-    if not mu:
-        return []
-    return [len([1 for l in mu if l > j]) for j in range(mu[0])]
-
-#F centraliser partition
-
-
-def centraliserpartition(n,mu):
-    """returns the order of the centraliser  of an element  of cycle
-    type of a given partition in the  full symmetric group.  (The
-    program is  taken from the  gap library and re-written almost
-    1-1 in python.)
-    """
-    res,last,k=1,0,1
-    for p in mu:
-        res*=p
-        if p==last:
-            k+=1
-            res*=k
-        else:
-            k=1
-        last=p
-    return res
-
-#F differencepartitions
-
-
-def differencepartitions(gamma,alpha):
-    """returns  a dictionary with information about the  difference of
-    two partitions (if it exists); this function is  needed for the
-    computation of character values in type B_n. It is taken almost
-    1-1 from the gap-chevie library.
-
-    See also 'heckevalueB'.
-    """
-    dp={'cc':0, 'll':0}
-    if len(alpha)>len(gamma):
-        return False
-    old=[]
-    inhook=False
-    alpha=alpha[:]
-    for i in range(len(alpha),len(gamma)):
-        alpha.append(0)
-    for i in range(len(gamma)):
-        if alpha[i]>gamma[i]:
-            return False
-        new=list(range(alpha[i],gamma[i]))
-        intsec=[r for r in old if r in new]
-        if len(intsec)>1:
-            return False
-        elif len(intsec)==1:
-            dp['ll']+=1
-        else:
-            if inhook:
-                dp['cc']+=1
-                dp['d']=old[0]-i
-                inhook=False
-        if new!=[]:
-            inhook=True
-        old=new
-    if inhook:
-        dp['cc']+=1
-        dp['d']=old[0]-len(gamma)
-    return dp
-
-#F bipartitions
-
-
-def bipartitions(n):
-    """returns the list of all bipartitions of n (as in gap). The
-    ordering is different from that of partitiontuples(n,2).
-    """
-    if n==0:
-        return [[[],[]]]
-    pm=[[] for i in range(n)]
-    for m in range(1,n+1):
-        pm[m-1].append([[],[m]])
-        for k in range(m+1,n+1):
-            for t in pm[k-m-1]:
-                s=[[],[m]]
-                s[1].extend(t[1])
-                pm[k-1].append(s)
-    for m in range(1,n//2+1):
-        pm[m-1].append([[m],[]])
-        for k in range(m+1,n-m+1):
-            for t in pm[k-m-1]:
-                s=[[m],t[1]]
-                s[0].extend(t[0])
-                pm[k-1].append(s)
-    res=[]
-    for k in range(1,n):
-        for t in pm[n-k-1]:
-            s=[[k],t[1]]
-            s[0].extend(t[0])
-            res.append(s)
-    res.append([[n],[]])
-    res.extend(pm[n-1])
-    return res
-
-#F partitiontuples
-
-
-def partitiontuples(n,r):
-    """returns the list of all r-tuples of partitions of n.
-
-    This should be an iterator.
-
-    >>> partitiontuples(3,2)
-    [[[1, 1, 1], []],
-     [[1, 1], [1]],
-     [[1], [1, 1]],
-     [[], [1, 1, 1]],
-     [[2, 1], []],
-     [[1], [2]],
-     [[2], [1]],
-     [[], [2, 1]],
-     [[3], []],
-     [[], [3]]]
-
-    The ordering is exactly the same as in gap. (The program is actually
-    taken from the gap library and re-written almost 1-1 in python.)
-
-    See also 'partitions'.
-    """
-    empty={'tup':[[] for x in range(r)],'pos':(n-1)*[1]}
-    if n==0:
-        return [empty['tup']]
-    pm=[[] for x in range(1,n)]
-    for m in range(1,n//2+1):
-        for i in range(1,r+1):
-            s={'tup':[l[:] for l in empty['tup']],'pos':empty['pos'][:]}
-            s['tup'][i-1]=[m]
-            s['pos'][m-1]=i
-            pm[m-1].append(s)
-        for k in range(m+1,n-m+1):
-            for t in pm[k-m-1]:
-                for i in range(t['pos'][m-1],r+1):
-                    t1={'tup':[l[:] for l in t['tup']],'pos':t['pos'][:]}
-                    s=[m]
-                    s.extend(t['tup'][i-1])
-                    t1['tup'][i-1]=s
-                    t1['pos'][m-1]=i
-                    pm[k-1].append(t1)
-    res=[]
-    for k in range(1,n):
-        for t in pm[n-k-1]:
-            for i in range(t['pos'][k-1],r+1):
-                t1=[l[:] for l in t['tup']]
-                s=[k]
-                s.extend(t['tup'][i-1])
-                t1[i-1]=s
-                res.append(t1)
-    for i in range(1,r+1):
-        s=[l[:] for l in empty['tup']]
-        s[i-1]=[n]
-        res.append(s)
-    return res
-
-#F centralisertuple
-
-
-def centralisertuple(n,r,mu):
-    """returns the order of the centraliser of an element of a given
-    type (specified by an r-tuple of partitions mu) in the wreath
-    product of a cyclic group of order r with the full  symmetric
-    group of degree n. (The program is taken from the gap library
-    and re-written almost 1-1 in python.)
-    """
-    res=1
-    for i in range(r):
-        last,k=0,1
-        for p in mu[i]:
-            res*=r*p
-            if p==last:
-                k+=1
-                res*=k
-            else:
-                k=1
-            last=p
-    return res
-
-#F lusztigsymbolB
-
-
-def lusztigsymbolB(n,vs,vt,dblpart):
-    """returns the symbol associated with a  bipartition, as defined
-    by Lusztig,  taking into account  weights.  In this form, the
-    total number of entries in a symbol only depends on n and the
-    parameters (but not on the bipartition).
-
-    >>> bipartitions(2)
-    [[[1], [1]], [[1, 1], []], [[2], []], [[], [1, 1]], [[], [2]]]
-    >>> [lusztigsymbolB(2,1,1,pi) for pi in bipartitions(2)]
-    [[[0, 1, 3], [0, 2]],
-     [[0, 2, 3], [0, 1]],
-     [[0, 1, 4], [0, 1]],
-     [[0, 1, 2], [1, 2]],
-     [[0, 1, 2], [0, 3]]]
-
-    See also 'redlusztigsymbolB'.
-    """
-    q,r=vt//vs,vt%vs
-    a,b=dblpart[0][:],dblpart[1][:]
-    if len(a)>len(b)+q:
-        b.extend((len(a)-len(b)-q)*[0])
-    elif len(b)+q>len(a):
-        a.extend((len(b)-len(a)+q)*[0])
-    while len(a)+len(b)<2*n+q:
-        a.append(0)
-        b.append(0)
-    la,mu=(n+q)*[0],n*[0]
-    for i in range(1,len(b)+1):
-        la[i-1]=vs*(a[len(a)-i]+i-1)+r
-        mu[i-1]=vs*(b[len(b)-i]+i-1)
-    for i in range(len(b)+1,len(a)+1):
-        la[i-1]=vs*(a[len(a)-i]+i-1)+r
-    return [la,mu]
-
-#F redlusztigsymbolB
-
-
-def redlusztigsymbolB(vs,vt,dblpart):
-    """similar to 'lusztigsymbolB' but now the number of entries in a
-    symbol is as small as possible (depending on the bipartition).
-
-    >>> bipartitions(2)
-    [[[1], [1]], [[1, 1], []], [[2], []], [[], [1, 1]], [[], [2]]]
-    >>> [redlusztigsymbolB(1,1,pi) for pi in bipartitions(2)]
-    [[[0, 2], [1]],
-     [[1, 2], [0]],
-     [[2], []],
-     [[0, 1, 2],
-     [1, 2]], [[0, 1], [2]]]
-
-    See also 'lusztigsymbolB'.
-    """
-    q,r=vt//vs,vt%vs
-    a,b=dblpart[0][:],dblpart[1][:]
-    if len(a)>len(b)+q:
-        b.extend((len(a)-len(b)-q)*[0])
-    elif len(b)+q>len(a):
-        a.extend((len(b)-len(a)+q)*[0])
-    n=(len(a)+len(b)-q)//2
-    la,mu=(n+q)*[0],n*[0]
-    for i in range(1,len(b)+1):
-        la[i-1]=vs*(a[len(a)-i]+i-1)+r
-        mu[i-1]=vs*(b[len(b)-i]+i-1)
-    for i in range(len(b)+1,len(a)+1):
-        la[i-1]=vs*(a[len(a)-i]+i-1)+r
-    return [la,mu]
-
-#F ainvbipartition
-
-
-def ainvbipartition(n,vs,vt,bip):
-    """returns the a-invariant of a  bipartition,  computed from
-    the associated Lusztig symbol. See also 'lusztigsymbolB'.
-    """
-    q,r=vt//vs,vt%vs
-    p=[]
-    s=lusztigsymbolB(n,vs,vt,bip)
-    for i in s[0]:
-        p.append(i)
-    for i in s[1]:
-        p.append(i)
-    p.sort()
-    N=(len(p)-q)//2
-    z0=[i*vs for i in range(N)]
-    z0.extend([i*vs+r for i in range(N+q)])
-    z0.sort()
-    return sum(i*(p[-i-1]-z0[-i-1]) for i in range(len(p)))
-
-#F displaymat
-
-
-def displaymat(mat,rows=[],cols=[],width=78):
-    """displays a matrix, where the optional arguments 'rows' and 'cols'
-    can be used to specify labels for the rows and columns.  There is
-    a further  optional  argument by which one can set the 'width' of
-    the display, i.e., the maximum number of characters printed  (the
-    default value is 78 characters per line).
-
-    >>> displaymat(chartable(coxeter("H",3))['irreducibles'])
-     1 -1     1  1  1     -1     1 -1     -1 -1
-     1  1     1  1  1      1     1  1      1  1
-     5 -1     .  1 -1      .     .  1      . -5
-     5  1     .  1 -1      .     . -1      .  5
-     3 -1   ir5 -1  .  1-ir5 1-ir5  .    ir5  3
-     3 -1 1-ir5 -1  .    ir5   ir5  .  1-ir5  3
-     3  1   ir5 -1  . -1+ir5 1-ir5  .   -ir5 -3
-     3  1 1-ir5 -1  .   -ir5   ir5  . -1+ir5 -3
-     4  .    -1  .  1      1    -1 -1      1 -4
-     4  .    -1  .  1     -1    -1  1     -1  4
-
-    (Values equal to 0 are printed as '.'.)
-
-    See also 'displaychartable'.
-    """
-    m=len(mat)
-    n=len(mat[0])
-    csp=[max([len(repr(mat[i][j])) for i in range(m)]) for j in range(n)]
-    if cols!=[]:
-        csp=[max(len(str(cols[j])),csp[j])+1 for j in range(n)]
-    else:
-        csp=[csp[j]+1 for j in range(n)]
-    if rows!=[]:
-        maxr=max([len(str(r)) for r in rows])
-    else:
-        maxr=0
-    co=0
-    cut=[0]
-    for j in range(len(csp)):
-        if co+csp[j]<=width-maxr:
-            co+=csp[j]
-        else:
-            cut.append(j)
-            co=csp[j]
-    if cut[:-1]!=n:
-        cut.append(n)
-    for k in range(len(cut)-1):
-        if cols!=[]:
-            lprint(width*'-')
-            lprint('\n')
-            lprint(maxr*' ')
-            for j in range(cut[k],cut[k+1]):
-                lprint((csp[j]-len(str(cols[j])))*' '+str(cols[j]))
-            lprint('\n')
-            lprint(width*'-')
-            lprint('\n')
-        for i in range(m):
-            if rows!=[]:
-                lprint((maxr-len(str(rows[i])))*' '+str(rows[i]))
-            for j in range(cut[k],cut[k+1]):
-                if mat[i][j]==0:
-                    lprint((csp[j]-len(repr(mat[i][j])))*' '+'.')
-                elif type(mat[i][j])==type(0):
-                    lprint((csp[j]-len(repr(mat[i][j])))*' '+str(mat[i][j]))
-                else:
-                    lprint((csp[j]-len(repr(mat[i][j])))*' '+repr(mat[i][j]))
-            lprint('\n')
-        lprint('\n')
-    return None
-
 ##########################################################################
 ##
 #Y Section 2: Coxeter groups, Cartan matrices, reflections
@@ -1470,7 +568,7 @@ def cartanmat(typ,n):
                 [0, 0, -1, 2]]
     if typ[0]=='I':
         m=int(typ[1:])
-        if m%2==0:
+        if m %2==0:
             if m==4:
                 return [[2, -1], [-2, 2]]
             elif m==6:
@@ -1485,7 +583,7 @@ def cartanmat(typ,n):
             else:
                 d=gcdex(2+m,2*m)['coeff1']
                 z=rootof1(m)
-                if d%2==0:
+                if d %2==0:
                     z1=-z**d-z**(-d)
                 else:
                     z1=z**d+z**(-d)
@@ -1619,7 +717,7 @@ def typecartanmat(mat):
             while p1[0][0]!=1 or p1[0][1]!=0 or p1[1][0]!=0 or p1[1][1]!=1:
                 p1=matmult(p1,p)
                 m+=1
-            if m%2==0 and mat[1][0]==-1:
+            if m %2==0 and mat[1][0]==-1:
                 return ['I'+str(m),[1,0]]
             else:
                 return ['I'+str(m),[0,1]]
@@ -1707,7 +805,7 @@ def typecartanmat(mat):
                 if not [[mat[i][j] for j in p] for i in p] in cs:  # testing
                     return ["U", list(range(n))]
                 return [typ,p]
-            elif lp1 in [[2,3,3],[2,3,4],[2,3,5]]: # type E
+            elif lp1 in [[2,3,3],[2,3,4],[2,3,5]]:  # type E
                 typ='E'
                 r2=lp.index(2)
                 r3=lp.index(3)
@@ -1780,7 +878,7 @@ def finitetypemat(mat):
                 if mat[p[1]][p[2]]==-2:
                     p.reverse()
                     return ['F',p]
-                if -1 in rowsums: # type C
+                if -1 in rowsums:  # type C
                     if mat[p[1]][p[0]]==-2:
                         return ['C',p]
                     else:
@@ -1829,7 +927,7 @@ def finitetypemat(mat):
                 p[0]=ps[l1[0]][0]
                 p[1]=ps[l1[1]][0]
                 return [typ,p]
-            elif lp1 in [[2,3,3],[2,3,4],[2,3,5]]: # type E
+            elif lp1 in [[2,3,3],[2,3,4],[2,3,5]]:  # type E
                 typ='E'
                 r2=lp.index(2)
                 r3=lp.index(3)
@@ -1880,7 +978,7 @@ def cartantotype(mat):
             if c[0][0]=='U':      # not of finite type: exit
                 return [['U',list(range(len(mat[0])))]]
         t.sort()
-        t.sort(key=(lambda x: len(x[1])),reverse=True) # sort as in gap-chevie
+        t.sort(key=(lambda x: len(x[1])),reverse=True)  # sort as in gap-chevie
         for c in t:  # testing
             if c[0][0]!='U' and c[0][0]!='I':
                 if [[mat[i][j] for j in c[1]]
@@ -1970,14 +1068,14 @@ def degreesdata(typ,n):
         return [2,int(typ[1:])]
 
 #F roots
-## elms[i] applied to root[i] yields simple root (orbit rep)
+# elms[i] applied to root[i] yields simple root (orbit rep)
 
 
 def roots(cmat):
-    rng=range(len(cmat[0]))
-    gen=idmat(rng,1)
-    l1,elms,orbits=[],[],[]
-    while gen!=[]:
+    rng = range(len(cmat[0]))
+    gen = idmat(rng,1)
+    l1, elms, orbits = [], [], []
+    while gen:
         orb=[gen[0][:]]
         orbe=[[]]
         i=0
@@ -2185,7 +1283,7 @@ class coxeter:
     """
 
     def __init__(self,typ,rank=0,split=True,fusion=[],weightL=0,param=1):
-        if type(typ)==type([[]]):
+        if type(typ) == type([[]]):
             self.cartan=typ
             self.rank=range(len(typ[0]))
             self.cartantype=cartantotype(typ)
@@ -2255,7 +1353,7 @@ class coxeter:
             for t in self.rank:
                 m[t][s]-=self.cartan[s][t]
             self.matgens.append(tuple([tuple(t) for t in m]))
-        if type(weightL)==type(0):
+        if type(weightL) == type(0):
             self.weightfunctions=[len(self.rank)*[weightL]]
         else:
             self.weightfunctions=[weightL[:]]
@@ -2293,7 +1391,7 @@ class coxeter:
                 if c[0]=='G':
                     bl[0]=3
                     bl[1]=1
-                if c[0][0]=='I' and int(c[0][1:])%2==0:
+                if c[0][0]=='I' and int(c[0][1:]) %2==0:
                     bl[0]=-cartanmat(c[0],len(c[1]))[1][0]
                     bl[1]=1
                 b.extend(bl)
@@ -3035,11 +2133,11 @@ def bruhat(W,y,w):
     directly 'bruhatcoxelm(W,y,w)'.  Similarly  for matrices  and full
     permutations.
     """
-    if len(y)==len(W.rank) and type(y[0])==type(0):          # coxelms
+    if len(y)==len(W.rank) and type(y[0]) == type(0):          # coxelms
         return bruhatcoxelm(W,y,w)
     elif len(y)==2*W.N:                            # full permutations
         return bruhatperm(W,y,w)
-    elif type(y[0])==type([]):                              # matrices
+    elif type(y[0]) == type([]):                              # matrices
         return bruhatmat(W,y,w)
     else:
         return "mist !"
@@ -3263,7 +2361,7 @@ def allmats(W,maxl=-1, verbose=False):
             maxlen=min(maxl,W.N)
     else:
         maxlen=maxl
-    cryst = all(type(x)==type(0) for x in flatlist(W.cartan))
+    cryst = all(type(x) == type(0) for x in flatlist(W.cartan))
     l=[[tuple(tuple(l) for l in idmat(W.rank,1))]]
     poin=[1]
     if verbose:
@@ -3924,7 +3022,7 @@ def w0conjugation(cmat):
             pt=t1[::-1]
             for i in range(len(t1)):
                 p[t1[i]]=pt[i]
-        if t[0]=='D' and len(t1)%2==1:
+        if t[0]=='D' and len(t1) %2==1:
             x=t1[0]
             p[t1[0]]=t1[1]
             p[t1[1]]=x
@@ -3935,7 +3033,7 @@ def w0conjugation(cmat):
             y=t1[2]
             p[t1[2]]=4
             p[t1[4]]=y
-        if t[0][0]=='I' and int(t[0][-1])%2==1:
+        if t[0][0]=='I' and int(t[0][-1]) %2==1:
             x=t1[0]
             p[t1[0]]=t1[1]
             p[t1[1]]=x
@@ -4075,7 +3173,7 @@ def conjclassdata(typ,n):
     if typ[0]=='D':
         reps=[]
         for mu in partitiontuples(n,2):
-            if len(mu[1])%2==0:
+            if len(mu[1]) %2==0:
                 w=[]
                 i=1
                 for l in mu[1][::-1]:
@@ -4092,7 +3190,7 @@ def conjclassdata(typ,n):
                 if w!=[] and w[0]==2:
                     w[0]=1
                 cent=centralisertuple(n,2,mu)
-                if mu[1]==[] and all(x%2==0 for x in mu[0]):
+                if mu[1]==[] and all(x %2==0 for x in mu[0]):
                     reps.append(w)
                     cents.append(cent)
                     names.append('['+str(mu[0])+', +]')
@@ -4307,7 +3405,7 @@ def conjclassdata(typ,n):
     if typ[0]=='I':
         cl=[1]
         m=int(typ[1:])
-        if m%2==0:
+        if m %2==0:
             reps=[[],[1],[2]]
             cl.extend([m//2,m//2])
             x=[1,2]
@@ -4772,7 +3870,7 @@ def oldsymm(n):
 
 
 def wordtopermB(n,w):
-    pw=range(2*n) # first signed permutation
+    pw=range(2*n)  # first signed permutation
     for i in w:
         if i==0:
             pw[i],pw[n+i]=pw[n+i],pw[i]
@@ -4803,7 +3901,7 @@ def chartablehalfC(n,other=False):
         if not other:
             nti.append(ti[p.index(a)])
         else:
-            if cw[mu].count(0)%2==0:
+            if cw[mu].count(0) %2==0:
                 nti.append(ti[p.index(a)])
             else:
                 nti.append([-x for x in ti[p.index(a)]])
@@ -5050,8 +4148,8 @@ def chartableD(n):
     fus=[]  # faster than fusionconjugacyclasses
     for i in range(len(pt)):
         mu=pt[i]
-        if len(mu[1])%2==0:
-            if mu[1]==[] and all(x%2==0 for x in mu[0]):
+        if len(mu[1]) %2==0:
+            if mu[1]==[] and all(x %2==0 for x in mu[0]):
                 fus.append(i)
                 fus.append(i)
             else:
@@ -6115,7 +5213,7 @@ def irrchardata(typ,n,chars=True):
         else:
             c=conjclassdata(typ,n)['reps']
             z=rootof1(m)
-            if m%2==0:
+            if m %2==0:
                 binv=[0,m//2,m//2,m]
                 ainv=[0,1,1,m]
                 nam=["phi_{1,0}","phi_{1,"+str(m//2)+"}'","phi_{1,"+str(m//2)+"}''",
@@ -6405,7 +5503,7 @@ def involutionmodel(W,poids=1, verbose=False):
 
     See also 'involutions' and 'conjugacyclasses'.
     """
-    if type(poids)==type(1):
+    if type(poids) == type(1):
         lp=len(W.rank)*[poids]
     else:
         lp=poids
@@ -6429,7 +5527,7 @@ def involutionmodel(W,poids=1, verbose=False):
             p=(2*len(inv))*[0]
             for i in range(len(inv)):
                 i1=cinv.index(bytes(conjgenperm(W,s,inv[i])[:len(W.rank)]))
-                if i==i1 and inv[i][s]>=W.N and lp[s]%2==1:
+                if i==i1 and inv[i][s]>=W.N and lp[s] %2==1:
                     p[i]=len(inv)+i1
                     p[len(inv)+i]=i1
                 else:
@@ -6664,7 +5762,7 @@ def ainvariants(W,weightL=0):
     [6, 3, 3, 6, 2, 1, 1, 2, 0, 0]
     """
     cw=conjugacyclasses(W)['reps']
-    if type(weightL)==type(0):
+    if type(weightL) == type(0):
         poids=len(W.rank)*[weightL]
     else:
         poids=weightL
@@ -6802,7 +5900,7 @@ def constructible(W,weightL=1,display=True):
     # 2_2 + 4_5
     # 1_4
     """
-    if type(weightL)==type(0):
+    if type(weightL) == type(0):
         poids=len(W.rank)*[weightL]
     else:
         poids=weightL
@@ -6976,7 +6074,7 @@ def lusztigfamilies(W, weightL=1, verbose=False):
     'ainv'    : [0, 1, 2, 3, 6],
     'hasse'   : [[0, 1], [1, 2], [2, 3], [3, 4]]}
     """
-    if type(weightL)==type(0):
+    if type(weightL) == type(0):
         poids=len(W.rank)*[weightL]
     else:
         poids=weightL
@@ -7065,7 +6163,7 @@ def poincarepol(W,paramL):
     See also 'heckechartable'.  (Note that the parameters used there
     are square roots of the parameters used here.)
     """
-    if type(paramL)==type([]):
+    if type(paramL) == type([]):
         vs=paramL[:]
     else:
         vs=len(W.rank)*[paramL]
@@ -7127,7 +6225,7 @@ def classpolynomials(W,paramL,pw):
     polynomials for several elements,  or  elements  of  relatively big
     length.
     """
-    if type(paramL)==type([]):
+    if type(paramL) == type([]):
         vs=paramL[:]
     else:
         vs=len(W.rank)*[paramL]
@@ -7211,7 +6309,7 @@ def allclasspolynomials(W,paramL,maxl=-1, verbose=False):
         maxlen=W.N
     else:
         maxlen=min(maxl,W.N)
-    if type(paramL)==type([]):
+    if type(paramL) == type([]):
         vs=paramL[:]
     else:
         vs=len(W.rank)*[paramL]
@@ -8077,7 +7175,7 @@ def heckeirrdata(typ,n,paramL):
             cc=range(len(c))
             ch=range(len(c))
             z=rootof1(m)
-            if m%2==0:
+            if m %2==0:
                 t1=[[paramL[0]**(2*i.count(0))*paramL[1]**(2*i.count(1)) for i in c],
                     [(-1)**i.count(1)*paramL[0]**(2*i.count(0)) for i in c],
                     [(-1)**i.count(0)*paramL[1]**(2*i.count(1)) for i in c],
@@ -8145,7 +7243,7 @@ def heckechartable(W,paramL=1):
     See also 'classpolynomials', 'heckecharvalues', 'schurelms' and
     'displaychartable'.
     """
-    if type(paramL)==type([]):
+    if type(paramL) == type([]):
         vs=paramL[:]
     else:
         vs=len(W.rank)*[paramL]
@@ -8255,7 +7353,7 @@ def heckecharvalues(W,paramL,lw,clpols=[]):
 
     See also 'heckechartable' and 'classpolynomials'.
     """
-    if type(paramL)==type([]):
+    if type(paramL) == type([]):
         vs=paramL[:]
     else:
         vs=len(W.rank)*[paramL]
@@ -8304,7 +7402,7 @@ def heckecentraltable(W,paramL):
      [0, 0, 0, 1+v**2+v**4+2*v**6+v**8+v**10+v**12, 0],
      [0, 0, 0, 0, v**(-2)+2+2*v**2+2*v**4+v**6]]
     """
-    if type(paramL)==type([]):
+    if type(paramL) == type([]):
         vs=paramL[:]
     else:
         vs=len(W.rank)*[paramL]
@@ -8849,7 +7947,7 @@ def schurelms(W,paramL):
     [0, 0, -4+4*E(6), 0, 0, 2, 1, 0, 0, -2, 4*E(6), 0, -4*E(6),
                                            0, 4-4*E(6), 0, 0, 2, 0, 0]
     """
-    if type(paramL)==type([]):
+    if type(paramL) == type([]):
         vs=paramL[:]
     else:
         vs=len(W.rank)*[paramL]
@@ -8895,7 +7993,7 @@ def lcmschurelms(W,paramL):
 
     See also 'schurelms' and 'poincarepol'.
     """
-    if type(paramL)==type([]):
+    if type(paramL) == type([]):
         vs=paramL[:]
     else:
         vs=len(W.rank)*[paramL]
@@ -9037,7 +8135,7 @@ def fakeomega(W,u):
 
 
 def repintp(n,p):
-    m=n%p
+    m=n %p
     if m>(p-1)//2:
         return m-p
     else:
@@ -9047,17 +8145,17 @@ def repintp(n,p):
 def powp(x,n,p):
     y=1
     for i in range(n):
-        y=(y*x)%p
+        y=(y*x) %p
     return y
 
 
 def matsubp(a,b,p):
-    return [[(a[i][j]-b[i][j])%p for j in range(len(a[0]))]
+    return [[(a[i][j]-b[i][j]) %p for j in range(len(a[0]))]
                                        for i in range(len(a))]
 
 
 def matmultp(a,b,p):
-    return [[(sum((row[k]*b[k][j])%p for k in range(len(b))))%p
+    return [[(sum((row[k]*b[k][j]) %p for k in range(len(b)))) %p
                              for j in range(len(b[0]))] for row in a]
 
 
@@ -9066,9 +8164,9 @@ def valuep(f,x,p):
         return 0
     y=0
     for i in range(len(f.coeffs)):
-        y=((x*y)%p+f.coeffs[-i-1])%p
+        y=((x*y) %p+f.coeffs[-i-1]) %p
     for i in range(f.val):
-        y=(y*x)%p
+        y=(y*x) %p
     return y
 
 
@@ -9081,7 +8179,7 @@ def applychinrem(mat1,mat2,m1,m2):
         for j in range(len(mat1)):
             for k in range(len(mat1[i][j])):
                 x=(mat1[i][j][k]*g['coeff2']*m2+
-                   mat2[i][j][k]*g['coeff1']*m1)%m
+                   mat2[i][j][k]*g['coeff1']*m1) %m
                 if x>(m-1)//2:
                     mat1[i][j][k]=x-m
                 else:
@@ -9105,16 +8203,16 @@ def blockLR(mat,bl,diag,p):
     L=[[] for b in bl]
     fbl=flatlist(bl)
     for j in range(len(bl)):
-        if diag[j]%p==0:
+        if diag[j] %p==0:
             return False
         d1=1
-        while (d1*diag[j])%p!=1:
+        while (d1*diag[j]) %p!=1:
             d1+=1
         Lj=[[mat[r][s] for s in bl[j]] for r in bl[j]]
         for k in range(j):
             Lj=matsubp(Lj,matmultp(P[j][k],matmultp(L[k],
                                    transposemat(P[j][k]),p),p),p)
-        L[j]=[[(((x*d1)%p)*d1)%p for x in r] for r in Lj]
+        L[j]=[[(((x*d1) %p)*d1) %p for x in r] for r in Lj]
         invj=inversematp(L[j],p)
         if invj is False:
             return False
@@ -9122,13 +8220,13 @@ def blockLR(mat,bl,diag,p):
             if i<j:
                 P[i][j]=[len(bl[j])*[0] for r in bl[i]]
             elif i==j:
-                P[j][j]=idmat(bl[j],diag[j]%p)
+                P[j][j]=idmat(bl[j],diag[j] %p)
             else:
-                Pij=[[mat[r][s]%p for s in bl[j]] for r in bl[i]]
+                Pij=[[mat[r][s] %p for s in bl[j]] for r in bl[i]]
                 for k in range(j):
                     Pij=matsubp(Pij,matmultp(P[i][k],matmultp(L[k],
                                               transposemat(P[j][k]),p),p),p)
-                P[i][j]=matmultp([[(x*d1)%p for x in r] for r in Pij],invj,p)
+                P[i][j]=matmultp([[(x*d1) %p for x in r] for r in Pij],invj,p)
     resP=flatblockmat(P)
     resL=reduce(directsummat,L)
     #mat1=[[mat[r][s] for s in fbl] for r in fbl]
@@ -9162,14 +8260,14 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0, verbose=False):
         l=[]
         while i<=2*p and len(l)<=2*sum(W.degrees)+2:
             omp=[[valuep(f,i,p) for f in row] for row in gom]
-            if len(l)%10==0:
+            if len(l) %10==0:
                 if verbose:
                     lprint(str(len(l))+' ')
             ap=[]
             for a in avals:
                 x=1
                 for e in range(a):
-                    x=(x*i)%p
+                    x=(x*i) %p
                 ap.append(x)
             bl=blockLR(omp,fam,ap,p)
             if bl is not False:
@@ -9187,7 +8285,7 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0, verbose=False):
         if vm is not False:
             P,L=idmat(fbl,0),idmat(fbl,0)
             for i in range(len(fbl)):
-                if i%5==0:
+                if i %5==0:
                     if verbose:
                         lprint('.')
                 for j in range(len(fbl)):
@@ -9202,7 +8300,7 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0, verbose=False):
                 lprint('\n#I Checking: ')
             i=0
             while fertig and i<len(fbl):
-                if verbose and i%5==0:
+                if verbose and i %5==0:
                     lprint(str(i)+' ')
                 j=0
                 while fertig and j<=i:
@@ -9366,7 +8464,7 @@ class wgraph:
     """
 
     def __init__(self,W,weightL,xset,v,isets=None,mmat=[],mues=[],xrep=[]):
-        if type(weightL)==type(0):
+        if type(weightL) == type(0):
             self.weights=len(W.rank)*[weightL]
         else:
             self.weights=weightL
@@ -9432,7 +8530,7 @@ class wgraph:
                                             nmues[s].append(m)
                                     else:
                                         mstr+='c0'
-                                else: # self.weights[s]=0:
+                                else:  # self.weights[s]=0:
                                     sy=tuple([ap[y][i] for i in W.permgens[s]])
                                     if sy in ap and ap[x]==sy:
                                         mstr+='c1'
@@ -9470,7 +8568,7 @@ class wgraph:
         Otherwise, a generic 'sort' will be applied.
         """
         lx=self.X[:]
-        if type(self.X[0])==type([]):
+        if type(self.X[0]) == type([]):
             lx.sort(key=(lambda x:len(x)))
         else:
             lx.sort()
@@ -9592,7 +8690,7 @@ class wgraph:
                     a=matmult(mats[s],mats[t])
                     b=matmult(mats[t],mats[s])
                     m=self.W.coxetermat[s][t]
-                    if m%2==0:
+                    if m %2==0:
                         a1,b1=a,b
                         for i in range(m//2-1):
                             a1,b1=matmult(a1,a),matmult(b1,b)
@@ -9657,7 +8755,7 @@ def reflectionwgraph(W,weightL,v):
 
     See also 'wgraph'.
     """
-    if type(weightL)==type(0):
+    if type(weightL) == type(0):
         poids=len(W.rank)*[weightL]
     else:
         poids=weightL
@@ -9692,7 +8790,7 @@ def reflectionwgraph(W,weightL,v):
 
 
 def pospart(f):
-    if type(f)==type(0):
+    if type(f) == type(0):
         return 0
     elif f.val>0:
         return f
@@ -9704,7 +8802,7 @@ def pospart(f):
 
 
 def nonnegpart(f):
-    if type(f)==type(0):
+    if type(f) == type(0):
         return f
     elif f.val>=0:
         return f
@@ -9716,7 +8814,7 @@ def nonnegpart(f):
 
 
 def zeropart(f):
-    if type(f)==type(0):
+    if type(f) == type(0):
         return f
     elif f.val<=0 and len(f.coeffs)>-f.val:
         return f.coeffs[-f.val]
@@ -9725,7 +8823,7 @@ def zeropart(f):
 
 
 def barpart(f):
-    if type(f)==type(0):
+    if type(f) == type(0):
         return f
     else:
         return lpol(f.coeffs[::-1],-f.degree,f.vname)
@@ -9826,7 +8924,7 @@ def klpolynomials(W,weightL, v, verbose=False):
 
     See also 'klcells', 'relklpols' and 'wgraph'.
     """
-    if type(weightL)==type([]):
+    if type(weightL) == type([]):
         poids=weightL
     else:
         poids=len(W.rank)*[weightL]
@@ -9938,8 +9036,8 @@ def klpolynomials(W,weightL, v, verbose=False):
                                         if m!=0:
                                             h-=m* \
                                                 v**(Lw[w]-Lw[z])* \
-                                                    klpol[int(
-                                                        mat[z][y].split('c')[1])]
+                                                klpol[int(
+                                                    mat[z][y].split('c')[1])]
                 if not h in klpol:
                     mat[w][y]+=str(len(klpol))
                     klpol.append(h)
@@ -9952,7 +9050,7 @@ def klpolynomials(W,weightL, v, verbose=False):
                     for s in W.rank:
                         if poids[s]>0 and lft[y][s]<y and lft[w][s]>w:
                             if lw[y]+lw[w]>W.N:
-                                if (lw[w]-lw[y])%2==0:
+                                if (lw[w]-lw[y]) %2==0:
                                     m=-mues[s][int(mat[aw0[y]][aw0[w]].split('c')[s+2])]
                                 else:
                                     m=mues[s][int(
@@ -10102,7 +9200,7 @@ def klpoly1(W, weightL, v):
 def relmue(lw,ly,p):
     if p == 0:
         return 0
-    if type(p)==type(0):
+    if type(p) == type(0):
         if lw-ly==1:
             return p
         else:
@@ -10196,7 +9294,7 @@ def relklpols(W,W1,cell1,weightL,q):
 
     See also 'klpolynomials', 'klcells', 'wgraph' and 'allrelklpols'.
     """
-    if type(weightL)==type([]):
+    if type(weightL) == type([]):
         poids=weightL
     else:
         poids=len(W.rank)*[weightL]
@@ -10274,7 +9372,7 @@ def relklpols(W,W1,cell1,weightL,q):
         #lprint('+')
         ldy=W.leftdescentsetperm(X1[y])
         for x in range(y-1,-1,-1):
-            if bruhatX[y][x]: # and mat[y,x][0][0][0]=='c':
+            if bruhatX[y][x]:  # and mat[y,x][0][0][0]=='c':
                 fs=[s for s in ldy if lft[s][x]>x]
                 fs1=[s1 for s1 in ldy if 0<=lft[s1][x]<x]
                 if len(fs)>0:  # case sy<y, sx>x and sx in X
@@ -10331,7 +9429,7 @@ def relklpols(W,W1,cell1,weightL,q):
                                                         if rk!='0':
                                                             h-=q**(Lw[y]+Lw1[v]-Lw[z]-Lw1[w])*rklpols[
                                                                                                int(rk)]*m
-                                    if sx<0: # case sx not in X, tu<u
+                                    if sx<0:  # case sx not in X, tu<u
                                         t=-1-sx
                                         if mat[sy,x][v][u][0]=='c':
                                             rk=mat[sy,x][v][u].split('c')[1]
@@ -10419,7 +9517,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
 
     See also 'relklpols'.
     """
-    if type(weightL)==type([]):
+    if type(weightL) == type([]):
         poids=weightL
     else:
         poids=len(W.rank)*[weightL]
@@ -10502,7 +9600,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
         ldy.sort(key=(lambda p:poids[p]))
         fs0=[s0 for s0 in ldy if poids[s0]==0]
         for x in range(y-1,-1,-1):
-            if bruhatX[y][x]: # and mat[y,x][0][0][0]=='c':
+            if bruhatX[y][x]:  # and mat[y,x][0][0][0]=='c':
                 fs=[s for s in ldy if lft[s][x]>x and poids[s]>0]
                 fs1=[s1 for s1 in ldy if 0<=lft[s1][x]<x and poids[s1]>0]
                 if len(fs0)>0:  # case sy<y and L(s)=0
@@ -10568,7 +9666,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                                                         if rk!='0':
                                                             h-=q**(Lw[y]+Lw1[v]-Lw[z]-Lw1[w])*rklpols[
                                                                                                int(rk)]*m
-                                    if sx<0: # case sx not in X, tu<u
+                                    if sx<0:  # case sx not in X, tu<u
                                         t=-1-sx
                                         if mat[sy,x][v][u][0]=='c':
                                             rk=mat[sy,x][v][u].split('c')[1]
@@ -10761,7 +9859,7 @@ def allrelklpols(W,J,weightL,q, verbose=False):
 
     See also 'klpolynomials' and 'klcells'.
     """
-    if type(weightL)==type([]):
+    if type(weightL) == type([]):
         poids=weightL
     else:
         poids=len(W.rank)*[weightL]
@@ -10885,7 +9983,7 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                                                         if rk!='0':
                                                             h-=q**(Lw[y]+Lw1[v]-Lw[z]-Lw1[w])*rklpols[
                                                                                                int(rk)]*m
-                                    if sx<0: # case sx not in X, tu<u
+                                    if sx<0:  # case sx not in X, tu<u
                                         t=-1-sx
                                         if mat[sy,x][v][u][0]=='c':
                                             rk=mat[sy,x][v][u].split('c')[1]
@@ -10996,7 +10094,7 @@ def leftconnected(W, elms, verbose=False):
          precisely the left cells in that two-sided cell.
 
     """
-    if type(elms[0])==type(W.permgens[0]):
+    if type(elms[0]) == type(W.permgens[0]):
         if len(elms[0])==2*W.N:
             pelms=set([w[:len(W.rank)] for w in elms])
         else:
@@ -11090,7 +10188,7 @@ def klstarorbit(W,l,gens='each'):
     if gens=='each':
         gens=list(W.rank)
     #orb=[[W.wordtoperm(x) for x in l]]
-    if len(l)==0 or (type(l[0])==type(W.permgens[0]) and len(l[0])==2*W.N):
+    if len(l)==0 or (type(l[0]) == type(W.permgens[0]) and len(l[0])==2*W.N):
         orb=[l[:]]
     else:
         orb=[[W.wordtoperm(x) for x in l]]
@@ -11115,7 +10213,7 @@ def klstarorbitperm(W,l,gens='each'):
     if gens=='each':
         gens=list(W.rank)
     #orb=[[W.wordtoperm(x) for x in l]]
-    if len(l)==0 or (type(l[0])==type(W.permgens[0]) and len(l[0])==2*W.N):
+    if len(l)==0 or (type(l[0]) == type(W.permgens[0]) and len(l[0])==2*W.N):
         orb=[l[:]]
     else:
         orb=[[W.wordtoperm(x) for x in l]]
@@ -11569,7 +10667,7 @@ def gentaucells(W,startset, verbose=False, lcells=False,string=False,tlen=False)
 
     See also 'klstarorbit' and 'gentaureps'.
     """
-    if type(startset[0])==type(W.permgens[0]):
+    if type(startset[0]) == type(W.permgens[0]):
         if len(startset[0])==2*W.N:
             aset=startset
         else:
@@ -11723,7 +10821,7 @@ def wgraphstarorbit(W,wgr,gens='each'):
 
 
 def klcellsun(W, weightL, v, verbose=False):
-    if type(weightL)==type([]):
+    if type(weightL) == type([]):
         poids=weightL
     else:
         poids=len(W.rank)*[weightL]
@@ -11888,7 +10986,7 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
     about the limit:  it takes some  58 hours and  9GB  memory to
     compute the 15304 left cells and the corresponding W-graphs.
     """
-    if type(weightL)==type([]):
+    if type(weightL) == type([]):
         poids=weightL
     else:
         poids=len(W.rank)*[weightL]
@@ -12023,7 +11121,7 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
 
 
 def zeroterm(p):
-    if type(p) == type(0):
+    if isinstance(p, int):
         return p
     if p.val > 0 or not p.coeffs:
         return 0
@@ -12070,13 +11168,13 @@ def leadingcoefficients(W,weightL,lw,clpols=[]):
     See also 'leftcellleadingcoeffs'.
     """
     v=lpol([1],1,'v')
-    if type(weightL)==type(0):
+    if type(weightL) == type(0):
         poids=len(W.rank)*[weightL]
     else:
         poids=weightL[:]
     ti=heckechartable(W,[v**i for i in poids])['irreducibles']
     ainv=ainvariants(W,poids)
-    maxl=max([len(w) for w in lw])
+    maxl=max(len(w) for w in lw)
     if clpols==[]:
         cpmat=allclasspolynomials(W,[v**(2*p) for p in poids],maxl)
     else:
@@ -12200,7 +11298,7 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
     See  also 'chartable', 'leadingcoeffients', 'klcells',
     'allcellsleadingcoeffs' and 'distinguishedinvolutions'.
     """
-    if type(weightL)==type(0):
+    if type(weightL) == type(0):
         poids=len(W.rank)*[weightL]
     else:
         poids=weightL[:]
@@ -12244,7 +11342,7 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
         return [di,nd,nd[di]**2]
     if nd[di]==-1:
         lc=[[-i for i in l] for l in lc]
-    if len(lw[di])%2==1:
+    if len(lw[di]) %2==1:
         lc1=[[-i for i in l] for l in lc]
     else:
         lc1=lc
@@ -12277,7 +11375,7 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
 
 
 def poltostr(f):
-    if type(f)==type(0):
+    if type(f) == type(0):
         return ('0.'+str(f))
     elif f.coeffs==[]:
         return ('0.0')
@@ -12295,7 +11393,7 @@ def strtopol(sp,vnam):
 
 
 def poltostr(f):
-    if type(f)==type(0):
+    if type(f) == type(0):
         return ('0.'+str(f))
     elif f.coeffs==[]:
         return ('0.0')
@@ -12384,7 +11482,7 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
     such that c_{w,E} is non-zero for some E in Irr(W). Hence, this
     yields the complete table of all leading coefficients c_{w,E}.
     """
-    if type(weightL)==type(0):
+    if type(weightL) == type(0):
         poids=len(W.rank)*[weightL]
     else:
         poids=weightL[:]
@@ -12512,7 +11610,7 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
                 zael+=1
                 cpv=[]
                 for j in range(len(ainv)):
-                    if type(cp[j])==type(0):
+                    if type(cp[j]) == type(0):
                         cpv.append(cp[j])
                     elif cp[j].coeffs==[]:
                         cpv.append(0)
@@ -12546,7 +11644,7 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
                         cof.append(cf)
                     nd=(-1)**len(w)*sum(cof[i]*lc[ii[i]]
                         for i in range(len(ii)))
-                    if nd%ftot==0:
+                    if nd %ftot==0:
                         nd=nd//ftot
                     else:
                         print("Mist!")
@@ -12565,10 +11663,10 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
                         charvec.append(char[::-1])
                         if nega is False and nd!=1:
                             nega = True
-                    if maxl==W.N//2 and (W.N%2==1 or l<maxl-1):
+                    if maxl==W.N//2 and (W.N %2==1 or l<maxl-1):
                         nd=sum(eps[ii[i]]*cof[i]*lc[ii[i]]
                                for i in range(len(ii)))
-                        if nd%ftot==0:
+                        if nd %ftot==0:
                             nd=nd//ftot
                         else:
                             print("Mist!")
@@ -12632,9 +11730,9 @@ def starorbitinv(W,pw,lcell=[]):
     orb=[pw[:]]
     orb1=set([pw[:len(W.rank)]])
     if lcell!=[]:
-        if type(lcell[0])==type(W.permgens[0]) and len(lcell[0])==len(W.rank):
+        if type(lcell[0]) == type(W.permgens[0]) and len(lcell[0])==len(W.rank):
             ncell=[[bytes(W.coxelmtoperm(x)) for x in lcell]]
-        elif type(lcell[0])==type(W.permgens[0]) and len(lcell[0])==2*W.N:
+        elif type(lcell[0]) == type(W.permgens[0]) and len(lcell[0])==2*W.N:
             ncell=[[bytes(x) for x in lcell]]
         else:
             ncell=[[bytes(W.wordtoperm(x)) for x in lcell]]
@@ -12724,7 +11822,7 @@ def distinguishedinvolutions_eq(W, verbose=False):
                                              if ct['a'][i]==ct['b'][i]])
     rest=involutions(W)
     repsinv=[]
-    if any(f%2==1 for f in W.degrees):
+    if any(f %2==1 for f in W.degrees):
         while rest:
             pw=rest[0]
             orb=starorbitinv(W,pw)
@@ -12835,7 +11933,7 @@ def distinguishedinvolutions_eq(W, verbose=False):
             if W.permorder(pw)==2 and pw in repsinv and not pw in distinv:
                 cpv=[]
                 for j in range(len(ainv)):
-                    if type(cp[j])==type(0):
+                    if type(cp[j]) == type(0):
                         cpv.append(cp[j])
                     elif cp[j].coeffs==[]:
                         cpv.append(0)
@@ -12864,7 +11962,7 @@ def distinguishedinvolutions_eq(W, verbose=False):
                             cf*=fshi[j]
                     cof.append(cf)
                 nd=(-1)**len(w)*sum(cof[i]*lc[ii[i]] for i in range(len(ii)))
-                if nd%ftot==0:
+                if nd %ftot==0:
                     nd=nd//ftot
                 else:
                     print("Mist!")
@@ -12886,9 +11984,9 @@ def distinguishedinvolutions_eq(W, verbose=False):
                     for i in sto:
                         charvec.append(char)
                 pw0=permmult(pw,w0)
-                if all(f%2==0 for f in W.degrees) and not pw0 in distinv:
+                if all(f %2==0 for f in W.degrees) and not pw0 in distinv:
                     nd=sum(eps[ii[i]]*cof[i]*lc[ii[i]] for i in range(len(ii)))
-                    if nd%ftot==0:
+                    if nd %ftot==0:
                         nd=nd//ftot
                     else:
                         print("Mist!")
@@ -12987,7 +12085,7 @@ def allcellsleadingcoeffs(W,weightL,v,newnorm=False):
 
     See also 'klcells' and 'leftcellleadingcoeffs'.
     """
-    if type(weightL)==type(0):
+    if type(weightL) == type(0):
         poids=len(W.rank)*[weightL]
     else:
         poids=weightL[:]
@@ -13066,7 +12164,7 @@ def libdistinv(W,weightL,unpack=True):
 
     See also 'distinguishedinvolutions' and 'distinva'.
     """
-    if type(weightL)==type(0):
+    if type(weightL) == type(0):
         poids=len(W.rank)*[weightL]
     else:
         poids=weightL[:]
@@ -13553,7 +12651,7 @@ def libdistinv(W,weightL,unpack=True):
         return f
     elif typ[0]=='I' and rk==[0,1]:
         m=int(typ[1:])
-        if m%2==1:
+        if m %2==1:
             if poids[0]>0:
                 w0=[0]
                 for i in range((m-1)//2):
@@ -13598,7 +12696,7 @@ def distinva(W,weightL=1, verbose=False):
     """
     ti=chartable(W,chars=False)
     ch=ti['charnames']
-    if type(weightL)==type(1):
+    if type(weightL) == type(1):
         poids=len(W.rank)*[weightL]
     else:
         poids=weightL
@@ -14057,7 +13155,7 @@ def E7CELLREPcheck():
         d1=sum([i[1]*t['irreducibles'][ch.index(i[0])][0]
                for i in c['character']])
         d2=sum([len(leftklstarorbitelm(W,W.wordtoperm(w))) for w in l])
-        if not(d1==d2 and d1==c['size']):
+        if not (d1 == d2 == c['size']):
             return False
     return True
 
@@ -14322,7 +13420,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   ["1454326543120765431203243154367",
   "031234320565437654312032431543206543123456765431203",
   "03143206543123456765431203243154320654312345676543120324315436"], "elms":
- [], "special": "4096_z", "size": 8192}, {"a": 14, "character":
+  [], "special": "4096_z", "size": 8192}, {"a": 14, "character":
   [["6075_x", 1]], "distinv": "023143205654312032431543206765431203243154"+
   "320654312345676543120324315432065431234567", "replstar":
   ["1231234312032435431236543120324354657654312032431543206576",
@@ -15064,8 +14162,8 @@ def E8CELLREPcheck():
         # check size
         d1=sum([i[1]*t['irreducibles'][ch.index(i[0])][0]
                for i in c['character']])
-        d2=sum([len(leftklstarorbitelm(W,W.wordtoperm(w))) for w in l])
-        if not(d1==d2 and d1==c['size']):
+        d2 = sum([len(leftklstarorbitelm(W,W.wordtoperm(w))) for w in l])
+        if not (d1 == d2 == c['size']):
             return False
     return True
 
@@ -15124,7 +14222,7 @@ def klcellreps(W, verbose=False):
                                     for w in klcr[l]['replstar']]:
                     c.extend([x[:len(W.rank)]
                              for x in leftklstarorbitelm(W,r)])
-                if l%10==0:
+                if l %10==0:
                     if verbose:
                         lprint('.')
                 klcr[l]['elms']=set(c)
@@ -15242,7 +14340,7 @@ def klcellrepelm(W, w, verbose=False):
 
     See also 'klcellreps', 'cellrepstarorbit' and 'leftcellelm'.
     """
-    if type(w)==type(W.permgens[0]) and len(w)==2*W.N:
+    if type(w) == type(W.permgens[0]) and len(w)==2*W.N:
         orb=[w]
     else:
         orb=[W.wordtoperm(w)]
@@ -15335,7 +14433,7 @@ def cellreplstars(W, verbose=False):
     if W.cartan==cartanmat("E",8):
         try:
             from e8celldata import E8ALLKLCELLS
-        except:
+        except ImportError:
             print("#I file e8celldata.py not found; using basic algorithm")
             E8ALLKLCELLS = False
         if E8ALLKLCELLS is not False:
@@ -15531,11 +14629,11 @@ def cellrepcheck1(W,klcr):
         # check size
         d1=sum([i[1]*t['irreducibles'][ch.index(i[0])][0]
                for i in c['character']])
-        elms=[]
+        elms = []
         for w in l:
             elms.extend(leftklstarorbitelm(W,W.wordtoperm(w)))
-        if not(d1==len(elms) and d1==c['size'] and W.wordtoperm([int(i)
-                                                 for i in c['distinv']]) in elms):
+        if not (d1 == len(elms) == c['size'] and W.wordtoperm([int(i)
+                                                               for i in c['distinv']]) in elms):
             return False
     return True
 
@@ -15647,7 +14745,7 @@ def checkkottwitz(W):
     ti=chartable(W)
     ch=[c[0] for c in chartable(W)['charnames']]
     for cell in cellreplstars(W):
-        if count%100==0:
+        if count %100==0:
             lprint(str(count)+' ')
         count+=1
         char=len(ch)*[0]
@@ -15698,7 +14796,7 @@ def checksh(W,paramL):
     for the general cyclotomic arithmetic are not implemented.)
     """
     p=lcmschurelms(W,paramL)
-    if type(paramL)==type([]):
+    if type(paramL) == type([]):
         vs=paramL[:]
     else:
         vs=len(W.rank)*[paramL]
@@ -15889,14 +14987,14 @@ def test():
         lc.append(len(kl['lcells']))
     somechecks.append(lc==[10,14,16,20])
     k=[i.matrices(True) for i in klcells(W,1,v)[1]]
-    somechecks.append(all([type(m)==type([]) for m in k]))
+    somechecks.append(all([type(m) == type([]) for m in k]))
     k=[i.matrices(True) for i in klcells(W,[3,2,2],v)]
-    somechecks.append(all([type(m)==type([]) for m in k]))
+    somechecks.append(all([type(m) == type([]) for m in k]))
     W=coxeter("I14",2)
     k=[i.matrices(True) for i in klcells(W,1,v)[1]]
-    somechecks.append(all([type(m)==type([]) for m in k]))
+    somechecks.append(all([type(m) == type([]) for m in k]))
     k=[i.matrices(True) for i in klcells(W,[5,3],v)]
-    somechecks.append(all([type(m)==type([]) for m in k]))
+    somechecks.append(all([type(m) == type([]) for m in k]))
     # test all conversions:
     W=coxeter("H",3)
     somechecks.append(cellrepcheck1(W,klcellreps(W)))
