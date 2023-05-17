@@ -5013,7 +5013,7 @@ def conjugacyclasses(W):
   return W.conjugacyclasses
 
 #F identifyclasses
-def identifyclasses(W,elms,minrep=False):
+def identifyclasses(W,elms,minrep=False, verbose=False):
   """identifies the conjugacy classes to which the elements (given as
   reduced words)  in a list  belong.  If it is already known  that
   the elements  have  minimal length  in their  conjugacy classes,
@@ -5075,7 +5075,8 @@ def identifyclasses(W,elms,minrep=False):
   if set(check)==set([1]):
     fus=[invW.index(f) for f in invH]
   else:
-    lprint('#I using also traces ...')
+    if verbose:
+      lprint('#I using also traces ...')
     #troubleH=list(filter(lambda i:check[i]>1,range(len(elms1))))
     troubleH=[i for i in range(len(elms1)) if check[i]>1]
     troublefp=[invH[i] for i in troubleH]
@@ -5378,7 +5379,7 @@ def chartablehalfC(n,other=False):
   return transposemat(nti)
 
 #F chartableB
-def chartableB(n):
+def chartableB(n, verbose=False):
   """returns the character table of the finite Coxeter group of type
   B_n.  The rows and  columns are indexed  by  pairs of partitions
   of n, as ordered in partitiontuples(n,2). The function proceeds
@@ -5417,7 +5418,8 @@ def chartableB(n):
   ti=chartablehalfC(n)
   labels=[[p,[]] for p in partitions(n)]
   if n>=10:
-    lprint('#I +')
+    if verbose:
+      lprint('#I +')
   for a in range(1,n):  # type C_a x C_{n-a}
     H=reflectionsubgroup(W,list(range(a))+[rho[a]]+list(range(a+1,n)))
     l0=len(H.cartantype[0][1])
@@ -5441,11 +5443,11 @@ def chartableB(n):
     ti.extend([inducedchar(W,H,psi) for psi in
          kroneckerproduct(chartablehalfC(l0,other=f0),
                           chartablehalfC(l1,other=f1))])
-    if n>=10:
+    if verbose and n>=10:
       lprint('+')
   ti.extend(chartablehalfC(n,other=True))
   labels.extend([[[],p] for p in partitions(n)])
-  if n>=10:
+  if verbose and n>=10:
     lprint('\n');
   return [ti[labels.index(mu)] for mu in pt]
 
@@ -6942,8 +6944,6 @@ def involutionmodel(W,poids=1, verbose=False):
   taken from the 'reps' component of 'conjugacyclasses(W)').
 
   >>> involutionmodel(coxeter("H",3))
-  #I Total decomposition:
-  #I [1,1,1,1,1,1,1,1,1,1]
   {'[0,1,0,1,0,2,1,0,1,0,2,1,0,1,2]':[1,0,0,0,0,0,0,0,0,0],
    '[0,2]'                          :[0,0,0,1,1,1,0,0,0,1],
    '[0]'                            :[0,0,1,0,0,0,1,1,1,0],
@@ -6967,7 +6967,8 @@ def involutionmodel(W,poids=1, verbose=False):
     inv=conjugacyclass(W,W.wordtoperm(x))
     cinv=[bytes(y[:len(W.rank)]) for y in inv]
     perms=[]
-    lprint('#I ')
+    if verbose:
+      lprint('#I ')
     for s in W.rank:
       if verbose:
         lprint(str(s)+' ')
@@ -7477,7 +7478,7 @@ def lusztigfamilies(W, weightL=1, verbose=False):
   on them.
 
   >>> lusztigfamilies(coxeter("H",3))
-  'families': {[[1], [6,7], [3], [8,9], [2], [4,5], [0]],
+  {'families': [[1], [6,7], [3], [8,9], [2], [4,5], [0]],
   'names'   :  [[('1_r',)], [("3_s'",), ("overline{3}_s'",)],
                 [('5_r',)], [("4_r'",), ('4_r',)], [("5_r'",)],
                 [('3_s',), ('overline{3}_s',)], [("1_r'",)]],
@@ -7489,18 +7490,18 @@ def lusztigfamilies(W, weightL=1, verbose=False):
 
   >>> W = coxeter("B",2)
   >>> lusztigfamilies(W)      # equal parameters
-  'families': {[[3], [0,1,4], [2]],
+  {'families': [[3], [0,1,4], [2]],
   'names'  :  [[('[[2], []]',)], [('[[1,1], []]',), ('[[1], [1]]',),
                 ('[[], [2]]',)], [('[[], [1, 1]]',)]],
   'ainv'   : [0, 1, 4],
   'hasse'  : [[0, 1], [1, 2]]}
 
   >>> lusztigfamilies(W,[2,1])
-  'families': [[3], [0], [1], [4], [2]],
+  {'families': [[3], [0], [1], [4], [2]],
   'names'   : [[('[[2], []]',)], [('[[1, 1], []]',)], [('[[1], [1]]',)],
-               [('[[], [2]]',)], [('[[], [1, 1]]',)]]}
+               [('[[], [2]]',)], [('[[], [1, 1]]',)]]
   'ainv'    : [0, 1, 2, 3, 6],
-  'hasse'   : [[0, 1], [1, 2], [2, 3], [3, 4]],
+  'hasse'   : [[0, 1], [1, 2], [2, 3], [3, 4]]}
   """
   if type(weightL)==type(0):
     poids=len(W.rank)*[weightL]
@@ -7690,7 +7691,7 @@ def testcyclicshift1(W,w,pw):
     return [0,bahn,sxs,s1]
 
 #F allclasspolynomials
-def allclasspolynomials(W,paramL,maxl=-1):
+def allclasspolynomials(W,paramL,maxl=-1, verbose=False):
   """returns the class polynomials for all elements of a finite  Coxeter
   group of length at most maxl. (In many situations, this may be more
   efficient than calling repeatedly 'classpolynomials'.)  If  maxl is
@@ -7744,10 +7745,10 @@ def allclasspolynomials(W,paramL,maxl=-1):
     cp[identifyclasses(W,[[s]],minrep=True)[0]]=1
     cps[W.permgens[s][:len(W.rank)]]=cp
   cpmat.append(cps)
-  if maxlen>20:
+  if verbose and maxlen>20:
     lprint('#I 0-1-')
   for l in range(1,maxlen):
-    if maxlen>20:
+    if verbose and maxlen>20:
       lprint(str(l+1))
     nl=set([])
     ol=set(cpmat[l-1])
@@ -7759,7 +7760,7 @@ def allclasspolynomials(W,paramL,maxl=-1):
       if len(nl)==poin[l+1]:
         break
     cps={}
-    if maxlen>20:
+    if verbose and maxlen>20:
       lprint('-')
     while nl!=set([]):
       cw=next(iter(nl))
@@ -7783,7 +7784,7 @@ def allclasspolynomials(W,paramL,maxl=-1):
           cps[cx]=cp
           nl.remove(cx)
     cpmat.append(cps)
-  if maxlen>20:
+  if verbose and maxlen>20:
     lprint('\n')
   res={}
   for l in cpmat:
@@ -8742,17 +8743,17 @@ def heckecharvalues(W,paramL,lw,clpols=[]):
   expressions, for which the character values are to be computed.
 
   >>> W = coxeter("B",2)
-  >>> a=allwords(W); a
+  >>> a = allwords(W); a
   [[], [0], [1], [0, 1], [1, 0], [0, 1, 0], [1, 0, 1], [0, 1, 0, 1]]
   >>> heckecharvalues(W,[v**3,v**2],a)
-  [[    1,           2,  1,     1,      1],
-   [   -1,     -1+v**6, -1,  v**6,   v**6],
-   [ v**4,     -1+v**4, -1,  v**4,     -1],
-   [-v**4,           0,  1, v**10,  -v**6],
-   [-v**4,           0,  1, v**10,  -v**6],
-   [ v**4, -v**6+v**10, -1, v**16, -v**12],
-   [-v**8, -v**4+v**10, -1, v**14,   v**6],
-   [ v**8,    -2*v**10,  1, v**20,  v**12]]
+  [[1, 2, 1, 1, 1],
+   [-1, -1+v**6, -1, v**6, v**6],
+   [v**4, -1+v**4, -1, v**4, -1],
+   [-v**4, 0, 1, v**10, -v**6],
+   [-v**4, 0, 1, v**10, -v**6],
+   [v**4, -v**6+v**10, -1, v**16, -v**12],
+   [-v**8, -v**4+v**10, -1, v**14, v**6],
+   [v**8, -2*v**10, 1, v**20, v**12]]
 
   See also 'heckechartable' and 'classpolynomials'.
   """
@@ -8788,14 +8789,14 @@ def heckecentraltable(W,paramL):
   in a later version.)
 
   >>> W = coxeter("B",2)
-  >>> v=lpol([1],1,'v')
-  >>> ti=heckechartable(W,[v**2,v])
-  >>> ct=heckecentraltable(W,[v**2,v]); ct
-  [[1,       v**(-4)+1, v**(-8),-v**(-4)-v**(-2),         -v**(-8)-v**(-2)],
-   [1,      -v**(-2)+1,-v**(-6),      -v**(-4)+1,v**(-6)-v**(-4)-v**(-2)+1],
-   [1,-v**(-6)-v**(-2),v**(-12),-v**(-6)-v**(-4),         v**(-10)+v**(-8)],
-   [1,          1+v**4,       1,          1+v**2,                v**2+v**4],
-   [1,    -v**(-2)-v**2,v**(-4),       v**(-2)+1,            -v**(-4)-v**2]]
+  >>> v = lpol([1],1,'v')
+  >>> ti = heckechartable(W,[v**2,v])
+  >>> ct = heckecentraltable(W,[v**2,v]); ct
+  [[1, v**(-4)+1, v**(-8), -v**(-4)-v**(-2), -v**(-8)-v**(-2)],
+   [1, -v**(-2)+1, -v**(-6), -v**(-4)+1, v**(-6)-v**(-4)-v**(-2)+1],
+   [1, -v**(-6)-v**(-2), v**(-12), -v**(-6)-v**(-4), v**(-10)+v**(-8)],
+   [1, 1+v**4, 1, 1+v**2, v**2+v**4],
+   [1, -v**(-2)-v**2, v**(-4), v**(-2)+1, -v**(-4)-v**2]]
   >>> matmult(ti['irreducibles'],transposemat(ct))
   [[v**(-6)+2*v**(-4)+2*v**(-2)+2+v**2, 0, 0, 0, 0],
    [0, v**(-4)+v**(-2)+v**2+v**4, 0, 0, 0],
@@ -9665,7 +9666,7 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0, verbose=False):
         lprint('\n#I Checking: ')
       i=0
       while fertig and i<len(fbl):
-        if i%5==0:
+        if verbose and i%5==0:
           lprint(str(i)+' ')
         j=0
         while fertig and j<=i:
@@ -10063,7 +10064,7 @@ class wgraph:
     be added as component 'char' to the wgraph class.
 
     >>> W = coxeter("A",3)
-    >>> [l.character() for l in klcells(W,1,v)]
+    >>> [l.character() for l in klcells(W,1,v)[1]]
     [[1,1,1,1,1], [3,1,-1,0,-1], [3,1,-1,0,-1], [2,0,2,-1,0],
      [3,-1,-1,0,1], [3,1,-1,0,-1], [2,0,2,-1,0],
      [3,-1,-1,0,1], [3,-1,-1,0,1], [1,-1,1,1,-1]]
@@ -11660,7 +11661,7 @@ def leftklstarreps(W,l,distinv=[],gens='each'):
   return reps
 
 #F leftrightstarorbit
-def leftrightstarorbit(W,pw):
+def leftrightstarorbit(W, pw, verbose=False):
   """returns the orbit of an element under repeated applications of
   left or right star operations.
   """
@@ -11679,10 +11680,11 @@ def leftrightstarorbit(W,pw):
           if nc!=False and not nc[0][:len(W.rank)] in orb1:
             orb.append(nc[0])
             orb1.add(nc[0][:len(W.rank)])
-  lprint('#I orbit of length '+str(len(orb))+'\n')
+  if verbose:
+    lprint('#I orbit of length '+str(len(orb))+'\n')
   return orb
 
-def leftrightstarorbitinv(W,pw):
+def leftrightstarorbitinv(W, pw, verbose=False):
   """similar to 'leftrightstarorbit' but the computation terminates when
   an involution  is  found in the orbit.  In this case,  the function
   returns this involution; otherwise, the whole orbit is returned.
@@ -11697,18 +11699,21 @@ def leftrightstarorbitinv(W,pw):
             d1=leftklstar(W,d,s,t)
             if not d1[:len(W.rank)] in orb1:
               if W.permorder(d1)<=2:
-                lprint('#I found involution\n')
+                if verbose:
+                  lprint('#I found involution\n')
                 return d1
               orb.append(d1)
               orb1.add(d1[:len(W.rank)])
           nc=klstaroperation(W,s,t,[d])
           if nc!=False and not nc[0][:len(W.rank)] in orb1:
             if W.permorder(nc[0])<=2:
-              lprint('#I found involution\n')
+              if verbose:
+                lprint('#I found involution\n')
               return nc[0]
             orb.append(nc[0])
             orb1.add(nc[0][:len(W.rank)])
-  lprint('#I orbit of length '+str(len(orb))+'\n')
+  if verbose:
+    lprint('#I orbit of length '+str(len(orb))+'\n')
   return orb
 
 #F generalisedtau
@@ -11859,7 +11864,7 @@ def genstringorbit2(W,l):
   return [l]
 
 # kl liste der left cells, als perms
-def checkh4(W,kl):
+def checkh4(W,kl, verbose=False):
   ckl=[set(l) for l in kl]
   for cell in kl:
     for s in W.rank:
@@ -11871,7 +11876,8 @@ def checkh4(W,kl):
               print('Mist')
               return False
             else:
-              lprint('.')
+              if verbose:
+                lprint('.')
   return True
 
 # gentaucells
@@ -13370,8 +13376,7 @@ def libdistinv(W,weightL,unpack=True):
   else:
     poids=weightL[:]
   if len(W.cartantype)>1:
-    print('#W Sorry, only irreducible W of exceptional type')
-    return False
+    raise ValueError('Sorry, only irreducible W of exceptional type')
   if all(p==0 for p in poids):
     return [[]]
   typ=W.cartantype[0][0]
@@ -13662,8 +13667,7 @@ def libdistinv(W,weightL,unpack=True):
       else:
         return [W.reducedword([J[int(s)] for s in i],W) for i in l1133]
     else:
-      print('#W Sorry, not yet implemented')
-      return False
+      raise NotImplementedError('Sorry, not yet implemented')
   elif typ[0]=='E' and rk==[0,1,2,3,4,5]:
     reps=['', '3', '12', '015', '232', '1315', '01454', '020454', '020320',
           '0131431', '0120454', '1314315431', '23123431234', '01203120325',
@@ -13861,8 +13865,7 @@ def libdistinv(W,weightL,unpack=True):
           w0.extend([1,0])
         return [[], [0], [1], w0]
       else:
-        print('#W Sorry, not yet implemented')
-        return False
+        raise NotImplementedError('Sorry, not yet implemented')
     else:
       w1=[]
       for i in range((m-2)//2):
@@ -13874,8 +13877,7 @@ def libdistinv(W,weightL,unpack=True):
       elif poids[0]<poids[1] and poids[0]>0:
         return [[],[0],[1],[0,1,0],[1]+w1,w1+[0,1]]
       else:
-        print('#W Sorry, not yet implemented')
-        return False
+        raise NotImplementedError('Sorry, not yet implemented')
   else:
     return False
 
