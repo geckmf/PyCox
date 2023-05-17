@@ -22,20 +22,20 @@
 #     gcc -shared -pthread -fPIC -fwrapv -O2 -Wall -fno-strict-aliasing \   #
 #                            -I/usr/include/python3.4 -o cychv.so cychv.c   #
 #############################################################################
-print('┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓')
-print('┃   A PYTHON VERSION OF CHEVIE-GAP FOR (FINITE) COXETER GROUPS    ┃')
-print('┃       (by Meinolf Geck,  version 1r6p180, 27 Jan 2014)          ┃')
-print('┃                                                                 ┃')
-print('┃   To get started type "help(coxeter)" or "help(allfunctions)";  ┃')
-print('┃   see also https://dx.doi.org/10.1112/S1461157012001064.        ┃')
-print('┃   For notes about this version type  "versioninfo(1.6)".        ┃')
-print('┃   Check www.mathematik.uni-stuttgart.de/~geckmf for updates.    ┃')
-print('┃                                                                 ┃')
-print('┃   Import into "sage" (9.8 or higher, www.sagemath.org) works.   ┃')
-print('┃                                                                 ┃')
-print('┃        The proposed name for this module is "PyCox".            ┃')
-print('┃                   All comments welcome!                         ┃')
-print('┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛')
+print('┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓')
+print('┃    A PYTHON VERSION OF CHEVIE-GAP FOR (FINITE) COXETER GROUPS     ┃')
+print('┃        (by Meinolf Geck,  version 1r6p180, 27 Jan 2014)           ┃')
+print('┃                                                                   ┃')
+print('┃    To get started type "help(coxeter)" or "help(allfunctions)";   ┃')
+print('┃    see also https://dx.doi.org/10.1112/S1461157012001064.         ┃')
+print('┃    For notes about this version type  "versioninfo(1.6)".         ┃')
+print('┃    Check www.mathematik.uni-stuttgart.de/~geckmf for updates.     ┃')
+print('┃                                                                   ┃')
+print('┃    Import into "sage" (9.8 or higher, www.sagemath.org) works.    ┃')
+print('┃                                                                   ┃')
+print('┃         The proposed name for this module is "PyCox".             ┃')
+print('┃                    All comments welcome!                          ┃')
+print('┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛')
 
 import sys  # uses sys.write and sys.version
 import time
@@ -1268,7 +1268,7 @@ def interpolatepol(v,x,y):
 
   >>> v=lpol([1],1,"v")
   >>> p=interpolatepol(v,[1,2,3,4],[3,2,4,1]); p
-  15-121/6*v+19/2*v**2-4/3*v**3
+  (Fraction(15, 1))+(Fraction(-121, 6))*v+(Fraction(19, 2))*v**2+(Fraction(-4, 3))*v**3
   >>> y=[p.value(x) for x in [1,2,3,4]]; y
   [Fraction(3, 1), Fraction(2, 1), Fraction(4, 1), Fraction(1, 1)]
   >>> y==[3,2,4,1]
@@ -1353,7 +1353,7 @@ def gcdex(m,n):
 
       gcd = coeff1 * m + coeff2 * n  and  0 = coeff3 * m + coeff4 * n.
 
-  >>> gcdex(4,15)
+  >>> sorted(gcdex(4,15).items())
   {'coeff3': -15, 'coeff2': -1, 'coeff1': 4, 'gcd': 1, 'coeff4': 4}
 
   (Thus, gcd(4,15)=1; we have 1=4*4+(-1)*15 and 0=(-15)*4+4*15.)
@@ -2288,11 +2288,11 @@ def affinecartanmat(typ,n):
    [-1, 2, -1],
    [0, -3, 2]]
   >>> affinecartanmat("F",4)     # diagram  4 -- 0 -- 1 => 2 -- 3
-  [[2, -1, 0, 0, 0],
+  [[2, -1, 0, 0, -1],
    [-1, 2, -1, 0, 0],
-   [0, -1, 2, -1, 0],
-   [0, 0, -2, 2, -1],
-   [0, 0, 0, -1, 2]]
+   [0, -2, 2, -1, 0],
+   [0, 0, -1, 2, 0],
+   [-1, 0, 0, 0, 2]]
   >>> affinecartanmat("B",3)     # diagram  0 <= 2 -- 3
   [[2, -2, 0, 0],
    [-1, 2, -1, -1],
@@ -2422,10 +2422,10 @@ def typecartanmat(mat):
       typ.append('E')
       cs.append(cartanmat('E',8))
     if mat in cs:
-      return [typ[cs.index(mat)],range(n)]
+      return [typ[cs.index(mat)],list(range(n))]
     nb=[[j for j in range(n) if i!=j and mat[i][j]!=0] for i in range(n)]
     es=[i for i in range(n) if len(nb[i])==1]   # end nodes
-    if len(es)==0:     # circle
+    if not es:     # circle
       return ['U', list(range(n))]
     elif len(es)==2:   # straight line
       p=[es[0]]
@@ -3418,9 +3418,10 @@ def testcyclicshift(W,pw):
   l(x)<l(sxs) and sxs lies in the same cyclic chift class as pw.
 
   >>> W = coxeter("F",4)
-  >>> t=testcyclicshift(W,W.wordtoperm([0,1,2,1,0])); print(t)
-  [(13,32,2,9,4,29,12,7,25,3,10,16,6,0,18,15,11,22,14,19,20,21,17,23,37,
-    8,26,33,28,5,36,31,1,27,34,40,30,24,42,39,35,46,38,43,44,45,41,47),0]
+  >>> t = testcyclicshift(W,W.wordtoperm([0,1,2,1,0])); print(t)
+  [(13, 32, 2, 9, 4, 29, 12, 7, 25, 3, 10, 16, 6, 0, 18, 15, 11, 22, 14, 19, 20, 21, 17,
+   23, 37, 8, 26, 33, 28, 5, 36, 31, 1, 27, 34, 40, 30, 24, 42, 39, 35, 46, 38, 43, 44,
+   45, 41, 47), 0]
   >>> W.permtoword(t[0])
   [1, 2, 1]
 
@@ -3539,8 +3540,9 @@ def longestperm(W,J=0):
 
   >>> W = coxeter("F",4)
   >>> w0=longestperm(W); print(w0)
-  (24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,
-   46,47,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23)
+  (24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44,
+   45, 46, 47, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+   20, 21, 22, 23)
   >>> W.permtoword(w0)                   # reduced expression
   [0, 1, 0, 2, 1, 0, 2, 1, 2, 3, 2, 1, 0, 2, 1, 2, 3, 2, 1, 0, 2, 1, 2, 3]
   >>> [W.roots[i] for i in w0]           # as a matrix
@@ -3692,8 +3694,18 @@ def bruhat(W,y,w):
   >>> w=W.wordtocoxelm([0,1,0,2])
   >>> b=list(filter(lambda y:bruhat(W,y,w),redleftcosetreps(W)))
   >>> [W.coxelmtoword(y) for y in b]
-  [[],[0],[1],[2],                      
-   [0,1],[0,2],[1,0],[1,2],[1,0,2],[0,1,0],[0,1,2],[0,1,0,2]]
+  [[],
+   [1],
+   [0],
+   [2],
+   [1, 2],
+   [0, 1],
+   [0, 2],
+   [1, 0],
+   [0, 1, 2],
+   [1, 0, 2],
+   [0, 1, 0],
+   [0, 1, 0, 2]]
 
   These are all y in W such that y<=w.
 
@@ -3785,7 +3797,7 @@ def reflectionsubgroup(W,J):
   >>> W.cartanname
   'F4c0c1c2c3'
   >>> W.fusions              # W only has the fusion into itself
-  {'F4c0c1c2c3':{"subJ":[0,1,2,3], 'parabolic':True}}
+  {'F4c0c1c2c3': {'subJ': [0,1,2,3], 'parabolic': True}}
 
   >>> H = reflectionsubgroup(W,[1,2,3,23])
   >>> H.cartantype
@@ -3957,12 +3969,9 @@ def allcoxelms(W, maxl=-1, verbose=False):
 
   >>> W = coxeter("A",2)
   >>> a = allcoxelms(W); a
-  [[(0, 1)],
-   [(3, 2), (2, 4)],
-   [(1, 5), (5, 0)],
-   [(4, 3)]]
+  [[(0, 1)], [(3, 2), (2, 4)], [(5, 0), (1, 5)], [(4, 3)]]
   >>> [[W.coxelmtoword(i) for i in l] for l in a]
-  [[[]], [[0], [1]], [[1, 0], [0, 1]], [[0, 1, 0]]]
+  [[[]], [[0], [1]], [[0, 1], [1, 0]], [[0, 1, 0]]]
 
   (Use 'flatlist' to create one long list of the elements.)
 
@@ -4009,7 +4018,6 @@ def redleftcosetreps(W,J=[]):
 
   >>> W = coxeter("A",4)
   >>> a=redleftcosetreps(W,[0,1,2])
-  #I total = 5
   >>> a
   [(0, 1, 2, 3), (0, 1, 6, 13), (0, 8, 16, 2), (9, 18, 1, 2), (19, 0, 1, 2)]
   >>> [W.coxelmtoword(c) for c in a]
