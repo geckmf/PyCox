@@ -1,3 +1,6 @@
+from math import cos, sin, pi
+
+
 # F class-lpol: basic support for Laurent polynomials in one variable
 class lpol:
     """creates a Laurent polynomial in one variable, from a list of
@@ -441,7 +444,7 @@ class lpolmod:
             n = int(z.zname[2:-1])
             z1 = z.value(rootof1(n)**-1)
             if z == z1:
-                rz = z.value(math.cos(2 * math.pi / n) + math.sin(2 * math.pi / n) * 1j).real
+                rz = z.value(cos(2 * pi / n) + sin(2 * pi / n) * 1j).real
                 return rz > 0
             else:
                 return False
@@ -456,7 +459,7 @@ class lpolmod:
             n = int(z.zname[2:-1])
             z1 = z.value(rootof1(n)**-1)
             if z == z1:
-                rz = z.value(math.cos(2 * math.pi / n) + math.sin(2 * math.pi / n) * 1j).real
+                rz = z.value(cos(2 * pi / n) + sin(2 * pi / n) * 1j).real
                 return rz > 0
             else:
                 return False
@@ -596,7 +599,8 @@ def rootof1(n):
     >>> z=rootof1(4)
     >>> z**2
     -1
-    >>> A=cartanmat("I8",2); A
+    >>> from chv1r6180 import cartanmat, coxeter
+    >>> A = cartanmat("I8",2); A
     [[2, -1], [-2-E(8)+E(8)**3, 2]]
 
     Here E(8) is the default name (as in GAP)
@@ -622,6 +626,7 @@ def E(n):
 
 
 def ir(m):
+    from zeta5 import zeta5
     if m == 2:
         return 0
     elif m == 3:
@@ -656,11 +661,9 @@ def cycldec(pol, maxe=1000):
     For  example, all  the Schur elements of  generic Iwahori-Hecke
     algebras admit such a decomposition.
 
-    >>> p=poincarepol(coxeter("F",4),v); p
-    1+4*v+9*v**2+16*v**3+25*v**4+36*v**5+48*v**6+60*v**7+71*v**8+
-    80*v**9+87*v**10+92*v**11+94*v**12+92*v**13+87*v**14+80*v**15+
-    71*v**16+60*v**17+48*v**18+36*v**19+25*v**20+16*v**21+9*v**22+
-    4*v**23+v**24
+    >>> from chv1r6180 import poincarepol, coxeter
+    >>> p = poincarepol(coxeter("F",4),v); p
+    1+4*v+9*v**2+16*v**3+25*v**4+36*v**5+48*v**6+60*v**7+71*v**8+80*v**9+87*v**10+92*v**11+94*v**12+92*v**13+87*v**14+80*v**15+71*v**16+60*v**17+48*v**18+36*v**19+25*v**20+16*v**21+9*v**22+4*v**23+v**24
     >>> p.vcyc
     False
     >>> cycldec(p)

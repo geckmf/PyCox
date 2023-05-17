@@ -27,7 +27,7 @@ import time
 import math
 
 from zeta5 import zeta5
-from polynomials import lpol, lpolmod
+from polynomials import lpol, lpolmod, ir
 
 BANNER = '''
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -48,9 +48,12 @@ BANNER = '''
 # print(BANNER)
 
 # define our own print
+
+
 def lprint(x):
     sys.stdout.write(x)
     sys.stdout.flush()
+
 
 # enable syntax completion
 try:
@@ -179,6 +182,7 @@ def allfunctions():
     """
     print("#I Type 'help(allfunctions)'")
     return None
+
 
 VG="""   This is intended to be the last major version of  PyCox 1.  (There
    will be further bug fix releases, but everything entirely new will
@@ -382,6 +386,7 @@ VA="""   The original version of CHEVIE was developed for GAP3 (and MAPLE).
                                                       MG, 23 Aug 2011
    """
 
+
 def versioninfo(nr):
     if nr>1.6:
         print("not yet available")
@@ -433,6 +438,8 @@ def isprime(n):
     return True
 
 #F nextprime
+
+
 def nextprime(n):
     """returns the next prime number greater than a given integer.
     (Taken from the gap-library.)
@@ -460,6 +467,8 @@ def nextprime(n):
     return n
 
 #F intlcm
+
+
 def intlcm(a,b):
     """returns the least common multiple of two integers.
 
@@ -470,12 +479,15 @@ def intlcm(a,b):
         gcd,tmp=tmp,gcd%tmp
     return (a*b)//gcd
 
+
 def intlcmlist(l):
     """returns the least common multiple of a list of integers.
     """
     return reduce(intlcm,l)
 
 #F gcdex
+
+
 def gcdex(m,n):
     """Extended gcd algorithm for integers (taken from the  gap-library). The
     function returns a dictionary with entries gcd, coeff1, coeff2, coeff3
@@ -508,6 +520,8 @@ def gcdex(m,n):
                 'coeff4':(0-gm*m)//n}
 
 #F idmat
+
+
 def idmat(rng,scalar):
     """returns the scalar matrix of size len(rng) with a given scalar
     on the diagonal.
@@ -516,10 +530,13 @@ def idmat(rng,scalar):
     [[-3, 0, 0], [0, -3, 0], [0, 0, -3]]
     """
     m=[len(rng)*[0] for x in rng]
-    for x in range(len(rng)): m[x][x]=scalar
+    for x in range(len(rng)):
+        m[x][x]=scalar
     return m
 
 #F transposemat
+
+
 def transposemat(mat):
     """returns the transpose of a matrix.
 
@@ -530,6 +547,8 @@ def transposemat(mat):
 #  return zip(*mat)
 
 #F flatlist
+
+
 def flatlist(lst):
     """returns the list of all elements that are contained in a given
     list or in any of its sublists. (Taken from the gap library.)
@@ -548,6 +567,8 @@ def flatlist(lst):
     return flt
 
 #F flatblockmat
+
+
 def flatblockmat(blmat):
     """flattens a block matrix.
     """
@@ -558,6 +579,8 @@ def flatblockmat(blmat):
     return a
 
 #F transclos
+
+
 def transclos(n,r):
     """returns the transitive closure of a relation on the integers
     0,1,...,n-1 given by a list of pairs in r.
@@ -577,6 +600,8 @@ def transclos(n,r):
     return m
 
 #F noduplicates
+
+
 def noduplicates(seq):
     """returns a new list in which all duplicates in the original list
     have been removed.  Also works for non-hashable types. (Learned
@@ -589,6 +614,8 @@ def noduplicates(seq):
     return [x for x in seq if str(x) not in seen and not seen.add(str(x))]
 
 #F partitioncap
+
+
 def partitioncap(p1,p2):
     """returns the common refinement of two partitions of the same set.
     """
@@ -603,6 +630,8 @@ def partitioncap(p1,p2):
     return neu
 
 #F permmult
+
+
 def permmult(p,q):
     """returns the composition of two permutations (acting from the
     right.)
@@ -610,6 +639,8 @@ def permmult(p,q):
     return tuple([q[i] for i in p])
 
 #F printfunction
+
+
 def printfunction(f):
     """prints the source code of a function.
 
@@ -622,6 +653,8 @@ def printfunction(f):
     print(''.join(inspect.getsourcelines(f)[0]))
 
 #F perminverse
+
+
 def perminverse(p):
     """returns the inverse of a permutation.
     """
@@ -631,18 +664,24 @@ def perminverse(p):
     return tuple(np)
 
 #F matadd
+
+
 def matadd(a,b):
     """returns the sum of two matrices.
     """
     return [[a[i][j]+b[i][j] for j in range(len(a[0]))] for i in range(len(a))]
 
 #F matsub
+
+
 def matsub(a,b):
     """returns the difference of two matrices.
     """
     return [[a[i][j]-b[i][j] for j in range(len(a[0]))] for i in range(len(a))]
 
 #F matmult
+
+
 def matmult(a,b):
     """returns the matrix product of the matrices a and b.
 
@@ -652,12 +691,16 @@ def matmult(a,b):
                           for j in range(len(b[0]))] for row in a]
 
 #F scalmatmult
+
+
 def scalmatmult(a,b):
     """multiplies a matrix b with a scalar a.
     """
     return [[a*b[i][j] for j in range(len(b[0]))] for i in range(len(b))]
 
 #F directsummat
+
+
 def directsummat(a,b):
     """returns the matrix direct sum of the matrices a and b.
 
@@ -679,6 +722,8 @@ def directsummat(a,b):
         return c
 
 #F kroneckerproduct
+
+
 def kroneckerproduct(mat1,mat2):
     """returns the  Kronecker product of the matrices mat1 and mat2. If
     mat1  has size m times n and mat2  has  size p times q, then the
@@ -707,6 +752,8 @@ def kroneckerproduct(mat1,mat2):
     return krpr
 
 #F decomposemat
+
+
 def decomposemat(mat):
     """tests if a matrix can be decomposed in block diagonal form; it
     is assumed that  mat[i][j]=0  if and only if  mat[j][i]=0. The
@@ -739,6 +786,8 @@ def decomposemat(mat):
     return orbs
 
 #F determinantmat1
+
+
 def determinantmat1(mat):
     n=len(mat[0])
     if n==1:
@@ -754,6 +803,8 @@ def determinantmat1(mat):
         return d
 
 #F determinantmat
+
+
 def determinantmat(mat):
     """returns the determinant of a matrix. If all coefficients are integers,
     the function uses a simplified version of the algorithm for  computing
@@ -801,6 +852,8 @@ def determinantmat(mat):
     return d
 
 #F inversematp
+
+
 def inversematp(mat,p):
     """checks if an integer matrix is invertible; if this is the case, the
     function  returns the inverse of that matrix  modulo a prime number.
@@ -834,6 +887,8 @@ def inversematp(mat,p):
     return [l[n:] for l in a]
 
 #F cartesian2
+
+
 def cartesian2(liste,n,tup,i):
     if i==n:
         tups=[tup[:]]
@@ -848,6 +903,8 @@ def cartesian2(liste,n,tup,i):
     return tups
 
 #F cartesian
+
+
 def cartesian(*arg):
     """returns the cartesian product of lists.
 
@@ -878,6 +935,8 @@ def cartesian(*arg):
         return cartesian2(arg,len(arg),[],0)
 
 #F helppartitions
+
+
 def helppartitions(n,m,part,i):
     if n==0:
         part=part[:]
@@ -901,6 +960,8 @@ def helppartitions(n,m,part,i):
     return parts
 
 #F partitions
+
+
 def partitions(n):
     """returns the list of all partitions of n.
 
@@ -917,6 +978,8 @@ def partitions(n):
     return [[x for x in p if x>0] for p in helppartitions(n,n,n*[0],0)]
 
 #F dualpartition
+
+
 def dualpartition(mu):
     """returns the dual (or conjugate) partition to mu.
     """
@@ -925,6 +988,8 @@ def dualpartition(mu):
     return [len([1 for l in mu if l > j]) for j in range(mu[0])]
 
 #F centraliser partition
+
+
 def centraliserpartition(n,mu):
     """returns the order of the centraliser  of an element  of cycle
     type of a given partition in the  full symmetric group.  (The
@@ -943,6 +1008,8 @@ def centraliserpartition(n,mu):
     return res
 
 #F differencepartitions
+
+
 def differencepartitions(gamma,alpha):
     """returns  a dictionary with information about the  difference of
     two partitions (if it exists); this function is  needed for the
@@ -982,6 +1049,8 @@ def differencepartitions(gamma,alpha):
     return dp
 
 #F bipartitions
+
+
 def bipartitions(n):
     """returns the list of all bipartitions of n (as in gap). The
     ordering is different from that of partitiontuples(n,2).
@@ -1011,9 +1080,11 @@ def bipartitions(n):
             res.append(s)
     res.append([[n],[]])
     res.extend(pm[n-1])
-    return res;
+    return res
 
 #F partitiontuples
+
+
 def partitiontuples(n,r):
     """returns the list of all r-tuples of partitions of n.
 
@@ -1071,6 +1142,8 @@ def partitiontuples(n,r):
     return res
 
 #F centralisertuple
+
+
 def centralisertuple(n,r,mu):
     """returns the order of the centraliser of an element of a given
     type (specified by an r-tuple of partitions mu) in the wreath
@@ -1082,7 +1155,7 @@ def centralisertuple(n,r,mu):
     for i in range(r):
         last,k=0,1
         for p in mu[i]:
-            res*=r*p;
+            res*=r*p
             if p==last:
                 k+=1
                 res*=k
@@ -1092,6 +1165,8 @@ def centralisertuple(n,r,mu):
     return res
 
 #F lusztigsymbolB
+
+
 def lusztigsymbolB(n,vs,vt,dblpart):
     """returns the symbol associated with a  bipartition, as defined
     by Lusztig,  taking into account  weights.  In this form, the
@@ -1127,6 +1202,8 @@ def lusztigsymbolB(n,vs,vt,dblpart):
     return [la,mu]
 
 #F redlusztigsymbolB
+
+
 def redlusztigsymbolB(vs,vt,dblpart):
     """similar to 'lusztigsymbolB' but now the number of entries in a
     symbol is as small as possible (depending on the bipartition).
@@ -1158,6 +1235,8 @@ def redlusztigsymbolB(vs,vt,dblpart):
     return [la,mu]
 
 #F ainvbipartition
+
+
 def ainvbipartition(n,vs,vt,bip):
     """returns the a-invariant of a  bipartition,  computed from
     the associated Lusztig symbol. See also 'lusztigsymbolB'.
@@ -1177,6 +1256,8 @@ def ainvbipartition(n,vs,vt,bip):
     return sum(i*(p[-i-1]-z0[-i-1]) for i in range(len(p)))
 
 #F displaymat
+
+
 def displaymat(mat,rows=[],cols=[],width=78):
     """displays a matrix, where the optional arguments 'rows' and 'cols'
     can be used to specify labels for the rows and columns.  There is
@@ -1251,6 +1332,8 @@ def displaymat(mat,rows=[],cols=[],width=78):
 ##
 
 #F cartanmatA
+
+
 def cartanmatA(n):
     if n==0:
         return [[]]
@@ -1265,6 +1348,8 @@ def cartanmatA(n):
         return a
 
 #F cartanmat
+
+
 def cartanmat(typ,n):
     r"""returns a Cartan matrix (of finite Dynkin type) where typ is
     a string specifying  the type.  The  convention is such that
@@ -1343,46 +1428,46 @@ def cartanmat(typ,n):
             a[2][1]=-1
             return a
     if typ[0]=='G':
-        return [[ 2,-1],
+        return [[2,-1],
                 [-3, 2]]
     if typ[0]=='F':
-        return [[ 2,-1, 0, 0],
+        return [[2,-1, 0, 0],
                 [-1, 2,-1, 0],
-                [ 0,-2, 2,-1],
-                [ 0, 0,-1, 2]]
+                [0,-2, 2,-1],
+                [0, 0,-1, 2]]
     if typ[0]=='E' and n==6:
-        return [[ 2, 0,-1, 0, 0, 0],
-                [ 0, 2, 0,-1, 0, 0],
+        return [[2, 0,-1, 0, 0, 0],
+                [0, 2, 0,-1, 0, 0],
                 [-1, 0, 2,-1, 0, 0],
-                [ 0,-1,-1, 2,-1, 0],
-                [ 0, 0, 0,-1, 2,-1],
-                [ 0, 0, 0, 0,-1, 2]]
+                [0,-1,-1, 2,-1, 0],
+                [0, 0, 0,-1, 2,-1],
+                [0, 0, 0, 0,-1, 2]]
     if typ[0]=='E' and n==7:
-        return [[ 2, 0,-1, 0, 0, 0, 0],
-                [ 0, 2, 0,-1, 0, 0, 0],
+        return [[2, 0,-1, 0, 0, 0, 0],
+                [0, 2, 0,-1, 0, 0, 0],
                 [-1, 0, 2,-1, 0, 0, 0],
-                [ 0,-1,-1, 2,-1, 0, 0],
-                [ 0, 0, 0,-1, 2,-1, 0],
-                [ 0, 0, 0, 0,-1, 2,-1],
-                [ 0, 0, 0, 0, 0,-1, 2]]
+                [0,-1,-1, 2,-1, 0, 0],
+                [0, 0, 0,-1, 2,-1, 0],
+                [0, 0, 0, 0,-1, 2,-1],
+                [0, 0, 0, 0, 0,-1, 2]]
     if typ[0]=='E' and n==8:
-        return [[ 2, 0,-1, 0, 0, 0, 0, 0],
-                [ 0, 2, 0,-1, 0, 0, 0, 0],
+        return [[2, 0,-1, 0, 0, 0, 0, 0],
+                [0, 2, 0,-1, 0, 0, 0, 0],
                 [-1, 0, 2,-1, 0, 0, 0, 0],
-                [ 0,-1,-1, 2,-1, 0, 0, 0],
-                [ 0, 0, 0,-1, 2,-1, 0, 0],
-                [ 0, 0, 0, 0,-1, 2,-1, 0],
-                [ 0, 0, 0, 0, 0,-1, 2,-1],
-                [ 0, 0, 0, 0, 0, 0,-1, 2]]
+                [0,-1,-1, 2,-1, 0, 0, 0],
+                [0, 0, 0,-1, 2,-1, 0, 0],
+                [0, 0, 0, 0,-1, 2,-1, 0],
+                [0, 0, 0, 0, 0,-1, 2,-1],
+                [0, 0, 0, 0, 0, 0,-1, 2]]
     if typ[0]=='H' and n==3:
-        return [[     2,-ir(5),     0],
-                [-ir(5),     2,    -1],
-                [     0,    -1,     2]]
+        return [[2,-ir(5), 0],
+                [-ir(5), 2, -1],
+                [0, -1, 2]]
     if typ[0]=='H' and n==4:
-        return [[     2,-ir(5),     0,     0],
-                [-ir(5),     2,    -1,     0],
-                [     0,    -1,     2,    -1],
-                [     0,     0,    -1,     2]]
+        return [[2,-ir(5), 0, 0],
+                [-ir(5), 2, -1, 0],
+                [0, -1, 2, -1],
+                [0, 0, -1, 2]]
     if typ[0]=='I':
         m=int(typ[1:])
         if m%2==0:
@@ -1391,7 +1476,7 @@ def cartanmat(typ,n):
             elif m==6:
                 return [[2, -1], [-3, 2]]
             else:
-                return [[ 2, -1], [-2-ir(m//2), 2]]
+                return [[2, -1], [-2-ir(m//2), 2]]
         else:
             if m==3:
                 return [[2, -1], [-1, 2]]
@@ -1407,6 +1492,8 @@ def cartanmat(typ,n):
                 return [[2,z1], [z1,2]]
 
 #F affinecartanmat
+
+
 def affinecartanmat(typ,n):
     """returns a generalised Cartan matrix of affine type, where typ
     is a string specifying the corresponding finite type.
@@ -1462,44 +1549,46 @@ def affinecartanmat(typ,n):
         a[n][n-2]=-1
         return a
     if typ[0]=='G':
-        return [[ 2,-1, 0],
+        return [[2,-1, 0],
                 [-1, 2,-1],
-                [ 0,-3, 2]]
+                [0,-3, 2]]
     if typ[0]=='F':
-        return [[ 2,-1, 0, 0,-1],
+        return [[2,-1, 0, 0,-1],
                 [-1, 2,-1, 0, 0],
-                [ 0,-2, 2,-1, 0],
-                [ 0, 0,-1, 2, 0],
+                [0,-2, 2,-1, 0],
+                [0, 0,-1, 2, 0],
                 [-1, 0, 0, 0, 2]]
     if typ[0]=='E' and n==6:
-        return [[ 2, 0,-1, 0, 0, 0, 0],
-                [ 0, 2, 0,-1, 0, 0,-1],
+        return [[2, 0,-1, 0, 0, 0, 0],
+                [0, 2, 0,-1, 0, 0,-1],
                 [-1, 0, 2,-1, 0, 0, 0],
-                [ 0,-1,-1, 2,-1, 0, 0],
-                [ 0, 0, 0,-1, 2,-1, 0],
-                [ 0, 0, 0, 0,-1, 2, 0],
-                [ 0,-1, 0, 0, 0, 0, 2]]
+                [0,-1,-1, 2,-1, 0, 0],
+                [0, 0, 0,-1, 2,-1, 0],
+                [0, 0, 0, 0,-1, 2, 0],
+                [0,-1, 0, 0, 0, 0, 2]]
     if typ[0]=='E' and n==7:
-        return [[ 2, 0,-1, 0, 0, 0, 0,-1],
-                [ 0, 2, 0,-1, 0, 0, 0, 0],
+        return [[2, 0,-1, 0, 0, 0, 0,-1],
+                [0, 2, 0,-1, 0, 0, 0, 0],
                 [-1, 0, 2,-1, 0, 0, 0, 0],
-                [ 0,-1,-1, 2,-1, 0, 0, 0],
-                [ 0, 0, 0,-1, 2,-1, 0, 0],
-                [ 0, 0, 0, 0,-1, 2,-1, 0],
-                [ 0, 0, 0, 0, 0,-1, 2, 0],
+                [0,-1,-1, 2,-1, 0, 0, 0],
+                [0, 0, 0,-1, 2,-1, 0, 0],
+                [0, 0, 0, 0,-1, 2,-1, 0],
+                [0, 0, 0, 0, 0,-1, 2, 0],
                 [-1, 0, 0, 0, 0, 0, 0, 2]]
     if typ[0]=='E' and n==8:
-        return [[ 2, 0,-1, 0, 0, 0, 0, 0, 0],
-                [ 0, 2, 0,-1, 0, 0, 0, 0, 0],
+        return [[2, 0,-1, 0, 0, 0, 0, 0, 0],
+                [0, 2, 0,-1, 0, 0, 0, 0, 0],
                 [-1, 0, 2,-1, 0, 0, 0, 0, 0],
-                [ 0,-1,-1, 2,-1, 0, 0, 0, 0],
-                [ 0, 0, 0,-1, 2,-1, 0, 0, 0],
-                [ 0, 0, 0, 0,-1, 2,-1, 0, 0],
-                [ 0, 0, 0, 0, 0,-1, 2,-1, 0],
-                [ 0, 0, 0, 0, 0, 0,-1, 2,-1],
-                [ 0, 0, 0, 0, 0, 0, 0,-1, 2]]
+                [0,-1,-1, 2,-1, 0, 0, 0, 0],
+                [0, 0, 0,-1, 2,-1, 0, 0, 0],
+                [0, 0, 0, 0,-1, 2,-1, 0, 0],
+                [0, 0, 0, 0, 0,-1, 2,-1, 0],
+                [0, 0, 0, 0, 0, 0,-1, 2,-1],
+                [0, 0, 0, 0, 0, 0, 0,-1, 2]]
 
 #F typecartanmat
+
+
 def typecartanmat(mat):
     """identifies the type of an indecomposable Cartan matrix.
     """
@@ -1510,11 +1599,16 @@ def typecartanmat(mat):
         return ['A',[0]]
     if n==2:
         if mat[0][1]*mat[1][0]<4:
-            if mat[1][0]==-3: return ['G',[0,1]]
-            if mat[0][1]==-3: return ['G',[1,0]]
-            if mat[1][0]==-2: return ['C',[0,1]]
-            if mat[0][1]==-2: return ['C',[1,0]]
-            if mat[0][1]==-1 and mat[1][0]==-1: return ['A',[0,1]]
+            if mat[1][0]==-3:
+                return ['G',[0,1]]
+            if mat[0][1]==-3:
+                return ['G',[1,0]]
+            if mat[1][0]==-2:
+                return ['C',[0,1]]
+            if mat[0][1]==-2:
+                return ['C',[1,0]]
+            if mat[0][1]==-1 and mat[1][0]==-1:
+                return ['A',[0,1]]
             if mat[0][1]==-ir(5) and mat[1][0]==-ir(5):
                 return ['I5',[0,1]]
             #m=3
@@ -1533,7 +1627,8 @@ def typecartanmat(mat):
             return ['U',[0,1]]
     else:
         typ=['A','B','C','D']
-        cs=[cartanmat('A',n),cartanmat('B',n),cartanmat('C',n),cartanmat('D',n)]
+        cs=[cartanmat('A',n),cartanmat('B',n),
+                      cartanmat('C',n),cartanmat('D',n)]
         if n==3:
             typ.append('H')
             cs.append(cartanmat('H',3))
@@ -1561,7 +1656,8 @@ def typecartanmat(mat):
             p=[es[0]]
             for s in p:
                 for j in nb[s]:
-                    if not j in p: p.append(j)
+                    if not j in p:
+                        p.append(j)
             a=[[mat[i][j] for j in p] for i in p]
             if a in cs:
                 return [typ[cs.index(a)],p]
@@ -1577,17 +1673,20 @@ def typecartanmat(mat):
             for s in p0:
                 if len(nb[s])!=3:
                     for j in nb[s]:
-                        if not j in p0: p0.append(j)
+                        if not j in p0:
+                            p0.append(j)
             p1=[es[1]]
             for s in p1:
                 if len(nb[s])!=3:
                     for j in nb[s]:
-                        if not j in p1: p1.append(j)
+                        if not j in p1:
+                            p1.append(j)
             p2=[es[2]]
             for s in p2:
                 if len(nb[s])!=3:
                     for j in nb[s]:
-                        if not j in p2: p2.append(j)
+                        if not j in p2:
+                            p2.append(j)
             ps=[p0,p1,p2]
             lp=[len(p0),len(p1),len(p2)]   # branch lengths
             lp1=lp[:]
@@ -1635,18 +1734,26 @@ def finitetypemat(mat):
     is assumed to be of finite type.
     """
     n=len(mat[0])
-    if n==0: return ['A',[]]
-    if n==1: return ['A',[0]]
+    if n==0:
+        return ['A',[]]
+    if n==1:
+        return ['A',[0]]
     if n==2:
-        if mat[1][0]==-3: return ['G',[0,1]]
-        if mat[0][1]==-3: return ['G',[1,0]]
-        if mat[1][0]==-2: return ['C',[0,1]]
-        if mat[0][1]==-2: return ['C',[1,0]]
-        if mat[0][1]==-1 and mat[1][0]==-1: return ['A',[0,1]]
+        if mat[1][0]==-3:
+            return ['G',[0,1]]
+        if mat[0][1]==-3:
+            return ['G',[1,0]]
+        if mat[1][0]==-2:
+            return ['C',[0,1]]
+        if mat[0][1]==-2:
+            return ['C',[1,0]]
+        if mat[0][1]==-1 and mat[1][0]==-1:
+            return ['A',[0,1]]
         if mat[0][1]==-ir(5) and mat[1][0]==-ir(5):
             return ['I5',[0,1]]
         m=3
-        while mat[0][1]!=-ir(m): m+=1
+        while mat[0][1]!=-ir(m):
+            m+=1
         return ['I'+str(m),[0,1]]
     else:
         rowsums=[sum(l) for l in mat]
@@ -1656,7 +1763,8 @@ def finitetypemat(mat):
             p=[es[0]]
             for s in p:
                 for j in nb[s]:
-                    if not j in p: p.append(j)
+                    if not j in p:
+                        p.append(j)
             totsum=sum(rowsums)
             if totsum==2:
                 return ['A',p]
@@ -1689,17 +1797,20 @@ def finitetypemat(mat):
             for s in p0:
                 if len(nb[s])!=3:
                     for j in nb[s]:
-                        if not j in p0: p0.append(j)
+                        if not j in p0:
+                            p0.append(j)
             p1=[es[1]]
             for s in p1:
                 if len(nb[s])!=3:
                     for j in nb[s]:
-                        if not j in p1: p1.append(j)
+                        if not j in p1:
+                            p1.append(j)
             p2=[es[2]]
             for s in p2:
                 if len(nb[s])!=3:
                     for j in nb[s]:
-                        if not j in p2: p2.append(j)
+                        if not j in p2:
+                            p2.append(j)
             ps=[p0,p1,p2]
             lp=[len(p0),len(p1),len(p2)]   # branch lengths
             lp1=lp[:]
@@ -1734,6 +1845,8 @@ def finitetypemat(mat):
                 return [typ,p]
 
 #F cartantotype
+
+
 def cartantotype(mat):
     """returns [['U',range(n)]] if mat is a  generalised Cartan matrix
     which is  not of  finite type, where n is the rank.  Otherwise,
@@ -1777,6 +1890,8 @@ def cartantotype(mat):
             return t
 
 #F cartantypetomat
+
+
 def cartantypetomat(ct):
     """reconstructs the  Cartan matrix from its cartan type, if ct
     corresponds to a list of finite type Cartan matrices. Thus,
@@ -1799,9 +1914,11 @@ def cartantypetomat(ct):
         b=directsummat(b,cartanmat(c[0],len(c[1])))
         p.extend(c[1])
     n=range(len(p))
-    return [[b[p.index(i)][p.index(j)] for j in n]  for i in n]
+    return [[b[p.index(i)][p.index(j)] for j in n] for i in n]
 
 #F degreesdata
+
+
 def degreesdata(typ,n):
     """returns  the reflection degrees of the finite Coxeter group
     of type 'typ'  and rank 'n'.  The data  are taken from  the
@@ -1854,6 +1971,8 @@ def degreesdata(typ,n):
 
 #F roots
 ## elms[i] applied to root[i] yields simple root (orbit rep)
+
+
 def roots(cmat):
     rng=range(len(cmat[0]))
     gen=idmat(rng,1)
@@ -1883,6 +2002,7 @@ def roots(cmat):
             [elms[l1.index(r)][::-1] for r in l],
             [[l.index(r) for r in orb] for orb in orbits])
 
+
 def roots1(cmat):
     rng=range(len(cmat[0]))
     l=idmat(rng,1)
@@ -1905,6 +2025,8 @@ def roots1(cmat):
                                   [elms[l1.index(r)][::-1] for r in l])
 
 #F permroots
+
+
 def permroots(cmat,roots):
     rng=range(len(cmat[0]))
     gens=[len(roots)*[0] for s in rng]
@@ -1916,6 +2038,8 @@ def permroots(cmat,roots):
     return [tuple(s) for s in gens]
 
 #F class-coxeter
+
+
 class coxeter:
     """creates a  Coxeter group (as a python 'class'), from a  Cartan
     matrix (see 'cartanmat') or from a pair (typ,r) where typ is a
@@ -2059,6 +2183,7 @@ class coxeter:
     [Ge-Pf] M. Geck and G. Pfeiffer, Characters of finite Coxeter
             groups and Iwahori-Hecke algebras, OUP, Oxford, 2000.
     """
+
     def __init__(self,typ,rank=0,split=True,fusion=[],weightL=0,param=1):
         if type(typ)==type([[]]):
             self.cartan=typ
@@ -2138,7 +2263,8 @@ class coxeter:
         if self.cartantype[0][0]!='U':
             self.roots,self.rootrepelms,self.rootorbits=roots(self.cartan)
             self.N=len(self.roots)//2
-            for o in self.rootorbits: o.sort()
+            for o in self.rootorbits:
+                o.sort()
             self.rootorbits1=self.N*[0]
             for o in range(len(self.rootorbits)):
                 for i in self.rootorbits[o]:
@@ -2151,14 +2277,16 @@ class coxeter:
                 self.degrees.extend(degreesdata(c[0],len(c[1])))
             self.degrees.sort()
             self.order=1
-            for d in self.degrees: self.order*=d
+            for d in self.degrees:
+                self.order*=d
             b=[]
             for c in self.cartantype:
                 bl=len(c[1])*[2]
                 if c[0]=='B':
                     bl[0]=1
                 if c[0]=='C':
-                    for i in range(1,len(c[1])): bl[i]=1
+                    for i in range(1,len(c[1])):
+                        bl[i]=1
                 if c[0]=='F':
                     bl[2]=1
                     bl[3]=1
@@ -2203,6 +2331,7 @@ class coxeter:
                            for u in self.rank]) for t in self.rank]
             l+=1
         return l
+
     def matlength(self,mat):
         """returns the length of an element given as a matrix.
         """
@@ -2217,23 +2346,27 @@ class coxeter:
                            for u in self.rank]) for t in self.rank]
             l+=1
         return l
+
     def permlength(self,p):
         """returns the length of an element given as a full permutation.
         (Only works for finite W.)
         """
         return len([i for i in p[:self.N] if i>=self.N])
+
     def coxelmtomat(self,elm):      # works for perms and coxelms
         """converts  elm (assumed to be a coxelm)  into  a matrix  with
         respect to the  simple reflections.   This also works if elm
         is a full permutation on the roots.
         """
         return tuple([self.roots[r] for r in elm[:len(self.rank)]])
+
     def coxelmtoperm(self,elm):      # works for perms and coxelms
         """converts a coxelm to a full permutation on the set of roots.
         (Only works for finite W.)
         """
         return tuple([self.roots.index(tuple([sum([r[i]*self.roots[elm[i]][s]
               for i in self.rank]) for s in self.rank])) for r in self.roots])
+
     def coxelmtoword(self,elm):       # works for perms and coxelms
         """converts a  coxelm into a  reduced expression  in the simple
         reflections.
@@ -2244,23 +2377,28 @@ class coxeter:
         weiter=True
         while weiter:
             s=0
-            while s<len(self.rank) and all(m[s][t]>=0 for t in self.rank): s+=1
+            while s<len(self.rank) and all(m[s][t]>=0 for t in self.rank):
+                s+=1
             if s<len(self.rank):
                 m=[[m[t][u]-self.cartan[s][t]*m[s][u] for u in self.rank]
                                                             for t in self.rank]
                 word.append(s)
-            else: weiter=False
+            else:
+                weiter=False
         return word
+
     def mattocoxelm(self,mat):
         """converts a matrix to a coxelm.
         """
         return tuple([self.roots.index(l) for l in mat])
+
     def mattoperm(self,mat):
         """converts a matrix to a full permutation on the set of roots.
         (Only works for finite W.)
         """
         return tuple([self.roots.index(tuple([sum([r[i]*mat[i][s]
              for i in self.rank]) for s in self.rank])) for r in self.roots])
+
     def mattoword(self,mat):
         """converts  a  matrix to a  reduced expression  in the  simple
         reflections. This works for arbitrary Coxeter groups.
@@ -2270,13 +2408,16 @@ class coxeter:
         weiter=True
         while weiter:
             s=0
-            while s<len(self.rank) and all(m[s][t]>=0 for t in self.rank): s+=1
+            while s<len(self.rank) and all(m[s][t]>=0 for t in self.rank):
+                s+=1
             if s<len(self.rank):
                 m=[[m[t][u]-self.cartan[s][t]*m[s][u] for u in self.rank]
                                                             for t in self.rank]
                 word.append(s)
-            else: weiter=False
+            else:
+                weiter=False
         return word
+
     def permtoword(self,pw):
         """converts an element (given as a full permutation on the roots)
         into a reduced expression. (Only works for finite W.)
@@ -2286,7 +2427,8 @@ class coxeter:
         weiter=True
         while weiter:
             s=0
-            while s<len(self.rank) and p[s]<self.N: s+=1
+            while s<len(self.rank) and p[s]<self.N:
+                s+=1
             if s<len(self.rank):
                 p=[p[i] for i in self.permgens[s]]
                 word.append(s)
@@ -2313,6 +2455,7 @@ class coxeter:
             m=[[m[t][u]-self.cartan[s][t]*m[s][u] for u in self.rank]
                                                           for t in self.rank]
         return tuple([tuple(l) for l in m])
+
     def wordtoperm(self,w):
         """converts  any word  in  the  simple reflections  into a full
         permutation on the set of roots. (Only works for finite W.)
@@ -2323,6 +2466,7 @@ class coxeter:
         else:
             l.extend([self.permgens[s] for s in w])
             return reduce(permmult,tuple(l))
+
     def stringtoword(self,sw):
         """converts a string (as returned, for example, by the function
         'allwordstrings' into a list.
@@ -2331,6 +2475,7 @@ class coxeter:
             return []
         else:
             return [int(i) for i in sw.split('.')]
+
     def reducedword(self,w,W1):
         """converts  any word  in the simple reflections into a reduced
         expression in the  simple reflections.  If there is a fusion
@@ -2358,13 +2503,16 @@ class coxeter:
         weiter=True
         while weiter:
             s=0
-            while s<len(W1.rank) and all(m[s][t]>=0 for t in W1.rank): s+=1
+            while s<len(W1.rank) and all(m[s][t]>=0 for t in W1.rank):
+                s+=1
             if s<len(W1.rank):
                 m=[[m[t][u]-W1.cartan[s][t]*m[s][u] for u in W1.rank]
                                                            for t in W1.rank]
                 word.append(s)
-            else: weiter=False
+            else:
+                weiter=False
         return word
+
     def cycletyperoots(self,pw):
         """returns the cycle type of an element in its action  on  each
         of the root orbits. Here, the element is assumed to be given
@@ -2385,6 +2533,7 @@ class coxeter:
                 cl.sort()
             ct.append(tuple(cl))
         return tuple(ct)
+
     def permorder(self,pw):
         """returns the order of an element, given as a full  permutation
         on all roots. (Only works for finite W.)
@@ -2393,22 +2542,26 @@ class coxeter:
             return 1
         else:
             return intlcmlist(flatlist([list(x) for x in self.cycletyperoots(pw)]))
+
     def leftdescentsetperm(self,pw):
         """returns the left descent set of an element, given as a coxelm
         or a full permutation on all roots.
         """
         return [s for s in self.rank if pw[s]>=self.N]
+
     def rightdescentsetperm(self,pw):
         """returns the right descent set of an element, given as a full
         permutation on all roots.
         """
         ip=perminverse(pw)
         return [s for s in self.rank if ip[s]>=self.N]
+
     def leftdescentsetmat(self,mw):
         """returns the left descent set of an element, given as a matrix
         with respect to the basis of simple roots.
         """
         return [s for s in self.rank if all(mw[s][t]<=0 for t in self.rank)]
+
     def rightdescentsetmat(self,mw):
         """returns the right descent set of an element, given as a matrix
         with respect to the basis of simple roots.
@@ -2418,6 +2571,8 @@ class coxeter:
 # end of definition of class coxeter
 
 #F rmultgenmat
+
+
 def rmultgenmat(W,s,m):
     """returns the result of multiplying an element of W on the right
     by a simple reflection. The element is assumed to  be given as
@@ -2438,6 +2593,8 @@ def rmultgenmat(W,s,m):
     return nw
 
 #F lmultgenmat  # is slightly faster than rmultgen
+
+
 def lmultgenmat(W,s,m):
     """returns the result of multiplying an element of W on the left
     by a simple reflection. The element is assumed to be given as
@@ -2449,6 +2606,8 @@ def lmultgenmat(W,s,m):
                                                          for t in W.rank])
 
 #F conjgenmat
+
+
 def conjgenmat(W,s,m):
     """conjugates an element (given as a matrix) by a generator.
 
@@ -2461,6 +2620,8 @@ def conjgenmat(W,s,m):
     return tuple([tuple(l) for l in nw])
 
 #F conjgencoxelm
+
+
 def conjgencoxelm(W,s,w):
     """conjugates an element (given as a coxelm) by a generator.
     """
@@ -2470,6 +2631,8 @@ def conjgencoxelm(W,s,w):
                                  for u in W.rank])) for t in W.rank]])
 
 #F conjgenperm
+
+
 def conjgenperm(W,s,pw):
     """conjugates an element (given as a full permutation on the set of
     roots by a generator.
@@ -2477,6 +2640,8 @@ def conjgenperm(W,s,pw):
     return tuple([W.permgens[s][pw[W.permgens[s][r]]] for r in range(2*W.N)])
 
 #F conjugacyclass
+
+
 def conjugacyclass(W, pw, verbose=False):
     """returns the set of all elements in a conjugacy class,  ordered by
     increasing length.  The argument is supposed  to be a  permutation
@@ -2517,6 +2682,8 @@ def conjugacyclass(W, pw, verbose=False):
     return [cl[i] for i in l]
 
 #F involutions
+
+
 def involutions(W):
     """returns the list of involutions in a finite Coxeter groups
     (as full permutations on the roots).
@@ -2525,6 +2692,8 @@ def involutions(W):
       conjugacyclasses(W)['reps'] if W.wordtocoxelm(2*w)==tuple(W.rank)])
 
 #F cyclicshiftorbit
+
+
 def cyclicshiftorbit(W,pw):
     """returns the orbit of an element under cyclic shift.
 
@@ -2534,12 +2703,15 @@ def cyclicshiftorbit(W,pw):
     l=len([i for i in pw[:W.N] if i>=W.N])
     for b in bahn:
         for s in W.rank:
-            nw=tuple([W.permgens[s][b[W.permgens[s][r]]] for r in range(2*W.N)])
+            nw=tuple([W.permgens[s][b[W.permgens[s][r]]]
+                     for r in range(2*W.N)])
             if len([i for i in nw[:W.N] if i>=W.N])==l and not nw in bahn:
                 bahn.append(nw)
     return bahn
 
 #F testcyclicshift
+
+
 def testcyclicshift(W,pw):
     """tests if an element (given  as a full permutation on the roots)
     has minimal length in its conjugacy class; if this is the case,
@@ -2561,7 +2733,8 @@ def testcyclicshift(W,pw):
     l=len([i for i in pw[:W.N] if i>=W.N])
     for b in bahn:
         for s in W.rank:
-            nw=tuple([W.permgens[s][b[W.permgens[s][r]]] for r in range(2*W.N)])
+            nw=tuple([W.permgens[s][b[W.permgens[s][r]]]
+                     for r in range(2*W.N)])
             lnw=len([i for i in nw[:W.N] if i>=W.N])
             if lnw<l:
                 return [nw,s]
@@ -2570,6 +2743,8 @@ def testcyclicshift(W,pw):
     return True
 
 #F conjtomin
+
+
 def conjtomin(W,pw):
     """returns an element  of minimal length (as a reduced word) in
     the conjugacy class of pw.
@@ -2583,12 +2758,14 @@ def conjtomin(W,pw):
     """
     alt=pw[:]
     neu=testcyclicshift(W,alt)
-    while neu!=True:
+    while neu is not True:
         alt=neu[0][:]
         neu=testcyclicshift(W,alt)
     return W.permtoword(alt)
 
 #F classmin
+
+
 def classmin(W,w,minl=True, verbose=False):
     """returns the elements of minimal length in a conjugacy class
     of a given element.
@@ -2615,7 +2792,7 @@ def classmin(W,w,minl=True, verbose=False):
     else:
         alt=W.wordtoperm(w)
         neu=testcyclicshift(W,alt)
-        while neu!=True:
+        while neu is not True:
             alt=neu[0][:]
             neu=testcyclicshift(W,alt)
         cl=[alt]
@@ -2646,7 +2823,8 @@ def classmin(W,w,minl=True, verbose=False):
         lprint('+ ')
     for b in cl:
         for s in W.rank:
-            nw=tuple([W.permgens[s][b[W.permgens[s][r]]] for r in range(2*W.N)])
+            nw=tuple([W.permgens[s][b[W.permgens[s][r]]]
+                     for r in range(2*W.N)])
             nw1=bytes(nw[:len(W.rank)])
             if W.permlength(nw)==l and not nw1 in cl1:
                 cl.append(nw)
@@ -2662,6 +2840,8 @@ def classmin(W,w,minl=True, verbose=False):
     return cl
 
 #F longestperm
+
+
 def longestperm(W,J=0):
     """returns  the unique element of maximal length in W  (where W is
     assumed to be finite) as a permutation of the set of all roots.
@@ -2688,7 +2868,8 @@ def longestperm(W,J=0):
         p=list(range(2*W.N))
         while any(p[t]<W.N for t in J):
             s=0
-            while p[J[s]]>=W.N: s+=1
+            while p[J[s]]>=W.N:
+                s+=1
             p=[p[i] for i in W.permgens[J[s]]]
         if J==list(W.rank):
             W.longestperm=tuple(p)
@@ -2697,6 +2878,8 @@ def longestperm(W,J=0):
             return tuple(p)
 
 #F bruhatmat
+
+
 def bruhatmat(W,y,w):
     """returns true or false according to whether y is less than or equal
     to w in the Bruhat-Chevalley order on W. Here, y and w are assumed
@@ -2716,7 +2899,8 @@ def bruhatmat(W,y,w):
         return y==w
     else:
         s=0
-        while s<len(W.rank) and all(w[s][t]>=0 for t in W.rank): s+=1
+        while s<len(W.rank) and all(w[s][t]>=0 for t in W.rank):
+            s+=1
         if s==len(W.rank):
             print([y,w,s])
         nw=lmultgenmat(W,s,w)
@@ -2727,6 +2911,8 @@ def bruhatmat(W,y,w):
             return bruhatmat(W,y,nw)
 
 #F bruhatcoxelm
+
+
 def bruhatcoxelm(W,y,w):
     """returns true or false according to whether y is less than or equal
     to w in the Bruhat-Chevalley order on W. Here, y and w are assumed
@@ -2765,7 +2951,8 @@ def bruhatcoxelm(W,y,w):
         return y==w
     else:
         s=0
-        while w[s]<W.N: s+=1
+        while w[s]<W.N:
+            s+=1
         nw=tuple([W.roots.index(tuple([W.roots[w[t]][u]-W.cartan[s][t]*
                         W.roots[w[s]][u] for u in W.rank])) for t in W.rank])
         if y[s]>=W.N:
@@ -2776,6 +2963,8 @@ def bruhatcoxelm(W,y,w):
             return bruhatcoxelm(W,y,nw)
 
 #F bruhatperm
+
+
 def bruhatperm(W,x,y,lx=False,ly=False):
     """returns true or false according to whether y is less than or equal
     to w in the Bruhat-Chevalley order on W. Here, y and w are assumed
@@ -2800,7 +2989,8 @@ def bruhatperm(W,x,y,lx=False,ly=False):
             ly=W.permlength(y)
         while lx<ly and lx!=0 and ly!=0:
             s=0
-            while y[s]<W.N: s+=1
+            while y[s]<W.N:
+                s+=1
             if x[s]>=W.N:
                 x=tuple([x[r] for r in W.permgens[s]])
                 lx-=1
@@ -2809,6 +2999,8 @@ def bruhatperm(W,x,y,lx=False,ly=False):
         return lx==0 or (lx==ly and x==y)
 
 #F bruhat
+
+
 def bruhat(W,y,w):
     """returns true or false according to whether y is less than or equal
     to w in the Bruhat-Chevally order on W. This is a generic function
@@ -2853,6 +3045,8 @@ def bruhat(W,y,w):
         return "mist !"
 
 #F reflections
+
+
 def reflections(W):
     """returns the list of reflections of W (where W is assumed
     to be finite),  as permutations on the set of all roots.
@@ -2885,16 +3079,21 @@ def reflections(W):
         return W.reflections
 
 #F innerprodroots
+
+
 def innerprodroots(W,r1,r2):
     p=0
     for u in W.rank:
         if W.roots[r1][u]!=0:
             for v in W.rank:
                 if W.cartan[u][v]!=0 and W.roots[r2][v]!=0:
-                    p+=W.roots[r1][u]*W.symform[u]*W.cartan[u][v]*W.roots[r2][v]
+                    p+=W.roots[r1][u]*W.symform[u]* \
+                        W.cartan[u][v]*W.roots[r2][v]
     return p
 
 #F reflectionsubgroup
+
+
 def reflectionsubgroup(W,J):
     """returns the subgroup of  W generated by the reflections in the
     list J. The result is again a  Coxeter group in its own right;
@@ -2994,7 +3193,8 @@ def reflectionsubgroup(W,J):
         orb=J[:]
         for o in orb:
             for g in gen:
-                if not g[o] in orb: orb.append(g[o])
+                if not g[o] in orb:
+                    orb.append(g[o])
         reflectionsJ=set(filter(lambda x: x<W.N,orb))
         fundJ=[]
         for r in reflectionsJ:
@@ -3012,6 +3212,8 @@ def reflectionsubgroup(W,J):
     return coxeter(cartanJ,fusion=[W.cartanname,{'subJ':fundJ[:],
                                                       'parabolic':para}])
 #F reducedunique
+
+
 def reducedunique(W,pw):
     """checks if an element has a unique reduced expression.
     """
@@ -3025,6 +3227,8 @@ def reducedunique(W,pw):
             return reducedunique(W,tuple(pw[i] for i in W.permgens[l[0]]))
 
 #F allmats
+
+
 def allmats(W,maxl=-1, verbose=False):
     """returns all elements of W of length at most maxl, represented
     as matrices.  Along the computation, the function  prints the
@@ -3090,6 +3294,8 @@ def allmats(W,maxl=-1, verbose=False):
     return l
 
 #F allcoxelms
+
+
 def allcoxelms(W, maxl=-1, verbose=False):
     """returns all elements of W of length at most maxl, represented
     as coxelms, that is, permutations of the set of all roots where
@@ -3137,6 +3343,8 @@ def allcoxelms(W, maxl=-1, verbose=False):
     return l
 
 #F redleftcosetreps
+
+
 def redleftcosetreps(W,J=[]):
     """returns the list of  distinguished  left  coset representatives
     of the  parabolic subgroup  H of W  which is  generated  by the
@@ -3172,6 +3380,8 @@ def redleftcosetreps(W,J=[]):
     return l
 
 #F redrightcosetreps
+
+
 def redrightcosetreps(W,H):
     """returns the list of  distinguished right  coset representatives
     of the reflection subgroup H of W. An element w in W belongs to
@@ -3217,6 +3427,8 @@ def redrightcosetreps(W,H):
     return [p[:len(W.rank)] for p in l]
 
 #F redinrightcoset
+
+
 def redinrightcoset(W,H,w):
     """returns the unique reduced element in the coset H*w; this is
     defined by the condition that it sends all simple roots of H
@@ -3248,6 +3460,8 @@ def redinrightcoset(W,H,w):
     return tuple(nw[:l])
 
 #F allelmchain(W)
+
+
 def allelmchain(W,depth=1):
     """returns a  sequence  (corresponding to a chain of parabolic subgroups)
     of lists of  distinguished right coset representatives where,  at each
@@ -3295,7 +3509,8 @@ def allelmchain(W,depth=1):
             W1=coxeter([[W.cartan[i][j] for j in J] for i in J])
             el.append([W1.coxelmtoword(c) for c in redrightcosetreps(W1,
                                             reflectionsubgroup(W1,J[:-1]))])
-        W2=coxeter([[W.cartan[i][j] for j in range(depth)] for i in range(depth)])
+        W2=coxeter([[W.cartan[i][j] for j in range(depth)]
+                   for i in range(depth)])
         el.append([W2.coxelmtoword(c) for c in redrightcosetreps(W2,
                                             reflectionsubgroup(W2,[]))])
     size=1
@@ -3307,6 +3522,8 @@ def allelmchain(W,depth=1):
     return el[::-1]
 
 #F allelmchain1
+
+
 def allelmchain1(W):
     """returns a sequence  (corresponding to a chain of parabolic subgroups)
     of lists of  distinguished left  coset representatives where, at each
@@ -3346,7 +3563,8 @@ def allelmchain1(W):
         for k in range(len(W.rank)-4):
             J=list(W.rank)[:-k-1]
             W1=coxeter([[W.cartan[i][j] for j in J] for i in J])
-            el.append([W1.coxelmtoword(c) for c in redleftcosetreps(W1,J[:-1])])
+            el.append([W1.coxelmtoword(c)
+                      for c in redleftcosetreps(W1,J[:-1])])
         W2=coxeter([[W.cartan[i][j] for j in [0,1,2]] for i in [0,1,2]])
         el.append([W2.coxelmtoword(c) for c in redleftcosetreps(W2)])
     size=1
@@ -3358,6 +3576,8 @@ def allelmchain1(W):
     return el
 
 #F allelmsproperty
+
+
 def allelmsproperty(W,f,elm="word", verbose=False):
     """returns  all elements (as reduced expressions in the generators) for
     which a given function f returns True. Here, f takes as argument one
@@ -3408,6 +3628,8 @@ def allelmsproperty(W,f,elm="word", verbose=False):
     return el
 
 #F allwords
+
+
 def allwords(W,maxl=-1):
     """returns all elements of a finite Coxeter group, as reduced
     words, up to a given length. If the optional argument maxl
@@ -3460,6 +3682,8 @@ def allwords(W,maxl=-1):
     return el
 
 #F allwordslength
+
+
 def allwordslength(W,l=-1):
     """returns all elements of a finite Coxeter group, as reduced
     words, up to a given length. If the optional argument maxl
@@ -3501,6 +3725,8 @@ def allwordslength(W,l=-1):
     return el
 
 #F allwordstrings
+
+
 def allwordstrings(W,maxl=-1):
     """same as allwords but this functions returns strings of reduced
     words.
@@ -3542,6 +3768,8 @@ def allwordstrings(W,maxl=-1):
     return el
 
 #F allbitcoxelms
+
+
 def allbitcoxelms(W, maxl=-1, verbose=False):
     """returns all elements of a finite Coxeter group, as coxelm bit
     strings, up to a given length. (Only works in Python 3 and if
@@ -3584,6 +3812,8 @@ def allbitcoxelms(W, maxl=-1, verbose=False):
     return l
 
 #F allbitwords
+
+
 def allbitwords(W, maxl=-1, verbose=False):
     """returns all elements of  a finite Coxeter group,  as bit word
     strings, up to a given length. (Only works in Python 3 and if
@@ -3639,6 +3869,8 @@ def allbitwords(W, maxl=-1, verbose=False):
     return el
 
 #F longestcoxelm1 (for use in coxeterclasses)
+
+
 def longestcoxelm1(W,J):
     m=idmat(W.rank,1)
     weiter=True
@@ -3655,6 +3887,8 @@ def longestcoxelm1(W,J):
     return [W.roots.index(tuple(m[s]))-W.N for s in J]
 
 #F longestcoxelm (for use in coxeterclasses)
+
+
 def longestcoxelm(W,J):
     if W.cartantype[0][0]=='U':
         return J
@@ -3666,12 +3900,15 @@ def longestcoxelm(W,J):
         while s<len(J) and all(m[s][t]<=0 for t in rgJ):
             s+=1
         if s<len(J):
-            m=[[m[t][u]-W.cartan[J[s]][J[t]]*m[s][u] for u in rgJ] for t in rgJ]
+            m=[[m[t][u]-W.cartan[J[s]][J[t]]*m[s][u]
+                for u in rgJ] for t in rgJ]
         else:
             weiter=False
     return [J[l.index(-1)] for l in m]
 
 #F w0conjugation
+
+
 def w0conjugation(cmat):
     """returns the permutations of the simple reflections induced by
     conjugation with the  longest element in the  finite  Coxeter
@@ -3705,6 +3942,8 @@ def w0conjugation(cmat):
     return p
 
 #F coxeterclasses
+
+
 def coxeterclasses(W):
     """returns a dictionary with information about the Coxeter classes
     of subsets of S, where S denotes the set of  simple reflections
@@ -3768,7 +4007,8 @@ def coxeterclasses(W):
                     l[s]='1'
                     bigsub=''.join(l)
                     if W.coxeterclasses[bigsub]['w0J']!=W.rank:
-                        nsubs=''.join([subs[i] for i in W.coxeterclasses[bigsub]['w0J']])
+                        nsubs=''.join([subs[i]
+                                      for i in W.coxeterclasses[bigsub]['w0J']])
                         if not nsubs in orb:
                             orb.append(nsubs)
                             rest.remove(nsubs)
@@ -3782,6 +4022,8 @@ def coxeterclasses(W):
     return W.coxeterclasses
 
 #F conjclassdata
+
+
 def conjclassdata(typ,n):
     """returns representatives of minimal length for all the conjugacy
     classes of the finite Coxeter group of type 'typ' and rank 'n'.
@@ -3872,7 +4114,8 @@ def conjclassdata(typ,n):
           [2,1],[2,3,2,3,4,3,2,1,3,4],[3,2,4,3,2,1,3,2,4,3,2,1],[4,3],
           [1,2,1,4,3,2,1,3,2,3],[3,2,1,4,3,2,1,3,2,3,4,3,2,1,3,2],
           [3,2,4,3,2,1,3,2],[4,3,2,1],[1],[2,3,2,3,4,3,2,3,4],[1,4,3],[4,3,2],
-          [2,3,2,1,3],[3],[1,2,1,3,2,1,3,2,3],[2,1,4],[3,2,1],[2,4,3,2,3],[1,3],
+          [2,3,2,1,3],[3],[1,2,1,3,2,1,3,2,3],[
+              2,1,4],[3,2,1],[2,4,3,2,3],[1,3],
           [3,2],[2,3,2,3,4,3,2,1,3,2,4,3,2,1],[2,4,3,2,1,3]]
         cents=[1152,1152,64,36,36,96,36,36,72,72,12,96,96,12,12,16,96,96,12,
                                                             12,16,16,32,32,8]
@@ -3883,7 +4126,8 @@ def conjclassdata(typ,n):
     if typ[0]=='E' and n==6:
         reps=[[],[3,4,3,2,4,3,5,4,3,2,4,5],[1,4],
           [1,3,1,4,3,1,2,4,5,4,3,1,2,4,3,5,6,5,4,3,2,4,5,6],[1,3],[1,3,5,6],
-          [3,4,3,2,4,5],[1,4,3,6],[1,4,3,2],[1,2,3,1,5,4,6,5,4,2,3,4],[3,4,2,5],
+          [3,4,3,2,4,5],[1,4,3,6],[1,4,3,2],[
+              1,2,3,1,5,4,6,5,4,2,3,4],[3,4,2,5],
           [1,2,3,4,2,3,4,6,5,4,2,3,4,5],[1,3,2,5],[1,3,4,3,2,4,5,6],
           [1,4,6,2,3,5],[1],[1,4,6],[1,3,4,3,2,4,3,5,4,3,2,4,5],[1,4,3],[1,3,2],
           [1,3,2,5,6],[1,4,6,3,5],[1,3,4,2,5],[1,4,3,2,6],[1,4,2,5,4,2,3]]
@@ -4066,7 +4310,7 @@ def conjclassdata(typ,n):
         if m%2==0:
             reps=[[],[1],[2]]
             cl.extend([m//2,m//2])
-            x=[1,2];
+            x=[1,2]
             for i in range(1,m//2+1):
                 reps.append(x[:])
                 cl.append(2)
@@ -4077,7 +4321,7 @@ def conjclassdata(typ,n):
             cl.append(m)
             x=[1,2]
             for i in range(1,(m-1)//2+1):
-                reps.append(x[:]);
+                reps.append(x[:])
                 cl.append(2)
                 x.extend([1,2])
         cents=[2*m//c for c in cl]
@@ -4094,6 +4338,8 @@ def conjclassdata(typ,n):
                  'centralisers':cents[:],'names':names[:]}
 
 #F conjugacyclasses
+
+
 def conjugacyclasses(W):
     """returns  representatives  of   minimal length  in the  conjugacy
     classes of W. The result is a dictionary with entries:
@@ -4165,7 +4411,8 @@ def conjugacyclasses(W):
     ncent=[]
     for cc in cartesian(cent):
         nc=1
-        for c in cc: nc*=c
+        for c in cc:
+            nc*=c
         ncent.append(nc)
     nnam=[tuple(st) for st in cartesian(nam)]
     W.conjugacyclasses={'reps':[w[:] for w in ncl],'classnames':nnam[:],
@@ -4173,6 +4420,8 @@ def conjugacyclasses(W):
     return W.conjugacyclasses
 
 #F identifyclasses
+
+
 def identifyclasses(W,elms,minrep=False, verbose=False):
     """identifies the conjugacy classes to which the elements (given as
     reduced words)  in a list  belong.  If it is already known  that
@@ -4311,6 +4560,8 @@ def identifyclasses(W,elms,minrep=False, verbose=False):
     return fus
 
 #F fusionconjugacyclasses
+
+
 def fusionconjugacyclasses(H,W):
     """returns  the embedding of the conjugacy classes of a  reflection
     subgroup H into the whole group W. (See also 'identifyclasses'.)
@@ -4366,6 +4617,8 @@ def fusionconjugacyclasses(H,W):
     return H.fusions[W.cartanname]['classes']
 
 #F Clifford form of elements in B_n
+
+
 def cliffordB(W,w):
     """returns the  Clifford decomposition of an  element w in a
     Coxeter group of  type B_n,  as defined by Bonnafe-Iancu:
@@ -4407,6 +4660,8 @@ def cliffordB(W,w):
 ##
 
 #F inducedchar
+
+
 def inducedchar(W,H,psi):
     """returns the values of the induced character Ind(psi) (from H to W)
     on the conjugacy classes of W, where the character psi is given by
@@ -4431,6 +4686,8 @@ def inducedchar(W,H,psi):
     return ind
 
 # chartablesymmetric
+
+
 def chartablesymmetric(n):
     """returns the character table of the  symmetric group of degree n.
     The  rows and  columns  are indexed  by  the partitions  of n, as
@@ -4476,6 +4733,7 @@ def chartablesymmetric(n):
         ti.append(neu[:])
     return ti[::-1]
 
+
 def oldsymm(n):
     W=coxeter("A",n-1)
     pt=partitions(n)
@@ -4511,6 +4769,8 @@ def oldsymm(n):
     return ti[::-1]
 
 #F cyclepermB
+
+
 def wordtopermB(n,w):
     pw=range(2*n) # first signed permutation
     for i in w:
@@ -4523,6 +4783,8 @@ def wordtopermB(n,w):
     return sp
 
 #F chartablehalfC
+
+
 def chartablehalfC(n,other=False):
     """returns the part of the character table  of a  Coxeter group of
     type B whose rows are labelled by all bipartitions (alpha,beta)
@@ -4548,6 +4810,8 @@ def chartablehalfC(n,other=False):
     return transposemat(nti)
 
 #F chartableB
+
+
 def chartableB(n, verbose=False):
     """returns the character table of the finite Coxeter group of type
     B_n.  The rows and  columns are indexed  by  pairs of partitions
@@ -4617,10 +4881,12 @@ def chartableB(n, verbose=False):
     ti.extend(chartablehalfC(n,other=True))
     labels.extend([[[],p] for p in partitions(n)])
     if verbose and n>=10:
-        lprint('\n');
+        lprint('\n')
     return [ti[labels.index(mu)] for mu in pt]
 
 # older version
+
+
 def chartableBold(n):
     """returns the character table of the finite Coxeter group of type
     B_n.  The rows and  columns are indexed  by  pairs of partitions
@@ -4684,6 +4950,8 @@ def chartableBold(n):
     return [ti[nn.index(i)] for i in range(len(nn))]
 
 #F chartableD
+
+
 def chartableD(n):
     r"""returns the character table of the finite Coxeter group of type
     D_n.   The rows and  columns are  indexed  by suitable pairs of
@@ -4825,7 +5093,8 @@ def chartableD(n):
             J.remove(l-1)
         # print(t,J, suba,[suba[j] for j in J])
         H=reflectionsubgroup(W,[suba[j] for j in J])
-        neu=inducedchar(W,H,[(-1)**len(w) for w in conjugacyclasses(H)['reps']])
+        neu=inducedchar(W,H,[(-1)**len(w)
+                        for w in conjugacyclasses(H)['reps']])
         for i in range(len(cl)):
             if binv[i]>t[1]:
                 scal=sum(cl[k]*ti[i][k]*neu[k] for k in range(len(cl))
@@ -4838,6 +5107,8 @@ def chartableD(n):
     return ti
 
 #F irrchardata
+
+
 def irrchardata(typ,n,chars=True):
     """returns the irreducible characters of the finite Coxeter
     group of  type 'typ' and  rank 'n'.  The data  are taken
@@ -5721,7 +5992,7 @@ def irrchardata(typ,n,chars=True):
              "3240_z'", "3360_z", "3360_z'", "7168_w","4096_z", "4096_z'",
              "4200_z", "4200_z'", "4536_z", "4536_z'", "5600_z","5600_z'"]
     if typ[0]=='H' and n==3:
-        ir5=ir(5);
+        ir5=ir(5)
         if chars:
             ti=[[1,-1,1,1,1,-1,1,-1,-1,-1],
                 [1,1,1,1,1,1,1,1,1,1],
@@ -5736,7 +6007,7 @@ def irrchardata(typ,n,chars=True):
         binv=[15,0,5,2,6,8,1,3,3,4]
         ainv=[15,0,5,2,6,6,1,1,3,3]
         nam=["1_r'", "1_r", "5_r'", "5_r", "3_s", "overline{3}_s", "3_s'",
-              "overline{3}_s'", "4_r'", "4_r" ]
+              "overline{3}_s'", "4_r'", "4_r"]
     if typ[0]=='H' and n==4:
         ir5=ir(5)
         if chars:
@@ -5836,7 +6107,8 @@ def irrchardata(typ,n,chars=True):
         m=int(typ[1:])
         if m==5:
             if chars:
-                ti=[[1,1,1,1],[1,-1,1,1],[2,0,ir(5)-1,-ir(5)],[2,0,-ir(5),ir(5)-1]]
+                ti=[[1,1,1,1],[1,-1,1,1],
+                    [2,0,ir(5)-1,-ir(5)],[2,0,-ir(5),ir(5)-1]]
             binv=[0,5,1,2]
             ainv=[0,5,1,1]
             nam=["phi_{1,0}","phi_{1,5}","phi_{2,1}","phi_{2,2}"]
@@ -5855,7 +6127,8 @@ def irrchardata(typ,n,chars=True):
                     ainv.append(1)
                     nam.append("phi_{2,"+str(j)+"}")
                     chi=[2,0,0]
-                    chi.extend([z**(j*len(i)//2)+z**(-j*len(i)//2) for i in c[3:]])
+                    chi.extend([z**(j*len(i)//2)+z**(-j*len(i)//2)
+                               for i in c[3:]])
                     ti.append(chi)
             else:
                 binv=[0,m]
@@ -5867,11 +6140,14 @@ def irrchardata(typ,n,chars=True):
                     ainv.append(1)
                     nam.append("phi_{2,"+str(j)+"}")
                     chi=[2,0]
-                    chi.extend([z**(j*len(i)//2)+z**(-j*len(i)//2) for i in c[2:]])
+                    chi.extend([z**(j*len(i)//2)+z**(-j*len(i)//2)
+                               for i in c[2:]])
                     ti.append(chi)
     return {'irreducibles':ti, 'names':nam, 'b':binv, 'a1':ainv}
 
 #F chartable
+
+
 def chartable(W,chars=True):
     """returns the  ordinary  character table  of W,  together with related
     additional information.
@@ -5926,8 +6202,8 @@ def chartable(W,chars=True):
 
     See also 'displaychartable'.
     """
-    if 'chartable' in dir(W) and (chars==False or
-                             'irreducibles' in W.chartable):
+    if 'chartable' in dir(W) and (chars is False or
+                                  'irreducibles' in W.chartable):
         return W.chartable
     t0=irrchardata(W.cartantype[0][0],len(W.cartantype[0][1]),chars)
     mat=t0['irreducibles']
@@ -5950,7 +6226,8 @@ def chartable(W,chars=True):
           'classreps':cw['reps'],'b':nb,'a':na1}
     if chars:
         sgn=[(-1)**len(w) for w in cw['reps']]
-        sp=[mat.index([l[j]*sgn[j] for j in range(len(cw['reps']))]) for l in mat]
+        sp=[mat.index([l[j]*sgn[j] for j in range(len(cw['reps']))])
+                      for l in mat]
         if len(W.cartantype)>1:
             prf=False
         else:
@@ -5967,6 +6244,8 @@ def chartable(W,chars=True):
     return W.chartable
 
 #F displaychartable
+
+
 def displaychartable(ti):
     """displays the character table of a Coxeter group (or of an
     Iwahori-Hecke algebra) in a user-friendly way,  where the
@@ -5994,6 +6273,8 @@ def displaychartable(ti):
     displaymat(ti['irreducibles'],rows,cols)
 
 #F inductiontable
+
+
 def inductiontable(H,W,display=False,invchar=False):
     """computes  the decomposition  of the  induced characters from the
     subgroup H into irreducible characters of W. The rows correspond
@@ -6043,7 +6324,8 @@ def inductiontable(H,W,display=False,invchar=False):
     mat=[]
     for t in chartable(W)['irreducibles']:
         res=[t[f[k]] for k in range(m)]
-        norm=sum(res[k]*res[k]*ch['classlengths'][k] for k in range(m))//H.order
+        norm=sum(res[k]*res[k]*ch['classlengths'][k]
+                 for k in range(m))//H.order
         vec=m*[0]
         norm1=0
         j=0
@@ -6068,6 +6350,7 @@ def inductiontable(H,W,display=False,invchar=False):
         displaymat(mat,tab['charW'],tab['charH'])
     return tab
 
+
 def checkrepr(W,perms):
     res=True
     eins=tuple(range(len(perms[0])))
@@ -6084,6 +6367,8 @@ def checkrepr(W,perms):
     return res
 
 #F involutionmodel
+
+
 def involutionmodel(W,poids=1, verbose=False):
     """returns the characters afforded by Kottwitz's involution module.
     This is equivalent  to the characters later described by Lusztig
@@ -6178,6 +6463,8 @@ def involutionmodel(W,poids=1, verbose=False):
     return chisigma
 
 #F symbol2c, symbol2b, symbol2d needed for dimBu
+
+
 def symbol2c(dblpart):
     a,b=dblpart[0][:],dblpart[1][:]
     if len(a)>len(b)+1:
@@ -6190,6 +6477,7 @@ def symbol2c(dblpart):
         a[i]+=2*i
         b[i-1]+=2*i-1
     return [a,b]
+
 
 def symbol2b(dblpart):
     a,b=dblpart[0][:],dblpart[1][:]
@@ -6205,6 +6493,7 @@ def symbol2b(dblpart):
     a[-1]=a[-1]+2*len(b)
     return [a,b]
 
+
 def symbol2d(dblpart):
     a,b=dblpart[0][:],dblpart[1][:]
     if len(a)>len(b):
@@ -6219,6 +6508,8 @@ def symbol2d(dblpart):
     return [a,b]
 
 #F dimBu
+
+
 def dimBu(W):
     """returns, for every irreducible character of a  finite Weyl group, the
     dimension of the variety of Borel subgroups containing an  element in
@@ -6312,7 +6603,8 @@ def dimBu(W):
         if ct[0]=='F':
             db.append([0,9,4,24,2,13,1,16,6,2,6,4,10,6,4,4,1,7,5,13,3,9,3,9,5])
         if ct[0]=='E' and len(ct[1])==6:
-            db.append([0,36,9,1,25,7,3,15,4,16,2,20,6,12,3,15,8,7,7,5,11,4,13,6,10])
+            db.append([0,36,9,1,25,7,3,15,4,16,2,20,
+                      6,12,3,15,8,7,7,5,11,4,13,6,10])
         if ct[0]=='E' and len(ct[1])==7:
             db.append([0,63,46,1,28,5,3,30,36,3,2,37,16,7,4,31,30,3,18,9,12,14,25,
                        4,6,21,12,15,4,25,6,21,8,15,22,5,20,7,6,21,10,13,16,9,16,7,
@@ -6329,6 +6621,8 @@ def dimBu(W):
     return [sum(di) for di in cartesian(db)]
 
 #F ainvariants
+
+
 def ainvariants(W,weightL=0):
     """computes  the a-invariants of the irreducible  characters of W with
     respect to a weight function. This is done by a recursive procedure
@@ -6403,6 +6697,8 @@ def ainvariants(W,weightL=0):
     return ainv
 
 #F niceprintconstructible
+
+
 def niceprintconstructible(cnst,chn):
     if len(cnst)==1:
         lprint('# one constructible character:\n')
@@ -6425,6 +6721,8 @@ def niceprintconstructible(cnst,chn):
         lprint('\n')
 
 #F constructible
+
+
 def constructible(W,weightL=1,display=True):
     """computes the constructible characters of W as defined by
 
@@ -6557,9 +6855,11 @@ def constructible(W,weightL=1,display=True):
     fam=[]
     for c in const:
         i=0
-        while c[i]==0: i+=1
+        while c[i]==0:
+            i+=1
         j=0
-        while not i in f[j]: j+=1
+        while not i in f[j]:
+            j+=1
         fam.append(j)
     nconst=[]
     for i in range(len(f)):
@@ -6571,6 +6871,8 @@ def constructible(W,weightL=1,display=True):
     return {'constructibles':nconst,'families':f}
 
 #F lusztigpreceq
+
+
 def lusztigpreceq(W,poids,display=False):
     """returns the incidence matrix needed for determining families
     and  the  pre-order relation on them;  see 'lusztigfamilies'
@@ -6619,6 +6921,8 @@ def lusztigpreceq(W,poids,display=False):
     return fam
 
 #F lusztigfamilies
+
+
 def lusztigfamilies(W, weightL=1, verbose=False):
     """returns the partition of the set of irreducible characters of W
     into families, as defined in Chapter 4 of:
@@ -6732,6 +7036,8 @@ def lusztigfamilies(W, weightL=1, verbose=False):
             'names':[[ti['charnames'][i] for i in f] for f in fam1]}
 
 #F poincarepol
+
+
 def poincarepol(W,paramL):
     """returns the  Poincare polynomial  of a finite Coxeter group with
     respect to a list of parameters. This is defined by
@@ -6777,6 +7083,8 @@ def poincarepol(W,paramL):
         return po*rp
 
 #F classpolynomials
+
+
 def classpolynomials(W,paramL,pw):
     """computes the  class polynomials  of  an  element  (given as  a full
     permutation on the roots)  with  respect  to a set  of  parameters.
@@ -6834,6 +7142,8 @@ def classpolynomials(W,paramL,pw):
     return cp
 
 #F testcyclicshift1
+
+
 def testcyclicshift1(W,w,pw):
     """returns the cyclic shift orbit of an element together with some
     additional information, for us in 'allclasspolynomials'.
@@ -6844,7 +7154,8 @@ def testcyclicshift1(W,w,pw):
     minr=1
     for b in bahn:
         for s in W.rank:
-            nw=tuple([W.permgens[s][b[W.permgens[s][r]]] for r in range(2*W.N)])
+            nw=tuple([W.permgens[s][b[W.permgens[s][r]]]
+                     for r in range(2*W.N)])
             lnw=len([i for i in nw[:W.N] if i>=W.N])
             cnw=bytes(nw[:len(W.rank)])
             if minr==1 and lnw<l:
@@ -6860,6 +7171,8 @@ def testcyclicshift1(W,w,pw):
         return [0,bahn,sxs,s1]
 
 #F allclasspolynomials
+
+
 def allclasspolynomials(W,paramL,maxl=-1, verbose=False):
     """returns the class polynomials for all elements of a finite  Coxeter
     group of length at most maxl. (In many situations, this may be more
@@ -6942,7 +7255,8 @@ def allclasspolynomials(W,paramL,maxl=-1, verbose=False):
             else:
                 cp1=cpmat[l-1][t[2]]
                 cp2=cpmat[l][tuple([W.permgens[t[3]][i] for i in t[2]])]
-                cp=[vs[t[3]]*cp1[i]+(vs[t[3]]-1)*cp2[i] for i in range(len(cl))]
+                cp=[vs[t[3]]*cp1[i]+(vs[t[3]]-1)*cp2[i]
+                                     for i in range(len(cl))]
             for x in t[1]:
                 cx=x[:len(W.rank)]
                 cps[cx]=cp
@@ -6962,6 +7276,8 @@ def allclasspolynomials(W,paramL,maxl=-1, verbose=False):
     return res
 
 #F starkey
+
+
 def starkey(n,u):
     """returns the matrix required by Starkey's Rule (see [Ge-Pf, 9.2.11])
     to  produce  the character table  of the  Iwahori-Hecke  algebra of
@@ -6998,6 +7314,8 @@ def starkey(n,u):
     return transposemat(stk)
 
 #F heckevalueB
+
+
 def heckevalueB(n,q,Q,gamma,pi):
     """returns  a character value of the generic Iwahori-Hecke algebra
     of type  B_n.  Here,  gamma and pi are bipartitions labelling a
@@ -7034,8 +7352,9 @@ def heckevalueB(n,q,Q,gamma,pi):
         for alpha in partitiontuples(n-k,2):
             dif=[differencepartitions(gamma[0],alpha[0]),
                               differencepartitions(gamma[1],alpha[1])]
-            if dif[0]!=False and dif[1]!=False:
-                dif={'cc':dif[0]['cc']+dif[1]['cc'],'ll':dif[0]['ll']+dif[1]['ll']}
+            if dif[0] is not False and dif[1] is not False:
+                dif={'cc':dif[0]['cc']+dif[1]['cc'],
+                    'll':dif[0]['ll']+dif[1]['ll']}
                 val+=(q-1)**(dif['cc']-1)*(-1)**(dif['ll'])*q**(k-dif['ll']-
                         dif['cc'])*heckevalueB(n-k,q,Q,alpha,
                             [[pi[0][i] for i in range(1,len(pi[0]))],pi[1]])
@@ -7045,21 +7364,23 @@ def heckevalueB(n,q,Q,gamma,pi):
         if nn>=k:
             for alpha in partitions(nn-k):
                 dif=differencepartitions(gamma[0],alpha)
-                if dif!=False and dif['cc']==1:
+                if dif is not False and dif['cc']==1:
                     val+=Q*(-1)**(dif['ll'])*q**(n+dif['d'])*heckevalueB(n-k,q,Q,
                       [alpha,gamma[1]],[pi[0],[pi[1][i] for i in range(1,len(pi[1]))]])
         nn=sum(gamma[1])
         if nn>=k:
             for alpha in partitions(nn-k):
                 dif=differencepartitions(gamma[1],alpha)
-                if dif!=False and dif['cc']==1:
+                if dif is not False and dif['cc']==1:
                     val+=(-1)**(dif['ll']+1)*q**(n+dif['d'])*heckevalueB(n-k,q,Q,
                       [gamma[0],alpha],[pi[0],[pi[1][i] for i in range(1,len(pi[1]))]])
     return val
 
+
 def heckeB(n,q,Q):
     p=partitiontuples(n,2)
     return [[heckevalueB(n,q,Q,a,b) for b in p] for a in p]
+
 
 def heckeD(n,v):
     W1=coxeter("B",n)
@@ -7107,6 +7428,8 @@ def heckeD(n,v):
     return transposemat([tr[cc.index(i)] for i in range(len(cc))])
 
 #F heckeirrdata
+
+
 def heckeirrdata(typ,n,paramL):
     """returns a table of raw data for the computation of the character
     table of the  Iwahori-Hecke algebra of type 'typ' and  rank 'n',
@@ -7148,19 +7471,19 @@ def heckeirrdata(typ,n,paramL):
         t1=[[]]
     if typ[0]=='B' and n==2:
         v=paramL[0]**2
-        u=paramL[1]**2    #  v == u
+        u=paramL[1]**2  # v == u
         cc=[2,4]
         ch=[0,1,2,3,4]
         t1=[[u**2,-u],[-2*v*u,0],[1,1],[v**2*u**2,v*u],[v**2,-v]]
     if typ[0]=='C' and n==2:   # u == v
         v=paramL[0]**2
-        u=paramL[1]**2    #  u == v
+        u=paramL[1]**2  # u == v
         cc=[2,4]
         ch=[0,1,2,3,4]
         t1=[[v**2,-v],[-2*v*u,0],[1,1],[v**2*u**2,v*u],[u**2,-u]]
     if (typ[0]=='B' or typ[0]=='C') and n>=3:
         v=paramL[0]**2
-        u=paramL[1]**2    #  v == u -- u -- ... --- u
+        u=paramL[1]**2  # v == u -- u -- ... --- u
         p=partitiontuples(n,2)
         cc=[i for i in range(len(p)) if p[i][0]==[]]
         ch=list(range(len(p)))
@@ -7189,7 +7512,8 @@ def heckeirrdata(typ,n,paramL):
             for i in range(len(pt)):
                 mu=pt[i]
                 if mu[0]==mu[1]:
-                    vals=[divmod(heckevalueB(n,v**2,1,mu,pt[j]),2)[0] for j in fus]
+                    vals=[divmod(heckevalueB(n,v**2,1,mu,pt[j]),2)[0]
+                                 for j in fus]
                     t1.append(vals)
                     t1.append(vals)
                 elif mu[0]<mu[1]:
@@ -7206,7 +7530,7 @@ def heckeirrdata(typ,n,paramL):
             [squv,-v*u,-2*squv**3],[-squv,-v*u,2*squv**3]]
     if typ[0]=='F':
         u=paramL[0]**2
-        v=paramL[2]**2    #  u -- u == v -- v
+        v=paramL[2]**2  # u -- u == v -- v
         cc=[i-1 for i in [2,5,6,8,9,10,11,24,25]]
         ch=[i-1 for i in [1,2,5,7,9,10,11,14,15,16,17,18,21,23,25]]
         t1=[[v**12*u**12,v**6*u**4,v**6*u**6,v**4*u**6,v**8*u**8,v**4*u**4,
@@ -7671,7 +7995,7 @@ def heckeirrdata(typ,n,paramL):
              2*v**26-v**28,0]]
     if typ[0]=='H' and n==3:
         v=paramL[0]
-        ir5=ir(5);
+        ir5=ir(5)
         cc=[i-1 for i in [6,8,9,10]]
         ch=[i-1 for i in [1,3,5,6,9]]
         t1=[[-1,-1,-1,-1],[0,v**4,0,-5*v**12],[(1-ir5)*v**2,0,ir5*v**6,3*v**10],
@@ -7744,7 +8068,7 @@ def heckeirrdata(typ,n,paramL):
         m=int(typ[1:])
         if m==5:
             v=paramL[0]
-            ir5=ir(5);
+            ir5=ir(5)
             cc=[3]
             ch=[0,1,2,3]
             t1=[[v**8],[1],[-ir5*v**4],[(ir5-1)*v**4]]
@@ -7764,7 +8088,8 @@ def heckeirrdata(typ,n,paramL):
                                                   z**(-j*len(i)//2)) for i in c[3:]])
                     t1.append(chi)
             else:
-                t1=[[paramL[0]**(2*len(i)) for i in c], [(-1)**len(i) for i in c]]
+                t1=[[paramL[0]**(2*len(i))
+                                 for i in c], [(-1)**len(i) for i in c]]
                 for j in range(1,(m-1)//2+1):
                     chi=[2,paramL[0]**2-1]
                     chi.extend([paramL[0]**len(i)*(z**(j*len(i)//2)+
@@ -7773,6 +8098,8 @@ def heckeirrdata(typ,n,paramL):
     return [cc,ch,t1]
 
 #F heckechartable
+
+
 def heckechartable(W,paramL=1):
     """returns  the character table of the Iwahori-Hecke algebra of W.
     Here,  'paramL'  is a  list of elements in a base ring, one for
@@ -7897,6 +8224,8 @@ def heckechartable(W,paramL=1):
     return nti
 
 #F heckecharvalues
+
+
 def heckecharvalues(W,paramL,lw,clpols=[]):
     """returns  the  character values of a generic Iwahori-Hecke algebra
     on all basis elements  T_w  where  w runs  over a given list. The
@@ -7945,6 +8274,8 @@ def heckecharvalues(W,paramL,lw,clpols=[]):
     return lc
 
 #F heckecentraltable
+
+
 def heckecentraltable(W,paramL):
     """returns the matrix of central character values on the standard basis of
     the  centre of a generic Iwahori-Hecke algebra. This matrix is uniquely
@@ -8001,6 +8332,8 @@ def heckecentraltable(W,paramL):
                          for i in range(len(cpmat[0]))]
 
 #F schurelmA
+
+
 def schurelmA(alpha,u):
     """returns the Schur element corresponding to the partition alpha.
     (Taken from the gap-chevie library.)
@@ -8021,6 +8354,8 @@ def schurelmA(alpha,u):
     return res
 
 #F schurelmB
+
+
 def schurelmB(bip,v,u):
     """returns the Schur element corresponding to the bipartition bip.
     (Taken from the gap-chevie library.)
@@ -8033,7 +8368,7 @@ def schurelmB(bip,v,u):
         v1=v
     else:
         v1=v**(-1)
-    la,mu=redlusztigsymbolB(1,1,bip);
+    la,mu=redlusztigsymbolB(1,1,bip)
     m=len(mu)
     if m==0:
         res=1
@@ -8085,6 +8420,8 @@ def schurelmB(bip,v,u):
     return res
 
 #F schurelmdata
+
+
 def schurelmdata(typ,n,vs):
     """returns  the Schur elements of the Iwahori-Hecke algebra of a
     given type and rank with respect to a list of parameters. The
@@ -8229,8 +8566,10 @@ def schurelmdata(typ,n,vs):
     if typ[0]=='E' and n==6:
         return [u**(0)*p2**4*p3**3*p4**2*p5*p6**2*p8*p9*p12,
               u**(-36)*p2**4*p3**3*p4**2*p5*p6**2*p8*p9*p12,
-              3*u**(-7)*p2**4*p3**3*p4**2,u**(-1)*p2**4*p3**3*p4**2*p5*p6**2*p12,
-              u**(-25)*p2**4*p3**3*p4**2*p5*p6**2*p12,6*u**(-7)*p2**4*p3**3*p12,
+              3*u**(-7)*p2**4*p3**3*p4**2,u**(-1)*
+                    p2**4*p3**3*p4**2*p5*p6**2*p12,
+              u**(-25)*p2**4*p3**3*p4**2*p5*p6**2*
+                  p12,6*u**(-7)*p2**4*p3**3*p12,
               2*u**(-3)*p2**4*p3**3*p4**2*p12,2*u**(-15)*p2**4*p3**3*p4**2*p12,
               2*u**(-3)*p2**4*p3**3*p4**2*p6**2,
               2*u**(-15)*p2**4*p3**3*p4**2*p6**2,
@@ -8272,7 +8611,8 @@ def schurelmdata(typ,n,vs):
               2*u**(-4)*p2**3*p3**3*p4**2*p6*p7*p8*p12,
               2*u**(-25)*p2**3*p3**3*p4**2*p6*p7*p8*p12,
               u**(-6)*p2**7*p3**3*p5*p6**3*p10,
-              u**(-21)*p2**7*p3**3*p5*p6**3*p10,2*u**(-8)*p2**7*p3*p4**2*p5*p14,
+              u**(-21)*p2**7*p3**3*p5*p6**3*p10,2*
+                  u**(-8)*p2**7*p3*p4**2*p5*p14,
               2*u**(-15)*p2**7*p3*p4**2*p5*p14,
               u**(-22)*p2**7*p3*p4**2*p5*p6*p8*p10,
               u**(-5)*p2**7*p3*p4**2*p5*p6*p8*p10,
@@ -8283,15 +8623,19 @@ def schurelmdata(typ,n,vs):
               u**(-10)*p2**7*p3**3*p4**2*p6**3,
               u**(-13)*p2**7*p3**3*p4**2*p6**3,
               2*u**(-15)*p2**3*p3*p4**2*p5*p7*p8,
-              2*u**(-8)*p2**3*p3*p4**2*p5*p7*p8,3*u**(-16)*p2**7*p3**3*p6**3*p12,
-              3*u**(-7)*p2**7*p3**3*p6**3*p12,2*u**(-7)*p2**3*p3**3*p4**2*p8*p9,
-              2*u**(-16)*p2**3*p3**3*p4**2*p8*p9,6*u**(-16)*p2**7*p4**2*p6**3*p9,
+              2*u**(-8)*p2**3*p3*p4**2*p5*p7*p8,3*
+                    u**(-16)*p2**7*p3**3*p6**3*p12,
+              3*u**(-7)*p2**7*p3**3*p6**3*p12,2*
+                    u**(-7)*p2**3*p3**3*p4**2*p8*p9,
+              2*u**(-16)*p2**3*p3**3*p4**2*p8*p9,6*
+                    u**(-16)*p2**7*p4**2*p6**3*p9,
               6*u**(-7)*p2**7*p4**2*p6**3*p9,
               2*u**(-13)*p2**3*p3**3*p4**2*p5*p6*p12,
               2*u**(-10)*p2**3*p3**3*p4**2*p5*p6*p12,
               u**(-14)*p2**7*p3*p4**2*p5*p6*p10,
               u**(-9)*p2**7*p3*p4**2*p5*p6*p10,2*u**(-8)*p2**7*p4**2*p6*p7*p10,
-              2*u**(-15)*p2**7*p4**2*p6*p7*p10,2*u**(-10)*p2**7*p3**3*p6**3*p10,
+              2*u**(-15)*p2**7*p4**2*p6*p7*p10,2*
+                    u**(-10)*p2**7*p3**3*p6**3*p10,
               2*u**(-13)*p2**7*p3**3*p6**3*p10,2*u**(-11)*p3**3*p5*p7*p9,
               2*u**(-11)*p3**3*p5*p7*p9]
     if typ[0]=='E' and n==8:
@@ -8362,7 +8706,8 @@ def schurelmdata(typ,n,vs):
               2*u**(-26)*p2*p3**4*p5**2*p7*p9*p15,
               2*u**(-12)*p2**8*p3**4*p4**2*p6**4*p10*p12,
               2*u**(-24)*p2**8*p3**4*p4**2*p6**4*p10*p12,
-              u**(-14)*p2**8*p4**4*p7*p8**2*p14,u**(-22)*p2**8*p4**4*p7*p8**2*p14,
+              u**(-14)*p2**8*p4**4*p7*p8**2*
+                  p14,u**(-22)*p2**8*p4**4*p7*p8**2*p14,
               u**(-1)*p2**8*p3**4*p4**2*p5**2*p6**4*p7*p8*p9*p10**2*p12*p14*
                p15*p18*p30,
               u**(-91)*p2**8*p3**4*p4**2*p5**2*p6**4*p7*p8*p9*p10**2*p12*p14*
@@ -8457,6 +8802,8 @@ def schurelmdata(typ,n,vs):
               40*u**(-6)*p3**2*p10**2,12*u**(-6)*p5**2*p12]
 
 #F schurelms
+
+
 def schurelms(W,paramL):
     r"""returns the Schur elements of an Iwahori-Hecke algebra associated
     with a finite Coxeter group and a list of parameters.  These  are
@@ -8526,6 +8873,8 @@ def schurelms(W,paramL):
     return schur
 
 #F lcmschurelms
+
+
 def lcmschurelms(W,paramL):
     """returns  the least common multiple  of all Schur elements of the
     generic Iwahori-Hecke algebra  associated with  a finite Coxeter
@@ -8599,6 +8948,8 @@ def lcmschurelms(W,paramL):
     return lcmcyclpol(lcms)
 
 #F cocharpol
+
+
 def cocharpol(W,u):
     c=conjugacyclasses(W)
     p=(u-1)**len(W.rank)*poincarepol(W,u)
@@ -8616,6 +8967,8 @@ def cocharpol(W,u):
                                             for i in range(len(cp))]
 
 #F fakedegree
+
+
 def fakedegree(W,u,chars):
     """returns the fake degrees of characters  of a finite Coxeter group.
 
@@ -8645,6 +8998,8 @@ def fakedegree(W,u,chars):
                                                          for char in chars]
 
 #F fakeomega
+
+
 def fakeomega(W,u):
     """returns the matrix of all terms
 
@@ -8679,6 +9034,8 @@ def fakeomega(W,u):
     return om
 
 #F some mod p functions needed for greenalgo
+
+
 def repintp(n,p):
     m=n%p
     if m>(p-1)//2:
@@ -8686,19 +9043,23 @@ def repintp(n,p):
     else:
         return m
 
+
 def powp(x,n,p):
     y=1
     for i in range(n):
         y=(y*x)%p
     return y
 
+
 def matsubp(a,b,p):
     return [[(a[i][j]-b[i][j])%p for j in range(len(a[0]))]
                                        for i in range(len(a))]
 
+
 def matmultp(a,b,p):
     return [[(sum((row[k]*b[k][j])%p for k in range(len(b))))%p
                              for j in range(len(b[0]))] for row in a]
+
 
 def valuep(f,x,p):
     if f.coeffs==[]:
@@ -8710,6 +9071,7 @@ def valuep(f,x,p):
         y=(y*x)%p
     return y
 
+
 def applychinrem(mat1,mat2,m1,m2):
     """apply Chinese Remainder to a matrix of lists.
     """
@@ -8718,13 +9080,16 @@ def applychinrem(mat1,mat2,m1,m2):
     for i in range(len(mat1)):
         for j in range(len(mat1)):
             for k in range(len(mat1[i][j])):
-                x=(mat1[i][j][k]*g['coeff2']*m2+mat2[i][j][k]*g['coeff1']*m1)%m;
+                x=(mat1[i][j][k]*g['coeff2']*m2+
+                   mat2[i][j][k]*g['coeff1']*m1)%m
                 if x>(m-1)//2:
                     mat1[i][j][k]=x-m
                 else:
                     mat1[i][j][k]=x
 
 #F blockLR
+
+
 def blockLR(mat,bl,diag,p):
     """returns the block LR decomposition of a symmetric matrix with integer
     coefficients modulo a prime:
@@ -8751,7 +9116,7 @@ def blockLR(mat,bl,diag,p):
                                    transposemat(P[j][k]),p),p),p)
         L[j]=[[(((x*d1)%p)*d1)%p for x in r] for r in Lj]
         invj=inversematp(L[j],p)
-        if invj==False:
+        if invj is False:
             return False
         for i in range(len(bl)):
             if i<j:
@@ -8773,6 +9138,8 @@ def blockLR(mat,bl,diag,p):
     return [flatblockmat(P),reduce(directsummat,L),fbl]
 
 #F greenalgo
+
+
 def greenalgo(W,u,fam,avals,check=True,startpr=0, verbose=False):
     """applies generalised version of the algorithm for computing Green
     functions.
@@ -8805,7 +9172,7 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0, verbose=False):
                     x=(x*i)%p
                 ap.append(x)
             bl=blockLR(omp,fam,ap,p)
-            if bl!=False:
+            if bl is not False:
                 l.append(i)
                 Ps.append(bl[0])
                 Ls.append(bl[1])
@@ -8817,7 +9184,7 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0, verbose=False):
             lprint('\n')
             lprint('#I Now interpolating ')
         vm=inversematp([[powp(x,i,p) for x in l] for i in range(len(l))],p)
-        if vm!=False:
+        if vm is not False:
             P,L=idmat(fbl,0),idmat(fbl,0)
             for i in range(len(fbl)):
                 if i%5==0:
@@ -8854,6 +9221,8 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0, verbose=False):
     return [P, L, fbl]
 
 #F specialpieces
+
+
 def specialpieces(W, v, verbose=False):
     """returns  the polynomials giving the sizes of Lusztig's special pieces,
     computed by the algorithm described in
@@ -8901,6 +9270,8 @@ def specialpieces(W, v, verbose=False):
 ##
 
 # class-wgraph
+
+
 class wgraph:
     """creates  a W-graph  (as a python class)  for a finite Coxeter
     group W with respect to a weight function.  This consists of the
@@ -8993,6 +9364,7 @@ class wgraph:
 
     See also 'reflectionwgraph', 'klcells' and 'wgraphstarorbit'.
     """
+
     def __init__(self,W,weightL,xset,v,isets=None,mmat=[],mues=[],xrep=[]):
         if type(weightL)==type(0):
             self.weights=len(W.rank)*[weightL]
@@ -9023,9 +9395,11 @@ class wgraph:
                                 if s in self.Isets[x] and not s in self.Isets[y]:
                                     if len(ms)==len(W.rank):
                                         if ms[s]!='' and ms[s]!='0':
-                                            m=-(-1)**(ll[y]+ll[x])*xset['mpols'][s][int(ms[s])]
+                                            m=-(-1)**(ll[y]+ll[x])* \
+                                                xset['mpols'][s][int(ms[s])]
                                             if m in nmues[s]:
-                                                mstr+='c'+str(nmues[s].index(m))
+                                                mstr+='c'+ \
+                                                    str(nmues[s].index(m))
                                             else:
                                                 mstr+='c'+str(len(nmues[s]))
                                                 nmues[s].append(m)
@@ -9033,9 +9407,11 @@ class wgraph:
                                             mstr+='c0'
                                     else:
                                         if ms[0]!='' and ms[0]!='0':
-                                            m=-(-1)**(ll[y]+ll[x])*xset['mpols'][int(ms[0])]
+                                            m=-(-1)**(ll[y]+ll[x])* \
+                                                xset['mpols'][int(ms[0])]
                                             if m in nmues[s]:
-                                                mstr+='c'+str(nmues[s].index(m))
+                                                mstr+='c'+ \
+                                                    str(nmues[s].index(m))
                                             else:
                                                 mstr+='c'+str(len(nmues[s]))
                                                 nmues[s].append(m)
@@ -9047,7 +9423,8 @@ class wgraph:
                             for s in W.rank:
                                 if self.weights[s]>0:
                                     if ms[s]!='' and ms[s]!='0':
-                                        m=-(-1)**(ll[y]+ll[x])*xset['mpols'][s][int(ms[s])]
+                                        m=-(-1)**(ll[y]+ll[x])* \
+                                            xset['mpols'][s][int(ms[s])]
                                         if m in nmues[s]:
                                             mstr+='c'+str(nmues[s].index(m))
                                         else:
@@ -9170,7 +9547,8 @@ class wgraph:
             for k in self.mmat:
                 if k[0] in l and k[1] in l:
                     m1[(l.index(k[0]),l.index(k[1]))]=self.mmat[k]
-            neu.append(wgraph(self.W,self.weights,x1,self.var,i1,m1,self.mpols,x1r))
+            neu.append(wgraph(self.W,self.weights,x1,
+                       self.var,i1,m1,self.mpols,x1r))
         return neu
 
     def matrices(self,check=False,param='generic', verbose=False):
@@ -9208,7 +9586,7 @@ class wgraph:
                 sq=v**(2*self.weights[s])
                 if matmult(mats[s],mats[s])!=matadd(idmat(self.X,sq),
                                               scalmatmult(sq-1,mats[s])):
-                    lprint('Mist1!\n');
+                    lprint('Mist1!\n')
                     return 'False1'
                 for t in range(s+1,len(self.W.rank)):
                     a=matmult(mats[s],mats[t])
@@ -9258,6 +9636,8 @@ class wgraph:
 # end of definition of class wgraph
 
 # reflectionwgraph
+
+
 def reflectionwgraph(W,weightL,v):
     """returns the W-graph corresponding to the reflection representation
     of a Coxeter group W with respect to a weight function.
@@ -9309,6 +9689,8 @@ def reflectionwgraph(W,weightL,v):
                                              mmat,mues,W.permgens[:])
 
 #F pospart, nonnegpart, zeropart and barpart needed for klpolynomials
+
+
 def pospart(f):
     if type(f)==type(0):
         return 0
@@ -9319,6 +9701,7 @@ def pospart(f):
                                                                 1,f.vname)
     else:
         return 0
+
 
 def nonnegpart(f):
     if type(f)==type(0):
@@ -9331,6 +9714,7 @@ def nonnegpart(f):
     else:
         return 0
 
+
 def zeropart(f):
     if type(f)==type(0):
         return f
@@ -9339,6 +9723,7 @@ def zeropart(f):
     else:
         return 0
 
+
 def barpart(f):
     if type(f)==type(0):
         return f
@@ -9346,6 +9731,8 @@ def barpart(f):
         return lpol(f.coeffs[::-1],-f.degree,f.vname)
 
 # klpolynomials
+
+
 def klpolynomials(W,weightL, v, verbose=False):
     """returns the matrix of all Kazhdan-Lusztig  polynomials,  and further
     information on the corresponding left cells, with respect to a given
@@ -9464,7 +9851,8 @@ def klpolynomials(W,weightL, v, verbose=False):
         if verbose and lw[w]>lw[w-1]:
             lprint('.')
         s=0
-        while lft[w][s]>w: s+=1
+        while lft[w][s]>w:
+            s+=1
         b=['c']
         for y in range(1,w):
             if lw[y]==lw[w]:
@@ -9497,7 +9885,8 @@ def klpolynomials(W,weightL, v, verbose=False):
                     h=klpol[int(mat[inva[w]][inva[y]].split('c')[1])]
                 else:
                     s=0
-                    while s<len(W.rank) and (lft[y][s]<y or lft[w][s]>w): s+=1
+                    while s<len(W.rank) and (lft[y][s]<y or lft[w][s]>w):
+                        s+=1
                     if s<len(W.rank):
                         sw=lft[w][s]
                         sy=lft[y][s]
@@ -9512,7 +9901,9 @@ def klpolynomials(W,weightL, v, verbose=False):
                         iw=inva[w]
                         iy=inva[y]
                         s=0
-                        while s<len(W.rank) and (lft[iy][s]<iy or lft[iw][s]>iw): s+=1
+                        while s<len(W.rank) and (
+                            lft[iy][s]<iy or lft[iw][s]>iw):
+                            s+=1
                         if s<len(W.rank):
                             sw=lft[iw][s]
                             sy=lft[iy][s]
@@ -9525,7 +9916,8 @@ def klpolynomials(W,weightL, v, verbose=False):
                                 h=klpol[int(mat[w][inva[sy]].split('c')[1])]
                         else:  # now recursion
                             s=0
-                            while lft[w][s]>w: s+=1
+                            while lft[w][s]>w:
+                                s+=1
                             if uneq:
                                 for t in W.rank:
                                     if lft[w][t]<w and poids[t]<poids[s]:
@@ -9537,12 +9929,17 @@ def klpolynomials(W,weightL, v, verbose=False):
                             else:
                                 h=klpol[int(mat[sw][sy].split('c')[1])]
                                 if y<=sw and mat[sw][y][0]=='c':
-                                    h+=v**(2*poids[s])*klpol[int(mat[sw][y].split('c')[1])]
+                                    h+=v**(2*poids[s])* \
+                                           klpol[int(mat[sw][y].split('c')[1])]
                                 for z in range(sw-1,y-1,-1):
                                     if lft[z][s]<z and mat[z][y][0]=='c' and mat[sw][z][0]=='c':
-                                        m=mues[s][int(mat[sw][z].split('c')[s+2])]
+                                        m=mues[s][int(
+                                            mat[sw][z].split('c')[s+2])]
                                         if m!=0:
-                                            h-=m*v**(Lw[w]-Lw[z])*klpol[int(mat[z][y].split('c')[1])]
+                                            h-=m* \
+                                                v**(Lw[w]-Lw[z])* \
+                                                    klpol[int(
+                                                        mat[z][y].split('c')[1])]
                 if not h in klpol:
                     mat[w][y]+=str(len(klpol))
                     klpol.append(h)
@@ -9558,14 +9955,16 @@ def klpolynomials(W,weightL, v, verbose=False):
                                 if (lw[w]-lw[y])%2==0:
                                     m=-mues[s][int(mat[aw0[y]][aw0[w]].split('c')[s+2])]
                                 else:
-                                    m=mues[s][int(mat[aw0[y]][aw0[w]].split('c')[s+2])]
+                                    m=mues[s][int(
+                                        mat[aw0[y]][aw0[w]].split('c')[s+2])]
                             elif poids[s]==1:
                                 m=zeropart(v**(1+Lw[y]-Lw[w])*h)
                             else:
                                 m=nonnegpart(v**(poids[s]+Lw[y]-Lw[w])*h)
                                 for z in range(w-1,y,-1):
                                     if lft[z][s]<z and mat[z][y][0]=='c' and mat[w][z][0]=='c':
-                                        mp=pospart(mues[s][int(mat[w][z].split('c')[s+2])])
+                                        mp=pospart(
+                                            mues[s][int(mat[w][z].split('c')[s+2])])
                                         if mp!=0:
                                             m-=nonnegpart(mp*v**(Lw[y]-Lw[z])*
                                                         klpol[int(mat[z][y].split('c')[1])])
@@ -9634,7 +10033,8 @@ def klpolynomials(W,weightL, v, verbose=False):
     while rest:
         l=[x for x in pp1[rest[0]] if rest[0] in pp1[x]]
         i0=0
-        while ndelta[l[i0]]==0: i0+=1
+        while ndelta[l[i0]]==0:
+            i0+=1
         d=l[i0]
         for w in l[i0:]:
             if ndelta[w]!=0 and adelta[w]<adelta[d]:
@@ -9660,10 +10060,12 @@ def klpolynomials(W,weightL, v, verbose=False):
     il,ir=[],[]
     for w in range(len(a)):
         i=0
-        while not w in lcells[i]: i+=1
+        while not w in lcells[i]:
+            i+=1
         il.append(i)
         i=0
-        while not w in rcells[i]: i+=1
+        while not w in rcells[i]:
+            i+=1
         ir.append(i)
     rest=list(range(len(a)))
     tcells=[]
@@ -9710,6 +10112,8 @@ def relmue(lw,ly,p):
     return 0
 
 #F relklpols
+
+
 def relklpols(W,W1,cell1,weightL,q):
     r"""returns  the matrix of  relative  Kazhdan-Lusztig polynomials  with
     respect to a left cell in a parabolic subgroup, following
@@ -9813,7 +10217,8 @@ def relklpols(W,W1,cell1,weightL,q):
                 ls.append(X1.index(sw))
             else:
                 t=0
-                while tuple([W.permgens[t][i] for i in w])!=sw: t+=1
+                while tuple([W.permgens[t][i] for i in w])!=sw:
+                    t+=1
                 ls.append(-t-1)
         lft.append(ls)
     Lw1=[sum([poids[J[s]] for s in w]) for w in cell1['elms']]
@@ -9878,12 +10283,15 @@ def relklpols(W,W1,cell1,weightL,q):
                         for u in range(len(p1)):
                             if mat[y,x][v][u][0]=='c':
                                 if bruhatX[y][lft[s][x]] and mat[y,lft[s][x]][v][u][0]=='c':
-                                    mat[y,x][v][u]+=mat[y,lft[s][x]][v][u].split('c')[1]
+                                    mat[y,x][v][u]+=mat[y,lft[s]
+                                        [x]][v][u].split('c')[1]
                                     rk=mat[y,x][v][u].split('c')[1]
                                     if rk!='0':
-                                        m=relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],rklpols[int(rk)])
+                                        m=relmue(Lw[y]+Lw1[v],Lw[x]+
+                                                 Lw1[u],rklpols[int(rk)])
                                         if m in mues:
-                                            mat[y,x][v][u]+='c'+str(mues.index(m))
+                                            mat[y,x][v][u]+='c'+ \
+                                                str(mues.index(m))
                                         else:
                                             mat[y,x][v][u]+='c'+str(len(mues))
                                             mues.append(m)
@@ -9915,9 +10323,11 @@ def relklpols(W,W1,cell1,weightL,q):
                                             for w in range(len(p1)):
                                                 if (sz>=0 or lft1[-1-sz][w]<w) and (mat[z,x][w][
                                                             u][0]=='c' and mat[sy,z][v][w][0]=='c'):
-                                                    m=mues[int(mat[sy,z][v][w].split('c')[2])]
+                                                    m=mues[int(
+                                                        mat[sy,z][v][w].split('c')[2])]
                                                     if m!=0:
-                                                        rk=mat[z,x][w][u].split('c')[1]
+                                                        rk=mat[z,x][w][u].split('c')[
+                                                                                1]
                                                         if rk!='0':
                                                             h-=q**(Lw[y]+Lw1[v]-Lw[z]-Lw1[w])*rklpols[
                                                                                                int(rk)]*m
@@ -9929,17 +10339,22 @@ def relklpols(W,W1,cell1,weightL,q):
                                                 h+=(q**2+1)*rklpols[int(rk)]
                                         if 0<=lft1[t][u]<len(p1) and mat[sy,x][v][lft1[t][
                                                                                      u]][0]=='c':
-                                            rk=mat[sy,x][v][lft1[t][u]].split('c')[1]
+                                            rk=mat[sy,x][v][lft1[t][u]].split('c')[
+                                                                              1]
                                             if rk!='0':
                                                 h+=rklpols[int(rk)]
                                         for w in range(u+1,len(p1)):
                                             if lft1[t][w]>w and (mat[sy,x][v][w][0]=='c' and
                                                                    cell1['klmat'][w][u][0]=='c'):
-                                                m=mues[int(mat[0,0][w][u].split('c')[2])]
+                                                m=mues[int(
+                                                    mat[0,0][w][u].split('c')[2])]
                                                 if m!=0:
-                                                    rk=mat[sy,x][v][w].split('c')[1]
+                                                    rk=mat[sy,x][v][w].split('c')[
+                                                                             1]
                                                     if rk!='0':
-                                                        h+=q**(Lw1[w]-Lw1[u]+1)*rklpols[int(rk)]*m
+                                                        h+=q**(Lw1[w]-Lw1[u]+1)* \
+                                                               rklpols[int(
+                                                                   rk)]*m
                                     else:    # case sx<x
                                         if mat[sy,sx][v][u][0]=='c':
                                             rk=mat[sy,sx][v][u].split('c')[1]
@@ -9953,13 +10368,15 @@ def relklpols(W,W1,cell1,weightL,q):
                                         mat[y,x][v][u]+='0c0'
                                     else:
                                         if h in rklpols:
-                                            mat[y,x][v][u]+=str(rklpols.index(h))
+                                            mat[y,
+                                                x][v][u]+=str(rklpols.index(h))
                                         else:
                                             mat[y,x][v][u]+=str(len(rklpols))
                                             rklpols.append(h)
                                         m=relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],h)
                                         if m in mues:
-                                            mat[y,x][v][u]+='c'+str(mues.index(m))
+                                            mat[y,x][v][u]+='c'+ \
+                                                str(mues.index(m))
                                         else:
                                             mat[y,x][v][u]+='c'+str(len(mues))
                                             mues.append(m)
@@ -9989,6 +10406,8 @@ def relklpols(W,W1,cell1,weightL,q):
             'relklmat':mat,'klmat':nmat,'bijection':bij}
 
 #F relklpolsuneq
+
+
 def relklpolsuneq(W,W1,cell1,weightL,q):
     """This function implements the same algorithm as 'relklpols' but this
     is the version for unequal parameters  where the computation of the
@@ -10021,7 +10440,8 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                 ls.append(X1.index(sw))
             else:
                 t=0
-                while tuple([W.permgens[t][i] for i in w])!=sw: t+=1
+                while tuple([W.permgens[t][i] for i in w])!=sw:
+                    t+=1
                 ls.append(-t-1)
         lft.append(ls)
     Lw1=[sum([poids[J[s]] for s in w]) for w in cell1['elms']]
@@ -10092,14 +10512,16 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                             if mat[y,x][v][u][0]=='c':
                                 if sx>=0:
                                     if sx<=sy and bruhatX[sy][sx] and mat[sy,sx][v][u][0]=='c':
-                                        mat[y,x][v][u]+=mat[sy,sx][v][u].split('c')[1]
+                                        mat[y,x][v][u]+=mat[sy,
+                                            sx][v][u].split('c')[1]
                                     else:
                                         mat[y,x][v][u]+='0'
                                 else:
                                     tu=lft1[-1-sx][u]
                                     if 0<=tu<len(p1):
                                         if x<=sy and bruhatX[sy][x] and mat[sy,x][v][tu][0]=='c':
-                                            mat[y,x][v][u]+=mat[sy,x][v][tu].split('c')[1]
+                                            mat[y,x][v][u]+=mat[sy,
+                                                x][v][tu].split('c')[1]
                                         else:
                                             mat[y,x][v][u]+='0'
                                     else:
@@ -10110,7 +10532,8 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                         for u in range(len(p1)):
                             if mat[y,x][v][u][0]=='c':
                                 if bruhatX[y][lft[s][x]] and mat[y,lft[s][x]][v][u][0]=='c':
-                                    mat[y,x][v][u]+=mat[y,lft[s][x]][v][u].split('c')[1]
+                                    mat[y,x][v][u]+=mat[y,lft[s]
+                                        [x]][v][u].split('c')[1]
                                 else:
                                     mat[y,x][v][u]+='0'
                 else:
@@ -10137,9 +10560,11 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                                             for w in range(len(p1)):
                                                 if (sz>=0 or lft1[-1-sz][w]<w) and (mat[z,x][w][
                                                             u][0]=='c' and mat[sy,z][v][w][0]=='c'):
-                                                    m=mues[s][int(mat[sy,z][v][w].split('c')[s+2])]
+                                                    m=mues[s][int(
+                                                        mat[sy,z][v][w].split('c')[s+2])]
                                                     if m!=0:
-                                                        rk=mat[z,x][w][u].split('c')[1]
+                                                        rk=mat[z,x][w][u].split('c')[
+                                                                                1]
                                                         if rk!='0':
                                                             h-=q**(Lw[y]+Lw1[v]-Lw[z]-Lw1[w])*rklpols[
                                                                                                int(rk)]*m
@@ -10148,10 +10573,12 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                                         if mat[sy,x][v][u][0]=='c':
                                             rk=mat[sy,x][v][u].split('c')[1]
                                             if rk!='0':
-                                                h+=(q**(2*poids[s])+1)*rklpols[int(rk)]
+                                                h+=(q**(2*poids[s])+1)* \
+                                                    rklpols[int(rk)]
                                         if 0<=lft1[t][u]<len(p1) and mat[sy,x][v][lft1[t][
                                                                                      u]][0]=='c':
-                                            rk=mat[sy,x][v][lft1[t][u]].split('c')[1]
+                                            rk=mat[sy,x][v][lft1[t][u]].split('c')[
+                                                                              1]
                                             if rk!='0':
                                                 h+=rklpols[int(rk)]
                                         for w in range(u+1,len(p1)):
@@ -10160,9 +10587,11 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                                                 m1=cell1['mpols'][J.index(t)][int(cell1['klmat'][
                                                                  w][u].split('c')[J.index(t)+2])]
                                                 if m1!=0:
-                                                    rk=mat[sy,x][v][w].split('c')[1]
+                                                    rk=mat[sy,x][v][w].split('c')[
+                                                                             1]
                                                     if rk!='0':
-                                                        h+=q**(Lw1[w]-Lw1[u]+poids[t])*rklpols[int(rk)]*m1
+                                                        h+=q**(Lw1[w]-Lw1[u]+poids[t]
+                                                               )*rklpols[int(rk)]*m1
                                     else:    # case sx<x
                                         if mat[sy,sx][v][u][0]=='c':
                                             rk=mat[sy,sx][v][u].split('c')[1]
@@ -10171,12 +10600,14 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                                         if x<=sy and bruhatX[sy][x] and mat[sy,x][v][u][0]=='c':
                                             rk=mat[sy,x][v][u].split('c')[1]
                                             if rk!='0':
-                                                h+=q**(2*poids[s])*rklpols[int(rk)]
+                                                h+=q**(2*poids[s])* \
+                                                       rklpols[int(rk)]
                                     if h==0:
                                         mat[y,x][v][u]+='0'
                                     else:
                                         if h in rklpols:
-                                            mat[y,x][v][u]+=str(rklpols.index(h))
+                                            mat[y,
+                                                x][v][u]+=str(rklpols.index(h))
                                         else:
                                             mat[y,x][v][u]+=str(len(rklpols))
                                             rklpols.append(h)
@@ -10221,7 +10652,8 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                                                     m1=pospart(cell1['mpols'][J.index(t)][int(cell1[
                                                             'klmat'][w][u].split('c')[J.index(t)+2])])
                                                     if m1!=0 and mat[y,x][v][w][0]=='c':
-                                                        rk=mat[y,x][v][w].split('c')[1]
+                                                        rk=mat[y,x][v][w].split('c')[
+                                                                                1]
                                                         if rk!='0':
                                                             pis-=nonnegpart(rklpols[int(rk)]*
                                                                     q**(Lw1[w]+Lw[x]-Lw1[v]-Lw[y])*m1)
@@ -10236,7 +10668,8 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                                     #    print([m,m1])
                                     #    return [m,m1]
                                     if m in mues[r]:
-                                        mat[y,x][v][u]+='c'+str(mues[r].index(m))
+                                        mat[y,x][v][u]+='c'+ \
+                                            str(mues[r].index(m))
                                     else:
                                         mat[y,x][v][u]+='c'+str(len(mues[r]))
                                         mues[r].append(m)
@@ -10268,6 +10701,8 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
             'relklmat':mat,'klmat':nmat,'bijection':bij}
 
 #F allrelklpols
+
+
 def allrelklpols(W,J,weightL,q, verbose=False):
     r"""returns the matrix of all  relative Kazhdan-Lusztig polynomials with
     respect to a parabolic subgroup, following
@@ -10349,7 +10784,8 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                 ls.append(X1.index(sw))
             else:
                 t=0
-                while tuple([W.permgens[t][i] for i in w])!=sw: t+=1
+                while tuple([W.permgens[t][i] for i in w])!=sw:
+                    t+=1
                 ls.append(-t-1)
         lft.append(ls)
     lft1={}
@@ -10364,11 +10800,11 @@ def allrelklpols(W,J,weightL,q, verbose=False):
             lprint('.')
         for x in range(y):
             if bruhatperm(W,X1[x],X1[y]):
-            #if x==y or Lw[x]<Lw[y]:
+                #if x==y or Lw[x]<Lw[y]:
                 mat[y,x]=[len(a1)*['f'] for i in range(len(a1))]
                 for v in range(len(a1)):
                     for u in range(len(a1)):
-        #         if bruhatperm(W,permmult(X1[x],a1[u]),permmult(X1[y],a1[v])):
+                        #         if bruhatperm(W,permmult(X1[x],a1[u]),permmult(X1[y],a1[v])):
                         if (x==y and u==v) or Lw[x]+Lw1[u]<Lw[y]+Lw1[v]:
                             mat[y,x][v][u]='c'
             else:
@@ -10403,12 +10839,15 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                         for u in range(len(a1)):
                             if mat[y,x][v][u][0]=='c':
                                 if mat[y,lft[s][x]][v][u][0]=='c':
-                                    mat[y,x][v][u]+=mat[y,lft[s][x]][v][u].split('c')[1]
+                                    mat[y,x][v][u]+=mat[y,lft[s]
+                                        [x]][v][u].split('c')[1]
                                     rk=mat[y,x][v][u].split('c')[1]
                                     if rk!='0':
-                                        m=relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],rklpols[int(rk)])
+                                        m=relmue(Lw[y]+Lw1[v],Lw[x]+
+                                                 Lw1[u],rklpols[int(rk)])
                                         if m in mues:
-                                            mat[y,x][v][u]+='c'+str(mues.index(m))
+                                            mat[y,x][v][u]+='c'+ \
+                                                str(mues.index(m))
                                         else:
                                             mat[y,x][v][u]+='c'+str(len(mues))
                                             mues.append(m)
@@ -10438,9 +10877,11 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                                             for w in range(len(a1)):
                                                 if (lft[s][z]>=0 or lft1[-1-lft[s][z]][w]<w) and (
                                                    mat[z,x][w][u][0]=='c' and mat[sy,z][v][w][0]=='c'):
-                                                    m=mues[int(mat[sy,z][v][w].split('c')[2])]
+                                                    m=mues[int(
+                                                        mat[sy,z][v][w].split('c')[2])]
                                                     if m!=0:
-                                                        rk=mat[z,x][w][u].split('c')[1]
+                                                        rk=mat[z,x][w][u].split('c')[
+                                                                                1]
                                                         if rk!='0':
                                                             h-=q**(Lw[y]+Lw1[v]-Lw[z]-Lw1[w])*rklpols[
                                                                                                int(rk)]*m
@@ -10451,17 +10892,22 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                                             if rk!='0':
                                                 h+=(q**2+1)*rklpols[int(rk)]
                                         if mat[sy,x][v][lft1[t][u]][0]=='c':
-                                            rk=mat[sy,x][v][lft1[t][u]].split('c')[1]
+                                            rk=mat[sy,x][v][lft1[t][u]].split('c')[
+                                                                              1]
                                             if rk!='0':
                                                 h+=rklpols[int(rk)]
                                         for w in range(u+1,len(a1)):
                                             if lft1[t][w]>w and (mat[sy,x][v][w][0]=='c' and
                                                                       m1['klmat'][w][u][0]=='c'):
-                                                m=mues[int(mat[0,0][w][u].split('c')[2])]
+                                                m=mues[int(
+                                                    mat[0,0][w][u].split('c')[2])]
                                                 if m!=0:
-                                                    rk=mat[sy,x][v][w].split('c')[1]
+                                                    rk=mat[sy,x][v][w].split('c')[
+                                                                             1]
                                                     if rk!='0':
-                                                        h+=q**(Lw1[w]-Lw1[u]+1)*rklpols[int(rk)]*m
+                                                        h+=q**(Lw1[w]-Lw1[u]+1)* \
+                                                               rklpols[int(
+                                                                   rk)]*m
                                     else:    # case sx<x
                                         if mat[sy,sx][v][u][0]=='c':
                                             rk=mat[sy,sx][v][u].split('c')[1]
@@ -10475,13 +10921,15 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                                         mat[y,x][v][u]+='0c0'
                                     else:
                                         if h in rklpols:
-                                            mat[y,x][v][u]+=str(rklpols.index(h))
+                                            mat[y,
+                                                x][v][u]+=str(rklpols.index(h))
                                         else:
                                             mat[y,x][v][u]+=str(len(rklpols))
                                             rklpols.append(h)
                                         m=relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],h)
                                         if m in mues:
-                                            mat[y,x][v][u]+='c'+str(mues.index(m))
+                                            mat[y,x][v][u]+='c'+ \
+                                                str(mues.index(m))
                                         else:
                                             mat[y,x][v][u]+='c'+str(len(mues))
                                             mues.append(m)
@@ -10509,7 +10957,7 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                                            and lft1[-1-lft[s][y]][v]>v)) for s in W.rank):
                             pp.append((bij[y,v],bij[x,u]))
     if verbose:
-        lprint(str(len(pp))+' arrows \n');
+        lprint(str(len(pp))+' arrows \n')
     klpols=[]
     for y in range(len(X1)):
         for x in range(y+1):
@@ -10617,6 +11065,8 @@ def klstaroperation(W,s,t,pcell):
     return nl
 
 #F klstarorbit
+
+
 def klstarorbit(W,l,gens='each'):
     """returns the orbit of a list 'l'  of elements  under repeated
     application of star operations. Here, it is assumed that all
@@ -10650,12 +11100,14 @@ def klstarorbit(W,l,gens='each'):
             for t in range(s):
                 if W.coxetermat[gens[s]][gens[t]]==3:
                     nc=klstaroperation(W,gens[s],gens[t],cell)
-                    if nc!=False and not any(nc[0][:len(W.rank)] in o for o in orb1):
+                    if nc is not False and not any(nc[0][:len(W.rank)] in o for o in orb1):
                         orb.append(nc)
                         orb1.append(set([x[:len(W.rank)] for x in nc]))
     return [[W.permtoword(p) for p in o] for o in orb]
 
 #F klstarorbitperm
+
+
 def klstarorbitperm(W,l,gens='each'):
     """same as klstarorbit but the function returns the elements as
     full permutations.
@@ -10673,10 +11125,11 @@ def klstarorbitperm(W,l,gens='each'):
             for t in range(s):
                 if W.coxetermat[gens[s]][gens[t]]==3:
                     nc=klstaroperation(W,gens[s],gens[t],cell)
-                    if nc!=False and not any(nc[0][:len(W.rank)] in o for o in orb1):
+                    if nc is not False and not any(nc[0][:len(W.rank)] in o for o in orb1):
                         orb.append(nc)
                         orb1.append(set([x[:len(W.rank)] for x in nc]))
     return orb
+
 
 def klstarorbitchain(W,l,gens='each'):
     """same as 'klstarorbit' but only returns sequence of pairs of
@@ -10692,13 +11145,15 @@ def klstarorbitchain(W,l,gens='each'):
             for t in range(s):
                 if W.coxetermat[gens[s]][gens[t]]==3:
                     nc=klstaroperation(W,gens[s],gens[t],cell)
-                    if nc!=False and not any(nc[0] in c for c in orb):
+                    if nc is not False and not any(nc[0] in c for c in orb):
                         orb.append(nc)
                         c1.append(str(s)+str(t))
         ch.append(c1)
     return ch
 
 #F leftklstar
+
+
 def leftklstar(W,pw,s,t):
     """applies the left star operation with respect to generators
     s and t to an element pw; here, it is already assumed that
@@ -10721,6 +11176,8 @@ def leftklstar(W,pw,s,t):
             return tuple([pw[i] for i in W.permgens[s]])
 
 #F leftklstarorbitelm
+
+
 def leftklstarorbitelm(W,pw,gens='each'):
     """returns the orbit of an element under the left star operations.
     The element  is supposed to  be given as a  full permutation of
@@ -10745,6 +11202,8 @@ def leftklstarorbitelm(W,pw,gens='each'):
     return orb
 
 #F leftklstarorbitelm1
+
+
 def leftklstarorbitelm1(W,pw,gens='each'):
     """similar to 'leftklstarorbitelm' but takes into account any
     pair s,t of generators such that st has order 3 or 4.
@@ -10766,6 +11225,8 @@ def leftklstarorbitelm1(W,pw,gens='each'):
     return orb
 
 #F klstarorbitelm
+
+
 def klstarorbitelm(W,pw,gens='each'):
     """returns the orbit of an element under the (right) star operations.
 
@@ -10798,6 +11259,8 @@ def leftklstarorbits(W,l,lcells=False,gens='each'):
     return orbs
 
 #F leftklstarreps
+
+
 def leftklstarreps(W,l,distinv=[],gens='each'):
     """returns a set of representatives for the orbits of a set under
     the left star operations.
@@ -10835,6 +11298,8 @@ def leftklstarreps(W,l,distinv=[],gens='each'):
     return reps
 
 #F leftrightstarorbit
+
+
 def leftrightstarorbit(W, pw, verbose=False):
     """returns the orbit of an element under repeated applications of
     left or right star operations.
@@ -10851,12 +11316,13 @@ def leftrightstarorbit(W, pw, verbose=False):
                             orb.append(d1)
                             orb1.add(d1[:len(W.rank)])
                     nc=klstaroperation(W,s,t,[d])
-                    if nc!=False and not nc[0][:len(W.rank)] in orb1:
+                    if nc is not False and not nc[0][:len(W.rank)] in orb1:
                         orb.append(nc[0])
                         orb1.add(nc[0][:len(W.rank)])
     if verbose:
         lprint('#I orbit of length '+str(len(orb))+'\n')
     return orb
+
 
 def leftrightstarorbitinv(W, pw, verbose=False):
     """similar to 'leftrightstarorbit' but the computation terminates when
@@ -10879,7 +11345,7 @@ def leftrightstarorbitinv(W, pw, verbose=False):
                             orb.append(d1)
                             orb1.add(d1[:len(W.rank)])
                     nc=klstaroperation(W,s,t,[d])
-                    if nc!=False and not nc[0][:len(W.rank)] in orb1:
+                    if nc is not False and not nc[0][:len(W.rank)] in orb1:
                         if W.permorder(nc[0])<=2:
                             if verbose:
                                 lprint('#I found involution\n')
@@ -10891,6 +11357,8 @@ def leftrightstarorbitinv(W, pw, verbose=False):
     return orb
 
 #F generalisedtau
+
+
 def generalisedtau(W,pw,maxd=10):
     """returns Vogan's generalised  tau-invariant of an element of
     a finite Coxeter group. It is known that two elements which
@@ -10907,10 +11375,11 @@ def generalisedtau(W,pw,maxd=10):
             for t in range(s):
                 if W.coxetermat[s][t]==3:
                     k=klstaroperation(W,s,t,[orb[o]])
-                    if k!=False:
+                    if k is not False:
                         orb.append(k[0])
         o+=1
     return tuple([tuple(W.rightdescentsetperm(p)) for p in orb])
+
 
 def checkgentau(W,maxd=10):
     for k in klcells(W,1,v)[0]:
@@ -10922,6 +11391,8 @@ def checkgentau(W,maxd=10):
     return True
 
 # gentauorbit2 (for use in gentaucells)
+
+
 def gentauorbit2(W,l):
     orb=[l[:]]
     orb1=set([x[:len(W.rank)] for x in orb[0]])
@@ -10930,7 +11401,7 @@ def gentauorbit2(W,l):
             for t in range(s):
                 if W.coxetermat[s][t]==3:
                     nc=klstaroperation(W,s,t,cell)
-                    if nc!=False:
+                    if nc is not False:
                         rnd=[tuple(W.rightdescentsetperm(pw)) for pw in nc]
                         srnd=set(rnd)
                         if len(srnd)>1:
@@ -10943,6 +11414,8 @@ def gentauorbit2(W,l):
 
 # Lusztig string operations (for use in gentaucells)
 # product st has order 4
+
+
 def klstringoperation4(W,s,t,pcell):
     pw1=perminverse(pcell[0])
     if (pw1[s]>=W.N and pw1[t]>=W.N) or (pw1[s]<W.N and pw1[t]<W.N):
@@ -10975,6 +11448,8 @@ def klstringoperation4(W,s,t,pcell):
     return nl
 
 # product st has order 5
+
+
 def klstringoperation5(W,s,t,pcell):
     pw1=perminverse(pcell[0])
     if (pw1[s]>=W.N and pw1[t]>=W.N) or (pw1[s]<W.N and pw1[t]<W.N):
@@ -11013,6 +11488,8 @@ def klstringoperation5(W,s,t,pcell):
     return nl
 
 # genstringorbit2 (Lusztig strings, strong star operations)
+
+
 def genstringorbit2(W,l):
     orb=[l[:]]
     orb1=set([x[:len(W.rank)] for x in orb[0]])
@@ -11026,7 +11503,7 @@ def genstringorbit2(W,l):
                     nc=klstringoperation4(W,s,t,cell)
                 elif W.coxetermat[s][t]==5:
                     nc=klstringoperation5(W,s,t,cell)
-                if nc!=False:
+                if nc is not False:
                     rnd=[tuple(W.rightdescentsetperm(pw)) for pw in nc]
                     srnd=set(rnd)
                     if len(srnd)>1:
@@ -11038,6 +11515,8 @@ def genstringorbit2(W,l):
     return [l]
 
 # kl liste der left cells, als perms
+
+
 def checkh4(W,kl, verbose=False):
     ckl=[set(l) for l in kl]
     for cell in kl:
@@ -11045,7 +11524,7 @@ def checkh4(W,kl, verbose=False):
             for t in range(s):
                 if W.coxetermat[s][t]==5:
                     nc=klstringoperation5(W,s,t,cell)
-                    if nc!=False and nc!=cell:
+                    if nc is not False and nc != cell:
                         if not set(nc) in ckl:
                             print('Mist')
                             return False
@@ -11055,6 +11534,8 @@ def checkh4(W,kl, verbose=False):
     return True
 
 # gentaucells
+
+
 def gentaucells(W,startset, verbose=False, lcells=False,string=False,tlen=False):
     """returns the partition  of a set of elements into equivalence
     classes  under  the  relation  given by Vogan's  generalised
@@ -11107,7 +11588,7 @@ def gentaucells(W,startset, verbose=False, lcells=False,string=False,tlen=False)
     rd=[]
     for pw in pset:
         pp=W.rightdescentsetperm(pw)
-        if tlen!=False:
+        if tlen is not False:
             pp.append(tlen(W,pw)+10*len(W.rank))
         rd.append(tuple(pp))
     #old version
@@ -11141,6 +11622,8 @@ def gentaucells(W,startset, verbose=False, lcells=False,string=False,tlen=False)
     return res
 
 #F gentaureps
+
+
 def gentaureps(W, verbose=False):
     """returns a set of the representatives of the generalised
     tau-cells under the star operations.
@@ -11192,6 +11675,8 @@ def gentaureps(W, verbose=False):
     return nset
 
 # klcellw0
+
+
 def klcellw0(W,wgr):
     """returns the W-graph of a left cell multiplied by the longest
     element. (For the time being, only for equal parameters.)
@@ -11210,6 +11695,8 @@ def klcellw0(W,wgr):
                     ni,nmat,wgr.mpols,[p[:len(W.rank)] for p in np]).normalise()
 
 # wgraphstarorbit
+
+
 def wgraphstarorbit(W,wgr,gens='each'):
     """returns the orbit of a W-graph under the relation generated by the
     Kazhdan-Lusztig star operation.  (Only works  in the case of equal
@@ -11233,6 +11720,8 @@ def wgraphstarorbit(W,wgr,gens='each'):
             for l in klstarorbitperm(W,wgr.X,gens)]
 
 #F klcellsun
+
+
 def klcellsun(W, weightL, v, verbose=False):
     if type(weightL)==type([]):
         poids=weightL
@@ -11278,6 +11767,8 @@ def klcellsun(W, weightL, v, verbose=False):
     return cr1
 
 #F klcells
+
+
 def klcells(W,weightL, v, allcells=True, verbose=False):
     """returns the partition of a finite Coxeter group into left cells
     together with the corresponding W-graphs.
@@ -11440,9 +11931,11 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
                             allmues.append(m)
                     if len(rk['perm'])>300:
                         if len(rk['perm'])>1500:
-                            rht=[generalisedtau(W,p,maxd=3*len(W.rank)) for p in rk['perm']]
+                            rht=[generalisedtau(W,p,maxd=3*len(W.rank))
+                                                for p in rk['perm']]
                         else:
-                            rht=[tuple(W.rightdescentsetperm(p)) for p in rk['perm']]
+                            rht=[tuple(W.rightdescentsetperm(p))
+                                       for p in rk['perm']]
                         srht=list(set(rht))
                         ind1=wgraph(W,poids,rk,v)
                         if verbose:
@@ -11456,7 +11949,8 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
                             m1={}
                             for kh in ind1.mmat:
                                 if kh[0] in l and kh[1] in l:
-                                    m1[(l.index(kh[0]),l.index(kh[1]))]=ind1.mmat[kh]
+                                    m1[(l.index(kh[0]),l.index(kh[1]))
+                                        ]=ind1.mmat[kh]
                             ind.extend(wgraph(ind1.W,ind1.weights,x1,ind1.var,i1,
                                                           m1,ind1.mpols,x1r).decompose())
                     else:
@@ -11600,6 +12094,8 @@ def leadingcoefficients(W,weightL,lw,clpols=[]):
     return lc
 
 #F leftcellleadingcoeffs
+
+
 def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
     """returns  a dictionary with information  concerning  the leading
     coefficients in a given left cell. The components are:
@@ -11740,7 +12236,8 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
         print("no distinguished involution!")
         return nd
     i=0
-    while nd[i]==0: i+=1
+    while nd[i]==0:
+        i+=1
     di=i
     if nd[di]**2!=1:
         print("no distinguished involution!!")
@@ -11777,6 +12274,8 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
                 'nd':nd[di],'elms':lw,'special':ch[ii[sp]],'char':chi}
 
 #F poltostr
+
+
 def poltostr(f):
     if type(f)==type(0):
         return ('0.'+str(f))
@@ -11786,11 +12285,15 @@ def poltostr(f):
         return str(f.val)+'.'+'.'.join([str(i) for i in f.coeffs])
 
 #F strtopol
+
+
 def strtopol(sp,vnam):
     spl=sp.split('.')
     return lpol([int(i) for i in spl[1:]],val=int(spl[0]),vname=vnam)
 
 #F poltostr
+
+
 def poltostr(f):
     if type(f)==type(0):
         return ('0.'+str(f))
@@ -11800,11 +12303,15 @@ def poltostr(f):
         return str(f.val)+'.'+'.'.join([str(i) for i in f.coeffs])
 
 #F strtopol
+
+
 def strtopol(sp,vnam):
     spl=sp.split('.')
     return lpol([int(i) for i in spl[1:]],val=int(spl[0]),vname=vnam)
 
 #F distinguishedinvolutions
+
+
 def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
     """returns the list of distinguished involutions with respect to a
     weight function, plus some additional information (as explained
@@ -11973,7 +12480,8 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
                 cp=len(ainv)*[0]
                 cp[t[2]]=1
             else:
-                cp1=[strtopol(f,'v') for f in cpmat[l-1][bytes(t[2])].split(';')]
+                cp1=[strtopol(f,'v')
+                              for f in cpmat[l-1][bytes(t[2])].split(';')]
                 cp2=[strtopol(f,'v') for f in cpmat[l][bytes([W.permgens[t[3]][i]
                                                         for i in t[2]])].split(';')]
                 if poids[t[3]]==1:
@@ -12036,13 +12544,14 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
                             if i!=j:
                                 cf*=fshi[j]
                         cof.append(cf)
-                    nd=(-1)**len(w)*sum(cof[i]*lc[ii[i]] for i in range(len(ii)))
+                    nd=(-1)**len(w)*sum(cof[i]*lc[ii[i]]
+                        for i in range(len(ii)))
                     if nd%ftot==0:
                         nd=nd//ftot
                     else:
                         print("Mist!")
                         return False
-                    if nd!=0 or distonly!=True:
+                    if nd!=0 or distonly is not True:
                         distinv.append(w)
                         nvec.append(nd)
                         char=[]
@@ -12054,30 +12563,32 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
                             #elif lc[i]<0:
                             #  char.append([chn[i],-lc[i]])
                         charvec.append(char[::-1])
-                        if nega==False and nd!=1:
-                            nega=True
+                        if nega is False and nd!=1:
+                            nega = True
                     if maxl==W.N//2 and (W.N%2==1 or l<maxl-1):
-                        nd=sum(eps[ii[i]]*cof[i]*lc[ii[i]] for i in range(len(ii)))
+                        nd=sum(eps[ii[i]]*cof[i]*lc[ii[i]]
+                               for i in range(len(ii)))
                         if nd%ftot==0:
                             nd=nd//ftot
                         else:
                             print("Mist!")
                             return False
-                        if nd!=0 or distonly!=True:
+                        if nd!=0 or distonly is not True:
                             distinv0.append(W.permtoword([w0[i] for i in pw]))
                             nvec0.append(nd)
                             char0=[]
                             for i in range(len(ainv)):
                                 if lc[i]!=0:
-                                    char0.append([signp[i],(-1)**(W.N+len(w))*eps[i]*lc[i]])
+                                    char0.append(
+                                        [signp[i],(-1)**(W.N+len(w))*eps[i]*lc[i]])
                                 #if lc[i]>0:
                                 #  char0.append([signp[i],lc[i]])
                                 #elif lc[i]<0:
                                 #  char0.append([signp[i],-lc[i]])
                             char0.sort(key=(lambda i:i[0]),reverse=True)
                             charvec0.append([[chn[i[0]],i[1]] for i in char0])
-                            if nega==False and nd!=1:
-                                nega=True
+                            if nega is False and nd!=1:
+                                nega = True
         if verbose:
             lprint(str(ll)+' elements, '+str(len(spols))+' class polynomials; ')
             lprint(str(len(distinv)+len(distinv0))+' distinvs\n')
@@ -12147,6 +12658,7 @@ def starorbitinv(W,pw,lcell=[]):
     else:
         return [orb,[[tuple(x[:len(W.rank)]) for x in l] for l in ncell]]
 
+
 def starorbitinv1(W,distinv):
     """decomposes list of distinguished involutions into orbits
     under the star operation.
@@ -12167,6 +12679,7 @@ def starorbitinv1(W,distinv):
         reps.append([l,r])
         reps.sort(key=(lambda i: i[0]))
     return [i[1] for i in reps]
+
 
 def starorbitinv2(W):
     """decomposes the list of involutions into orbits under the
@@ -12189,6 +12702,8 @@ def starorbitinv2(W):
     return [i[0] for i in reps]
 
 #F distinguishedinvolutions_eq
+
+
 def distinguishedinvolutions_eq(W, verbose=False):
     """similar to 'distinguishedinvolutions'  but this function only
     works in, and is optimised for, the case of equal parameters,
@@ -12295,7 +12810,8 @@ def distinguishedinvolutions_eq(W, verbose=False):
                 cp=len(ainv)*[0]
                 cp[t[2]]=1
             else:
-                cp1=[strtopol(f,'v') for f in cpmat[l-1][bytes(t[2])].split(';')]
+                cp1=[strtopol(f,'v')
+                              for f in cpmat[l-1][bytes(t[2])].split(';')]
                 cp2=[strtopol(f,'v') for f in cpmat[l][bytes([W.permgens[t[3]][i]
                                                         for i in t[2]])].split(';')]
                 cp=[v*cp1[i]+(v-1)*cp2[i] for i in range(len(ainv))]
@@ -12383,7 +12899,8 @@ def distinguishedinvolutions_eq(W, verbose=False):
                         char0=[]
                         for i in range(len(ainv)):
                             if lc[i]!=0:
-                                char0.append([signp[i],(-1)**(W.N+len(w))*eps[i]*lc[i]])
+                                char0.append(
+                                    [signp[i],(-1)**(W.N+len(w))*eps[i]*lc[i]])
                             #if lc[i]>0:
                             #  char0.append([signp[i],lc[i]])
                             #elif lc[i]<0:
@@ -12414,6 +12931,8 @@ def distinguishedinvolutions_eq(W, verbose=False):
     return [list(l) for l in zip(*res)]
 
 #F allcellsleadingcoeffs
+
+
 def allcellsleadingcoeffs(W,weightL,v,newnorm=False):
     """returns a list which contains the pairwise different results of
     'leftcellleadingcoeffs' as we run over all left cells of W with
@@ -12476,7 +12995,7 @@ def allcellsleadingcoeffs(W,weightL,v,newnorm=False):
         kl=[c.X for c in klcells(W,poids,v,allcells=False)[1]]
     else:
         kl=[c.X for c in klcellsun(W,poids,v)]
-    cp=allclasspolynomials(W,[v**(2*i) for i in poids]);
+    cp=allclasspolynomials(W,[v**(2*i) for i in poids])
     ch=chartable(W,chars=False)['charnames']
     nlc,dlc=[],[]
     slc=set([])
@@ -12506,6 +13025,8 @@ def allcellsleadingcoeffs(W,weightL,v,newnorm=False):
     return [[transposemat(l) for l in nlc],dlc,slc]
 
 #F libdistinv
+
+
 def libdistinv(W,weightL,unpack=True):
     r"""returns a pre-computed and explicitly stored list  of distinguished
     involutions.  Among other properties, these elements  form a set of
@@ -12964,35 +13485,35 @@ def libdistinv(W,weightL,unpack=True):
               '012031203243120324315431203243154320654312032431543206543123456',
               '123120343120324354312032431543265431234576543120324315432654317',
               '1231203431203243543120324315432654312345676543120324315432654317',
-              '12312343123454312032431565431203243154320654327654312032431543'+\
+              '12312343123454312032431565431203243154320654327654312032431543'+
                  '265431',
-              '12312343120324354312365431203243154676543120324315432065431237'+\
+              '12312343120324354312365431203243154676543120324315432065431237'+
                  '6543123',
-              '12312343120345431203243546543120324315432065431234576543120324'+\
+              '12312343120345431203243546543120324315432065431234576543120324'+
                  '31543265431',
-              '01203120324312032431543120324315432065431234567654312032431543'+\
+              '01203120324312032431543120324315432065431234567654312032431543'+
                  '206543123457',
-              '02032043205431203265431203243156765431203243154320654312345676'+\
+              '02032043205431203265431203243156765431203243154320654312345676'+
                  '54312032435465',
-              '12312343123454312345654312032431543206765431203243154320654312'+\
+              '12312343123454312345654312032431543206765431203243154320654312'+
                  '345676543123456',
-              '01203120324312032431543120324316543120324315432654317654312032'+\
+              '01203120324312032431543120324316543120324315432654317654312032'+
                  '4315432065431234',
-              '12312034312032435431203243154326543120324315432065431234576543'+\
+              '12312034312032435431203243154326543120324315432065431234576543'+
                  '12032431543265431',
-              '01203120324312032431543120324315432065431203243154326543176543'+\
+              '01203120324312032431543120324315432065431203243154326543176543'+
                  '1203243154320654312345',
-              '12312032431203243154312032431543206543120324315432076543120324'+\
+              '12312032431203243154312032431543206543120324315432076543120324'+
                  '315432065431234576543120324315432',
-              '12312343123454312032431565431203243154320654327654312032431543'+\
+              '12312343123454312032431565431203243154320654327654312032431543'+
                  '2065431234567654312032431543265431',
-              '12312343120324315431203243154320654312032431543206543123456765'+\
+              '12312343120324315431203243154320654312032431543206543123456765'+
                  '43120324315432065431234576543120324315432',
-              '01203120324312032431543120324315432065431203243154320654312345'+\
+              '01203120324312032431543120324315432065431203243154320654312345'+
                  '6765431203243154320654312345765431203243154320',
-              '01203120324312032431543120324315432065431203243154320654312345'+\
+              '01203120324312032431543120324315432065431203243154320654312345'+
                  '676543120324315432065431234567654312032431543206543123456',
-              '01203120324312032431543120324315432065431203243154320654312345'+\
+              '01203120324312032431543120324315432065431203243154320654312345'+
                  '6765431203243154320654312345676543120324315432065431234567']
         chrs0=['0.1', '67.1', '4.1', '71.1c2.1', '71.1c9.1', '73.1c14.1',
                '14.1c7.1', '80.1', '23.1', '28.1c17.1', '76.1c28.1',
@@ -13056,6 +13577,8 @@ def libdistinv(W,weightL,unpack=True):
         return False
 
 #F distinva
+
+
 def distinva(W,weightL=1, verbose=False):
     """returns a  pair of lists where the first one contains the
     distinguished involutions (as coxelms) and the second one
@@ -13115,6 +13638,8 @@ def distinva(W,weightL=1, verbose=False):
     return [nd,na]
 
 #F distinva1
+
+
 def distinva1(W,weightL):
     """similar to 'distinva' but use families not just a-invariants.
     """
@@ -13146,6 +13671,8 @@ def distinva1(W,weightL):
     return [nd,na,nb]
 
 #F gentaudistcheck
+
+
 def gentaudistcheck(W):
     J=list(range(len(W.rank)-1))
     W1=reflectionsubgroup(W,J)
@@ -13174,6 +13701,8 @@ def gentaudistcheck(W):
     return True
 
 #F klupsilonI
+
+
 def klupsilonI(W):
     """returns  representatives  of the left star orbits in the
     various  tau-cells of the set  UpsilonI(W).  If an orbit
@@ -13203,6 +13732,8 @@ def klupsilonI(W):
     return nset
 
 #F klupsilonI1
+
+
 def klupsilonI1(W):
     """similar to 'klupsilonI' but returns only those left star
     orbits which need further consideration.
@@ -13235,13 +13766,14 @@ def klupsilonI1(W):
     lprint(str(n1)+' Zellen und '+str(len(nset))+' Verbrecher\n')
     return nset
 
+
 def checkatau(W):
     a=distinva(W)
     af=False
     for l in gentaucells(W,a[0],string=True):
         a1=[a[1][a[0].index(x[:len(W.rank)])] for x in l]
         if len(set(a1))<len(a1):
-            if af==False:
+            if af is False:
                 af=distinva1(W,1)
             print('#I Using families, not just a-invariants!')
             af1=[af[1][af[0].index(x[:len(W.rank)])] for x in l]
@@ -13251,6 +13783,8 @@ def checkatau(W):
     return True
 
 #F cellsinvolutions
+
+
 def cellsinvolutions(W):
     """returns the partition of involutions into two-sided cells.
 
@@ -13269,6 +13803,7 @@ def cellsinvolutions(W):
                 t1.append(d[0][i])
         twos.append(t1)
     return [twos,sp]
+
 
 def leftcellsinvolutions(W):
     """returns the partition of involutions into left cells
@@ -13300,6 +13835,8 @@ def leftcellsinvolutions(W):
     return neu
 
 #F twosidedcells
+
+
 def twosidedcells(W,lcells):
     """returns the partition of W into two-sided cells from the given
     partition into left cells.  (It is assumed here that Lusztig's
@@ -13319,10 +13856,11 @@ def twosidedcells(W,lcells):
 
 #F Data to construct the left cells in type E7 and E8
 
+
 E7KLCELLREPS=[{"a": 0, "distinv": "", "replstar": [""], "special": "1_a",
   "elms": [], "character": [["1_a", 1]], "size": 1}, {"a": 63, "distinv":
   "012031203243120324315431203243154320654312032431543206543123456",
-  "replstar": ["0120312032431203243154312032431543206543120324315432065"+\
+  "replstar": ["0120312032431203243154312032431543206543120324315432065"+
   "43123456"], "special": "1_a'", "elms": [], "character": [["1_a'", 1]],
   "size": 1}, {"a": 1, "distinv": "0", "replstar": ["0"], "special": "7_a'",
   "elms": [], "character": [["7_a'", 1]], "size": 7}, {"a": 46, "distinv":
@@ -13502,6 +14040,7 @@ E7KLCELLREPS=[{"a": 0, "distinv": "", "replstar": [""], "special": "1_a",
   "012034354365431203", "0120343543126543120324356"], "special": "512_a'",
   "elms": [], "character": [["512_a'", 1], ["512_a", 1]], "size": 1024}]
 
+
 def E7CELLREPcheck():
     """checks if the elements in replstar belong to the same tau-cell,
     and if size and degrees of characters are ok.
@@ -13515,7 +14054,8 @@ def E7CELLREPcheck():
         if len(g)>1:
             return False
         # check size
-        d1=sum([i[1]*t['irreducibles'][ch.index(i[0])][0] for i in c['character']])
+        d1=sum([i[1]*t['irreducibles'][ch.index(i[0])][0]
+               for i in c['character']])
         d2=sum([len(leftklstarorbitelm(W,W.wordtoperm(w))) for w in l])
         if not(d1==d2 and d1==c['size']):
             return False
@@ -13524,6 +14064,7 @@ def E7CELLREPcheck():
 # The i-th left cell in the following list contains a distinguished
 # involution which is double-star equivalent to the i-th involution
 # in libdistinv(W,unpack=0)
+
 
 E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "replstar": [""], "elms": [], "special": "1_x", "size": 1}, {"a": 1,
@@ -13567,7 +14108,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "12312034325431203243654312032765431203243546576",
   "65431203243154320676543120324315432065431234576",
   "65431203243154320654312345765431203243154320654312345676543123456",
-  "6543120324315432065431234567654312032431543206543123456765431203243154"+\
+  "6543120324315432065431234567654312032431543206543123456765431203243154"+
   "3206543123456"], "elms": [], "special": "1400_z", "size": 3192},
   {"a": 7, "character": [["1400_z", 1], ["1008_z", 1], ["1344_x", 1]],
   "distinv": "023143205431234576543120324315432065431234567", "replstar":
@@ -13627,8 +14168,8 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "020312054312034567654312034567", "0120431254312034567654312034567",
   "0234654320765431203243154320654312345676"], "elms": [], "special":
   "1400_x", "size": 4900}, {"a": 12, "character": [["525_x", 1]], "distinv":
-  "654312032431543206543123456765431203243154320654312345676543120324315"+\
-  "432065431234567", "replstar": ["6543120324315432065431234567654312032"+\
+  "654312032431543206543123456765431203243154320654312345676543120324315"+
+  "432065431234567", "replstar": ["6543120324315432065431234567654312032"+
   "43154320654312345676543120324315432065431234567"], "elms": [], "special":
   "525_x", "size": 525}, {"a": 12, "character": [["4200_x", 1],
   ["840_x", 1]], "distinv":
@@ -13671,7 +14212,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "023143205431203243154320654312032431543206543123456", "replstar":
   ["023143205431203243154320654312032431543206543123456",
   "123123431203243543123465431203276543120324315432065",
-  "0231432054312032431543206543120324315432065431234567654312032431543206"+\
+  "0231432054312032431543206543120324315432065431234567654312032431543206"+
   "543123456"], "elms": [], "special": "5600_z", "size": 8800}, {"a": 15,
   "character": [["4200_z", 1]], "distinv":
   "1203431205431234654376543120324315467", "replstar":
@@ -13712,7 +14253,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "12312034312032431543120324565431234576543120324315432065437",
   "1231203431203243154326543120347654312032431543206543127654320",
   "0231203431203543120324356543120347654312032431543206543127654320",
-  "023120343120354312032431546543120324315765431203243154320654312347654"+\
+  "023120343120354312032431546543120324315765431203243154320654312347654"+
   "31203"], "elms": [], "special": "4480_y", "size": 22778}, {"a": 16,
   "character": [["7168_w", 2], ["5600_w", 1], ["2016_w", 1], ["5670_y", 1],
   ["4536_y", 1], ["4480_y", 1], ["4200_y", 1], ["3150_y", 1], ["2688_y", 1]],
@@ -13765,10 +14306,10 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "1231234312032435431236543120324317654312032431543206543123765431203",
   "023123431203254312346543120324315437654312032431543206543123456765431203",
   "123120343120324354312032435654312037654312032431543206543123456765431203",
-  "0231234312035465431203243567654312032431543206543123456765431203243154"+\
-  "3206", "02312343120354316543120324356765431203243154320654312345676543"+\
-  "12032431543206", "0231234312032543123465431203243567654312032431543206"+\
-  "5431234567654312032431543206", "023123431203254316543120324315432654376"+\
+  "0231234312035465431203243567654312032431543206543123456765431203243154"+
+  "3206", "02312343120354316543120324356765431203243154320654312345676543"+
+  "12032431543206", "0231234312032543123465431203243567654312032431543206"+
+  "5431234567654312032431543206", "023123431203254316543120324315432654376"+
   "543120324315432065431234567654312032431543206"], "elms": [], "special":
   "4480_y", "size": 46676}, {"a": 13, "character": [["2800_z", 1],
   ["2100_x", 1]], "distinv":
@@ -13782,10 +14323,10 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "031234320565437654312032431543206543123456765431203",
   "03143206543123456765431203243154320654312345676543120324315436"], "elms":
  [], "special": "4096_z", "size": 8192}, {"a": 14, "character":
-  [["6075_x", 1]], "distinv": "023143205654312032431543206765431203243154"+\
+  [["6075_x", 1]], "distinv": "023143205654312032431543206765431203243154"+
   "320654312345676543120324315432065431234567", "replstar":
   ["1231234312032435431236543120324354657654312032431543206576",
-  "02314320565431203243154320676543120324315432065431234567654312032431543"+\
+  "02314320565431203243154320676543120324315432065431234567654312032431543"+
   "2065431234567"], "elms": [], "special": "6075_x", "size": 6075},
   {"a": 16, "character": [["7168_w", 1], ["5600_w", 1], ["1344_w", 1],
   ["5670_y", 1], ["4480_y", 1], ["4200_y", 1], ["3150_y", 1], ["1134_y", 1]],
@@ -13829,11 +14370,11 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "23124312035431203243154320654312347654312032431543206543127654320",
   "0231203431203543120324365431203243154367654312032431543206543127654320",
   "023120343120354312032435465431203243154367654312032431543206543127654320",
-  "0231203431235431203243154365431203243154365765431203243154320654312347"+\
+  "0231203431235431203243154365431203243154365765431203243154320654312347"+
   "65431203"], "elms": [], "special": "4480_y", "size": 32746}, {"a": 20,
-  "character": [["2100_y", 1]], "distinv": "02314320543120324315432065431"+\
+  "character": [["2100_y", 1]], "distinv": "02314320543120324315432065431"+
   "2032431543206543123456765431203243154320654312345765431203243154320",
-  "replstar": ["023143205431203243154320654312032431543206543123456765431"+\
+  "replstar": ["023143205431203243154320654312032431543206543123456765431"+
   "203243154320654312345765431203243154320"], "elms": [], "special":
   "2100_y", "size": 2100}, {"a": 10, "character": [["2268_x", 1],
   ["972_x", 1]], "distinv": "120324312032435431234565431203243154",
@@ -13931,10 +14472,10 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "1231203431203243154312032435654312032456765431203243154320654312345765",
   "1231234312032435465431234576543120324315432065431234567654312032435465",
   "054312032465431203243154365476543120324315432065431234567654312032435465",
-  "023154312032456543120324315432065431765431203243154320654312345765431"+\
-  "20345", "025431203456543120324315432065431234567654312032431543206543"+\
-  "1234576543120345", "02354312032436543120324315432654317654312032431543"+\
-  "2065431234567654312032435465", "023543120324316543120324315432065431234"+\
+  "023154312032456543120324315432065431765431203243154320654312345765431"+
+  "20345", "025431203456543120324315432065431234567654312032431543206543"+
+  "1234576543120345", "02354312032436543120324315432654317654312032431543"+
+  "2065431234567654312032435465", "023543120324316543120324315432065431234"+
   "576543120324315432065431234567654312032435465"], "elms": [], "special":
   "4480_y", "size": 60396}, {"a": 10, "character": [["1400_zz", 1],
   ["2240_x", 1]], "distinv":
@@ -13947,10 +14488,10 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "01203431235431203243154365431203276543120324315432654317654320",
   "023143254316543120324315432654317654312032431543206543123456765431203456"],
   "elms": [], "special": "2240_x", "size": 3640}, {"a": 15, "character":
-  [["5600_z", 1], ["2400_z", 1]], "distinv": "0231432054312345654312032431"+\
+  [["5600_z", 1], ["2400_z", 1]], "distinv": "0231432054312345654312032431"+
   "543206765431203243154320654312345676543120324315432065431234567",
   "replstar": ["13143154312032654312032431543206576543120324315432067",
-  "0231432054312345654312032431543206765431203243154320654312345676543120"+\
+  "0231432054312345654312032431543206765431203243154320654312345676543120"+
   "324315432065431234567"], "elms": [], "special": "5600_z", "size": 8000},
   {"a": 9, "character": [["3240_z", 1]], "distinv":
   "031234312032543654312032431543654765431203243154320654376", "replstar":
@@ -14005,10 +14546,10 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "12312034312032431543126543120345765431203243154320654312345676543120345",
   "023154312032435465431203243154320765431203243154320654312345676543120345",
   "023454312032431543206543120324315765431203243154320654312345676543120345",
-  "023543120324354654312032431546765431203243154320654312345676543120324"+\
-  "35465", "0254312032431543265431203243154676543120324315432065431234567"+\
-  "654312032435465", "0231543120324315436543120324315436547654312032431543"+\
-  "20654312345676543120324315432065", "0234543120324315432065431203243546"+\
+  "023543120324354654312032431546765431203243154320654312345676543120324"+
+  "35465", "0254312032431543265431203243154676543120324315432065431234567"+
+  "654312032435465", "0231543120324315436543120324315436547654312032431543"+
+  "20654312345676543120324315432065", "0234543120324315432065431203243546"+
   "57654312032431543206543123456765431203243154320654312345"], "elms": [],
   "special": "4480_y", "size": 45136}, {"a": 12, "character": [["3360_z", 1],
   ["4200_x", 1]], "distinv":
@@ -14035,11 +14576,11 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   ["2400_z'", 1]], "distinv": "12312343123454312345654312345", "replstar":
   ["12312343123454312345654312345", "123123431234543123457654312345"],
   "elms": [], "special": "5600_z'", "size": 8000}, {"a": 30, "character":
-  [["2268_x'", 1], ["972_x'", 1]], "distinv": "03120454312345654312032435"+\
+  [["2268_x'", 1], ["972_x'", 1]], "distinv": "03120454312345654312032435"+
   "6765431203243154320654312345676543120324315432065431234567", "replstar":
   ["12312034312032431543120324315432065431203243154320654765431203243567",
-  "0312045431234565431203243567654312032431543206543123456765431203243154"+\
-  "32065431234567", "031203431254312345654312032435676543120324315432065"+\
+  "0312045431234565431203243567654312032431543206543123456765431203243154"+
+  "32065431234567", "031203431254312345654312032435676543120324315432065"+
   "4312345676543120324315432065431234567"], "elms": [], "special": "2268_x'",
   "size": 3240}, {"a": 16, "character": [["7168_w", 1], ["5600_w", 1],
   ["1344_w", 1], ["5670_y", 1], ["4536_y", 1], ["4480_y", 1], ["4200_y", 2],
@@ -14092,7 +14633,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "020312043120324315431203456543120324315467654312032431543206543765",
   "031204543123456543120324315432067654312032431543206543123457654312032435",
   "131431254312032431654312032431543206543127654312032431543206543765",
-  "0312034312543123456543120324315432067654312032431543206543123457654312"+\
+  "0312034312543123456543120324315432067654312032431543206543123457654312"+
   "032435"], "elms": [], "special": "4480_y", "size": 38766}, {"a": 25,
   "character": [["2800_z'", 1], ["2100_x'", 1]], "distinv":
   "1231234312034543120324354676543120324315432", "replstar":
@@ -14103,7 +14644,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   ["020320432054320654312032431", "123120343120324354320654312032431",
   "123123431203243543265431203457654312032431543265431"], "elms": [],
   "special": "4200_z'", "size": 4200}, {"a": 13, "character": [["4536_z", 1]],
-  "distinv": "03123431203265431234567654312032431543206543123456765431203"+\
+  "distinv": "03123431203265431234567654312032431543206543123456765431203"+
   "24315436", "replstar": ["0203204312032456543120765431203243154367",
   "0312343120326543123456765431203243154320654312345676543120324315436",
   "123120345432654312032435765431203243154320654312345676"], "elms": [],
@@ -14139,9 +14680,9 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   ["02032043205432065431203243154327",
   "12312343123454312032431543267654312345"], "elms": [], "special": "6075_x'",
   "size": 6075}, {"a": 14, "character": [["6075_x", 1]], "distinv":
-  "0312343123565431203765431203243154320654312345676543120324315432065431"+\
+  "0312343123565431203765431203243154320654312345676543120324315432065431"+
   "234567", "replstar": ["1231203431203243154312654312032437654312034567",
-  "031234312356543120376543120324315432065431234567654312032431543206543"+\
+  "031234312356543120376543120324315432065431234567654312032431543206543"+
   "1234567"], "elms": [], "special": "6075_x", "size": 6075}, {"a": 10,
   "character": [["1400_zz", 1], ["2240_x", 1]], "distinv":
   "031234312032543165431203243154327654312032431543206543123765431203",
@@ -14151,7 +14692,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "013124312032435465431234765431203243154320654376",
   "031234312032543165431203243154327654312032431543206543123765431203",
   "2312431203243543123654312032431543654765431203243154320654376",
-  "031234312032543165431203243154326543176543120324315432065431234567654"+\
+  "031234312032543165431203243154326543176543120324315432065431234567654"+
   "3120324315436"], "elms": [], "special": "2240_x", "size": 3640}, {"a": 37,
   "character": [["1400_z'", 1], ["448_z'", 1], ["1344_x'", 1]], "distinv":
   "0120312032431203243154312032431543207", "replstar":
@@ -14160,14 +14701,14 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "0120312032431203243154312032431543206765431203243154320",
   "1231234312345431203456543120324315432065431234765431203243154320",
   "1231203431203243543120324315432654312032431543206765431203243154320",
-  "0120312032431203243154312032431543206543123457654312032431543206543"+\
+  "0120312032431203243154312032431543206543123457654312032431543206543"+
   "123457"], "elms": [], "special": "1400_z'", "size": 3192}, {"a": 31,
-  "character": [["3240_z'", 1]], "distinv": "1203143120543120324315432654"+\
+  "character": [["3240_z'", 1]], "distinv": "1203143120543120324315432654"+
   "3120324315432065476543120324315432065431234576543120324315432",
-  "replstar": ["123123431234543120324354654312032431543206543127654312032"+\
-  "4315432654", "0203204320543120654312032457654312032431543206543123457"+\
-  "6543120324315432", "01203120324312032431543120324315465431203243154326"+\
-  "5476543120324315432654", "1203143120543120324315432654312032431543206"+\
+  "replstar": ["123123431234543120324354654312032431543206543127654312032"+
+  "4315432654", "0203204320543120654312032457654312032431543206543123457"+
+  "6543120324315432", "01203120324312032431543120324315465431203243154326"+
+  "5476543120324315432654", "1203143120543120324315432654312032431543206"+
   "5476543120324315432065431234576543120324315432"], "elms": [], "special":
   "3240_z'", "size": 3240}, {"a": 25, "character": [["2800_z'", 1],
   ["700_xx'", 1]], "distinv":
@@ -14176,11 +14717,11 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "120314312543120324315432065431203243154320654312345",
   "120312343120324543120324315432065431203243154320654312345"], "elms": [],
   "special": "2800_z'", "size": 3500}, {"a": 13, "character": [["4536_z", 1]],
-  "distinv": "02314320654312032431543206543123457654312032431543206543123"+\
+  "distinv": "02314320654312032431543206543123457654312032431543206543123"+
   "4567654312032431543206", "replstar":
   ["02045431654312034576543120324315432065431234576",
   "012034354312032465431203243154320654327654312032431543206576",
-  "0231432065431203243154320654312345765431203243154320654312345676543120"+\
+  "0231432065431203243154320654312345765431203243154320654312345676543120"+
   "32431543206"], "elms": [], "special": "4536_z", "size": 4536}, {"a": 42,
   "character": [["400_z'", 1], ["700_x'", 1]], "distinv":
   "120314315431203243546543207654312032431543206543123456765431203245",
@@ -14188,8 +14729,8 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   ["12312034312032435431203243154326543120345676543120324315432654765",
   "120314315431203243546543207654312032431543206543123456765431203245",
   "0120312032431203243154312032431543206543120345676543120324315432654765",
-  "0203204312054312032654312032431546765431203243154320654312345676543120"+\
-  "324315432654", "120314315431203243546543120324576543120324315432065431"+\
+  "0203204312054312032654312032431546765431203243154320654312345676543120"+
+  "324315432654", "120314315431203243546543120324576543120324315432065431"+
   "2345676543120324315432065431234567"], "elms": [], "special": "700_x'",
   "size": 1100}, {"a": 16, "character": [["7168_w", 1], ["5600_w", 2],
   ["448_w", 1], ["5670_y", 3], ["4536_y", 3], ["4480_y", 1], ["1680_y", 3],
@@ -14255,8 +14796,8 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "0234543123456543120324315432067654312032431543206543123456765431203456",
   "1231234312032454312654312034567654312032431543206543123456765431203456",
   "023454312034654312032431546576543120324315432065431234567654312032435465",
-  "0231543120345654312032435465765431203243154320654312345676543120324315"+\
-  "432065", "023454316543120345676543120324315432065431234567654312032431"+\
+  "0231543120345654312032435465765431203243154320654312345676543120324315"+
+  "432065", "023454316543120345676543120324315432065431234567654312032431"+
   "5432065431234567"], "elms": [], "special": "4480_y", "size": 61824},
   {"a": 23, "character": [["4536_z'", 1]], "distinv":
   "12031431543120324315432065431203243154320765431203245", "replstar":
@@ -14288,7 +14829,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "123123431203243154312032431543206543120324576543120324315432654",
   "1203143120543120324315432654312032431543265476543120324315432654",
   "020320431203254312032431546543120324315432065431234576543120324315432654",
-  "1203143120543120324315432065431203243154326543176543120324315432065431"+\
+  "1203143120543120324315432065431203243154326543176543120324315432065431"+
   "2347654312"], "elms": [], "special": "2240_x'", "size": 3640}, {"a": 23,
   "character": [["4536_z'", 1]], "distinv":
   "1231234312345431203243154326543276543120324315432654317", "replstar":
@@ -14296,7 +14837,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "0131431543165431234576543120324315432654317",
   "1231234312345431203243154326543276543120324315432654317"], "elms": [],
   "special": "4536_z'", "size": 4536}, {"a": 14, "character": [["2835_x", 1]],
-  "distinv": "03123431203546543120324315676543120324315432065431234567654"+\
+  "distinv": "03123431203546543120324315676543120324315432065431234567654"+
   "3120324315436", "replstar": ["0120435431654312034765431203243154320654376",
   "031234312035465431203243156765431203243154320654312345676543120324315436"],
   "elms": [], "special": "2835_x", "size": 2835}, {"a": 37, "character":
@@ -14307,7 +14848,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "123123431234543123456543120324315432065431234576543123456",
   "01203120324312032431543120324315432067654312032431543206543123456",
   "01203120324312032431543120324315654312032431543207654312032431543265431",
-  "123123431234543123456543120324315432065431234567654312032431543206543"+\
+  "123123431234543123456543120324315432065431234567654312032431543206543"+
   "123456"], "elms": [], "special": "1400_z'", "size": 3752}, {"a": 31,
   "character": [["3240_z'", 1]], "distinv":
   "120314315431203243154654312032765431203243154320654312347654312",
@@ -14323,43 +14864,43 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "013143123543123465431234576543120324315432654317",
   "123123431203245431203243154365431234576543120324315432654317"], "elms": [],
   "special": "4200_x'", "size": 5040}, {"a": 15, "character": [["4200_z", 1]],
-  "distinv": "03123431203254316543120324315436765431203243154320654312345"+\
+  "distinv": "03123431203254316543120324315436765431203243154320654312345"+
   "676543120324315432065431234567", "replstar":
   ["1231234312032435431654312034765431203243154320654376",
   "1231234312032454312034654312034765431203243154320654376",
-  "03123431203254316543120324315436765431203243154320654312345676543120"+\
+  "03123431203254316543120324315436765431203243154320654312345676543120"+
   "324315432065431234567"], "elms": [], "special": "4200_z", "size": 4200},
   {"a": 28, "character": [["840_z'", 1], ["2240_x'", 1]], "distinv":
-  "1231234312032435431203243154326543120347654312032431543206543123476543"+\
+  "1231234312032435431203243154326543120347654312032431543206543123476543"+
   "1234", "replstar": ["020320432054320654312032435476543120324315432654317",
   "1231234312034543120324354654312032435476543120324315432654317",
   "0131431254312345654312032431543676543120324315432065431234765431234",
-  "12312343120324354312032431543265431203476543120324315432065431234765"+\
+  "12312343120324354312032431543265431203476543120324315432065431234765"+
   "431234"], "elms": [], "special": "2240_x'", "size": 3080}, {"a": 28,
   "character": [["1400_zz'", 1], ["2240_x'", 1]], "distinv":
-  "1203243120324543120324356543120324315436765431203243154320654312345"+\
+  "1203243120324543120324356543120324315436765431203243154320654312345"+
   "6765431203243154320654312", "replstar":
   ["020320432054312065431203243576543120324315432065431237654312",
   "0120312032431203243154312065431203243576543120324315432065431237654312",
-  "020320432054312036543120324315436765431203243154320654312345676543120"+\
-  "3243154", "12312034312032431543120324315432065431203243576543120324315"+\
-  "432065431237654312", "12312343120345431203243154365431203243154367654312"+\
-  "032431543206543123456765431203243154", "1203243120324543120324356543120"+\
-  "3243154367654312032431543206543123456765431203243154320654312", "120324"+\
-  "312032435431203243154365431203243154320654312765431203243154320654312"+\
+  "020320432054312036543120324315436765431203243154320654312345676543120"+
+  "3243154", "12312034312032431543120324315432065431203243576543120324315"+
+  "432065431237654312", "12312343120345431203243154365431203243154367654312"+
+  "032431543206543123456765431203243154", "1203243120324543120324356543120"+
+  "3243154367654312032431543206543123456765431203243154320654312", "120324"+
+  "312032435431203243154365431203243154320654312765431203243154320654312"+
   "345676543120324315432065431234567"], "elms": [], "special": "2240_x'",
   "size": 3640}, {"a": 46, "character": [["567_x'", 1]], "distinv":
   "12031203243120324315431203243154320654312032431543206543123456",
-  "replstar": ["120312032431203243154312032431543206543120324315432065431"+\
+  "replstar": ["120312032431203243154312032431543206543120324315432065431"+
   "23456"], "elms": [], "special": "567_x'", "size": 567}, {"a": 63,
   "character": [["112_z'", 1], ["84_x'", 1]], "distinv":
   "012031203243120324315431203243154320654312032431543206543123456",
-  "replstar": ["01203120324312032431543120324315432065431203243154320654"+\
-  "3123456", "12312034312032435431203243154326543120324315432065431234576"+\
-  "54312032431543206543123456", "01203120324312032431543120324315432065431"+\
+  "replstar": ["01203120324312032431543120324315432065431203243154320654"+
+  "3123456", "12312034312032435431203243154326543120324315432065431234576"+
+  "54312032431543206543123456", "01203120324312032431543120324315432065431"+
   "20324315432065431234567654312032431543206543123456"], "elms": [],
   "special": "112_z'", "size": 196}, {"a": 31, "character": [["3240_z'", 1]],
-  "distinv": "1231203431203243543120324315432654312345676543120324315432"+\
+  "distinv": "1231203431203243543120324315432654312345676543120324315432"+
   "65431", "replstar": ["23124312354312346543123457654312032431543265431",
   "020320432054320654312032431765431203243154320654312345",
   "123120343120324354312032431543265431234567654312032431543265431",
@@ -14370,116 +14911,116 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "replstar": ["12312343123454312345654312345676543120324315432654317",
   "1231203431203243543120324315432654312345676543120324315432654317",
   "012031203243120324315431203243154320654312345676543120324315432654317",
-  "123123431234543120345654312032435465765431203243154320654312347654312"+\
-  "032431", "123120343120324354312032431543206543120324354657654312032431"+\
+  "123123431234543120345654312032435465765431203243154320654312347654312"+
+  "032431", "123120343120324354312032431543206543120324354657654312032431"+
   "54320654312347654312032431"], "elms": [], "special": "700_x'", "size":
   1100}, {"a": 32, "character": [["1575_x'", 1], ["1400_x'", 1],
-  ["1050_x'", 1]], "distinv": "120312431203245431203243154320654312032431"+\
+  ["1050_x'", 1]], "distinv": "120312431203245431203243154320654312032431"+
   "5432065431234576543120324315432065431234576543120324315432", "replstar":
-  ["020320432054312032654312032431546576543120324315432065431234576543120"+\
-  "324315432", "123120343120324354312032431543206543120324315432065476543"+\
-  "1203243154320654312345", "0203204320543120324654312032431543265476543"+\
-  "120324315432065431234576543120324315432", "120312431235431203243154320"+\
+  ["020320432054312032654312032431546576543120324315432065431234576543120"+
+  "324315432", "123120343120324354312032431543206543120324315432065476543"+
+  "1203243154320654312345", "0203204320543120324654312032431543265476543"+
+  "120324315432065431234576543120324315432", "120312431235431203243154320"+
   "65431203243154320654312345765431203243154320654312345765431203245",
-  "12031431205431203243154320654312032431543206543123457654312032431543206"+\
-  "5431234576543120324315432", "12031243120324543120324315432065431203243"+\
+  "12031431205431203243154320654312032431543206543123457654312032431543206"+
+  "5431234576543120324315432", "12031243120324543120324315432065431203243"+
   "15432065431234576543120324315432065431234576543120324315432"], "elms": [],
   "special": "1400_x'", "size": 4025}, {"a": 21, "character":
-  [["4200_z'", 1]], "distinv": "031203431235431203456543120324315432065"+\
+  [["4200_z'", 1]], "distinv": "031203431235431203456543120324315432065"+
   "43127654312032431543206543123457654312032435", "replstar":
   ["0203204320543120324654312032431543265476543120324356",
   "013143125431203246543120324315432065431234576543120324356",
-  "03120343123543120345654312032431543206543127654312032431543206543123"+\
+  "03120343123543120345654312032431543206543127654312032431543206543123"+
   "457654312032435"], "elms": [], "special": "4200_z'", "size": 4200},
   {"a": 31, "character": [["3240_z'", 1]], "distinv":
-  "03120343125431203246543120324315432065437654312032431543206543123456"+\
+  "03120343125431203246543120324315432065437654312032431543206543123456"+
   "76543120324315432065431234567", "replstar":
   ["123123431234543120345654312032431543206547654312032431543206543765",
-  "02032043205431203654312032431546765431203243154320654312345676543120"+\
-  "324356", "1231203431203243543120324315432065431203243154320654765431203"+\
-  "2431543206543765", "03120343125431203246543120324315432065437654312032"+\
+  "02032043205431203654312032431546765431203243154320654312345676543120"+
+  "324356", "1231203431203243543120324315432065431203243154320654765431203"+
+  "2431543206543765", "03120343125431203246543120324315432065437654312032"+
   "43154320654312345676543120324315432065431234567"], "elms": [], "special":
   "3240_z'", "size": 3240}, {"a": 42, "character": [["700_x'", 1],
-  ["300_x'", 1]], "distinv": "123123431234543120324315432065431203243154"+\
+  ["300_x'", 1]], "distinv": "123123431234543120324315432065431203243154"+
   "32065431234567654312032431543206543123457654312345", "replstar":
   ["1231234312345431234565431234567654312032431543206543123457654312345",
-  "123120343120324354312032431543265431234567654312032431543206543123457"+\
-  "654312345", "1231234312345431203243154320654312032431543206543123456"+\
+  "123120343120324354312032431543265431234567654312032431543206543123457"+
+  "654312345", "1231234312345431203243154320654312032431543206543123456"+
   "7654312032431543206543123457654312345"], "elms": [], "special": "700_x'",
   "size": 1000}, {"a": 32, "character": [["1400_x'", 1], ["1050_x'", 1],
-  ["175_x'", 1]], "distinv": "12031431543120324315432654312032431546765"+\
+  ["175_x'", 1]], "distinv": "12031431543120324315432654312032431546765"+
   "431203243154320654312345676543120324315432654", "replstar":
   ["123123431234543120324565431203243154365476543120324315432654765",
   "1203143154312032431543265431203243156765431203243154320654312347654312",
-  "120314312543120324315436543120324354765431203243154320654312345676543"+\
-  "1203245", "1231234312345431203243546543120324315432065431765431203243"+\
-  "15432654765", "1231203431203243154312032431543206543120324315436547654"+\
-  "3120324315432654765", "1203143154312032431543265431203243154676543120"+\
+  "120314312543120324315436543120324354765431203243154320654312345676543"+
+  "1203245", "1231234312345431203243546543120324315432065431765431203243"+
+  "15432654765", "1231203431203243154312032431543206543120324315436547654"+
+  "3120324315432654765", "1203143154312032431543265431203243154676543120"+
   "3243154320654312345676543120324315432654"], "elms": [], "special":
   "1400_x'", "size": 2625}, {"a": 47, "character": [["560_z'", 1]],
-  "distinv": "12031431205431203243154326543120324315432654765431203243"+\
+  "distinv": "12031431205431203243154326543120324315432654765431203243"+
   "154320654312345676543120324315432065431234567", "replstar":
-  ["012031203243120324315431203243154320654312032431543206543176543120324"+\
-  "315432654765", "12031431205431203243154326543120324315432654765431203"+\
+  ["012031203243120324315431203243154320654312032431543206543176543120324"+
+  "315432654765", "12031431205431203243154326543120324315432654765431203"+
   "243154320654312345676543120324315432065431234567"], "elms": [],
   "special": "560_z'", "size": 560}, {"a": 32, "character": [["1575_x'", 2],
-  ["1400_x'", 1], ["350_x'", 1]], "distinv": "1231203431203243543120324"+\
+  ["1400_x'", 1], ["350_x'", 1]], "distinv": "1231203431203243543120324"+
   "3154320654312032431543265431765431203243154320654312345", "replstar":
   ["12312343123454312345654312032431543206543276543120324315432",
   "123123431234543123456543120324315432654317654312032431543265431",
   "020320432054320654312032435465765431203243154320654312347654312032431",
   "123123431234543120345654312032431543265431765431203243154320654312345",
-  "123120343120324354312032431543206543120324315432654317654312032431543"+\
+  "123120343120324354312032431543206543120324315432654317654312032431543"+
   "20654312345"], "elms": [], "special": "1400_x'", "size": 4900}, {"a": 47,
-  "character": [["560_z'", 1]], "distinv": "12312034312032435431203243"+\
+  "character": [["560_z'", 1]], "distinv": "12312034312032435431203243"+
   "15432654312032431543206543123457654312032431543265431", "replstar":
-  ["123123431234543123456543123456765431203243154320654312345765431203243"+\
-  "15432", "1231203431203243543120324315432654312032431543206543123457654"+\
+  ["123123431234543123456543123456765431203243154320654312345765431203243"+
+  "15432", "1231203431203243543120324315432654312032431543206543123457654"+
   "312032431543265431"], "elms": [], "special": "560_z'", "size": 560},
   {"a": 52, "character": [["160_z'", 1], ["210_x'", 1]], "distinv":
-  "123120343120324354312032431543265431203243154320654312345676543120324"+\
-  "31543206543123456", "replstar": ["12312034312032435431203243154326543"+\
-  "120324315432065431234567654312032431543206543123456", "1231234312345431"+\
+  "123120343120324354312032431543265431203243154320654312345676543120324"+
+  "31543206543123456", "replstar": ["12312034312032435431203243154326543"+
+  "120324315432065431234567654312032431543206543123456", "1231234312345431"+
   "20324356543120324315432654376543120324315432065431234576543120324315432"],
   "elms": [], "special": "210_x'", "size": 370}, {"a": 37, "character":
   [["1400_z'", 1], ["1008_z'", 2], ["56_z'", 1]], "distinv":
-  "1231203243120324315431203243154320654312032431543207654312032431543"+\
+  "1231203243120324315431203243154320654312032431543207654312032431543"+
   "2065431234576543120324315432", "replstar":
   ["012031203243120324315431203243154320654312032435476543120324315432",
   "0120312032431203243154312032431543206543123457654312032431543265431",
   "01203120324312032431543120324315432065431234567654312032431543265431",
-  "01203120324312032431543120324315432065431203243154327654312032431543"+\
-  "265431", "1231203243120324315431203243154320654312032431543207654312"+\
+  "01203120324312032431543120324315432065431203243154327654312032431543"+
+  "265431", "1231203243120324315431203243154320654312032431543207654312"+
   "0324315432065431234576543120324315432"], "elms": [], "special": "1400_z'",
   "size": 3472}, {"a": 52, "character": [["210_x'", 1], ["50_x'", 1]],
-  "distinv": "1203123431203245431203243154320654312032431543206543123457"+\
+  "distinv": "1203123431203245431203243154320654312032431543206543123457"+
   "65431203243154320654312345676543120324315432065431234567", "replstar":
-  ["012031203243120324315431203243154320654312032431543206543276543120324"+\
-  "31543206543123456765431203245", "1203143125431203243154320654312032431"+\
+  ["012031203243120324315431203243154320654312032431543206543276543120324"+
+  "31543206543123456765431203245", "1203143125431203243154320654312032431"+
   "54320654312345765431203243154320654312345676543120324315432065431234567",
-  "1203123431203245431203243154320654312032431543206543123457654312032431"+\
+  "1203123431203245431203243154320654312032431543206543123457654312032431"+
   "54320654312345676543120324315432065431234567"], "elms": [], "special":
   "210_x'", "size": 260}, {"a": 63, "character": [["112_z'", 1],
   ["28_x'", 1]], "distinv":
-  "12312343120324315431203243154320654312032431543206543123456765431203"+\
-  "24315432065431234576543120324315432", "replstar": ["0120312032431203"+\
+  "12312343120324315431203243154320654312032431543206543123456765431203"+
+  "24315432065431234576543120324315432", "replstar": ["0120312032431203"+
   "243154312032431543206543120324315432065431234567654312032431543265431",
-  "123123431203243154312032431543206543120324315432065431234567654312032"+\
+  "123123431203243154312032431543206543120324315432065431234567654312032"+
   "4315432065431234576543120324315432"], "elms": [], "special": "112_z'",
   "size": 140}, {"a": 74, "character": [["35_x'", 1]], "distinv":
-  "01203120324312032431543120324315432065431203243154320654312345676543"+\
+  "01203120324312032431543120324315432065431203243154320654312345676543"+
   "1203243154320654312345765431203243154320", "replstar":
-  ["0120312032431203243154312032431543206543120324315432065431234567654"+\
+  ["0120312032431203243154312032431543206543120324315432065431234567654"+
   "31203243154320654312345765431203243154320"], "elms": [], "special":
   "35_x'", "size": 35}, {"a": 91, "character": [["8_z'", 1]], "distinv":
-  "0120312032431203243154312032431543206543120324315432065431234567654"+\
+  "0120312032431203243154312032431543206543120324315432065431234567654"+
   "3120324315432065431234567654312032431543206543123456", "replstar":
-  ["012031203243120324315431203243154320654312032431543206543123456765"+\
+  ["012031203243120324315431203243154320654312032431543206543123456765"+
   "43120324315432065431234567654312032431543206543123456"], "elms": [],
   "special": "8_z'", "size": 8}, {"a": 120, "character": [["1_x'", 1]],
-  "distinv": "0120312032431203243154312032431543206543120324315432065431"+\
+  "distinv": "0120312032431203243154312032431543206543120324315432065431"+
   "23456765431203243154320654312345676543120324315432065431234567",
-  "replstar": ["012031203243120324315431203243154320654312032431543206"+\
+  "replstar": ["012031203243120324315431203243154320654312032431543206"+
   "543123456765431203243154320654312345676543120324315432065431234567"],
   "elms": [], "special": "1_x'", "size": 1}]
 
@@ -14507,6 +15048,7 @@ E8KLCELLREPORBITS=[[1, 1], [8, 8], [35, 35], [140, 28], [196, 84],
   [560, 50], [4900, 350], [560, 510], [370, 160], [3472, 56], [260, 50],
   [140, 28], [35, 35], [8, 8], [1, 1]]
 
+
 def E8CELLREPcheck():
     """checks if the elements in replstar belong to the same tau-cell,
     and if size and degrees of characters are ok.
@@ -14520,13 +15062,16 @@ def E8CELLREPcheck():
         if len(g)>1:
             return False
         # check size
-        d1=sum([i[1]*t['irreducibles'][ch.index(i[0])][0] for i in c['character']])
+        d1=sum([i[1]*t['irreducibles'][ch.index(i[0])][0]
+               for i in c['character']])
         d2=sum([len(leftklstarorbitelm(W,W.wordtoperm(w))) for w in l])
         if not(d1==d2 and d1==c['size']):
             return False
     return True
 
 #F klcellreps
+
+
 def klcellreps(W, verbose=False):
     """returns a list of dictionaries  containing basic information about
     a set of representatives of the left cells of W (equal parameters)
@@ -14570,14 +15115,15 @@ def klcellreps(W, verbose=False):
             klcr=E7KLCELLREPS
         else:
             klcr=E8KLCELLREPS
-        if any((len(l['elms'])==0 or l['elms']==False) for l in klcr):
+        if any((len(l['elms'])==0 or l['elms'] is False) for l in klcr):
             if verbose:
                 lprint('#I =====> '+str(len(klcr))+' (unpacking data) ')
             for l in range(len(klcr)):
                 c=[]
                 for r in [W.wordtoperm([int(i) for i in w])
                                     for w in klcr[l]['replstar']]:
-                    c.extend([x[:len(W.rank)] for x in leftklstarorbitelm(W,r)])
+                    c.extend([x[:len(W.rank)]
+                             for x in leftklstarorbitelm(W,r)])
                 if l%10==0:
                     if verbose:
                         lprint('.')
@@ -14620,6 +15166,8 @@ def klcellreps(W, verbose=False):
         return klcr1
 
 #F cellrepstarorbit
+
+
 def cellrepstarorbit(W, c, verbose=False):
     """returns the orbit of a left cell from 'klcellreps' under the
     star operations.  Hence,  if we apply  this function  to all
@@ -14655,11 +15203,13 @@ def cellrepstarorbit(W, c, verbose=False):
                     'special':c['special'], 'elms':set(cc[1][i]),
                     'index':c['index'],
                     'distinv': ''.join([str(s) for s in W.permtoword(cc[0][i])])})
-                                #'replstar':[''.join([str(s) for s in W.permtoword(w)])
-                                #                    for w in leftklstarreps(W,cc[1][i])]})
+        #'replstar':[''.join([str(s) for s in W.permtoword(w)])
+        #                    for w in leftklstarreps(W,cc[1][i])]})
     return orb
 
 #F klcellrepelm
+
+
 def klcellrepelm(W, w, verbose=False):
     """returns a dictionary, as in 'klcellreps', corresponding to the
     given element,  but where  the components  'distiv' and 'elms'
@@ -14711,7 +15261,7 @@ def klcellrepelm(W, w, verbose=False):
                 for t in range(s):
                     if W.coxetermat[s][t]==3:
                         nc=klstaroperation(W,s,t,[y])
-                        if nc!=False and not nc[0][:len(W.rank)] in orb1:
+                        if nc is not False and not nc[0][:len(W.rank)] in orb1:
                             for c in range(len(e8c)):
                                 if nc[0][:len(W.rank)] in e8c[c]['elms']:
                                     if verbose:
@@ -14727,6 +15277,8 @@ def klcellrepelm(W, w, verbose=False):
     return False
 
 #F cellreplstars
+
+
 def cellreplstars(W, verbose=False):
     """returns a list of dictionaries (as in 'klcellreps') corresponding
     to all the left cells of W, but where only representatives of the
@@ -14786,10 +15338,11 @@ def cellreplstars(W, verbose=False):
         except:
             print("#I file e8celldata.py not found; using basic algorithm")
             E8ALLKLCELLS = False
-        if E8ALLKLCELLS != False:
+        if E8ALLKLCELLS is not False:
             from e8celldata import E8ALLPOSITIVEROOTS
             if W.roots[:W.N]!=E8ALLPOSITIVEROOTS:
-                raise ValueError("----> WARNING: LABELLING OF ROOTS NOT OK !!! <----")
+                raise ValueError(
+                    "----> WARNING: LABELLING OF ROOTS NOT OK !!! <----")
             if verbose:
                 print("#I reading E8-data OK")
             e8all=[]
@@ -14858,7 +15411,7 @@ def leftcellelm(W,w,replstars=False, verbose=False):
 
     See also 'klcellreps' and 'cellreplstars'.
     """
-    if replstars!=False:
+    if replstars is not False:
         orb=[x[:len(W.rank)] for x in leftklstarorbitelm(W,W.wordtoperm(w))]
         orb.sort()
         for c in replstars:
@@ -14867,7 +15420,7 @@ def leftcellelm(W,w,replstars=False, verbose=False):
                   'special':c['special'], 'index':c['index'], 'elms': c['elms'],
                   'replstar':c['replstar'],
                   'distinv': ''.join([str(s) for s in W.coxelmtoword(c['distinv'])])}
-    if replstars!=False:
+    if replstars is not False:
         print('Mist !!!!')
         return False
     w1=W.wordtoperm(w)
@@ -14887,7 +15440,7 @@ def leftcellelm(W,w,replstars=False, verbose=False):
                     for t in range(s):
                         if W.coxetermat[s][t]==3:
                             nc=klstaroperation(W,s,t,[y])
-                            if nc!=False and not nc[0][:len(W.rank)] in orb1:
+                            if nc is not False and not nc[0][:len(W.rank)] in orb1:
                                 for c in range(len(e8c)):
                                     if nc[0][:len(W.rank)] in e8c[c]['elms']:
                                         weiter=False
@@ -14936,6 +15489,8 @@ def leftcellelm(W,w,replstars=False, verbose=False):
                                 ncell.append([bytes(x) for x in n1])
 
 #F klcellsclasses
+
+
 def klcellsclasses(W, verbose=False):
     """determines intersections of two-sided cells with elements
     of minimal length in cuspidal classes of W.
@@ -14960,6 +15515,8 @@ def klcellsclasses(W, verbose=False):
     return mat
 
 #F cellrepcheck1
+
+
 def cellrepcheck1(W,klcr):
     """checks if the elements in replstar belong to the same tau-cell,
     and if size and degrees of characters are ok.
@@ -14972,7 +15529,8 @@ def cellrepcheck1(W,klcr):
         if len(g)>1:
             return False
         # check size
-        d1=sum([i[1]*t['irreducibles'][ch.index(i[0])][0] for i in c['character']])
+        d1=sum([i[1]*t['irreducibles'][ch.index(i[0])][0]
+               for i in c['character']])
         elms=[]
         for w in l:
             elms.extend(leftklstarorbitelm(W,W.wordtoperm(w)))
@@ -14982,6 +15540,8 @@ def cellrepcheck1(W,klcr):
     return True
 
 #F cellrepcheck2
+
+
 def cellrepcheck2(W):
     """returns True if the union over all cellrepstarorbits in
     klcellrep is the set of  all elements of W;  otherwise,
@@ -15030,6 +15590,8 @@ def cellrepcheck2(W):
     return len(alls)==numb and numb==W.order
 
 #F cellrepcheck3
+
+
 def cellrepcheck3(W):
     """check for function 'cellreplstars'.
     """
@@ -15037,7 +15599,8 @@ def cellrepcheck3(W):
     for l in cellreplstars(W):
         numb=0
         for r in l['replstar']:
-            c=[x[:len(W.rank)] for x in leftklstarorbitelm(W,W.coxelmtoperm(r))]
+            c=[x[:len(W.rank)]
+                      for x in leftklstarorbitelm(W,W.coxelmtoperm(r))]
             numb+=len(c)
             alls.update(c)
         if numb!=l['size']:
@@ -15045,6 +15608,8 @@ def cellrepcheck3(W):
     return len(alls)==W.order
 
 #F checkleftctd
+
+
 def checkleftctd(W, verbose=False):
     """checks left-connectedness of all left cells of W.
 
@@ -15069,6 +15634,8 @@ def checkleftctd(W, verbose=False):
     return set(res)
 
 # check Kottwitz conjecture
+
+
 def checkkottwitz(W):
     check=[]
     count=0
@@ -15104,6 +15671,8 @@ def checkkottwitz(W):
 ##
 
 #F timer
+
+
 def timer(func,*pargs,**kargs):
     """returns the result of applying a function and prints the time used
     in seconds. (Taken from M. Lutz's "Learning Python" book.)
@@ -15118,6 +15687,8 @@ def timer(func,*pargs,**kargs):
     return ret
 
 #F checksh
+
+
 def checksh(W,paramL):
     """checks if the relation characterising the  Schur elements is true;
 
@@ -15137,6 +15708,8 @@ def checksh(W,paramL):
     return res[0]==p and all(i==0 for i in res[1:len(gd)])
 
 #F test
+
+
 def test():
     """runs a test suite.
 
@@ -15146,9 +15719,9 @@ def test():
     v=lpol([1],1,'v')
     somechecks=[]
     # test all cartan types (finite and affine)
-    W=coxeter('A',1);
+    W=coxeter('A',1)
     chartable(W)
-    W=coxeter('A',2);
+    W=coxeter('A',2)
     chartable(W)
     W=coxeter('A',3)
     chartable(W)
@@ -15262,13 +15835,13 @@ def test():
     lprint(str(W.cartanname)+'\n')
     lprint(str(W.order)+'\n')
     somechecks.append(W.cartan==cartantypetomat(cartantotype(W.cartan)))
-    c=conjugacyclasses(W);
+    c=conjugacyclasses(W)
     r=reflections(W)
     l=longestperm(W)
     a=allelmchain(W)
     H=reflectionsubgroup(W,[0,1,2,3,4,5,6,7,W.N-1])
     lH=H.permtoword(longestperm(H))
-    lW=H.reducedword(lH,W);
+    lW=H.reducedword(lH,W)
     W=coxeter([[2,0,-1,0,0,0,0,0,0],[0,2,0,0,-1,0,0,0,0],
         [-2,0,2,0,0,0,0,0,0],[0,0,0,2,-1,0,-1,0,0],[0,-1,0,-1,2,0,0,-1,0],
         [0,0,0,0,0,2,0,0,-1],[0,0,0,-1,0,0,2,0,0],[0,0,0,0,-1,0,0,2,0],
@@ -15381,7 +15954,7 @@ def test():
     somechecks.append(set([w in aa for w in aw])==set([True]))
     aa=[W.stringtoword(x) for x in allwordstrings(W)]
     somechecks.append(set([w in aa for w in aw])==set([True]))
-    w=W.wordtoperm([0,1,0,2]);
+    w=W.wordtoperm([0,1,0,2])
     b1=list(filter(lambda x: bruhatcoxelm(W,x,w),ah))
     b1a=list(filter(lambda x: bruhat(W,x,w),ah))
     elms=[W.coxelmtoperm(c) for c in ah]
