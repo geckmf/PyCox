@@ -4028,9 +4028,8 @@ def redrightcosetreps(W,H):
   increasing length.
 
   >>> W = coxeter("A",4)
-  >>> a=redrightcosetreps(W,[0,1,2])
+  >>> a=redrightcosetreps(W,[0,1,2]); a
   [(0, 1, 2, 3), (0, 1, 6, 13), (0, 5, 3, 16), (4, 2, 3, 18), (1, 2, 3, 19)]
-  #I total = 5
   >>> [W.coxelmtoword(c) for c in a]
   [[], [3], [3,2], [3,2,1], [3,2,1,0]]
 
@@ -4050,7 +4049,7 @@ def redrightcosetreps(W,H):
     l,ol=[tuple(range(2*W.N))],[tuple(range(2*W.N))]
   ol1=[]
   J=H.fusions[W.cartanname]['subJ']
-  while len(ol)>0:
+  while ol:
     nl=[]
     for w in ol:
       for s in W.rank:
@@ -4109,9 +4108,7 @@ def allelmchain(W,depth=1):
   large rank (including all the groups of exceptional type).
 
   >>> W = coxeter("A",5)
-  >>> a=allelmchain(W,depth=3)
-  #I total = 6
-  #I total = 5
+  >>> a=allelmchain(W,depth=3); a
   [[[],[0],[1],[2],[0,2],[2,1],[0,1],[1,2],[1,0],[0,1,0],[0,1,2],
     [1,0,2],[1,2,1],[2,1,0],[0,2,1],[1,2,1,0],[0,1,2,1],[1,0,2,1],
     [0,1,0,2],[0,2,1,0],[0,1,0,2,1],[0,1,2,1,0],[1,0,2,1,0],
@@ -4169,10 +4166,7 @@ def allelmchain1(W):
   even for groups of relatively large rank, e.g., type E_8.
 
   >>> W = coxeter("A",5)
-  >>> a=allelmchain(W)
-  #I total = 6
-  #I total = 5
-  #I total = 24
+  >>> a=allelmchain(W); a
   [[[],[4],[3,4],[2,3,4],[1,2,3,4],[0,1,2,3,4]],
    [[],[3],[2,3],[1,2,3],[0,1,2,3]],
    [[],[0],[1],[2],[0,1],[2,1],[0,2],[1,2],[1,0],[0,1,0],[0,1,2],[1,0,2],
@@ -4975,8 +4969,21 @@ def conjugacyclasses(W):
   >>> W.cartantype
   [['A', [0, 2]], ['C', [3, 1]]]
   >>> conjugacyclasses(W)['reps']
-  [[],[3],[3,1,3,1],[1],[3,1],[0],[0,3],[0,3,1,3,1],[0,1],
-   [0,3,1],[0,2],[0,2,3],[0,2,3,1,3,1],[0,2,1],[0,2,3,1]]
+  [[],
+   [3],
+   [3, 1, 3, 1],
+   [1],
+   [3, 1],
+   [0],
+   [0, 3],
+   [0, 3, 1, 3, 1],
+   [0, 1],
+   [0, 3, 1],
+   [0, 2],
+   [0, 2, 3],
+   [0, 2, 3, 1, 3, 1],
+   [0, 2, 1],
+   [0, 2, 3, 1]]
 
   The representatives of the classes are ``good`` in the sense of::
 
@@ -5023,8 +5030,17 @@ def identifyclasses(W,elms,minrep=False, verbose=False):
   >>> identifyclasses(W,[W.permtoword(longestperm(W))])
   [3]
   >>> conjugacyclasses(W)['reps']
-  [[],[0],[0,2],[0,2,4],[0,1],[0,1,3],[0,1,3,4],[0,1,2],[0,1,2,4],
-   [0,1,2,3],[0,1,2,3,4]]
+  [[],
+   [0],
+   [0, 2],
+   [0, 2, 4],
+   [0, 1],
+   [0, 1, 3],
+   [0, 1, 3, 4],
+   [0, 1, 2],
+   [0, 1, 2, 4],
+   [0, 1, 2, 3],
+   [0, 1, 2, 3, 4]]
 
   (Thus, the longest  element belongs  to the conjugacy class with
   respresentive [0,2,4].)
@@ -5172,8 +5188,8 @@ def fusionconjugacyclasses(H,W):
   >>> H.cartantype               # non-parabolic
   [['D', [0, 5, 1, 2, 3, 4]]]
   >>> fusionconjugacyclasses(H,W)
-  [0,2,4,6,7,10,11,14,15,17,19,21,23,25,26,26,28,30,33,34,37,38,
-                      41,43,44,46,48,49,52,53,55,55,58,59,62,63,63]
+  [0, 2, 4, 6, 7, 10, 11, 14, 15, 17, 19, 21, 23, 25, 26, 26, 28, 30,
+   33, 34, 37, 38, 41, 43, 44, 46, 48, 49, 52, 53, 55, 55, 58, 59, 62, 63, 63]
   """
   fh=H.fusions[W.cartanname]
   if 'classes' in fh:
@@ -5192,7 +5208,7 @@ def fusionconjugacyclasses(H,W):
         nw.extend(W.rootrepelms[fh['subJ'][s]])
         nw.append(W.rootorbits1[fh['subJ'][s]])
         nw.extend(W.rootrepelms[fh['subJ'][s]][::-1])
-      clH.append(conjtomin(W,W.wordtoperm(nw)))
+      clH.append(conjtomin(W, W.wordtoperm(nw)))
   H.fusions[W.cartanname]['classes']=identifyclasses(W,clH,minrep=True)
   return H.fusions[W.cartanname]['classes']
 
@@ -5394,16 +5410,16 @@ def chartableB(n, verbose=False):
   [[[1, 1, 1], []], [[1, 1], [1]], [[1], [1, 1]], [[], [1, 1, 1]],
    [[2, 1], []], [[1], [2]], [[2], [1]], [[], [2, 1]], [[3], []], [[], [3]]]
   >>> chartableB(3)
-  [[1, 1, 1, 1,-1,-1,-1,-1, 1, 1],
-   [3, 1,-1,-3,-1,-1, 1, 1, 0, 0],
-   [3,-1,-1, 3,-1, 1,-1, 1, 0, 0],
-   [1,-1, 1,-1,-1, 1, 1,-1, 1,-1],      # sign character
-   [2, 2, 2, 2, 0, 0, 0, 0,-1,-1],
-   [3,-1,-1, 3, 1,-1, 1,-1, 0, 0],
-   [3, 1,-1,-3, 1, 1,-1,-1, 0, 0],      # reflection character
-   [2,-2, 2,-2, 0, 0, 0, 0,-1, 1],
-   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],      # trivial character
-   [1,-1, 1,-1, 1,-1,-1, 1, 1,-1]]
+  [[1, 1, 1, 1, -1, -1, -1, -1, 1, 1],
+   [3, 1, -1, -3, -1, -1, 1, 1, 0, 0],
+   [3, -1, -1, 3, -1, 1, -1, 1, 0, 0],
+   [1, -1, 1, -1, -1, 1, 1, -1, 1, -1],
+   [2, 2, 2, 2, 0, 0, 0, 0, -1, -1],
+   [3, -1, -1, 3, 1, -1, 1, -1, 0, 0],
+   [3, 1, -1, -3, 1, 1, -1, -1, 0, 0],
+   [2, -2, 2, -2, 0, 0, 0, 0, -1, 1],
+   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+   [1, -1, 1, -1, 1, -1, -1, 1, 1, -1]]
 
   See also 'heckevalueB'.
   """
@@ -5564,18 +5580,18 @@ def chartableD(n):
     rows corresponding to +/- characters have to be swapped.
 
   >>> W = coxeter("D",4); chartable(W)['irreducibles']
-  [[3,-1, 3,-1, 1,-1, 3,-1,-1, 0, 0,-1, 1],
-   [3,-1, 3,-1, 1,-1,-1, 3,-1, 0, 0, 1,-1],
-   [4, 0,-4,-2, 0, 2, 0, 0, 0, 1,-1, 0, 0],
-   [1, 1, 1,-1,-1,-1, 1, 1, 1, 1, 1,-1,-1],
-   [6,-2, 6, 0, 0, 0,-2,-2, 2, 0, 0, 0, 0],
-   [8, 0,-8, 0, 0, 0, 0, 0, 0,-1, 1, 0, 0],
-   [3, 3, 3,-1,-1,-1,-1,-1,-1, 0, 0, 1, 1],
-   [3,-1, 3, 1,-1, 1, 3,-1,-1, 0, 0, 1,-1],
-   [3,-1, 3, 1,-1, 1,-1, 3,-1, 0, 0,-1, 1],
-   [2, 2, 2, 0, 0, 0, 2, 2, 2,-1,-1, 0, 0],
-   [4, 0,-4, 2, 0,-2, 0, 0, 0, 1,-1, 0, 0],
-   [3, 3, 3, 1, 1, 1,-1,-1,-1, 0, 0,-1,-1],
+  [[3, -1, 3, -1, 1, -1, 3, -1, -1, 0, 0, -1, 1],
+   [3, -1, 3, -1, 1, -1, -1, 3, -1, 0, 0, 1, -1],
+   [4, 0, -4, -2, 0, 2, 0, 0, 0, 1, -1, 0, 0],
+   [1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, -1, -1],
+   [6, -2, 6, 0, 0, 0, -2, -2, 2, 0, 0, 0, 0],
+   [8, 0, -8, 0, 0, 0, 0, 0, 0, -1, 1, 0, 0],
+   [3, 3, 3, -1, -1, -1, -1, -1, -1, 0, 0, 1, 1],
+   [3, -1, 3, 1, -1, 1, 3, -1, -1, 0, 0, 1, -1],
+   [3, -1, 3, 1, -1, 1, -1, 3, -1, 0, 0, -1, 1],
+   [2, 2, 2, 0, 0, 0, 2, 2, 2, -1, -1, 0, 0],
+   [4, 0, -4, 2, 0, -2, 0, 0, 0, 1, -1, 0, 0],
+   [3, 3, 3, 1, 1, 1, -1, -1, -1, 0, 0, -1, -1],
    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
   >>> H = reflectionsubgroup(W,[1,2,3]); H.cartantype
   [['A', [0, 1, 2]]]
@@ -6860,7 +6876,7 @@ def inductiontable(H,W,display=False,invchar=False):
   function  on the  irreducible characters  by which the induction
   will be truncated, for example:
 
-  >>> inductiontable(H,W,
+  >>> inductiontable(H,W,                       # not tested
   ...           invchar=(lambda G:chartable(G, chars=False)['b']))
 
   will yield the Lusztig-Macdonald-Spaltenstein induction.
