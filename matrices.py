@@ -282,27 +282,25 @@ def scalmatmult(a, b):
 def directsummat(a, b):
     """returns the matrix direct sum of the matrices a and b.
 
-    >>> from chv1r6180 import cartanmat
-    >>> c=directsummat(cartanmat("A",2),cartanmat("G",2)); c
+    >>> from coxeter import cartanmat
+    >>> c = directsummat(cartanmat("A",2),cartanmat("G",2)); c
     [[2, -1, 0, 0], [-1, 2, 0, 0], [0, 0, 2, -1], [0, 0, -3, 2]]
     """
-    if a == [[]]:
+    if not a:
         return b
-    elif b == [[]]:
+    if not b:
         return a
-    else:
-        c = idmat(range(len(a[0]) + len(b[0])), 0)
-        for i in range(len(a[0])):
-            for j in range(len(a[0])):
-                c[i][j] = a[i][j]
-        for i in range(len(b[0])):
-            for j in range(len(b[0])):
-                c[len(a[0]) + i][len(a[0]) + j] = b[i][j]
-        return c
+    c = idmat(range(len(a[0]) + len(b[0])), 0)
+    for i in range(len(a[0])):
+        for j in range(len(a[0])):
+            c[i][j] = a[i][j]
+    for i in range(len(b[0])):
+        for j in range(len(b[0])):
+            c[len(a[0]) + i][len(a[0]) + j] = b[i][j]
+    return c
+
 
 # F kroneckerproduct
-
-
 def kroneckerproduct(mat1, mat2):
     """returns the  Kronecker product of the matrices mat1 and mat2. If
     mat1  has size m times n and mat2  has  size p times q, then the
@@ -844,7 +842,8 @@ def displaymat(mat, rows=[], cols=[], width=78):
     the display, i.e., the maximum number of characters printed  (the
     default value is 78 characters per line).
 
-    >>> from chv1r6180 import coxeter, chartable
+    >>> from coxeter import coxeter
+    >>> from pycox import chartable
     >>> displaymat(chartable(coxeter("H",3))['irreducibles'])
      1 -1     1  1  1     -1     1 -1     -1 -1
      1  1     1  1  1      1     1  1      1  1

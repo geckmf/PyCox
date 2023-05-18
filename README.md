@@ -7,6 +7,6 @@ Mathematics (2012), available at https://dx.doi.org/10.1112/S1461157012001064.
 
 Installing: Inside a Python session, just say
 
->>> from chv1r6180 import *
+>>> from pycox import *
 
 For first help type 'help(coxeter') or 'allfunctions()'.

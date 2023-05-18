@@ -1,4 +1,4 @@
-############################################################################
+# ###########################################################################
 #  PyCox-A Python version of chevie-gap. (Works for Python version >=3.6.)  #
 #  Copyright (C) 2011-2014 Meinolf Geck                                     #
 #                                                                           #
@@ -14,14 +14,14 @@
 #                                                                           #
 #  You should have received a copy of the GNU General Public License        #
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.    #
-#############################################################################
-#  Import into python:       'from chv1r6180 import *'                      #
+# ###########################################################################
+#  Import into python:       'from pycox import *'                          #
 #  Cythonize:                                                               #
-#     cp chv1r6180.py cychv.pyx                                             #
+#     cp pycox.py cychv.pyx                                                 #
 #     cython3 -a cychv.pyx                                                  #
 #     gcc -shared -pthread -fPIC -fwrapv -O2 -Wall -fno-strict-aliasing \   #
 #                            -I/usr/include/python3.4 -o cychv.so cychv.c   #
-#############################################################################
+# ###########################################################################
 import sys  # uses sys.write and sys.version
 import time
 
@@ -81,7 +81,7 @@ except ImportError:
 else:
     readline.parse_and_bind("tab: complete")
 
-CURRENTVERSION=sys.version_info
+CURRENTVERSION = sys.version_info
 if CURRENTVERSION.major == 3 and CURRENTVERSION.minor >= 6:
     from functools import reduce
     inp = input
@@ -201,7 +201,7 @@ def allfunctions():
     return None
 
 
-VG="""   This is intended to be the last major version of  PyCox 1.  (There
+VG = """   This is intended to be the last major version of  PyCox 1.  (There
    will be further bug fix releases, but everything entirely new will
    go  into  what  may  eventually be called  PyCox 2.)  Now, the new
    things in this release are: the function 'displaymat' which allows
@@ -241,7 +241,7 @@ VG="""   This is intended to be the last major version of  PyCox 1.  (There
    (For the previous version type 'versioninfo(1.5)'.)
    """
 
-VF="""   This release contains, first of all, some bug fixes and minor (but
+VF = """   This release contains, first of all, some bug fixes and minor (but
    hopefully useful) additions, like the function  'allelmsproperty'.
    There is now a simple arithmetic for cyctlotomic integers, so that
    we can deal with dihedral groups in general; see 'rootof1'. And it
@@ -280,7 +280,7 @@ VF="""   This release contains, first of all, some bug fixes and minor (but
    (For the previous version type 'versioninfo(1.4)'.)
    """
 
-VE="""   This module has now reached a state  where it contains a number of
+VE = """   This module has now reached a state  where it contains a number of
    features which have never been included in the official gap-chevie
    release, for example:
       * Lusztig's constructible characters and families (this already
@@ -304,7 +304,7 @@ VE="""   This module has now reached a state  where it contains a number of
    (For the previous version type 'versioninfo(1.3)'.)
    """
 
-VD="""   This version contains basic support for Iwahori-Hecke algebras and
+VD = """   This version contains basic support for Iwahori-Hecke algebras and
    their characters;  see 'heckechartable' and the further references
    there. The functions are written in such a way that the parameters
    can  be any non-zero  elements in some  base ring. We also provide
@@ -324,7 +324,7 @@ VD="""   This version contains basic support for Iwahori-Hecke algebras and
    (For the previous version type 'versioninfo(1.2)'.)
    """
 
-VC="""   This version mainly contains bug fixes  and internal  improvements
+VC = """   This version mainly contains bug fixes  and internal  improvements
    to some algorithms, in particular character tables of types A,B,D.
    For ranks at most 8 (i.e., cases that  are involved in exceptional
    types),  this now works reasonably very fast.  Some  examples  for
@@ -352,7 +352,7 @@ VC="""   This version mainly contains bug fixes  and internal  improvements
    (For the previous version type 'versioninfo(1.1)'.)
    """
 
-VB="""   This second version now  includes  support  for ordinary character
+VB = """   This second version now  includes  support  for ordinary character
    tables of finite Coxeter groups.  The material is developed to the
    point  where one can compute induce/restrict tables,  a-invariants
    and Lusztig's families in python. See the help for 'chartable' and
@@ -375,7 +375,7 @@ VB="""   This second version now  includes  support  for ordinary character
    (For the previous version type 'versioninfo(1.0)'.)
    """
 
-VA="""   The original version of CHEVIE was developed for GAP3 (and MAPLE).
+VA = """   The original version of CHEVIE was developed for GAP3 (and MAPLE).
    This module  now is the result of  my efforts  (1) to learn one of
    the more  modern programming languages and  (2) to see if at least
    parts of the gap part of chevie can  be implemented in it. I chose
@@ -405,55 +405,50 @@ VA="""   The original version of CHEVIE was developed for GAP3 (and MAPLE).
 
 
 def versioninfo(nr):
-    if nr>1.6:
+    if nr > 1.6:
         print("not yet available")
-    elif nr==1.6:
+    elif nr == 1.6:
         print(VG)
-    elif nr==1.5:
+    elif nr == 1.5:
         print(VF)
-    elif nr==1.4:
+    elif nr == 1.4:
         print(VE)
-    elif nr==1.3:
+    elif nr == 1.3:
         print(VD)
-    elif nr==1.2:
+    elif nr == 1.2:
         print(VC)
-    elif nr==1.1:
+    elif nr == 1.1:
         print(VB)
-    elif nr==1.0:
+    elif nr == 1.0:
         print(VA)
     else:
         print("no information available")
 
 
-##########################################################################
-#I This file is organised in sections:
-#I ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#I Section 1: Numbers, polynomials, other utility functions
-#I Section 2: Coxeter groups, Cartan matrices, reflections
-#I Section 3: Characters, Schur elements, families
-#I Section 4: Kazhdan-Lusztig cells
-#I Section 5: Tests
-##
-
-##########################################################################
+# ########################################################################
+#  This file is organised in sections:
+#  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#  Section 1: Numbers, polynomials, other utility functions
+#  Section 2: Coxeter groups, Cartan matrices, reflections
+#  Section 3: Characters, Schur elements, families
+#  Section 4: Kazhdan-Lusztig cells
+#  Section 5: Tests
 #
-#Y Section 1: Numbers, polynomials, other utility functions
+# ########################################################################
 #
-
+# Section 1: Numbers, polynomials, other utility functions
+#
 # moved to zeta5, polynomials, matrices
-
+# ########################################################################
+#
+# Section 2: Coxeter groups, Cartan matrices, reflections
+# moved to coxeter
 ##########################################################################
-##
-#Y Section 2: Coxeter groups, Cartan matrices, reflections
-##
+#
+# Section 3: Characters, Schur elements, families
+#
 
-
-##########################################################################
-##
-#Y Section 3: Characters, Schur elements, families
-##
-
-#F inducedchar
+# F inducedchar
 
 def inducedchar(W, H, psi):
     """returns the values of the induced character Ind(psi) (from H to W)
@@ -468,14 +463,14 @@ def inducedchar(W, H, psi):
     >>> inducedchar(W,H,[(-1)**len(w) for w in c])  # induce sign character
     [6, -4, 2, 0, 3, -1, 0, -2, 0, 1, 0]
     """
-    clW=conjugacyclasses(W)['classlengths']
-    clH=conjugacyclasses(H)['classlengths']
-    fus=fusionconjugacyclasses(H,W)
-    ind=len(clW)*[0]
+    clW = conjugacyclasses(W)['classlengths']
+    clH = conjugacyclasses(H)['classlengths']
+    fus = fusionconjugacyclasses(H,W)
+    ind = len(clW)*[0]
     for i in range(len(clW)):
         for j in range(len(clH)):
-            if i==fus[j] and psi[j]!=0:
-                ind[i]+=(W.order*clH[j]*psi[j])//(clW[i]*H.order)
+            if i == fus[j] and psi[j] != 0:
+                ind[i] += (W.order*clH[j]*psi[j])//(clW[i]*H.order)
     return ind
 
 # chartablesymmetric
@@ -498,84 +493,84 @@ def chartablesymmetric(n):
      [3, 1, -1, 0, -1],
      [1, 1, 1, 1, 1]]
     """
-    W=coxeter("A",n-1)
-    pt=partitions(n)
-    ti=[]
+    W = coxeter("A",n-1)
+    pt = partitions(n)
+    ti = []
     for mu in pt[::-1]:
-        J=list(range(n))
-        l=0
+        J = list(range(n))
+        l = 0
         for i in mu:
-            l+=i
+            l += i
             J.remove(l-1)
-        H=reflectionsubgroup(W,J)
-        ch=conjugacyclasses(H)
-        cl=ch['classlengths']
-        nam=[partitions(len(t[1])+1) for t in H.cartantype]
-        fus=[]  # more efficient than fusionconjugacyclasses
+        H = reflectionsubgroup(W,J)
+        ch = conjugacyclasses(H)
+        cl = ch['classlengths']
+        nam = [partitions(len(t[1])+1) for t in H.cartantype]
+        fus = []  # more efficient than fusionconjugacyclasses
         for st in cartesian(nam):
-            p=flatlist(st)
+            p = flatlist(st)
             p.sort(reverse=True)
-            while sum(p)<n:
+            while sum(p) < n:
                 p.append(1)
             fus.append(pt.index(p))
-        H.fusions[W.cartanname]['classes']=fus[:]
-        neu=inducedchar(W,H,len(cl)*[1])
+        H.fusions[W.cartanname]['classes'] = fus[:]
+        neu = inducedchar(W,H,len(cl)*[1])
         for irr in ti:
-            scal=sum(cl[c]*irr[fus[c]] for c in range(len(cl)))//H.order
-            neu=[neu[i]-scal*irr[i] for i in range(len(neu))]
+            scal = sum(cl[c]*irr[fus[c]] for c in range(len(cl)))//H.order
+            neu = [neu[i]-scal*irr[i] for i in range(len(neu))]
         ti.append(neu[:])
     return ti[::-1]
 
 
 def oldsymm(n):
-    W=coxeter("A",n-1)
-    pt=partitions(n)
-    cw=conjugacyclasses(W)
-    tr=[]
+    W = coxeter("A",n-1)
+    pt = partitions(n)
+    cw = conjugacyclasses(W)
+    tr = []
     for mu in partitions(n):
-        J=list(range(n))
-        l=0
+        J = list(range(n))
+        l = 0
         for i in mu:
-            l+=i
+            l += i
             J.remove(l-1)
-        H=reflectionsubgroup(W,J)
-        ch=conjugacyclasses(H)
-        nam=[partitions(len(t[1])+1) for t in H.cartantype]
-        fus=[]  # more efficient than fusionconjugacyclasses
+        H = reflectionsubgroup(W,J)
+        ch = conjugacyclasses(H)
+        nam = [partitions(len(t[1])+1) for t in H.cartantype]
+        fus = []  # more efficient than fusionconjugacyclasses
         for st in cartesian(nam):
-            p=flatlist(st)
+            p = flatlist(st)
             p.sort(reverse=True)
-            while sum(p)<n:
+            while sum(p) < n:
                 p.append(1)
             fus.append(pt.index(p))
-        H.fusions[W.cartanname]['classes']=fus[:]
+        H.fusions[W.cartanname]['classes'] = fus[:]
         tr.append(inducedchar(W,H,len(ch['reps'])*[1]))
-    ti=[]
+    ti = []
     for i in range(len(tr)):
-        neu=tr[-i-1][:]
+        neu = tr[-i-1][:]
         for j in range(i):
-            scal=sum(cw['classlengths'][k]*ti[j][k]*neu[k]
-                           for k in range(len(tr)) if neu[k]!=0)//W.order
+            scal = sum(cw['classlengths'][k]*ti[j][k]*neu[k]
+                           for k in range(len(tr)) if neu[k] != 0)//W.order
             for k in range(len(tr)):
-                neu[k]-=scal*ti[j][k]
+                neu[k] -= scal*ti[j][k]
         ti.append(neu)
     return ti[::-1]
 
-#F cyclepermB
+# F cyclepermB
 
 
 def wordtopermB(n,w):
-    pw=range(2*n)  # first signed permutation
+    pw = range(2*n)  # first signed permutation
     for i in w:
-        if i==0:
-            pw[i],pw[n+i]=pw[n+i],pw[i]
+        if i == 0:
+            pw[i],pw[n+i] = pw[n+i],pw[i]
         else:
-            pw[i-1],pw[i]=pw[i],pw[i-1]
-            pw[n+i-1],pw[n+i]=pw[n+i],pw[n+i-1]
-    sp=pw[:n]     # now roots
+            pw[i-1],pw[i] = pw[i],pw[i-1]
+            pw[n+i-1],pw[n+i] = pw[n+i],pw[n+i-1]
+    sp = pw[:n]     # now roots
     return sp
 
-#F chartablehalfC
+# F chartablehalfC
 
 
 def chartablehalfC(n,other=False):
@@ -584,25 +579,25 @@ def chartablehalfC(n,other=False):
     where alpha is empty (or beta is empty if the optional argument
     'other' is set to True.
     """
-    ti=transposemat(chartablesymmetric(n))
-    p=partitions(n)
-    pt=partitiontuples(n,2)
+    ti = transposemat(chartablesymmetric(n))
+    p = partitions(n)
+    pt = partitiontuples(n,2)
     if other:
-        cw=conjugacyclasses(coxeter("C",n))['reps']
-    nti=[]
+        cw = conjugacyclasses(coxeter("C",n))['reps']
+    nti = []
     for mu in range(len(pt)):
-        a=flatlist(pt[mu])
+        a = flatlist(pt[mu])
         a.sort(reverse=True)
         if not other:
             nti.append(ti[p.index(a)])
         else:
-            if cw[mu].count(0) %2==0:
+            if cw[mu].count(0) % 2 == 0:
                 nti.append(ti[p.index(a)])
             else:
                 nti.append([-x for x in ti[p.index(a)]])
     return transposemat(nti)
 
-#F chartableB
+# F chartableB
 
 
 def chartableB(n, verbose=False):
@@ -633,46 +628,46 @@ def chartableB(n, verbose=False):
 
     See also 'heckevalueB'.
     """
-    W=coxeter("C",n)     # use C_n because of B_2=C_2 convention.
-    pt=partitiontuples(n,2)
-    refls=reflections(W)
-    wrho=[[0]]
+    W = coxeter("C",n)     # use C_n because of B_2=C_2 convention.
+    pt = partitiontuples(n,2)
+    refls = reflections(W)
+    wrho = [[0]]
     for i in range(n-1):
         wrho.append([i+1]+wrho[i]+[i+1])
-    rho=[refls.index(W.wordtoperm(p)) for p in wrho]
-    ti=chartablehalfC(n)
-    labels=[[p,[]] for p in partitions(n)]
-    if n>=10:
+    rho = [refls.index(W.wordtoperm(p)) for p in wrho]
+    ti = chartablehalfC(n)
+    labels = [[p,[]] for p in partitions(n)]
+    if n >= 10:
         if verbose:
             lprint('#I +')
     for a in range(1,n):  # type C_a x C_{n-a}
-        H=reflectionsubgroup(W,list(range(a))+[rho[a]]+list(range(a+1,n)))
-        l0=len(H.cartantype[0][1])
-        l1=len(H.cartantype[1][1])
-        fus=[]  # much faster than fusionconjugacyclasses
+        H = reflectionsubgroup(W,list(range(a))+[rho[a]]+list(range(a+1,n)))
+        l0 = len(H.cartantype[0][1])
+        l1 = len(H.cartantype[1][1])
+        fus = []  # much faster than fusionconjugacyclasses
         for t in cartesian(partitiontuples(l0,2),partitiontuples(l1,2)):
-            x=flatlist(t[0][0]+t[1][0])
+            x = flatlist(t[0][0]+t[1][0])
             x.sort(reverse=True)
-            y=flatlist(t[0][1]+t[1][1])
+            y = flatlist(t[0][1]+t[1][1])
             y.sort(reverse=True)
             fus.append(pt.index([x,y]))
-        H.fusions[W.cartanname]['classes']=fus[:]
+        H.fusions[W.cartanname]['classes'] = fus[:]
         if 0 in H.cartantype[0][1]:
-            f0,f1=False,True
+            f0,f1 = False,True
             labels.extend([[p[0],p[1]] for p in cartesian(partitions(l0),
                                                           partitions(l1))])
         else:
-            f0,f1=True,False
+            f0,f1 = True,False
             labels.extend([[p[1],p[0]] for p in cartesian(partitions(l0),
                                                           partitions(l1))])
         ti.extend([inducedchar(W,H,psi) for psi in
              kroneckerproduct(chartablehalfC(l0,other=f0),
                               chartablehalfC(l1,other=f1))])
-        if verbose and n>=10:
+        if verbose and n >= 10:
             lprint('+')
     ti.extend(chartablehalfC(n,other=True))
     labels.extend([[[],p] for p in partitions(n)])
-    if verbose and n>=10:
+    if verbose and n >= 10:
         lprint('\n')
     return [ti[labels.index(mu)] for mu in pt]
 
@@ -690,58 +685,58 @@ def chartableBold(n):
     for  values of n  up to around 8; it is also an excellent  test
     for 'reflectionsubgroup' and 'fusionconjugacyclasses').
     """
-    W=coxeter("C",n)
-    cw=conjugacyclasses(W)
-    cycw=[W.cycletyperoots(W.wordtoperm(w)) for w in cw['reps']]
-    refls=reflections(W)
-    rho=[[0]]
-    trho=[[0,1,0]]
+    W = coxeter("C",n)
+    cw = conjugacyclasses(W)
+    cycw = [W.cycletyperoots(W.wordtoperm(w)) for w in cw['reps']]
+    refls = reflections(W)
+    rho = [[0]]
+    trho = [[0,1,0]]
     for i in range(n-2):
         rho.append([i+1]+rho[i]+[i+1])
         trho.append(rho[i+1]+[i+2]+rho[i+1])
     rho.append([n-1]+rho[n-2]+[n-1])
-    rho=[refls.index(W.wordtoperm(p)) for p in rho]
-    trho=[refls.index(W.wordtoperm(p)) for p in trho]
-    pt=partitiontuples(n,2)
-    binv=[2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
+    rho = [refls.index(W.wordtoperm(p)) for p in rho]
+    trho = [refls.index(W.wordtoperm(p)) for p in trho]
+    pt = partitiontuples(n,2)
+    binv = [2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
                      for i in range(len(mu[1])))+sum(mu[1]) for mu in pt]
-    nn=list(range(len(binv)))
+    nn = list(range(len(binv)))
     nn.sort(key=(lambda i:binv[i]),reverse=True)
-    ti=[]
+    ti = []
     for k in nn:
-        mu=pt[k]
-        J=list(range(1,n+1))
-        l=0
+        mu = pt[k]
+        J = list(range(1,n+1))
+        l = 0
         for i in dualpartition(mu[0]):
-            if i>=2:
+            if i >= 2:
                 J.append(trho[l])
-            l+=i
+            l += i
             J.remove(l)
         for i in dualpartition(mu[1]):
             J.append(rho[l])
-            l+=i
+            l += i
             J.remove(l)
-        H=reflectionsubgroup(W,J)
-        fus=[]
-        ch=conjugacyclasses(H)
-        cl=ch['classlengths']
-        f=H.fusions[W.cartanname]['subJ']
+        H = reflectionsubgroup(W,J)
+        fus = []
+        ch = conjugacyclasses(H)
+        cl = ch['classlengths']
+        f = H.fusions[W.cartanname]['subJ']
         for w in [[f[s] for s in y] for y in ch['reps']]:
-            pw=list(range(2*W.N))
+            pw = list(range(2*W.N))
             for r in w:
                 for i in range(2*W.N):
-                    pw[i]=W.reflections[r][pw[i]]
+                    pw[i] = W.reflections[r][pw[i]]
             fus.append(cycw.index(W.cycletyperoots(tuple(pw))))
-        H.fusions[W.cartanname]['classes']=fus[:]
-        sgn=[(-1)**len(w) for w in ch['reps']]
-        neu=inducedchar(W,H,sgn)
+        H.fusions[W.cartanname]['classes'] = fus[:]
+        sgn = [(-1)**len(w) for w in ch['reps']]
+        neu = inducedchar(W,H,sgn)
         for irr in ti:
-            scal=sum(sgn[c]*cl[c]*irr[fus[c]] for c in range(len(cl)))//H.order
-            neu=[neu[i]-scal*irr[i] for i in range(len(neu))]
+            scal = sum(sgn[c]*cl[c]*irr[fus[c]] for c in range(len(cl)))//H.order
+            neu = [neu[i]-scal*irr[i] for i in range(len(neu))]
         ti.append(neu[:])
     return [ti[nn.index(i)] for i in range(len(nn))]
 
-#F chartableD
+# F chartableD
 
 
 def chartableD(n):
@@ -827,43 +822,43 @@ def chartableD(n):
     >>> t['charW'][8]
     ('[[2], -]',)
     """
-    W1=coxeter("B",n)
-    r1=reflections(W1)
-    W=reflectionsubgroup(W1,list(range(1,n))+
+    W1 = coxeter("B",n)
+    r1 = reflections(W1)
+    W = reflectionsubgroup(W1,list(range(1,n)) +
                    [r1.index(W1.wordtoperm([0,1,0]))])
-    if n==2:
-        suba=[0]
+    if n == 2:
+        suba = [0]
     else:
-        suba=W.cartantype[0][1][:]   # define embedding of S_n in W
+        suba = W.cartantype[0][1][:]   # define embedding of S_n in W
         suba.remove(0)
-    cw=conjugacyclasses(W)
-    cl=cw['classlengths']
-    pt=partitiontuples(n,2)
-    fus=[]  # faster than fusionconjugacyclasses
+    cw = conjugacyclasses(W)
+    cl = cw['classlengths']
+    pt = partitiontuples(n,2)
+    fus = []  # faster than fusionconjugacyclasses
     for i in range(len(pt)):
-        mu=pt[i]
-        if len(mu[1]) %2==0:
-            if mu[1]==[] and all(x %2==0 for x in mu[0]):
+        mu = pt[i]
+        if len(mu[1]) % 2 == 0:
+            if mu[1] == [] and all(x % 2 == 0 for x in mu[0]):
                 fus.append(i)
                 fus.append(i)
             else:
                 fus.append(i)
-    #if fus!=fusionconjugacyclasses(W,W1):
+    # if fus!=fusionconjugacyclasses(W,W1):
     #  print("mist")
     #  return "mist"
-    pt1=[]   # tuples relevant for D
-    binv=[]
-    trouble=[]
-    ct=chartableB(n)
-    ti=[]   # table of restrictions
+    pt1 = []   # tuples relevant for D
+    binv = []
+    trouble = []
+    ct = chartableB(n)
+    ti = []   # table of restrictions
     for mu in pt:
-        if sum(mu[0])>=sum(mu[1]):
-            b=(2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
+        if sum(mu[0]) >= sum(mu[1]):
+            b = (2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
                                         for i in range(len(mu[1])))+sum(mu[1]))
         else:
-            b=(2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
+            b = (2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
                                         for i in range(len(mu[1])))+sum(mu[0]))
-        if mu[0]==mu[1]:
+        if mu[0] == mu[1]:
             trouble.append([mu[0][:],b])
             pt1.append(mu)
             binv.append(b)
@@ -871,34 +866,34 @@ def chartableD(n):
             pt1.append(mu)
             binv.append(b)
             ti.append([ct[pt.index(mu)][j] for j in fus])
-        elif mu[0]<mu[1]:
+        elif mu[0] < mu[1]:
             pt1.append(mu)
             binv.append(b)
             ti.append([ct[pt.index(mu)][j] for j in fus])
     trouble.sort(reverse=True,key=(lambda t:t[1]))
-    #print(W.cartantype,W.fusions)
+    # print(W.cartantype,W.fusions)
     for t in trouble:
-        J=list(range(n))
-        l=0
+        J = list(range(n))
+        l = 0
         for i in [2*d for d in dualpartition(t[0])]:
-            l+=i
+            l += i
             J.remove(l-1)
         # print(t,J, suba,[suba[j] for j in J])
-        H=reflectionsubgroup(W,[suba[j] for j in J])
-        neu=inducedchar(W,H,[(-1)**len(w)
+        H = reflectionsubgroup(W,[suba[j] for j in J])
+        neu = inducedchar(W,H,[(-1)**len(w)
                         for w in conjugacyclasses(H)['reps']])
         for i in range(len(cl)):
-            if binv[i]>t[1]:
-                scal=sum(cl[k]*ti[i][k]*neu[k] for k in range(len(cl))
-                                                    if neu[k]!=0)//W.order
+            if binv[i] > t[1]:
+                scal = sum(cl[k]*ti[i][k]*neu[k] for k in range(len(cl))
+                                                    if neu[k] != 0)//W.order
                 for k in range(len(cl)):
-                    neu[k]-=scal*ti[i][k]
-        i=pt1.index([t[0],t[0]])
-        ti[i+1]=[neu[j] for j in range(len(cl))]
-        ti[i]=[ti[i][j]-neu[j] for j in range(len(cl))]
+                    neu[k] -= scal*ti[i][k]
+        i = pt1.index([t[0],t[0]])
+        ti[i+1] = [neu[j] for j in range(len(cl))]
+        ti[i] = [ti[i][j]-neu[j] for j in range(len(cl))]
     return ti
 
-#F irrchardata
+# F irrchardata
 
 
 def irrchardata(typ,n,chars=True):
@@ -909,63 +904,63 @@ def irrchardata(typ,n,chars=True):
     See also 'chartable, 'chartablesymmetric', 'chartableB',
     'chartableD'.
     """
-    ti=[[False]]
-    if typ[0]=='A' and n==0:
+    ti = [[False]]
+    if typ[0] == 'A' and n == 0:
         if chars:
-            ti=[[1]]
-        nam=['1']
-        binv=[0]
-        ainv=[0]
-    if typ[0]=='A' and n>=1:
+            ti = [[1]]
+        nam = ['1']
+        binv = [0]
+        ainv = [0]
+    if typ[0] == 'A' and n >= 1:
         if chars:
-            ti=chartablesymmetric(n+1)
-        binv,nam=[],[]
+            ti = chartablesymmetric(n+1)
+        binv,nam = [],[]
         for mu in partitions(n+1):
             binv.append(sum(i*mu[i] for i in range(len(mu))))
             nam.append(str(mu))
-        ainv=binv[:]
-    if typ[0]=='B' or typ[0]=='C':
+        ainv = binv[:]
+    if typ[0] == 'B' or typ[0] == 'C':
         if chars:
-            ti=chartableB(n)
-        binv,ainv,nam=[],[],[]
+            ti = chartableB(n)
+        binv,ainv,nam = [],[],[]
         for mu in partitiontuples(n,2):
             binv.append(2*sum(i*mu[0][i] for i in range(len(mu[0])))
-                    +2*sum(i*mu[1][i] for i in range(len(mu[1])))+sum(mu[1]))
+                    + 2*sum(i*mu[1][i] for i in range(len(mu[1])))+sum(mu[1]))
             ainv.append(ainvbipartition(n,1,1,mu))
             nam.append(str(mu))
-    if typ[0]=='D':
+    if typ[0] == 'D':
         if chars:
-            ti=chartableD(n)
-        binv,ainv,nam=[],[],[]
+            ti = chartableD(n)
+        binv,ainv,nam = [],[],[]
         for mu in partitiontuples(n,2):
-            if sum(mu[0])>=sum(mu[1]):
-                b=(2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
+            if sum(mu[0]) >= sum(mu[1]):
+                b = (2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
                                             for i in range(len(mu[1])))+sum(mu[1]))
             else:
-                b=(2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
+                b = (2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
                                             for i in range(len(mu[1])))+sum(mu[0]))
-            if mu[0]==mu[1]:
+            if mu[0] == mu[1]:
                 binv.append(b)
                 ainv.append(ainvbipartition(n,1,0,mu))
                 nam.append('['+str(mu[0])+', +]')
                 binv.append(b)
                 ainv.append(ainvbipartition(n,1,0,mu))
                 nam.append('['+str(mu[1])+', -]')
-            elif mu[0]<mu[1]:
+            elif mu[0] < mu[1]:
                 binv.append(b)
                 ainv.append(ainvbipartition(n,1,0,mu))
                 nam.append(str(mu))
-    if typ[0]=='G':
+    if typ[0] == 'G':
         if chars:
-            ti=[[1,1,1,1,1,1],[1,-1,-1,1,1,1],[1,1,-1,-1,1,-1],
+            ti = [[1,1,1,1,1,1],[1,-1,-1,1,1,1],[1,1,-1,-1,1,-1],
                 [1,-1,1,-1,1,-1],[2,0,0,1,-1,-2],[2,0,0,-1,-1,2]]
-        binv=[0,6,3,3,1,2]
-        ainv=[0,6,1,1,1,1]
-        nam=["phi_{1,0}","phi_{1,6}","phi_{1,3}'","phi_{1,3}''",
+        binv = [0,6,3,3,1,2]
+        ainv = [0,6,1,1,1,1]
+        nam = ["phi_{1,0}","phi_{1,6}","phi_{1,3}'","phi_{1,3}''",
                                            "phi_{2,1}","phi_{2,2}"]
-    if typ[0]=='F':
+    if typ[0] == 'F':
         if chars:
-            ti=[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            ti = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
                 [1,1,1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,1,1,1,1,1,-1,-1,-1,-1],
                 [1,1,1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1],
@@ -990,14 +985,14 @@ def irrchardata(typ,n,chars=True):
                 [8,-8,0,-1,1,0,2,-2,2,-2,0,0,0,0,0,0,4,-4,1,-1,0,0,0,0,0],
                 [8,-8,0,-1,1,0,2,-2,2,-2,0,0,0,0,0,0,-4,4,-1,1,0,0,0,0,0],
                 [16,-16,0,-2,2,0,-2,2,-2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
-        binv=[0,12,12,24,4,16,4,16,8,2,6,6,10,6,6,4,1,7,7,13,3,9,3,9,5]
-        ainv=[0,4,4,24,1,13,1,13,4,2,4,4,10,4,4,4,1,4,4,13,3,9,3,9,4]
-        nam=["1_1","1_2","1_3","1_4","2_1","2_2","2_3","2_4","4_1","9_1",
+        binv = [0,12,12,24,4,16,4,16,8,2,6,6,10,6,6,4,1,7,7,13,3,9,3,9,5]
+        ainv = [0,4,4,24,1,13,1,13,4,2,4,4,10,4,4,4,1,4,4,13,3,9,3,9,4]
+        nam = ["1_1","1_2","1_3","1_4","2_1","2_2","2_3","2_4","4_1","9_1",
               "9_2","9_3","9_4","6_1","6_2","12","4_2","4_3","4_4","4_5",
               "8_1", "8_2","8_3","8_4","16"]
-    if typ[0]=='E' and n==6:
+    if typ[0] == 'E' and n == 6:
         if chars:
-            ti=[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            ti = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
                 [10,-6,2,1,-2,4,2,-2,0,-3,0,0,2,1,-1,0,0,0,0,0,0,0,0,0,0],
                 [6,-2,2,-3,3,0,2,0,1,1,1,-2,-1,0,-1,4,0,-2,2,1,-2,0,0,-1,1],
@@ -1022,14 +1017,14 @@ def irrchardata(typ,n,chars=True):
                 [64,0,0,-8,4,-2,0,0,-1,0,0,0,0,1,0,-16,0,0,0,2,2,0,0,-1,0],
                 [81,9,-3,0,0,0,-3,-1,1,0,0,0,0,0,0,9,-3,3,-1,0,0,0,1,-1,0],
                 [81,9,-3,0,0,0,-3,-1,1,0,0,0,0,0,0,-9,3,-3,1,0,0,0,-1,1,0]]
-        binv=[0,36,9,1,25,10,5,17,4,16,2,20,6,12,3,15,8,7,8,5,11,4,13,6,10]
-        ainv=[0,36,7,1,25,7,3,15,3,15,2,20,6,12,3,15,7,7,7,5,11,4,13,6,10]
-        nam=["1_p","1_p'","10_s","6_p","6_p'","20_s","15_p","15_p'","15_q",
+        binv = [0,36,9,1,25,10,5,17,4,16,2,20,6,12,3,15,8,7,8,5,11,4,13,6,10]
+        ainv = [0,36,7,1,25,7,3,15,3,15,2,20,6,12,3,15,7,7,7,5,11,4,13,6,10]
+        nam = ["1_p","1_p'","10_s","6_p","6_p'","20_s","15_p","15_p'","15_q",
              "15_q'","20_p","20_p'","24_p","24_p'","30_p","30_p'","60_s",
              "80_s","90_s","60_p","60_p'","64_p","64_p'","81_p","81_p'"]
-    if typ[0]=='E' and n==7:
+    if typ[0] == 'E' and n == 7:
         if chars:
-            ti=[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            ti = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,-1,
                  -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
@@ -1208,13 +1203,13 @@ def irrchardata(typ,n,chars=True):
                 [512,0,0,0,0,-16,8,-4,0,0,0,0,0,2,0,0,0,0,0,0,0,1,0,0,-1,0,0,0,0,
                  -1,-512,0,0,0,0,16,-8,4,0,0,0,0,0,-2,0,0,0,0,0,0,0,-1,0,0,1,0,0,0,
                  0,1]]
-        binv=[0,63,46,1,28,7,6,33,36,3,2,37,22,13,4,31,30,3,18,9,12,15,26,5,
+        binv = [0,63,46,1,28,7,6,33,36,3,2,37,22,13,4,31,30,3,18,9,12,15,26,5,
               6,21,12,15,4,25,6,21,10,17,22,5,20,7,6,21,10,13,16,9,18,9,8,17,
               16,7,14,11,14,9,8,15,10,13,12,11]
-        ainv=[0,63,46,1,25,4,3,30,36,3,2,37,16,7,3,30,30,3,16,7,10,13,25,4,6,
+        ainv = [0,63,46,1,25,4,3,30,36,3,2,37,16,7,3,30,30,3,16,7,10,13,25,4,6,
               21,12,15,4,25,6,21,8,15,22,5,20,7,6,21,10,13,15,8,16,7,7,16,16,
               7,13,10,14,9,8,15,10,13,11,11]
-        nam=["1_a","1_a'","7_a","7_a'","15_a","15_a'","21_a","21_a'","21_b",
+        nam = ["1_a","1_a'","7_a","7_a'","15_a","15_a'","21_a","21_a'","21_b",
              "21_b'","27_a","27_a'","35_a","35_a'","35_b","35_b'","56_a",
              "56_a'","70_a","70_a'","84_a","84_a'","105_a","105_a'","105_b",
              "105_b'","105_c","105_c'","120_a","120_a'","168_a","168_a'",
@@ -1222,9 +1217,9 @@ def irrchardata(typ,n,chars=True):
              "210_a'","210_b","210_b'","216_a","216_a'","280_a","280_a'",
              "280_b","280_b'","315_a","315_a'","336_a","336_a'","378_a",
              "378_a'","405_a","405_a'","420_a","420_a'","512_a","512_a'"]
-    if typ[0]=='E' and n==8:
+    if typ[0] == 'E' and n == 8:
         if chars:
-            ti=[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            ti = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                  1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -1757,17 +1752,17 @@ def irrchardata(typ,n,chars=True):
                  0,0,0,-4,4,2,-2,-1,1,0,0,0,0,0,0,0,-280,280,-8,8,0,0,0,8,-8,0,0,
                  20,-20,-1,1,4,-4,-4,4,1,-1,-2,2,0,0,0,0,0,0,0,0,0,0,0,0,-1,1,0,0,
                  -1,1,0,0,0,0,0,0]]
-        binv=[0,120,8,68,2,74,32,8,56,4,64,24,12,36,4,52,20,8,44,14,38,12,36,
+        binv = [0,120,8,68,2,74,32,8,56,4,64,24,12,36,4,52,20,8,44,14,38,12,36,
               6,46,20,16,28,6,42,20,14,26,22,12,32,10,34,20,8,38,20,8,32,10,34,
               18,16,28,18,10,28,16,10,30,18,14,22,18,16,22,12,26,12,24,14,22,1,
               91,19,49,3,63,7,55,25,7,43,9,39,5,47,19,13,31,9,39,19,13,33,11,
               29,7,37,17,23,13,25,19,9,31,13,25,17,11,27,15,21,13,23,15,21]
-        ainv=[0,120,3,63,2,74,16,4,52,3,63,16,8,32,4,52,16,6,42,8,32,12,36,6,
+        ainv = [0,120,3,63,2,74,16,4,52,3,63,16,8,32,4,52,16,6,42,8,32,12,36,6,
               46,16,13,25,6,42,16,12,24,16,10,30,8,32,20,7,37,16,8,32,8,32,
               16,13,25,16,10,28,16,10,30,16,14,22,16,15,21,11,26,12,24,14,22,
               1,91,7,37,3,63,4,52,16,6,42,7,37,5,47,16,10,28,7,37,16,10,30,
               10,28,7,37,15,21,13,25,16,9,31,12,24,16,11,26,15,21,13,23,15,21]
-        nam=["1_x","1_x'","28_x","28_x'","35_x","35_x'","70_y","50_x","50_x'",
+        nam = ["1_x","1_x'","28_x","28_x'","35_x","35_x'","70_y","50_x","50_x'",
              "84_x","84_x'","168_y","175_x","175_x'","210_x","210_x'","420_y",
              "300_x","300_x'","350_x","350_x'","525_x","525_x'","567_x",
              "567_x'","1134_y","700_xx","700_xx'","700_x","700_x'","1400_y",
@@ -1783,10 +1778,10 @@ def irrchardata(typ,n,chars=True):
              "2400_z","2400_z'","2800_z","2800_z'", "5600_w", "3240_z",
              "3240_z'", "3360_z", "3360_z'", "7168_w","4096_z", "4096_z'",
              "4200_z", "4200_z'", "4536_z", "4536_z'", "5600_z","5600_z'"]
-    if typ[0]=='H' and n==3:
-        ir5=ir(5)
+    if typ[0] == 'H' and n == 3:
+        ir5 = ir(5)
         if chars:
-            ti=[[1,-1,1,1,1,-1,1,-1,-1,-1],
+            ti = [[1,-1,1,1,1,-1,1,-1,-1,-1],
                 [1,1,1,1,1,1,1,1,1,1],
                 [5,-1,0,1,-1,0,0,1,0,-5],
                 [5,1,0,1,-1,0,0,-1,0,5],
@@ -1796,14 +1791,14 @@ def irrchardata(typ,n,chars=True):
                 [3,1,1-ir5,-1,0,-ir5,ir5,0,ir5-1,-3],
                 [4,0,-1,0,1,1,-1,-1,1,-4],
                 [4,0,-1,0,1,-1,-1,1,-1,4]]
-        binv=[15,0,5,2,6,8,1,3,3,4]
-        ainv=[15,0,5,2,6,6,1,1,3,3]
-        nam=["1_r'", "1_r", "5_r'", "5_r", "3_s", "overline{3}_s", "3_s'",
+        binv = [15,0,5,2,6,8,1,3,3,4]
+        ainv = [15,0,5,2,6,6,1,1,3,3]
+        nam = ["1_r'", "1_r", "5_r'", "5_r", "3_s", "overline{3}_s", "3_s'",
               "overline{3}_s'", "4_r'", "4_r"]
-    if typ[0]=='H' and n==4:
-        ir5=ir(5)
+    if typ[0] == 'H' and n == 4:
+        ir5 = ir(5)
         if chars:
-            ti=[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            ti = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                  1,1],
                 [1,-1,1,1,1,-1,-1,-1,-1,1,1,-1,-1,1,1,-1,1,1,1,-1,1,1,1,1,1,1,1,
                  1,1,1,1,1,1,1],
@@ -1885,59 +1880,59 @@ def irrchardata(typ,n,chars=True):
                  4,-5,0,1,-5,40],
                 [48,0,-2,0,0,0,0,0,0,-2,-1,0,0,0,1,0,0,2,2,0,2,1,0,-6,0,-2,-2,-1,
                  0,2,2,6,-2,-48]]
-        binv=[0,60,1,31,7,37,12,20,12,13,2,22,6,26,12,11,13,3,21,6,18,10,
+        binv = [0,60,1,31,7,37,12,20,12,13,2,22,6,26,12,11,13,3,21,6,18,10,
                                               11,7,12,6,4,16,10,10,5,15,8,9]
-        ainv=[0,60,1,31,1,31,6,6,6,6,2,22,2,22,6,6,6,3,18,3,18,6,6,6,6,6,4,
+        ainv = [0,60,1,31,1,31,6,6,6,6,2,22,2,22,6,6,6,3,18,3,18,6,6,6,6,6,4,
               16,6,6,5,15,6,6]
-        nam=["1_r","1_r'","4_t","4_t'","overline{4}_t","overline{4}_t'","6_s",
+        nam = ["1_r","1_r'","4_t","4_t'","overline{4}_t","overline{4}_t'","6_s",
              "overline{6}_s","8_r","8_{rr}","9_s","9_s'","overline{9}_s",
              "overline{9}_s'","10_r","16_t","overline{16}_t","16_{rr}",
              "16_{rr}'","16_r","16_r'","18_r","24_t","overline{24}_t","24_s",
              "overline{24}_s","25_r","25_r'","30_s","overline{30}_s",
              "36_{rr}","36_{rr}'","40_r","48_{rr}"]
-    if typ[0]=='I':
-        m=int(typ[1:])
-        if m==5:
+    if typ[0] == 'I':
+        m = int(typ[1:])
+        if m == 5:
             if chars:
-                ti=[[1,1,1,1],[1,-1,1,1],
+                ti = [[1,1,1,1],[1,-1,1,1],
                     [2,0,ir(5)-1,-ir(5)],[2,0,-ir(5),ir(5)-1]]
-            binv=[0,5,1,2]
-            ainv=[0,5,1,1]
-            nam=["phi_{1,0}","phi_{1,5}","phi_{2,1}","phi_{2,2}"]
+            binv = [0,5,1,2]
+            ainv = [0,5,1,1]
+            nam = ["phi_{1,0}","phi_{1,5}","phi_{2,1}","phi_{2,2}"]
         else:
-            c=conjclassdata(typ,n)['reps']
-            z=rootof1(m)
-            if m %2==0:
-                binv=[0,m//2,m//2,m]
-                ainv=[0,1,1,m]
-                nam=["phi_{1,0}","phi_{1,"+str(m//2)+"}'","phi_{1,"+str(m//2)+"}''",
+            c = conjclassdata(typ,n)['reps']
+            z = rootof1(m)
+            if m % 2 == 0:
+                binv = [0,m//2,m//2,m]
+                ainv = [0,1,1,m]
+                nam = ["phi_{1,0}","phi_{1,"+str(m//2)+"}'","phi_{1,"+str(m//2)+"}''",
                      "phi_{1,"+str(m)+"}"]
-                ti=[len(c)*[1],[(-1)**i.count(1) for i in c],[(-1)**i.count(0)
+                ti = [len(c)*[1],[(-1)**i.count(1) for i in c],[(-1)**i.count(0)
                                            for i in c],[(-1)**len(i) for i in c]]
                 for j in range(1,(m-2)//2+1):
                     binv.append(j)
                     ainv.append(1)
                     nam.append("phi_{2,"+str(j)+"}")
-                    chi=[2,0,0]
+                    chi = [2,0,0]
                     chi.extend([z**(j*len(i)//2)+z**(-j*len(i)//2)
                                for i in c[3:]])
                     ti.append(chi)
             else:
-                binv=[0,m]
-                ainv=[0,m]
-                nam=["phi_{1,0}","phi_{1,"+str(m)+"}"]
-                ti=[len(c)*[1],[(-1)**len(i) for i in c]]
+                binv = [0,m]
+                ainv = [0,m]
+                nam = ["phi_{1,0}","phi_{1,"+str(m)+"}"]
+                ti = [len(c)*[1],[(-1)**len(i) for i in c]]
                 for j in range(1,(m-1)//2+1):
                     binv.append(j)
                     ainv.append(1)
                     nam.append("phi_{2,"+str(j)+"}")
-                    chi=[2,0]
+                    chi = [2,0]
                     chi.extend([z**(j*len(i)//2)+z**(-j*len(i)//2)
                                for i in c[2:]])
                     ti.append(chi)
     return {'irreducibles':ti, 'names':nam, 'b':binv, 'a1':ainv}
 
-#F chartable
+# F chartable
 
 
 def chartable(W,chars=True):
@@ -1997,45 +1992,45 @@ def chartable(W,chars=True):
     if 'chartable' in dir(W) and (chars is False or
                                   'irreducibles' in W.chartable):
         return W.chartable
-    t0=irrchardata(W.cartantype[0][0],len(W.cartantype[0][1]),chars)
-    mat=t0['irreducibles']
-    bs=[t0['b']]
-    a1s=[t0['a1']]
-    nam=[t0['names']]
+    t0 = irrchardata(W.cartantype[0][0],len(W.cartantype[0][1]),chars)
+    mat = t0['irreducibles']
+    bs = [t0['b']]
+    a1s = [t0['a1']]
+    nam = [t0['names']]
     for t in W.cartantype[1:]:
-        ti=irrchardata(t[0],len(t[1]))
-        mat=kroneckerproduct(mat,ti['irreducibles'])
+        ti = irrchardata(t[0],len(t[1]))
+        mat = kroneckerproduct(mat,ti['irreducibles'])
         bs.append(ti['b'])
         a1s.append(ti['a1'])
         nam.append(ti['names'])
-    nb=[sum(bi) for bi in cartesian(bs)]
-    na1=[sum(ai) for ai in cartesian(a1s)]
-    nnam=[tuple(st) for st in cartesian(nam)]
-    cw=conjugacyclasses(W)
-    if not 'chartable' in dir(W):
-        W.chartable={'charnames':nnam,'classnames':cw['classnames'],
+    nb = [sum(bi) for bi in cartesian(bs)]
+    na1 = [sum(ai) for ai in cartesian(a1s)]
+    nnam = [tuple(st) for st in cartesian(nam)]
+    cw = conjugacyclasses(W)
+    if 'chartable' not in dir(W):
+        W.chartable = {'charnames':nnam,'classnames':cw['classnames'],
           'classlengths':cw['classlengths'],
           'classreps':cw['reps'],'b':nb,'a':na1}
     if chars:
-        sgn=[(-1)**len(w) for w in cw['reps']]
-        sp=[mat.index([l[j]*sgn[j] for j in range(len(cw['reps']))])
+        sgn = [(-1)**len(w) for w in cw['reps']]
+        sp = [mat.index([l[j]*sgn[j] for j in range(len(cw['reps']))])
                       for l in mat]
-        if len(W.cartantype)>1:
-            prf=False
+        if len(W.cartantype) > 1:
+            prf = False
         else:
-            prefl=[(mat[i][0],nb[i]) for i in range(len(nb))]
-            if len(W.rank)==0:
-                prf=1
+            prefl = [(mat[i][0],nb[i]) for i in range(len(nb))]
+            if len(W.rank) == 0:
+                prf = 1
             else:
-                prf=prefl.index((len(W.rank),1))
-        W.chartable['irreducibles']=mat
-        W.chartable['position_id']=mat.index(len(cw['reps'])*[1])
-        W.chartable['position_sgn']=mat.index(sgn)
-        W.chartable['position_refl']=prf
-        W.chartable['permsgn']=sp
+                prf = prefl.index((len(W.rank),1))
+        W.chartable['irreducibles'] = mat
+        W.chartable['position_id'] = mat.index(len(cw['reps'])*[1])
+        W.chartable['position_sgn'] = mat.index(sgn)
+        W.chartable['position_refl'] = prf
+        W.chartable['permsgn'] = sp
     return W.chartable
 
-#F displaychartable
+# F displaychartable
 
 
 def displaychartable(ti):
@@ -2056,15 +2051,15 @@ def displaychartable(ti):
 
     See also 'displaymat'.
     """
-    if not 'charnames' in ti:
-        rows=['|'.join(c) for c in ti['coxeter'].chartable['charnames']]
-        cols=['|'.join(c) for c in ti['coxeter'].chartable['classnames']]
+    if 'charnames' not in ti:
+        rows = ['|'.join(c) for c in ti['coxeter'].chartable['charnames']]
+        cols = ['|'.join(c) for c in ti['coxeter'].chartable['classnames']]
     else:
-        rows=['|'.join(c) for c in ti['charnames']]
-        cols=['|'.join(c) for c in ti['classnames']]
-    displaymat(ti['irreducibles'],rows,cols)
+        rows = ['|'.join(c) for c in ti['charnames']]
+        cols = ['|'.join(c) for c in ti['classnames']]
+    displaymat(ti['irreducibles'], rows, cols)
 
-#F inductiontable
+# F inductiontable
 
 
 def inductiontable(H,W,display=False,invchar=False):
@@ -2109,56 +2104,56 @@ def inductiontable(H,W,display=False,invchar=False):
 
     See also 'chartable'.
     """
-    ch=chartable(H)
-    tab={'charH':ch['charnames'][:],'charW':chartable(W)['charnames'][:]}
-    f=fusionconjugacyclasses(H,W)
-    m=len(ch['classlengths'])
-    mat=[]
+    ch = chartable(H)
+    tab = {'charH':ch['charnames'][:],'charW':chartable(W)['charnames'][:]}
+    f = fusionconjugacyclasses(H,W)
+    m = len(ch['classlengths'])
+    mat = []
     for t in chartable(W)['irreducibles']:
-        res=[t[f[k]] for k in range(m)]
-        norm=sum(res[k]*res[k]*ch['classlengths'][k]
+        res = [t[f[k]] for k in range(m)]
+        norm = sum(res[k]*res[k]*ch['classlengths'][k]
                  for k in range(m))//H.order
-        vec=m*[0]
-        norm1=0
-        j=0
-        while j<m and norm1<norm:
-            vec[j]=sum(res[k]*ch['irreducibles'][j][k]*
+        vec = m*[0]
+        norm1 = 0
+        j = 0
+        while j < m and norm1 < norm:
+            vec[j] = sum(res[k]*ch['irreducibles'][j][k] *
                       ch['classlengths'][k] for k in range(m))//H.order
-            #vec[j]=int(0.5+sum(res[k]*ch['irreducibles'][j][k]*
+            # vec[j]=int(0.5+sum(res[k]*ch['irreducibles'][j][k]*
             #          ch['classlengths'][k] for k in range(m))//H.order)
-            norm1+=vec[j]**2
-            j+=1
+            norm1 += vec[j]**2
+            j += 1
         mat.append(vec)
-        #tab['scalar'].append(vec[:])
+        # tab['scalar'].append(vec[:])
     if invchar is not False:
-        aW=invchar(W)
-        aH=invchar(H)
+        aW = invchar(W)
+        aH = invchar(H)
         for i in range(len(mat)):
             for j in range(len(mat[0])):
-                if aW[i]!=aH[j]:
-                    mat[i][j]=0
-    tab['scalar']=mat
+                if aW[i] != aH[j]:
+                    mat[i][j] = 0
+    tab['scalar'] = mat
     if display:
         displaymat(mat,tab['charW'],tab['charH'])
     return tab
 
 
 def checkrepr(W,perms):
-    res=True
-    eins=tuple(range(len(perms[0])))
+    res = True
+    eins = tuple(range(len(perms[0])))
     for s in W.rank:
-        if permmult(perms[s],perms[s])!=eins:
-            res=False
+        if permmult(perms[s],perms[s]) != eins:
+            res = False
         for t in range(s):
-            p1=permmult(perms[s],perms[t])
-            p=p1[:]
+            p1 = permmult(perms[s],perms[t])
+            p = p1[:]
             for i in range(W.coxetermat[s][t]-1):
-                p=permmult(p,p1)
-            if p!=eins:
-                res=False
+                p = permmult(p,p1)
+            if p != eins:
+                res = False
     return res
 
-#F involutionmodel
+# F involutionmodel
 
 
 def involutionmodel(W,poids=1, verbose=False):
@@ -2198,52 +2193,52 @@ def involutionmodel(W,poids=1, verbose=False):
     See also 'involutions' and 'conjugacyclasses'.
     """
     if type(poids) == type(1):
-        lp=len(W.rank)*[poids]
+        lp = len(W.rank)*[poids]
     else:
-        lp=poids
-    rr=conjugacyclasses(W)['reps']
-    ti=chartable(W)
-    cl=[w for w in rr if W.wordtocoxelm(2*w)==tuple(W.rank)]
-    #cl=[w for w in rr if conjugacyclasses(W)['classlengths'][rr.index(w)]==
+        lp = poids
+    rr = conjugacyclasses(W)['reps']
+    ti = chartable(W)
+    cl = [w for w in rr if W.wordtocoxelm(2*w) == tuple(W.rank)]
+    # cl=[w for w in rr if conjugacyclasses(W)['classlengths'][rr.index(w)]==
     #                                                      len(classmin(W,w))]
-    #cl=rr
-    #lprint('# Number of involutions = '+str(sum([len(l) for l in cl]))+'\n')
-    chisigma={}
+    # cl=rr
+    # lprint('# Number of involutions = '+str(sum([len(l) for l in cl]))+'\n')
+    chisigma = {}
     for x in cl:
-        inv=conjugacyclass(W,W.wordtoperm(x))
-        cinv=[bytes(y[:len(W.rank)]) for y in inv]
-        perms=[]
+        inv = conjugacyclass(W,W.wordtoperm(x))
+        cinv = [bytes(y[:len(W.rank)]) for y in inv]
+        perms = []
         if verbose:
             lprint('#I ')
         for s in W.rank:
             if verbose:
                 lprint(str(s)+' ')
-            p=(2*len(inv))*[0]
+            p = (2*len(inv))*[0]
             for i in range(len(inv)):
-                i1=cinv.index(bytes(conjgenperm(W,s,inv[i])[:len(W.rank)]))
-                if i==i1 and inv[i][s]>=W.N and lp[s] %2==1:
-                    p[i]=len(inv)+i1
-                    p[len(inv)+i]=i1
+                i1 = cinv.index(bytes(conjgenperm(W,s,inv[i])[:len(W.rank)]))
+                if i == i1 and inv[i][s] >= W.N and lp[s] % 2 == 1:
+                    p[i] = len(inv)+i1
+                    p[len(inv)+i] = i1
                 else:
-                    p[i]=i1
-                    p[len(inv)+i]=len(inv)+i1
+                    p[i] = i1
+                    p[len(inv)+i] = len(inv)+i1
             perms.append(p)
-        char=[]
+        char = []
         for w in rr:
-            if w==[]:
+            if w == []:
                 char.append(len(inv))
             else:
-                l=[list(range(len(inv)))]
+                l = [list(range(len(inv)))]
                 l.extend([perms[s] for s in w])
-                p=reduce(permmult,tuple(l))
-                c=0
+                p = reduce(permmult,tuple(l))
+                c = 0
                 for i in range(len(inv)):
-                    if p[i]==i:
-                        c+=1
-                    if p[i]==len(inv)+i:
-                        c-=1
+                    if p[i] == i:
+                        c += 1
+                    if p[i] == len(inv)+i:
+                        c -= 1
                 char.append(c)
-        chisigma[str(x)]=[sum([char[j]*chi[j]*ti['classlengths'][j]
+        chisigma[str(x)] = [sum([char[j]*chi[j]*ti['classlengths'][j]
               for j in range(len(rr))])//W.order for chi in ti['irreducibles']]
         if verbose:
             lprint('\n')
@@ -2254,52 +2249,52 @@ def involutionmodel(W,poids=1, verbose=False):
         lprint('\n')
     return chisigma
 
-#F symbol2c, symbol2b, symbol2d needed for dimBu
+# F symbol2c, symbol2b, symbol2d needed for dimBu
 
 
 def symbol2c(dblpart):
-    a,b=dblpart[0][:],dblpart[1][:]
-    if len(a)>len(b)+1:
+    a,b = dblpart[0][:],dblpart[1][:]
+    if len(a) > len(b)+1:
         b.extend((len(a)-len(b)-1)*[0])
-    elif len(b)+1>len(a):
+    elif len(b)+1 > len(a):
         a.extend((len(b)-len(a)+1)*[0])
     a.sort()
     b.sort()
     for i in range(1,len(a)):
-        a[i]+=2*i
-        b[i-1]+=2*i-1
+        a[i] += 2*i
+        b[i-1] += 2*i-1
     return [a,b]
 
 
 def symbol2b(dblpart):
-    a,b=dblpart[0][:],dblpart[1][:]
-    if len(a)>len(b)+1:
+    a,b = dblpart[0][:],dblpart[1][:]
+    if len(a) > len(b)+1:
         b.extend((len(a)-len(b)-1)*[0])
-    elif len(b)+1>len(a):
+    elif len(b)+1 > len(a):
         a.extend((len(b)-len(a)+1)*[0])
     a.sort()
     b.sort()
     for i in range(1,len(b)):
-        a[i]+=2*i
-        b[i]+=2*i
-    a[-1]=a[-1]+2*len(b)
+        a[i] += 2*i
+        b[i] += 2*i
+    a[-1] = a[-1]+2*len(b)
     return [a,b]
 
 
 def symbol2d(dblpart):
-    a,b=dblpart[0][:],dblpart[1][:]
-    if len(a)>len(b):
+    a,b = dblpart[0][:],dblpart[1][:]
+    if len(a) > len(b):
         b.extend((len(a)-len(b))*[0])
-    elif len(b)>len(a):
+    elif len(b) > len(a):
         a.extend((len(b)-len(a))*[0])
     a.sort()
     b.sort()
     for i in range(1,len(b)):
-        a[i]+=2*i
-        b[i]+=2*i
+        a[i] += 2*i
+        b[i] += 2*i
     return [a,b]
 
-#F dimBu
+# F dimBu
 
 
 def dimBu(W):
@@ -2329,90 +2324,90 @@ def dimBu(W):
 
     See also 'chartable' and 'inductiontable'.
     """
-    db=[]
+    db = []
     for ct in W.cartantype:
-        if ct[0]=='A':
+        if ct[0] == 'A':
             db.append(chartable(coxeter('A',len(ct[1])),chars=False)['a'])
-        if (ct[0]=='B' or ct[0]=='C') and len(ct[1])==2:
+        if (ct[0] == 'B' or ct[0] == 'C') and len(ct[1]) == 2:
             db.append([2,1,4,0,1])
-        if ct[0]=='B' and len(ct[1])>2:
-            d=[]
+        if ct[0] == 'B' and len(ct[1]) > 2:
+            d = []
             for param in partitiontuples(len(ct[1]),2):
-                symb=symbol2b(param)
-                x=0
+                symb = symbol2b(param)
+                x = 0
                 for i in range(len(symb[0])):
                     for j in range(len(symb[0])):
-                        if i<j:
-                            x+=symb[0][i]
-                            if j<len(symb[1]):
-                                x+=symb[1][i]
-                        if j<len(symb[1]):
-                            if symb[0][i]<=symb[1][j]:
-                                x+=symb[0][i]
+                        if i < j:
+                            x += symb[0][i]
+                            if j < len(symb[1]):
+                                x += symb[1][i]
+                        if j < len(symb[1]):
+                            if symb[0][i] <= symb[1][j]:
+                                x += symb[0][i]
                             else:
-                                x+=symb[1][j]
+                                x += symb[1][j]
                 d.append(x-len(symb[1])*(4*len(symb[1])+1)*(len(symb[1])-1)//3)
             db.append(d)
-        if ct[0]=='C' and len(ct[1])>2:
-            d=[]
+        if ct[0] == 'C' and len(ct[1]) > 2:
+            d = []
             for param in partitiontuples(len(ct[1]),2):
-                symb=symbol2c(param)
-                x=0
+                symb = symbol2c(param)
+                x = 0
                 for i in range(len(symb[0])):
                     for j in range(len(symb[0])):
-                        if i<j:
-                            x+=symb[0][i]
-                            if j<len(symb[1]):
-                                x+=symb[1][i]
-                        if j<len(symb[1]):
-                            if symb[0][i]<=symb[1][j]:
-                                x+=symb[0][i]
+                        if i < j:
+                            x += symb[0][i]
+                            if j < len(symb[1]):
+                                x += symb[1][i]
+                        if j < len(symb[1]):
+                            if symb[0][i] <= symb[1][j]:
+                                x += symb[0][i]
                             else:
-                                x+=symb[1][j]
+                                x += symb[1][j]
                 d.append(x-len(symb[1])*(4*len(symb[1])*len(symb[1])-1)//3)
             db.append(d)
-        if ct[0]=='D':
-            d=[]
+        if ct[0] == 'D':
+            d = []
             for mu in partitiontuples(len(ct[1]),2):
-                symb=symbol2d(mu)
-                if mu[0]==mu[1] or mu[0]<mu[1]:
-                    x=0
+                symb = symbol2d(mu)
+                if mu[0] == mu[1] or mu[0] < mu[1]:
+                    x = 0
                     for i in range(len(symb[0])):
                         for j in range(len(symb[0])):
-                            if i<j:
-                                x+=symb[0][i]+symb[1][i]
-                            if symb[0][i]<=symb[1][j]:
-                                x+=symb[0][i]
+                            if i < j:
+                                x += symb[0][i]+symb[1][i]
+                            if symb[0][i] <= symb[1][j]:
+                                x += symb[0][i]
                             else:
-                                x+=symb[1][j]
-                    x-=len(symb[1])*(len(symb[1])-1)*(4*len(symb[1])-5)//3
+                                x += symb[1][j]
+                    x -= len(symb[1])*(len(symb[1])-1)*(4*len(symb[1])-5)//3
                     d.append(x)
-                    if mu[0]==mu[1]:
+                    if mu[0] == mu[1]:
                         d.append(x)
             db.append(d)
-        if ct[0]=='G':
+        if ct[0] == 'G':
             db.append([0,6,1,3,1,2])
-        if ct[0]=='F':
+        if ct[0] == 'F':
             db.append([0,9,4,24,2,13,1,16,6,2,6,4,10,6,4,4,1,7,5,13,3,9,3,9,5])
-        if ct[0]=='E' and len(ct[1])==6:
+        if ct[0] == 'E' and len(ct[1]) == 6:
             db.append([0,36,9,1,25,7,3,15,4,16,2,20,
                       6,12,3,15,8,7,7,5,11,4,13,6,10])
-        if ct[0]=='E' and len(ct[1])==7:
+        if ct[0] == 'E' and len(ct[1]) == 7:
             db.append([0,63,46,1,28,5,3,30,36,3,2,37,16,7,4,31,30,3,18,9,12,14,25,
                        4,6,21,12,15,4,25,6,21,8,15,22,5,20,7,6,21,10,13,16,9,16,7,
                        8,17,16,7,13,10,14,9,8,15,10,13,11,11])
-        if ct[0]=='E' and len(ct[1])==8:
+        if ct[0] == 'E' and len(ct[1]) == 8:
             db.append([0,120,3,63,2,74,16,5,56,4,64,21,10,36,4,52,20,6,42,8,32,12,
                        36,6,46,18,14,28,6,42,16,13,26,16,12,31,9,34,20,8,38,18,8,
                        32,8,32,18,13,25,18,10,28,16,10,30,16,14,22,16,16,22,11,26,
                        12,24,14,22,1,91,7,37,3,63,4,52,17,7,43,9,39,5,47,19,10,28,
                        7,37,19,10,30,11,29,7,37,15,21,13,25,17,9,31,12,24,17,11,26,
                        15,21,13,23,15,21])
-        if db==[]:
+        if db == []:
             print("#W only works for crystallographic types")
     return [sum(di) for di in cartesian(db)]
 
-#F ainvariants
+# F ainvariants
 
 
 def ainvariants(W,weightL=0):
@@ -2455,64 +2450,64 @@ def ainvariants(W,weightL=0):
     >>> ainvariants(W,[0,1,1,1])    # weights [0,1,1,1]
     [6, 3, 3, 6, 2, 1, 1, 2, 0, 0]
     """
-    cw=conjugacyclasses(W)['reps']
+    cw = conjugacyclasses(W)['reps']
     if type(weightL) == type(0):
-        poids=len(W.rank)*[weightL]
+        poids = len(W.rank)*[weightL]
     else:
-        poids=weightL
-    if all(p==0 for p in poids):
+        poids = weightL
+    if all(p == 0 for p in poids):
         return len(cw)*[0]
-    if len(set(poids))==1:
+    if len(set(poids)) == 1:
         return [poids[0]*i for i in chartable(W,chars=False)['a']]
-    gens=[j for j in range(len(cw)) if len(cw[j])==1]
-    ti=chartable(W)
-    irr=ti['irreducibles']
-    omega=[sum(ti['classlengths'][s]*irr[t][s]*poids[cw[s][0]]
+    gens = [j for j in range(len(cw)) if len(cw[j]) == 1]
+    ti = chartable(W)
+    irr = ti['irreducibles']
+    omega = [sum(ti['classlengths'][s]*irr[t][s]*poids[cw[s][0]]
                    for s in gens)//irr[t][0] for t in range(len(cw))]
-    tainv=len(irr)*[0]
+    tainv = len(irr)*[0]
     for s in W.rank:
-        J=list(W.rank)
+        J = list(W.rank)
         J.remove(s)
-        H=reflectionsubgroup(W,J)
-        t=inductiontable(H,W)
-        ainvH=ainvariants(H,[poids[j] for j in J])
+        H = reflectionsubgroup(W,J)
+        t = inductiontable(H,W)
+        ainvH = ainvariants(H,[poids[j] for j in J])
         for i in range(len(t['charW'])):
             for j in range(len(t['charH'])):
-                if t['scalar'][i][j]!=0 and ainvH[j]>tainv[i]:
-                    tainv[i]=ainvH[j]
-    ainv=len(irr)*[0]
+                if t['scalar'][i][j] != 0 and ainvH[j] > tainv[i]:
+                    tainv[i] = ainvH[j]
+    ainv = len(irr)*[0]
     for t in range(len(irr)):
-        if tainv[ti['permsgn'][t]]-tainv[t]<=omega[t]:
-            ainv[t]=tainv[t]
+        if tainv[ti['permsgn'][t]]-tainv[t] <= omega[t]:
+            ainv[t] = tainv[t]
         else:
-            ainv[t]=tainv[ti['permsgn'][t]]-omega[t]
+            ainv[t] = tainv[ti['permsgn'][t]]-omega[t]
     return ainv
 
-#F niceprintconstructible
+# F niceprintconstructible
 
 
 def niceprintconstructible(cnst,chn):
-    if len(cnst)==1:
+    if len(cnst) == 1:
         lprint('# one constructible character:\n')
     else:
         lprint('# '+str(len(cnst))+' constructible characters:\n')
     for x in cnst:
         lprint('# ')
-        z=0
+        z = 0
         for i in range(len(x)):
-            if x[i]!=0:
-                if z==1:
+            if x[i] != 0:
+                if z == 1:
                     lprint(' + ')
-                if x[i]!=1:
+                if x[i] != 1:
                     lprint(str(x[i])+'*')
-                if len(chn[i])==1:
+                if len(chn[i]) == 1:
                     lprint(chn[i][0])
                 else:
                     lprint(str(chn[i]))
-                z=1
+                z = 1
         lprint('\n')
 
-#F constructible
+# F constructible
 
 
 def constructible(W,weightL=1,display=True):
@@ -2595,73 +2590,73 @@ def constructible(W,weightL=1,display=True):
     # 1_4
     """
     if type(weightL) == type(0):
-        poids=len(W.rank)*[weightL]
+        poids = len(W.rank)*[weightL]
     else:
-        poids=weightL
-    if len(W.rank)==0:
+        poids = weightL
+    if len(W.rank) == 0:
         return {'constructibles':[[1]],'families':[[0]]}
-    #if len(W.rank)==1:
+    # if len(W.rank)==1:
     #  if poids[0]==0:
     #    return [[1,1]]
     #  else:
     #    return [[1,0],[0,1]]
-    ti=chartable(W)
-    ag=ainvariants(W,poids)
-    const=[]
+    ti = chartable(W)
+    ag = ainvariants(W,poids)
+    const = []
     for s in W.rank:
-        J=list(W.rank)
+        J = list(W.rank)
         J.remove(s)
-        H=reflectionsubgroup(W,J)
-        it=inductiontable(H,W)['scalar']
-        poidsJ=[poids[j] for j in J]
-        au=ainvariants(H,poidsJ)
+        H = reflectionsubgroup(W,J)
+        it = inductiontable(H,W)['scalar']
+        poidsJ = [poids[j] for j in J]
+        au = ainvariants(H,poidsJ)
         for i in range(len(au)):
             for j in range(len(ag)):
-                if ag[j]!=au[i]:
-                    it[j][i]=0
+                if ag[j] != au[i]:
+                    it[j][i] = 0
         for x in matmult(constructible(H,poidsJ,
                      display=False)['constructibles'],transposemat(it)):
-            if not x in const:
+            if x not in const:
                 const.append(x[:])
-            nx=len(x)*[0]
+            nx = len(x)*[0]
             for i in range(len(nx)):
-                nx[ti['permsgn'][i]]=x[i]
-            if not nx in const:
+                nx[ti['permsgn'][i]] = x[i]
+            if nx not in const:
                 const.append(nx[:])
     const.sort()
-    rest=list(range(len(ag)))
-    f=[]
-    while rest!=[]:
-        o=[rest[0]]
+    rest = list(range(len(ag)))
+    f = []
+    while rest != []:
+        o = [rest[0]]
         for chi in o:
             for cp in const:
                 for psi in range(len(ag)):
-                    if cp[chi]!=0 and cp[psi]!=0 and not psi in o:
+                    if cp[chi] != 0 and cp[psi] != 0 and psi not in o:
                         o.append(psi)
         o.sort()
         f.append(o[:])
         for x in o:
             rest.remove(x)
     f.sort(key=(lambda x:ag[x[0]]))
-    fam=[]
+    fam = []
     for c in const:
-        i=0
-        while c[i]==0:
-            i+=1
-        j=0
-        while not i in f[j]:
-            j+=1
+        i = 0
+        while c[i] == 0:
+            i += 1
+        j = 0
+        while i not in f[j]:
+            j += 1
         fam.append(j)
-    nconst=[]
+    nconst = []
     for i in range(len(f)):
         for c in range(len(const)):
-            if fam[c]==i:
+            if fam[c] == i:
                 nconst.append(const[c])
     if display:
         niceprintconstructible(nconst,ti['charnames'])
     return {'constructibles':nconst,'families':f}
 
-#F lusztigpreceq
+# F lusztigpreceq
 
 
 def lusztigpreceq(W,poids,display=False):
@@ -2669,50 +2664,49 @@ def lusztigpreceq(W,poids,display=False):
     and  the  pre-order relation on them;  see 'lusztigfamilies'
     for further details.
     """
-    ti=chartable(W)
-    if len(W.rank)==0:
+    ti = chartable(W)
+    if len(W.rank) == 0:
         return [[True]]
-    if len(W.rank)==1:
-        if poids==[0]:
+    if len(W.rank) == 1:
+        if poids == [0]:
             return [[True,True],[True,True]]
         else:
-            if ti['position_id']<ti['position_sgn']:
+            if ti['position_id'] < ti['position_sgn']:
                 return [[True,True],[False,True]]
             else:
                 return [[True,False],[True,True]]
-    ag=ainvariants(W,poids)
-    fam=[[False for j in range(len(ag))] for i in range(len(ag))]
+    ag = ainvariants(W,poids)
+    fam = [[False for j in range(len(ag))] for i in range(len(ag))]
     for s in W.rank:
         if display:
             lprint('.')
-        J=list(W.rank)
+        J = list(W.rank)
         J.remove(s)
-        H=reflectionsubgroup(W,J)
-        it=inductiontable(H,W)['scalar']
-        poidsJ=[poids[j] for j in J]
-        au=ainvariants(H,poidsJ)
-        fam1=lusztigpreceq(H,poidsJ)
+        H = reflectionsubgroup(W,J)
+        it = inductiontable(H,W)['scalar']
+        poidsJ = [poids[j] for j in J]
+        au = ainvariants(H,poidsJ)
+        fam1 = lusztigpreceq(H,poidsJ)
         for psi1 in range(len(au)):
             for psi2 in range(len(au)):
                 if fam1[psi1][psi2]:
-                    for chi1 in filter(lambda i:ag[i]==au[psi1] and
-                                           it[i][psi1]!=0,range(len(ag))):
-                        for chi2 in filter(lambda j:it[j][psi2]!=0,range(len(ag))):
-                            fam[chi1][chi2]=True
-                            fam[ti['permsgn'][chi2]][ti['permsgn'][chi1]]=True
+                    for chi1 in filter(lambda i:ag[i] == au[psi1] and
+                                           it[i][psi1] != 0,range(len(ag))):
+                        for chi2 in filter(lambda j:it[j][psi2] != 0,range(len(ag))):
+                            fam[chi1][chi2] = True
+                            fam[ti['permsgn'][chi2]][ti['permsgn'][chi1]] = True
         for chi in range(len(ag)):  # transitive closure
-            orb=[chi]
+            orb = [chi]
             for chi1 in orb:
                 for chi2 in range(len(ag)):
-                    if fam[chi1][chi2] and (not chi2 in orb):
+                    if fam[chi1][chi2] and chi2 not in orb:
                         orb.append(chi2)
             for chi1 in orb:
-                fam[chi][chi1]=True
+                fam[chi][chi1] = True
     return fam
 
-#F lusztigfamilies
 
-
+# F lusztigfamilies
 def lusztigfamilies(W, weightL=1, verbose=False):
     """returns the partition of the set of irreducible characters of W
     into families, as defined in Chapter 4 of:
@@ -2767,57 +2761,57 @@ def lusztigfamilies(W, weightL=1, verbose=False):
     'hasse'   : [[0, 1], [1, 2], [2, 3], [3, 4]]}
     """
     if type(weightL) == type(0):
-        poids=len(W.rank)*[weightL]
+        poids = len(W.rank)*[weightL]
     else:
-        poids=weightL
-    ti=chartable(W)
-    if len(W.rank)==0:
+        poids = weightL
+    ti = chartable(W)
+    if len(W.rank) == 0:
         return {'hasse':[],'ainv':[0],'families':[[0]],'names':[['[1]']]}
-    if len(W.rank)==1:
-        if poids[0]==0:
+    if len(W.rank) == 1:
+        if poids[0] == 0:
             return {'hasse':[],'ainv':[0],'families':[[0,1]],
                                                 'names':[['[1,1]','[2]']]}
         else:
             return {'hasse':[[0,1]],'ainv':[0,1],'families':[[1],[0]],
                                                 'names':[['[2]'],['[1,1]']]}
 
-    ag=ainvariants(W,poids)
+    ag = ainvariants(W,poids)
     if verbose:
         lprint('#I ')
-    fam=lusztigpreceq(W,poids,display=True)
-    check=True
-    fam1=[]
-    rest=list(range(len(ag)))
+    fam = lusztigpreceq(W,poids,display=True)
+    check = True
+    fam1 = []
+    rest = list(range(len(ag)))
     while rest:
-        chi=rest[0]
-        orb=[chi]
+        chi = rest[0]
+        orb = [chi]
         for chi1 in range(1,len(rest)):
             if fam[chi][rest[chi1]] and fam[rest[chi1]][chi]:
                 orb.append(rest[chi1])
         fam1.append(orb[:])
-        if len(set([ag[x] for x in orb]))>1:
-            check=False
+        if len(set([ag[x] for x in orb])) > 1:
+            check = False
         for o in orb:
             rest.remove(o)
     fam1.sort(key=(lambda i:ag[i[0]]))
-    rest=[]
+    rest = []
     for chi1 in fam1:
         for chi2 in fam1:
-            if chi1!=chi2 and any(any(fam[psi1][psi2]
+            if chi1 != chi2 and any(any(fam[psi1][psi2]
                                   for psi2 in chi2) for psi1 in chi1):
                 rest.append([fam1.index(chi1),fam1.index(chi2)])
-    hasse=[]
+    hasse = []
     for chi1 in range(len(fam1)):
         for chi2 in range(len(fam1)):
-            if chi1!=chi2 and [chi1,chi2] in rest:
-                if not any(chi!=chi1 and chi!=chi2 and [chi1,chi] in rest
+            if chi1 != chi2 and [chi1,chi2] in rest:
+                if not any(chi != chi1 and chi != chi2 and [chi1,chi] in rest
                             and [chi,chi2] in rest for chi in range(len(fam1))):
                     hasse.append([chi1,chi2])
     for h in hasse:
-        if ag[fam1[h[0]][0]]>ag[fam1[h[1]][0]]:
-            check=False
+        if ag[fam1[h[0]][0]] > ag[fam1[h[1]][0]]:
+            check = False
     if verbose:
-        if len(fam1)==1:
+        if len(fam1) == 1:
             lprint(' '+str(len(fam1))+' family; ')
         else:
             lprint(' '+str(len(fam1))+' families; ')
@@ -2825,7 +2819,7 @@ def lusztigfamilies(W, weightL=1, verbose=False):
     return {'families':fam1, 'ainv':[ag[x[0]] for x in fam1],'hasse':hasse,
             'names':[[ti['charnames'][i] for i in f] for f in fam1]}
 
-#F poincarepol
+# F poincarepol
 
 
 def poincarepol(W,paramL):
@@ -2857,23 +2851,23 @@ def poincarepol(W,paramL):
     are square roots of the parameters used here.)
     """
     if isinstance(paramL, list):
-        vs=paramL[:]
+        vs = paramL[:]
     else:
-        vs=len(W.rank)*[paramL]
-    if len(W.rank)==0:
+        vs = len(W.rank)*[paramL]
+    if len(W.rank) == 0:
         return 1
     else:
-        W1=reflectionsubgroup(W,list(W.rank)[:-1])
-        po=poincarepol(W1,vs[:-1])
-        rp=0
+        W1 = reflectionsubgroup(W,list(W.rank)[:-1])
+        po = poincarepol(W1,vs[:-1])
+        rp = 0
         for w in redrightcosetreps(W,W1):
-            p=1
+            p = 1
             for s in W.coxelmtoword(w):
-                p*=vs[s]
-            rp+=p
+                p *= vs[s]
+            rp += p
         return po*rp
 
-#F classpolynomials
+# F classpolynomials
 
 
 def classpolynomials(W,paramL,pw):
@@ -2919,51 +2913,50 @@ def classpolynomials(W,paramL,pw):
     length.
     """
     if type(paramL) == type([]):
-        vs=paramL[:]
+        vs = paramL[:]
     else:
-        vs=len(W.rank)*[paramL]
-    t=testcyclicshift(W,pw)
+        vs = len(W.rank)*[paramL]
+    t = testcyclicshift(W,pw)
     if t:
-        cp=len(conjugacyclasses(W)['reps'])*[0]
-        cp[identifyclasses(W,[W.permtoword(pw)],minrep=True)[0]]=1
+        cp = len(conjugacyclasses(W)['reps'])*[0]
+        cp[identifyclasses(W,[W.permtoword(pw)],minrep=True)[0]] = 1
     else:
-        cp1=classpolynomials(W,vs,t[0])
-        cp2=classpolynomials(W,vs,[t[0][i] for i in W.permgens[t[1]]])
-        cp=[vs[t[1]]*cp1[i]+(vs[t[1]]-1)*cp2[i] for i in range(len(cp1))]
+        cp1 = classpolynomials(W,vs,t[0])
+        cp2 = classpolynomials(W,vs,[t[0][i] for i in W.permgens[t[1]]])
+        cp = [vs[t[1]]*cp1[i]+(vs[t[1]]-1)*cp2[i] for i in range(len(cp1))]
     return cp
 
-#F testcyclicshift1
+# F testcyclicshift1
 
 
 def testcyclicshift1(W,w,pw):
     """returns the cyclic shift orbit of an element together with some
     additional information, for us in 'allclasspolynomials'.
     """
-    bahn=[pw[:]]
-    cbahn=set([bytes(pw[:len(W.rank)])])
-    l=len([i for i in pw[:W.N] if i>=W.N])
-    minr=1
+    bahn = [pw[:]]
+    cbahn = set([bytes(pw[:len(W.rank)])])
+    l = len([i for i in pw[:W.N] if i >= W.N])
+    minr = 1
     for b in bahn:
         for s in W.rank:
-            nw=tuple([W.permgens[s][b[W.permgens[s][r]]]
+            nw = tuple([W.permgens[s][b[W.permgens[s][r]]]
                      for r in range(2*W.N)])
-            lnw=len([i for i in nw[:W.N] if i>=W.N])
-            cnw=bytes(nw[:len(W.rank)])
-            if minr==1 and lnw<l:
-                sxs,s1=nw[:len(W.rank)],s
-                minr=0
-            if lnw==l and not cnw in cbahn:
+            lnw = len([i for i in nw[:W.N] if i >= W.N])
+            cnw = bytes(nw[:len(W.rank)])
+            if minr == 1 and lnw < l:
+                sxs,s1 = nw[:len(W.rank)],s
+                minr = 0
+            if lnw == l and cnw not in cbahn:
                 bahn.append(nw)
                 cbahn.add(cnw)
     #bahn=[b[:len(W.rank)] for b in bahn]
-    if minr==1:
+    if minr == 1:
         return [1,bahn,identifyclasses(W,[w],minrep=True)[0]]
     else:
-        return [0,bahn,sxs,s1]
-
-#F allclasspolynomials
+        return [0, bahn, sxs, s1]
 
 
+# F allclasspolynomials
 def allclasspolynomials(W,paramL,maxl=-1, verbose=False):
     """returns the class polynomials for all elements of a finite  Coxeter
     group of length at most maxl. (In many situations, this may be more
@@ -2999,74 +2992,74 @@ def allclasspolynomials(W,paramL,maxl=-1, verbose=False):
     See also 'classpolynomials' and 'heckecharvalues'.
     """
     if maxl == -1:
-        maxlen=W.N
+        maxlen = W.N
     else:
-        maxlen=min(maxl, W.N)
+        maxlen = min(maxl, W.N)
     if isinstance(paramL, (list, tuple)):
-        vs=paramL[:]
+        vs = paramL[:]
     else:
-        vs=len(W.rank)*[paramL]
-    poin=poincarepol(W,v).coeffs
-    cl=conjugacyclasses(W)['reps']
-    cpmat=[]
-    cp=len(cl)*[0]
-    cp[0]=1
+        vs = len(W.rank)*[paramL]
+    poin = poincarepol(W,v).coeffs
+    cl = conjugacyclasses(W)['reps']
+    cpmat = []
+    cp = len(cl)*[0]
+    cp[0] = 1
     cpmat.append({tuple(W.rank):cp})
-    cps={}
+    cps = {}
     for s in W.rank:
-        cp=len(cl)*[0]
-        cp[identifyclasses(W,[[s]],minrep=True)[0]]=1
-        cps[W.permgens[s][:len(W.rank)]]=cp
+        cp = len(cl)*[0]
+        cp[identifyclasses(W,[[s]],minrep=True)[0]] = 1
+        cps[W.permgens[s][:len(W.rank)]] = cp
     cpmat.append(cps)
-    if verbose and maxlen>20:
+    if verbose and maxlen > 20:
         lprint('#I 0-1-')
     for l in range(1,maxlen):
-        if verbose and maxlen>20:
+        if verbose and maxlen > 20:
             lprint(str(l+1))
-        nl=set([])
-        ol=set(cpmat[l-1])
+        nl = set([])
+        ol = set(cpmat[l-1])
         for w in cpmat[l]:
             for s in W.permgens:
-                nw=tuple([s[i] for i in w])
-                if not nw in ol:
+                nw = tuple([s[i] for i in w])
+                if nw not in ol:
                     nl.add(nw)
-            if len(nl)==poin[l+1]:
+            if len(nl) == poin[l+1]:
                 break
-        cps={}
-        if verbose and maxlen>20:
+        cps = {}
+        if verbose and maxlen > 20:
             lprint('-')
-        while nl!=set([]):
-            cw=next(iter(nl))
-            cw1=W.coxelmtoword(cw)
-            pc1=W.wordtoperm(cw1)
-            t=testcyclicshift1(W,cw1,pc1)
-            if t[0]==1:
-                cp=len(cl)*[0]
-                cp[t[2]]=1
+        while nl != set([]):
+            cw = next(iter(nl))
+            cw1 = W.coxelmtoword(cw)
+            pc1 = W.wordtoperm(cw1)
+            t = testcyclicshift1(W,cw1,pc1)
+            if t[0] == 1:
+                cp = len(cl)*[0]
+                cp[t[2]] = 1
             else:
-                cp1=cpmat[l-1][t[2]]
-                cp2=cpmat[l][tuple([W.permgens[t[3]][i] for i in t[2]])]
-                cp=[vs[t[3]]*cp1[i]+(vs[t[3]]-1)*cp2[i]
+                cp1 = cpmat[l-1][t[2]]
+                cp2 = cpmat[l][tuple([W.permgens[t[3]][i] for i in t[2]])]
+                cp = [vs[t[3]]*cp1[i]+(vs[t[3]]-1)*cp2[i]
                                      for i in range(len(cl))]
             for x in t[1]:
-                cx=x[:len(W.rank)]
-                cps[cx]=cp
+                cx = x[:len(W.rank)]
+                cps[cx] = cp
                 nl.remove(cx)
-            if not perminverse(pc1) in t[1]:
+            if perminverse(pc1) not in t[1]:
                 for x in t[1]:
-                    cx=perminverse(x)[:len(W.rank)]
-                    cps[cx]=cp
+                    cx = perminverse(x)[:len(W.rank)]
+                    cps[cx] = cp
                     nl.remove(cx)
         cpmat.append(cps)
-    if verbose and maxlen>20:
+    if verbose and maxlen > 20:
         lprint('\n')
-    res={}
+    res = {}
     for l in cpmat:
         for x in l:
-            res[x]=l[x]
+            res[x] = l[x]
     return res
 
-#F starkey
+# F starkey
 
 
 def starkey(n,u):
@@ -3074,37 +3067,37 @@ def starkey(n,u):
     to  produce  the character table  of the  Iwahori-Hecke  algebra of
     type A.
     """
-    W=coxeter("A",n-1)
-    pt=partitions(n)
-    cl=[W.order//centraliserpartition(n,p) for p in pt]
-    stk=[]
+    W = coxeter("A",n-1)
+    pt = partitions(n)
+    cl = [W.order//centraliserpartition(n,p) for p in pt]
+    stk = []
     for mu in range(len(pt)):
-        J=list(range(n))
-        l=0
+        J = list(range(n))
+        l = 0
         for i in pt[mu]:
-            l+=i
+            l += i
             J.remove(l-1)
-        H=reflectionsubgroup(W,J)
-        ch=conjugacyclasses(H)
-        nam=[partitions(len(t[1])+1) for t in H.cartantype]
-        fus=[]  # more efficient than fusionconjugacyclasses
+        H = reflectionsubgroup(W,J)
+        ch = conjugacyclasses(H)
+        nam = [partitions(len(t[1])+1) for t in H.cartantype]
+        fus = []  # more efficient than fusionconjugacyclasses
         for st in cartesian(nam):
-            p=flatlist(st)
+            p = flatlist(st)
             p.sort(reverse=True)
-            while sum(p)<n:
+            while sum(p) < n:
                 p.append(1)
             fus.append(pt.index(p))
-        H.fusions[W.cartanname]['classes']=fus[:]
-        neu=inducedchar(W,H,len(ch['reps'])*[1])
+        H.fusions[W.cartanname]['classes'] = fus[:]
+        neu = inducedchar(W,H,len(ch['reps'])*[1])
         for i in range(len(pt)):
-            if neu[i]!=0:
+            if neu[i] != 0:
                 for j in pt[i]:
-                    neu[i]*=sum(u**k for k in range(j))
-                neu[i]*=(u-1)**(len(pt[i])-len(pt[mu]))*cl[i]
+                    neu[i] *= sum(u**k for k in range(j))
+                neu[i] *= (u-1)**(len(pt[i])-len(pt[mu]))*cl[i]
         stk.append(neu[:])
     return transposemat(stk)
 
-#F heckevalueB
+# F heckevalueB
 
 
 def heckevalueB(n,q,Q,gamma,pi):
@@ -3135,89 +3128,89 @@ def heckevalueB(n,q,Q,gamma,pi):
 
     See also 'chartableB' and 'heckechartable'.
     """
-    if n==0:
+    if n == 0:
         return q**0
-    val=0*q
-    if pi[0]!=[]:
-        k=pi[0][0]
+    val = 0*q
+    if pi[0] != []:
+        k = pi[0][0]
         for alpha in partitiontuples(n-k,2):
-            dif=[differencepartitions(gamma[0],alpha[0]),
+            dif = [differencepartitions(gamma[0],alpha[0]),
                               differencepartitions(gamma[1],alpha[1])]
             if dif[0] is not False and dif[1] is not False:
-                dif={'cc':dif[0]['cc']+dif[1]['cc'],
+                dif = {'cc':dif[0]['cc']+dif[1]['cc'],
                     'll':dif[0]['ll']+dif[1]['ll']}
-                val+=(q-1)**(dif['cc']-1)*(-1)**(dif['ll'])*q**(k-dif['ll']-
+                val += (q-1)**(dif['cc']-1)*(-1)**(dif['ll'])*q**(k-dif['ll'] -
                         dif['cc'])*heckevalueB(n-k,q,Q,alpha,
                             [[pi[0][i] for i in range(1,len(pi[0]))],pi[1]])
     else:
-        k=pi[1][0]
-        nn=sum(gamma[0])
-        if nn>=k:
+        k = pi[1][0]
+        nn = sum(gamma[0])
+        if nn >= k:
             for alpha in partitions(nn-k):
-                dif=differencepartitions(gamma[0],alpha)
-                if dif is not False and dif['cc']==1:
-                    val+=Q*(-1)**(dif['ll'])*q**(n+dif['d'])*heckevalueB(n-k,q,Q,
+                dif = differencepartitions(gamma[0],alpha)
+                if dif is not False and dif['cc'] == 1:
+                    val += Q*(-1)**(dif['ll'])*q**(n+dif['d'])*heckevalueB(n-k,q,Q,
                       [alpha,gamma[1]],[pi[0],[pi[1][i] for i in range(1,len(pi[1]))]])
-        nn=sum(gamma[1])
-        if nn>=k:
+        nn = sum(gamma[1])
+        if nn >= k:
             for alpha in partitions(nn-k):
-                dif=differencepartitions(gamma[1],alpha)
-                if dif is not False and dif['cc']==1:
-                    val+=(-1)**(dif['ll']+1)*q**(n+dif['d'])*heckevalueB(n-k,q,Q,
+                dif = differencepartitions(gamma[1],alpha)
+                if dif is not False and dif['cc'] == 1:
+                    val += (-1)**(dif['ll']+1)*q**(n+dif['d'])*heckevalueB(n-k,q,Q,
                       [gamma[0],alpha],[pi[0],[pi[1][i] for i in range(1,len(pi[1]))]])
     return val
 
 
 def heckeB(n,q,Q):
-    p=partitiontuples(n,2)
+    p = partitiontuples(n,2)
     return [[heckevalueB(n,q,Q,a,b) for b in p] for a in p]
 
 
 def heckeD(n,v):
-    W1=coxeter("B",n)
-    r1=reflections(W1)
-    W=reflectionsubgroup(W1,list(range(1,n))+
+    W1 = coxeter("B",n)
+    r1 = reflections(W1)
+    W = reflectionsubgroup(W1,list(range(1,n)) +
                    [r1.index(W1.wordtoperm([0,1,0]))])
-    cw=conjugacyclasses(W)['reps']
-    cc=[i for i in range(len(cw)) if set(cw[i])==set(list(range(n)))]
-    cw1=[W.reducedword(cw[i],W1) for i in cc]
-    if all(len(conjtomin(W1,W1.wordtoperm(x)))==len(x) for x in cw1):
-        fus=identifyclasses(W1,cw1,minrep=True)
+    cw = conjugacyclasses(W)['reps']
+    cc = [i for i in range(len(cw)) if set(cw[i]) == set(list(range(n)))]
+    cw1 = [W.reducedword(cw[i],W1) for i in cc]
+    if all(len(conjtomin(W1,W1.wordtoperm(x))) == len(x) for x in cw1):
+        fus = identifyclasses(W1,cw1,minrep=True)
     else:
         print("Mist!")
         return False
-    pt=partitiontuples(n,2)
-    t1=[]   # table of restrictions
+    pt = partitiontuples(n,2)
+    t1 = []   # table of restrictions
     for i in range(len(pt)):
-        mu=pt[i]
-        if mu[0]==mu[1]:
-            vals=[divmod(heckevalueB(n,v**2,1,mu,pt[j]),2)[0] for j in fus]
+        mu = pt[i]
+        if mu[0] == mu[1]:
+            vals = [divmod(heckevalueB(n,v**2,1,mu,pt[j]),2)[0] for j in fus]
             t1.append(vals)
             t1.append(vals)
-        elif mu[0]<mu[1]:
-            vals=[heckevalueB(n,v**2,1,mu,pt[j]) for j in fus]
+        elif mu[0] < mu[1]:
+            vals = [heckevalueB(n,v**2,1,mu,pt[j]) for j in fus]
             t1.append(vals)
     tr = transposemat(t1)
     s = len(W.rank)
     while len(cc) < len(cw):     # add non-cuspidal classes
-        s-=1
-        J=list(W.rank)
+        s -= 1
+        J = list(W.rank)
         J.remove(s)
-        W1=reflectionsubgroup(W,J)
-        fus=fusionconjugacyclasses(W1,W)
-        ind=inductiontable(W1,W)['scalar']
-        nti1=heckechartable(W1,v)['irreducibles']
+        W1 = reflectionsubgroup(W,J)
+        fus = fusionconjugacyclasses(W1,W)
+        ind = inductiontable(W1,W)['scalar']
+        nti1 = heckechartable(W1,v)['irreducibles']
         for c in fus:
-            if not c in cc:
+            if c not in cc:
                 tr.append([sum(i[j]*nti1[j][fus.index(c)]
                               for j in range(len(nti1))) for i in ind])
                 cc.append(c)
     #fint=transposemat([tr[cc.index(i)] for i in range(len(cc))])
     #fint1=[[evalpol(f,1) for f in l] for l in fint]
-    #return [fint[fint1.index(c)] for c in chartable("D",n)['irreducibles']]
+    # return [fint[fint1.index(c)] for c in chartable("D",n)['irreducibles']]
     return transposemat([tr[cc.index(i)] for i in range(len(cc))])
 
-#F heckeirrdata
+# F heckeirrdata
 
 
 def heckeirrdata(typ,n,paramL):
@@ -3243,87 +3236,87 @@ def heckeirrdata(typ,n,paramL):
     type A, nothing needs to be stored:  the whole table is computed
     using the above procedures.
     """
-    if typ[0]=='A' and n==0:
-        cc=[0]    # list of classes which are stored
-        ch=[0]    # list of characters which are stored
-        t1=[[1]]
-    if typ[0]=='A' and n>=1:
-        #v=paramL[0]
+    if typ[0] == 'A' and n == 0:
+        cc = [0]    # list of classes which are stored
+        ch = [0]    # list of characters which are stored
+        t1 = [[1]]
+    if typ[0] == 'A' and n >= 1:
+        # v=paramL[0]
         #cl=[centraliserpartition(n+1,p) for p in partitions(n+1)]
-        #sti=starkey(n+1,paramL[0])
-        #cc=list(range(len(cl)))
-        #ch=cc[:]
-        #t=chartable(coxeter("A",n))['irreducibles']
-        #t1=[[sum(t[i][k]*sti[k][j] for k in range(len(cl)))//cl[0]
+        # sti=starkey(n+1,paramL[0])
+        # cc=list(range(len(cl)))
+        # ch=cc[:]
+        # t=chartable(coxeter("A",n))['irreducibles']
+        # t1=[[sum(t[i][k]*sti[k][j] for k in range(len(cl)))//cl[0]
         #                for j in range(len(cl))] for i in range(len(cl))]
-        cc=[]
-        ch=[]
-        t1=[[]]
-    if typ[0]=='B' and n==2:
-        v=paramL[0]**2
-        u=paramL[1]**2  # v == u
-        cc=[2,4]
-        ch=[0,1,2,3,4]
-        t1=[[u**2,-u],[-2*v*u,0],[1,1],[v**2*u**2,v*u],[v**2,-v]]
-    if typ[0]=='C' and n==2:   # u == v
-        v=paramL[0]**2
-        u=paramL[1]**2  # u == v
-        cc=[2,4]
-        ch=[0,1,2,3,4]
-        t1=[[v**2,-v],[-2*v*u,0],[1,1],[v**2*u**2,v*u],[u**2,-u]]
-    if (typ[0]=='B' or typ[0]=='C') and n>=3:
-        v=paramL[0]**2
-        u=paramL[1]**2  # v == u -- u -- ... --- u
-        p=partitiontuples(n,2)
-        cc=[i for i in range(len(p)) if p[i][0]==[]]
-        ch=list(range(len(p)))
-        t1=[[heckevalueB(n,u,v,a,p[b]) for b in cc] for a in p]
-    if typ[0]=='D' and n>=3:
-        v=paramL[0]
-        if n==3 or n==4:
-            cc=[]
-            ch=[]
-            t1=[[]]
+        cc = []
+        ch = []
+        t1 = [[]]
+    if typ[0] == 'B' and n == 2:
+        v = paramL[0]**2
+        u = paramL[1]**2  # v == u
+        cc = [2,4]
+        ch = [0,1,2,3,4]
+        t1 = [[u**2,-u],[-2*v*u,0],[1,1],[v**2*u**2,v*u],[v**2,-v]]
+    if typ[0] == 'C' and n == 2:   # u == v
+        v = paramL[0]**2
+        u = paramL[1]**2  # u == v
+        cc = [2,4]
+        ch = [0,1,2,3,4]
+        t1 = [[v**2,-v],[-2*v*u,0],[1,1],[v**2*u**2,v*u],[u**2,-u]]
+    if (typ[0] == 'B' or typ[0] == 'C') and n >= 3:
+        v = paramL[0]**2
+        u = paramL[1]**2  # v == u -- u -- ... --- u
+        p = partitiontuples(n,2)
+        cc = [i for i in range(len(p)) if p[i][0] == []]
+        ch = list(range(len(p)))
+        t1 = [[heckevalueB(n,u,v,a,p[b]) for b in cc] for a in p]
+    if typ[0] == 'D' and n >= 3:
+        v = paramL[0]
+        if n == 3 or n == 4:
+            cc = []
+            ch = []
+            t1 = [[]]
         else:
-            W1=coxeter("B",n)
-            r1=reflections(W1)
-            W=reflectionsubgroup(W1,list(range(1,n))+
+            W1 = coxeter("B",n)
+            r1 = reflections(W1)
+            W = reflectionsubgroup(W1,list(range(1,n)) +
                            [r1.index(W1.wordtoperm([0,1,0]))])
-            cw=conjugacyclasses(W)['reps']
-            cc=[i for i in range(len(cw)) if set(cw[i])==set(list(range(n)))]
-            cw1=[W.reducedword(cw[i],W1) for i in cc]
-            if n<11 or all(len(conjtomin(W1,W1.wordtoperm(x)))==len(x) for x in cw1):
-                fus=identifyclasses(W1,cw1,minrep=True)
+            cw = conjugacyclasses(W)['reps']
+            cc = [i for i in range(len(cw)) if set(cw[i]) == set(list(range(n)))]
+            cw1 = [W.reducedword(cw[i],W1) for i in cc]
+            if n < 11 or all(len(conjtomin(W1,W1.wordtoperm(x))) == len(x) for x in cw1):
+                fus = identifyclasses(W1,cw1,minrep=True)
             else:
                 print("Mist!")
                 return False
-            pt=partitiontuples(n,2)
-            t1=[]   # table of restrictions
+            pt = partitiontuples(n,2)
+            t1 = []   # table of restrictions
             for i in range(len(pt)):
-                mu=pt[i]
-                if mu[0]==mu[1]:
-                    vals=[divmod(heckevalueB(n,v**2,1,mu,pt[j]),2)[0]
+                mu = pt[i]
+                if mu[0] == mu[1]:
+                    vals = [divmod(heckevalueB(n,v**2,1,mu,pt[j]),2)[0]
                                  for j in fus]
                     t1.append(vals)
                     t1.append(vals)
-                elif mu[0]<mu[1]:
-                    vals=[heckevalueB(n,v**2,1,mu,pt[j]) for j in fus]
+                elif mu[0] < mu[1]:
+                    vals = [heckevalueB(n,v**2,1,mu,pt[j]) for j in fus]
                     t1.append(vals)
-            ch=list(range(len(t1)))
-    if typ[0]=='G':
-        u=paramL[0]**2
-        v=paramL[1]**2   # u === v
-        squv=paramL[0]*paramL[1]
-        cc=[3,4,5]
-        ch=[0,1,2,3,4,5]
-        t1=[[v*u,v**2*u**2,v**3*u**3],[1,1,1],[-v,v**2,-v**3],[-u,u**2,-u**3],
+            ch = list(range(len(t1)))
+    if typ[0] == 'G':
+        u = paramL[0]**2
+        v = paramL[1]**2   # u === v
+        squv = paramL[0]*paramL[1]
+        cc = [3,4,5]
+        ch = [0,1,2,3,4,5]
+        t1 = [[v*u,v**2*u**2,v**3*u**3],[1,1,1],[-v,v**2,-v**3],[-u,u**2,-u**3],
             [squv,-v*u,-2*squv**3],[-squv,-v*u,2*squv**3]]
-    if typ[0]=='F':
-        u=paramL[0]**2
-        v=paramL[2]**2  # u -- u == v -- v
-        cc=[i-1 for i in [2,5,6,8,9,10,11,24,25]]
-        ch=[i-1 for i in [1,2,5,7,9,10,11,14,15,16,17,18,21,23,25]]
-        t1=[[v**12*u**12,v**6*u**4,v**6*u**6,v**4*u**6,v**8*u**8,v**4*u**4,
+    if typ[0] == 'F':
+        u = paramL[0]**2
+        v = paramL[2]**2  # u -- u == v -- v
+        cc = [i-1 for i in [2,5,6,8,9,10,11,24,25]]
+        ch = [i-1 for i in [1,2,5,7,9,10,11,14,15,16,17,18,21,23,25]]
+        t1 = [[v**12*u**12,v**6*u**4,v**6*u**6,v**4*u**6,v**8*u**8,v**4*u**4,
              v**2*u**2,v**7*u**7,v**3*u**3],
             [u**12,u**4,u**6,u**6,u**8,u**4,u**2,-u**7,-u**3],
             [2*v**6*u**12,2*v**3*u**4,2*v**3*u**6,-v**2*u**6,
@@ -3355,20 +3348,20 @@ def heckeirrdata(typ,n,paramL):
              2*v**6*u**4,-2*v**3*u**2,0,0,0],
             [-16*v**6*u**6,v**2*u**2+v**4*u**2,0,v**2*u**2+v**2*u**4,
              -2*v**4*u**4,2*v**2*u**2,0,0,0]]
-    if typ[0]=="E" and n==6:
-        v=paramL[0]
-        cc=[11]
-        ch=[i-1 for i in [1,3,4,6,7,9,11,13,15,17,18,19,20,22,24]]
-        t1=[[v**28],[-v**16+2*v**14-v**12],[-2*v**22],[-2*v**14],
+    if typ[0] == "E" and n == 6:
+        v = paramL[0]
+        cc = [11]
+        ch = [i-1 for i in [1,3,4,6,7,9,11,13,15,17,18,19,20,22,24]]
+        t1 = [[v**28],[-v**16+2*v**14-v**12],[-2*v**22],[-2*v**14],
             [v**20+v**16],[v**20],[-v**22+2*v**20],[v**18-2*v**16],
             [-v**16],[-v**16+2*v**14-v**12],[v**16+v**12],
             [-v**16+2*v**14-v**12],[-2*v**16+v**14],[0],[0]]
-    if typ[0]=="E" and n==7:
-        v=paramL[0]
-        cc=[i-1 for i in [36,38,39,44,47,54,59,60]]
-        ch=[i-1 for i in [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,
+    if typ[0] == "E" and n == 7:
+        v = paramL[0]
+        cc = [i-1 for i in [36,38,39,44,47,54,59,60]]
+        ch = [i-1 for i in [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,
             39,41,43,45,47,49,51,53,55,57,59]]
-        t1=[[v**62,v**46,v**66,v**30,v**50,v**34,v**22,v**26],
+        t1 = [[v**62,v**46,v**66,v**30,v**50,v**34,v**22,v**26],
             [-v**6+5*v**10,-v**6+2*v**8,3*v**10,2*v**6,2*v**8,v**6,0,-v**4],
             [5*v**18-5*v**22,-v**14+4*v**16,-3*v**22+2*v**24,0,2*v**16-v**18,
              -v**12,-v**8,0],
@@ -3417,14 +3410,14 @@ def heckeirrdata(typ,n,paramL):
              0,-v**12,0],
             [-5*v**25+5*v**29-16*v**31+5*v**33-5*v**37,2*v**21-8*v**23+2*v**25,
              0,2*v**15,-2*v**23+4*v**25-2*v**27,0,0,-v**13]]
-    if typ[0]=='E' and n==8:
-        v=paramL[0]
-        cc=[i-1 for i in [9,13,15,17,24,29,34,39,42,45,47,48,49,54,55,56,58,63]]
-        ch=[i-1 for i in [1,3,5,7,8,10,12,13,15,17,18,20,22,24,26,27,29,31,32,
+    if typ[0] == 'E' and n == 8:
+        v = paramL[0]
+        cc = [i-1 for i in [9,13,15,17,24,29,34,39,42,45,47,48,49,54,55,56,58,63]]
+        ch = [i-1 for i in [1,3,5,7,8,10,12,13,15,17,18,20,22,24,26,27,29,31,32,
             34,35,37,39,40,42,43,45,47,48,50,51,53,54,56,57,59,
             60,62,64,66,68,70,72,74,76,77,79,81,83,84,86,88,89,
             91,93,95,97,99,100,102,104,105,107,109,111]]
-        t1=[[v**128,v**84,v**88,v**132,v**64,v**88,v**92,v**44,
+        t1 = [[v**128,v**84,v**88,v**132,v**64,v**88,v**92,v**44,
              v**36,v**68,v**32,v**56,v**28,v**92,v**52,v**44,v**48,v**52],
             [15*v**92-6*v**100+v**108,v**60-6*v**62+6*v**64,
              6*v**64-8*v**66+3*v**68,6*v**96+2*v**102,6*v**44-4*v**48+v**52,
@@ -3783,20 +3776,20 @@ def heckeirrdata(typ,n,paramL):
              -2*v**42+2*v**46+2*v**48-2*v**50,2*v**44-2*v**46-2*v**48-v**54,0,0,
              0,v**14,-v**28,v**14,2*v**46+2*v**50,2*v**30,-2*v**24,
              2*v**26-v**28,0]]
-    if typ[0]=='H' and n==3:
-        v=paramL[0]
-        ir5=ir(5)
-        cc=[i-1 for i in [6,8,9,10]]
-        ch=[i-1 for i in [1,3,5,6,9]]
-        t1=[[-1,-1,-1,-1],[0,v**4,0,-5*v**12],[(1-ir5)*v**2,0,ir5*v**6,3*v**10],
+    if typ[0] == 'H' and n == 3:
+        v = paramL[0]
+        ir5 = ir(5)
+        cc = [i-1 for i in [6,8,9,10]]
+        ch = [i-1 for i in [1,3,5,6,9]]
+        t1 = [[-1,-1,-1,-1],[0,v**4,0,-5*v**12],[(1-ir5)*v**2,0,ir5*v**6,3*v**10],
             [ir5*v**2,0,(1-ir5)*v**6,3*v**10],[v**3,-v**5,v**9,-4*v**15]]
-    if typ[0]=='H' and n==4:
-        v=paramL[0]
-        ir5=ir(5)
-        cc=[i-1 for i in [19,21,25,27,31]]
-        ch=[i-1 for i in [1,3,5,7,8,9,10,11,13,15,16,17,18,20,22,23,
+    if typ[0] == 'H' and n == 4:
+        v = paramL[0]
+        ir5 = ir(5)
+        cc = [i-1 for i in [19,21,25,27,31]]
+        ch = [i-1 for i in [1,3,5,7,8,9,10,11,13,15,16,17,18,20,22,23,
                           24,25,26,27,29,30,31,33,34]]
-        t1=[[v**28,v**32,v**44,v**52,v**76],
+        t1 = [[v**28,v**32,v**44,v**52,v**76],
             [(1-ir5)*v**20+ir5*v**22,-2*v**22+ir5*v**26,-2*v**32+v**34,
              -ir5*v**38+(ir5-1)*v**40,-2*v**56+(1-ir5)*v**58],
             [ir5*v**20+(1-ir5)*v**22,-2*v**22+(1-ir5)*v**26,-2*v**32+v**34,
@@ -3854,40 +3847,40 @@ def heckeirrdata(typ,n,paramL):
              -v**24+2*v**26-v**28,-v**36+2*v**38-v**40],
             [v**12+v**16, v**12+v**20,-2*v**20+4*v**22-2*v**24,-v**24-v**28,
              v**36+v**40]]
-    if typ[0]=='I':
-        m=int(typ[1:])
-        if m==5:
-            v=paramL[0]
-            ir5=ir(5)
-            cc=[3]
-            ch=[0,1,2,3]
-            t1=[[v**8],[1],[-ir5*v**4],[(ir5-1)*v**4]]
+    if typ[0] == 'I':
+        m = int(typ[1:])
+        if m == 5:
+            v = paramL[0]
+            ir5 = ir(5)
+            cc = [3]
+            ch = [0,1,2,3]
+            t1 = [[v**8],[1],[-ir5*v**4],[(ir5-1)*v**4]]
         else:
-            c=conjclassdata(typ,n)['reps']
-            cc=range(len(c))
-            ch=range(len(c))
-            z=rootof1(m)
-            if m %2==0:
-                t1=[[paramL[0]**(2*i.count(0))*paramL[1]**(2*i.count(1)) for i in c],
+            c = conjclassdata(typ,n)['reps']
+            cc = range(len(c))
+            ch = range(len(c))
+            z = rootof1(m)
+            if m % 2 == 0:
+                t1 = [[paramL[0]**(2*i.count(0))*paramL[1]**(2*i.count(1)) for i in c],
                     [(-1)**i.count(1)*paramL[0]**(2*i.count(0)) for i in c],
                     [(-1)**i.count(0)*paramL[1]**(2*i.count(1)) for i in c],
                     [(-1)**len(i) for i in c]]
                 for j in range(1,(m-2)//2+1):
-                    chi=[2,paramL[0]**2-1,paramL[1]**2-1]
-                    chi.extend([(paramL[0]*paramL[1])**(len(i)//2)*(z**(j*len(i)//2)+
+                    chi = [2,paramL[0]**2-1,paramL[1]**2-1]
+                    chi.extend([(paramL[0]*paramL[1])**(len(i)//2)*(z**(j*len(i)//2) +
                                                   z**(-j*len(i)//2)) for i in c[3:]])
                     t1.append(chi)
             else:
-                t1=[[paramL[0]**(2*len(i))
+                t1 = [[paramL[0]**(2*len(i))
                                  for i in c], [(-1)**len(i) for i in c]]
                 for j in range(1,(m-1)//2+1):
-                    chi=[2,paramL[0]**2-1]
-                    chi.extend([paramL[0]**len(i)*(z**(j*len(i)//2)+
+                    chi = [2,paramL[0]**2-1]
+                    chi.extend([paramL[0]**len(i)*(z**(j*len(i)//2) +
                                    z**(-j*len(i)//2)) for i in c[2:]])
                     t1.append(chi)
     return [cc,ch,t1]
 
-#F heckechartable
+# F heckechartable
 
 
 def heckechartable(W,paramL=1):
@@ -3936,84 +3929,85 @@ def heckechartable(W,paramL=1):
     'displaychartable'.
     """
     if type(paramL) == type([]):
-        vs=paramL[:]
+        vs = paramL[:]
     else:
-        vs=len(W.rank)*[paramL]
-    ti=chartable(W)
-    if all(x==x**0 for x in vs):
+        vs = len(W.rank)*[paramL]
+    ti = chartable(W)
+    if all(x == x**0 for x in vs):
         return ti
-    nti={'params':vs,'coxeter':W}
-    ct=W.cartantype[0]
-    if len(W.cartantype)>1:   # can use induction
-        nti['irreducibles']=heckechartable(coxeter(ct[0],len(ct[1])),
+    nti = {'params':vs,'coxeter':W}
+    ct = W.cartantype[0]
+    if len(W.cartantype) > 1:   # can use induction
+        nti['irreducibles'] = heckechartable(coxeter(ct[0],len(ct[1])),
                     [vs[s] for s in ct[1]])['irreducibles']
         for t in W.cartantype[1:]:
-            nt=heckechartable(coxeter(t[0],len(t[1])),[vs[s] for s in t[1]])
-            nti['irreducibles']=kroneckerproduct(nti['irreducibles'],
+            nt = heckechartable(coxeter(t[0],len(t[1])),[vs[s] for s in t[1]])
+            nti['irreducibles'] = kroneckerproduct(nti['irreducibles'],
                                                   nt['irreducibles'])
     else:   # now build table from heckeirrdata
-        cc,ch,matv=heckeirrdata(ct[0],len(ct[1]),[vs[s] for s in ct[1]])
-        cl=conjugacyclasses(W)['reps']
-        lc=[len(c) for c in cl]
-        cind=[]
+        cc,ch,matv = heckeirrdata(ct[0],len(ct[1]),[vs[s] for s in ct[1]])
+        cl = conjugacyclasses(W)['reps']
+        lc = [len(c) for c in cl]
+        cind = []
         for w in cl:
-            x=1
+            x = 1
             for i in w:
-                x*=vs[i]
+                x *= vs[i]
             cind.append(x)
-        if 0<len(ch)<len(cl):     # add dual characters
-            ivs=[]
+        if 0 < len(ch) < len(cl):     # add dual characters
+            ivs = []
             for s in ct[1]:
-                if vs[s]==1 or vs[s]==-1:
+                if vs[s] == 1 or vs[s] == -1:
                     ivs.append(vs[s])
                 else:
                     ivs.append(vs[s]**(-1))
-            tt1=heckeirrdata(ct[0],len(ct[1]),ivs)[2]
+            tt1 = heckeirrdata(ct[0],len(ct[1]),ivs)[2]
             #tt1=heckeirrdata(ct[0],len(ct[1]),[1//vs[s] for s in ct[1]])[2]
-            nch=ch[:]
+            nch = ch[:]
             for i in range(len(ch)):
-                i1=ti['permsgn'][ch[i]]
-                if i1>ch[i]:
+                i1 = ti['permsgn'][ch[i]]
+                if i1 > ch[i]:
                     matv.append([(-1)**lc[cc[j]]*cind[cc[j]]**2*tt1[i][j]
                                                          for j in range(len(cc))])
                     nch.append(i1)
-            matv=[matv[nch.index(i)] for i in range(len(nch))]
-        if len(cc)==len(cl):
-            nti['irreducibles']=matv
+            matv = [matv[nch.index(i)] for i in range(len(nch))]
+        if len(cc) == len(cl):
+            nti['irreducibles'] = matv
         else:
-            tr=transposemat(matv)
-            onegood=[c for c in range(len(cl)) if set(cl[c])==set(W.rank) and
-                                                                      not c in cc]
-            if list(onegood)!=[]:      # add 1-good classes
+            tr = transposemat(matv)
+            onegood = [c for c in range(len(cl))
+                       if set(cl[c]) == set(W.rank) and
+                       c not in cc]
+            if onegood:      # add 1-good classes
                 for c in onegood:
-                    xv=[]
+                    xv = []
                     for x in ti['irreducibles']:
-                        if x[c]==0:
+                        if x[c] == 0:
                             xv.append(0)
                         else:
-                            xv.append(x[c]*cind[c]*
+                            xv.append(x[c]*cind[c] *
                                      vs[ct[1][0]]**((len(cl[c])*x[lc.index(1)])//x[0]))
                     tr.append(xv[:])
                     cc.append(c)
-            s=len(W.rank)
-            while len(cc)<len(cl):     # add non-cuspidal classes
-                s-=1
-                J=list(W.rank)
+            s = len(W.rank)
+            while len(cc) < len(cl):     # add non-cuspidal classes
+                s -= 1
+                J = list(W.rank)
                 J.remove(s)
-                W1=reflectionsubgroup(W,J)
-                fus=fusionconjugacyclasses(W1,W)
-                ind=inductiontable(W1,W)['scalar']
-                nti1=heckechartable(W1,[vs[u] for u in J])['irreducibles']
+                W1 = reflectionsubgroup(W,J)
+                fus = fusionconjugacyclasses(W1,W)
+                ind = inductiontable(W1,W)['scalar']
+                nti1 = heckechartable(W1,[vs[u] for u in J])['irreducibles']
                 for c in fus:
-                    if not c in cc:
+                    if c not in cc:
                         tr.append([sum(i[j]*nti1[j][fus.index(c)]
                                       for j in range(len(nti1))) for i in ind])
                         cc.append(c)
-            nti['irreducibles']=transposemat([tr[cc.index(i)]
+            nti['irreducibles'] = transposemat([tr[cc.index(i)]
                                                 for i in range(len(cc))])
     return nti
 
-#F heckecharvalues
+# F heckecharvalues
 
 
 def heckecharvalues(W,paramL,lw,clpols=[]):
@@ -4046,24 +4040,24 @@ def heckecharvalues(W,paramL,lw,clpols=[]):
     See also 'heckechartable' and 'classpolynomials'.
     """
     if type(paramL) == type([]):
-        vs=paramL[:]
+        vs = paramL[:]
     else:
-        vs=len(W.rank)*[paramL]
-    ti=heckechartable(W,vs)['irreducibles']
-    maxl=max([len(w) for w in lw])
-    #elms=allwords(W,maxl)
-    if clpols==[]:
-        cpmat=allclasspolynomials(W,[p**2 for p in vs],maxl)
+        vs = len(W.rank)*[paramL]
+    ti = heckechartable(W,vs)['irreducibles']
+    maxl = max([len(w) for w in lw])
+    # elms=allwords(W,maxl)
+    if clpols == []:
+        cpmat = allclasspolynomials(W,[p**2 for p in vs],maxl)
     else:
-        cpmat=clpols
-    lc=[]
+        cpmat = clpols
+    lc = []
     for w in lw:
-        #cp=cpmat[elms.index(w)]
-        cp=cpmat[W.wordtocoxelm(w)]
+        # cp=cpmat[elms.index(w)]
+        cp = cpmat[W.wordtocoxelm(w)]
         lc.append([sum(cp[j]*irr[j] for j in range(len(ti))) for irr in ti])
     return lc
 
-#F heckecentraltable
+# F heckecentraltable
 
 
 def heckecentraltable(W,paramL):
@@ -4095,121 +4089,121 @@ def heckecentraltable(W,paramL):
      [0, 0, 0, 0, v**(-2)+2+2*v**2+2*v**4+v**6]]
     """
     if type(paramL) == type([]):
-        vs=paramL[:]
+        vs = paramL[:]
     else:
-        vs=len(W.rank)*[paramL]
-    indw=[]
-    aw=allwords(W)
-    ivs=[]
+        vs = len(W.rank)*[paramL]
+    indw = []
+    aw = allwords(W)
+    ivs = []
     for s in W.rank:
-        if vs[s]==1 or vs[s]==-1:
+        if vs[s] == 1 or vs[s] == -1:
             ivs.append(vs[s])
         else:
             ivs.append(vs[s]**(-1))
     for w in aw:
-        cind=1
+        cind = 1
         for i in w:
-            cind*=ivs[i]
+            cind *= ivs[i]
         indw.append(cind)
-    cpmat=allclasspolynomials(W,[p**2 for p in vs])
-    cpmat=[cpmat[W.wordtocoxelm(w)] for w in aw]
-    cpmat=[[indw[i]*cpmat[i][j] for j in range(len(cpmat[0]))]
+    cpmat = allclasspolynomials(W,[p**2 for p in vs])
+    cpmat = [cpmat[W.wordtocoxelm(w)] for w in aw]
+    cpmat = [[indw[i]*cpmat[i][j] for j in range(len(cpmat[0]))]
                                         for i in range(len(cpmat))]
-    cpmat=matmult(heckechartable(W,vs)['irreducibles'],
+    cpmat = matmult(heckechartable(W,vs)['irreducibles'],
                                 matmult(transposemat(cpmat),cpmat))
-    x1=[chi[0] for chi in chartable(W)['irreducibles']]
+    x1 = [chi[0] for chi in chartable(W)['irreducibles']]
     return [[divmod(z,x1[i])[0] for z in cpmat[i]]
                          for i in range(len(cpmat[0]))]
 
-#F schurelmA
+# F schurelmA
 
 
 def schurelmA(alpha,u):
     """returns the Schur element corresponding to the partition alpha.
     (Taken from the gap-chevie library.)
     """
-    l=len(alpha)
-    lbd=[i+alpha[::-1][i] for i in range(l)]
-    if u==1 or u==-1:
-        u1=u
+    l = len(alpha)
+    lbd = [i+alpha[::-1][i] for i in range(l)]
+    if u == 1 or u == -1:
+        u1 = u
     else:
-        u1=u**(-1)
-    res=u**((l*(l-1)*(l-2))//6)
+        u1 = u**(-1)
+    res = u**((l*(l-1)*(l-2))//6)
     for i in lbd:
         for j in range(i):
             if j in lbd:
-                res*=u1**j
+                res *= u1**j
             else:
-                res*=sum(u**e for e in range(i-j))
+                res *= sum(u**e for e in range(i-j))
     return res
 
-#F schurelmB
+# F schurelmB
 
 
 def schurelmB(bip,v,u):
     """returns the Schur element corresponding to the bipartition bip.
     (Taken from the gap-chevie library.)
     """
-    if u==1 or u==-1:
-        u1=u
+    if u == 1 or u == -1:
+        u1 = u
     else:
-        u1=u**(-1)
-    if v==1 or v==-1:
-        v1=v
+        u1 = u**(-1)
+    if v == 1 or v == -1:
+        v1 = v
     else:
-        v1=v**(-1)
-    la,mu=redlusztigsymbolB(1,1,bip)
-    m=len(mu)
-    if m==0:
-        res=1
-    elif m==1:
-        res=u1*(u+v)
+        v1 = v**(-1)
+    la,mu = redlusztigsymbolB(1,1,bip)
+    m = len(mu)
+    if m == 0:
+        res = 1
+    elif m == 1:
+        res = u1*(u+v)
     else:
-        res=u**(((2*m+1)*m*(m-2))//3)*v**((m*(m-1))//2)*(u+v)**m
+        res = u**(((2*m+1)*m*(m-2))//3)*v**((m*(m-1))//2)*(u+v)**m
     for i in la:
         for j in range(i):
             if j in la:
                 if j in mu:
-                    res*=u1**(2*j)
+                    res *= u1**(2*j)
                 else:
-                    if i-2*j>=1:
-                        res*=u**(i-2*j-1)*v+(u1**j)
+                    if i-2*j >= 1:
+                        res *= u**(i-2*j-1)*v+(u1**j)
                     else:
-                        res*=(u1**(2*j+1-i))*v+(u1**j)
+                        res *= (u1**(2*j+1-i))*v+(u1**j)
             else:
                 if j in mu:
-                    res*=sum(u**e for e in range(i-j))*(u1**j)
+                    res *= sum(u**e for e in range(i-j))*(u1**j)
                 else:
-                    res*=sum(u**e for e in range(i-j))*(u**(i-j-1)*v+1)
+                    res *= sum(u**e for e in range(i-j))*(u**(i-j-1)*v+1)
     for i in mu:
         for j in range(i):
             if j in mu:
                 if j in la:
-                    if j==0:
-                        res*=u*v1
+                    if j == 0:
+                        res *= u*v1
                     else:
-                        res*=u1**(2*j-1)*v1
+                        res *= u1**(2*j-1)*v1
                 else:
-                    if i-2*j+1>=0:
-                        res*=u**(i-2*j+1)*v1+u1**j
+                    if i-2*j+1 >= 0:
+                        res *= u**(i-2*j+1)*v1+u1**j
                     else:
-                        res*=(u1**(2*j-1-i))*v1+u1**j
+                        res *= (u1**(2*j-1-i))*v1+u1**j
             else:
                 if j in la:
-                    if j==0:
-                        res*=sum(u**e for e in range(i))*u*v1
+                    if j == 0:
+                        res *= sum(u**e for e in range(i))*u*v1
                     else:
-                        res*=sum(u**e for e in range(i-j))*(u1**(j-1))*v1
+                        res *= sum(u**e for e in range(i-j))*(u1**(j-1))*v1
                 else:
-                    res*=sum(u**e for e in range(i-j))*(u**(i-j+1)*v1+1)
+                    res *= sum(u**e for e in range(i-j))*(u**(i-j+1)*v1+1)
         if i in la:
-            if i==0:
-                res=divmod(res,u1*v+1)[0]
+            if i == 0:
+                res = divmod(res,u1*v+1)[0]
             else:
-                res=divmod(res,u**(i-1)*v+u**i)[0]
+                res = divmod(res,u**(i-1)*v+u**i)[0]
     return res
 
-#F schurelmdata
+# F schurelmdata
 
 
 def schurelmdata(typ,n,vs):
@@ -4217,122 +4211,122 @@ def schurelmdata(typ,n,vs):
     given type and rank with respect to a list of parameters. The
     data are taken from the corresponding files in  gap-chevie.
     """
-    if typ[0]=='A':
+    if typ[0] == 'A':
         return [schurelmA(alpha,vs[0]) for alpha in partitions(n+1)]
-    if typ[0]=='B' and n==2:
+    if typ[0] == 'B' and n == 2:
         return [schurelmB(mu,vs[1],vs[0]) for mu in partitiontuples(2,2)]
-    if typ[0]=='C' and n==2:
+    if typ[0] == 'C' and n == 2:
         return [schurelmB(mu,vs[0],vs[1]) for mu in partitiontuples(2,2)]
-    if (typ[0]=='B' or typ[0]=='C') and n>=3:
+    if (typ[0] == 'B' or typ[0] == 'C') and n >= 3:
         return [schurelmB(mu,vs[0],vs[1]) for mu in partitiontuples(n,2)]
-    if typ[0]=='D':
-        vcyc=[]
+    if typ[0] == 'D':
+        vcyc = []
         for mu in partitiontuples(n,2):
-            s=schurelmB(mu,vs[0]**0,vs[0])
-            if mu[0]==mu[1]:
+            s = schurelmB(mu,vs[0]**0,vs[0])
+            if mu[0] == mu[1]:
                 vcyc.append(s)
                 vcyc.append(s)
-            elif mu[0]<mu[1]:
+            elif mu[0] < mu[1]:
                 vcyc.append(divmod(s,2)[0])
         return vcyc
-    if typ[0]=='G':
-        u,v,squv=vs[0],vs[1],vs[2]
-        if u==1 or u==-1:
-            u1=u
+    if typ[0] == 'G':
+        u,v,squv = vs[0],vs[1],vs[2]
+        if u == 1 or u == -1:
+            u1 = u
         else:
-            u1=u**(-1)
-        if v==1 or v==-1:
-            v1=v
+            u1 = u**(-1)
+        if v == 1 or v == -1:
+            v1 = v
         else:
-            v1=v**(-1)
+            v1 = v**(-1)
         return [(1+u)*(v+1)*(u*v-squv+1)*(u*v+squv+1),
                 (u1**3)*(v1**3)*(1+u)*(v+1)*(u*v-squv+1)*(u*v+squv+1),
                 (u1**3)*(u-squv+v)*(u+squv+v)*(1+u)*(v+1),
                 (v1**3)*(u-squv+v)*(u+squv+v)*(1+u)*(v+1),
                 2*u1*v1*(u+squv+v)*(u*v-squv+1),
                 2*u1*v1*(u-squv+v)*(u*v+squv+1)]
-    if typ[0]=='F':
-        u,v=vs[0],vs[2]
-        if u==1 or u==-1:
-            u1=u
+    if typ[0] == 'F':
+        u,v = vs[0],vs[2]
+        if u == 1 or u == -1:
+            u1 = u
         else:
-            u1=u**(-1)
-        if v==1 or v==-1:
-            v1=v
+            u1 = u**(-1)
+        if v == 1 or v == -1:
+            v1 = v
         else:
-            v1=v**(-1)
-        return [(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1)*(u**2*v+1)*(u**2*v**2+1)*
+            v1 = v**(-1)
+        return [(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1)*(u**2*v+1)*(u**2*v**2+1) *
                                    (u*v**2+1)*(u**2*v**2-u*v+1)*(u*v+1)**2,
-                (v1**12)*(u+v)**2*(u**2-u*v+v**2)*(u**2+v**2)*(u+v**2)*
+                (v1**12)*(u+v)**2*(u**2-u*v+v**2)*(u**2+v**2)*(u+v**2) *
                  (u**2+v)*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1),
-                (u1**12)*(u+v)**2*(u**2-u*v+v**2)*(u**2+v**2)*(u+v**2)*
+                (u1**12)*(u+v)**2*(u**2-u*v+v**2)*(u**2+v**2)*(u+v**2) *
                  (u**2+v)*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1),
                 (u1**12)*(v1**12)*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1)*(u**2*v
-                 +1)*(u**2*v**2+1)*(u*v**2+1)*(u**2*v**2-u*v+1)*(u*v+1)**2,
-                (v1**3)*(u+1)**2*(u**2+u+1)*(v**2+v+1)*(u*v+1)*(u**2*v+1)*
+                 + 1)*(u**2*v**2+1)*(u*v**2+1)*(u**2*v**2-u*v+1)*(u*v+1)**2,
+                (v1**3)*(u+1)**2*(u**2+u+1)*(v**2+v+1)*(u*v+1)*(u**2*v+1) *
                  (u**2-u+1)*(u+v)*(u**2+v),
-                (u1**12)*(v1**3)*(u+1)**2*(u**2+u+1)*(v**2+v+1)*(u*v+1)*
+                (u1**12)*(v1**3)*(u+1)**2*(u**2+u+1)*(v**2+v+1)*(u*v+1) *
                  (u**2*v+1)*(u**2-u+1)*(u+v)*(u**2+v),
-                (u1**3)*(u**2+u+1)*(v+1)**2*(v**2+v+1)*(u*v+1)*(u*v**2+1)*
+                (u1**3)*(u**2+u+1)*(v+1)**2*(v**2+v+1)*(u*v+1)*(u*v**2+1) *
                  (v**2-v+1)*(u+v)*(u+v**2),
-                (u1**3)*(v1**12)*(u**2+u+1)*(v+1)**2*(v**2+v+1)*(u*v+1)*
+                (u1**3)*(v1**12)*(u**2+u+1)*(v+1)**2*(v**2+v+1)*(u*v+1) *
                  (u*v**2+1)*(v**2-v+1)*(u+v)*(u+v**2),
                 2*(u1**3)*(v1**3)*(u**2+u+1)*(v**2+v+1)*(u*v+1)**2*(u+v)**2,
-                (u1**2)*(v1**2)*(u**2+v)*(u+v**2)*(u+1)*(v+1)*(u**2*v**2+1)*
+                (u1**2)*(v1**2)*(u**2+v)*(u+v**2)*(u+1)*(v+1)*(u**2*v**2+1) *
                  (u*v+1)**2,
-                (u1**2)*(v1**6)*(u**2+v**2)*(u+v)**2*(u+1)*(v+1)*(u**2*v+1)*
+                (u1**2)*(v1**6)*(u**2+v**2)*(u+v)**2*(u+1)*(v+1)*(u**2*v+1) *
                  (u*v**2+1),
-                (u1**6)*(v1**2)*(u**2+v**2)*(u+v)**2*(u+1)*(v+1)*(u**2*v+1)*
+                (u1**6)*(v1**2)*(u**2+v**2)*(u+v)**2*(u+1)*(v+1)*(u**2*v+1) *
                  (u*v**2+1),
-                (u1**6)*(v1**6)*(u**2+v)*(u+v**2)*(u+1)*(v+1)*(u**2*v**2+1)*
+                (u1**6)*(v1**6)*(u**2+v)*(u+v**2)*(u+1)*(v+1)*(u**2*v**2+1) *
                  (u*v+1)**2,
-                3*(u1**3)*(v1**3)*(u+1)**2*(v+1)**2*(u*v+1)**2*
+                3*(u1**3)*(v1**3)*(u+1)**2*(v+1)**2*(u*v+1)**2 *
                  (u**2-u*v+v**2),
-                3*(u1**3)*(v1**3)*(u+1)**2*(v+1)**2*(u**2*v**2-u*v+1)*
+                3*(u1**3)*(v1**3)*(u+1)**2*(v+1)**2*(u**2*v**2-u*v+1) *
                  (u+v)**2,
                 6*(u1**3)*(v1**3)*(u*v+1)**2*(v**2-v+1)*(u**2-u+1)*(u+v)**2,
-                u1*v1*(u+v)*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1)*
+                u1*v1*(u+v)*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1) *
                  (u**2*v**2-u*v+1)*(u*v+1)**2,
-                u1*(v1**7)*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1)*(u*v+1)*
+                u1*(v1**7)*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1)*(u*v+1) *
                  (u+v)**2*(u**2-u*v+v**2),
-                (u1**7)*v1*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1)*(u*v+1)*
+                (u1**7)*v1*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1)*(u*v+1) *
                  (u+v)**2*(u**2-u*v+v**2),
-                u1**7*v1**7*(u+v)*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1)*
+                u1**7*v1**7*(u+v)*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1) *
                  (u**2*v**2-u*v+1)*(u*v+1)**2,
-                u1*(v1**3)*(u+v**2)*(u+1)**2*(u**2-u+1)*(u**2+u+1)*
+                u1*(v1**3)*(u+v**2)*(u+1)**2*(u**2-u+1)*(u**2+u+1) *
                  (v**2+v+1)*(u*v**2+1),
-                (u1**7)*(v1**3)*(u+v**2)*(u+1)**2*(u**2-u+1)*(u**2+u+1)*
+                (u1**7)*(v1**3)*(u+v**2)*(u+1)**2*(u**2-u+1)*(u**2+u+1) *
                  (v**2+v+1)*(u*v**2+1),
-                (u1**3)*v1*(u**2+v)*(v+1)**2*(v**2-v+1)*(u**2+u+1)*
+                (u1**3)*v1*(u**2+v)*(v+1)**2*(v**2-v+1)*(u**2+u+1) *
                  (v**2+v+1)*(u**2*v+1),
-                (u1**3)*(v1**7)*(u**2+v)*(v+1)**2*(v**2-v+1)*(u**2+u+1)*
+                (u1**3)*(v1**7)*(u**2+v)*(v+1)**2*(v**2-v+1)*(u**2+u+1) *
                  (v**2+v+1)*(u**2*v+1),
-                2*(u1**3)*(v1**3)*(u**2+u+1)*(v**2+v+1)*(u**2*v**2+1)*
+                2*(u1**3)*(v1**3)*(u**2+u+1)*(v**2+v+1)*(u**2*v**2+1) *
                  (u**2+v**2)]
-    if typ[0]=='I':
-        m=int(typ[1:])
-        if m==5:
-            ir5=ir(5)
-            u=vs[0]**2
-            if u==1 or u==-1:
-                u1=u
+    if typ[0] == 'I':
+        m = int(typ[1:])
+        if m == 5:
+            ir5 = ir(5)
+            u = vs[0]**2
+            if u == 1 or u == -1:
+                u1 = u
             else:
-                u1=u**(-1)
-            p2=u+1
-            p5=u**4+u**3+u**2+u+1
-            p5a=u**2 +ir5*u+1
-            p5b=u**2 +(1-ir5)*u+1
-            vcyc=[u**(0)*p2*p5,(u1**5)*p2*p5,(2+ir5)*u1*p5b,(3-ir5)*u1*p5a]
+                u1 = u**(-1)
+            p2 = u+1
+            p5 = u**4+u**3+u**2+u+1
+            p5a = u**2 + ir5*u+1
+            p5b = u**2 + (1-ir5)*u+1
+            vcyc = [u**(0)*p2*p5,(u1**5)*p2*p5,(2+ir5)*u1*p5b,(3-ir5)*u1*p5a]
         else:
-            W=coxeter(typ,n)
-            ti=heckechartable(W,[vs[0],vs[1]])['irreducibles']
-            t=matmult(ti,transposemat(heckecentraltable(W,[vs[0],vs[1]])))
-            vcyc=[t[i][i] for i in range(len(ti))]
+            W = coxeter(typ,n)
+            ti = heckechartable(W,[vs[0],vs[1]])['irreducibles']
+            t = matmult(ti,transposemat(heckecentraltable(W,[vs[0],vs[1]])))
+            vcyc = [t[i][i] for i in range(len(ti))]
         return vcyc
-    u=vs[0]  # now types E, H
-    if u==1:
-        W=coxeter(typ,n)
-        ti=chartable(W)['irreducibles']
+    u = vs[0]  # now types E, H
+    if u == 1:
+        W = coxeter(typ,n)
+        ti = chartable(W)['irreducibles']
         return [(W.order//d[0])*u**0 for d in ti]
     # p1 = u-1
     p2 = u+1
@@ -4340,26 +4334,26 @@ def schurelmdata(typ,n,vs):
     p4 = u**2+1
     p5 = u**4+u**3+u**2+u+1
     p6 = u**2-u+1
-    p7=u**6+u**5+u**4+u**3+u**2+u+1
-    p8=u**4+1
-    p9=u**6+u**3+1
-    p10=u**4-u**3+u**2-u+1
+    p7 = u**6+u**5+u**4+u**3+u**2+u+1
+    p8 = u**4+1
+    p9 = u**6+u**3+1
+    p10 = u**4-u**3+u**2-u+1
     # p11 = u**10+u**9+u**8+u**7+u**6+u**5+u**4+u**3+u**2+u+1
-    p12=u**4-u**2+1
+    p12 = u**4-u**2+1
     # p13 = u**12+u**11+u**10+u**9+u**8+u**7+u**6+u**5+u**4+u**3+u**2+u+1
-    p14=u**6-u**5+u**4-u**3+u**2-u+1
-    p15=u**8-u**7+u**5-u**4+u**3-u+1
-    p18=u**6-u**3+1
-    p20=u**8-u**6+u**4-u**2+1
-    p24=u**8-u**4+1
-    p30=u**8+u**7-u**5-u**4-u**3+u+1
+    p14 = u**6-u**5+u**4-u**3+u**2-u+1
+    p15 = u**8-u**7+u**5-u**4+u**3-u+1
+    p18 = u**6-u**3+1
+    p20 = u**8-u**6+u**4-u**2+1
+    p24 = u**8-u**4+1
+    p30 = u**8+u**7-u**5-u**4-u**3+u+1
 
     if typ[0] == 'E' and n == 6:
         return [u**(0)*p2**4*p3**3*p4**2*p5*p6**2*p8*p9*p12,
               u**(-36)*p2**4*p3**3*p4**2*p5*p6**2*p8*p9*p12,
-              3*u**(-7)*p2**4*p3**3*p4**2,u**(-1)*
+              3*u**(-7)*p2**4*p3**3*p4**2,u**(-1) *
                     p2**4*p3**3*p4**2*p5*p6**2*p12,
-              u**(-25)*p2**4*p3**3*p4**2*p5*p6**2*
+              u**(-25)*p2**4*p3**3*p4**2*p5*p6**2 *
                   p12,6*u**(-7)*p2**4*p3**3*p12,
               2*u**(-3)*p2**4*p3**3*p4**2*p12,2*u**(-15)*p2**4*p3**3*p4**2*p12,
               2*u**(-3)*p2**4*p3**3*p4**2*p6**2,
@@ -4372,7 +4366,7 @@ def schurelmdata(typ,n,vs):
               u**(-11)*p2**4*p3**3*p4*p6**2,u**(-4)*p2*p3**3*p5*p9,
               u**(-13)*p2*p3**3*p5*p9,u**(-6)*p2**4*p4**2*p5*p8,
               u**(-10)*p2**4*p4**2*p5*p8]
-    if typ[0]=='E' and n==7:
+    if typ[0] == 'E' and n == 7:
         return [u**(0)*p2**7*p3**3*p4**2*p5*p6**3*p7*p8*p9*p10*p12*p14*p18,
               u**(-63)*p2**7*p3**3*p4**2*p5*p6**3*p7*p8*p9*p10*p12*p14*p18,
               u**(-46)*p2**7*p3**3*p4**2*p5*p6**3*p8*p9*p10*p18,
@@ -4402,7 +4396,7 @@ def schurelmdata(typ,n,vs):
               2*u**(-4)*p2**3*p3**3*p4**2*p6*p7*p8*p12,
               2*u**(-25)*p2**3*p3**3*p4**2*p6*p7*p8*p12,
               u**(-6)*p2**7*p3**3*p5*p6**3*p10,
-              u**(-21)*p2**7*p3**3*p5*p6**3*p10,2*
+              u**(-21)*p2**7*p3**3*p5*p6**3*p10,2 *
                   u**(-8)*p2**7*p3*p4**2*p5*p14,
               2*u**(-15)*p2**7*p3*p4**2*p5*p14,
               u**(-22)*p2**7*p3*p4**2*p5*p6*p8*p10,
@@ -4414,25 +4408,25 @@ def schurelmdata(typ,n,vs):
               u**(-10)*p2**7*p3**3*p4**2*p6**3,
               u**(-13)*p2**7*p3**3*p4**2*p6**3,
               2*u**(-15)*p2**3*p3*p4**2*p5*p7*p8,
-              2*u**(-8)*p2**3*p3*p4**2*p5*p7*p8,3*
+              2*u**(-8)*p2**3*p3*p4**2*p5*p7*p8,3 *
                     u**(-16)*p2**7*p3**3*p6**3*p12,
-              3*u**(-7)*p2**7*p3**3*p6**3*p12,2*
+              3*u**(-7)*p2**7*p3**3*p6**3*p12,2 *
                     u**(-7)*p2**3*p3**3*p4**2*p8*p9,
-              2*u**(-16)*p2**3*p3**3*p4**2*p8*p9,6*
+              2*u**(-16)*p2**3*p3**3*p4**2*p8*p9,6 *
                     u**(-16)*p2**7*p4**2*p6**3*p9,
               6*u**(-7)*p2**7*p4**2*p6**3*p9,
               2*u**(-13)*p2**3*p3**3*p4**2*p5*p6*p12,
               2*u**(-10)*p2**3*p3**3*p4**2*p5*p6*p12,
               u**(-14)*p2**7*p3*p4**2*p5*p6*p10,
               u**(-9)*p2**7*p3*p4**2*p5*p6*p10,2*u**(-8)*p2**7*p4**2*p6*p7*p10,
-              2*u**(-15)*p2**7*p4**2*p6*p7*p10,2*
+              2*u**(-15)*p2**7*p4**2*p6*p7*p10,2 *
                     u**(-10)*p2**7*p3**3*p6**3*p10,
               2*u**(-13)*p2**7*p3**3*p6**3*p10,2*u**(-11)*p3**3*p5*p7*p9,
               2*u**(-11)*p3**3*p5*p7*p9]
-    if typ[0]=='E' and n==8:
-        return [u**(0)*p2**8*p3**4*p4**4*p5**2*p6**4*p7*p8**2*p9*p10**2*p12**2*
+    if typ[0] == 'E' and n == 8:
+        return [u**(0)*p2**8*p3**4*p4**4*p5**2*p6**4*p7*p8**2*p9*p10**2*p12**2 *
               p14*p15*p18*p20*p24*p30,
-              u**(-120)*p2**8*p3**4*p4**4*p5**2*p6**4*p7*p8**2*p9*p10**2*p12**2*
+              u**(-120)*p2**8*p3**4*p4**4*p5**2*p6**4*p7*p8**2*p9*p10**2*p12**2 *
                p14*p15*p18*p20*p24*p30,
               2*u**(-3)*p2**8*p3**4*p4**2*p5**2*p6**4*p8*p9*p10**2*p12*p30,
               2*u**(-63)*p2**8*p3**4*p4**2*p5**2*p6**4*p8*p9*p10**2*p12*p30,
@@ -4443,7 +4437,7 @@ def schurelmdata(typ,n,vs):
               2*u**(-52)*p2**8*p3**4*p4**4*p6**4*p7*p9*p10*p12**2,
               2*u**(-3)*p2**8*p3**4*p4**2*p5**2*p6**4*p8*p10**2*p12*p15*p18,
               2*u**(-63)*p2**8*p3**4*p4**2*p5**2*p6**4*p8*p10**2*p12*p15*p18,
-              8*u**(-16)*p2**8*p3**4*p5**2*p6**4,3*u**(-8)*p2**8*p3**4*p4**4*
+              8*u**(-16)*p2**8*p3**4*p5**2*p6**4,3*u**(-8)*p2**8*p3**4*p4**4 *
                 p6**4*p8**2,
               3*u**(-32)*p2**8*p3**4*p4**4*p6**4*p8**2,
               2*u**(-4)*p2**8*p3**4*p4**4*p5*p6**4*p12**2*p14*p18,
@@ -4451,7 +4445,7 @@ def schurelmdata(typ,n,vs):
               5*u**(-16)*p2**8*p3**4*p4**4*p6**4,
               2*u**(-6)*p2**8*p3**4*p4**2*p6**4*p7*p8*p12*p18,
               2*u**(-42)*p2**8*p3**4*p4**2*p6**4*p7*p8*p12*p18,
-              6*u**(-8)*p2**8*p3**4*p4**4*p6**4*p24,6*u**(-32)*p2**8*p3**4*
+              6*u**(-8)*p2**8*p3**4*p4**4*p6**4*p24,6*u**(-32)*p2**8*p3**4 *
                p4**4*p6**4*p24,
               u**(-12)*p2**8*p3**4*p4**4*p6**4*p8**2*p12**2,
               u**(-36)*p2**8*p3**4*p4**4*p6**4*p8**2*p12**2,
@@ -4497,11 +4491,11 @@ def schurelmdata(typ,n,vs):
               2*u**(-26)*p2*p3**4*p5**2*p7*p9*p15,
               2*u**(-12)*p2**8*p3**4*p4**2*p6**4*p10*p12,
               2*u**(-24)*p2**8*p3**4*p4**2*p6**4*p10*p12,
-              u**(-14)*p2**8*p4**4*p7*p8**2*
+              u**(-14)*p2**8*p4**4*p7*p8**2 *
                   p14,u**(-22)*p2**8*p4**4*p7*p8**2*p14,
-              u**(-1)*p2**8*p3**4*p4**2*p5**2*p6**4*p7*p8*p9*p10**2*p12*p14*
+              u**(-1)*p2**8*p3**4*p4**2*p5**2*p6**4*p7*p8*p9*p10**2*p12*p14 *
                p15*p18*p30,
-              u**(-91)*p2**8*p3**4*p4**2*p5**2*p6**4*p7*p8*p9*p10**2*p12*p14*
+              u**(-91)*p2**8*p3**4*p4**2*p5**2*p6**4*p7*p8*p9*p10**2*p12*p14 *
                p15*p18*p30,
               6*u**(-7)*p2**8*p3**4*p4**2*p5**2*p6**4*p30,
               6*u**(-37)*p2**8*p3**4*p4**2*p5**2*p6**4*p30,
@@ -4546,24 +4540,24 @@ def schurelmdata(typ,n,vs):
               u**(-23)*p2**8*p3*p4**2*p5**2*p6*p8*p10**2,
               2*u**(-15)*p2**8*p3**4*p6**4*p9*p14,
               2*u**(-21)*p2**8*p3**4*p6**4*p9*p14]
-    ir5=ir(5)
-    p5a=u**2 +ir5*u+1
-    p5b=u**2 +(1-ir5)*u+1
-    p10a=u**2-ir5*u+1
-    p10b=u**2+(ir5-1)*u+1
-    p15a=u**4-ir5*u**3+ir5*u**2-ir5*u+1
-    p15b=u**4+(ir5-1)*u**3 +(1-ir5)*u**2+(ir5-1)*u+1
-    p20a=u**4-ir5*u**2+1
-    p20b=u**4+(ir5-1)*u**2+1
-    p30a=u**4+ir5*u**3+ir5*u**2+ir5*u+1
-    p30b=u**4+(1-ir5)*u**3+(1-ir5)*u**2+(1-ir5)*u+1
-    if typ[0]=='H' and n==3:
+    ir5 = ir(5)
+    p5a = u**2 + ir5*u+1
+    p5b = u**2 + (1-ir5)*u+1
+    p10a = u**2-ir5*u+1
+    p10b = u**2+(ir5-1)*u+1
+    p15a = u**4-ir5*u**3+ir5*u**2-ir5*u+1
+    p15b = u**4+(ir5-1)*u**3 + (1-ir5)*u**2+(ir5-1)*u+1
+    p20a = u**4-ir5*u**2+1
+    p20b = u**4+(ir5-1)*u**2+1
+    p30a = u**4+ir5*u**3+ir5*u**2+ir5*u+1
+    p30b = u**4+(1-ir5)*u**3+(1-ir5)*u**2+(1-ir5)*u+1
+    if typ[0] == 'H' and n == 3:
         return [u**(-15)*p2**3*p3*p5*p6*p10,u**(0)*p2**3*p3*p5*p6*p10,
               u**(-5)*p2**3*p3*p6,u**(-2)*p2**3*p3*p6,
               (2+ir5)*u**(-6)*p2**3*p10a*p5a,(3-ir5)*u**(-6)*p2**3*p10b*p5b,
               (2+ir5)*u**(-1)*p2**3*p10a*p5a,(3-ir5)*u**(-1)*p2**3*p10b*p5b,
               2*u**(-3)*p3*p5,2*u**(-3)*p3*p5]
-    if typ[0]=='H' and n==4:
+    if typ[0] == 'H' and n == 4:
         return [u**(0)*p2**4*p3**2*p4**2*p5**2*p6**2*p10**2*p12*p15*p20*p30,
               u**(-60)*p2**4*p3**2*p4**2*p5**2*p6**2*p10**2*p12*p15*p20*p30,
               (2+ir5)*u**(-1)*p2**4*p3**2*p5*p6**2*p10*p10b*p15b*p30b*p5b,
@@ -4592,7 +4586,7 @@ def schurelmdata(typ,n,vs):
               u**(-5)*p2**4*p5**2*p10**2,u**(-15)*p2**4*p5**2*p10**2,
               40*u**(-6)*p3**2*p10**2,12*u**(-6)*p5**2*p12]
 
-#F schurelms
+# F schurelms
 
 
 def schurelms(W,paramL):
@@ -4641,29 +4635,29 @@ def schurelms(W,paramL):
                                            0, 4-4*E(6), 0, 0, 2, 0, 0]
     """
     if type(paramL) == type([]):
-        vs=paramL[:]
+        vs = paramL[:]
     else:
-        vs=len(W.rank)*[paramL]
-    ct=W.cartantype[0]
-    if ct[0]=='G':
-        schur=schurelmdata(ct[0],len(ct[1]),[vs[ct[1][0]]**2,vs[ct[1][1]]**2,
+        vs = len(W.rank)*[paramL]
+    ct = W.cartantype[0]
+    if ct[0] == 'G':
+        schur = schurelmdata(ct[0],len(ct[1]),[vs[ct[1][0]]**2,vs[ct[1][1]]**2,
                                                     vs[ct[1][0]]*vs[ct[1][1]]])
-    elif ct[0][0]=='I':
-        schur=schurelmdata(ct[0],len(ct[1]),[vs[ct[1][0]],vs[ct[1][1]]])
+    elif ct[0][0] == 'I':
+        schur = schurelmdata(ct[0],len(ct[1]),[vs[ct[1][0]],vs[ct[1][1]]])
     else:
-        schur=schurelmdata(ct[0],len(ct[1]),[vs[s]**2 for s in ct[1]])
+        schur = schurelmdata(ct[0],len(ct[1]),[vs[s]**2 for s in ct[1]])
     for ct in W.cartantype[1:]:
-        if ct[0]=='G':
-            s1=schurelmdata(ct[0],len(ct[1]),[vs[ct[1][0]]**2,vs[ct[1][1]]**2,
+        if ct[0] == 'G':
+            s1 = schurelmdata(ct[0],len(ct[1]),[vs[ct[1][0]]**2,vs[ct[1][1]]**2,
                                                       vs[ct[1][0]]*vs[ct[1][1]]])
-        elif ct[0][0]=='I':
-            s1=schurelmdata(ct[0],len(ct[1]),[vs[ct[1][0]],vs[ct[1][1]]])
+        elif ct[0][0] == 'I':
+            s1 = schurelmdata(ct[0],len(ct[1]),[vs[ct[1][0]],vs[ct[1][1]]])
         else:
-            s1=schurelmdata(ct[0],len(ct[1]),[vs[s]**2 for s in ct[1]])
-        schur=flatlist([[x*sh for sh in s1] for x in schur])
+            s1 = schurelmdata(ct[0],len(ct[1]),[vs[s]**2 for s in ct[1]])
+        schur = flatlist([[x*sh for sh in s1] for x in schur])
     return schur
 
-#F lcmschurelms
+# F lcmschurelms
 
 
 def lcmschurelms(W,paramL):
@@ -4687,77 +4681,77 @@ def lcmschurelms(W,paramL):
     See also 'schurelms' and 'poincarepol'.
     """
     if type(paramL) == type([]):
-        vs=paramL[:]
+        vs = paramL[:]
     else:
-        vs=len(W.rank)*[paramL]
-    lcms=[]
+        vs = len(W.rank)*[paramL]
+    lcms = []
     for ct in W.cartantype:
-        equ=True
-        vs1=[vs[s] for s in ct[1]]
+        equ = True
+        vs1 = [vs[s] for s in ct[1]]
         for p in vs1[1:]:
-            if p!=vs1[0]:
-                equ=False
+            if p != vs1[0]:
+                equ = False
         if not equ:
-            if ct[0][0]=='I':
+            if ct[0][0] == 'I':
                 lprint('#I Just taking product of Schur elements\n')
-                sh=schurelms(coxeter(ct[0],len(ct[1])),vs1)
-                p=1
+                sh = schurelms(coxeter(ct[0],len(ct[1])),vs1)
+                p = 1
                 for se in sh[4:]:
-                    p*=se
-                p=lcmcyclpol([p,sh[0],sh[1],sh[2],sh[3]])
+                    p *= se
+                p = lcmcyclpol([p,sh[0],sh[1],sh[2],sh[3]])
             else:
-                p=lcmcyclpol(schurelms(coxeter(ct[0],len(ct[1])),vs1))
+                p = lcmcyclpol(schurelms(coxeter(ct[0],len(ct[1])),vs1))
         else:
-            p=poincarepol(coxeter(ct[0],len(ct[1])),vs1[0]**2)
-            if ct[0]=='B' or ct[0]=='C':
-                d=0
-                while d*(d+1)<=len(ct[1]):
-                    d+=1
-                p=2**(d-1)*p
-            if ct[0]=='D':
-                d=0
-                while d*d<=len(ct[1]):
-                    d+=1
-                p=2**(d-2)*p
-            if ct[0]=='G':
-                p=6*p
-            if ct[0]=='F':
-                p=24*p
-            if ct[0]=='E' and len(ct[1])==6:
-                p=6*p
-            if ct[0]=='E' and len(ct[1])==7:
-                p=6*p
-            if ct[0]=='E' and len(ct[1])==8:
-                p=120*p
-            if ct[0]=='H' and len(ct[1])==3:
-                p=10*p
-            if ct[0]=='H' and len(ct[1])==4:
-                p=120*p
-            if ct[0][0]=='I':
-                p=int(ct[0][1:])*p
+            p = poincarepol(coxeter(ct[0],len(ct[1])),vs1[0]**2)
+            if ct[0] == 'B' or ct[0] == 'C':
+                d = 0
+                while d*(d+1) <= len(ct[1]):
+                    d += 1
+                p = 2**(d-1)*p
+            if ct[0] == 'D':
+                d = 0
+                while d*d <= len(ct[1]):
+                    d += 1
+                p = 2**(d-2)*p
+            if ct[0] == 'G':
+                p = 6*p
+            if ct[0] == 'F':
+                p = 24*p
+            if ct[0] == 'E' and len(ct[1]) == 6:
+                p = 6*p
+            if ct[0] == 'E' and len(ct[1]) == 7:
+                p = 6*p
+            if ct[0] == 'E' and len(ct[1]) == 8:
+                p = 120*p
+            if ct[0] == 'H' and len(ct[1]) == 3:
+                p = 10*p
+            if ct[0] == 'H' and len(ct[1]) == 4:
+                p = 120*p
+            if ct[0][0] == 'I':
+                p = int(ct[0][1:])*p
         lcms.append(p)
     return lcmcyclpol(lcms)
 
-#F cocharpol
+# F cocharpol
 
 
 def cocharpol(W,u):
-    c=conjugacyclasses(W)
-    p=(u-1)**len(W.rank)*poincarepol(W,u)
-    cp=[]
+    c = conjugacyclasses(W)
+    p = (u-1)**len(W.rank)*poincarepol(W,u)
+    cp = []
     for i in range(len(c['reps'])):
-        m=[list(row) for row in W.wordtomat(c['reps'][i])]
+        m = [list(row) for row in W.wordtomat(c['reps'][i])]
         for k in W.rank:
             for l in W.rank:
-                if k==l:
-                    m[k][k]=u-m[k][k]*u**0
+                if k == l:
+                    m[k][k] = u-m[k][k]*u**0
                 else:
-                    m[k][l]=-m[k][l]*u**0
+                    m[k][l] = -m[k][l]*u**0
         cp.append(divmod(p,determinantmat(m))[0])
     return [(-1)**len(c['reps'][i])*c['classlengths'][i]*cp[i]
                                             for i in range(len(cp))]
 
-#F fakedegree
+# F fakedegree
 
 
 def fakedegree(W,u,chars):
@@ -4784,11 +4778,11 @@ def fakedegree(W,u,chars):
     >>> chartable(W)['b']
     [0, 6, 3, 3, 1, 2]
     """
-    cp=cocharpol(W,u)
+    cp = cocharpol(W,u)
     return [divmod(sum(char[i]*cp[i] for i in range(len(cp))),W.order)[0]
                                                          for char in chars]
 
-#F fakeomega
+# F fakeomega
 
 
 def fakeomega(W,u):
@@ -4810,75 +4804,75 @@ def fakeomega(W,u):
     finite (split) reductive group with Weyl group W.  Note  that the
     function also works for W of non-crystallographic type.
     """
-    ti=chartable(W)
-    cp=cocharpol(W,u)
-    om=[len(ti['b'])*[0] for i in ti['b']]
+    ti = chartable(W)
+    cp = cocharpol(W,u)
+    om = [len(ti['b'])*[0] for i in ti['b']]
     for i in range(len(ti['b'])):
         for j in range(i,len(ti['b'])):
-            char=[ti['irreducibles'][ti['position_sgn']][k]*
+            char = [ti['irreducibles'][ti['position_sgn']][k] *
                    ti['irreducibles'][i][k]*ti['irreducibles'][j][k]
                                               for k in range(len(ti['b']))]
-            om[i][j]=u**W.N*divmod(sum(char[i]*cp[i] for i in range(len(cp))),
+            om[i][j] = u**W.N*divmod(sum(char[i]*cp[i] for i in range(len(cp))),
                                                                     W.order)[0]
-            if i!=j:
-                om[j][i]=om[i][j]
+            if i != j:
+                om[j][i] = om[i][j]
     return om
 
-#F some mod p functions needed for greenalgo
+# F some mod p functions needed for greenalgo
 
 
 def repintp(n,p):
-    m=n %p
-    if m>(p-1)//2:
+    m = n % p
+    if m > (p-1)//2:
         return m-p
     else:
         return m
 
 
 def powp(x,n,p):
-    y=1
+    y = 1
     for i in range(n):
-        y=(y*x) %p
+        y = (y*x) % p
     return y
 
 
 def matsubp(a,b,p):
-    return [[(a[i][j]-b[i][j]) %p for j in range(len(a[0]))]
+    return [[(a[i][j]-b[i][j]) % p for j in range(len(a[0]))]
                                        for i in range(len(a))]
 
 
 def matmultp(a,b,p):
-    return [[(sum((row[k]*b[k][j]) %p for k in range(len(b)))) %p
+    return [[(sum((row[k]*b[k][j]) % p for k in range(len(b)))) % p
                              for j in range(len(b[0]))] for row in a]
 
 
 def valuep(f,x,p):
-    if f.coeffs==[]:
+    if f.coeffs == []:
         return 0
-    y=0
+    y = 0
     for i in range(len(f.coeffs)):
-        y=((x*y) %p+f.coeffs[-i-1]) %p
+        y = ((x*y) % p+f.coeffs[-i-1]) % p
     for i in range(f.val):
-        y=(y*x) %p
+        y = (y*x) % p
     return y
 
 
 def applychinrem(mat1,mat2,m1,m2):
     """apply Chinese Remainder to a matrix of lists.
     """
-    m=m1*m2
-    g=gcdex(m1,m2)
+    m = m1*m2
+    g = gcdex(m1,m2)
     for i in range(len(mat1)):
         for j in range(len(mat1)):
             for k in range(len(mat1[i][j])):
-                x=(mat1[i][j][k]*g['coeff2']*m2+
-                   mat2[i][j][k]*g['coeff1']*m1) %m
-                if x>(m-1)//2:
-                    mat1[i][j][k]=x-m
+                x = (mat1[i][j][k]*g['coeff2']*m2 +
+                   mat2[i][j][k]*g['coeff1']*m1) % m
+                if x > (m-1)//2:
+                    mat1[i][j][k] = x-m
                 else:
-                    mat1[i][j][k]=x
+                    mat1[i][j][k] = x
 
-#F blockLR
+# F blockLR
 
 
 def blockLR(mat,bl,diag,p):
@@ -4892,124 +4886,124 @@ def blockLR(mat,bl,diag,p):
     scalar matrices (with scalars specified by 'diag'). If some principal
     minor of mat is zero modulo p, the function returns 'False'.
     """
-    P=[[[] for b in bl] for c in bl]
-    L=[[] for b in bl]
-    fbl=flatlist(bl)
+    P = [[[] for b in bl] for c in bl]
+    L = [[] for b in bl]
+    fbl = flatlist(bl)
     for j in range(len(bl)):
-        if diag[j] %p==0:
+        if diag[j] % p == 0:
             return False
-        d1=1
-        while (d1*diag[j]) %p!=1:
-            d1+=1
-        Lj=[[mat[r][s] for s in bl[j]] for r in bl[j]]
+        d1 = 1
+        while (d1*diag[j]) % p != 1:
+            d1 += 1
+        Lj = [[mat[r][s] for s in bl[j]] for r in bl[j]]
         for k in range(j):
-            Lj=matsubp(Lj,matmultp(P[j][k],matmultp(L[k],
+            Lj = matsubp(Lj,matmultp(P[j][k],matmultp(L[k],
                                    transposemat(P[j][k]),p),p),p)
-        L[j]=[[(((x*d1) %p)*d1) %p for x in r] for r in Lj]
-        invj=inversematp(L[j],p)
+        L[j] = [[(((x*d1) % p)*d1) % p for x in r] for r in Lj]
+        invj = inversematp(L[j],p)
         if invj is False:
             return False
         for i in range(len(bl)):
-            if i<j:
-                P[i][j]=[len(bl[j])*[0] for r in bl[i]]
-            elif i==j:
-                P[j][j]=idmat(bl[j],diag[j] %p)
+            if i < j:
+                P[i][j] = [len(bl[j])*[0] for r in bl[i]]
+            elif i == j:
+                P[j][j] = idmat(bl[j],diag[j] % p)
             else:
-                Pij=[[mat[r][s] %p for s in bl[j]] for r in bl[i]]
+                Pij = [[mat[r][s] % p for s in bl[j]] for r in bl[i]]
                 for k in range(j):
-                    Pij=matsubp(Pij,matmultp(P[i][k],matmultp(L[k],
+                    Pij = matsubp(Pij,matmultp(P[i][k],matmultp(L[k],
                                               transposemat(P[j][k]),p),p),p)
-                P[i][j]=matmultp([[(x*d1) %p for x in r] for r in Pij],invj,p)
+                P[i][j] = matmultp([[(x*d1) % p for x in r] for r in Pij],invj,p)
     #mat1=[[mat[r][s] for s in fbl] for r in fbl]
-    #if not all(x%p==0 for x in flatlist(matsubp(matmult(resP,
+    # if not all(x%p==0 for x in flatlist(matsubp(matmult(resP,
     #                    matmult(resL,transposemat(resP))),mat1)),p):
     #  print("grosser mist!")
     return [flatblockmat(P), reduce(directsummat, L), fbl]
 
-#F greenalgo
+# F greenalgo
 
 
 def greenalgo(W,u,fam,avals,check=True,startpr=0, verbose=False):
     """applies generalised version of the algorithm for computing Green
     functions.
     """
-    gom=fakeomega(W,u)
-    fbl=flatlist(fam)
-    if startpr==0:
-        p=max(2*sum(W.degrees)+2,800)
+    gom = fakeomega(W,u)
+    fbl = flatlist(fam)
+    if startpr == 0:
+        p = max(2*sum(W.degrees)+2,800)
     else:
-        p=startpr
-    fertig=False
+        p = startpr
+    fertig = False
     if verbose:
         lprint('#I Prime: ')
     while not fertig:
-        p=nextprime(p+100)
-        Ps,Ls=[],[]
+        p = nextprime(p+100)
+        Ps,Ls = [],[]
         if verbose:
             lprint(str(p)+'; ')
-        i=2
-        l=[]
-        while i<=2*p and len(l)<=2*sum(W.degrees)+2:
-            omp=[[valuep(f,i,p) for f in row] for row in gom]
-            if len(l) %10==0:
+        i = 2
+        l = []
+        while i <= 2*p and len(l) <= 2*sum(W.degrees)+2:
+            omp = [[valuep(f,i,p) for f in row] for row in gom]
+            if len(l) % 10 == 0:
                 if verbose:
                     lprint(str(len(l))+' ')
-            ap=[]
+            ap = []
             for a in avals:
-                x=1
+                x = 1
                 for e in range(a):
-                    x=(x*i) %p
+                    x = (x*i) % p
                 ap.append(x)
-            bl=blockLR(omp,fam,ap,p)
+            bl = blockLR(omp,fam,ap,p)
             if bl is not False:
                 l.append(i)
                 Ps.append(bl[0])
                 Ls.append(bl[1])
-            if i>0:
-                i=-i
+            if i > 0:
+                i = -i
             else:
-                i=1-i
+                i = 1-i
         if verbose:
             lprint('\n')
             lprint('#I Now interpolating ')
-        vm=inversematp([[powp(x,i,p) for x in l] for i in range(len(l))],p)
+        vm = inversematp([[powp(x,i,p) for x in l] for i in range(len(l))],p)
         if vm is not False:
-            P,L=idmat(fbl,0),idmat(fbl,0)
+            P,L = idmat(fbl,0),idmat(fbl,0)
             for i in range(len(fbl)):
-                if i %5==0:
+                if i % 5 == 0:
                     if verbose:
                         lprint('.')
                 for j in range(len(fbl)):
-                    if j<=i and any(m[i][j]!=0 for m in Ps):
-                        coeffs0=matmultp([[m[i][j] for m in Ps]],vm,p)[0]
-                        P[i][j]=lpol([repintp(c,p) for c in coeffs0],0,v.vname)
-                    if any(m[i][j]!=0 for m in Ls):
-                        coeffs1=matmultp([[m[i][j] for m in Ls]],vm,p)[0]
-                        L[i][j]=lpol([repintp(c,p) for c in coeffs1],0,v.vname)
-            fertig=True
+                    if j <= i and any(m[i][j] != 0 for m in Ps):
+                        coeffs0 = matmultp([[m[i][j] for m in Ps]],vm,p)[0]
+                        P[i][j] = lpol([repintp(c,p) for c in coeffs0],0,v.vname)
+                    if any(m[i][j] != 0 for m in Ls):
+                        coeffs1 = matmultp([[m[i][j] for m in Ls]],vm,p)[0]
+                        L[i][j] = lpol([repintp(c,p) for c in coeffs1],0,v.vname)
+            fertig = True
             if verbose:
                 lprint('\n#I Checking: ')
-            i=0
-            while fertig and i<len(fbl):
-                if verbose and i %5==0:
+            i = 0
+            while fertig and i < len(fbl):
+                if verbose and i % 5 == 0:
                     lprint(str(i)+' ')
-                j=0
-                while fertig and j<=i:
-                    x=sum(P[j][s]*sum(P[i][r]*L[r][s] for r in range(i+1)
-                                  if L[r][s]!=0) for s in range(j+1) if P[j][s]!=0)
-                    if x!=gom[fbl[i]][fbl[j]]:
+                j = 0
+                while fertig and j <= i:
+                    x = sum(P[j][s]*sum(P[i][r]*L[r][s] for r in range(i+1)
+                                  if L[r][s] != 0) for s in range(j+1) if P[j][s] != 0)
+                    if x != gom[fbl[i]][fbl[j]]:
                         if verbose:
                             lprint(' ... change prime ...')
-                        fertig=False
-                    j+=1
-                i+=1
+                        fertig = False
+                    j += 1
+                i += 1
         if verbose:
             lprint(' '+str(fertig)+' ')
     if verbose:
         lprint('\n')
     return [P, L, fbl]
 
-#F specialpieces
+# F specialpieces
 
 
 def specialpieces(W, v, verbose=False):
@@ -5035,18 +5029,18 @@ def specialpieces(W, v, verbose=False):
      [("3_s'",), -v**10+v**12+v**16-v**18+v**20-v**22-v**26+v**28],
      [('1_r',), -v**12+v**14+v**18-v**20+v**22-v**24-v**28+v**30]]
     """
-    ti=chartable(W)
-    a1=list(set(ti['a']))
+    ti = chartable(W)
+    a1 = list(set(ti['a']))
     a1.sort(reverse=True)
-    g=greenalgo(W,v,[list(filter(lambda i:ti['a'][i]==x,
+    g = greenalgo(W,v,[list(filter(lambda i:ti['a'][i] == x,
                         range(len(ti['a'])))) for x in a1],a1)
-    spec=[]
-    tot=0
+    spec = []
+    tot = 0
     for i in range(len(g[2])):
-        ch=g[2][i]
-        if ti['a'][ch]==ti['b'][ch]:
+        ch = g[2][i]
+        if ti['a'][ch] == ti['b'][ch]:
             spec.append([ti['charnames'][ch],g[1][i][i]])
-            tot+=g[1][i][i]
+            tot += g[1][i][i]
     if verbose:
         lprint('#I Total size of all special pieces: ')
         lprint(repr(tot))
@@ -5055,7 +5049,7 @@ def specialpieces(W, v, verbose=False):
 
 ##########################################################################
 ##
-#Y Section 4: Kazhdan-Lusztig cells
+# Y Section 4: Kazhdan-Lusztig cells
 ##
 
 # class-wgraph
@@ -5156,98 +5150,98 @@ class wgraph:
 
     def __init__(self,W,weightL,xset,v,isets=None,mmat=[],mues=[],xrep=[]):
         if type(weightL) == type(0):
-            self.weights=len(W.rank)*[weightL]
+            self.weights = len(W.rank)*[weightL]
         else:
-            self.weights=weightL
+            self.weights = weightL
         uneq = not all(i == 1 for i in self.weights)
-        self.W=W
-        self.X=xset
-        self.var=v
+        self.W = W
+        self.X = xset
+        self.var = v
         if isets is not None:
-            self.Isets=isets
-            self.mpols=mues
-            self.mmat=mmat
-            self.Xrep=xrep
+            self.Isets = isets
+            self.mpols = mues
+            self.mmat = mmat
+            self.Xrep = xrep
         else:
-            ap=[W.wordtoperm(w) for w in xset['elms']]
-            ll=[W.permlength(p) for p in ap]
-            self.Isets=[W.leftdescentsetperm(p) for p in ap]
-            nmues=[[0,1] for s in W.rank]
-            mm={}
+            ap = [W.wordtoperm(w) for w in xset['elms']]
+            ll = [W.permlength(p) for p in ap]
+            self.Isets = [W.leftdescentsetperm(p) for p in ap]
+            nmues = [[0,1] for s in W.rank]
+            mm = {}
             for y in range(len(ap)):
                 for x in range(y):
-                    if xset['klmat'][y][x][0]=='c':
-                        ms=xset['klmat'][y][x].split('c')[2:]
-                        mstr=''
+                    if xset['klmat'][y][x][0] == 'c':
+                        ms = xset['klmat'][y][x].split('c')[2:]
+                        mstr = ''
                         if not uneq:
                             for s in W.rank:
-                                if s in self.Isets[x] and not s in self.Isets[y]:
-                                    if len(ms)==len(W.rank):
-                                        if ms[s]!='' and ms[s]!='0':
-                                            m=-(-1)**(ll[y]+ll[x])* \
+                                if s in self.Isets[x] and s not in self.Isets[y]:
+                                    if len(ms) == len(W.rank):
+                                        if ms[s] != '' and ms[s] != '0':
+                                            m = -(-1)**(ll[y]+ll[x]) * \
                                                 xset['mpols'][s][int(ms[s])]
                                             if m in nmues[s]:
-                                                mstr+='c'+ \
+                                                mstr += 'c' + \
                                                     str(nmues[s].index(m))
                                             else:
-                                                mstr+='c'+str(len(nmues[s]))
+                                                mstr += 'c'+str(len(nmues[s]))
                                                 nmues[s].append(m)
                                         else:
-                                            mstr+='c0'
+                                            mstr += 'c0'
                                     else:
-                                        if ms[0]!='' and ms[0]!='0':
-                                            m=-(-1)**(ll[y]+ll[x])* \
+                                        if ms[0] != '' and ms[0] != '0':
+                                            m = -(-1)**(ll[y]+ll[x]) * \
                                                 xset['mpols'][int(ms[0])]
                                             if m in nmues[s]:
-                                                mstr+='c'+ \
+                                                mstr += 'c' + \
                                                     str(nmues[s].index(m))
                                             else:
-                                                mstr+='c'+str(len(nmues[s]))
+                                                mstr += 'c'+str(len(nmues[s]))
                                                 nmues[s].append(m)
                                         else:
-                                            mstr+='c0'
+                                            mstr += 'c0'
                                 else:
-                                    mstr+='c'
+                                    mstr += 'c'
                         else:
                             for s in W.rank:
-                                if self.weights[s]>0:
-                                    if ms[s]!='' and ms[s]!='0':
-                                        m=-(-1)**(ll[y]+ll[x])* \
+                                if self.weights[s] > 0:
+                                    if ms[s] != '' and ms[s] != '0':
+                                        m = -(-1)**(ll[y]+ll[x]) * \
                                             xset['mpols'][s][int(ms[s])]
                                         if m in nmues[s]:
-                                            mstr+='c'+str(nmues[s].index(m))
+                                            mstr += 'c'+str(nmues[s].index(m))
                                         else:
-                                            mstr+='c'+str(len(nmues[s]))
+                                            mstr += 'c'+str(len(nmues[s]))
                                             nmues[s].append(m)
                                     else:
-                                        mstr+='c0'
+                                        mstr += 'c0'
                                 else:  # self.weights[s]=0:
-                                    sy=tuple([ap[y][i] for i in W.permgens[s]])
-                                    if sy in ap and ap[x]==sy:
-                                        mstr+='c1'
+                                    sy = tuple([ap[y][i] for i in W.permgens[s]])
+                                    if sy in ap and ap[x] == sy:
+                                        mstr += 'c1'
                                     else:
-                                        mstr+='c0'
-                        if any(i!='0' and i!='c' for i in mstr):
-                            mm[(y,x)]=mstr
+                                        mstr += 'c0'
+                        if any(i != '0' and i != 'c' for i in mstr):
+                            mm[(y,x)] = mstr
                 for s in W.rank:
-                    if not s in self.Isets[y]:
-                        sy=tuple([ap[y][i] for i in W.permgens[s]])
+                    if s not in self.Isets[y]:
+                        sy = tuple([ap[y][i] for i in W.permgens[s]])
                         if sy in ap:
-                            syi=ap.index(sy)
-                            mm[(y,syi)]=''
+                            syi = ap.index(sy)
+                            mm[(y,syi)] = ''
                             for t in W.rank:
-                                if t==s:
-                                    mm[(y,syi)]+='c1'
+                                if t == s:
+                                    mm[(y,syi)] += 'c1'
                                 else:
-                                    mm[(y,syi)]+='c0'
+                                    mm[(y,syi)] += 'c0'
             #self.X=[W.permtoword(p) for p in ap]
-            self.X=[w[:] for w in xset['elms']]
-            self.Xrep=[p[:len(W.rank)] for p in ap]
-            self.mpols=nmues
-            self.mmat=mm
+            self.X = [w[:] for w in xset['elms']]
+            self.Xrep = [p[:len(W.rank)] for p in ap]
+            self.mpols = nmues
+            self.mmat = mm
 
     def __eq__(self,wgr):
-        return self.Xrep==wgr.Xrep
+        return self.Xrep == wgr.Xrep
 
     def __repr__(self):
         return 'wgraph('+repr(self.W)+', '+str(self.weights)+', '+str(self.X)+')'
@@ -5258,21 +5252,21 @@ class wgraph:
         lists, then the lists will be sorted by increasing length.
         Otherwise, a generic 'sort' will be applied.
         """
-        lx=self.X[:]
+        lx = self.X[:]
         if type(self.X[0]) == type([]):
             lx.sort(key=(lambda x:len(x)))
         else:
             lx.sort()
-        if lx==self.X:
+        if lx == self.X:
             return self
         else:
-            l=[self.X.index(x) for x in lx]
-            l1=[l.index(i) for i in range(len(l))]
-            x1r=[self.Xrep[i] for i in l]
-            i1=[self.Isets[i] for i in l]
-            m1={}
+            l = [self.X.index(x) for x in lx]
+            l1 = [l.index(i) for i in range(len(l))]
+            x1r = [self.Xrep[i] for i in l]
+            i1 = [self.Isets[i] for i in l]
+            m1 = {}
             for k in self.mmat:
-                m1[(l1[k[0]],l1[k[1]])]=self.mmat[k]
+                m1[(l1[k[0]],l1[k[1]])] = self.mmat[k]
             return wgraph(self.W,self.weights,lx,self.var,i1,m1,self.mpols,x1r)
 
     def wgraphtoklmat(self):
@@ -5283,59 +5277,59 @@ class wgraph:
 
         For examples of the use of this function, see 'relklpols'.
         """
-        mat=[]
+        mat = []
         for j in range(len(self.X)):
             mat.append(['f' for i in range(j+1)])
-        mues=[[0,1] for s in self.W.rank]
+        mues = [[0,1] for s in self.W.rank]
         for j in range(len(self.X)):
             for i in range(j):
                 if (j,i) in self.mmat:
-                    mstr='c0'   # exact value will not be used anywhere
-                    eps=-(-1)**(len(self.X[i])+len(self.X[j]))
-                    rk=self.mmat[(j,i)].split('c')[1:]
+                    mstr = 'c0'   # exact value will not be used anywhere
+                    eps = -(-1)**(len(self.X[i])+len(self.X[j]))
+                    rk = self.mmat[(j,i)].split('c')[1:]
                     for s in self.W.rank:
-                        if rk[s]!='':
-                            m=eps*self.mpols[s][int(rk[s])]
+                        if rk[s] != '':
+                            m = eps*self.mpols[s][int(rk[s])]
                             if m in mues[s]:
-                                mstr+='c'+str(mues[s].index(m))
+                                mstr += 'c'+str(mues[s].index(m))
                             else:
-                                mstr+='c'+str(len(mues[s]))
+                                mstr += 'c'+str(len(mues[s]))
                                 mues[s].append(m)
                         else:
-                            mstr+='c0'
-                    mat[j][i]=mstr
+                            mstr += 'c0'
+                    mat[j][i] = mstr
         return {'elms':self.X,'mpols':mues,'klmat':mat}
 
     def decompose(self):
         """checks if a W-graph is indecomposable and, if not, returns
         the list of W-graphs of the indecomposable composants.
         """
-        pp0=[[w] for w in range(len(self.X))]
+        pp0 = [[w] for w in range(len(self.X))]
         for p in self.mmat:
             pp0[p[0]].append(p[1])
-        pp1=[p[:] for p in pp0]
+        pp1 = [p[:] for p in pp0]
         for z in pp1:
             for w in z:
                 for y in pp0[w]:
-                    if not y in z:
+                    if y not in z:
                         z.append(y)
-        lcells=[]
-        rest=list(range(len(self.X)))
-        while rest!=[]:
-            l=[x for x in pp1[rest[0]] if rest[0] in pp1[x]]
+        lcells = []
+        rest = list(range(len(self.X)))
+        while rest != []:
+            l = [x for x in pp1[rest[0]] if rest[0] in pp1[x]]
             l.sort()
             lcells.append(l)
             for w in l:
                 rest.remove(w)
-        neu=[]
+        neu = []
         for l in lcells:
-            x1=[self.X[i] for i in l]
-            x1r=[self.Xrep[i] for i in l]
-            i1=[self.Isets[i] for i in l]
-            m1={}
+            x1 = [self.X[i] for i in l]
+            x1r = [self.Xrep[i] for i in l]
+            i1 = [self.Isets[i] for i in l]
+            m1 = {}
             for k in self.mmat:
                 if k[0] in l and k[1] in l:
-                    m1[(l.index(k[0]),l.index(k[1]))]=self.mmat[k]
+                    m1[(l.index(k[0]),l.index(k[1]))] = self.mmat[k]
             neu.append(wgraph(self.W,self.weights,x1,
                        self.var,i1,m1,self.mpols,x1r))
         return neu
@@ -5351,46 +5345,46 @@ class wgraph:
         can be used to specialise the base parameter. For example,
         setting param=1 yields representing matrices for W itself.
         """
-        if param=='generic':
-            v=self.var
+        if param == 'generic':
+            v = self.var
         else:
-            v=param
-        mats=[idmat(self.X,0) for s in self.W.rank]
+            v = param
+        mats = [idmat(self.X,0) for s in self.W.rank]
         for s in self.W.rank:
             for y in range(len(self.X)):
-                if self.weights[s]>0 and s in self.Isets[y]:
-                    mats[s][y][y]=-1
+                if self.weights[s] > 0 and s in self.Isets[y]:
+                    mats[s][y][y] = -1
                 else:
-                    if self.weights[s]>0:
-                        mats[s][y][y]=v**(2*self.weights[s])
+                    if self.weights[s] > 0:
+                        mats[s][y][y] = v**(2*self.weights[s])
                     for x in range(len(self.X)):
-                        if self.weights[s]==0 or s in self.Isets[x]:
+                        if self.weights[s] == 0 or s in self.Isets[x]:
                             if (y,x) in self.mmat:
-                                mats[s][y][x]=v**(self.weights[s])*self.mpols[s][
+                                mats[s][y][x] = v**(self.weights[s])*self.mpols[s][
                                                     int(self.mmat[y,x].split('c')[s+1])]
         if check:
             if verbose:
                 lprint('#I defining relations are ')
             for s in self.W.rank:
-                sq=v**(2*self.weights[s])
-                if matmult(mats[s],mats[s])!=matadd(idmat(self.X,sq),
+                sq = v**(2*self.weights[s])
+                if matmult(mats[s],mats[s]) != matadd(idmat(self.X,sq),
                                               scalmatmult(sq-1,mats[s])):
                     lprint('Mist1!\n')
                     return 'False1'
                 for t in range(s+1,len(self.W.rank)):
-                    a=matmult(mats[s],mats[t])
-                    b=matmult(mats[t],mats[s])
-                    m=self.W.coxetermat[s][t]
-                    if m %2==0:
-                        a1,b1=a,b
+                    a = matmult(mats[s],mats[t])
+                    b = matmult(mats[t],mats[s])
+                    m = self.W.coxetermat[s][t]
+                    if m % 2 == 0:
+                        a1,b1 = a,b
                         for i in range(m//2-1):
-                            a1,b1=matmult(a1,a),matmult(b1,b)
+                            a1,b1 = matmult(a1,a),matmult(b1,b)
                     else:
-                        a1,b1=a,b
+                        a1,b1 = a,b
                         for i in range((m-1)//2-1):
-                            a1,b1=matmult(a1,a),matmult(b1,b)
-                        a1,b1=matmult(a1,mats[s]),matmult(b1,mats[t])
-                    if a1!=b1:
+                            a1,b1 = matmult(a1,a),matmult(b1,b)
+                        a1,b1 = matmult(a1,mats[s]),matmult(b1,mats[t])
+                    if a1 != b1:
                         lprint('Mist2!\n')
                         return 'False2'
             if verbose:
@@ -5420,7 +5414,7 @@ class wgraph:
         for w in conjugacyclasses(self.W)['reps'][1:]:
             c.append(sum([reduce(matmult, [m[s] for s in w])[i][i]
                           for i in range(c[0])]))
-        self.char=c
+        self.char = c
         return c
 # end of definition of class wgraph
 
@@ -5447,45 +5441,45 @@ def reflectionwgraph(W,weightL,v):
     See also 'wgraph'.
     """
     if type(weightL) == type(0):
-        poids=len(W.rank)*[weightL]
+        poids = len(W.rank)*[weightL]
     else:
-        poids=weightL
-    mues=[[0,1] for s in W.rank]
-    mmat={}
+        poids = weightL
+    mues = [[0,1] for s in W.rank]
+    mmat = {}
     for y in W.rank:
         for x in W.rank:
-            if W.coxetermat[x][y]!=2 and (poids[x]<poids[y]
-                                   or (poids[x]==poids[y] and x<y)):
-                mmat[(x,y)]=''
-                mmat[(y,x)]=''
+            if W.coxetermat[x][y] != 2 and (poids[x] < poids[y]
+                                   or (poids[x] == poids[y] and x < y)):
+                mmat[(x,y)] = ''
+                mmat[(y,x)] = ''
                 for s in W.rank:
-                    if s==x:
-                        mmat[(y,x)]+='c1'
+                    if s == x:
+                        mmat[(y,x)] += 'c1'
                     else:
-                        mmat[(y,x)]+='c0'
+                        mmat[(y,x)] += 'c0'
                 for s in W.rank:
-                    if s==y:
-                        e=poids[y]-poids[x]
-                        m=(W.cartan[x][y]*W.cartan[y][x]-2)*v**0+v**e+v**(-e)
+                    if s == y:
+                        e = poids[y]-poids[x]
+                        m = (W.cartan[x][y]*W.cartan[y][x]-2)*v**0+v**e+v**(-e)
                         if m in mues[s]:
-                            mmat[(x,y)]+='c'+str(mues[s].index(m))
+                            mmat[(x,y)] += 'c'+str(mues[s].index(m))
                         else:
-                            mmat[(x,y)]+='c'+str(len(mues[s]))
+                            mmat[(x,y)] += 'c'+str(len(mues[s]))
                             mues[s].append(m)
                     else:
-                        mmat[(x,y)]+='c0'
+                        mmat[(x,y)] += 'c0'
     return wgraph(W,weightL,list(W.rank),v,[[s] for s in W.rank],
                                              mmat,mues,W.permgens[:])
 
-#F pospart, nonnegpart, zeropart and barpart needed for klpolynomials
+# F pospart, nonnegpart, zeropart and barpart needed for klpolynomials
 
 
 def pospart(f):
     if type(f) == type(0):
         return 0
-    elif f.val>0:
+    elif f.val > 0:
         return f
-    elif len(f.coeffs)>-f.val:
+    elif len(f.coeffs) > -f.val:
         return lpol([f.coeffs[i] for i in range(-f.val+1,len(f.coeffs))],
                                                                 1,f.vname)
     else:
@@ -5495,9 +5489,9 @@ def pospart(f):
 def nonnegpart(f):
     if type(f) == type(0):
         return f
-    elif f.val>=0:
+    elif f.val >= 0:
         return f
-    elif len(f.coeffs)>=-f.val:
+    elif len(f.coeffs) >= -f.val:
         return lpol([f.coeffs[i] for i in range(-f.val,len(f.coeffs))],
                                                               0,f.vname)
     else:
@@ -5507,7 +5501,7 @@ def nonnegpart(f):
 def zeropart(f):
     if type(f) == type(0):
         return f
-    elif f.val<=0 and len(f.coeffs)>-f.val:
+    elif f.val <= 0 and len(f.coeffs) > -f.val:
         return f.coeffs[-f.val]
     else:
         return 0
@@ -5616,42 +5610,42 @@ def klpolynomials(W,weightL, v, verbose=False):
     See also 'klcells', 'relklpols' and 'wgraph'.
     """
     if type(weightL) == type([]):
-        poids=weightL
+        poids = weightL
     else:
-        poids=len(W.rank)*[weightL]
-    if all(i==1 for i in poids):
-        uneq=False
+        poids = len(W.rank)*[weightL]
+    if all(i == 1 for i in poids):
+        uneq = False
     else:
-        uneq=True
-    ap=allwords(W)
-    Lw=[sum([poids[s] for s in w]) for w in ap]
-    lw=[len(w) for w in ap]
-    a=[W.wordtocoxelm(c) for c in ap]
-    inva=[a.index(W.wordtocoxelm(c[::-1])) for c in ap]
-    inva1=[a[c] for c in inva]
-    w0=longestperm(W)
-    aw0=[a.index(tuple([w0[i] for i in p])) for p in a]
+        uneq = True
+    ap = allwords(W)
+    Lw = [sum([poids[s] for s in w]) for w in ap]
+    lw = [len(w) for w in ap]
+    a = [W.wordtocoxelm(c) for c in ap]
+    inva = [a.index(W.wordtocoxelm(c[::-1])) for c in ap]
+    inva1 = [a[c] for c in inva]
+    w0 = longestperm(W)
+    aw0 = [a.index(tuple([w0[i] for i in p])) for p in a]
     if verbose:
         lprint('#I Initialising (Bruhat-Chevalley order etc.) ')
-    lft=[[inva1.index(tuple([s[i] for i in p]))
+    lft = [[inva1.index(tuple([s[i] for i in p]))
                                    for s in W.permgens] for p in inva1]
-    mat=[['c0'+len(W.rank)*'c']]
+    mat = [['c0'+len(W.rank)*'c']]
     for w in range(1,len(a)):
-        if verbose and lw[w]>lw[w-1]:
+        if verbose and lw[w] > lw[w-1]:
             lprint('.')
-        s=0
-        while lft[w][s]>w:
-            s+=1
-        b=['c']
+        s = 0
+        while lft[w][s] > w:
+            s += 1
+        b = ['c']
         for y in range(1,w):
-            if lw[y]==lw[w]:
+            if lw[y] == lw[w]:
                 b.append('f')
-            elif lw[w]+lw[y]>W.N:
+            elif lw[w]+lw[y] > W.N:
                 b.append(mat[aw0[y]][aw0[w]])
             else:
-                if (lft[y][s]<y and lft[y][s]<=lft[w][s] and
-                          mat[lft[w][s]][lft[y][s]]=='c') or (lft[y][s]>y and
-                                         y<=lft[w][s] and mat[lft[w][s]][y]=='c'):
+                if (lft[y][s] < y and lft[y][s] <= lft[w][s] and
+                          mat[lft[w][s]][lft[y][s]] == 'c') or (lft[y][s] > y and
+                                         y <= lft[w][s] and mat[lft[w][s]][y] == 'c'):
                     b.append('c')
                 else:
                     b.append('f')
@@ -5660,142 +5654,143 @@ def klpolynomials(W,weightL, v, verbose=False):
     if verbose:
         lprint('\n#I Computing KL polynomials for elements of length:\n')
         lprint('#I        ')
-    klpol=[1]
-    klstar=[1]
-    mues=[[0] for s in W.rank]
+    klpol = [1]
+    klstar = [1]
+    mues = [[0] for s in W.rank]
     for w in range(1,len(a)):
-        if verbose and lw[w]>lw[w-1]:
+        if verbose and lw[w] > lw[w-1]:
             lprint(str(lw[w])+' ')
         for y in range(w,-1,-1):
-            if mat[w][y][0]=='c':
-                if y==w:
-                    h=1
-                elif inva[w]<w or (inva[w]==w and inva[y]>y):
-                    h=klpol[int(mat[inva[w]][inva[y]].split('c')[1])]
+            if mat[w][y][0] == 'c':
+                if y == w:
+                    h = 1
+                elif inva[w] < w or (inva[w] == w and inva[y] > y):
+                    h = klpol[int(mat[inva[w]][inva[y]].split('c')[1])]
                 else:
-                    s=0
-                    while s<len(W.rank) and (lft[y][s]<y or lft[w][s]>w):
-                        s+=1
-                    if s<len(W.rank):
-                        sw=lft[w][s]
-                        sy=lft[y][s]
-                        if poids[s]==0:
-                            if sy<=sw and mat[sw][sy][0]=='c':
-                                h=klpol[int(mat[sw][sy].split('c')[1])]
+                    s = 0
+                    while s < len(W.rank) and (lft[y][s] < y or lft[w][s] > w):
+                        s += 1
+                    if s < len(W.rank):
+                        sw = lft[w][s]
+                        sy = lft[y][s]
+                        if poids[s] == 0:
+                            if sy <= sw and mat[sw][sy][0] == 'c':
+                                h = klpol[int(mat[sw][sy].split('c')[1])]
                             else:
-                                h=0
+                                h = 0
                         else:
-                            h=klpol[int(mat[w][sy].split('c')[1])]
+                            h = klpol[int(mat[w][sy].split('c')[1])]
                     else:
-                        iw=inva[w]
-                        iy=inva[y]
-                        s=0
-                        while s<len(W.rank) and (
-                            lft[iy][s]<iy or lft[iw][s]>iw):
-                            s+=1
-                        if s<len(W.rank):
-                            sw=lft[iw][s]
-                            sy=lft[iy][s]
-                            if poids[s]==0:
-                                if sy<=sw and mat[sw][sy][0]=='c':
-                                    h=klpol[int(mat[sw][sy].split('c')[1])]
+                        iw = inva[w]
+                        iy = inva[y]
+                        s = 0
+                        while s < len(W.rank) and (
+                                lft[iy][s] < iy or lft[iw][s] > iw):
+                            s += 1
+                        if s < len(W.rank):
+                            sw = lft[iw][s]
+                            sy = lft[iy][s]
+                            if poids[s] == 0:
+                                if sy <= sw and mat[sw][sy][0] == 'c':
+                                    h = klpol[int(mat[sw][sy].split('c')[1])]
                                 else:
-                                    h=0
+                                    h = 0
                             else:
-                                h=klpol[int(mat[w][inva[sy]].split('c')[1])]
+                                h = klpol[int(mat[w][inva[sy]].split('c')[1])]
                         else:  # now recursion
-                            s=0
-                            while lft[w][s]>w:
-                                s+=1
+                            s = 0
+                            while lft[w][s] > w:
+                                s += 1
                             if uneq:
                                 for t in W.rank:
-                                    if lft[w][t]<w and poids[t]<poids[s]:
-                                        s=t
-                            sw=lft[w][s]
-                            sy=lft[y][s]
-                            if poids[s]==0:
-                                h=klpol[int(mat[sw][sy].split('c')[1])]
+                                    if lft[w][t] < w and poids[t] < poids[s]:
+                                        s = t
+                            sw = lft[w][s]
+                            sy = lft[y][s]
+                            if poids[s] == 0:
+                                h = klpol[int(mat[sw][sy].split('c')[1])]
                             else:
-                                h=klpol[int(mat[sw][sy].split('c')[1])]
-                                if y<=sw and mat[sw][y][0]=='c':
-                                    h+=v**(2*poids[s])* \
+                                h = klpol[int(mat[sw][sy].split('c')[1])]
+                                if y <= sw and mat[sw][y][0] == 'c':
+                                    h += v**(2*poids[s]) * \
                                            klpol[int(mat[sw][y].split('c')[1])]
                                 for z in range(sw-1,y-1,-1):
-                                    if lft[z][s]<z and mat[z][y][0]=='c' and mat[sw][z][0]=='c':
-                                        m=mues[s][int(
+                                    if lft[z][s] < z and mat[z][y][0] == 'c' and mat[sw][z][0] == 'c':
+                                        m = mues[s][int(
                                             mat[sw][z].split('c')[s+2])]
-                                        if m!=0:
-                                            h-=m* \
-                                                v**(Lw[w]-Lw[z])* \
+                                        if m != 0:
+                                            h -= m * \
+                                                v**(Lw[w]-Lw[z]) * \
                                                 klpol[int(
                                                     mat[z][y].split('c')[1])]
-                if not h in klpol:
-                    mat[w][y]+=str(len(klpol))
+                if h not in klpol:
+                    mat[w][y] += str(len(klpol))
                     klpol.append(h)
                 else:
-                    mat[w][y]+=str(klpol.index(h))
-                hstar=v**(Lw[y]-Lw[w])*h
-                if not hstar in klstar:
+                    mat[w][y] += str(klpol.index(h))
+                hstar = v**(Lw[y]-Lw[w])*h
+                if hstar not in klstar:
                     klstar.append(hstar)
                 if uneq:   # now mue polynomial
                     for s in W.rank:
-                        if poids[s]>0 and lft[y][s]<y and lft[w][s]>w:
-                            if lw[y]+lw[w]>W.N:
-                                if (lw[w]-lw[y]) %2==0:
-                                    m=-mues[s][int(mat[aw0[y]][aw0[w]].split('c')[s+2])]
+                        if poids[s] > 0 and lft[y][s] < y and lft[w][s] > w:
+                            if lw[y]+lw[w] > W.N:
+                                if (lw[w]-lw[y]) % 2 == 0:
+                                    m = -mues[s][int(mat[aw0[y]][aw0[w]].split('c')[s+2])]
                                 else:
-                                    m=mues[s][int(
+                                    m = mues[s][int(
                                         mat[aw0[y]][aw0[w]].split('c')[s+2])]
-                            elif poids[s]==1:
-                                m=zeropart(v**(1+Lw[y]-Lw[w])*h)
+                            elif poids[s] == 1:
+                                m = zeropart(v**(1+Lw[y]-Lw[w])*h)
                             else:
-                                m=nonnegpart(v**(poids[s]+Lw[y]-Lw[w])*h)
+                                m = nonnegpart(v**(poids[s]+Lw[y]-Lw[w])*h)
                                 for z in range(w-1,y,-1):
-                                    if lft[z][s]<z and mat[z][y][0]=='c' and mat[w][z][0]=='c':
-                                        mp=pospart(
+                                    if lft[z][s] < z and mat[z][y][0] == 'c' and mat[w][z][0] == 'c':
+                                        mp = pospart(
                                             mues[s][int(mat[w][z].split('c')[s+2])])
-                                        if mp!=0:
-                                            m-=nonnegpart(mp*v**(Lw[y]-Lw[z])*
+                                        if mp != 0:
+                                            m -= nonnegpart(mp*v**(Lw[y]-Lw[z]) *
                                                         klpol[int(mat[z][y].split('c')[1])])
-                                if m!=0:
-                                    m=barpart(m)+m-zeropart(m)
-                            if not m in mues[s]:
-                                mat[w][y]+='c'+str(len(mues[s]))
+                                if m != 0:
+                                    m = barpart(m)+m-zeropart(m)
+                            if m not in mues[s]:
+                                mat[w][y] += 'c'+str(len(mues[s]))
                                 mues[s].append(m)
                             else:
-                                mat[w][y]+='c'+str(mues[s].index(m))
+                                mat[w][y] += 'c'+str(mues[s].index(m))
                         else:
-                            mat[w][y]+='c'
+                            mat[w][y] += 'c'
                 else:
-                    m=zeropart(v**(1+Lw[y]-Lw[w])*h)
+                    m = zeropart(v**(1+Lw[y]-Lw[w])*h)
                     for s in W.rank:
-                        if lft[y][s]<y and lft[w][s]>w:
-                            if not m in mues[s]:
-                                mat[w][y]+='c'+str(len(mues[s]))
+                        if lft[y][s] < y and lft[w][s] > w:
+                            if m not in mues[s]:
+                                mat[w][y] += 'c'+str(len(mues[s]))
                                 mues[s].append(m)
                             else:
-                                mat[w][y]+='c'+str(mues[s].index(m))
+                                mat[w][y] += 'c'+str(mues[s].index(m))
                         else:
-                            mat[w][y]+='c'
+                            mat[w][y] += 'c'
     if verbose:
         lprint('\n#I ')
-    pp=[]
+    pp = []
     for w in range(len(a)):
         for s in W.rank:
-            if poids[s]==0 or (lft[w][s]>w and poids[s]>0):
+            if poids[s] == 0 or (lft[w][s] > w and poids[s] > 0):
                 pp.append((w,lft[w][s]))
         for y in range(w):
-            if mat[w][y][0]=='c':
-                if any(poids[s]>0 and lft[y][s]<y and lft[w][s]>w and
-                    mues[s][int(mat[w][y].split('c')[s+2])]!=0 for s in W.rank):
+            if mat[w][y][0] == 'c':
+                if any(poids[s] > 0 and lft[y][s] < y and lft[w][s] > w and
+                       mues[s][int(mat[w][y].split('c')[s+2])] != 0
+                       for s in W.rank):
                     pp.append((w,y))
     if verbose:
         lprint(str(len(pp))+' arrows ')
-    adelta=[]
-    ndelta=[]
+    adelta = []
+    ndelta = []
     for w in range(len(a)):
-        p=v**(-Lw[w])*klpol[int(mat[w][0].split('c')[1])]
-        if p==0:
+        p = v**(-Lw[w])*klpol[int(mat[w][0].split('c')[1])]
+        if p == 0:
             adelta.append(-1)
             ndelta.append(0)
         else:
@@ -5803,66 +5798,66 @@ def klpolynomials(W,weightL, v, verbose=False):
             ndelta.append(p.coeffs[-1])
     if verbose:
         lprint('>')
-    pp0=[[w] for w in range(len(a))]
+    pp0 = [[w] for w in range(len(a))]
     for p in pp:
         pp0[p[0]].append(p[1])
-    pp1=[p[:] for p in pp0]
+    pp1 = [p[:] for p in pp0]
     for z in pp1:
         for w in z:
             for y in pp0[w]:
-                if not y in z:
+                if y not in z:
                     z.append(y)
         z.sort()
     if verbose:
         lprint('>')
-    rest=list(range(len(a)))
-    lcells=[]
-    duflo=[]
-    checks=True
+    rest = list(range(len(a)))
+    lcells = []
+    duflo = []
+    checks = True
     while rest:
-        l=[x for x in pp1[rest[0]] if rest[0] in pp1[x]]
-        i0=0
-        while ndelta[l[i0]]==0:
-            i0+=1
-        d=l[i0]
+        l = [x for x in pp1[rest[0]] if rest[0] in pp1[x]]
+        i0 = 0
+        while ndelta[l[i0]] == 0:
+            i0 += 1
+        d = l[i0]
         for w in l[i0:]:
-            if ndelta[w]!=0 and adelta[w]<adelta[d]:
-                d=w
-        if len([i for i in l if adelta[i]==adelta[d]])>1:
-            checks=False
-        if not (ndelta[d]==1 or ndelta[d]==-1):
-            checks=False
-        duflo.append([d,adelta[d],ndelta[d]])
+            if ndelta[w] != 0 and adelta[w] < adelta[d]:
+                d = w
+        if len([i for i in l if adelta[i] == adelta[d]]) > 1:
+            checks = False
+        if not (ndelta[d] == 1 or ndelta[d] == -1):
+            checks = False
+        duflo.append([d, adelta[d], ndelta[d]])
         lcells.append(l)
         for w in l:
             rest.remove(w)
     if verbose:
         lprint(' '+str(len(lcells))+' left cells ')
-    lorder=[[d2[0] in pp1[d1[0]] for d2 in duflo] for d1 in duflo]
+    lorder = [[d2[0] in pp1[d1[0]] for d2 in duflo] for d1 in duflo]
     for c1 in range(len(lcells)):
         for c2 in range(len(lcells)):
-            if c1!=c2 and lorder[c1][c2] and duflo[c1][1]>=duflo[c2][1]:
-                checks=False
+            if c1 != c2 and lorder[c1][c2] and duflo[c1][1] >= duflo[c2][1]:
+                checks = False
     if verbose:
         lprint('>')
-    rcells=[[inva[w] for w in l] for l in lcells]
-    il,ir=[],[]
+    rcells = [[inva[w] for w in l] for l in lcells]
+    il, ir = [], []
     for w in range(len(a)):
-        i=0
-        while not w in lcells[i]:
-            i+=1
+        i = 0
+        while w not in lcells[i]:
+            i += 1
         il.append(i)
-        i=0
-        while not w in rcells[i]:
-            i+=1
+        i = 0
+        while w not in rcells[i]:
+            i += 1
         ir.append(i)
-    rest=list(range(len(a)))
-    tcells=[]
-    while rest!=[]:
-        t=[rest[0]]
+    rest = list(range(len(a)))
+    tcells = []
+    while rest:
+        t = [rest[0]]
         for w in t:
             for y in rest:
-                if (not y in t) and (il[w]==il[y] or ir[w]==ir[y]):
+                if y not in t and (il[w] == il[y] or ir[w] == ir[y]):
                     t.append(y)
         t.sort()
         tcells.append(t)
@@ -5881,7 +5876,7 @@ def klpoly1(W, weightL, v):
 
     See also 'klpolynomials' and 'wgraph'.
     """
-    k=klpolynomials(W,weightL,v)
+    k = klpolynomials(W,weightL,v)
     return [{'elms':[k['elms'][x] for x in c],
              'mpols':k['mpols'],'klpols':k['klpols'],
              'klmat':[[k['klmat'][c[w]][c[y]] for y in range(w+1)]
@@ -5892,15 +5887,15 @@ def relmue(lw,ly,p):
     if p == 0:
         return 0
     if type(p) == type(0):
-        if lw-ly==1:
+        if lw-ly == 1:
             return p
         else:
             return 0
-    if p.degree==lw-ly-1:
+    if p.degree == lw-ly-1:
         return p.coeffs[-1]
     return 0
 
-#F relklpols
+# F relklpols
 
 
 def relklpols(W,W1,cell1,weightL,q):
@@ -5996,189 +5991,189 @@ def relklpols(W,W1,cell1,weightL,q):
     Lw = [sum([poids[s] for s in w]) for w in X1w]
     lft = []
     for s in W.rank:
-        ls=[]
+        ls = []
         for w in X1:
-            sw=tuple([w[i] for i in W.permgens[s]])
+            sw = tuple([w[i] for i in W.permgens[s]])
             if sw in X1:
                 ls.append(X1.index(sw))
             else:
-                t=0
-                while tuple([W.permgens[t][i] for i in w])!=sw:
-                    t+=1
+                t = 0
+                while tuple([W.permgens[t][i] for i in w]) != sw:
+                    t += 1
                 ls.append(-t-1)
         lft.append(ls)
-    Lw1=[sum([poids[J[s]] for s in w]) for w in cell1['elms']]
-    p1=[W1.wordtoperm(w) for w in cell1['elms']]
-    lft1={}
+    Lw1 = [sum([poids[J[s]] for s in w]) for w in cell1['elms']]
+    p1 = [W1.wordtoperm(w) for w in cell1['elms']]
+    lft1 = {}
     for t in W1.rank:
-        l=[]
+        l = []
         for w in p1:
-            w1=tuple([w[i] for i in W1.permgens[t]])
+            w1 = tuple([w[i] for i in W1.permgens[t]])
             if w1 in p1:
                 l.append(p1.index(w1))
             else:
-                if w[t]>=W1.N:  # tw<w
+                if w[t] >= W1.N:  # tw<w
                     l.append(-1)
                 else:           # tw>w
                     l.append(len(p1))
-        lft1[J[t]]=l
-    bruhatX=[]
+        lft1[J[t]] = l
+    bruhatX = []
     for y in range(len(X1)):
         bruhatX.append([bruhatperm(W,X1[x],X1[y],lx=Lw[x],ly=Lw[y])
                                                    for x in range(y+1)])
-    mat={}
-    mues=[0,1]
+    mat = {}
+    mues = [0,1]
     for y in range(len(X1)):
         for x in range(y):
             if bruhatX[y][x]:
-                mat[y,x]=[len(p1)*['f'] for i in range(len(p1))]
+                mat[y,x] = [len(p1)*['f'] for i in range(len(p1))]
                 for v in range(len(p1)):
                     for u in range(len(p1)):
-                        if (x==y and u==v) or Lw[x]+Lw1[u]<Lw[y]+Lw1[v]:
-                            mat[y,x][v][u]='c'
-        mat[y,y]=[len(p1)*['f'] for i in range(len(p1))]
+                        if (x == y and u == v) or Lw[x]+Lw1[u] < Lw[y]+Lw1[v]:
+                            mat[y,x][v][u] = 'c'
+        mat[y,y] = [len(p1)*['f'] for i in range(len(p1))]
         for i in range(len(p1)):
             for j in range(i):
-                if cell1['klmat'][i][j][0]=='c':
-                    mat[y,y][i][j]='c0'
-                    rk=cell1['klmat'][i][j].split('c')[2:]
-                    r=0
-                    while r<len(rk) and (rk[r]=='' or rk[r]=='0'):
-                        r+=1
-                    if r<len(rk):
-                        m=cell1['mpols'][r][int(rk[r])]
+                if cell1['klmat'][i][j][0] == 'c':
+                    mat[y,y][i][j] = 'c0'
+                    rk = cell1['klmat'][i][j].split('c')[2:]
+                    r = 0
+                    while r < len(rk) and (rk[r] == '' or rk[r] == '0'):
+                        r += 1
+                    if r < len(rk):
+                        m = cell1['mpols'][r][int(rk[r])]
                         if m in mues:
-                            mat[y,y][i][j]+='c'+str(mues.index(m))
+                            mat[y,y][i][j] += 'c'+str(mues.index(m))
                         else:
-                            mat[y,y][i][j]+='c'+str(len(mues))
+                            mat[y,y][i][j] += 'c'+str(len(mues))
                             mues.append(m)
                     else:
-                        mat[y,y][i][j]+='c0'
-            mat[y,y][i][i]='c1c0'
-    rklpols=[0,1]
+                        mat[y,y][i][j] += 'c0'
+            mat[y,y][i][i] = 'c1c0'
+    rklpols = [0,1]
     for y in range(len(X1)):
-        #lprint('+')
-        ldy=W.leftdescentsetperm(X1[y])
+        # lprint('+')
+        ldy = W.leftdescentsetperm(X1[y])
         for x in range(y-1,-1,-1):
             if bruhatX[y][x]:  # and mat[y,x][0][0][0]=='c':
-                fs=[s for s in ldy if lft[s][x]>x]
-                fs1=[s1 for s1 in ldy if 0<=lft[s1][x]<x]
-                if len(fs)>0:  # case sy<y, sx>x and sx in X
-                    s=fs[0]
+                fs = [s for s in ldy if lft[s][x] > x]
+                fs1 = [s1 for s1 in ldy if 0 <= lft[s1][x] < x]
+                if len(fs) > 0:  # case sy<y, sx>x and sx in X
+                    s = fs[0]
                     for v in range(len(p1)):
                         for u in range(len(p1)):
-                            if mat[y,x][v][u][0]=='c':
-                                if bruhatX[y][lft[s][x]] and mat[y,lft[s][x]][v][u][0]=='c':
-                                    mat[y,x][v][u]+=mat[y,lft[s]
+                            if mat[y,x][v][u][0] == 'c':
+                                if bruhatX[y][lft[s][x]] and mat[y,lft[s][x]][v][u][0] == 'c':
+                                    mat[y,x][v][u] += mat[y,lft[s]
                                         [x]][v][u].split('c')[1]
-                                    rk=mat[y,x][v][u].split('c')[1]
-                                    if rk!='0':
-                                        m=relmue(Lw[y]+Lw1[v],Lw[x]+
+                                    rk = mat[y,x][v][u].split('c')[1]
+                                    if rk != '0':
+                                        m = relmue(Lw[y]+Lw1[v],Lw[x] +
                                                  Lw1[u],rklpols[int(rk)])
                                         if m in mues:
-                                            mat[y,x][v][u]+='c'+ \
+                                            mat[y,x][v][u] += 'c' + \
                                                 str(mues.index(m))
                                         else:
-                                            mat[y,x][v][u]+='c'+str(len(mues))
+                                            mat[y,x][v][u] += 'c'+str(len(mues))
                                             mues.append(m)
                                     else:
-                                        mat[y,x][v][u]+='c0'
+                                        mat[y,x][v][u] += 'c0'
                                 else:
-                                    mat[y,x][v][u]+='0c0'
+                                    mat[y,x][v][u] += '0c0'
                 else:
                     for u in range(len(p1)):
-                        if any(lft[s1][x]<0 and u<lft1[-1-lft[s1][x]][u] for s1 in ldy):
+                        if any(lft[s1][x] < 0 and u < lft1[-1-lft[s1][x]][u] for s1 in ldy):
                             for v in range(len(p1)):
-                                if mat[y,x][v][u][0]=='c':
-                                    mat[y,x][v][u]+='0c0'
+                                if mat[y,x][v][u][0] == 'c':
+                                    mat[y,x][v][u] += '0c0'
                         else:
-                            #fs1=list(filter(lambda s2:lft[s2][x]<0 and
+                            # fs1=list(filter(lambda s2:lft[s2][x]<0 and
                             #                              lft1[-1-lft[s2][x]][u]<u,ldy))
-                            if len(fs1)>0:
-                                s=fs1[0]
-                                #lprint('!')
+                            if len(fs1) > 0:
+                                s = fs1[0]
+                                # lprint('!')
                             else:
-                                s=ldy[0]
-                            sx,sy=lft[s][x],lft[s][y]
+                                s = ldy[0]
+                            sx,sy = lft[s][x],lft[s][y]
                             for v in range(len(p1)):
-                                if mat[y,x][v][u][0]=='c':
-                                    h=0
+                                if mat[y,x][v][u][0] == 'c':
+                                    h = 0
                                     for z in range(x,sy):
-                                        sz=lft[s][z]
-                                        if sz<z and bruhatX[sy][z] and bruhatX[z][x]:
+                                        sz = lft[s][z]
+                                        if sz < z and bruhatX[sy][z] and bruhatX[z][x]:
                                             for w in range(len(p1)):
-                                                if (sz>=0 or lft1[-1-sz][w]<w) and (mat[z,x][w][
-                                                            u][0]=='c' and mat[sy,z][v][w][0]=='c'):
-                                                    m=mues[int(
+                                                if (sz >= 0 or lft1[-1-sz][w] < w) and (mat[z,x][w][
+                                                            u][0] == 'c' and mat[sy,z][v][w][0] == 'c'):
+                                                    m = mues[int(
                                                         mat[sy,z][v][w].split('c')[2])]
-                                                    if m!=0:
-                                                        rk=mat[z,x][w][u].split('c')[
+                                                    if m != 0:
+                                                        rk = mat[z,x][w][u].split('c')[
                                                                                 1]
-                                                        if rk!='0':
-                                                            h-=q**(Lw[y]+Lw1[v]-Lw[z]-Lw1[w])*rklpols[
+                                                        if rk != '0':
+                                                            h -= q**(Lw[y]+Lw1[v]-Lw[z]-Lw1[w])*rklpols[
                                                                                                int(rk)]*m
-                                    if sx<0:  # case sx not in X, tu<u
-                                        t=-1-sx
-                                        if mat[sy,x][v][u][0]=='c':
-                                            rk=mat[sy,x][v][u].split('c')[1]
-                                            if rk!='0':
-                                                h+=(q**2+1)*rklpols[int(rk)]
-                                        if 0<=lft1[t][u]<len(p1) and mat[sy,x][v][lft1[t][
-                                                                                     u]][0]=='c':
-                                            rk=mat[sy,x][v][lft1[t][u]].split('c')[
+                                    if sx < 0:  # case sx not in X, tu<u
+                                        t = -1-sx
+                                        if mat[sy,x][v][u][0] == 'c':
+                                            rk = mat[sy,x][v][u].split('c')[1]
+                                            if rk != '0':
+                                                h += (q**2+1)*rklpols[int(rk)]
+                                        if 0 <= lft1[t][u] < len(p1) and mat[sy,x][v][lft1[t][
+                                                                                     u]][0] == 'c':
+                                            rk = mat[sy,x][v][lft1[t][u]].split('c')[
                                                                               1]
-                                            if rk!='0':
-                                                h+=rklpols[int(rk)]
+                                            if rk != '0':
+                                                h += rklpols[int(rk)]
                                         for w in range(u+1,len(p1)):
-                                            if lft1[t][w]>w and (mat[sy,x][v][w][0]=='c' and
-                                                                   cell1['klmat'][w][u][0]=='c'):
-                                                m=mues[int(
+                                            if lft1[t][w] > w and (mat[sy,x][v][w][0] == 'c' and
+                                                                   cell1['klmat'][w][u][0] == 'c'):
+                                                m = mues[int(
                                                     mat[0,0][w][u].split('c')[2])]
-                                                if m!=0:
-                                                    rk=mat[sy,x][v][w].split('c')[
+                                                if m != 0:
+                                                    rk = mat[sy,x][v][w].split('c')[
                                                                              1]
-                                                    if rk!='0':
-                                                        h+=q**(Lw1[w]-Lw1[u]+1)* \
+                                                    if rk != '0':
+                                                        h += q**(Lw1[w]-Lw1[u]+1) * \
                                                                rklpols[int(
                                                                    rk)]*m
                                     else:    # case sx<x
-                                        if mat[sy,sx][v][u][0]=='c':
-                                            rk=mat[sy,sx][v][u].split('c')[1]
-                                            if rk!='0':
-                                                h+=rklpols[int(rk)]
-                                        if x<=sy and bruhatX[sy][x] and mat[sy,x][v][u][0]=='c':
-                                            rk=mat[sy,x][v][u].split('c')[1]
-                                            if rk!='0':
-                                                h+=q**2*rklpols[int(rk)]
-                                    if h==0:
-                                        mat[y,x][v][u]+='0c0'
+                                        if mat[sy,sx][v][u][0] == 'c':
+                                            rk = mat[sy,sx][v][u].split('c')[1]
+                                            if rk != '0':
+                                                h += rklpols[int(rk)]
+                                        if x <= sy and bruhatX[sy][x] and mat[sy,x][v][u][0] == 'c':
+                                            rk = mat[sy,x][v][u].split('c')[1]
+                                            if rk != '0':
+                                                h += q**2*rklpols[int(rk)]
+                                    if h == 0:
+                                        mat[y,x][v][u] += '0c0'
                                     else:
                                         if h in rklpols:
                                             mat[y,
-                                                x][v][u]+=str(rklpols.index(h))
+                                                x][v][u] += str(rklpols.index(h))
                                         else:
-                                            mat[y,x][v][u]+=str(len(rklpols))
+                                            mat[y,x][v][u] += str(len(rklpols))
                                             rklpols.append(h)
-                                        m=relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],h)
+                                        m = relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],h)
                                         if m in mues:
-                                            mat[y,x][v][u]+='c'+ \
+                                            mat[y,x][v][u] += 'c' + \
                                                 str(mues.index(m))
                                         else:
-                                            mat[y,x][v][u]+='c'+str(len(mues))
+                                            mat[y,x][v][u] += 'c'+str(len(mues))
                                             mues.append(m)
-    #lprint('\n')
-    ap=[]
+    # lprint('\n')
+    ap = []
     for y in X1w:
         for v in cell1['elms']:
             ap.append(W.reducedword(y+[J[s] for s in v],W))
     ap.sort(key=(lambda x:len(x)))
-    ap1=[W.wordtoperm(w) for w in ap]
-    elms1=[W.wordtoperm([J[s] for s in w1]) for w1 in cell1['elms']]
-    bij={}
+    ap1 = [W.wordtoperm(w) for w in ap]
+    elms1 = [W.wordtoperm([J[s] for s in w1]) for w1 in cell1['elms']]
+    bij = {}
     for y in range(len(X1)):
         for v in range(len(elms1)):
-            bij[y,v]=ap1.index(permmult(X1[y],elms1[v]))
-    nmat=[]
+            bij[y,v] = ap1.index(permmult(X1[y],elms1[v]))
+    nmat = []
     for i in range(len(ap)):
         nmat.append(['f' for j in range(i+1)])
     for y in range(len(X1)):
@@ -6186,12 +6181,12 @@ def relklpols(W,W1,cell1,weightL,q):
             if bruhatX[y][x]:
                 for v in range(len(p1)):
                     for u in range(len(p1)):
-                        if bij[x,u]<=bij[y,v] and mat[y,x][v][u][0]!='f':
-                            nmat[bij[y,v]][bij[x,u]]=mat[y,x][v][u]
+                        if bij[x,u] <= bij[y,v] and mat[y,x][v][u][0] != 'f':
+                            nmat[bij[y,v]][bij[x,u]] = mat[y,x][v][u]
     return {'elms':ap,'perm':ap1,'elmsX':X1w,'rklpols':rklpols,'mpols':mues,
             'relklmat':mat,'klmat':nmat,'bijection':bij}
 
-#F relklpolsuneq
+# F relklpolsuneq
 
 
 def relklpolsuneq(W,W1,cell1,weightL,q):
@@ -6206,244 +6201,244 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
     See also 'relklpols'.
     """
     if type(weightL) == type([]):
-        poids=weightL
+        poids = weightL
     else:
-        poids=len(W.rank)*[weightL]
+        poids = len(W.rank)*[weightL]
     # uneq = not all(i==1 for i in poids)
-    J=W1.fusions[W.cartanname]['subJ']
-    X1w=[W.coxelmtoword(c) for c in redleftcosetreps(W,J)]
-    X1=[W.wordtoperm(w) for w in X1w]
-    Lw=[sum([poids[s] for s in w]) for w in X1w]
-    lft=[]
+    J = W1.fusions[W.cartanname]['subJ']
+    X1w = [W.coxelmtoword(c) for c in redleftcosetreps(W,J)]
+    X1 = [W.wordtoperm(w) for w in X1w]
+    Lw = [sum([poids[s] for s in w]) for w in X1w]
+    lft = []
     for s in W.rank:
-        ls=[]
+        ls = []
         for w in X1:
-            sw=tuple([w[i] for i in W.permgens[s]])
+            sw = tuple([w[i] for i in W.permgens[s]])
             if sw in X1:
                 ls.append(X1.index(sw))
             else:
-                t=0
-                while tuple([W.permgens[t][i] for i in w])!=sw:
-                    t+=1
+                t = 0
+                while tuple([W.permgens[t][i] for i in w]) != sw:
+                    t += 1
                 ls.append(-t-1)
         lft.append(ls)
-    Lw1=[sum([poids[J[s]] for s in w]) for w in cell1['elms']]
-    lw1=[len(w) for w in cell1['elms']]
-    p1=[W1.wordtoperm(w) for w in cell1['elms']]
-    lft1={}
+    Lw1 = [sum([poids[J[s]] for s in w]) for w in cell1['elms']]
+    lw1 = [len(w) for w in cell1['elms']]
+    p1 = [W1.wordtoperm(w) for w in cell1['elms']]
+    lft1 = {}
     for t in W1.rank:
-        l=[]
+        l = []
         for w in p1:
-            w1=tuple([w[i] for i in W1.permgens[t]])
+            w1 = tuple([w[i] for i in W1.permgens[t]])
             if w1 in p1:
                 l.append(p1.index(w1))
             else:
-                if w[t]>=W1.N:  # tw<w
+                if w[t] >= W1.N:  # tw<w
                     l.append(-1)
                 else:           # tw>w
                     l.append(len(p1))
-        lft1[J[t]]=l
-    bruhatX=[]
+        lft1[J[t]] = l
+    bruhatX = []
     for y in range(len(X1)):
         bruhatX.append([bruhatperm(W,X1[x],X1[y],lx=len(X1w[x]),
                                       ly=len(X1w[y])) for x in range(y+1)])
-    mues=[[0,1] for s in W.rank]
-    rklpols=[0,1]
-    mat={}
+    mues = [[0,1] for s in W.rank]
+    rklpols = [0,1]
+    mat = {}
     for y in range(len(X1)):
         for x in range(y):
             if bruhatX[y][x]:
-                mat[y,x]=[len(p1)*['f'] for i in range(len(p1))]
+                mat[y,x] = [len(p1)*['f'] for i in range(len(p1))]
                 for v in range(len(p1)):
                     for u in range(len(p1)):
-                        if len(X1w[x])+lw1[u]<len(X1w[y])+lw1[v]:
-                            mat[y,x][v][u]='c'
-        mat[y,y]=[len(p1)*['f'] for i in range(len(p1))]
+                        if len(X1w[x])+lw1[u] < len(X1w[y])+lw1[v]:
+                            mat[y,x][v][u] = 'c'
+        mat[y,y] = [len(p1)*['f'] for i in range(len(p1))]
         for i in range(len(p1)):
-            mat[y,y][i][i]='c1'+len(W.rank)*'c0'
+            mat[y,y][i][i] = 'c1'+len(W.rank)*'c0'
             for j in range(i):
-                if cell1['klmat'][i][j][0]=='c':
-                    mat[y,y][i][j]='c0'
+                if cell1['klmat'][i][j][0] == 'c':
+                    mat[y,y][i][j] = 'c0'
                     for s in W.rank:
-                        if poids[s]>0 and lft[s][y]<0:
-                            t=-1-lft[s][y]
-                            if lft1[t][i]>i and lft1[t][j]<j:
-                                m=cell1['mpols'][J.index(t)][int(cell1['klmat'][i][
+                        if poids[s] > 0 and lft[s][y] < 0:
+                            t = -1-lft[s][y]
+                            if lft1[t][i] > i and lft1[t][j] < j:
+                                m = cell1['mpols'][J.index(t)][int(cell1['klmat'][i][
                                                          j].split('c')[J.index(t)+2])]
                                 if m in mues[s]:
-                                    mat[y,y][i][j]+='c'+str(mues[s].index(m))
+                                    mat[y,y][i][j] += 'c'+str(mues[s].index(m))
                                 else:
-                                    mat[y,y][i][j]+='c'+str(len(mues[s]))
+                                    mat[y,y][i][j] += 'c'+str(len(mues[s]))
                                     mues[s].append(m)
                             else:
-                                mat[y,y][i][j]+='c0'
+                                mat[y,y][i][j] += 'c0'
                         else:
-                            mat[y,y][i][j]+='c0'
+                            mat[y,y][i][j] += 'c0'
     for y in range(len(X1)):
-        #lprint('+')
-        ldy=W.leftdescentsetperm(X1[y])
+        # lprint('+')
+        ldy = W.leftdescentsetperm(X1[y])
         ldy.sort(key=(lambda p:poids[p]))
-        fs0=[s0 for s0 in ldy if poids[s0]==0]
+        fs0 = [s0 for s0 in ldy if poids[s0] == 0]
         for x in range(y-1,-1,-1):
             if bruhatX[y][x]:  # and mat[y,x][0][0][0]=='c':
-                fs=[s for s in ldy if lft[s][x]>x and poids[s]>0]
-                fs1=[s1 for s1 in ldy if 0<=lft[s1][x]<x and poids[s1]>0]
-                if len(fs0)>0:  # case sy<y and L(s)=0
-                    sx,sy=lft[fs0[0]][x],lft[fs0[0]][y]
+                fs = [s for s in ldy if lft[s][x] > x and poids[s] > 0]
+                fs1 = [s1 for s1 in ldy if 0 <= lft[s1][x] < x and poids[s1] > 0]
+                if len(fs0) > 0:  # case sy<y and L(s)=0
+                    sx,sy = lft[fs0[0]][x],lft[fs0[0]][y]
                     for v in range(len(p1)):
                         for u in range(len(p1)):
-                            if mat[y,x][v][u][0]=='c':
-                                if sx>=0:
-                                    if sx<=sy and bruhatX[sy][sx] and mat[sy,sx][v][u][0]=='c':
-                                        mat[y,x][v][u]+=mat[sy,
+                            if mat[y,x][v][u][0] == 'c':
+                                if sx >= 0:
+                                    if sx <= sy and bruhatX[sy][sx] and mat[sy,sx][v][u][0] == 'c':
+                                        mat[y,x][v][u] += mat[sy,
                                             sx][v][u].split('c')[1]
                                     else:
-                                        mat[y,x][v][u]+='0'
+                                        mat[y,x][v][u] += '0'
                                 else:
-                                    tu=lft1[-1-sx][u]
-                                    if 0<=tu<len(p1):
-                                        if x<=sy and bruhatX[sy][x] and mat[sy,x][v][tu][0]=='c':
-                                            mat[y,x][v][u]+=mat[sy,
+                                    tu = lft1[-1-sx][u]
+                                    if 0 <= tu < len(p1):
+                                        if x <= sy and bruhatX[sy][x] and mat[sy,x][v][tu][0] == 'c':
+                                            mat[y,x][v][u] += mat[sy,
                                                 x][v][tu].split('c')[1]
                                         else:
-                                            mat[y,x][v][u]+='0'
+                                            mat[y,x][v][u] += '0'
                                     else:
-                                        mat[y,x][v][u]+='0'
-                elif len(fs)>0:  # case sy<y, sx>x and sx in X
-                    s=fs[0]
+                                        mat[y,x][v][u] += '0'
+                elif len(fs) > 0:  # case sy<y, sx>x and sx in X
+                    s = fs[0]
                     for v in range(len(p1)):
                         for u in range(len(p1)):
-                            if mat[y,x][v][u][0]=='c':
-                                if bruhatX[y][lft[s][x]] and mat[y,lft[s][x]][v][u][0]=='c':
-                                    mat[y,x][v][u]+=mat[y,lft[s]
+                            if mat[y,x][v][u][0] == 'c':
+                                if bruhatX[y][lft[s][x]] and mat[y,lft[s][x]][v][u][0] == 'c':
+                                    mat[y,x][v][u] += mat[y,lft[s]
                                         [x]][v][u].split('c')[1]
                                 else:
-                                    mat[y,x][v][u]+='0'
+                                    mat[y,x][v][u] += '0'
                 else:
                     for u in range(len(p1)):
-                        if any(lft[s1][x]<0 and u<lft1[-1-lft[s1][x]][u] for s1 in ldy):
+                        if any(lft[s1][x] < 0 and u < lft1[-1-lft[s1][x]][u] for s1 in ldy):
                             for v in range(len(p1)):
-                                if mat[y,x][v][u][0]=='c':
-                                    mat[y,x][v][u]+='0'
+                                if mat[y,x][v][u][0] == 'c':
+                                    mat[y,x][v][u] += '0'
                         else:
-                            #fs1=list(filter(lambda s2:lft[s2][x]<0 and
+                            # fs1=list(filter(lambda s2:lft[s2][x]<0 and
                             #                              lft1[-1-lft[s2][x]][u]<u,ldy))
-                            if len(fs1)>0:
-                                s=fs1[0]
-                                #lprint('!')
+                            if len(fs1) > 0:
+                                s = fs1[0]
+                                # lprint('!')
                             else:
-                                s=ldy[0]
-                            sx,sy=lft[s][x],lft[s][y]
+                                s = ldy[0]
+                            sx,sy = lft[s][x],lft[s][y]
                             for v in range(len(p1)):
-                                if mat[y,x][v][u][0]=='c':
-                                    h=0
+                                if mat[y,x][v][u][0] == 'c':
+                                    h = 0
                                     for z in range(x,sy):
-                                        sz=lft[s][z]
-                                        if sz<z and bruhatX[sy][z] and bruhatX[z][x]:
+                                        sz = lft[s][z]
+                                        if sz < z and bruhatX[sy][z] and bruhatX[z][x]:
                                             for w in range(len(p1)):
-                                                if (sz>=0 or lft1[-1-sz][w]<w) and (mat[z,x][w][
-                                                            u][0]=='c' and mat[sy,z][v][w][0]=='c'):
-                                                    m=mues[s][int(
+                                                if (sz >= 0 or lft1[-1-sz][w] < w) and (mat[z,x][w][
+                                                            u][0] == 'c' and mat[sy,z][v][w][0] == 'c'):
+                                                    m = mues[s][int(
                                                         mat[sy,z][v][w].split('c')[s+2])]
-                                                    if m!=0:
-                                                        rk=mat[z,x][w][u].split('c')[
+                                                    if m != 0:
+                                                        rk = mat[z,x][w][u].split('c')[
                                                                                 1]
-                                                        if rk!='0':
-                                                            h-=q**(Lw[y]+Lw1[v]-Lw[z]-Lw1[w])*rklpols[
+                                                        if rk != '0':
+                                                            h -= q**(Lw[y]+Lw1[v]-Lw[z]-Lw1[w])*rklpols[
                                                                                                int(rk)]*m
-                                    if sx<0:  # case sx not in X, tu<u
-                                        t=-1-sx
-                                        if mat[sy,x][v][u][0]=='c':
-                                            rk=mat[sy,x][v][u].split('c')[1]
-                                            if rk!='0':
-                                                h+=(q**(2*poids[s])+1)* \
+                                    if sx < 0:  # case sx not in X, tu<u
+                                        t = -1-sx
+                                        if mat[sy,x][v][u][0] == 'c':
+                                            rk = mat[sy,x][v][u].split('c')[1]
+                                            if rk != '0':
+                                                h += (q**(2*poids[s])+1) * \
                                                     rklpols[int(rk)]
-                                        if 0<=lft1[t][u]<len(p1) and mat[sy,x][v][lft1[t][
-                                                                                     u]][0]=='c':
-                                            rk=mat[sy,x][v][lft1[t][u]].split('c')[
+                                        if 0 <= lft1[t][u] < len(p1) and mat[sy,x][v][lft1[t][
+                                                                                     u]][0] == 'c':
+                                            rk = mat[sy,x][v][lft1[t][u]].split('c')[
                                                                               1]
-                                            if rk!='0':
-                                                h+=rklpols[int(rk)]
+                                            if rk != '0':
+                                                h += rklpols[int(rk)]
                                         for w in range(u+1,len(p1)):
-                                            if lft1[t][w]>w and (mat[sy,x][v][w][0]=='c' and
-                                                                   cell1['klmat'][w][u][0]=='c'):
-                                                m1=cell1['mpols'][J.index(t)][int(cell1['klmat'][
+                                            if lft1[t][w] > w and (mat[sy,x][v][w][0] == 'c' and
+                                                                   cell1['klmat'][w][u][0] == 'c'):
+                                                m1 = cell1['mpols'][J.index(t)][int(cell1['klmat'][
                                                                  w][u].split('c')[J.index(t)+2])]
-                                                if m1!=0:
-                                                    rk=mat[sy,x][v][w].split('c')[
+                                                if m1 != 0:
+                                                    rk = mat[sy,x][v][w].split('c')[
                                                                              1]
-                                                    if rk!='0':
-                                                        h+=q**(Lw1[w]-Lw1[u]+poids[t]
+                                                    if rk != '0':
+                                                        h += q**(Lw1[w]-Lw1[u]+poids[t]
                                                                )*rklpols[int(rk)]*m1
                                     else:    # case sx<x
-                                        if mat[sy,sx][v][u][0]=='c':
-                                            rk=mat[sy,sx][v][u].split('c')[1]
-                                            if rk!='0':
-                                                h+=rklpols[int(rk)]
-                                        if x<=sy and bruhatX[sy][x] and mat[sy,x][v][u][0]=='c':
-                                            rk=mat[sy,x][v][u].split('c')[1]
-                                            if rk!='0':
-                                                h+=q**(2*poids[s])* \
+                                        if mat[sy,sx][v][u][0] == 'c':
+                                            rk = mat[sy,sx][v][u].split('c')[1]
+                                            if rk != '0':
+                                                h += rklpols[int(rk)]
+                                        if x <= sy and bruhatX[sy][x] and mat[sy,x][v][u][0] == 'c':
+                                            rk = mat[sy,x][v][u].split('c')[1]
+                                            if rk != '0':
+                                                h += q**(2*poids[s]) * \
                                                        rklpols[int(rk)]
-                                    if h==0:
-                                        mat[y,x][v][u]+='0'
+                                    if h == 0:
+                                        mat[y,x][v][u] += '0'
                                     else:
                                         if h in rklpols:
                                             mat[y,
-                                                x][v][u]+=str(rklpols.index(h))
+                                                x][v][u] += str(rklpols.index(h))
                                         else:
-                                            mat[y,x][v][u]+=str(len(rklpols))
+                                            mat[y,x][v][u] += str(len(rklpols))
                                             rklpols.append(h)
                 for v in range(len(p1)):
                     for u in range(len(p1)):
-                        if mat[y,x][v][u][0]=='c':
+                        if mat[y,x][v][u][0] == 'c':
                             for r in W.rank:
-                                if poids[r]>0 and (lft[r][y]>y or (lft[r][y]<0 and
-                                        v<lft1[-1-lft[r][y]][v])) and (0<=lft[r][x]<x or
-                                               (lft[r][x]<0 and lft1[-1-lft[r][x]][u]<u)):
-                                    if poids[r]==1:
-                                        m=relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],
+                                if poids[r] > 0 and (lft[r][y] > y or (lft[r][y] < 0 and
+                                        v < lft1[-1-lft[r][y]][v])) and (0 <= lft[r][x] < x or
+                                               (lft[r][x] < 0 and lft1[-1-lft[r][x]][u] < u)):
+                                    if poids[r] == 1:
+                                        m = relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],
                                              rklpols[int(mat[y,x][v][u].split('c')[1])])
                                     else:
-                                        pis=0
+                                        pis = 0
                                         for z in range(x+1,y+1):
                                             if bruhatX[z][x] and bruhatX[y][z]:
                                                 for w in range(len(p1)):
-                                                    if 0<=lft[r][z]<z or (lft[r][z]<0 and
-                                                                           lft1[-1-lft[r][z]][w]<w):
-                                                        if mat[z,x][w][u][0]=='c' and mat[y,
-                                                                                     z][v][w][0]=='c':
-                                                            m1=pospart(mues[r][int(mat[y,z][v][
+                                                    if 0 <= lft[r][z] < z or (lft[r][z] < 0 and
+                                                                           lft1[-1-lft[r][z]][w] < w):
+                                                        if mat[z,x][w][u][0] == 'c' and mat[y,
+                                                                                     z][v][w][0] == 'c':
+                                                            m1 = pospart(mues[r][int(mat[y,z][v][
                                                                                   w].split('c')[r+2])])
-                                                            if m1!=0:
-                                                                pis+=nonnegpart(q**(Lw1[u]+Lw[x]-Lw1[w]-
+                                                            if m1 != 0:
+                                                                pis += nonnegpart(q**(Lw1[u]+Lw[x]-Lw1[w] -
                                                                           Lw[z])*rklpols[int(mat[z,x][w][
                                                                                      u].split('c')[1])]*m1)
-                                        rk=mat[y,x][v][u].split('c')[1]
-                                        if rk!='0':
-                                            pis-=nonnegpart(q**(Lw1[u]+Lw[x]-Lw1[v]-Lw[y]+
+                                        rk = mat[y,x][v][u].split('c')[1]
+                                        if rk != '0':
+                                            pis -= nonnegpart(q**(Lw1[u]+Lw[x]-Lw1[v]-Lw[y] +
                                                                        poids[r])*rklpols[int(rk)])
-                                        if lft[r][x]<0:
-                                            t=-1-lft[r][x]
-                                        #if lft1[t][u]>=0 and mat[y,x][v][lft1[t][u]][0]=='c':
+                                        if lft[r][x] < 0:
+                                            t = -1-lft[r][x]
+                                        # if lft1[t][u]>=0 and mat[y,x][v][lft1[t][u]][0]=='c':
                                         #  rk=mat[y,x][v][lft1[t][u]].split('c')[1]
                                         #  if rk!='0':
                                         #    pis-=nonnegpart(q**(Lw1[u]+Lw[x]-Lw1[v]-Lw[y]-
                                         #                           poids[t])*rklpols[int(rk)])
                                             for w in range(u+1,len(p1)):
-                                                if w<lft1[t][w] and cell1['klmat'][w][u][0]=='c':
-                                                    m1=pospart(cell1['mpols'][J.index(t)][int(cell1[
+                                                if w < lft1[t][w] and cell1['klmat'][w][u][0] == 'c':
+                                                    m1 = pospart(cell1['mpols'][J.index(t)][int(cell1[
                                                             'klmat'][w][u].split('c')[J.index(t)+2])])
-                                                    if m1!=0 and mat[y,x][v][w][0]=='c':
-                                                        rk=mat[y,x][v][w].split('c')[
+                                                    if m1 != 0 and mat[y,x][v][w][0] == 'c':
+                                                        rk = mat[y,x][v][w].split('c')[
                                                                                 1]
-                                                        if rk!='0':
-                                                            pis-=nonnegpart(rklpols[int(rk)]*
+                                                        if rk != '0':
+                                                            pis -= nonnegpart(rklpols[int(rk)] *
                                                                     q**(Lw1[w]+Lw[x]-Lw1[v]-Lw[y])*m1)
-                                        if pis!=0:
-                                            pis=barpart(pis)+pis-zeropart(pis)
-                                        m=-pis
-                                    #if all(p==1 for p in poids):
+                                        if pis != 0:
+                                            pis = barpart(pis)+pis-zeropart(pis)
+                                        m = -pis
+                                    # if all(p==1 for p in poids):
                                     #  m1=relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],
                                     #       rklpols[int(mat[y,x][v][u].split('c')[1])])
                                     #  if m!=m1:
@@ -6451,26 +6446,26 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                                     #    print([m,m1])
                                     #    return [m,m1]
                                     if m in mues[r]:
-                                        mat[y,x][v][u]+='c'+ \
+                                        mat[y,x][v][u] += 'c' + \
                                             str(mues[r].index(m))
                                     else:
-                                        mat[y,x][v][u]+='c'+str(len(mues[r]))
+                                        mat[y,x][v][u] += 'c'+str(len(mues[r]))
                                         mues[r].append(m)
                                 else:
-                                    mat[y,x][v][u]+='c0'
-    #lprint('\n')
-    ap=[]
+                                    mat[y,x][v][u] += 'c0'
+    # lprint('\n')
+    ap = []
     for y in X1w:
         for v in cell1['elms']:
             ap.append(W.reducedword(y+[J[s] for s in v],W))
     ap.sort(key=(lambda x:len(x)))
-    ap1=[W.wordtoperm(w) for w in ap]
-    elms1=[W.wordtoperm([J[s] for s in w1]) for w1 in cell1['elms']]
-    bij={}
+    ap1 = [W.wordtoperm(w) for w in ap]
+    elms1 = [W.wordtoperm([J[s] for s in w1]) for w1 in cell1['elms']]
+    bij = {}
     for y in range(len(X1)):
         for v in range(len(elms1)):
-            bij[y,v]=ap1.index(permmult(X1[y],elms1[v]))
-    nmat=[]
+            bij[y,v] = ap1.index(permmult(X1[y],elms1[v]))
+    nmat = []
     for i in range(len(ap)):
         nmat.append(['f' for j in range(i+1)])
     for y in range(len(X1)):
@@ -6478,12 +6473,12 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
             if bruhatX[y][x]:
                 for v in range(len(p1)):
                     for u in range(len(p1)):
-                        if bij[x,u]<=bij[y,v] and mat[y,x][v][u][0]!='f':
-                            nmat[bij[y,v]][bij[x,u]]=mat[y,x][v][u]
+                        if bij[x,u] <= bij[y,v] and mat[y,x][v][u][0] != 'f':
+                            nmat[bij[y,v]][bij[x,u]] = mat[y,x][v][u]
     return {'elms':ap,'perm':ap1,'elmsX':X1w,'rklpols':rklpols,'mpols':mues,
             'relklmat':mat,'klmat':nmat,'bijection':bij}
 
-#F allrelklpols
+# F allrelklpols
 
 
 def allrelklpols(W,J,weightL,q, verbose=False):
@@ -6545,227 +6540,227 @@ def allrelklpols(W,J,weightL,q, verbose=False):
     See also 'klpolynomials' and 'klcells'.
     """
     if type(weightL) == type([]):
-        poids=weightL
+        poids = weightL
     else:
-        poids=len(W.rank)*[weightL]
+        poids = len(W.rank)*[weightL]
     # uneq = not all(i == 1 for i in poids)
-    ap=allwords(W)
-    W1=reflectionsubgroup(W,J)
-    m1=klpolynomials(W1,[poids[s] for s in J],q)
-    wa1=[[J[s] for s in c] for c in m1['elms']]
-    a1=[W.wordtoperm(w) for w in wa1]
-    X1=[W.coxelmtoperm(c) for c in redleftcosetreps(W,J)]
-    Lw1=[sum([poids[s] for s in w]) for w in wa1]
-    X1w=[W.permtoword(p) for p in X1]
-    Lw=[sum([poids[s] for s in w]) for w in X1w]
-    lft=[]
+    ap = allwords(W)
+    W1 = reflectionsubgroup(W,J)
+    m1 = klpolynomials(W1,[poids[s] for s in J],q)
+    wa1 = [[J[s] for s in c] for c in m1['elms']]
+    a1 = [W.wordtoperm(w) for w in wa1]
+    X1 = [W.coxelmtoperm(c) for c in redleftcosetreps(W,J)]
+    Lw1 = [sum([poids[s] for s in w]) for w in wa1]
+    X1w = [W.permtoword(p) for p in X1]
+    Lw = [sum([poids[s] for s in w]) for w in X1w]
+    lft = []
     for s in W.rank:
-        ls=[]
+        ls = []
         for w in X1:
-            sw=tuple([w[i] for i in W.permgens[s]])
+            sw = tuple([w[i] for i in W.permgens[s]])
             if sw in X1:
                 ls.append(X1.index(sw))
             else:
-                t=0
-                while tuple([W.permgens[t][i] for i in w])!=sw:
-                    t+=1
+                t = 0
+                while tuple([W.permgens[t][i] for i in w]) != sw:
+                    t += 1
                 ls.append(-t-1)
         lft.append(ls)
-    lft1={}
+    lft1 = {}
     for t in J:
-        lft1[t]=[a1.index(tuple([w[i] for i in W.permgens[t]])) for w in a1]
-    mat={}
+        lft1[t] = [a1.index(tuple([w[i] for i in W.permgens[t]])) for w in a1]
+    mat = {}
     if verbose:
         lprint('#I Initialising ')
-    mues=[0]
+    mues = [0]
     for y in range(len(X1)):
-        if verbose and y % 100==0:
+        if verbose and y % 100 == 0:
             lprint('.')
         for x in range(y):
             if bruhatperm(W,X1[x],X1[y]):
-                #if x==y or Lw[x]<Lw[y]:
-                mat[y,x]=[len(a1)*['f'] for i in range(len(a1))]
+                # if x==y or Lw[x]<Lw[y]:
+                mat[y,x] = [len(a1)*['f'] for i in range(len(a1))]
                 for v in range(len(a1)):
                     for u in range(len(a1)):
                         #         if bruhatperm(W,permmult(X1[x],a1[u]),permmult(X1[y],a1[v])):
-                        if (x==y and u==v) or Lw[x]+Lw1[u]<Lw[y]+Lw1[v]:
-                            mat[y,x][v][u]='c'
+                        if (x == y and u == v) or Lw[x]+Lw1[u] < Lw[y]+Lw1[v]:
+                            mat[y,x][v][u] = 'c'
             else:
-                mat[y,x]=[len(a1)*['f'] for i in range(len(a1))]
-        mat[y,y]=[len(a1)*['f'] for i in range(len(a1))]
+                mat[y,x] = [len(a1)*['f'] for i in range(len(a1))]
+        mat[y,y] = [len(a1)*['f'] for i in range(len(a1))]
         for i in range(len(a1)):
             for j in range(i):
-                if m1['klmat'][i][j][0]=='c':
-                    mat[y,y][i][j]='c0'
-                    m=relmue(Lw1[i],Lw1[j],m1['klpols'][int(m1['klmat'][i][j
-                                                                 ].split('c')[1])])
+                if m1['klmat'][i][j][0] == 'c':
+                    mat[y,y][i][j] = 'c0'
+                    m = relmue(Lw1[i],Lw1[j],m1['klpols'][int(m1['klmat'][i][j
+                                                                           ].split('c')[1])])
                     if m in mues:
-                        mat[y,y][i][j]+='c'+str(mues.index(m))
+                        mat[y,y][i][j] += 'c'+str(mues.index(m))
                     else:
-                        mat[y,y][i][j]+='c'+str(len(mues))
+                        mat[y,y][i][j] += 'c'+str(len(mues))
                         mues.append(m)
-            mat[y,y][i][i]='c1c0'
+            mat[y,y][i][i] = 'c1c0'
     if verbose:
         lprint('\n#I ')
-    rklpols=[0,1]
+    rklpols = [0,1]
     for y in range(len(X1)):
         if verbose:
             lprint('+')
-        ldy=W.leftdescentsetperm(X1[y])
+        ldy = W.leftdescentsetperm(X1[y])
         for x in range(y-1,-1,-1):
-            if mat[y,x][0][0][0]=='c':
-                fs=[s for s in ldy if lft[s][x]>x]
-                fs1=[s1 for s1 in ldy if 0<=lft[s1][x]<x]
-                if len(fs)>0:  # case sy<y, sx>x and sx in X
-                    s=fs[0]
+            if mat[y,x][0][0][0] == 'c':
+                fs = [s for s in ldy if lft[s][x] > x]
+                fs1 = [s1 for s1 in ldy if 0 <= lft[s1][x] < x]
+                if len(fs) > 0:  # case sy<y, sx>x and sx in X
+                    s = fs[0]
                     for v in range(len(a1)):
                         for u in range(len(a1)):
-                            if mat[y,x][v][u][0]=='c':
-                                if mat[y,lft[s][x]][v][u][0]=='c':
-                                    mat[y,x][v][u]+=mat[y,lft[s]
+                            if mat[y,x][v][u][0] == 'c':
+                                if mat[y,lft[s][x]][v][u][0] == 'c':
+                                    mat[y,x][v][u] += mat[y,lft[s]
                                         [x]][v][u].split('c')[1]
-                                    rk=mat[y,x][v][u].split('c')[1]
-                                    if rk!='0':
-                                        m=relmue(Lw[y]+Lw1[v],Lw[x]+
+                                    rk = mat[y,x][v][u].split('c')[1]
+                                    if rk != '0':
+                                        m = relmue(Lw[y]+Lw1[v],Lw[x] +
                                                  Lw1[u],rklpols[int(rk)])
                                         if m in mues:
-                                            mat[y,x][v][u]+='c'+ \
+                                            mat[y,x][v][u] += 'c' + \
                                                 str(mues.index(m))
                                         else:
-                                            mat[y,x][v][u]+='c'+str(len(mues))
+                                            mat[y,x][v][u] += 'c'+str(len(mues))
                                             mues.append(m)
                                     else:
-                                        mat[y,x][v][u]+='c0'
+                                        mat[y,x][v][u] += 'c0'
                                 else:
-                                    mat[y,x][v][u]+='0c0'
+                                    mat[y,x][v][u] += '0c0'
                 else:
                     for u in range(len(a1)):
-                        if any(lft[s1][x]<0 and lft1[-1-lft[s1][x]][u]>u for s1 in ldy):
+                        if any(lft[s1][x] < 0 and lft1[-1-lft[s1][x]][u] > u for s1 in ldy):
                             for v in range(len(a1)):
-                                if mat[y,x][v][u][0]=='c':
-                                    mat[y,x][v][u]+='0c0'
+                                if mat[y,x][v][u][0] == 'c':
+                                    mat[y,x][v][u] += '0c0'
                         else:
-                            #fs1=list(filter(lambda s2:lft[s2][x]<0 and
+                            # fs1=list(filter(lambda s2:lft[s2][x]<0 and
                             #                              lft1[-1-lft[s2][x]][u]<u,ldy))
-                            if len(fs1)>0:
-                                s=fs1[0]
+                            if len(fs1) > 0:
+                                s = fs1[0]
                             else:
-                                s=ldy[0]
-                            sx,sy=lft[s][x],lft[s][y]
+                                s = ldy[0]
+                            sx,sy = lft[s][x],lft[s][y]
                             for v in range(len(a1)):
-                                if mat[y,x][v][u][0]=='c':
-                                    h=0
+                                if mat[y,x][v][u][0] == 'c':
+                                    h = 0
                                     for z in range(x,sy):
-                                        if lft[s][z]<z:
+                                        if lft[s][z] < z:
                                             for w in range(len(a1)):
-                                                if (lft[s][z]>=0 or lft1[-1-lft[s][z]][w]<w) and (
-                                                   mat[z,x][w][u][0]=='c' and mat[sy,z][v][w][0]=='c'):
-                                                    m=mues[int(
+                                                if (lft[s][z] >= 0 or lft1[-1-lft[s][z]][w] < w) and (
+                                                   mat[z,x][w][u][0] == 'c' and mat[sy,z][v][w][0] == 'c'):
+                                                    m = mues[int(
                                                         mat[sy,z][v][w].split('c')[2])]
-                                                    if m!=0:
-                                                        rk=mat[z,x][w][u].split('c')[
+                                                    if m != 0:
+                                                        rk = mat[z,x][w][u].split('c')[
                                                                                 1]
-                                                        if rk!='0':
-                                                            h-=q**(Lw[y]+Lw1[v]-Lw[z]-Lw1[w])*rklpols[
+                                                        if rk != '0':
+                                                            h -= q**(Lw[y]+Lw1[v]-Lw[z]-Lw1[w])*rklpols[
                                                                                                int(rk)]*m
-                                    if sx<0:  # case sx not in X, tu<u
-                                        t=-1-sx
-                                        if mat[sy,x][v][u][0]=='c':
-                                            rk=mat[sy,x][v][u].split('c')[1]
-                                            if rk!='0':
-                                                h+=(q**2+1)*rklpols[int(rk)]
-                                        if mat[sy,x][v][lft1[t][u]][0]=='c':
-                                            rk=mat[sy,x][v][lft1[t][u]].split('c')[
+                                    if sx < 0:  # case sx not in X, tu<u
+                                        t = -1-sx
+                                        if mat[sy,x][v][u][0] == 'c':
+                                            rk = mat[sy,x][v][u].split('c')[1]
+                                            if rk != '0':
+                                                h += (q**2+1)*rklpols[int(rk)]
+                                        if mat[sy,x][v][lft1[t][u]][0] == 'c':
+                                            rk = mat[sy,x][v][lft1[t][u]].split('c')[
                                                                               1]
-                                            if rk!='0':
-                                                h+=rklpols[int(rk)]
+                                            if rk != '0':
+                                                h += rklpols[int(rk)]
                                         for w in range(u+1,len(a1)):
-                                            if lft1[t][w]>w and (mat[sy,x][v][w][0]=='c' and
-                                                                      m1['klmat'][w][u][0]=='c'):
-                                                m=mues[int(
+                                            if lft1[t][w] > w and (mat[sy,x][v][w][0] == 'c' and
+                                                                      m1['klmat'][w][u][0] == 'c'):
+                                                m = mues[int(
                                                     mat[0,0][w][u].split('c')[2])]
-                                                if m!=0:
-                                                    rk=mat[sy,x][v][w].split('c')[
+                                                if m != 0:
+                                                    rk = mat[sy,x][v][w].split('c')[
                                                                              1]
-                                                    if rk!='0':
-                                                        h+=q**(Lw1[w]-Lw1[u]+1)* \
+                                                    if rk != '0':
+                                                        h += q**(Lw1[w]-Lw1[u]+1) * \
                                                                rklpols[int(
                                                                    rk)]*m
                                     else:    # case sx<x
-                                        if mat[sy,sx][v][u][0]=='c':
-                                            rk=mat[sy,sx][v][u].split('c')[1]
-                                            if rk!='0':
-                                                h+=rklpols[int(rk)]
-                                        if x<=sy and mat[sy,x][v][u][0]=='c':
-                                            rk=mat[sy,x][v][u].split('c')[1]
-                                            if rk!='0':
-                                                h+=q**2*rklpols[int(rk)]
-                                    if h==0:
-                                        mat[y,x][v][u]+='0c0'
+                                        if mat[sy,sx][v][u][0] == 'c':
+                                            rk = mat[sy,sx][v][u].split('c')[1]
+                                            if rk != '0':
+                                                h += rklpols[int(rk)]
+                                        if x <= sy and mat[sy,x][v][u][0] == 'c':
+                                            rk = mat[sy,x][v][u].split('c')[1]
+                                            if rk != '0':
+                                                h += q**2*rklpols[int(rk)]
+                                    if h == 0:
+                                        mat[y,x][v][u] += '0c0'
                                     else:
                                         if h in rklpols:
                                             mat[y,
-                                                x][v][u]+=str(rklpols.index(h))
+                                                x][v][u] += str(rklpols.index(h))
                                         else:
-                                            mat[y,x][v][u]+=str(len(rklpols))
+                                            mat[y,x][v][u] += str(len(rklpols))
                                             rklpols.append(h)
-                                        m=relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],h)
+                                        m = relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],h)
                                         if m in mues:
-                                            mat[y,x][v][u]+='c'+ \
+                                            mat[y,x][v][u] += 'c' + \
                                                 str(mues.index(m))
                                         else:
-                                            mat[y,x][v][u]+='c'+str(len(mues))
+                                            mat[y,x][v][u] += 'c'+str(len(mues))
                                             mues.append(m)
     if verbose:
         lprint('\n#I ')
-    ap1=[W.wordtoperm(w) for w in ap]
-    bij={}
+    ap1 = [W.wordtoperm(w) for w in ap]
+    bij = {}
     for y in range(len(X1)):
         for v in range(len(a1)):
-            bij[y,v]=ap1.index(permmult(X1[y],a1[v]))
-    pp=[]
+            bij[y,v] = ap1.index(permmult(X1[y],a1[v]))
+    pp = []
     for y in range(len(X1)):
         for v in range(len(a1)):
             for s in W.rank:
-                if lft[s][y]>y:
+                if lft[s][y] > y:
                     pp.append((bij[y,v],bij[lft[s][y],v]))
-                elif lft[s][y]<0 and lft1[-1-lft[s][y]][v]>v:
+                elif lft[s][y] < 0 and lft1[-1-lft[s][y]][v] > v:
                     pp.append((bij[y,v],bij[y,lft1[-1-lft[s][y]][v]]))
             for x in range(y+1):
                 for u in range(len(a1)):
-                    rk=mat[y,x][v][u]
-                    if rk[0]=='c' and rk.split('c')[2]!='0':
-                        if any((0<=lft[s][x]<x or (lft[s][x]<0 and
-                            lft1[-1-lft[s][x]][u]<u)) and (lft[s][y]>y or (lft[s][y]<0
-                                           and lft1[-1-lft[s][y]][v]>v)) for s in W.rank):
+                    rk = mat[y,x][v][u]
+                    if rk[0] == 'c' and rk.split('c')[2] != '0':
+                        if any((0 <= lft[s][x] < x or (lft[s][x] < 0 and
+                            lft1[-1-lft[s][x]][u] < u)) and (lft[s][y] > y or (lft[s][y] < 0
+                                           and lft1[-1-lft[s][y]][v] > v)) for s in W.rank):
                             pp.append((bij[y,v],bij[x,u]))
     if verbose:
         lprint(str(len(pp))+' arrows \n')
-    klpols=[]
+    klpols = []
     for y in range(len(X1)):
         for x in range(y+1):
             for v in range(len(a1)):
                 for u in range(len(a1)):
-                    if x==y and u<=v and m1['klmat'][v][u][0]=='c':
-                        h=m1['klpols'][int(m1['klmat'][v][u].split('c')[1])]
+                    if x == y and u <= v and m1['klmat'][v][u][0] == 'c':
+                        h = m1['klpols'][int(m1['klmat'][v][u].split('c')[1])]
                     else:
-                        rk=mat[y,x][v][u]
-                        if rk[0]=='c':
-                            h=rklpols[int(rk.split('c')[1])]
+                        rk = mat[y,x][v][u]
+                        if rk[0] == 'c':
+                            h = rklpols[int(rk.split('c')[1])]
                             for w in range(u+1,len(a1)):
-                                rk1=m1['klmat'][w][u]
-                                if rk1[0]=='c':
-                                    rk2=mat[y,x][v][w]
-                                    if rk2[0]=='c' and rk2[1]!='0':
-                                        h+=m1['klpols'][int(rk1.split('c')[1])]*rklpols[
+                                rk1 = m1['klmat'][w][u]
+                                if rk1[0] == 'c':
+                                    rk2 = mat[y,x][v][w]
+                                    if rk2[0] == 'c' and rk2[1] != '0':
+                                        h += m1['klpols'][int(rk1.split('c')[1])]*rklpols[
                                                                        int(rk2.split('c')[1])]
-                    if h!=0 and not h in klpols:
+                    if h != 0 and h not in klpols:
                         klpols.append(h)
     return {'allelms':ap,'elmsJ':wa1,'elmsX':X1w,'rklpols':rklpols,
             'mues':mues,'relklmat':mat,'klpols':klpols,'arrows':pp}
 
 
-#F leftconnected
+# F leftconnected
 def leftconnected(W, elms, verbose=False):
     """returns the  left-connected components of a set elms. A set elms
     if left-connected  if for any two elements x,y in elms, there is
@@ -6780,20 +6775,20 @@ def leftconnected(W, elms, verbose=False):
 
     """
     if type(elms[0]) == type(W.permgens[0]):
-        if len(elms[0])==2*W.N:
-            pelms=set([w[:len(W.rank)] for w in elms])
+        if len(elms[0]) == 2*W.N:
+            pelms = set([w[:len(W.rank)] for w in elms])
         else:
-            pelms=set(elms)
+            pelms = set(elms)
     else:
-        pelms=set([W.wordtocoxelm(w) for w in elms])
-    orbs=[]
+        pelms = set([W.wordtocoxelm(w) for w in elms])
+    orbs = []
     while pelms:
-        w1=next(iter(pelms))
-        orb=[W.coxelmtoperm(w1)]
-        orb1=set([w1])
+        w1 = next(iter(pelms))
+        orb = [W.coxelmtoperm(w1)]
+        orb1 = set([w1])
         for x in orb:
             for s in W.rank:
-                sx=permmult(W.permgens[s],x)
+                sx = permmult(W.permgens[s],x)
                 if sx[:len(W.rank)] in pelms and (not sx[:len(W.rank)] in orb1):
                     orb.append(sx)
                     orb1.add(sx[:len(W.rank)])
@@ -6805,7 +6800,7 @@ def leftconnected(W, elms, verbose=False):
     return orbs
 
 
-#F klstaroperation
+# F klstaroperation
 def klstaroperation(W,s,t,pcell):
     """returns the list containing the elements  w^* for w in cell, where
     w^* is obtained by the Kazhdan-Lusztig star operation with respect
@@ -6834,20 +6829,20 @@ def klstaroperation(W,s,t,pcell):
 
     See also 'klstarorbit' and 'wgraphstarorbit'.
     """
-    pw1=perminverse(pcell[0])
-    if (pw1[s]>=W.N and pw1[t]>=W.N) or (pw1[s]<W.N and pw1[t]<W.N):
+    pw1 = perminverse(pcell[0])
+    if (pw1[s] >= W.N and pw1[t] >= W.N) or (pw1[s] < W.N and pw1[t] < W.N):
         return False
-    nl=[]
+    nl = []
     for pw in pcell:
-        ws=tuple([W.permgens[s][r] for r in pw])
-        wsi=perminverse(ws)
-        if (wsi[s]>=W.N and wsi[t]<W.N) or (wsi[t]>=W.N and wsi[s]<W.N):
+        ws = tuple([W.permgens[s][r] for r in pw])
+        wsi = perminverse(ws)
+        if (wsi[s] >= W.N and wsi[t] < W.N) or (wsi[t] >= W.N and wsi[s] < W.N):
             nl.append(ws)
         else:
             nl.append(tuple([W.permgens[t][r] for r in pw]))
     return nl
 
-#F klstarorbit
+# F klstarorbit
 
 
 def klstarorbit(W,l,gens='each'):
@@ -6870,44 +6865,44 @@ def klstarorbit(W,l,gens='each'):
     See  also  'klstaroperation', 'klstarorbitperm', 'klcells' and
     'gentaucells'.
     """
-    if gens=='each':
-        gens=list(W.rank)
+    if gens == 'each':
+        gens = list(W.rank)
     #orb=[[W.wordtoperm(x) for x in l]]
-    if len(l)==0 or (type(l[0]) == type(W.permgens[0]) and len(l[0])==2*W.N):
-        orb=[l[:]]
+    if len(l) == 0 or (type(l[0]) == type(W.permgens[0]) and len(l[0]) == 2*W.N):
+        orb = [l[:]]
     else:
-        orb=[[W.wordtoperm(x) for x in l]]
-    orb1=[set([x[:len(W.rank)] for x in orb[0]])]
+        orb = [[W.wordtoperm(x) for x in l]]
+    orb1 = [set([x[:len(W.rank)] for x in orb[0]])]
     for cell in orb:
         for s in range(len(gens)):
             for t in range(s):
-                if W.coxetermat[gens[s]][gens[t]]==3:
-                    nc=klstaroperation(W,gens[s],gens[t],cell)
+                if W.coxetermat[gens[s]][gens[t]] == 3:
+                    nc = klstaroperation(W,gens[s],gens[t],cell)
                     if nc is not False and not any(nc[0][:len(W.rank)] in o for o in orb1):
                         orb.append(nc)
                         orb1.append(set([x[:len(W.rank)] for x in nc]))
     return [[W.permtoword(p) for p in o] for o in orb]
 
-#F klstarorbitperm
+# F klstarorbitperm
 
 
 def klstarorbitperm(W,l,gens='each'):
     """same as klstarorbit but the function returns the elements as
     full permutations.
     """
-    if gens=='each':
-        gens=list(W.rank)
+    if gens == 'each':
+        gens = list(W.rank)
     #orb=[[W.wordtoperm(x) for x in l]]
-    if len(l)==0 or (type(l[0]) == type(W.permgens[0]) and len(l[0])==2*W.N):
-        orb=[l[:]]
+    if len(l) == 0 or (type(l[0]) == type(W.permgens[0]) and len(l[0]) == 2*W.N):
+        orb = [l[:]]
     else:
-        orb=[[W.wordtoperm(x) for x in l]]
-    orb1=[set([x[:len(W.rank)] for x in orb[0]])]
+        orb = [[W.wordtoperm(x) for x in l]]
+    orb1 = [set([x[:len(W.rank)] for x in orb[0]])]
     for cell in orb:
         for s in range(len(gens)):
             for t in range(s):
-                if W.coxetermat[gens[s]][gens[t]]==3:
-                    nc=klstaroperation(W,gens[s],gens[t],cell)
+                if W.coxetermat[gens[s]][gens[t]] == 3:
+                    nc = klstaroperation(W,gens[s],gens[t],cell)
                     if nc is not False and not any(nc[0][:len(W.rank)] in o for o in orb1):
                         orb.append(nc)
                         orb1.append(set([x[:len(W.rank)] for x in nc]))
@@ -6918,23 +6913,23 @@ def klstarorbitchain(W,l,gens='each'):
     """same as 'klstarorbit' but only returns sequence of pairs of
     generators.
     """
-    if gens=='each':
-        gens=list(W.rank)
-    orb=[[W.wordtoperm(x) for x in l]]
-    ch=[]
+    if gens == 'each':
+        gens = list(W.rank)
+    orb = [[W.wordtoperm(x) for x in l]]
+    ch = []
     for cell in orb:
-        c1=[]
+        c1 = []
         for s in range(len(gens)):
             for t in range(s):
-                if W.coxetermat[gens[s]][gens[t]]==3:
-                    nc=klstaroperation(W,gens[s],gens[t],cell)
+                if W.coxetermat[gens[s]][gens[t]] == 3:
+                    nc = klstaroperation(W,gens[s],gens[t],cell)
                     if nc is not False and not any(nc[0] in c for c in orb):
                         orb.append(nc)
                         c1.append(str(s)+str(t))
         ch.append(c1)
     return ch
 
-#F leftklstar
+# F leftklstar
 
 
 def leftklstar(W,pw,s,t):
@@ -6945,20 +6940,20 @@ def leftklstar(W,pw,s,t):
 
     See also 'leftklstarorbit'.
     """
-    if pw[s]>=W.N and pw[t]<W.N:
-        sw=tuple([pw[i] for i in W.permgens[s]])
-        if sw[t]>=W.N:
+    if pw[s] >= W.N and pw[t] < W.N:
+        sw = tuple([pw[i] for i in W.permgens[s]])
+        if sw[t] >= W.N:
             return sw
         else:
             return tuple([pw[i] for i in W.permgens[t]])
     else:
-        sw=tuple([pw[i] for i in W.permgens[t]])
-        if sw[s]>=W.N:
+        sw = tuple([pw[i] for i in W.permgens[t]])
+        if sw[s] >= W.N:
             return sw
         else:
             return tuple([pw[i] for i in W.permgens[s]])
 
-#F leftklstarorbitelm
+# F leftklstarorbitelm
 
 
 def leftklstarorbitelm(W,pw,gens='each'):
@@ -6968,46 +6963,46 @@ def leftklstarorbitelm(W,pw,gens='each'):
 
     See also 'leftklstar' and 'leftklstarorbits'.
     """
-    if gens=='each':
-        gens=list(W.rank)
-    orb=[pw]
-    orb1=set([pw[:len(W.rank)]])
+    if gens == 'each':
+        gens = list(W.rank)
+    orb = [pw]
+    orb1 = set([pw[:len(W.rank)]])
     for d in orb:
         for i in range(len(gens)):
             for j in range(i):
-                s,t=gens[i],gens[j]
-                if W.coxetermat[s][t]==3:
-                    if (d[s]>=W.N and d[t]<W.N) or (d[s]<W.N and d[t]>=W.N):
-                        d1=leftklstar(W,d,s,t)
-                        if not d1[:len(W.rank)] in orb1:
+                s,t = gens[i],gens[j]
+                if W.coxetermat[s][t] == 3:
+                    if (d[s] >= W.N and d[t] < W.N) or (d[s] < W.N and d[t] >= W.N):
+                        d1 = leftklstar(W,d,s,t)
+                        if d1[:len(W.rank)] not in orb1:
                             orb.append(d1)
                             orb1.add(d1[:len(W.rank)])
     return orb
 
-#F leftklstarorbitelm1
+# F leftklstarorbitelm1
 
 
 def leftklstarorbitelm1(W,pw,gens='each'):
     """similar to 'leftklstarorbitelm' but takes into account any
     pair s,t of generators such that st has order 3 or 4.
     """
-    if gens=='each':
-        gens=list(W.rank)
-    orb=[pw]
-    orb1=set([pw[:len(W.rank)]])
+    if gens == 'each':
+        gens = list(W.rank)
+    orb = [pw]
+    orb1 = set([pw[:len(W.rank)]])
     for d in orb:
         for i in range(len(gens)):
             for j in range(len(gens)):
-                s,t=gens[i],gens[j]
-                if (s<t and W.coxetermat[s][t]==3) or W.coxetermat[s][t]>=4:
-                    if (d[s]>=W.N and d[t]<W.N) or (d[s]<W.N and d[t]>=W.N):
-                        d1=leftklstar(W,d,s,t)
-                        if not d1[:len(W.rank)] in orb1:
+                s,t = gens[i],gens[j]
+                if (s < t and W.coxetermat[s][t] == 3) or W.coxetermat[s][t] >= 4:
+                    if (d[s] >= W.N and d[t] < W.N) or (d[s] < W.N and d[t] >= W.N):
+                        d1 = leftklstar(W,d,s,t)
+                        if d1[:len(W.rank)] not in orb1:
                             orb.append(d1)
                             orb1.add(d1[:len(W.rank)])
     return orb
 
-#F klstarorbitelm
+# F klstarorbitelm
 
 
 def klstarorbitelm(W,pw,gens='each'):
@@ -7018,7 +7013,7 @@ def klstarorbitelm(W,pw,gens='each'):
     return [perminverse(x) for x in leftklstarorbitelm(W,perminverse(pw),gens)]
 
 
-#F leftklstarorbits
+# F leftklstarorbits
 def leftklstarorbits(W,l,lcells=False,gens='each'):
     """returns the orbits of a set under the left star operations.
     If the given set 'l'  is known to be a union of left cells,
@@ -7027,21 +7022,21 @@ def leftklstarorbits(W,l,lcells=False,gens='each'):
 
     See also 'leftklstarorbitelm'.
     """
-    if gens=='each':
-        gens=list(W.rank)
-    orbs=[]
-    rest=[x for x in l]
+    if gens == 'each':
+        gens = list(W.rank)
+    orbs = []
+    rest = [x for x in l]
     while rest:
         if not lcells:
-            o=[x for x in leftklstarorbitelm(W,rest[0],gens) if x in l]
+            o = [x for x in leftklstarorbitelm(W,rest[0],gens) if x in l]
         else:
-            o=leftklstarorbitelm(W,rest[0],gens)
+            o = leftklstarorbitelm(W,rest[0],gens)
         orbs.append(o)
         for w in o:
             rest.remove(w)
     return orbs
 
-#F leftklstarreps
+# F leftklstarreps
 
 
 def leftklstarreps(W,l,distinv=[],gens='each'):
@@ -7050,29 +7045,29 @@ def leftklstarreps(W,l,distinv=[],gens='each'):
 
     See also 'leftklstarorbitelm'.
     """
-    if gens=='each':
-        gens=list(W.rank)
-    reps=[]
-    rest=[x for x in l]
-    while rest!=[]:
-        o=leftklstarorbitelm(W,rest[0],gens)
-        o1=0
-        if distinv!=[]:
-            i=0
-            while o1==0 and i<len(o):
+    if gens == 'each':
+        gens = list(W.rank)
+    reps = []
+    rest = [x for x in l]
+    while rest != []:
+        o = leftklstarorbitelm(W,rest[0],gens)
+        o1 = 0
+        if distinv != []:
+            i = 0
+            while o1 == 0 and i < len(o):
                 if o[i][:len(W.rank)] in distinv:
-                    o1=o[i]
+                    o1 = o[i]
                 else:
-                    i+=1
-        if o1==0:
-            i=0
-            while o1==0 and i<len(o):
-                if W.permorder(o[i])<=2:
-                    o1=o[i]
+                    i += 1
+        if o1 == 0:
+            i = 0
+            while o1 == 0 and i < len(o):
+                if W.permorder(o[i]) <= 2:
+                    o1 = o[i]
                 else:
-                    i+=1
-        if o1==0:
-            lno=[W.permlength(w) for w in o]
+                    i += 1
+        if o1 == 0:
+            lno = [W.permlength(w) for w in o]
             reps.append(o[lno.index(min(lno))])
         else:
             reps.append(o1)
@@ -7080,25 +7075,25 @@ def leftklstarreps(W,l,distinv=[],gens='each'):
             rest.remove(w)
     return reps
 
-#F leftrightstarorbit
+# F leftrightstarorbit
 
 
 def leftrightstarorbit(W, pw, verbose=False):
     """returns the orbit of an element under repeated applications of
     left or right star operations.
     """
-    orb=[pw]
-    orb1=set([pw[:len(W.rank)]])
+    orb = [pw]
+    orb1 = set([pw[:len(W.rank)]])
     for d in orb:
         for s in W.rank:
             for t in range(s):
-                if W.coxetermat[s][t]==3:
-                    if (d[s]>=W.N and d[t]<W.N) or (d[s]<W.N and d[t]>=W.N):
-                        d1=leftklstar(W,d,s,t)
+                if W.coxetermat[s][t] == 3:
+                    if (d[s] >= W.N and d[t] < W.N) or (d[s] < W.N and d[t] >= W.N):
+                        d1 = leftklstar(W,d,s,t)
                         if not d1[:len(W.rank)] in orb1:
                             orb.append(d1)
                             orb1.add(d1[:len(W.rank)])
-                    nc=klstaroperation(W,s,t,[d])
+                    nc = klstaroperation(W,s,t,[d])
                     if nc is not False and not nc[0][:len(W.rank)] in orb1:
                         orb.append(nc[0])
                         orb1.add(nc[0][:len(W.rank)])
@@ -7112,24 +7107,24 @@ def leftrightstarorbitinv(W, pw, verbose=False):
     an involution  is  found in the orbit.  In this case,  the function
     returns this involution; otherwise, the whole orbit is returned.
     """
-    orb=[pw]
-    orb1=set([pw[:len(W.rank)]])
+    orb = [pw]
+    orb1 = set([pw[:len(W.rank)]])
     for d in orb:
         for s in W.rank:
             for t in range(s):
-                if W.coxetermat[s][t]==3:
-                    if (d[s]>=W.N and d[t]<W.N) or (d[s]<W.N and d[t]>=W.N):
-                        d1=leftklstar(W,d,s,t)
+                if W.coxetermat[s][t] == 3:
+                    if (d[s] >= W.N and d[t] < W.N) or (d[s] < W.N and d[t] >= W.N):
+                        d1 = leftklstar(W,d,s,t)
                         if not d1[:len(W.rank)] in orb1:
-                            if W.permorder(d1)<=2:
+                            if W.permorder(d1) <= 2:
                                 if verbose:
                                     lprint('#I found involution\n')
                                 return d1
                             orb.append(d1)
                             orb1.add(d1[:len(W.rank)])
-                    nc=klstaroperation(W,s,t,[d])
+                    nc = klstaroperation(W,s,t,[d])
                     if nc is not False and not nc[0][:len(W.rank)] in orb1:
-                        if W.permorder(nc[0])<=2:
+                        if W.permorder(nc[0]) <= 2:
                             if verbose:
                                 lprint('#I found involution\n')
                             return nc[0]
@@ -7139,7 +7134,7 @@ def leftrightstarorbitinv(W, pw, verbose=False):
         lprint('#I orbit of length '+str(len(orb))+'\n')
     return orb
 
-#F generalisedtau
+# F generalisedtau
 
 
 def generalisedtau(W,pw,maxd=10):
@@ -7150,25 +7145,25 @@ def generalisedtau(W,pw,maxd=10):
     argument  'maxd' can be used to set the depth to  which the
     star operations will be applied (default 10).
     """
-    #pw=W.wordtoperm(w)
-    orb=[pw]
-    o=0
-    while o<len(orb)<=maxd:
+    # pw=W.wordtoperm(w)
+    orb = [pw]
+    o = 0
+    while o < len(orb) <= maxd:
         for s in W.rank:
             for t in range(s):
-                if W.coxetermat[s][t]==3:
-                    k=klstaroperation(W,s,t,[orb[o]])
+                if W.coxetermat[s][t] == 3:
+                    k = klstaroperation(W,s,t,[orb[o]])
                     if k is not False:
                         orb.append(k[0])
-        o+=1
+        o += 1
     return tuple([tuple(W.rightdescentsetperm(p)) for p in orb])
 
 
 def checkgentau(W,maxd=10):
     for k in klcells(W,1,v)[0]:
-        t0=generalisedtau(W,k[0])
+        t0 = generalisedtau(W,k[0])
         for i in k[1:]:
-            if generalisedtau(W,i)!=t0:
+            if generalisedtau(W,i) != t0:
                 print(k)
                 return False
     return True
@@ -7177,18 +7172,18 @@ def checkgentau(W,maxd=10):
 
 
 def gentauorbit2(W,l):
-    orb=[l[:]]
-    orb1=set([x[:len(W.rank)] for x in orb[0]])
+    orb = [l[:]]
+    orb1 = set([x[:len(W.rank)] for x in orb[0]])
     for cell in orb:
         for s in W.rank:
             for t in range(s):
-                if W.coxetermat[s][t]==3:
-                    nc=klstaroperation(W,s,t,cell)
+                if W.coxetermat[s][t] == 3:
+                    nc = klstaroperation(W,s,t,cell)
                     if nc is not False:
-                        rnd=[tuple(W.rightdescentsetperm(pw)) for pw in nc]
-                        srnd=set(rnd)
-                        if len(srnd)>1:
-                            return [[l[i] for i in range(len(l)) if rnd[i]==s]
+                        rnd = [tuple(W.rightdescentsetperm(pw)) for pw in nc]
+                        srnd = set(rnd)
+                        if len(srnd) > 1:
+                            return [[l[i] for i in range(len(l)) if rnd[i] == s]
                                                                     for s in srnd]
                         elif not nc[0][:len(W.rank)] in orb1:
                             orb.append(nc)
@@ -7200,31 +7195,31 @@ def gentauorbit2(W,l):
 
 
 def klstringoperation4(W,s,t,pcell):
-    pw1=perminverse(pcell[0])
-    if (pw1[s]>=W.N and pw1[t]>=W.N) or (pw1[s]<W.N and pw1[t]<W.N):
+    pw1 = perminverse(pcell[0])
+    if (pw1[s] >= W.N and pw1[t] >= W.N) or (pw1[s] < W.N and pw1[t] < W.N):
         return False
-    nl=[]
-    H=reflectionsubgroup(W,[s,t])
+    nl = []
+    H = reflectionsubgroup(W,[s,t])
     for pw in pcell:
-        x=perminverse(redinrightcoset(W,H,perminverse(pw)))
-        sx=tuple([W.permgens[s][r] for r in x])
-        tsx=tuple([W.permgens[t][r] for r in sx])
-        stsx=tuple([W.permgens[s][r] for r in tsx])
-        if pw==sx:
+        x = perminverse(redinrightcoset(W,H,perminverse(pw)))
+        sx = tuple([W.permgens[s][r] for r in x])
+        tsx = tuple([W.permgens[t][r] for r in sx])
+        stsx = tuple([W.permgens[s][r] for r in tsx])
+        if pw == sx:
             nl.append(stsx)
-        elif pw==tsx:
+        elif pw == tsx:
             nl.append(tsx)
-        elif pw==stsx:
+        elif pw == stsx:
             nl.append(sx)
         else:
-            tx=tuple([W.permgens[t][r] for r in x])
-            stx=tuple([W.permgens[s][r] for r in tx])
-            tstx=tuple([W.permgens[t][r] for r in stx])
-            if pw==tx:
+            tx = tuple([W.permgens[t][r] for r in x])
+            stx = tuple([W.permgens[s][r] for r in tx])
+            tstx = tuple([W.permgens[t][r] for r in stx])
+            if pw == tx:
                 nl.append(tstx)
-            elif pw==stx:
+            elif pw == stx:
                 nl.append(stx)
-            elif pw==tstx:
+            elif pw == tstx:
                 nl.append(tx)
             else:
                 print('Mist')
@@ -7234,37 +7229,37 @@ def klstringoperation4(W,s,t,pcell):
 
 
 def klstringoperation5(W,s,t,pcell):
-    pw1=perminverse(pcell[0])
-    if (pw1[s]>=W.N and pw1[t]>=W.N) or (pw1[s]<W.N and pw1[t]<W.N):
+    pw1 = perminverse(pcell[0])
+    if (pw1[s] >= W.N and pw1[t] >= W.N) or (pw1[s] < W.N and pw1[t] < W.N):
         return False
-    nl=[]
-    H=reflectionsubgroup(W,[s,t])
+    nl = []
+    H = reflectionsubgroup(W,[s,t])
     for pw in pcell:
-        x=perminverse(redinrightcoset(W,H,perminverse(pw)))
-        sx=tuple([W.permgens[s][r] for r in x])
-        tsx=tuple([W.permgens[t][r] for r in sx])
-        stsx=tuple([W.permgens[s][r] for r in tsx])
-        tstsx=tuple([W.permgens[t][r] for r in stsx])
-        if pw==sx:
+        x = perminverse(redinrightcoset(W,H,perminverse(pw)))
+        sx = tuple([W.permgens[s][r] for r in x])
+        tsx = tuple([W.permgens[t][r] for r in sx])
+        stsx = tuple([W.permgens[s][r] for r in tsx])
+        tstsx = tuple([W.permgens[t][r] for r in stsx])
+        if pw == sx:
             nl.append(tstsx)
-        elif pw==tsx:
+        elif pw == tsx:
             nl.append(stsx)
-        elif pw==stsx:
+        elif pw == stsx:
             nl.append(tsx)
-        elif pw==tstsx:
+        elif pw == tstsx:
             nl.append(sx)
         else:
-            tx=tuple([W.permgens[t][r] for r in x])
-            stx=tuple([W.permgens[s][r] for r in tx])
-            tstx=tuple([W.permgens[t][r] for r in stx])
-            ststx=tuple([W.permgens[s][r] for r in tstx])
-            if pw==tx:
+            tx = tuple([W.permgens[t][r] for r in x])
+            stx = tuple([W.permgens[s][r] for r in tx])
+            tstx = tuple([W.permgens[t][r] for r in stx])
+            ststx = tuple([W.permgens[s][r] for r in tstx])
+            if pw == tx:
                 nl.append(ststx)
-            elif pw==stx:
+            elif pw == stx:
                 nl.append(tstx)
-            elif pw==tstx:
+            elif pw == tstx:
                 nl.append(stx)
-            elif pw==ststx:
+            elif pw == ststx:
                 nl.append(tx)
             else:
                 print('Mist')
@@ -7274,23 +7269,23 @@ def klstringoperation5(W,s,t,pcell):
 
 
 def genstringorbit2(W,l):
-    orb=[l[:]]
-    orb1=set([x[:len(W.rank)] for x in orb[0]])
+    orb = [l[:]]
+    orb1 = set([x[:len(W.rank)] for x in orb[0]])
     for cell in orb:
         for s in W.rank:
             for t in range(s):
-                nc=False
-                if W.coxetermat[s][t]==3:
-                    nc=klstaroperation(W,s,t,cell)
-                elif W.coxetermat[s][t]==4:
-                    nc=klstringoperation4(W,s,t,cell)
-                elif W.coxetermat[s][t]==5:
-                    nc=klstringoperation5(W,s,t,cell)
+                nc = False
+                if W.coxetermat[s][t] == 3:
+                    nc = klstaroperation(W,s,t,cell)
+                elif W.coxetermat[s][t] == 4:
+                    nc = klstringoperation4(W,s,t,cell)
+                elif W.coxetermat[s][t] == 5:
+                    nc = klstringoperation5(W,s,t,cell)
                 if nc is not False:
-                    rnd=[tuple(W.rightdescentsetperm(pw)) for pw in nc]
-                    srnd=set(rnd)
-                    if len(srnd)>1:
-                        return [[l[i] for i in range(len(l)) if rnd[i]==s]
+                    rnd = [tuple(W.rightdescentsetperm(pw)) for pw in nc]
+                    srnd = set(rnd)
+                    if len(srnd) > 1:
+                        return [[l[i] for i in range(len(l)) if rnd[i] == s]
                                                                 for s in srnd]
                     elif not nc[0][:len(W.rank)] in orb1:
                         orb.append(nc)
@@ -7301,12 +7296,12 @@ def genstringorbit2(W,l):
 
 
 def checkh4(W,kl, verbose=False):
-    ckl=[set(l) for l in kl]
+    ckl = [set(l) for l in kl]
     for cell in kl:
         for s in W.rank:
             for t in range(s):
-                if W.coxetermat[s][t]==5:
-                    nc=klstringoperation5(W,s,t,cell)
+                if W.coxetermat[s][t] == 5:
+                    nc = klstringoperation5(W,s,t,cell)
                     if nc is not False and nc != cell:
                         if not set(nc) in ckl:
                             print('Mist')
@@ -7353,58 +7348,58 @@ def gentaucells(W,startset, verbose=False, lcells=False,string=False,tlen=False)
     See also 'klstarorbit' and 'gentaureps'.
     """
     if type(startset[0]) == type(W.permgens[0]):
-        if len(startset[0])==2*W.N:
-            aset=startset
+        if len(startset[0]) == 2*W.N:
+            aset = startset
         else:
-            aset=[W.coxelmtoperm(w) for w in startset]
+            aset = [W.coxelmtoperm(w) for w in startset]
     else:
-        aset=[W.wordtoperm(w) for w in startset]
+        aset = [W.wordtoperm(w) for w in startset]
     if not lcells:
-        pset=aset
+        pset = aset
     else:
-        rset=leftklstarorbits(W,aset,lcells)
-        pset=[l[0] for l in rset]
+        rset = leftklstarorbits(W,aset,lcells)
+        pset = [l[0] for l in rset]
     if verbose:
         lprint('#I '+str(len(pset))+' tau-cells: ')
-    #new try: use additional function tlen which is constant on left cells
-    #and returns a non-negative numerical value
-    rd=[]
+    # new try: use additional function tlen which is constant on left cells
+    # and returns a non-negative numerical value
+    rd = []
     for pw in pset:
-        pp=W.rightdescentsetperm(pw)
+        pp = W.rightdescentsetperm(pw)
         if tlen is not False:
             pp.append(tlen(W,pw)+10*len(W.rank))
         rd.append(tuple(pp))
-    #old version
+    # old version
     #rd=[tuple(W.rightdescentsetperm(pw)) for pw in pset]
-    rest=[[pset[i] for i in range(len(pset)) if rd[i]==s] for s in set(rd)]
-    res=[]
-    weiter=True
+    rest = [[pset[i] for i in range(len(pset)) if rd[i] == s] for s in set(rd)]
+    res = []
+    weiter = True
     while weiter:
         if verbose:
             lprint(str(len(res)+len(rest))+' ')
         if not string:
-            cg=[gentauorbit2(W,r) for r in rest]
+            cg = [gentauorbit2(W,r) for r in rest]
         else:
-            cg=[genstringorbit2(W,r) for r in rest]
-        weiter=False
-        rest=[]
+            cg = [genstringorbit2(W,r) for r in rest]
+        weiter = False
+        rest = []
         for i in range(len(cg)):
-            if len(cg[i])==1:
+            if len(cg[i]) == 1:
                 if not lcells:
                     res.append(cg[i][0])
                 else:
-                    neu=[]
+                    neu = []
                     for x in cg[i][0]:
                         neu.extend(rset[pset.index(x)])
                     res.append(neu)
             else:
                 rest.extend(cg[i])
-                weiter=True
+                weiter = True
     if verbose:
         lprint('\n')
     return res
 
-#F gentaureps
+# F gentaureps
 
 
 def gentaureps(W, verbose=False):
@@ -7423,26 +7418,26 @@ def gentaureps(W, verbose=False):
 
     See also 'gentaucells' and 'klstarorbit'.
     """
-    if W.order<=2:
-        nset=[[w] for w in allwords(W)]
+    if W.order <= 2:
+        nset = [[w] for w in allwords(W)]
     else:
-        J=list(range(len(W.rank)-1))
-        W1=reflectionsubgroup(W,J)
-        dc=[W.coxelmtoperm(d) for d in redleftcosetreps(W,J)]
-        nset=[]
-        cset=set([])
-        gt1=gentaureps(W1)
+        J = list(range(len(W.rank)-1))
+        W1 = reflectionsubgroup(W,J)
+        dc = [W.coxelmtoperm(d) for d in redleftcosetreps(W,J)]
+        nset = []
+        cset = set([])
+        gt1 = gentaureps(W1)
         if verbose:
             lprint('#I ')
         for g in gt1:
             if verbose:
                 lprint('+')
-            l=[]
+            l = []
             for x in g:
-                wx=W.wordtoperm(x)
+                wx = W.wordtoperm(x)
                 for d in dc:
                     l.append(permmult(d,wx))
-            if not all(permmult(p,p)[:len(W.rank)]!=tuple(W.rank) or
+            if not all(permmult(p,p)[:len(W.rank)] != tuple(W.rank) or
                                      p[:len(W.rank)] in cset for p in l):
                 for gt in gentaucells(W,l,verbose=False,lcells=True):
                     if not any(x[:len(W.rank)] in cset for x in gt):
@@ -7451,7 +7446,7 @@ def gentaureps(W, verbose=False):
                         nset.append([W.permtoword(p) for p in gt])
                         for o in klstarorbitperm(W,gt):
                             for e in o:
-                                if permmult(e,e)[:len(W.rank)]==tuple(W.rank):
+                                if permmult(e,e)[:len(W.rank)] == tuple(W.rank):
                                     cset.add(e[:len(W.rank)])
         if verbose:
             lprint(' '+str(len(nset))+' reps\n')
@@ -7464,16 +7459,16 @@ def klcellw0(W,wgr):
     """returns the W-graph of a left cell multiplied by the longest
     element. (For the time being, only for equal parameters.)
     """
-    w0=longestperm(W)
-    pc=[W.wordtoperm(w) for w in wgr.X]
-    np=[permmult(p,w0) for p in pc]
+    w0 = longestperm(W)
+    pc = [W.wordtoperm(w) for w in wgr.X]
+    np = [permmult(p,w0) for p in pc]
     if np[0] in pc:
         return wgr
     else:
-        ni=[W.leftdescentsetperm(p) for p in np]
-        nmat={}
+        ni = [W.leftdescentsetperm(p) for p in np]
+        nmat = {}
         for k in wgr.mmat:
-            nmat[(k[1],k[0])]=wgr.mmat[k]
+            nmat[(k[1],k[0])] = wgr.mmat[k]
         return wgraph(W,wgr.weights,[W.permtoword(p) for p in np],wgr.var,
                     ni,nmat,wgr.mpols,[p[:len(W.rank)] for p in np]).normalise()
 
@@ -7502,46 +7497,46 @@ def wgraphstarorbit(W,wgr,gens='each'):
                    wgr.mmat,wgr.mpols,[p[:len(W.rank)] for p in l]).normalise()
             for l in klstarorbitperm(W,wgr.X,gens)]
 
-#F klcellsun
+# F klcellsun
 
 
 def klcellsun(W, weightL, v, verbose=False):
     if type(weightL) == type([]):
-        poids=weightL
+        poids = weightL
     else:
-        poids=len(W.rank)*[weightL]
-    if len(W.rank)==0:
-        cr1=[wgraph(W,poids,[[]],v,[[]],{},[],[()])]
+        poids = len(W.rank)*[weightL]
+    if len(W.rank) == 0:
+        cr1 = [wgraph(W,poids,[[]],v,[[]],{},[],[()])]
     else:
-        J=list(W.rank)
-        if W.cartantype[0][0]=='E':
+        J = list(W.rank)
+        if W.cartantype[0][0] == 'E':
             J.remove(0)
         else:
             J.remove(len(W.rank)-1)
-        W1=reflectionsubgroup(W,J)
-        kk=klcellsun(W1,[poids[s] for s in J],v, verbose=False)
-        if verbose and len(W.rank)>0:
+        W1 = reflectionsubgroup(W,J)
+        kk = klcellsun(W1,[poids[s] for s in J],v, verbose=False)
+        if verbose and len(W.rank) > 0:
             lprint('#I ')
         if verbose:
             lprint('('+str(len(kk))+') ')
-        cr1=[]
-        allmues=[[] for s in W.rank]
+        cr1 = []
+        allmues = [[] for s in W.rank]
         for i in kk:
             if verbose:
                 lprint('+')
-            rk=relklpolsuneq(W,W1,i.wgraphtoklmat(),poids,v)
+            rk = relklpolsuneq(W,W1,i.wgraphtoklmat(),poids,v)
             for s in W.rank:
                 for m in rk['mpols'][s]:
-                    if m!=0 and not m in allmues[s]:
+                    if m != 0 and m not in allmues[s]:
                         allmues[s].append(m)
-            ind=wgraph(W,poids,rk,v).decompose()
+            ind = wgraph(W,poids,rk,v).decompose()
             if verbose:
                 lprint(str(len(ind)))
             for ii in ind:
                 cr1.append(ii)
         if verbose:
             lprint('\n')
-    if verbose and len(W.rank)>0:
+    if verbose and len(W.rank) > 0:
         lprint('#I '+str(len(cr1))+' left cells, mues: ')
         for s in W.rank:
             lprint('['+', '.join([repr(i) for i in allmues[s]])+'] ')
@@ -7549,7 +7544,7 @@ def klcellsun(W, weightL, v, verbose=False):
     cr1.sort(key=(lambda c:len(c.X)))
     return cr1
 
-#F klcells
+# F klcells
 
 
 def klcells(W,weightL, v, allcells=True, verbose=False):
@@ -7672,83 +7667,83 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
     compute the 15304 left cells and the corresponding W-graphs.
     """
     if type(weightL) == type([]):
-        poids=weightL
+        poids = weightL
     else:
-        poids=len(W.rank)*[weightL]
+        poids = len(W.rank)*[weightL]
     if any(i < 0 for i in poids):
         raise ValueError('all parameters must be non-negative')
-    if all(i==1 for i in poids):
-        if len(W.rank)==0:
-            nc=[[[]]]
-            cr1=[wgraph(W,poids,[[]],v,[[]],{},[],[()])]
-            creps=[()]
+    if all(i == 1 for i in poids):
+        if len(W.rank) == 0:
+            nc = [[[]]]
+            cr1 = [wgraph(W,poids,[[]],v,[[]],{},[],[()])]
+            creps = [()]
         else:
-            allmues=[]
-            J=list(W.rank)
-            if W.cartantype[0][0]=='E' and len(W.cartantype[0][1])==7:
+            allmues = []
+            J = list(W.rank)
+            if W.cartantype[0][0] == 'E' and len(W.cartantype[0][1]) == 7:
                 J.remove(0)
             else:
                 J.remove(len(W.rank)-1)
-            W1=reflectionsubgroup(W,J)
-            X1p=[W.coxelmtoword(x1) for x1 in redleftcosetreps(W,J)]
-            kk=klcells(W1,[poids[s] for s in J],v,verbose=False,allcells=False)
-            if verbose and len(W.rank)>0:
+            W1 = reflectionsubgroup(W,J)
+            X1p = [W.coxelmtoword(x1) for x1 in redleftcosetreps(W,J)]
+            kk = klcells(W1,[poids[s] for s in J],v,verbose=False,allcells=False)
+            if verbose and len(W.rank) > 0:
                 lprint('#I ')
             if verbose:
                 lprint('('+str(len(kk[0]))+':'+str(len(kk[1]))+') ')
-            nc,cr1,creps=[],[],[]
-            celms=set()
-            i,tot=0,0
-            while tot<W.order:
+            nc,cr1,creps = [],[],[]
+            celms = set()
+            i,tot = 0,0
+            while tot < W.order:
                 if verbose:
                     lprint('+')
-                pairs=[W.wordtoperm(ci[0]+ci[1]) for ci in cartesian(X1p,
+                pairs = [W.wordtoperm(ci[0]+ci[1]) for ci in cartesian(X1p,
                                       [[J[s] for s in w] for w in kk[1][i].X])]
-                if verbose and all(permmult(pa,pa)[:len(W.rank)]!=tuple(W.rank) or
+                if verbose and all(permmult(pa,pa)[:len(W.rank)] != tuple(W.rank) or
                                    pa[:len(W.rank)] in celms for pa in pairs):
                     lprint(str(0))
                 else:
-                    rk=relklpols(W,W1,kk[1][i].wgraphtoklmat(),1,v)
+                    rk = relklpols(W,W1,kk[1][i].wgraphtoklmat(),1,v)
                     for m in rk['mpols']:
-                        if m!=0 and not m in allmues:
+                        if m != 0 and m not in allmues:
                             allmues.append(m)
-                    if len(rk['perm'])>300:
-                        if len(rk['perm'])>1500:
-                            rht=[generalisedtau(W,p,maxd=3*len(W.rank))
+                    if len(rk['perm']) > 300:
+                        if len(rk['perm']) > 1500:
+                            rht = [generalisedtau(W,p,maxd=3*len(W.rank))
                                                 for p in rk['perm']]
                         else:
-                            rht=[tuple(W.rightdescentsetperm(p))
+                            rht = [tuple(W.rightdescentsetperm(p))
                                        for p in rk['perm']]
-                        srht=list(set(rht))
-                        ind1=wgraph(W,poids,rk,v)
+                        srht = list(set(rht))
+                        ind1 = wgraph(W,poids,rk,v)
                         if verbose:
                             lprint(str(len(srht))+'!')
-                        ind=[]
+                        ind = []
                         for rh in srht:
-                            l=list(filter(lambda x:rht[x]==rh,range(len(rht))))
-                            x1=[ind1.X[ih] for ih in l]
-                            x1r=[ind1.Xrep[ih] for ih in l]
-                            i1=[ind1.Isets[ih] for ih in l]
-                            m1={}
+                            l = list(filter(lambda x:rht[x] == rh,range(len(rht))))
+                            x1 = [ind1.X[ih] for ih in l]
+                            x1r = [ind1.Xrep[ih] for ih in l]
+                            i1 = [ind1.Isets[ih] for ih in l]
+                            m1 = {}
                             for kh in ind1.mmat:
                                 if kh[0] in l and kh[1] in l:
                                     m1[(l.index(kh[0]),l.index(kh[1]))
-                                        ]=ind1.mmat[kh]
+                                       ] = ind1.mmat[kh]
                             ind.extend(wgraph(ind1.W,ind1.weights,x1,ind1.var,i1,
                                                           m1,ind1.mpols,x1r).decompose())
                     else:
-                        ind=wgraph(W,poids,rk,v).decompose()
+                        ind = wgraph(W,poids,rk,v).decompose()
                     if verbose:
                         lprint(str(len(ind)))
                     for ii in ind:
-                        if tot<W.order and not any(xii in celms for xii in ii.Xrep):
+                        if tot < W.order and not any(xii in celms for xii in ii.Xrep):
                             creps.append(ii.Xrep[0])
                             cr1.append(ii)
                             for o in klstarorbitperm(W,ii.X):
-                                #g=wgraph(W,ii.weights,[W.permtoword(x) for x in o],ii.var,
+                                # g=wgraph(W,ii.weights,[W.permtoword(x) for x in o],ii.var,
                                 #                  ii.Isets,ii.mmat,ii.mpols,[x[:len(W.rank)]
                                 #                                     for x in o]).normalise()
-                                #nc.append(g)
+                                # nc.append(g)
                                 #for e in g.Xrep:  celms.add(e)
                                 if allcells:
                                     nc.append([W.permtoword(x) for x in o])
@@ -7756,21 +7751,21 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
                                     nc.append([W.permtoword(x) for x in o
                                                       if perminverse(x) in o])
                                 for e in o:
-                                    if permmult(e,e)[:len(W.rank)]==tuple(W.rank):
+                                    if permmult(e,e)[:len(W.rank)] == tuple(W.rank):
                                         celms.add(e[:len(W.rank)])
-                                tot+=len(o)
+                                tot += len(o)
                         if verbose:
                             lprint('.')
-                        if tot<W.order:
-                            ii0=klcellw0(W,ii)
+                        if tot < W.order:
+                            ii0 = klcellw0(W,ii)
                             if not any(xii0 in celms for xii0 in ii0.Xrep):
                                 creps.append(ii0.Xrep[0])
                                 cr1.append(ii0)
                                 for o in klstarorbitperm(W,ii0.X):
-                                    #g=wgraph(W,ii0.weights,[W.permtoword(x) for x in o],
+                                    # g=wgraph(W,ii0.weights,[W.permtoword(x) for x in o],
                                     #                 ii0.var,ii0.Isets,ii0.mmat,ii0.mpols,
                                     #                  [x[:len(W.rank)] for x in o]).normalise()
-                                    #nc.append(g)
+                                    # nc.append(g)
                                     #for e in g.Xrep:  celms.add(e)
                                     if allcells:
                                         nc.append([W.permtoword(x) for x in o])
@@ -7778,10 +7773,10 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
                                         nc.append([W.permtoword(x) for x in o
                                                           if perminverse(x) in o])
                                     for e in o:
-                                        if permmult(e,e)[:len(W.rank)]==tuple(W.rank):
+                                        if permmult(e,e)[:len(W.rank)] == tuple(W.rank):
                                             celms.add(e[:len(W.rank)])
-                                    tot+=len(o)
-                i+=1
+                                    tot += len(o)
+                i += 1
         if verbose:
             lprint('\n')
         if verbose and len(W.rank) > 0:
@@ -7789,17 +7784,17 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
             lprint(str(len(creps))+' non-equivalent), ')
             lprint('mues: '+','.join([str(i) for i in allmues])+'\n')
         #nc.sort(key=(lambda c:len(c)))
-        ct=chartable(W)
-        if allcells and len(nc)!=sum([ct['irreducibles'][i][0]
-                     for i in range(len(ct['a'])) if ct['a'][i]==ct['b'][i]]):
+        ct = chartable(W)
+        if allcells and len(nc) != sum([ct['irreducibles'][i][0]
+                     for i in range(len(ct['a'])) if ct['a'][i] == ct['b'][i]]):
             print("Mist!")
             return False
         cr1.sort(key=(lambda c:len(c.X)))
         return [nc,cr1]
     else:
         return klcellsun(W,weightL, v, verbose=False)
-        #k=klpolynomials(W,weightL,v)
-        #return [wgraph(W,poids,{'elms':[k['elms'][x] for x in c],
+        # k=klpolynomials(W,weightL,v)
+        # return [wgraph(W,poids,{'elms':[k['elms'][x] for x in c],
         #          'mpols':k['mpols'],'klpols':k['klpols'],
         #           'klmat':[[k['klmat'][c[w]][c[y]] for y in range(w+1)]
         #             for w in range(len(c))]},v) for c in k['lcells']]
@@ -7813,7 +7808,7 @@ def zeroterm(p):
     return p.coeffs[0]
 
 
-#F leadingcoefficients
+# F leadingcoefficients
 def leadingcoefficients(W,weightL,lw,clpols=[]):
     """returns  the  leading coefficients  (as  defined by  Lusztig)  of the
     character values of the generic Iwahori-Hecke algebra associated with
@@ -7852,31 +7847,31 @@ def leadingcoefficients(W,weightL,lw,clpols=[]):
 
     See also 'leftcellleadingcoeffs'.
     """
-    v=lpol([1],1,'v')
+    v = lpol([1],1,'v')
     if type(weightL) == type(0):
-        poids=len(W.rank)*[weightL]
+        poids = len(W.rank)*[weightL]
     else:
-        poids=weightL[:]
-    ti=heckechartable(W,[v**i for i in poids])['irreducibles']
-    ainv=ainvariants(W,poids)
-    maxl=max(len(w) for w in lw)
-    if clpols==[]:
-        cpmat=allclasspolynomials(W,[v**(2*p) for p in poids],maxl)
+        poids = weightL[:]
+    ti = heckechartable(W,[v**i for i in poids])['irreducibles']
+    ainv = ainvariants(W,poids)
+    maxl = max(len(w) for w in lw)
+    if clpols == []:
+        cpmat = allclasspolynomials(W,[v**(2*p) for p in poids],maxl)
     else:
-        cpmat=clpols
-    lc=[]
+        cpmat = clpols
+    lc = []
     for w in lw:
-        cind=0
+        cind = 0
         for i in w:
-            cind+=poids[i]
-        cp=cpmat[W.wordtocoxelm(w)]
-        #lc.append([zeroterm((-1)**len(w)*v**(ainv[i]-cind)*sum(cp[j]*ti[i][j]
+            cind += poids[i]
+        cp = cpmat[W.wordtocoxelm(w)]
+        # lc.append([zeroterm((-1)**len(w)*v**(ainv[i]-cind)*sum(cp[j]*ti[i][j]
         #        for j in range(len(ainv)))) for i in range(len(ainv))])
         lc.append([zeroterm(v**(ainv[i]-cind)*sum(cp[j]*ti[i][j]
                 for j in range(len(ainv)))) for i in range(len(ainv))])
     return lc
 
-#F leftcellleadingcoeffs
+# F leftcellleadingcoeffs
 
 
 def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
@@ -7984,66 +7979,66 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
     'allcellsleadingcoeffs' and 'distinguishedinvolutions'.
     """
     if type(weightL) == type(0):
-        poids=len(W.rank)*[weightL]
+        poids = len(W.rank)*[weightL]
     else:
-        poids=weightL[:]
-    ch=chartable(W,chars=False)['charnames']
-    fshi=[s.coeffs[0] for s in schurelms(W,[v**p for p in poids])]
-    pcell=[W.wordtoperm(w) for w in cell]
-    lw=[cell[i] for i in range(len(cell)) if perminverse(pcell[i]) in pcell]
-    if clpols==[]:
-        cpmat=allclasspolynomials(W,[v**(2*p) for p in poids],
+        poids = weightL[:]
+    ch = chartable(W,chars=False)['charnames']
+    fshi = [s.coeffs[0] for s in schurelms(W,[v**p for p in poids])]
+    pcell = [W.wordtoperm(w) for w in cell]
+    lw = [cell[i] for i in range(len(cell)) if perminverse(pcell[i]) in pcell]
+    if clpols == []:
+        cpmat = allclasspolynomials(W,[v**(2*p) for p in poids],
                                          max([len(w) for w in lw]))
     else:
-        cpmat=clpols
-    lc=transposemat(leadingcoefficients(W,weightL,lw,cpmat))
-    ii=list(filter(lambda i:any(x!=0 for x in lc[i]),range(len(fshi))))
-    ftot=1
+        cpmat = clpols
+    lc = transposemat(leadingcoefficients(W,weightL,lw,cpmat))
+    ii = list(filter(lambda i:any(x != 0 for x in lc[i]),range(len(fshi))))
+    ftot = 1
     for i in ii:
-        ftot*=fshi[i]
-    cof=[]
+        ftot *= fshi[i]
+    cof = []
     for i in ii:
-        cf=1
+        cf = 1
         for j in ii:
-            if i!=j:
-                cf*=fshi[j]
+            if i != j:
+                cf *= fshi[j]
         cof.append(cf)
-    nd=[(-1)**len(lw[w])*sum(cof[i]*lc[ii[i]][w]
+    nd = [(-1)**len(lw[w])*sum(cof[i]*lc[ii[i]][w]
                for i in range(len(ii)))//ftot for w in range(len(lw))]
-    #nd1=[(-1)**len(lw[w])*sum((W.order*lc[i][w])//fshi[i]
+    # nd1=[(-1)**len(lw[w])*sum((W.order*lc[i][w])//fshi[i]
     #       for i in range(len(fshi)))//W.order for w in range(len(lw))]
-    #if nd1!=nd:
+    # if nd1!=nd:
     #  print('mist!')
     #  return False
-    if nd.count(0)!=len(nd)-1:
+    if nd.count(0) != len(nd)-1:
         print("no distinguished involution!")
         return nd
-    i=0
-    while nd[i]==0:
-        i+=1
-    di=i
-    if nd[di]**2!=1:
+    i = 0
+    while nd[i] == 0:
+        i += 1
+    di = i
+    if nd[di]**2 != 1:
         print("no distinguished involution!!")
         return [di,nd,nd[di]**2]
-    if nd[di]==-1:
-        lc=[[-i for i in l] for l in lc]
-    if len(lw[di]) %2==1:
-        lc1=[[-i for i in l] for l in lc]
+    if nd[di] == -1:
+        lc = [[-i for i in l] for l in lc]
+    if len(lw[di]) % 2 == 1:
+        lc1 = [[-i for i in l] for l in lc]
     else:
-        lc1=lc
-    lc=[[(-1)**len(lw[i])*l[i] for i in range(len(lw))] for l in lc]
-    if not all(l[di]>=0 for l in lc):
+        lc1 = lc
+    lc = [[(-1)**len(lw[i])*l[i] for i in range(len(lw))] for l in lc]
+    if not all(l[di] >= 0 for l in lc):
         print('identity not OK for NEW normalisation')
-    if not all(l[di]>=0 for l in lc1):
+    if not all(l[di] >= 0 for l in lc1):
         print('identity not OK for OLD normalisation')
-    #if set([(len(x)-len(lw[di]))%2 for x in lw])!=set([0]):
+    # if set([(len(x)-len(lw[di]))%2 for x in lw])!=set([0]):
     #  lprint('#W odd lengths ')
-    sp=0
-    while sp<len(ii) and not all(x>0 for x in lc[ii[sp]]):
-        sp+=1
-    if sp==len(ii):
+    sp = 0
+    while sp < len(ii) and not all(x > 0 for x in lc[ii[sp]]):
+        sp += 1
+    if sp == len(ii):
         print('no special character!')
-    chi=[]
+    chi = []
     for i in range(len(fshi)):
         if i in ii:
             chi.append(lc[i][di])
@@ -8056,7 +8051,8 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
         return {'ti':[[ch[i],lc1[i]] for i in ii],'distinv':lw[di],
                 'nd':nd[di],'elms':lw,'special':ch[ii[sp]],'char':chi}
 
-#F poltostr
+
+# F poltostr
 def poltostr(f):
     if isinstance(f, int):
         return '0.' + str(f)
@@ -8064,14 +8060,14 @@ def poltostr(f):
         return '0.0'
     return str(f.val) + '.' + '.'.join(str(i) for i in f.coeffs)
 
-#F strtopol
+
+# F strtopol
 def strtopol(sp, vnam):
     spl = sp.split('.')
     return lpol([int(i) for i in spl[1:]], val=int(spl[0]), vname=vnam)
 
-#F distinguishedinvolutions
 
-
+# F distinguishedinvolutions
 def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
     """returns the list of distinguished involutions with respect to a
     weight function, plus some additional information (as explained
@@ -8145,225 +8141,225 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
     yields the complete table of all leading coefficients c_{w,E}.
     """
     if type(weightL) == type(0):
-        poids=len(W.rank)*[weightL]
+        poids = len(W.rank)*[weightL]
     else:
-        poids=weightL[:]
-    v=lpol([1],1,'v')
-    poin=poincarepol(W,v).coeffs
-    w0=longestperm(W)
-    ct=chartable(W)
-    lcl=[len(w) for w in conjugacyclasses(W)['reps']]
-    vs=[v**p for p in poids]
-    ti=heckechartable(W,vs)['irreducibles']
-    schur=schurelms(W,vs)
-    fshi=[s.coeffs[0] for s in schur]
-    ainv=[-s.val//2 for s in schur]
-    tup=[[i,ainv[i]] for i in range(len(ainv))]
+        poids = weightL[:]
+    v = lpol([1],1,'v')
+    poin = poincarepol(W,v).coeffs
+    w0 = longestperm(W)
+    ct = chartable(W)
+    lcl = [len(w) for w in conjugacyclasses(W)['reps']]
+    vs = [v**p for p in poids]
+    ti = heckechartable(W,vs)['irreducibles']
+    schur = schurelms(W,vs)
+    fshi = [s.coeffs[0] for s in schur]
+    ainv = [-s.val//2 for s in schur]
+    tup = [[i,ainv[i]] for i in range(len(ainv))]
     tup.sort(key=(lambda i:i[1]),reverse=True)
-    ti=[ti[tup[i][0]] for i in range(len(ainv))]
-    fshi=[fshi[tup[i][0]] for i in range(len(ainv))]
-    ainv=[ainv[tup[i][0]] for i in range(len(ainv))]
-    chn=[ct['charnames'][tup[i][0]] for i in range(len(ainv))]
-    ti1=[ct['irreducibles'][tup[i][0]] for i in range(len(ainv))]
-    signchar=[(-1)**lw for lw in lcl]
-    signp=[ti1.index([l[j]*signchar[j] for j in range(len(lcl))]) for l in ti1]
-    maxl=W.N
+    ti = [ti[tup[i][0]] for i in range(len(ainv))]
+    fshi = [fshi[tup[i][0]] for i in range(len(ainv))]
+    ainv = [ainv[tup[i][0]] for i in range(len(ainv))]
+    chn = [ct['charnames'][tup[i][0]] for i in range(len(ainv))]
+    ti1 = [ct['irreducibles'][tup[i][0]] for i in range(len(ainv))]
+    signchar = [(-1)**lw for lw in lcl]
+    signp = [ti1.index([l[j]*signchar[j] for j in range(len(lcl))]) for l in ti1]
+    maxl = W.N
     if W.N in lcl:
-        iw0=lcl.index(W.N)
-        eps=[x[iw0]//x[0] for x in ct['irreducibles']]
-        eps=[eps[tup[i][0]] for i in range(len(ainv))]
-        maxl=W.N//2
-    distinv,nvec=[[]],[1]
-    lc=[zeroterm(v**(ainv[i])*ti[i][0]) for i in range(len(ainv))]
-    char=[]
+        iw0 = lcl.index(W.N)
+        eps = [x[iw0]//x[0] for x in ct['irreducibles']]
+        eps = [eps[tup[i][0]] for i in range(len(ainv))]
+        maxl = W.N//2
+    distinv,nvec = [[]],[1]
+    lc = [zeroterm(v**(ainv[i])*ti[i][0]) for i in range(len(ainv))]
+    char = []
     for i in range(len(ainv)):
-        if lc[i]!=0:
+        if lc[i] != 0:
             char.append([chn[i],lc[i]])
-        #if lc[i]>0:
+        # if lc[i]>0:
         #  char.append([chn[i],lc[i]])
-        #elif lc[i]<0:
+        # elif lc[i]<0:
         #  char.append([chn[i],-lc[i]])
-    charvec=[char[::-1]]
-    if maxl==W.N or all(p==0 for p in poids):
-        distinv0,nvec0,charvec0=[],[],[]
+    charvec = [char[::-1]]
+    if maxl == W.N or all(p == 0 for p in poids):
+        distinv0,nvec0,charvec0 = [],[],[]
     else:
-        distinv0,nvec0=[W.permtoword(w0)],[1]
-        Lw0=ainv[ti1.index(signchar)]
-        lc0=[zeroterm(v**(ainv[i]-Lw0)*ti[i][iw0]) for i in range(len(ainv))]
-        char0=[]
+        distinv0,nvec0 = [W.permtoword(w0)],[1]
+        Lw0 = ainv[ti1.index(signchar)]
+        lc0 = [zeroterm(v**(ainv[i]-Lw0)*ti[i][iw0]) for i in range(len(ainv))]
+        char0 = []
         for i in range(len(ainv)):
-            if lc0[i]!=0:
+            if lc0[i] != 0:
                 char0.append([chn[i],lc0[i]])
-            #if lc0[i]>0:
+            # if lc0[i]>0:
             #  char0.append([chn[i],lc0[i]])
-            #elif lc0[i]<0:
+            # elif lc0[i]<0:
             #  char0.append([chn[i],-lc0[i]])
-        charvec0=[char0[::-1]]
-    cpmat=[]
-    cp=len(ainv)*[0]
-    cp[0]=1
+        charvec0 = [char0[::-1]]
+    cpmat = []
+    cp = len(ainv)*[0]
+    cp[0] = 1
     cpmat.append({bytes(W.rank):';'.join([poltostr(f) for f in cp])})
-    cps={}
-    nega=False
-    zael=0
+    cps = {}
+    nega = False
+    zael = 0
     if verbose:
         lprint('#I length  0 - 1 element, 1 class polynomial; 1 distinv\n')
     for l in range(maxl):
         if verbose:
-            if l<9:
+            if l < 9:
                 lprint('#I length  '+str(l+1))
             else:
                 lprint('#I length '+str(l+1))
-        nl=set([])
-        if l==0:
-            ol=[]
+        nl = set([])
+        if l == 0:
+            ol = []
         else:
-            ol=set(cpmat[l-1])
+            ol = set(cpmat[l-1])
         for w in cpmat[l]:
             for s in W.permgens:
-                nw=bytes([s[i] for i in w])
-                if not nw in ol:
+                nw = bytes([s[i] for i in w])
+                if nw not in ol:
                     nl.add(nw)
-            if len(nl)==poin[l+1]:
+            if len(nl) == poin[l+1]:
                 break
-        cps={}
+        cps = {}
         if verbose:
             lprint(' - ')
-        ll=len(nl)
-        spols=[]
-        while nl!=set([]):
-            w=W.coxelmtoword(next(iter(nl)))
-            pw=W.wordtoperm(w)
-            pw1=perminverse(pw)
-            t=testcyclicshift1(W,w,pw)
-            if t[0]==1:
-                cp=len(ainv)*[0]
-                cp[t[2]]=1
+        ll = len(nl)
+        spols = []
+        while nl:
+            w = W.coxelmtoword(next(iter(nl)))
+            pw = W.wordtoperm(w)
+            pw1 = perminverse(pw)
+            t = testcyclicshift1(W,w,pw)
+            if t[0] == 1:
+                cp = len(ainv)*[0]
+                cp[t[2]] = 1
             else:
-                cp1=[strtopol(f,'v')
+                cp1 = [strtopol(f,'v')
                               for f in cpmat[l-1][bytes(t[2])].split(';')]
-                cp2=[strtopol(f,'v') for f in cpmat[l][bytes([W.permgens[t[3]][i]
+                cp2 = [strtopol(f,'v') for f in cpmat[l][bytes([W.permgens[t[3]][i]
                                                         for i in t[2]])].split(';')]
-                if poids[t[3]]==1:
-                    cp=[v*cp1[i]+(v-1)*cp2[i] for i in range(len(ainv))]
+                if poids[t[3]] == 1:
+                    cp = [v*cp1[i]+(v-1)*cp2[i] for i in range(len(ainv))]
                 else:
-                    cp=[v**(poids[t[3]])*cp1[i]+(v**(poids[t[3]])-1)*cp2[i]
+                    cp = [v**(poids[t[3]])*cp1[i]+(v**(poids[t[3]])-1)*cp2[i]
                                                      for i in range(len(ainv))]
-            strcp=';'.join([poltostr(f) for f in cp])
-            ic=len(spols)-1
-            while ic>=0:
-                if strcp==spols[ic]:
+            strcp = ';'.join(poltostr(f) for f in cp)
+            ic = len(spols)-1
+            while ic >= 0:
+                if strcp == spols[ic]:
                     break
-                ic-=1
-            if ic==-1:
+                ic -= 1
+            if ic == -1:
                 spols.append(strcp)
             for x in t[1]:
-                cx=x[:len(W.rank)]
-                cps[bytes(cx)]=spols[ic]
+                cx = x[:len(W.rank)]
+                cps[bytes(cx)] = spols[ic]
                 nl.remove(bytes(cx))
-            if not pw1 in t[1]:
+            if pw1 not in t[1]:
                 for x in t[1]:
-                    cx=perminverse(x)[:len(W.rank)]
-                    cps[bytes(cx)]=spols[ic]
+                    cx = perminverse(x)[:len(W.rank)]
+                    cps[bytes(cx)] = spols[ic]
                     nl.remove(bytes(cx))
-            if len(t[1])==1 and (any(p!=1 for p in poids) or W.permorder(pw)==2
-                                or generalisedtau(W,pw,maxd=len(W.rank)**2)==
+            if len(t[1]) == 1 and (any(p != 1 for p in poids) or W.permorder(pw) == 2
+                                or generalisedtau(W,pw,maxd=len(W.rank)**2) ==
                                       generalisedtau(W,pw1,maxd=len(W.rank)**2)):
-                zael+=1
-                cpv=[]
+                zael += 1
+                cpv = []
                 for j in range(len(ainv)):
                     if type(cp[j]) == type(0):
                         cpv.append(cp[j])
-                    elif cp[j].coeffs==[]:
+                    elif cp[j].coeffs == []:
                         cpv.append(0)
                     else:
                         cpv.append(cp[j].value(v**2))
-                cind=0
+                cind = 0
                 for i in w:
-                    cind+=poids[i]
-                lc=[]
-                nonz=-1
+                    cind += poids[i]
+                lc = []
+                nonz = -1
                 for i in range(len(ainv)):
-                    if ainv[i]>cind or (nonz!=-1 and nonz!=ainv[i]):
-                        lcc=0
+                    if ainv[i] > cind or (nonz != -1 and nonz != ainv[i]):
+                        lcc = 0
                     else:
-                        lcc=zeroterm(v**(ainv[i]-cind)*sum(cpv[j]*ti[i][j]
-                                          for j in range(len(ainv)) if cpv[j]!=0))
-                        if nonz==-1 and lcc!=0:
-                            nonz=ainv[i]
+                        lcc = zeroterm(v**(ainv[i]-cind)*sum(cpv[j]*ti[i][j]
+                                          for j in range(len(ainv)) if cpv[j] != 0))
+                        if nonz == -1 and lcc != 0:
+                            nonz = ainv[i]
                     lc.append(lcc)
-                ii=[i for i in range(len(ainv)) if lc[i]!=0]
-                if ii!=[]:
-                    ftot=1
+                ii = [i for i in range(len(ainv)) if lc[i] != 0]
+                if ii != []:
+                    ftot = 1
                     for i in ii:
-                        ftot*=fshi[i]
-                    cof=[]
+                        ftot *= fshi[i]
+                    cof = []
                     for i in ii:
-                        cf=1
+                        cf = 1
                         for j in ii:
-                            if i!=j:
-                                cf*=fshi[j]
+                            if i != j:
+                                cf *= fshi[j]
                         cof.append(cf)
-                    nd=(-1)**len(w)*sum(cof[i]*lc[ii[i]]
+                    nd = (-1)**len(w)*sum(cof[i]*lc[ii[i]]
                         for i in range(len(ii)))
-                    if nd %ftot==0:
-                        nd=nd//ftot
+                    if nd % ftot == 0:
+                        nd = nd//ftot
                     else:
                         print("Mist!")
                         return False
-                    if nd!=0 or distonly is not True:
+                    if nd != 0 or distonly is not True:
                         distinv.append(w)
                         nvec.append(nd)
-                        char=[]
+                        char = []
                         for i in range(len(ainv)):
-                            if lc[i]!=0:
+                            if lc[i] != 0:
                                 char.append([chn[i],lc[i]])
-                            #if lc[i]>0:
+                            # if lc[i]>0:
                             #  char.append([chn[i],lc[i]])
-                            #elif lc[i]<0:
+                            # elif lc[i]<0:
                             #  char.append([chn[i],-lc[i]])
                         charvec.append(char[::-1])
-                        if nega is False and nd!=1:
+                        if nega is False and nd != 1:
                             nega = True
-                    if maxl==W.N//2 and (W.N %2==1 or l<maxl-1):
-                        nd=sum(eps[ii[i]]*cof[i]*lc[ii[i]]
+                    if maxl == W.N//2 and (W.N % 2 == 1 or l < maxl-1):
+                        nd = sum(eps[ii[i]]*cof[i]*lc[ii[i]]
                                for i in range(len(ii)))
-                        if nd %ftot==0:
-                            nd=nd//ftot
+                        if nd % ftot == 0:
+                            nd = nd//ftot
                         else:
                             print("Mist!")
                             return False
-                        if nd!=0 or distonly is not True:
+                        if nd != 0 or distonly is not True:
                             distinv0.append(W.permtoword([w0[i] for i in pw]))
                             nvec0.append(nd)
-                            char0=[]
+                            char0 = []
                             for i in range(len(ainv)):
-                                if lc[i]!=0:
+                                if lc[i] != 0:
                                     char0.append(
                                         [signp[i],(-1)**(W.N+len(w))*eps[i]*lc[i]])
-                                #if lc[i]>0:
+                                # if lc[i]>0:
                                 #  char0.append([signp[i],lc[i]])
-                                #elif lc[i]<0:
+                                # elif lc[i]<0:
                                 #  char0.append([signp[i],-lc[i]])
                             char0.sort(key=(lambda i:i[0]),reverse=True)
                             charvec0.append([[chn[i[0]],i[1]] for i in char0])
-                            if nega is False and nd!=1:
+                            if nega is False and nd != 1:
                                 nega = True
         if verbose:
             lprint(str(ll)+' elements, '+str(len(spols))+' class polynomials; ')
             lprint(str(len(distinv)+len(distinv0))+' distinvs\n')
-        if l>0:
-            cpmat[l-1]=0
+        if l > 0:
+            cpmat[l-1] = 0
         cpmat.append(cps)
-    distinv=distinv+distinv0[::-1]
-    nvec=nvec+nvec0[::-1]
-    charvec=charvec+charvec0[::-1]
-    #d1=distinguishedinvolutions(W,poids)
-    #d1=libdistinv(W,poids)
-    #if not (len(distinv)==len(d1) and all(i in d1 for i in distinv)):
+    distinv = distinv+distinv0[::-1]
+    nvec = nvec+nvec0[::-1]
+    charvec = charvec+charvec0[::-1]
+    # d1=distinguishedinvolutions(W,poids)
+    # d1=libdistinv(W,poids)
+    # if not (len(distinv)==len(d1) and all(i in d1 for i in distinv)):
     #  print("Mist!")
     #  return [distinv,d1]
-    #else:
+    # else:
     #  lprint('True')
     if verbose:
         lprint('#I Number of distinguished involutions = '+str(len(distinv)))
@@ -8371,7 +8367,7 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
     return [distinv, charvec, nvec] if nega else [distinv, charvec]
 
 
-#F starorbitinv (for use in distinguishedinvolutions_eq and libdistinv)
+# F starorbitinv (for use in distinguishedinvolutions_eq and libdistinv)
 def starorbitinv(W,pw,lcell=[]):
     """returns the orbit  of a  distinguished involution  (among others,
     for use in 'libdistinv' and in 'cellrepstarorbit') under  N. Xi's
@@ -8389,31 +8385,31 @@ def starorbitinv(W,pw,lcell=[]):
     of this list (see 'klstarorbit') is also returned  (with elements
     represented as 'coxelms').
     """
-    orb=[pw[:]]
-    orb1=set([pw[:len(W.rank)]])
-    if lcell!=[]:
-        if type(lcell[0]) == type(W.permgens[0]) and len(lcell[0])==len(W.rank):
-            ncell=[[bytes(W.coxelmtoperm(x)) for x in lcell]]
-        elif type(lcell[0]) == type(W.permgens[0]) and len(lcell[0])==2*W.N:
-            ncell=[[bytes(x) for x in lcell]]
+    orb = [pw[:]]
+    orb1 = set([pw[:len(W.rank)]])
+    if lcell != []:
+        if type(lcell[0]) == type(W.permgens[0]) and len(lcell[0]) == len(W.rank):
+            ncell = [[bytes(W.coxelmtoperm(x)) for x in lcell]]
+        elif type(lcell[0]) == type(W.permgens[0]) and len(lcell[0]) == 2*W.N:
+            ncell = [[bytes(x) for x in lcell]]
         else:
-            ncell=[[bytes(W.wordtoperm(x)) for x in lcell]]
+            ncell = [[bytes(W.wordtoperm(x)) for x in lcell]]
     for d in orb:
         for s in W.rank:
             for t in range(s):
-                if W.coxetermat[s][t]==3:
-                    if (d[s]>=W.N and d[t]<W.N) or (d[s]<W.N and d[t]>=W.N):
-                        d1=leftklstar(W,perminverse(leftklstar(W,d,s,t)),s,t)
+                if W.coxetermat[s][t] == 3:
+                    if (d[s] >= W.N and d[t] < W.N) or (d[s] < W.N and d[t] >= W.N):
+                        d1 = leftklstar(W,perminverse(leftklstar(W,d,s,t)),s,t)
                         if not d1[:len(W.rank)] in orb1:
                             orb.append(d1)
                             orb1.add(d1[:len(W.rank)])
-                            if lcell!=[]:
+                            if lcell != []:
                                 ncell.append([bytes(x)
                                       for x in klstaroperation(W,s,t,ncell[orb.index(d)])])
-                            #if W.permorder(d1)!=2:
+                            # if W.permorder(d1)!=2:
                             #  print("Mist!")
                             #  return False
-    if lcell==[]:
+    if lcell == []:
         return orb
     else:
         return [orb,[[tuple(x[:len(W.rank)]) for x in l] for l in ncell]]
@@ -8423,19 +8419,19 @@ def starorbitinv1(W,distinv):
     """decomposes list of distinguished involutions into orbits
     under the star operation.
     """
-    rest=[W.wordtoperm(w) for w in distinv]
-    reps=[]
-    while rest!=[]:
-        orb=starorbitinv(W,rest[0])
+    rest = [W.wordtoperm(w) for w in distinv]
+    reps = []
+    while rest != []:
+        orb = starorbitinv(W,rest[0])
         for x in orb:
             rest.remove(x)
-        l=W.permlength(orb[0])
-        r=orb[0]
+        l = W.permlength(orb[0])
+        r = orb[0]
         for x in orb[1:]:
-            lx=W.permlength(x)
-            if lx<l:
-                l=lx
-                r=x
+            lx = W.permlength(x)
+            if lx < l:
+                l = lx
+                r = x
         reps.append([l,r])
         reps.sort(key=(lambda i: i[0]))
     return [i[1] for i in reps]
@@ -8445,23 +8441,23 @@ def starorbitinv2(W):
     """decomposes the list of involutions into orbits under the
     star operation.
     """
-    rest=involutions(W)
-    reps=[]
-    while rest!=[]:
-        orb=starorbitinv(W,rest[0])
+    rest = involutions(W)
+    reps = []
+    while rest != []:
+        orb = starorbitinv(W,rest[0])
         for x in orb:
             rest.remove(x)
-        l=[W.permlength(x) for x in orb]
-        lmin,lmax=min(l),max(l)
-        if lmin<=W.N-lmax:
-            r=l.index(lmin)
+        l = [W.permlength(x) for x in orb]
+        lmin,lmax = min(l),max(l)
+        if lmin <= W.N-lmax:
+            r = l.index(lmin)
         else:
-            r=l.index(lmax)
+            r = l.index(lmax)
         reps.append([orb[r],l[r]])
     reps.sort(key=(lambda i: i[1]))
     return [i[0] for i in reps]
 
-#F distinguishedinvolutions_eq
+# F distinguishedinvolutions_eq
 
 
 def distinguishedinvolutions_eq(W, verbose=False):
@@ -8475,222 +8471,222 @@ def distinguishedinvolutions_eq(W, verbose=False):
 
     See also 'distinguishedinvolutions' and 'libdistinv'.
     """
-    v=lpol([1],1,'v')
-    ct=chartable(W)
-    w0=longestperm(W)
-    poin=poincarepol(W,v).coeffs
-    lcl=[len(w) for w in conjugacyclasses(W)['reps']]
-    maxn=sum([ct['irreducibles'][i][0] for i in range(len(ct['a']))
-                                             if ct['a'][i]==ct['b'][i]])
-    rest=involutions(W)
-    repsinv=[]
-    if any(f %2==1 for f in W.degrees):
+    v = lpol([1],1,'v')
+    ct = chartable(W)
+    w0 = longestperm(W)
+    poin = poincarepol(W,v).coeffs
+    lcl = [len(w) for w in conjugacyclasses(W)['reps']]
+    maxn = sum([ct['irreducibles'][i][0] for i in range(len(ct['a']))
+                                             if ct['a'][i] == ct['b'][i]])
+    rest = involutions(W)
+    repsinv = []
+    if any(f % 2 == 1 for f in W.degrees):
         while rest:
-            pw=rest[0]
-            orb=starorbitinv(W,pw)
+            pw = rest[0]
+            orb = starorbitinv(W,pw)
             for x in orb:
                 rest.remove(x)
-            l=[W.permlength(x) for x in orb]
-            l1=min(l)
+            l = [W.permlength(x) for x in orb]
+            l1 = min(l)
             repsinv.append(orb[l.index(l1)])
     else:
         while rest:
-            pw=rest[0]
-            orb=starorbitinv(W,pw)
+            pw = rest[0]
+            orb = starorbitinv(W,pw)
             for x in orb:
                 rest.remove(x)
-            l=[W.permlength(x) for x in orb]
-            l1=min(l)
-            l2=max(l)
-            if l1<=W.N-l2:
+            l = [W.permlength(x) for x in orb]
+            l1 = min(l)
+            l2 = max(l)
+            if l1 <= W.N-l2:
                 repsinv.append(orb[l.index(l1)])
             else:
                 repsinv.append(permmult(orb[l.index(l2)],w0))
     repsinv.sort(key=(lambda x: W.permlength(x)))
-    maxl=W.permlength(repsinv[-1])
+    maxl = W.permlength(repsinv[-1])
     if verbose:
         lprint('#I maximum length: '+str(maxl)+',')
         lprint(' number of left cells: '+str(maxn)+'\n')
-    ti=heckechartable(W,v)['irreducibles']
-    schur=schurelms(W,v)
-    fshi=[s.coeffs[0] for s in schur]
-    ainv=[-s.val//2 for s in schur]
-    tup=[[i,ainv[i]] for i in range(len(ainv))]
+    ti = heckechartable(W,v)['irreducibles']
+    schur = schurelms(W,v)
+    fshi = [s.coeffs[0] for s in schur]
+    ainv = [-s.val//2 for s in schur]
+    tup = [[i,ainv[i]] for i in range(len(ainv))]
     tup.sort(key=(lambda i:i[1]),reverse=True)
-    ti=[ti[tup[i][0]] for i in range(len(ainv))]
-    fshi=[fshi[tup[i][0]] for i in range(len(ainv))]
-    ainv=[ainv[tup[i][0]] for i in range(len(ainv))]
-    chn=[ct['charnames'][tup[i][0]] for i in range(len(ainv))]
-    ti1=[ct['irreducibles'][tup[i][0]] for i in range(len(ainv))]
-    signchar=[(-1)**lw for lw in lcl]
-    signp=[ti1.index([l[j]*signchar[j] for j in range(len(lcl))]) for l in ti1]
+    ti = [ti[tup[i][0]] for i in range(len(ainv))]
+    fshi = [fshi[tup[i][0]] for i in range(len(ainv))]
+    ainv = [ainv[tup[i][0]] for i in range(len(ainv))]
+    chn = [ct['charnames'][tup[i][0]] for i in range(len(ainv))]
+    ti1 = [ct['irreducibles'][tup[i][0]] for i in range(len(ainv))]
+    signchar = [(-1)**lw for lw in lcl]
+    signp = [ti1.index([l[j]*signchar[j] for j in range(len(lcl))]) for l in ti1]
     if W.N in lcl:
-        iw0=lcl.index(W.N)
-        eps=[x[iw0]//x[0] for x in chartable(W)['irreducibles']]
-        eps=[eps[tup[i][0]] for i in range(len(ainv))]
-    distinv=[list(range(2*W.N)),w0]
-    charvec=[[[chn[ti1.index(len(ainv)*[1])],1]],
+        iw0 = lcl.index(W.N)
+        eps = [x[iw0]//x[0] for x in chartable(W)['irreducibles']]
+        eps = [eps[tup[i][0]] for i in range(len(ainv))]
+    distinv = [list(range(2*W.N)),w0]
+    charvec = [[[chn[ti1.index(len(ainv)*[1])],1]],
              [[chn[ti1.index(signchar)],(-1)**W.N]]]
-    cpmat=[]
-    cp=len(ainv)*[0]
-    cp[0]=1
+    cpmat = []
+    cp = len(ainv)*[0]
+    cp[0] = 1
     cpmat.append({bytes(W.rank):';'.join([poltostr(f) for f in cp])})
-    cps={}
+    cps = {}
     if verbose:
         lprint('#I length  0 - 1 element, 1 class polynomial; 1 distinv\n')
     for l in range(maxl):
         if verbose:
-            if l<9:
+            if l < 9:
                 lprint('#I length  '+str(l+1))
             else:
                 lprint('#I length '+str(l+1))
-        nl=set([])
-        if l==0:
-            ol=[]
+        nl = set([])
+        if l == 0:
+            ol = []
         else:
-            ol=set(cpmat[l-1])
+            ol = set(cpmat[l-1])
         for w in cpmat[l]:
             for s in W.permgens:
-                nw=bytes([s[i] for i in w])
-                if not nw in ol:
+                nw = bytes([s[i] for i in w])
+                if nw not in ol:
                     nl.add(nw)
-            if len(nl)==poin[l+1]:
+            if len(nl) == poin[l+1]:
                 break
-        cps={}
+        cps = {}
         if verbose:
             lprint(' - ')
-        ll=len(nl)
-        spols=[]
-        while nl!=set([]):
-            w=W.coxelmtoword(next(iter(nl)))
-            pw=W.wordtoperm(w)
-            pw1=perminverse(pw)
-            t=testcyclicshift1(W,w,pw)
-            if t[0]==1:
-                cp=len(ainv)*[0]
-                cp[t[2]]=1
+        ll = len(nl)
+        spols = []
+        while nl:
+            w = W.coxelmtoword(next(iter(nl)))
+            pw = W.wordtoperm(w)
+            pw1 = perminverse(pw)
+            t = testcyclicshift1(W,w,pw)
+            if t[0] == 1:
+                cp = len(ainv)*[0]
+                cp[t[2]] = 1
             else:
-                cp1=[strtopol(f,'v')
+                cp1 = [strtopol(f,'v')
                               for f in cpmat[l-1][bytes(t[2])].split(';')]
-                cp2=[strtopol(f,'v') for f in cpmat[l][bytes([W.permgens[t[3]][i]
+                cp2 = [strtopol(f,'v') for f in cpmat[l][bytes([W.permgens[t[3]][i]
                                                         for i in t[2]])].split(';')]
-                cp=[v*cp1[i]+(v-1)*cp2[i] for i in range(len(ainv))]
-            strcp=';'.join([poltostr(f) for f in cp])
-            ic=len(spols)-1
-            while ic>=0:
-                if strcp==spols[ic]:
+                cp = [v*cp1[i]+(v-1)*cp2[i] for i in range(len(ainv))]
+            strcp = ';'.join([poltostr(f) for f in cp])
+            ic = len(spols)-1
+            while ic >= 0:
+                if strcp == spols[ic]:
                     break
-                ic-=1
-            if ic==-1:
+                ic -= 1
+            if ic == -1:
                 spols.append(strcp)
             for x in t[1]:
-                cx=x[:len(W.rank)]
-                cps[bytes(cx)]=spols[ic]
+                cx = x[:len(W.rank)]
+                cps[bytes(cx)] = spols[ic]
                 nl.remove(bytes(cx))
-            if not pw1 in t[1]:
+            if pw1 not in t[1]:
                 for x in t[1]:
-                    cx=perminverse(x)[:len(W.rank)]
-                    cps[bytes(cx)]=spols[ic]
+                    cx = perminverse(x)[:len(W.rank)]
+                    cps[bytes(cx)] = spols[ic]
                     nl.remove(bytes(cx))
-            if W.permorder(pw)==2 and pw in repsinv and not pw in distinv:
-                cpv=[]
+            if W.permorder(pw) == 2 and pw in repsinv and pw not in distinv:
+                cpv = []
                 for j in range(len(ainv)):
                     if type(cp[j]) == type(0):
                         cpv.append(cp[j])
-                    elif cp[j].coeffs==[]:
+                    elif cp[j].coeffs == []:
                         cpv.append(0)
                     else:
                         cpv.append(cp[j].value(v**2))
-                lc=[]
-                nonz=-1
+                lc = []
+                nonz = -1
                 for i in range(len(ainv)):
-                    if ainv[i]>len(w) or (nonz!=-1 and nonz!=ainv[i]):
-                        lcc=0
+                    if ainv[i] > len(w) or (nonz != -1 and nonz != ainv[i]):
+                        lcc = 0
                     else:
-                        lcc=zeroterm(v**(ainv[i]-len(w))*sum(cpv[j]*ti[i][j]
-                                          for j in range(len(ainv)) if cpv[j]!=0))
-                        if nonz==-1 and lcc!=0:
-                            nonz=ainv[i]
+                        lcc = zeroterm(v**(ainv[i]-len(w))*sum(cpv[j]*ti[i][j]
+                                          for j in range(len(ainv)) if cpv[j] != 0))
+                        if nonz == -1 and lcc != 0:
+                            nonz = ainv[i]
                     lc.append(lcc)
-                ii=[i for i in range(len(ainv)) if lc[i]!=0]
-                ftot=1
+                ii = [i for i in range(len(ainv)) if lc[i] != 0]
+                ftot = 1
                 for i in ii:
-                    ftot*=fshi[i]
-                cof=[]
+                    ftot *= fshi[i]
+                cof = []
                 for i in ii:
-                    cf=1
+                    cf = 1
                     for j in ii:
-                        if i!=j:
-                            cf*=fshi[j]
+                        if i != j:
+                            cf *= fshi[j]
                     cof.append(cf)
-                nd=(-1)**len(w)*sum(cof[i]*lc[ii[i]] for i in range(len(ii)))
-                if nd %ftot==0:
-                    nd=nd//ftot
+                nd = (-1)**len(w)*sum(cof[i]*lc[ii[i]] for i in range(len(ii)))
+                if nd % ftot == 0:
+                    nd = nd//ftot
                 else:
                     print("Mist!")
                     return False
-                #nd=(-1)**len(w)*sum((W.order*lc[i])//fshi[i]
+                # nd=(-1)**len(w)*sum((W.order*lc[i])//fshi[i]
                 #                         for i in range(len(fshi)))//W.order
-                if nd!=0:
-                    sto=starorbitinv(W,pw)
+                if nd != 0:
+                    sto = starorbitinv(W,pw)
                     distinv.extend(sto)
-                    char=[]
+                    char = []
                     for i in range(len(ainv)):
-                        if lc[i]!=0:
+                        if lc[i] != 0:
                             char.append([chn[i],lc[i]])
-                        #if lc[i]>0:
+                        # if lc[i]>0:
                         #  char.append([chn[i],lc[i]])
-                        #elif lc[i]<0:
+                        # elif lc[i]<0:
                         #  char.append([chn[i],-lc[i]])
-                    char=char[::-1]
+                    char = char[::-1]
                     for i in sto:
                         charvec.append(char)
-                pw0=permmult(pw,w0)
-                if all(f %2==0 for f in W.degrees) and not pw0 in distinv:
-                    nd=sum(eps[ii[i]]*cof[i]*lc[ii[i]] for i in range(len(ii)))
-                    if nd %ftot==0:
-                        nd=nd//ftot
+                pw0 = permmult(pw,w0)
+                if all(f % 2 == 0 for f in W.degrees) and pw0 not in distinv:
+                    nd = sum(eps[ii[i]]*cof[i]*lc[ii[i]] for i in range(len(ii)))
+                    if nd % ftot == 0:
+                        nd = nd//ftot
                     else:
                         print("Mist!")
                         return False
-                    if nd!=0:
-                        sto0=starorbitinv(W,pw0)
+                    if nd != 0:
+                        sto0 = starorbitinv(W,pw0)
                         distinv.extend(sto0)
-                        char0=[]
+                        char0 = []
                         for i in range(len(ainv)):
-                            if lc[i]!=0:
+                            if lc[i] != 0:
                                 char0.append(
                                     [signp[i],(-1)**(W.N+len(w))*eps[i]*lc[i]])
-                            #if lc[i]>0:
+                            # if lc[i]>0:
                             #  char0.append([signp[i],lc[i]])
-                            #elif lc[i]<0:
+                            # elif lc[i]<0:
                             #  char0.append([signp[i],-lc[i]])
                         char0.sort(key=(lambda i:i[0]),reverse=True)
-                        char0=[[chn[i[0]],i[1]] for i in char0]
+                        char0 = [[chn[i[0]],i[1]] for i in char0]
                         for i in sto0:
                             charvec.append(char0)
         if verbose:
             lprint(str(ll)+' elements, '+str(len(spols))+' class polynomials; ')
             lprint(str(len(distinv))+' distinvs\n')
-        if l>0:
-            cpmat[l-1]=0
+        if l > 0:
+            cpmat[l-1] = 0
         cpmat.append(cps)
-        if len(distinv)==maxn:
+        if len(distinv) == maxn:
             break
-    res=[[W.permtoword(distinv[i]),charvec[i]] for i in range(len(distinv))]
+    res = [[W.permtoword(distinv[i]),charvec[i]] for i in range(len(distinv))]
     res.sort(key=(lambda x:len(x[0])))
-    #d1=distinguishedinvolutions(W,poids)
-    #d1=libdistinv(W,1)
-    #if not (len(distinv)==len(d1) and all(i in d1 for i in distinv)):
+    # d1=distinguishedinvolutions(W,poids)
+    # d1=libdistinv(W,1)
+    # if not (len(distinv)==len(d1) and all(i in d1 for i in distinv)):
     #  print("Grosser Mist!")
     #  return [distinv,d1]
-    #else:
+    # else:
     #  lprint('True')
     if verbose:
         lprint('#I Number of distinguished involutions = '+str(len(res))+'\n')
     return [list(l) for l in zip(*res)]
 
-#F allcellsleadingcoeffs
+# F allcellsleadingcoeffs
 
 
 def allcellsleadingcoeffs(W,weightL,v,newnorm=False):
@@ -8748,43 +8744,43 @@ def allcellsleadingcoeffs(W,weightL,v,newnorm=False):
     See also 'klcells' and 'leftcellleadingcoeffs'.
     """
     if type(weightL) == type(0):
-        poids=len(W.rank)*[weightL]
+        poids = len(W.rank)*[weightL]
     else:
-        poids=weightL[:]
-    if all(p==1 for p in poids):
-        kl=[c.X for c in klcells(W,poids,v,allcells=False)[1]]
+        poids = weightL[:]
+    if all(p == 1 for p in poids):
+        kl = [c.X for c in klcells(W,poids,v,allcells=False)[1]]
     else:
-        kl=[c.X for c in klcellsun(W,poids,v)]
-    cp=allclasspolynomials(W,[v**(2*i) for i in poids])
-    ch=chartable(W,chars=False)['charnames']
-    nlc,dlc=[],[]
-    slc=set([])
+        kl = [c.X for c in klcellsun(W,poids,v)]
+    cp = allclasspolynomials(W,[v**(2*i) for i in poids])
+    ch = chartable(W,chars=False)['charnames']
+    nlc,dlc = [],[]
+    slc = set([])
     lprint('#I ')
     for l1 in kl:
-        l=leftcellleadingcoeffs(W,poids,v,l1,clpols=cp,newnorm=newnorm)
+        l = leftcellleadingcoeffs(W,poids,v,l1,clpols=cp,newnorm=newnorm)
         lprint(str(l['nd']))
         dlc.append([l['distinv'],l['nd']])
         slc.add(ch.index(l['special']))
-        if len(l['ti'])>1:
-            tl=transposemat([flatlist(i) for i in l['ti']])
-            ok=True
+        if len(l['ti']) > 1:
+            tl = transposemat([flatlist(i) for i in l['ti']])
+            ok = True
             for m in nlc:
-                if len(m)==len(tl) and all(m.count(r)==tl.count(r) for r in m):
-                    ok=False
+                if len(m) == len(tl) and all(m.count(r) == tl.count(r) for r in m):
+                    ok = False
             if ok:
                 nlc.append(tl)
     lprint('\n')
-    slc=list(slc)
+    slc = list(slc)
     slc.sort()
-    slc=[ch[i] for i in slc]
+    slc = [ch[i] for i in slc]
     for l in nlc:
-        #if len(list(filter(lambda i:i in slc,l[0])))!=1:
-        if len([i for i in l[0] if i in slc])!=1:
+        # if len(list(filter(lambda i:i in slc,l[0])))!=1:
+        if len([i for i in l[0] if i in slc]) != 1:
             print('multiple special in cell')
             return l
     return [[transposemat(l) for l in nlc],dlc,slc]
 
-#F libdistinv
+# F libdistinv
 
 
 def libdistinv(W,weightL,unpack=True):
@@ -8827,32 +8823,32 @@ def libdistinv(W,weightL,unpack=True):
     See also 'distinguishedinvolutions' and 'distinva'.
     """
     if type(weightL) == type(0):
-        poids=len(W.rank)*[weightL]
+        poids = len(W.rank)*[weightL]
     else:
-        poids=weightL[:]
-    if len(W.cartantype)>1:
+        poids = weightL[:]
+    if len(W.cartantype) > 1:
         raise ValueError('Sorry, only irreducible W of exceptional type')
-    if all(p==0 for p in poids):
+    if all(p == 0 for p in poids):
         return [[]]
-    typ=W.cartantype[0][0]
-    rk=list(W.cartantype[0][1])
-    if typ=='H' and rk==[0,1,2]:
-        l=['', '0', '1', '2', '02', '121', '1021', '01010', '01210', '010210',
+    typ = W.cartantype[0][0]
+    rk = list(W.cartantype[0][1])
+    if typ == 'H' and rk == [0,1,2]:
+        l = ['', '0', '1', '2', '02', '121', '1021', '01010', '01210', '010210',
            '1012101', '0210102', '10102101', '010121010', '102101021',
            '2101021012', '01021010210', '1010210102101', '01010210102101',
            '01012101021012', '10102101021012', '010102101021012']
-        chrs0=['1.1', '7.1c6.1', '7.1c6.1', '7.1c6.1', '3.1', '9.1c8.1', '3.1',
+        chrs0 = ['1.1', '7.1c6.1', '7.1c6.1', '7.1c6.1', '3.1', '9.1c8.1', '3.1',
                '2.1', '9.1c8.1', '3.1', '9.1c8.1', '2.1', '3.1', '9.1c8.1', '2.1',
                '3.1', '2.1', '2.1', '5.1c4.1', '5.1c4.1', '5.1c4.1', '0.1']
-        ch=chartable(W,chars=False)['charnames']
-        chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
+        ch = chartable(W,chars=False)['charnames']
+        chars = [[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
                                   for k in i.split('c')] for i in chrs0]
         if unpack:
             return [[int(s) for s in i] for i in l]
         else:
             return [[[int(s) for s in l[i]],chars[i]] for i in range(len(l))]
-    elif typ=='H' and rk==[0,1,2,3]:
-        l=['', '0', '1', '2', '3', '02', '03', '13', '121', '232', '1021',
+    elif typ == 'H' and rk == [0,1,2,3]:
+        l = ['', '0', '1', '2', '3', '02', '03', '13', '121', '232', '1021',
            '0232', '2132', '01010', '01210', '12321', '010210', '010103',
            '102321', '121321', '1012101', '0210102', '0123210', '10102101',
            '02101032', '12101321', '01023210', '01213210', '010121010',
@@ -8975,7 +8971,7 @@ def libdistinv(W,weightL,unpack=True):
            '01012101021012321010210123210102101232101021012321010210123',
            '10102101021012321010210123210102101232101021012321010210123',
            '010102101021012321010210123210102101232101021012321010210123']
-        chrs0=['0.1', '4.1c2.1', '4.1c2.1', '4.1c2.1', '4.1c2.1', '12.1c10.1',
+        chrs0 = ['0.1', '4.1c2.1', '4.1c2.1', '4.1c2.1', '4.1c2.1', '12.1c10.1',
                '12.1c10.1', '12.1c10.1', '19.1c17.1', '19.1c17.1', '12.1c10.1',
                '26.1', '12.1c10.1', '30.1', '19.1c17.1', '19.1c17.1', '12.1c10.1',
                '33.2c32.2c29.1c28.1c25.1c24.1c23.1c22.1c21.1c16.1c15.1c14.1',
@@ -9030,15 +9026,15 @@ def libdistinv(W,weightL,unpack=True):
                '27.1', '20.1c18.1', '13.1c11.1', '31.1', '13.1c11.1', '27.1',
                '13.1c11.1', '13.1c11.1', '13.1c11.1', '13.1c11.1', '5.1c3.1',
                '5.1c3.1', '5.1c3.1', '5.1c3.1', '1.1']
-        ch=chartable(W,chars=False)['charnames']
-        chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
+        ch = chartable(W,chars=False)['charnames']
+        chars = [[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
                                   for k in i.split('c')] for i in chrs0]
         if unpack:
             return [[int(s) for s in i] for i in l]
         else:
             return [[[int(s) for s in l[i]],chars[i]] for i in range(len(l))]
-    elif typ=='F' and rk==[0,1,2,3]:
-        l1111=['', '0', '1', '2', '3', '02', '03', '13', '010', '232', '1021',
+    elif typ == 'F' and rk == [0,1,2,3]:
+        l1111 = ['', '0', '1', '2', '3', '02', '03', '13', '010', '232', '1021',
            '1212', '0103', '0232', '2132', '02102', '12321', '012102',
            '210212', '021032', '102321', '121321', '132123', '1021021',
            '0123210', '2123212', '0321023', '01021021', '10210321',
@@ -9056,7 +9052,7 @@ def libdistinv(W,weightL,unpack=True):
            '012102321021232102123', '210212321021232102123',
            '0121021232102123210212', '1021021232102123210212',
            '1021021321021232102123', '010210212321021232102123']
-        l1122=['', '0', '1', '2', '3', '02', '03', '13', '010', '121', '212',
+        l1122 = ['', '0', '1', '2', '3', '02', '03', '13', '010', '121', '212',
            '232', '1021', '1212', '0103', '0232', '2132', '01210', '12321',
            '32123', '012102', '021032', '102321', '121321', '132123', '232123',
            '0123210', '2123212', '01021021', '01210212', '10210212', '10210321',
@@ -9078,7 +9074,7 @@ def libdistinv(W,weightL,unpack=True):
            '012102321021232102123', '01021021232102123210212',
            '01021021321021232102123', '01210212321021232102123',
            '10210212321021232102123', '010210212321021232102123']
-        l1133=['', '0', '1', '2', '3', '02', '03', '13', '010', '121', '212',
+        l1133 = ['', '0', '1', '2', '3', '02', '03', '13', '010', '121', '212',
            '232', '1021', '1212', '0103', '0232', '2132', '01210', '02102',
            '12321', '32123', '010210', '012102', '210212', '021032', '102321',
            '121321', '132123', '232123', '1021021', '0123210', '2123212',
@@ -9107,45 +9103,45 @@ def libdistinv(W,weightL,unpack=True):
            '01021021232102123210212', '01021021321021232102123',
            '01210212321021232102123', '10210212321021232102123',
            '010210212321021232102123']
-        if poids[0]==poids[2]:
+        if poids[0] == poids[2]:
             return [[int(s) for s in i] for i in l1111]
-        elif poids[0]>0 and poids[2]>poids[0]:
-            if poids[2]==2*poids[0]:
+        elif poids[0] > 0 and poids[2] > poids[0]:
+            if poids[2] == 2*poids[0]:
                 return [[int(s) for s in i] for i in l1122]
             else:
                 return [[int(s) for s in i] for i in l1133]
-        elif poids[2]>0 and poids[0]>poids[2]:
-            J=[3,2,1,0]
-            W=coxeter("F",4)
-            if poids[0]==2*poids[2]:
+        elif poids[2] > 0 and poids[0] > poids[2]:
+            J = [3,2,1,0]
+            W = coxeter("F",4)
+            if poids[0] == 2*poids[2]:
                 return [W.reducedword([J[int(s)] for s in i],W) for i in l1122]
             else:
                 return [W.reducedword([J[int(s)] for s in i],W) for i in l1133]
         else:
             raise NotImplementedError('Sorry, not yet implemented')
-    elif typ[0]=='E' and rk==[0,1,2,3,4,5]:
-        reps=['', '3', '12', '015', '232', '1315', '01454', '020454', '020320',
+    elif typ[0] == 'E' and rk == [0,1,2,3,4,5]:
+        reps = ['', '3', '12', '015', '232', '1315', '01454', '020454', '020320',
               '0131431', '0120454', '1314315431', '23123431234', '01203120325',
               '123123431234', '020320432054320', '02031203431203243',
               '01203120324312032431', '020312043120324315431203243',
               '0120312032431203243154312032431',
               '012031203243120324315431203243154320']
-        chrs0=['0.1', '3.1', '10.1', '14.1c8.1', '14.1c6.1', '21.1', '19.1',
+        chrs0 = ['0.1', '3.1', '10.1', '14.1c8.1', '14.1c6.1', '21.1', '19.1',
                '12.1', '23.1', '18.1c17.1c16.1', '17.1c16.1c2.1', '24.1',
                '18.2c17.1c5.1', '20.1', '13.1', '15.1c9.1', '22.1', '11.1',
                '15.1c7.1', '4.1', '1.1']
-        ch=chartable(W,chars=False)['charnames']
-        chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
+        ch = chartable(W,chars=False)['charnames']
+        chars = [[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
                                   for k in l.split('c')] for l in chrs0]
         if unpack:
-            f=[W.permtoword(x) for x in flatlist([starorbitinv(W,
+            f = [W.permtoword(x) for x in flatlist([starorbitinv(W,
                      W.wordtoperm([int(i) for i in r])) for r in reps])]
             f.sort(key=(lambda x:len(x)))
         else:
-            f=[[[int(i) for i in reps[r]],chars[r]] for r in range(len(reps))]
+            f = [[[int(i) for i in reps[r]],chars[r]] for r in range(len(reps))]
         return f
-    elif typ[0]=='E' and rk==[0,1,2,3,4,5,6]:
-        reps=['', '2', '12', '020', '124', '146', '0120', '1246', '01204',
+    elif typ[0] == 'E' and rk == [0,1,2,3,4,5,6]:
+        reps = ['', '2', '12', '020', '124', '146', '0120', '1246', '01204',
               '020320', '020454', '012046', '0131431', '0120454', '1314316',
               '01314316', '020320565', '0120312032', '0120454654',
               '12312343123', '01203120325', '123123431234', '123123431236',
@@ -9171,7 +9167,7 @@ def libdistinv(W,weightL,unpack=True):
               '01203120324312032431543120324315432065431203243154320',
               '01203120324312032431543120324315432065431203243154320654312345',
               '012031203243120324315431203243154320654312032431543206543123456']
-        chrs0=['0.1', '3.1', '10.1', '17.1c6.1', '17.1c14.1', '9.1',
+        chrs0 = ['0.1', '3.1', '10.1', '17.1c6.1', '17.1c14.1', '9.1',
                '28.1c23.1', '28.1c5.1', '35.1', '38.1', '30.1', '24.1',
                '49.1c46.1c45.1', '49.1c46.1c19.1', '37.1', '54.1c43.1', '53.1',
                '56.1c51.1', '40.1', '49.1c45.2c13.1', '59.1c58.1', '26.1',
@@ -9181,18 +9177,18 @@ def libdistinv(W,weightL,unpack=True):
                '55.1c33.1', '24.1', '39.1', '16.1c15.1', '29.1c22.1', '41.1',
                '25.1', '34.1', '8.1', '34.1', '52.1', '29.1c4.1',
                '48.1c44.2c12.1', '16.1c7.1', '11.1', '2.1', '1.1']
-        ch=chartable(W,chars=False)['charnames']
-        chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
+        ch = chartable(W,chars=False)['charnames']
+        chars = [[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
                                   for k in l.split('c')] for l in chrs0]
         if unpack:
-            f=[W.permtoword(x) for x in flatlist([starorbitinv(W,
+            f = [W.permtoword(x) for x in flatlist([starorbitinv(W,
                      W.wordtoperm([int(i) for i in r])) for r in reps])]
             f.sort(key=(lambda x:len(x)))
         else:
-            f=[[[int(i) for i in reps[r]],chars[r]] for r in range(len(reps))]
+            f = [[[int(i) for i in reps[r]],chars[r]] for r in range(len(reps))]
         return f
-    elif typ[0]=='E' and rk==[0,1,2,3,4,5,6,7]:
-        reps=['', '7', '12', '020', '146', '0205', '1246', '14547', '232432',
+    elif typ[0] == 'E' and rk == [0,1,2,3,4,5,6,7]:
+        reps = ['', '7', '12', '020', '146', '0205', '1246', '14547', '232432',
               '020454', '012046', '0204547', '0565765', '01204676', '12454654',
               '131431676', '0120454654', '2324325432', '04546547654',
               '23123431234', '124546547654', '131234312346', '123123431234',
@@ -9245,37 +9241,37 @@ def libdistinv(W,weightL,unpack=True):
               '012031203243120324315431203243154320654312032431543206543123456',
               '123120343120324354312032431543265431234576543120324315432654317',
               '1231203431203243543120324315432654312345676543120324315432654317',
-              '12312343123454312032431565431203243154320654327654312032431543'+
+              '12312343123454312032431565431203243154320654327654312032431543' +
                  '265431',
-              '12312343120324354312365431203243154676543120324315432065431237'+
+              '12312343120324354312365431203243154676543120324315432065431237' +
                  '6543123',
-              '12312343120345431203243546543120324315432065431234576543120324'+
+              '12312343120345431203243546543120324315432065431234576543120324' +
                  '31543265431',
-              '01203120324312032431543120324315432065431234567654312032431543'+
+              '01203120324312032431543120324315432065431234567654312032431543' +
                  '206543123457',
-              '02032043205431203265431203243156765431203243154320654312345676'+
+              '02032043205431203265431203243156765431203243154320654312345676' +
                  '54312032435465',
-              '12312343123454312345654312032431543206765431203243154320654312'+
+              '12312343123454312345654312032431543206765431203243154320654312' +
                  '345676543123456',
-              '01203120324312032431543120324316543120324315432654317654312032'+
+              '01203120324312032431543120324316543120324315432654317654312032' +
                  '4315432065431234',
-              '12312034312032435431203243154326543120324315432065431234576543'+
+              '12312034312032435431203243154326543120324315432065431234576543' +
                  '12032431543265431',
-              '01203120324312032431543120324315432065431203243154326543176543'+
+              '01203120324312032431543120324315432065431203243154326543176543' +
                  '1203243154320654312345',
-              '12312032431203243154312032431543206543120324315432076543120324'+
+              '12312032431203243154312032431543206543120324315432076543120324' +
                  '315432065431234576543120324315432',
-              '12312343123454312032431565431203243154320654327654312032431543'+
+              '12312343123454312032431565431203243154320654327654312032431543' +
                  '2065431234567654312032431543265431',
-              '12312343120324315431203243154320654312032431543206543123456765'+
+              '12312343120324315431203243154320654312032431543206543123456765' +
                  '43120324315432065431234576543120324315432',
-              '01203120324312032431543120324315432065431203243154320654312345'+
+              '01203120324312032431543120324315432065431203243154320654312345' +
                  '6765431203243154320654312345765431203243154320',
-              '01203120324312032431543120324315432065431203243154320654312345'+
+              '01203120324312032431543120324315432065431203243154320654312345' +
                  '676543120324315432065431234567654312032431543206543123456',
-              '01203120324312032431543120324315432065431203243154320654312345'+
+              '01203120324312032431543120324315432065431203243154320654312345' +
                  '6765431203243154320654312345676543120324315432065431234567']
-        chrs0=['0.1', '67.1', '4.1', '71.1c2.1', '71.1c9.1', '73.1c14.1',
+        chrs0 = ['0.1', '67.1', '4.1', '71.1c2.1', '71.1c9.1', '73.1c14.1',
                '14.1c7.1', '80.1', '23.1', '28.1c17.1', '76.1c28.1',
                '92.1c78.1c39.1', '92.1c85.1c39.1', '42.1c36.1c12.1',
                '44.1c42.1c36.1', '99.1', '90.1c50.1', '88.1c53.1', '104.1c61.1',
@@ -9301,42 +9297,42 @@ def libdistinv(W,weightL,unpack=True):
                '45.1c43.1c37.1', '107.1', '100.1', '29.1c18.1', '43.1c37.1c13.1',
                '81.1', '45.2c43.1c20.1', '81.1', '74.1c15.1', '93.1c86.2c70.1',
                '15.1c8.1', '72.1c3.1', '5.1', '68.1', '1.1']
-        ch=chartable(W,chars=False)['charnames']
-        chars=[[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
+        ch = chartable(W,chars=False)['charnames']
+        chars = [[[ch[int(k.split('.')[0])],int(k.split('.')[1])]
                                   for k in l.split('c')] for l in chrs0]
         if unpack:
-            f=[W.permtoword(x) for x in flatlist([starorbitinv(W,
+            f = [W.permtoword(x) for x in flatlist([starorbitinv(W,
                      W.wordtoperm([int(i) for i in r])) for r in reps])]
             f.sort(key=(lambda x:len(x)))
         else:
-            f=[[[int(i) for i in reps[r]],chars[r]] for r in range(len(reps))]
+            f = [[[int(i) for i in reps[r]],chars[r]] for r in range(len(reps))]
         return f
-    elif typ[0]=='I' and rk==[0,1]:
-        m=int(typ[1:])
-        if m %2==1:
-            if poids[0]>0:
-                w0=[0]
+    elif typ[0] == 'I' and rk == [0,1]:
+        m = int(typ[1:])
+        if m % 2 == 1:
+            if poids[0] > 0:
+                w0 = [0]
                 for i in range((m-1)//2):
                     w0.extend([1,0])
                 return [[], [0], [1], w0]
             else:
                 raise NotImplementedError('Sorry, not yet implemented')
         else:
-            w1=[]
+            w1 = []
             for i in range((m-2)//2):
                 w1.extend([0,1])
-            if poids[0]==poids[1] and poids[0]>0:
+            if poids[0] == poids[1] and poids[0] > 0:
                 return [[], [0], [1], w1+[0,1]]
-            elif poids[0]>poids[1] and poids[1]>0:
+            elif poids[0] > poids[1] and poids[1] > 0:
                 return [[],[0],[1],[1,0,1],w1+[0],w1+[0,1]]
-            elif poids[0]<poids[1] and poids[0]>0:
+            elif poids[0] < poids[1] and poids[0] > 0:
                 return [[],[0],[1],[0,1,0],[1]+w1,w1+[0,1]]
             else:
                 raise NotImplementedError('Sorry, not yet implemented')
     else:
         return False
 
-#F distinva
+# F distinva
 
 
 def distinva(W,weightL=1, verbose=False):
@@ -9356,35 +9352,35 @@ def distinva(W,weightL=1, verbose=False):
 
     See also 'libdistinv' and 'distinguishedinvolutions'.
     """
-    ti=chartable(W,chars=False)
-    ch=ti['charnames']
+    ti = chartable(W,chars=False)
+    ch = ti['charnames']
     if type(weightL) == type(1):
-        poids=len(W.rank)*[weightL]
+        poids = len(W.rank)*[weightL]
     else:
-        poids=weightL
-    if len(set(poids))==1:
-        ainv=ti['a']
+        poids = weightL
+    if len(set(poids)) == 1:
+        ainv = ti['a']
         if W.cartan in [cartanmat("E",6), cartanmat("E",7), cartanmat("E",8)]:
-            d=libdistinv(W,1,unpack=0)
-            typEH=True
+            d = libdistinv(W,1,unpack=0)
+            typEH = True
         else:
             #d=[list(l) for l in zip(*distinguishedinvolutions(W,1))]
-            d=[list(l) for l in zip(*distinguishedinvolutions_eq(W))]
-            typEH=False
+            d = [list(l) for l in zip(*distinguishedinvolutions_eq(W))]
+            typEH = False
     else:
-        d=[list(l) for l in zip(*distinguishedinvolutions(W,poids))]
-        ainv=ainvariants(W,poids)
-        typEH=False
-    a1=[]
+        d = [list(l) for l in zip(*distinguishedinvolutions(W,poids))]
+        ainv = ainvariants(W,poids)
+        typEH = False
+    a1 = []
     if verbose:
         lprint('#I '+str(len(d))+' ')
     for i in d:
-        a0=[ainv[ch.index(c[0])] for c in i[1]]
-        if len(set(a0))>1:
+        a0 = [ainv[ch.index(c[0])] for c in i[1]]
+        if len(set(a0)) > 1:
             print('Mist !!!!!')
             return False
         a1.append(a0[0])
-    nd,na=[],[]
+    nd,na = [],[]
     for r in range(len(d)):
         if typEH:
             for st in starorbitinv(W,W.wordtoperm(d[r][0])):
@@ -9397,32 +9393,32 @@ def distinva(W,weightL=1, verbose=False):
         lprint('\n')
     return [nd,na]
 
-#F distinva1
+# F distinva1
 
 
 def distinva1(W,weightL):
     """similar to 'distinva' but use families not just a-invariants.
     """
-    ti=chartable(W,chars=False)
-    ch=ti['charnames']
-    d=[list(l) for l in zip(*distinguishedinvolutions(W,weightL))]
-    ainv=lusztigfamilies(W,weightL)
-    aa=ainvariants(W,weightL)
-    a1,a2=[],[]
+    ti = chartable(W,chars=False)
+    ch = ti['charnames']
+    d = [list(l) for l in zip(*distinguishedinvolutions(W,weightL))]
+    ainv = lusztigfamilies(W,weightL)
+    aa = ainvariants(W,weightL)
+    a1,a2 = [],[]
     lprint('#I '+str(len(d))+' ')
     for i in d:
-        a0=[ch.index(c[0]) for c in i[1]]
-        aa0=[aa[ch.index(c[0])] for c in i[1]]
-        f=0
-        while (f<len(ainv['families']) and
+        a0 = [ch.index(c[0]) for c in i[1]]
+        aa0 = [aa[ch.index(c[0])] for c in i[1]]
+        f = 0
+        while (f < len(ainv['families']) and
                       not all(x in ainv['families'][f] for x in a0)):
-            f+=1
-        if f>=len(ainv['families']):
+            f += 1
+        if f >= len(ainv['families']):
             print('Mist !!!!!')
             return False
         a1.append(f)
         a2.append(aa0[0])
-    nd,na,nb=[],[],[]
+    nd,na,nb = [],[],[]
     for r in range(len(d)):
         nd.append(W.wordtocoxelm(d[r][0]))
         na.append(a1[r])
@@ -9430,37 +9426,37 @@ def distinva1(W,weightL):
     lprint('\n')
     return [nd,na,nb]
 
-#F gentaudistcheck
+# F gentaudistcheck
 
 
 def gentaudistcheck(W):
-    J=list(range(len(W.rank)-1))
-    W1=reflectionsubgroup(W,J)
-    dc=[W.coxelmtoperm(d) for d in redleftcosetreps(W,J)]
-    d=distinva(W)
-    dist=set(d[0])
-    gt1=gentaureps(W1)
-    nset=[]
+    J = list(range(len(W.rank)-1))
+    W1 = reflectionsubgroup(W,J)
+    dc = [W.coxelmtoperm(d) for d in redleftcosetreps(W,J)]
+    d = distinva(W)
+    dist = set(d[0])
+    gt1 = gentaureps(W1)
+    nset = []
     for g in gt1:
-        l=[]
+        l = []
         for x in g:
-            wx=W.wordtoperm(x)
+            wx = W.wordtoperm(x)
             for y in dc:
-                dx=permmult(y,wx)
+                dx = permmult(y,wx)
                 if dx[:len(W.rank)] in dist:
                     l.append(dx)
         nset.extend(gentaucells(W,l))
     for n1 in nset:
-        if len(n1)>1:
-            n0=[d[1][d[0].index(w[:len(W.rank)])] for w in n1]
+        if len(n1) > 1:
+            n0 = [d[1][d[0].index(w[:len(W.rank)])] for w in n1]
             print([len(n1),n0])
-            if len(set(n0))<len(n1):
+            if len(set(n0)) < len(n1):
                 print('Mist !!!!')
                 return False
     lprint('\nTrue\n')
     return True
 
-#F klupsilonI
+# F klupsilonI
 
 
 def klupsilonI(W):
@@ -9472,53 +9468,53 @@ def klupsilonI(W):
     is  taken as  representative,  otherwise,  an element of
     minimal length in the orbit is returned.
     """
-    J=list(range(len(W.rank)-1))
-    W1=reflectionsubgroup(W,J)
-    dc=[W.coxelmtoperm(d) for d in redleftcosetreps(W,J)]
-    gt1=[c.X for c in klcells(W1,1,lpol([1],1,'v'))[1]]
-    dd=set(distinva(W)[0])
-    nset=[]
+    J = list(range(len(W.rank)-1))
+    W1 = reflectionsubgroup(W,J)
+    dc = [W.coxelmtoperm(d) for d in redleftcosetreps(W,J)]
+    gt1 = [c.X for c in klcells(W1,1,lpol([1],1,'v'))[1]]
+    dd = set(distinva(W)[0])
+    nset = []
     for g in gt1:
-        l=[]
+        l = []
         for x in g:
-            wx=W.wordtoperm(x)
+            wx = W.wordtoperm(x)
             for y in dc:
-                dx=permmult(y,wx)
+                dx = permmult(y,wx)
                 l.append(dx)
-        #nset.extend(gentaucells(W,l,lcells=True))
-        n1set=[leftklstarreps(W,l1,dd) for l1 in gentaucells(W,l,lcells=True)]
+        # nset.extend(gentaucells(W,l,lcells=True))
+        n1set = [leftklstarreps(W,l1,dd) for l1 in gentaucells(W,l,lcells=True)]
         nset.extend([[w[:len(W.rank)] for w in nn] for nn in n1set])
     lprint(str(len(nset))+'\n')
     return nset
 
-#F klupsilonI1
+# F klupsilonI1
 
 
 def klupsilonI1(W):
     """similar to 'klupsilonI' but returns only those left star
     orbits which need further consideration.
     """
-    J=list(range(len(W.rank)-1))
-    W1=reflectionsubgroup(W,J)
-    dc=[W.coxelmtoperm(d) for d in redleftcosetreps(W,J)]
-    gt1=[c.X for c in klcells(W1,1,lpol([1],1,'v'))[1]]
-    dd=set(distinva(W)[0])
-    nset=[]
-    n1=0
+    J = list(range(len(W.rank)-1))
+    W1 = reflectionsubgroup(W,J)
+    dc = [W.coxelmtoperm(d) for d in redleftcosetreps(W,J)]
+    gt1 = [c.X for c in klcells(W1,1,lpol([1],1,'v'))[1]]
+    dd = set(distinva(W)[0])
+    nset = []
+    n1 = 0
     for g in gt1:
-        l=[]
+        l = []
         for x in g:
-            wx=W.wordtoperm(x)
+            wx = W.wordtoperm(x)
             for y in dc:
-                dx=permmult(y,wx)
+                dx = permmult(y,wx)
                 l.append(dx)
         for gt in gentaucells(W,l,lcells=True):
-            if len([x for x in gt if x[:len(W.rank)] in dd])==1:
+            if len([x for x in gt if x[:len(W.rank)] in dd]) == 1:
                 lprint('!')
-                n1+=1
+                n1 += 1
             else:
                 for lgt in leftklstarreps(W,gt,dd):
-                    if W.permorder(lgt)<=2:
+                    if W.permorder(lgt) <= 2:
                         lprint('?')
                     else:
                         lprint('-')
@@ -9528,73 +9524,72 @@ def klupsilonI1(W):
 
 
 def checkatau(W):
-    a=distinva(W)
-    af=False
+    a = distinva(W)
+    af = False
     for l in gentaucells(W,a[0],string=True):
-        a1=[a[1][a[0].index(x[:len(W.rank)])] for x in l]
-        if len(set(a1))<len(a1):
+        a1 = [a[1][a[0].index(x[:len(W.rank)])] for x in l]
+        if len(set(a1)) < len(a1):
             if af is False:
-                af=distinva1(W,1)
+                af = distinva1(W,1)
             print('#I Using families, not just a-invariants!')
-            af1=[af[1][af[0].index(x[:len(W.rank)])] for x in l]
-            if len(set(af1))<len(af1):
+            af1 = [af[1][af[0].index(x[:len(W.rank)])] for x in l]
+            if len(set(af1)) < len(af1):
                 print([a1,af1,l])
                 return False
     return True
 
-#F cellsinvolutions
+# F cellsinvolutions
 
 
 def cellsinvolutions(W):
     """returns the partition of involutions into two-sided cells.
 
     """
-    t=chartable(W,chars=0)
-    sp=[t['charnames'][i] for i in range(len(t['a'])) if t['a'][i]==t['b'][i]]
-    ii=involutions(W)
-    #gt=gentaucells(W,ii)
-    d=distinguishedinvolutions(W,1,distonly=0)
-    ind=[i for i in range(len(d[0])) if W.permorder(W.wordtoperm(d[0][i]))<=2]
-    twos=[]
+    t = chartable(W,chars=0)
+    sp = [t['charnames'][i] for i in range(len(t['a'])) if t['a'][i] == t['b'][i]]
+    # gt=gentaucells(W,ii)
+    d = distinguishedinvolutions(W,1,distonly=0)
+    ind = [i for i in range(len(d[0])) if W.permorder(W.wordtoperm(d[0][i])) <= 2]
+    twos = []
     for s in sp:
-        t1=[]
+        t1 = []
         for i in ind:
             if s in set([j[0] for j in d[1][i]]):
                 t1.append(d[0][i])
         twos.append(t1)
-    return [twos,sp]
+    return [twos, sp]
 
 
 def leftcellsinvolutions(W):
     """returns the partition of involutions into left cells
     (conjecturally).
     """
-    t=chartable(W,chars=0)
-    isp=[i for i in range(len(t['a'])) if t['a'][i]==t['b'][i]]
-    nsp=sum([chartable(W)['irreducibles'][i][0] for i in isp])
-    sp=[t['charnames'][i] for i in isp]
-    ii=involutions(W)
-    d=distinguishedinvolutions(W,1,distonly=0)
-    ind=[i for i in range(len(d[0])) if W.permorder(W.wordtoperm(d[0][i]))<=2]
-    twos=[]
+    t = chartable(W,chars=0)
+    isp = [i for i in range(len(t['a'])) if t['a'][i] == t['b'][i]]
+    nsp = sum([chartable(W)['irreducibles'][i][0] for i in isp])
+    sp = [t['charnames'][i] for i in isp]
+    ii = involutions(W)
+    d = distinguishedinvolutions(W,1,distonly=0)
+    ind = [i for i in range(len(d[0])) if W.permorder(W.wordtoperm(d[0][i])) <= 2]
+    twos = []
     for s in sp:
-        t1=[]
+        t1 = []
         for i in ind:
             if s in set([j[0] for j in d[1][i]]):
                 t1.append(d[0][i])
         twos.append(t1)
-    c=[set([W.wordtocoxelm(p) for p in l]) for l in twos]
-    g=[set([p[:len(W.rank)] for p in l]) for l in gentaucells(W,ii)]
-    neu=[]
+    c = [set([W.wordtocoxelm(p) for p in l]) for l in twos]
+    g = [set([p[:len(W.rank)] for p in l]) for l in gentaucells(W,ii)]
+    neu = []
     for l1 in g:
         for l2 in c:
-            l3=[x for x in l1 if x in l2]
+            l3 = [x for x in l1 if x in l2]
             if l3:
                 neu.append([W.coxelmtoword(x) for x in l3])
     lprint('# Number of left cells = '+str(nsp)+'/'+str(len(neu))+'\n')
     return neu
 
-#F twosidedcells
+# F twosidedcells
 
 
 def twosidedcells(W,lcells):
@@ -9602,25 +9597,25 @@ def twosidedcells(W,lcells):
     partition into left cells.  (It is assumed here that Lusztig's
     property (A) holds.)
     """
-    pl=[[W.wordtoperm(w) for w in l] for l in lcells]
-    pr=[set([perminverse(w)[:len(W.rank)] for w in l]) for l in pl]
-    mat=[[len([x for x in pl[i] if x[:len(W.rank)] in pr[j]])
+    pl = [[W.wordtoperm(w) for w in l] for l in lcells]
+    pr = [set([perminverse(w)[:len(W.rank)] for w in l]) for l in pl]
+    mat = [[len([x for x in pl[i] if x[:len(W.rank)] in pr[j]])
                    for j in range(len(pr))] for i in range(len(pl))]
-    two=[]
+    two = []
     for b in decomposemat(mat):
-        l=[]
+        l = []
         for i in b:
             l.extend(lcells[i])
         two.append(l)
     return two
 
-#F Data to construct the left cells in type E7 and E8
+# F Data to construct the left cells in type E7 and E8
 
 
-E7KLCELLREPS=[{"a": 0, "distinv": "", "replstar": [""], "special": "1_a",
+E7KLCELLREPS = [{"a": 0, "distinv": "", "replstar": [""], "special": "1_a",
   "elms": [], "character": [["1_a", 1]], "size": 1}, {"a": 63, "distinv":
   "012031203243120324315431203243154320654312032431543206543123456",
-  "replstar": ["0120312032431203243154312032431543206543120324315432065"+
+  "replstar": ["0120312032431203243154312032431543206543120324315432065" +
   "43123456"], "special": "1_a'", "elms": [], "character": [["1_a'", 1]],
   "size": 1}, {"a": 1, "distinv": "0", "replstar": ["0"], "special": "7_a'",
   "elms": [], "character": [["7_a'", 1]], "size": 7}, {"a": 46, "distinv":
@@ -9805,18 +9800,18 @@ def E7CELLREPcheck():
     """checks if the elements in replstar belong to the same tau-cell,
     and if size and degrees of characters are ok.
     """
-    W=coxeter("E",7)
-    t=chartable(W)
-    ch=[c[0] for c in t['charnames']]
+    W = coxeter("E",7)
+    t = chartable(W)
+    ch = [c[0] for c in t['charnames']]
     for c in E7KLCELLREPS:
-        l=[[int(s) for s in w] for w in c['replstar']]
-        g=gentaucells(W,l)
-        if len(g)>1:
+        l = [[int(s) for s in w] for w in c['replstar']]
+        g = gentaucells(W,l)
+        if len(g) > 1:
             return False
         # check size
-        d1=sum([i[1]*t['irreducibles'][ch.index(i[0])][0]
+        d1 = sum([i[1]*t['irreducibles'][ch.index(i[0])][0]
                for i in c['character']])
-        d2=sum([len(leftklstarorbitelm(W,W.wordtoperm(w))) for w in l])
+        d2 = sum([len(leftklstarorbitelm(W,W.wordtoperm(w))) for w in l])
         if not (d1 == d2 == c['size']):
             return False
     return True
@@ -9826,7 +9821,7 @@ def E7CELLREPcheck():
 # in libdistinv(W,unpack=0)
 
 
-E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
+E8KLCELLREPS = [{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "replstar": [""], "elms": [], "special": "1_x", "size": 1}, {"a": 1,
   "character": [["8_z", 1]], "distinv": "7", "replstar": ["7"], "elms": [],
    "special": "8_z", "size": 8}, {"a": 2, "character": [["35_x", 1]],
@@ -9868,7 +9863,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "12312034325431203243654312032765431203243546576",
   "65431203243154320676543120324315432065431234576",
   "65431203243154320654312345765431203243154320654312345676543123456",
-  "6543120324315432065431234567654312032431543206543123456765431203243154"+
+  "6543120324315432065431234567654312032431543206543123456765431203243154" +
   "3206543123456"], "elms": [], "special": "1400_z", "size": 3192},
   {"a": 7, "character": [["1400_z", 1], ["1008_z", 1], ["1344_x", 1]],
   "distinv": "023143205431234576543120324315432065431234567", "replstar":
@@ -9928,8 +9923,8 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "020312054312034567654312034567", "0120431254312034567654312034567",
   "0234654320765431203243154320654312345676"], "elms": [], "special":
   "1400_x", "size": 4900}, {"a": 12, "character": [["525_x", 1]], "distinv":
-  "654312032431543206543123456765431203243154320654312345676543120324315"+
-  "432065431234567", "replstar": ["6543120324315432065431234567654312032"+
+  "654312032431543206543123456765431203243154320654312345676543120324315" +
+  "432065431234567", "replstar": ["6543120324315432065431234567654312032" +
   "43154320654312345676543120324315432065431234567"], "elms": [], "special":
   "525_x", "size": 525}, {"a": 12, "character": [["4200_x", 1],
   ["840_x", 1]], "distinv":
@@ -9972,7 +9967,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "023143205431203243154320654312032431543206543123456", "replstar":
   ["023143205431203243154320654312032431543206543123456",
   "123123431203243543123465431203276543120324315432065",
-  "0231432054312032431543206543120324315432065431234567654312032431543206"+
+  "0231432054312032431543206543120324315432065431234567654312032431543206" +
   "543123456"], "elms": [], "special": "5600_z", "size": 8800}, {"a": 15,
   "character": [["4200_z", 1]], "distinv":
   "1203431205431234654376543120324315467", "replstar":
@@ -10013,7 +10008,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "12312034312032431543120324565431234576543120324315432065437",
   "1231203431203243154326543120347654312032431543206543127654320",
   "0231203431203543120324356543120347654312032431543206543127654320",
-  "023120343120354312032431546543120324315765431203243154320654312347654"+
+  "023120343120354312032431546543120324315765431203243154320654312347654" +
   "31203"], "elms": [], "special": "4480_y", "size": 22778}, {"a": 16,
   "character": [["7168_w", 2], ["5600_w", 1], ["2016_w", 1], ["5670_y", 1],
   ["4536_y", 1], ["4480_y", 1], ["4200_y", 1], ["3150_y", 1], ["2688_y", 1]],
@@ -10066,10 +10061,10 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "1231234312032435431236543120324317654312032431543206543123765431203",
   "023123431203254312346543120324315437654312032431543206543123456765431203",
   "123120343120324354312032435654312037654312032431543206543123456765431203",
-  "0231234312035465431203243567654312032431543206543123456765431203243154"+
-  "3206", "02312343120354316543120324356765431203243154320654312345676543"+
-  "12032431543206", "0231234312032543123465431203243567654312032431543206"+
-  "5431234567654312032431543206", "023123431203254316543120324315432654376"+
+  "0231234312035465431203243567654312032431543206543123456765431203243154" +
+  "3206", "02312343120354316543120324356765431203243154320654312345676543" +
+  "12032431543206", "0231234312032543123465431203243567654312032431543206" +
+  "5431234567654312032431543206", "023123431203254316543120324315432654376" +
   "543120324315432065431234567654312032431543206"], "elms": [], "special":
   "4480_y", "size": 46676}, {"a": 13, "character": [["2800_z", 1],
   ["2100_x", 1]], "distinv":
@@ -10083,10 +10078,10 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "031234320565437654312032431543206543123456765431203",
   "03143206543123456765431203243154320654312345676543120324315436"], "elms":
   [], "special": "4096_z", "size": 8192}, {"a": 14, "character":
-  [["6075_x", 1]], "distinv": "023143205654312032431543206765431203243154"+
+  [["6075_x", 1]], "distinv": "023143205654312032431543206765431203243154" +
   "320654312345676543120324315432065431234567", "replstar":
   ["1231234312032435431236543120324354657654312032431543206576",
-  "02314320565431203243154320676543120324315432065431234567654312032431543"+
+  "02314320565431203243154320676543120324315432065431234567654312032431543" +
   "2065431234567"], "elms": [], "special": "6075_x", "size": 6075},
   {"a": 16, "character": [["7168_w", 1], ["5600_w", 1], ["1344_w", 1],
   ["5670_y", 1], ["4480_y", 1], ["4200_y", 1], ["3150_y", 1], ["1134_y", 1]],
@@ -10130,11 +10125,11 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "23124312035431203243154320654312347654312032431543206543127654320",
   "0231203431203543120324365431203243154367654312032431543206543127654320",
   "023120343120354312032435465431203243154367654312032431543206543127654320",
-  "0231203431235431203243154365431203243154365765431203243154320654312347"+
+  "0231203431235431203243154365431203243154365765431203243154320654312347" +
   "65431203"], "elms": [], "special": "4480_y", "size": 32746}, {"a": 20,
-  "character": [["2100_y", 1]], "distinv": "02314320543120324315432065431"+
+  "character": [["2100_y", 1]], "distinv": "02314320543120324315432065431" +
   "2032431543206543123456765431203243154320654312345765431203243154320",
-  "replstar": ["023143205431203243154320654312032431543206543123456765431"+
+  "replstar": ["023143205431203243154320654312032431543206543123456765431" +
   "203243154320654312345765431203243154320"], "elms": [], "special":
   "2100_y", "size": 2100}, {"a": 10, "character": [["2268_x", 1],
   ["972_x", 1]], "distinv": "120324312032435431234565431203243154",
@@ -10232,10 +10227,10 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "1231203431203243154312032435654312032456765431203243154320654312345765",
   "1231234312032435465431234576543120324315432065431234567654312032435465",
   "054312032465431203243154365476543120324315432065431234567654312032435465",
-  "023154312032456543120324315432065431765431203243154320654312345765431"+
-  "20345", "025431203456543120324315432065431234567654312032431543206543"+
-  "1234576543120345", "02354312032436543120324315432654317654312032431543"+
-  "2065431234567654312032435465", "023543120324316543120324315432065431234"+
+  "023154312032456543120324315432065431765431203243154320654312345765431" +
+  "20345", "025431203456543120324315432065431234567654312032431543206543" +
+  "1234576543120345", "02354312032436543120324315432654317654312032431543" +
+  "2065431234567654312032435465", "023543120324316543120324315432065431234" +
   "576543120324315432065431234567654312032435465"], "elms": [], "special":
   "4480_y", "size": 60396}, {"a": 10, "character": [["1400_zz", 1],
   ["2240_x", 1]], "distinv":
@@ -10248,10 +10243,10 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "01203431235431203243154365431203276543120324315432654317654320",
   "023143254316543120324315432654317654312032431543206543123456765431203456"],
   "elms": [], "special": "2240_x", "size": 3640}, {"a": 15, "character":
-  [["5600_z", 1], ["2400_z", 1]], "distinv": "0231432054312345654312032431"+
+  [["5600_z", 1], ["2400_z", 1]], "distinv": "0231432054312345654312032431" +
   "543206765431203243154320654312345676543120324315432065431234567",
   "replstar": ["13143154312032654312032431543206576543120324315432067",
-  "0231432054312345654312032431543206765431203243154320654312345676543120"+
+  "0231432054312345654312032431543206765431203243154320654312345676543120" +
   "324315432065431234567"], "elms": [], "special": "5600_z", "size": 8000},
   {"a": 9, "character": [["3240_z", 1]], "distinv":
   "031234312032543654312032431543654765431203243154320654376", "replstar":
@@ -10306,10 +10301,10 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "12312034312032431543126543120345765431203243154320654312345676543120345",
   "023154312032435465431203243154320765431203243154320654312345676543120345",
   "023454312032431543206543120324315765431203243154320654312345676543120345",
-  "023543120324354654312032431546765431203243154320654312345676543120324"+
-  "35465", "0254312032431543265431203243154676543120324315432065431234567"+
-  "654312032435465", "0231543120324315436543120324315436547654312032431543"+
-  "20654312345676543120324315432065", "0234543120324315432065431203243546"+
+  "023543120324354654312032431546765431203243154320654312345676543120324" +
+  "35465", "0254312032431543265431203243154676543120324315432065431234567" +
+  "654312032435465", "0231543120324315436543120324315436547654312032431543" +
+  "20654312345676543120324315432065", "0234543120324315432065431203243546" +
   "57654312032431543206543123456765431203243154320654312345"], "elms": [],
   "special": "4480_y", "size": 45136}, {"a": 12, "character": [["3360_z", 1],
   ["4200_x", 1]], "distinv":
@@ -10336,11 +10331,11 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   ["2400_z'", 1]], "distinv": "12312343123454312345654312345", "replstar":
   ["12312343123454312345654312345", "123123431234543123457654312345"],
   "elms": [], "special": "5600_z'", "size": 8000}, {"a": 30, "character":
-  [["2268_x'", 1], ["972_x'", 1]], "distinv": "03120454312345654312032435"+
+  [["2268_x'", 1], ["972_x'", 1]], "distinv": "03120454312345654312032435" +
   "6765431203243154320654312345676543120324315432065431234567", "replstar":
   ["12312034312032431543120324315432065431203243154320654765431203243567",
-  "0312045431234565431203243567654312032431543206543123456765431203243154"+
-  "32065431234567", "031203431254312345654312032435676543120324315432065"+
+  "0312045431234565431203243567654312032431543206543123456765431203243154" +
+  "32065431234567", "031203431254312345654312032435676543120324315432065" +
   "4312345676543120324315432065431234567"], "elms": [], "special": "2268_x'",
   "size": 3240}, {"a": 16, "character": [["7168_w", 1], ["5600_w", 1],
   ["1344_w", 1], ["5670_y", 1], ["4536_y", 1], ["4480_y", 1], ["4200_y", 2],
@@ -10393,7 +10388,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "020312043120324315431203456543120324315467654312032431543206543765",
   "031204543123456543120324315432067654312032431543206543123457654312032435",
   "131431254312032431654312032431543206543127654312032431543206543765",
-  "0312034312543123456543120324315432067654312032431543206543123457654312"+
+  "0312034312543123456543120324315432067654312032431543206543123457654312" +
   "032435"], "elms": [], "special": "4480_y", "size": 38766}, {"a": 25,
   "character": [["2800_z'", 1], ["2100_x'", 1]], "distinv":
   "1231234312034543120324354676543120324315432", "replstar":
@@ -10404,7 +10399,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   ["020320432054320654312032431", "123120343120324354320654312032431",
   "123123431203243543265431203457654312032431543265431"], "elms": [],
   "special": "4200_z'", "size": 4200}, {"a": 13, "character": [["4536_z", 1]],
-  "distinv": "03123431203265431234567654312032431543206543123456765431203"+
+  "distinv": "03123431203265431234567654312032431543206543123456765431203" +
   "24315436", "replstar": ["0203204312032456543120765431203243154367",
   "0312343120326543123456765431203243154320654312345676543120324315436",
   "123120345432654312032435765431203243154320654312345676"], "elms": [],
@@ -10440,9 +10435,9 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   ["02032043205432065431203243154327",
   "12312343123454312032431543267654312345"], "elms": [], "special": "6075_x'",
   "size": 6075}, {"a": 14, "character": [["6075_x", 1]], "distinv":
-  "0312343123565431203765431203243154320654312345676543120324315432065431"+
+  "0312343123565431203765431203243154320654312345676543120324315432065431" +
   "234567", "replstar": ["1231203431203243154312654312032437654312034567",
-  "031234312356543120376543120324315432065431234567654312032431543206543"+
+  "031234312356543120376543120324315432065431234567654312032431543206543" +
   "1234567"], "elms": [], "special": "6075_x", "size": 6075}, {"a": 10,
   "character": [["1400_zz", 1], ["2240_x", 1]], "distinv":
   "031234312032543165431203243154327654312032431543206543123765431203",
@@ -10452,7 +10447,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "013124312032435465431234765431203243154320654376",
   "031234312032543165431203243154327654312032431543206543123765431203",
   "2312431203243543123654312032431543654765431203243154320654376",
-  "031234312032543165431203243154326543176543120324315432065431234567654"+
+  "031234312032543165431203243154326543176543120324315432065431234567654" +
   "3120324315436"], "elms": [], "special": "2240_x", "size": 3640}, {"a": 37,
   "character": [["1400_z'", 1], ["448_z'", 1], ["1344_x'", 1]], "distinv":
   "0120312032431203243154312032431543207", "replstar":
@@ -10461,14 +10456,14 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "0120312032431203243154312032431543206765431203243154320",
   "1231234312345431203456543120324315432065431234765431203243154320",
   "1231203431203243543120324315432654312032431543206765431203243154320",
-  "0120312032431203243154312032431543206543123457654312032431543206543"+
+  "0120312032431203243154312032431543206543123457654312032431543206543" +
   "123457"], "elms": [], "special": "1400_z'", "size": 3192}, {"a": 31,
-  "character": [["3240_z'", 1]], "distinv": "1203143120543120324315432654"+
+  "character": [["3240_z'", 1]], "distinv": "1203143120543120324315432654" +
   "3120324315432065476543120324315432065431234576543120324315432",
-  "replstar": ["123123431234543120324354654312032431543206543127654312032"+
-  "4315432654", "0203204320543120654312032457654312032431543206543123457"+
-  "6543120324315432", "01203120324312032431543120324315465431203243154326"+
-  "5476543120324315432654", "1203143120543120324315432654312032431543206"+
+  "replstar": ["123123431234543120324354654312032431543206543127654312032" +
+  "4315432654", "0203204320543120654312032457654312032431543206543123457" +
+  "6543120324315432", "01203120324312032431543120324315465431203243154326" +
+  "5476543120324315432654", "1203143120543120324315432654312032431543206" +
   "5476543120324315432065431234576543120324315432"], "elms": [], "special":
   "3240_z'", "size": 3240}, {"a": 25, "character": [["2800_z'", 1],
   ["700_xx'", 1]], "distinv":
@@ -10477,11 +10472,11 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "120314312543120324315432065431203243154320654312345",
   "120312343120324543120324315432065431203243154320654312345"], "elms": [],
   "special": "2800_z'", "size": 3500}, {"a": 13, "character": [["4536_z", 1]],
-  "distinv": "02314320654312032431543206543123457654312032431543206543123"+
+  "distinv": "02314320654312032431543206543123457654312032431543206543123" +
   "4567654312032431543206", "replstar":
   ["02045431654312034576543120324315432065431234576",
   "012034354312032465431203243154320654327654312032431543206576",
-  "0231432065431203243154320654312345765431203243154320654312345676543120"+
+  "0231432065431203243154320654312345765431203243154320654312345676543120" +
   "32431543206"], "elms": [], "special": "4536_z", "size": 4536}, {"a": 42,
   "character": [["400_z'", 1], ["700_x'", 1]], "distinv":
   "120314315431203243546543207654312032431543206543123456765431203245",
@@ -10489,8 +10484,8 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   ["12312034312032435431203243154326543120345676543120324315432654765",
   "120314315431203243546543207654312032431543206543123456765431203245",
   "0120312032431203243154312032431543206543120345676543120324315432654765",
-  "0203204312054312032654312032431546765431203243154320654312345676543120"+
-  "324315432654", "120314315431203243546543120324576543120324315432065431"+
+  "0203204312054312032654312032431546765431203243154320654312345676543120" +
+  "324315432654", "120314315431203243546543120324576543120324315432065431" +
   "2345676543120324315432065431234567"], "elms": [], "special": "700_x'",
   "size": 1100}, {"a": 16, "character": [["7168_w", 1], ["5600_w", 2],
   ["448_w", 1], ["5670_y", 3], ["4536_y", 3], ["4480_y", 1], ["1680_y", 3],
@@ -10556,8 +10551,8 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "0234543123456543120324315432067654312032431543206543123456765431203456",
   "1231234312032454312654312034567654312032431543206543123456765431203456",
   "023454312034654312032431546576543120324315432065431234567654312032435465",
-  "0231543120345654312032435465765431203243154320654312345676543120324315"+
-  "432065", "023454316543120345676543120324315432065431234567654312032431"+
+  "0231543120345654312032435465765431203243154320654312345676543120324315" +
+  "432065", "023454316543120345676543120324315432065431234567654312032431" +
   "5432065431234567"], "elms": [], "special": "4480_y", "size": 61824},
   {"a": 23, "character": [["4536_z'", 1]], "distinv":
   "12031431543120324315432065431203243154320765431203245", "replstar":
@@ -10589,7 +10584,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "123123431203243154312032431543206543120324576543120324315432654",
   "1203143120543120324315432654312032431543265476543120324315432654",
   "020320431203254312032431546543120324315432065431234576543120324315432654",
-  "1203143120543120324315432065431203243154326543176543120324315432065431"+
+  "1203143120543120324315432065431203243154326543176543120324315432065431" +
   "2347654312"], "elms": [], "special": "2240_x'", "size": 3640}, {"a": 23,
   "character": [["4536_z'", 1]], "distinv":
   "1231234312345431203243154326543276543120324315432654317", "replstar":
@@ -10597,7 +10592,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "0131431543165431234576543120324315432654317",
   "1231234312345431203243154326543276543120324315432654317"], "elms": [],
   "special": "4536_z'", "size": 4536}, {"a": 14, "character": [["2835_x", 1]],
-  "distinv": "03123431203546543120324315676543120324315432065431234567654"+
+  "distinv": "03123431203546543120324315676543120324315432065431234567654" +
   "3120324315436", "replstar": ["0120435431654312034765431203243154320654376",
   "031234312035465431203243156765431203243154320654312345676543120324315436"],
   "elms": [], "special": "2835_x", "size": 2835}, {"a": 37, "character":
@@ -10608,7 +10603,7 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "123123431234543123456543120324315432065431234576543123456",
   "01203120324312032431543120324315432067654312032431543206543123456",
   "01203120324312032431543120324315654312032431543207654312032431543265431",
-  "123123431234543123456543120324315432065431234567654312032431543206543"+
+  "123123431234543123456543120324315432065431234567654312032431543206543" +
   "123456"], "elms": [], "special": "1400_z'", "size": 3752}, {"a": 31,
   "character": [["3240_z'", 1]], "distinv":
   "120314315431203243154654312032765431203243154320654312347654312",
@@ -10624,43 +10619,43 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "013143123543123465431234576543120324315432654317",
   "123123431203245431203243154365431234576543120324315432654317"], "elms": [],
   "special": "4200_x'", "size": 5040}, {"a": 15, "character": [["4200_z", 1]],
-  "distinv": "03123431203254316543120324315436765431203243154320654312345"+
+  "distinv": "03123431203254316543120324315436765431203243154320654312345" +
   "676543120324315432065431234567", "replstar":
   ["1231234312032435431654312034765431203243154320654376",
   "1231234312032454312034654312034765431203243154320654376",
-  "03123431203254316543120324315436765431203243154320654312345676543120"+
+  "03123431203254316543120324315436765431203243154320654312345676543120" +
   "324315432065431234567"], "elms": [], "special": "4200_z", "size": 4200},
   {"a": 28, "character": [["840_z'", 1], ["2240_x'", 1]], "distinv":
-  "1231234312032435431203243154326543120347654312032431543206543123476543"+
+  "1231234312032435431203243154326543120347654312032431543206543123476543" +
   "1234", "replstar": ["020320432054320654312032435476543120324315432654317",
   "1231234312034543120324354654312032435476543120324315432654317",
   "0131431254312345654312032431543676543120324315432065431234765431234",
-  "12312343120324354312032431543265431203476543120324315432065431234765"+
+  "12312343120324354312032431543265431203476543120324315432065431234765" +
   "431234"], "elms": [], "special": "2240_x'", "size": 3080}, {"a": 28,
   "character": [["1400_zz'", 1], ["2240_x'", 1]], "distinv":
-  "1203243120324543120324356543120324315436765431203243154320654312345"+
+  "1203243120324543120324356543120324315436765431203243154320654312345" +
   "6765431203243154320654312", "replstar":
   ["020320432054312065431203243576543120324315432065431237654312",
   "0120312032431203243154312065431203243576543120324315432065431237654312",
-  "020320432054312036543120324315436765431203243154320654312345676543120"+
-  "3243154", "12312034312032431543120324315432065431203243576543120324315"+
-  "432065431237654312", "12312343120345431203243154365431203243154367654312"+
-  "032431543206543123456765431203243154", "1203243120324543120324356543120"+
-  "3243154367654312032431543206543123456765431203243154320654312", "120324"+
-  "312032435431203243154365431203243154320654312765431203243154320654312"+
+  "020320432054312036543120324315436765431203243154320654312345676543120" +
+  "3243154", "12312034312032431543120324315432065431203243576543120324315" +
+  "432065431237654312", "12312343120345431203243154365431203243154367654312" +
+  "032431543206543123456765431203243154", "1203243120324543120324356543120" +
+  "3243154367654312032431543206543123456765431203243154320654312", "120324" +
+  "312032435431203243154365431203243154320654312765431203243154320654312" +
   "345676543120324315432065431234567"], "elms": [], "special": "2240_x'",
   "size": 3640}, {"a": 46, "character": [["567_x'", 1]], "distinv":
   "12031203243120324315431203243154320654312032431543206543123456",
-  "replstar": ["120312032431203243154312032431543206543120324315432065431"+
+  "replstar": ["120312032431203243154312032431543206543120324315432065431" +
   "23456"], "elms": [], "special": "567_x'", "size": 567}, {"a": 63,
   "character": [["112_z'", 1], ["84_x'", 1]], "distinv":
   "012031203243120324315431203243154320654312032431543206543123456",
-  "replstar": ["01203120324312032431543120324315432065431203243154320654"+
-  "3123456", "12312034312032435431203243154326543120324315432065431234576"+
-  "54312032431543206543123456", "01203120324312032431543120324315432065431"+
+  "replstar": ["01203120324312032431543120324315432065431203243154320654" +
+  "3123456", "12312034312032435431203243154326543120324315432065431234576" +
+  "54312032431543206543123456", "01203120324312032431543120324315432065431" +
   "20324315432065431234567654312032431543206543123456"], "elms": [],
   "special": "112_z'", "size": 196}, {"a": 31, "character": [["3240_z'", 1]],
-  "distinv": "1231203431203243543120324315432654312345676543120324315432"+
+  "distinv": "1231203431203243543120324315432654312345676543120324315432" +
   "65431", "replstar": ["23124312354312346543123457654312032431543265431",
   "020320432054320654312032431765431203243154320654312345",
   "123120343120324354312032431543265431234567654312032431543265431",
@@ -10671,122 +10666,122 @@ E8KLCELLREPS=[{"a": 0, "character": [["1_x", 1]], "distinv": "",
   "replstar": ["12312343123454312345654312345676543120324315432654317",
   "1231203431203243543120324315432654312345676543120324315432654317",
   "012031203243120324315431203243154320654312345676543120324315432654317",
-  "123123431234543120345654312032435465765431203243154320654312347654312"+
-  "032431", "123120343120324354312032431543206543120324354657654312032431"+
+  "123123431234543120345654312032435465765431203243154320654312347654312" +
+  "032431", "123120343120324354312032431543206543120324354657654312032431" +
   "54320654312347654312032431"], "elms": [], "special": "700_x'", "size":
   1100}, {"a": 32, "character": [["1575_x'", 1], ["1400_x'", 1],
-  ["1050_x'", 1]], "distinv": "120312431203245431203243154320654312032431"+
+  ["1050_x'", 1]], "distinv": "120312431203245431203243154320654312032431" +
   "5432065431234576543120324315432065431234576543120324315432", "replstar":
-  ["020320432054312032654312032431546576543120324315432065431234576543120"+
-  "324315432", "123120343120324354312032431543206543120324315432065476543"+
-  "1203243154320654312345", "0203204320543120324654312032431543265476543"+
-  "120324315432065431234576543120324315432", "120312431235431203243154320"+
+  ["020320432054312032654312032431546576543120324315432065431234576543120" +
+  "324315432", "123120343120324354312032431543206543120324315432065476543" +
+  "1203243154320654312345", "0203204320543120324654312032431543265476543" +
+  "120324315432065431234576543120324315432", "120312431235431203243154320" +
   "65431203243154320654312345765431203243154320654312345765431203245",
-  "12031431205431203243154320654312032431543206543123457654312032431543206"+
-  "5431234576543120324315432", "12031243120324543120324315432065431203243"+
+  "12031431205431203243154320654312032431543206543123457654312032431543206" +
+  "5431234576543120324315432", "12031243120324543120324315432065431203243" +
   "15432065431234576543120324315432065431234576543120324315432"], "elms": [],
   "special": "1400_x'", "size": 4025}, {"a": 21, "character":
-  [["4200_z'", 1]], "distinv": "031203431235431203456543120324315432065"+
+  [["4200_z'", 1]], "distinv": "031203431235431203456543120324315432065" +
   "43127654312032431543206543123457654312032435", "replstar":
   ["0203204320543120324654312032431543265476543120324356",
   "013143125431203246543120324315432065431234576543120324356",
-  "03120343123543120345654312032431543206543127654312032431543206543123"+
+  "03120343123543120345654312032431543206543127654312032431543206543123" +
   "457654312032435"], "elms": [], "special": "4200_z'", "size": 4200},
   {"a": 31, "character": [["3240_z'", 1]], "distinv":
-  "03120343125431203246543120324315432065437654312032431543206543123456"+
+  "03120343125431203246543120324315432065437654312032431543206543123456" +
   "76543120324315432065431234567", "replstar":
   ["123123431234543120345654312032431543206547654312032431543206543765",
-  "02032043205431203654312032431546765431203243154320654312345676543120"+
-  "324356", "1231203431203243543120324315432065431203243154320654765431203"+
-  "2431543206543765", "03120343125431203246543120324315432065437654312032"+
+  "02032043205431203654312032431546765431203243154320654312345676543120" +
+  "324356", "1231203431203243543120324315432065431203243154320654765431203" +
+  "2431543206543765", "03120343125431203246543120324315432065437654312032" +
   "43154320654312345676543120324315432065431234567"], "elms": [], "special":
   "3240_z'", "size": 3240}, {"a": 42, "character": [["700_x'", 1],
-  ["300_x'", 1]], "distinv": "123123431234543120324315432065431203243154"+
+  ["300_x'", 1]], "distinv": "123123431234543120324315432065431203243154" +
   "32065431234567654312032431543206543123457654312345", "replstar":
   ["1231234312345431234565431234567654312032431543206543123457654312345",
-  "123120343120324354312032431543265431234567654312032431543206543123457"+
-  "654312345", "1231234312345431203243154320654312032431543206543123456"+
+  "123120343120324354312032431543265431234567654312032431543206543123457" +
+  "654312345", "1231234312345431203243154320654312032431543206543123456" +
   "7654312032431543206543123457654312345"], "elms": [], "special": "700_x'",
   "size": 1000}, {"a": 32, "character": [["1400_x'", 1], ["1050_x'", 1],
-  ["175_x'", 1]], "distinv": "12031431543120324315432654312032431546765"+
+  ["175_x'", 1]], "distinv": "12031431543120324315432654312032431546765" +
   "431203243154320654312345676543120324315432654", "replstar":
   ["123123431234543120324565431203243154365476543120324315432654765",
   "1203143154312032431543265431203243156765431203243154320654312347654312",
-  "120314312543120324315436543120324354765431203243154320654312345676543"+
-  "1203245", "1231234312345431203243546543120324315432065431765431203243"+
-  "15432654765", "1231203431203243154312032431543206543120324315436547654"+
-  "3120324315432654765", "1203143154312032431543265431203243154676543120"+
+  "120314312543120324315436543120324354765431203243154320654312345676543" +
+  "1203245", "1231234312345431203243546543120324315432065431765431203243" +
+  "15432654765", "1231203431203243154312032431543206543120324315436547654" +
+  "3120324315432654765", "1203143154312032431543265431203243154676543120" +
   "3243154320654312345676543120324315432654"], "elms": [], "special":
   "1400_x'", "size": 2625}, {"a": 47, "character": [["560_z'", 1]],
-  "distinv": "12031431205431203243154326543120324315432654765431203243"+
+  "distinv": "12031431205431203243154326543120324315432654765431203243" +
   "154320654312345676543120324315432065431234567", "replstar":
-  ["012031203243120324315431203243154320654312032431543206543176543120324"+
-  "315432654765", "12031431205431203243154326543120324315432654765431203"+
+  ["012031203243120324315431203243154320654312032431543206543176543120324" +
+  "315432654765", "12031431205431203243154326543120324315432654765431203" +
   "243154320654312345676543120324315432065431234567"], "elms": [],
   "special": "560_z'", "size": 560}, {"a": 32, "character": [["1575_x'", 2],
-  ["1400_x'", 1], ["350_x'", 1]], "distinv": "1231203431203243543120324"+
+  ["1400_x'", 1], ["350_x'", 1]], "distinv": "1231203431203243543120324" +
   "3154320654312032431543265431765431203243154320654312345", "replstar":
   ["12312343123454312345654312032431543206543276543120324315432",
   "123123431234543123456543120324315432654317654312032431543265431",
   "020320432054320654312032435465765431203243154320654312347654312032431",
   "123123431234543120345654312032431543265431765431203243154320654312345",
-  "123120343120324354312032431543206543120324315432654317654312032431543"+
+  "123120343120324354312032431543206543120324315432654317654312032431543" +
   "20654312345"], "elms": [], "special": "1400_x'", "size": 4900}, {"a": 47,
-  "character": [["560_z'", 1]], "distinv": "12312034312032435431203243"+
+  "character": [["560_z'", 1]], "distinv": "12312034312032435431203243" +
   "15432654312032431543206543123457654312032431543265431", "replstar":
-  ["123123431234543123456543123456765431203243154320654312345765431203243"+
-  "15432", "1231203431203243543120324315432654312032431543206543123457654"+
+  ["123123431234543123456543123456765431203243154320654312345765431203243" +
+  "15432", "1231203431203243543120324315432654312032431543206543123457654" +
   "312032431543265431"], "elms": [], "special": "560_z'", "size": 560},
   {"a": 52, "character": [["160_z'", 1], ["210_x'", 1]], "distinv":
-  "123120343120324354312032431543265431203243154320654312345676543120324"+
-  "31543206543123456", "replstar": ["12312034312032435431203243154326543"+
-  "120324315432065431234567654312032431543206543123456", "1231234312345431"+
+  "123120343120324354312032431543265431203243154320654312345676543120324" +
+  "31543206543123456", "replstar": ["12312034312032435431203243154326543" +
+  "120324315432065431234567654312032431543206543123456", "1231234312345431" +
   "20324356543120324315432654376543120324315432065431234576543120324315432"],
   "elms": [], "special": "210_x'", "size": 370}, {"a": 37, "character":
   [["1400_z'", 1], ["1008_z'", 2], ["56_z'", 1]], "distinv":
-  "1231203243120324315431203243154320654312032431543207654312032431543"+
+  "1231203243120324315431203243154320654312032431543207654312032431543" +
   "2065431234576543120324315432", "replstar":
   ["012031203243120324315431203243154320654312032435476543120324315432",
   "0120312032431203243154312032431543206543123457654312032431543265431",
   "01203120324312032431543120324315432065431234567654312032431543265431",
-  "01203120324312032431543120324315432065431203243154327654312032431543"+
-  "265431", "1231203243120324315431203243154320654312032431543207654312"+
+  "01203120324312032431543120324315432065431203243154327654312032431543" +
+  "265431", "1231203243120324315431203243154320654312032431543207654312" +
   "0324315432065431234576543120324315432"], "elms": [], "special": "1400_z'",
   "size": 3472}, {"a": 52, "character": [["210_x'", 1], ["50_x'", 1]],
-  "distinv": "1203123431203245431203243154320654312032431543206543123457"+
+  "distinv": "1203123431203245431203243154320654312032431543206543123457" +
   "65431203243154320654312345676543120324315432065431234567", "replstar":
-  ["012031203243120324315431203243154320654312032431543206543276543120324"+
-  "31543206543123456765431203245", "1203143125431203243154320654312032431"+
+  ["012031203243120324315431203243154320654312032431543206543276543120324" +
+  "31543206543123456765431203245", "1203143125431203243154320654312032431" +
   "54320654312345765431203243154320654312345676543120324315432065431234567",
-  "1203123431203245431203243154320654312032431543206543123457654312032431"+
+  "1203123431203245431203243154320654312032431543206543123457654312032431" +
   "54320654312345676543120324315432065431234567"], "elms": [], "special":
   "210_x'", "size": 260}, {"a": 63, "character": [["112_z'", 1],
   ["28_x'", 1]], "distinv":
-  "12312343120324315431203243154320654312032431543206543123456765431203"+
-  "24315432065431234576543120324315432", "replstar": ["0120312032431203"+
+  "12312343120324315431203243154320654312032431543206543123456765431203" +
+  "24315432065431234576543120324315432", "replstar": ["0120312032431203" +
   "243154312032431543206543120324315432065431234567654312032431543265431",
-  "123123431203243154312032431543206543120324315432065431234567654312032"+
+  "123123431203243154312032431543206543120324315432065431234567654312032" +
   "4315432065431234576543120324315432"], "elms": [], "special": "112_z'",
   "size": 140}, {"a": 74, "character": [["35_x'", 1]], "distinv":
-  "01203120324312032431543120324315432065431203243154320654312345676543"+
+  "01203120324312032431543120324315432065431203243154320654312345676543" +
   "1203243154320654312345765431203243154320", "replstar":
-  ["0120312032431203243154312032431543206543120324315432065431234567654"+
+  ["0120312032431203243154312032431543206543120324315432065431234567654" +
   "31203243154320654312345765431203243154320"], "elms": [], "special":
   "35_x'", "size": 35}, {"a": 91, "character": [["8_z'", 1]], "distinv":
-  "0120312032431203243154312032431543206543120324315432065431234567654"+
+  "0120312032431203243154312032431543206543120324315432065431234567654" +
   "3120324315432065431234567654312032431543206543123456", "replstar":
-  ["012031203243120324315431203243154320654312032431543206543123456765"+
+  ["012031203243120324315431203243154320654312032431543206543123456765" +
   "43120324315432065431234567654312032431543206543123456"], "elms": [],
   "special": "8_z'", "size": 8}, {"a": 120, "character": [["1_x'", 1]],
-  "distinv": "0120312032431203243154312032431543206543120324315432065431"+
+  "distinv": "0120312032431203243154312032431543206543120324315432065431" +
   "23456765431203243154320654312345676543120324315432065431234567",
-  "replstar": ["012031203243120324315431203243154320654312032431543206"+
+  "replstar": ["012031203243120324315431203243154320654312032431543206" +
   "543123456765431203243154320654312345676543120324315432065431234567"],
   "elms": [], "special": "1_x'", "size": 1}]
 
 # sizes and star orbit lengths:
 
-E8KLCELLREPORBITS=[[1, 1], [8, 8], [35, 35], [140, 28], [196, 84],
+E8KLCELLREPORBITS = [[1, 1], [8, 8], [35, 35], [140, 28], [196, 84],
   [370, 160], [260, 50], [560, 510], [567, 567], [1000, 300], [1100, 350],
   [3192, 448], [3752, 896], [2625, 175], [4025, 875], [3240, 972],
   [3640, 651], [3564, 1296], [8192, 3445], [3472, 56], [7560, 2709],
@@ -10813,23 +10808,23 @@ def E8CELLREPcheck():
     """checks if the elements in replstar belong to the same tau-cell,
     and if size and degrees of characters are ok.
     """
-    W=coxeter("E",8)
-    t=chartable(W)
-    ch=[c[0] for c in t['charnames']]
+    W = coxeter("E",8)
+    t = chartable(W)
+    ch = [c[0] for c in t['charnames']]
     for c in E8KLCELLREPS:
-        l=[[int(s) for s in w] for w in c['replstar']]
-        g=gentaucells(W,l)
-        if len(g)>1:
+        l = [[int(s) for s in w] for w in c['replstar']]
+        g = gentaucells(W,l)
+        if len(g) > 1:
             return False
         # check size
-        d1=sum([i[1]*t['irreducibles'][ch.index(i[0])][0]
+        d1 = sum([i[1]*t['irreducibles'][ch.index(i[0])][0]
                for i in c['character']])
         d2 = sum([len(leftklstarorbitelm(W,W.wordtoperm(w))) for w in l])
         if not (d1 == d2 == c['size']):
             return False
     return True
 
-#F klcellreps
+# F klcellreps
 
 
 def klcellreps(W, verbose=False):
@@ -10868,64 +10863,64 @@ def klcellreps(W, verbose=False):
     """
     if 'klcellreps' in dir(W):
         return W.klcellreps
-    cm7=cartanmat("E",7)
-    cm8=cartanmat("E",8)
+    cm7 = cartanmat("E",7)
+    cm8 = cartanmat("E",8)
     if W.cartan in [cm7,cm8]:
-        if W.cartan==cm7:
-            klcr=E7KLCELLREPS
+        if W.cartan == cm7:
+            klcr = E7KLCELLREPS
         else:
-            klcr=E8KLCELLREPS
-        if any((len(l['elms'])==0 or l['elms'] is False) for l in klcr):
+            klcr = E8KLCELLREPS
+        if any((len(l['elms']) == 0 or l['elms'] is False) for l in klcr):
             if verbose:
                 lprint('#I =====> '+str(len(klcr))+' (unpacking data) ')
             for l in range(len(klcr)):
-                c=[]
+                c = []
                 for r in [W.wordtoperm([int(i) for i in w])
                                     for w in klcr[l]['replstar']]:
                     c.extend([x[:len(W.rank)]
                              for x in leftklstarorbitelm(W,r)])
-                if l %10==0:
+                if l % 10 == 0:
                     if verbose:
                         lprint('.')
-                klcr[l]['elms']=set(c)
-                klcr[l]['index']=l
+                klcr[l]['elms'] = set(c)
+                klcr[l]['index'] = l
             if verbose:
                 lprint(' OK <=====\n')
-        W.klcellreps=klcr
+        W.klcellreps = klcr
         return klcr
     else:
         if verbose:
             lprint('#I =====> pre-processing (done only once) <=====\n')
-        klcr=[c.X for c in klcells(W,1,v)[1]]
-        dd=distinguishedinvolutions(W,1)
-        d1=dd[0]
-        d2=[[[i[0][0],abs(i[1])] for i in l] for l in dd[1]]
-        res=[]
+        klcr = [c.X for c in klcells(W,1,v)[1]]
+        dd = distinguishedinvolutions(W,1)
+        d1 = dd[0]
+        d2 = [[[i[0][0],abs(i[1])] for i in l] for l in dd[1]]
+        res = []
         for l in klcr:
             for i in range(len(d1)):
                 if d1[i] in l:
                     res.append(i)
-        neu=[[''.join([str(s) for s in d1[i]]) for i in res],
+        neu = [[''.join([str(s) for s in d1[i]]) for i in res],
                                                [d2[i] for i in res]]
-        t=chartable(W)
-        sp=[[t['charnames'][i][0],t['a'][i]] for i in range(len(t['a']))
-                                                   if t['a'][i]==t['b'][i]]
-        klcr1=[]
+        t = chartable(W)
+        sp = [[t['charnames'][i][0],t['a'][i]] for i in range(len(t['a']))
+                                                   if t['a'][i] == t['b'][i]]
+        klcr1 = []
         for l in range(len(klcr)):
-            lrep=leftklstarreps(W,[W.wordtoperm(x) for x in klcr[l]],
+            lrep = leftklstarreps(W,[W.wordtoperm(x) for x in klcr[l]],
                                              [W.wordtoperm(x) for x in d1])
-            c=0
+            c = 0
             while not sp[c][0] in [j[0] for j in neu[1][l]]:
-                c+=1
+                c += 1
             klcr1.append({'size':len(klcr[l]), 'index':l,
               'elms': set([W.wordtocoxelm(x) for x in klcr[l]]),
               'distinv':neu[0][l], 'character':neu[1][l], 'a':sp[c][1],
               'replstar':[''.join([str(s) for s in W.permtoword(x)]) for x in lrep],
               'special':sp[c][0]})
-        W.klcellreps=klcr1
+        W.klcellreps = klcr1
         return klcr1
 
-#F cellrepstarorbit
+# F cellrepstarorbit
 
 
 def cellrepstarorbit(W, c, verbose=False):
@@ -10953,21 +10948,21 @@ def cellrepstarorbit(W, c, verbose=False):
     """
     if verbose:
         lprint('#I cell of size '+str(c['size'])+'; ')
-    cc=starorbitinv(W,W.wordtoperm([int(s) for s in c['distinv']]),
+    cc = starorbitinv(W,W.wordtoperm([int(s) for s in c['distinv']]),
                                                    list(c['elms']))
     if verbose:
         lprint('orbit with '+str(len(cc[0]))+' cells\n')
-    orb=[]
+    orb = []
     for i in range(len(cc[0])):
         orb.append({'size':c['size'], 'character':c['character'],'a':c['a'],
                     'special':c['special'], 'elms':set(cc[1][i]),
                     'index':c['index'],
                     'distinv': ''.join([str(s) for s in W.permtoword(cc[0][i])])})
-        #'replstar':[''.join([str(s) for s in W.permtoword(w)])
+        # 'replstar':[''.join([str(s) for s in W.permtoword(w)])
         #                    for w in leftklstarreps(W,cc[1][i])]})
     return orb
 
-#F klcellrepelm
+# F klcellrepelm
 
 
 def klcellrepelm(W, w, verbose=False):
@@ -11002,12 +10997,12 @@ def klcellrepelm(W, w, verbose=False):
 
     See also 'klcellreps', 'cellrepstarorbit' and 'leftcellelm'.
     """
-    if type(w) == type(W.permgens[0]) and len(w)==2*W.N:
-        orb=[w]
+    if type(w) == type(W.permgens[0]) and len(w) == 2*W.N:
+        orb = [w]
     else:
-        orb=[W.wordtoperm(w)]
-    orb1=set([orb[0]])
-    e8c=klcellreps(W)
+        orb = [W.wordtoperm(w)]
+    orb1 = set([orb[0]])
+    e8c = klcellreps(W)
     while True:
         for y in orb:
             for c in range(len(e8c)):
@@ -11019,8 +11014,8 @@ def klcellrepelm(W, w, verbose=False):
                             'index':e8c[c]['index'], 'elms': False, 'distinv': False}
             for s in W.rank:
                 for t in range(s):
-                    if W.coxetermat[s][t]==3:
-                        nc=klstaroperation(W,s,t,[y])
+                    if W.coxetermat[s][t] == 3:
+                        nc = klstaroperation(W,s,t,[y])
                         if nc is not False and not nc[0][:len(W.rank)] in orb1:
                             for c in range(len(e8c)):
                                 if nc[0][:len(W.rank)] in e8c[c]['elms']:
@@ -11036,7 +11031,7 @@ def klcellrepelm(W, w, verbose=False):
     print('Mist !!!!')
     return False
 
-#F cellreplstars
+# F cellreplstars
 
 
 def cellreplstars(W, verbose=False):
@@ -11092,7 +11087,7 @@ def cellreplstars(W, verbose=False):
 
     See also 'klcellreps', 'leftcellelm' and 'leftklstarorbitelm'.
     """
-    if W.cartan==cartanmat("E",8):
+    if W.cartan == cartanmat("E",8):
         try:
             from e8celldata import E8ALLKLCELLS
         except ImportError:
@@ -11100,12 +11095,12 @@ def cellreplstars(W, verbose=False):
             E8ALLKLCELLS = False
         if E8ALLKLCELLS is not False:
             from e8celldata import E8ALLPOSITIVEROOTS
-            if W.roots[:W.N]!=E8ALLPOSITIVEROOTS:
+            if W.roots[:W.N] != E8ALLPOSITIVEROOTS:
                 raise ValueError(
                     "----> WARNING: LABELLING OF ROOTS NOT OK !!! <----")
             if verbose:
                 print("#I reading E8-data OK")
-            e8all=[]
+            e8all = []
             for x in E8ALLKLCELLS:
                 e8all.append({'a':E8KLCELLREPS[x[0]]['a'], 'index':x[0],
                   'elms':False, 'character':E8KLCELLREPS[x[0]]['character'],
@@ -11114,16 +11109,16 @@ def cellreplstars(W, verbose=False):
                   'distinv': tuple([int(i) for i in x[1].split('.')]),
                   'replstar': [tuple([int(i) for i in w.split('.')]) for w in x[2]]})
             return e8all
-    neu=[]
-    alls=0
+    neu = []
+    alls = 0
     for c in klcellreps(W):
         for orb in cellrepstarorbit(W,c):
-            rest=orb['elms'].copy()
-            reps=[]
-            while len(rest)>0:
-                o=[x[:len(W.rank)] for x in leftklstarorbitelm(W,
+            rest = orb['elms'].copy()
+            reps = []
+            while len(rest) > 0:
+                o = [x[:len(W.rank)] for x in leftklstarorbitelm(W,
                                                 W.coxelmtoperm(next(iter(rest))))]
-                alls+=len(o)
+                alls += len(o)
                 o.sort()
                 reps.append(o[0])
                 for w in o:
@@ -11141,7 +11136,7 @@ def cellreplstars(W, verbose=False):
     return neu
 
 
-#F leftcellelm
+# F leftcellelm
 def leftcellelm(W,w,replstars=False, verbose=False):
     """returns the left cell with  respect to equal parameters (as
     a dictionary  with components as described in  'kcellreps')
@@ -11172,7 +11167,7 @@ def leftcellelm(W,w,replstars=False, verbose=False):
     See also 'klcellreps' and 'cellreplstars'.
     """
     if replstars is not False:
-        orb=[x[:len(W.rank)] for x in leftklstarorbitelm(W,W.wordtoperm(w))]
+        orb = [x[:len(W.rank)] for x in leftklstarorbitelm(W,W.wordtoperm(w))]
         orb.sort()
         for c in replstars:
             if orb[0] in c['replstar']:
@@ -11183,32 +11178,32 @@ def leftcellelm(W,w,replstars=False, verbose=False):
     if replstars is not False:
         print('Mist !!!!')
         return False
-    w1=W.wordtoperm(w)
-    orb=[w1]
-    orb1=set([orb[0]])
-    e8c=klcellreps(W)
-    weiter=True
-    c0=-1
+    w1 = W.wordtoperm(w)
+    orb = [w1]
+    orb1 = set([orb[0]])
+    e8c = klcellreps(W)
+    weiter = True
+    c0 = -1
     while weiter:
         for y in orb:
             for c in range(len(e8c)):
                 if y[:len(W.rank)] in e8c[c]['elms']:
-                    weiter=False
-                    c0=c
+                    weiter = False
+                    c0 = c
             if weiter:
                 for s in W.rank:
                     for t in range(s):
-                        if W.coxetermat[s][t]==3:
-                            nc=klstaroperation(W,s,t,[y])
+                        if W.coxetermat[s][t] == 3:
+                            nc = klstaroperation(W,s,t,[y])
                             if nc is not False and not nc[0][:len(W.rank)] in orb1:
                                 for c in range(len(e8c)):
                                     if nc[0][:len(W.rank)] in e8c[c]['elms']:
-                                        weiter=False
-                                        c0=c
+                                        weiter = False
+                                        c0 = c
                                 if weiter:
                                     orb.append(nc[0])
                                     orb1.add(nc[0][:len(W.rank)])
-    if c0==-1:
+    if c0 == -1:
         print('Mist !!!')
         return False
     if verbose:
@@ -11217,26 +11212,25 @@ def leftcellelm(W,w,replstars=False, verbose=False):
         if verbose:
             lprint(str(e8c[c0]['size'])+'\n')
         return e8c[c0]
-    orb=[W.wordtoperm([int(s) for s in e8c[c0]['distinv']])]
-    orb1=set([orb[0][:len(W.rank)]])
-    nw1=bytes(w1)
-    ncell=[[bytes(W.coxelmtoperm(x)) for x in list(e8c[c0]['elms'])]]
+    orb = [W.wordtoperm([int(s) for s in e8c[c0]['distinv']])]
+    orb1 = set([orb[0][:len(W.rank)]])
+    ncell = [[bytes(W.coxelmtoperm(x)) for x in list(e8c[c0]['elms'])]]
     if verbose:
         lprint(str(e8c[c0]['size'])+': ')
     for d in orb:
         for s in W.rank:
             for t in range(s):
-                if W.coxetermat[s][t]==3:
-                    if (d[s]>=W.N and d[t]<W.N) or (d[s]<W.N and d[t]>=W.N):
-                        d1=leftklstar(W,perminverse(leftklstar(W,d,s,t)),s,t)
+                if W.coxetermat[s][t] == 3:
+                    if (d[s] >= W.N and d[t] < W.N) or (d[s] < W.N and d[t] >= W.N):
+                        d1 = leftklstar(W,perminverse(leftklstar(W,d,s,t)),s,t)
                         if not d1[:len(W.rank)] in orb1:
                             if verbose:
                                 lprint('.')
                             orb.append(d1)
                             orb1.add(d1[:len(W.rank)])
-                            n1=klstaroperation(W,s,t,ncell[orb.index(d)])
+                            n1 = klstaroperation(W,s,t,ncell[orb.index(d)])
                             if w1 in n1:
-                                if not d1 in n1:
+                                if d1 not in n1:
                                     print('Mist !!!')
                                     return False
                                 lprint('\n')
@@ -11248,48 +11242,48 @@ def leftcellelm(W,w,replstars=False, verbose=False):
                             else:
                                 ncell.append([bytes(x) for x in n1])
 
-#F klcellsclasses
+# F klcellsclasses
 
 
 def klcellsclasses(W, verbose=False):
     """determines intersections of two-sided cells with elements
     of minimal length in cuspidal classes of W.
     """
-    kl1=klcellreps(W)
-    cp=[x for x in conjugacyclasses(W)['reps'] if len(set(x))==len(W.rank)]
+    kl1 = klcellreps(W)
+    cp = [x for x in conjugacyclasses(W)['reps'] if len(set(x)) == len(W.rank)]
     if verbose:
         lprint('#I '+str(len(cp))+' cuspidal casses: ')
-    t=chartable(W,chars=0)
-    sp=[t['charnames'][i][0] for i in range(len(t['a']))
-                                             if t['a'][i]==t['b'][i]]
-    mat=[]
+    t = chartable(W,chars=0)
+    sp = [t['charnames'][i][0] for i in range(len(t['a']))
+                                             if t['a'][i] == t['b'][i]]
+    mat = []
     for c in cp:
-        c1=cyclicshiftorbit(W,W.wordtoperm(c))
+        c1 = cyclicshiftorbit(W,W.wordtoperm(c))
         if verbose:
             lprint(str(len(c1))+' ')
-        cs=[klcellrepelm(W,x)['special'] for x in c1]
-        row=[len([i for i in cs if i==char]) for char in sp]
+        cs = [klcellrepelm(W,x)['special'] for x in c1]
+        row = [len([i for i in cs if i == char]) for char in sp]
         mat.append(row)
     if verbose:
         lprint('\n')
     return mat
 
-#F cellrepcheck1
+# F cellrepcheck1
 
 
 def cellrepcheck1(W,klcr):
     """checks if the elements in replstar belong to the same tau-cell,
     and if size and degrees of characters are ok.
     """
-    t=chartable(W)
-    ch=[c[0] for c in t['charnames']]
+    t = chartable(W)
+    ch = [c[0] for c in t['charnames']]
     for c in klcr:
-        l=[[int(s) for s in w] for w in c['replstar']]
-        g=gentaucells(W,l)
-        if len(g)>1:
+        l = [[int(s) for s in w] for w in c['replstar']]
+        g = gentaucells(W,l)
+        if len(g) > 1:
             return False
         # check size
-        d1=sum([i[1]*t['irreducibles'][ch.index(i[0])][0]
+        d1 = sum([i[1]*t['irreducibles'][ch.index(i[0])][0]
                for i in c['character']])
         elms = []
         for w in l:
@@ -11299,7 +11293,7 @@ def cellrepcheck1(W,klcr):
             return False
     return True
 
-#F cellrepcheck2
+# F cellrepcheck2
 
 
 def cellrepcheck2(W):
@@ -11341,33 +11335,33 @@ def cellrepcheck2(W):
 
     See also 'klcellreps' and 'cellrepstarorbit'.
     """
-    alls=set()
-    numb=0
+    alls = set()
+    numb = 0
     for l in klcellreps(W):
         for x in cellrepstarorbit(W,l):
             alls.update(x['elms'])
-            numb+=len(x['elms'])
-    return len(alls)==numb and numb==W.order
+            numb += len(x['elms'])
+    return len(alls) == numb and numb == W.order
 
-#F cellrepcheck3
+# F cellrepcheck3
 
 
 def cellrepcheck3(W):
     """check for function 'cellreplstars'.
     """
-    alls=set()
+    alls = set()
     for l in cellreplstars(W):
-        numb=0
+        numb = 0
         for r in l['replstar']:
-            c=[x[:len(W.rank)]
+            c = [x[:len(W.rank)]
                       for x in leftklstarorbitelm(W,W.coxelmtoperm(r))]
-            numb+=len(c)
+            numb += len(c)
             alls.update(c)
-        if numb!=l['size']:
+        if numb != l['size']:
             print('Mist !!!')
-    return len(alls)==W.order
+    return len(alls) == W.order
 
-#F checkleftctd
+# F checkleftctd
 
 
 def checkleftctd(W, verbose=False):
@@ -11383,7 +11377,7 @@ def checkleftctd(W, verbose=False):
     cc = klcellreps(W)
     for c in range(len(cc)):
         for l in cellrepstarorbit(W,cc[c]):
-            lc=len(leftconnected(W,list(l['elms']), verbose=False))
+            lc = len(leftconnected(W,list(l['elms']), verbose=False))
             if verbose:
                 lprint(str(lc))
             res.append(lc)
@@ -11397,40 +11391,40 @@ def checkleftctd(W, verbose=False):
 
 
 def checkkottwitz(W):
-    check=[]
-    count=0
-    ii=involutionmodel(W)
-    rr=conjugacyclasses(W)['reps']
-    invcl=[w for w in rr if W.wordtocoxelm(2*w)==tuple(W.rank)]
-    elmscl=[set([x[:len(W.rank)] for x in conjugacyclass(W,W.wordtoperm(i))])
+    check = []
+    count = 0
+    ii = involutionmodel(W)
+    rr = conjugacyclasses(W)['reps']
+    invcl = [w for w in rr if W.wordtocoxelm(2*w) == tuple(W.rank)]
+    elmscl = [set([x[:len(W.rank)] for x in conjugacyclass(W,W.wordtoperm(i))])
                                                                for i in invcl]
-    ti=chartable(W)
-    ch=[c[0] for c in chartable(W)['charnames']]
+    ti = chartable(W)
+    ch = [c[0] for c in ti['charnames']]
     for cell in cellreplstars(W):
-        if count %100==0:
+        if count % 100 == 0:
             lprint(str(count)+' ')
-        count+=1
-        char=len(ch)*[0]
+        count += 1
+        char = len(ch)*[0]
         for c in cell['character']:
-            char[ch.index(c[0])]=c[1]
-        inv=[]
+            char[ch.index(c[0])] = c[1]
+        inv = []
         for x in cell['replstar']:
             for y in leftklstarorbitelm(W,W.coxelmtoperm(x)):
-                if permmult(y,y)==tuple(range(2*W.N)):
+                if permmult(y,y) == tuple(range(2*W.N)):
                     inv.append(y)
         for i in range(len(invcl)):
-            kott1=len([w for w in inv if w[:len(W.rank)] in elmscl[i]])
-            kott2=sum([ii[str(invcl[i])][j]*char[j] for j in range(len(ch))])
-            check.append(kott1==kott2)
+            kott1 = len([w for w in inv if w[:len(W.rank)] in elmscl[i]])
+            kott2 = sum([ii[str(invcl[i])][j]*char[j] for j in range(len(ch))])
+            check.append(kott1 == kott2)
     print(len(check))
     return set(check)
 
 ##########################################################################
 ##
-#Y Section 5: Tests
+# Y Section 5: Tests
 ##
 
-#F timer
+# F timer
 
 
 def timer(func,*pargs,**kargs):
@@ -11445,7 +11439,7 @@ def timer(func,*pargs,**kargs):
     print(time.time() - start)
     return ret
 
-#F checksh
+# F checksh
 
 
 def checksh(W,paramL):
@@ -11456,17 +11450,17 @@ def checksh(W,paramL):
     it does not yet work for type I_2(m), n>7, because some operations
     for the general cyclotomic arithmetic are not implemented.)
     """
-    p=lcmschurelms(W,paramL)
+    p = lcmschurelms(W,paramL)
     if type(paramL) == type([]):
-        vs=paramL[:]
+        vs = paramL[:]
     else:
-        vs=len(W.rank)*[paramL]
-    gd=[divmod(p,s)[0] for s in schurelms(W,vs)]
-    ti=heckechartable(W,vs)['irreducibles']
-    res=[sum(gd[i]*ti[i][j] for i in range(len(gd))) for j in range(len(gd))]
-    return res[0]==p and all(i==0 for i in res[1:len(gd)])
+        vs = len(W.rank)*[paramL]
+    gd = [divmod(p,s)[0] for s in schurelms(W,vs)]
+    ti = heckechartable(W,vs)['irreducibles']
+    res = [sum(gd[i]*ti[i][j] for i in range(len(gd))) for j in range(len(gd))]
+    return res[0] == p and all(i == 0 for i in res[1:len(gd)])
 
-#F test
+# F test
 
 
 def test():
@@ -11475,107 +11469,107 @@ def test():
     >>> test()  # long time
     """
     lprint('# ==>  Should finish in less than 1 minute CPU time\n')
-    v=lpol([1],1,'v')
-    somechecks=[]
+    v = lpol([1],1,'v')
+    somechecks = []
     # test all cartan types (finite and affine)
-    W=coxeter('A',1)
+    W = coxeter('A',1)
     chartable(W)
-    W=coxeter('A',2)
+    W = coxeter('A',2)
     chartable(W)
-    W=coxeter('A',3)
+    W = coxeter('A',3)
     chartable(W)
     somechecks.append(checksh(W,v))
-    W=coxeter('A',4)
-    t=chartable(W)
-    somechecks.append(ainvariants(W,1)==t['a'])
+    W = coxeter('A',4)
+    t = chartable(W)
+    somechecks.append(ainvariants(W,1) == t['a'])
     somechecks.append(checksh(W,v))
-    W=coxeter('B',2)
+    W = coxeter('B',2)
     chartable(W)
     somechecks.append(checksh(W,[v**2,v]))
-    W=coxeter('B',3)
+    W = coxeter('B',3)
     chartable(W)
     somechecks.append(checksh(W,[v**2,v,v]))
     somechecks.append(checksh(W,[v**2,v**3,v**3]))
-    W=coxeter('B',4)
+    W = coxeter('B',4)
     somechecks.append(checksh(W,v))
-    t=chartable(W)
-    somechecks.append(ainvariants(W,1)==t['a'])
+    t = chartable(W)
+    somechecks.append(ainvariants(W,1) == t['a'])
     lprint(str(t['a'])+'\n')
-    W=coxeter('B',5)
+    W = coxeter('B',5)
     chartable(W)
-    W=coxeter('C',2)
+    W = coxeter('C',2)
     somechecks.append(checksh(W,[v**2,v]))
     chartable(W)
-    W=coxeter('C',3)
+    W = coxeter('C',3)
     chartable(W)
-    W=coxeter('C',4)
-    t=chartable(W)
+    W = coxeter('C',4)
+    t = chartable(W)
     somechecks.append(checksh(W,v))
-    somechecks.append(ainvariants(W,1)==t['a'])
-    W=coxeter('C',5)
+    somechecks.append(ainvariants(W,1) == t['a'])
+    W = coxeter('C',5)
     chartable(W)
-    W=coxeter('D',4)
+    W = coxeter('D',4)
     somechecks.append(checksh(W,v))
-    t=chartable(W)
-    somechecks.append(ainvariants(W,1)==t['a'])
-    W=coxeter('D',5)
-    t=chartable(W)
-    #somechecks.append(ainvariants(W,1)==t['a'])
-    W=coxeter('D',6)
-    W=coxeter('D',7)
-    W=coxeter('D',8)
-    W=coxeter('G',2)
+    t = chartable(W)
+    somechecks.append(ainvariants(W,1) == t['a'])
+    W = coxeter('D',5)
+    t = chartable(W)
+    # somechecks.append(ainvariants(W,1)==t['a'])
+    W = coxeter('D',6)
+    W = coxeter('D',7)
+    W = coxeter('D',8)
+    W = coxeter('G',2)
     chartable(W)
     somechecks.append(checksh(W,[v**2,v]))
-    W=coxeter('I5',2)
+    W = coxeter('I5',2)
     chartable(W)
     somechecks.append(checksh(W,v))
-    somechecks.append(sum(x[1] for x in specialpieces(W,v))==v**(2*W.N))
-    W=coxeter('F',4)
-    t=chartable(W)
-    somechecks.append(ainvariants(W,1)==t['a'])
+    somechecks.append(sum(x[1] for x in specialpieces(W,v)) == v**(2*W.N))
+    W = coxeter('F',4)
+    t = chartable(W)
+    somechecks.append(ainvariants(W,1) == t['a'])
     somechecks.append(checksh(W,[v**2,v**2,v,v]))
-    somechecks.append(sum(x[1] for x in specialpieces(W,v))==v**(2*W.N))
-    W=coxeter('I5',2)
+    somechecks.append(sum(x[1] for x in specialpieces(W,v)) == v**(2*W.N))
+    W = coxeter('I5',2)
     chartable(W)
-    W=coxeter('H',3)
+    W = coxeter('H',3)
     chartable(W)
     somechecks.append(checksh(W,v))
-    W=coxeter('H',4)
+    W = coxeter('H',4)
     chartable(W)
-    W=coxeter('E',6)
-    t=chartable(W)
-    #somechecks.append(ainvariants(W,1)==t['a'])
+    W = coxeter('E',6)
+    t = chartable(W)
+    # somechecks.append(ainvariants(W,1)==t['a'])
     somechecks.append(checksh(W,v))
-    W=coxeter('E',7)
+    W = coxeter('E',7)
     chartable(W)
-    W=coxeter('E',8)
+    W = coxeter('E',8)
     chartable(W)
-    W=coxeter(affinecartanmat("A",1))
-    W=coxeter(affinecartanmat("A",2))
-    W=coxeter(affinecartanmat("A",3))
-    W=coxeter(affinecartanmat("A",4))
-    W=coxeter(affinecartanmat("B",3))
-    W=coxeter(affinecartanmat("B",4))
-    W=coxeter(affinecartanmat("B",5))
-    W=coxeter(affinecartanmat("C",2))
-    W=coxeter(affinecartanmat("C",3))
-    W=coxeter(affinecartanmat("C",4))
-    W=coxeter(affinecartanmat("D",4))
-    W=coxeter(affinecartanmat("D",5))
-    W=coxeter(affinecartanmat("D",6))
-    W=coxeter(affinecartanmat("G",2))
-    W=coxeter(affinecartanmat("F",4))
-    W=coxeter(affinecartanmat("E",6))
-    W=coxeter(affinecartanmat("E",7))
-    W=coxeter(affinecartanmat("E",8))
+    W = coxeter(affinecartanmat("A",1))
+    W = coxeter(affinecartanmat("A",2))
+    W = coxeter(affinecartanmat("A",3))
+    W = coxeter(affinecartanmat("A",4))
+    W = coxeter(affinecartanmat("B",3))
+    W = coxeter(affinecartanmat("B",4))
+    W = coxeter(affinecartanmat("B",5))
+    W = coxeter(affinecartanmat("C",2))
+    W = coxeter(affinecartanmat("C",3))
+    W = coxeter(affinecartanmat("C",4))
+    W = coxeter(affinecartanmat("D",4))
+    W = coxeter(affinecartanmat("D",5))
+    W = coxeter(affinecartanmat("D",6))
+    W = coxeter(affinecartanmat("G",2))
+    W = coxeter(affinecartanmat("F",4))
+    W = coxeter(affinecartanmat("E",6))
+    W = coxeter(affinecartanmat("E",7))
+    W = coxeter(affinecartanmat("E",8))
     # mixed finite and affine type:
-    W=coxeter([[2,0,-3,0,0,0],[0,2,-1,0,0,0],[-1,-1,2,0,0,0],
+    W = coxeter([[2,0,-3,0,0,0],[0,2,-1,0,0,0],[-1,-1,2,0,0,0],
                [0,0,0,2,-1,0],[0,0,0,-1,2,-1],[0,0,0,0,-1,2]])
     lprint(str(W.cartantype)+'\n')
     lprint(str(W.cartanname)+'\n')
     # check all functions on this example:
-    W=coxeter([[2,0,0,0,0,0,0,0,0,0,0,-1,0,0,-2],
+    W = coxeter([[2,0,0,0,0,0,0,0,0,0,0,-1,0,0,-2],
                [0,2,0,0,0,0,0,0,-1,0,0,0,-1,-1,0],
                [0,0,2,0,0,0,0,0,0,-1,0,0,0,0,0],
                [0,0,0,2,0,0,0,0,0,0,0,0,0,0,-1],
@@ -11593,74 +11587,74 @@ def test():
     lprint(str(W.cartantype)+'\n')
     lprint(str(W.cartanname)+'\n')
     lprint(str(W.order)+'\n')
-    somechecks.append(W.cartan==cartantypetomat(cartantotype(W.cartan)))
-    c=conjugacyclasses(W)
-    r=reflections(W)
-    l=longestperm(W)
-    a=allelmchain(W)
-    H=reflectionsubgroup(W,[0,1,2,3,4,5,6,7,W.N-1])
-    lH=H.permtoword(longestperm(H))
-    lW=H.reducedword(lH,W)
-    W=coxeter([[2,0,-1,0,0,0,0,0,0],[0,2,0,0,-1,0,0,0,0],
+    somechecks.append(W.cartan == cartantypetomat(cartantotype(W.cartan)))
+    c = conjugacyclasses(W)
+    r = reflections(W)
+    l = longestperm(W)
+    a = allelmchain(W)
+    H = reflectionsubgroup(W,[0,1,2,3,4,5,6,7,W.N-1])
+    lH = H.permtoword(longestperm(H))
+    lW = H.reducedword(lH,W)
+    W = coxeter([[2,0,-1,0,0,0,0,0,0],[0,2,0,0,-1,0,0,0,0],
         [-2,0,2,0,0,0,0,0,0],[0,0,0,2,-1,0,-1,0,0],[0,-1,0,-1,2,0,0,-1,0],
         [0,0,0,0,0,2,0,0,-1],[0,0,0,-1,0,0,2,0,0],[0,0,0,0,-1,0,0,2,0],
         [0,0,0,0,0,-3,0,0,2]])
     lprint(str(W.cartantype)+'\n')
     lprint(str(W.cartanname)+'\n')
     lprint(str(W.order)+'\n')
-    somechecks.append(W.cartan==cartantypetomat(cartantotype(W.cartan)))
-    cl=conjugacyclasses(W)
-    H=reflectionsubgroup(W,[0,1,2,3,4,5,6,7,W.N-1])
+    somechecks.append(W.cartan == cartantypetomat(cartantotype(W.cartan)))
+    cl = conjugacyclasses(W)
+    H = reflectionsubgroup(W,[0,1,2,3,4,5,6,7,W.N-1])
     # test embedding of reflections
-    W=coxeter("F",4)
-    c=coxeterclasses(W)
-    rw=[W.coxelmtoword(r) for r in reflections(W)]
+    W = coxeter("F",4)
+    c = coxeterclasses(W)
+    rw = [W.coxelmtoword(r) for r in reflections(W)]
     for r in range(W.N):
-        H=reflectionsubgroup(W,[r])
-        somechecks.append(rw[r]==H.reducedword([0],W))
-    somechecks.append(ainvariants(W,1)==chartable(W)['a'])
-    W=coxeter(affinecartanmat("F",4))
-    a=[[W.mattoword(m) for m in l] for l in allmats(W,3)]
-    W=coxeter("E",8)
-    c=coxeterclasses(W)
-    e=allelmchain(W)
+        H = reflectionsubgroup(W,[r])
+        somechecks.append(rw[r] == H.reducedword([0],W))
+    somechecks.append(ainvariants(W,1) == chartable(W)['a'])
+    W = coxeter(affinecartanmat("F",4))
+    a = [[W.mattoword(m) for m in l] for l in allmats(W,3)]
+    W = coxeter("E",8)
+    c = coxeterclasses(W)
+    e = allelmchain(W)
     W.coxelmlength(longestperm(W))
-    H=reflectionsubgroup(W,[0,1,2,3,4,5,6])
-    f=fusionconjugacyclasses(H,W)
-    t=inductiontable(H,W)
+    H = reflectionsubgroup(W,[0,1,2,3,4,5,6])
+    f = fusionconjugacyclasses(H,W)
+    t = inductiontable(H,W)
     lprint('# ==>  looks good ... \n')
-    W=coxeter("H",4)
-    f=lusztigfamilies(W,1)
-    somechecks.append(ainvariants(W,1)==chartable(W)['a'])
-    c=coxeterclasses(W)
-    c1=conjugacyclasses(W)
-    e=allelmchain(W)
-    d=redleftcosetreps(W,[0,1,2])
-    #ca=redleftcosetreps(W)
+    W = coxeter("H",4)
+    f = lusztigfamilies(W,1)
+    somechecks.append(ainvariants(W,1) == chartable(W)['a'])
+    c = coxeterclasses(W)
+    c1 = conjugacyclasses(W)
+    e = allelmchain(W)
+    d = redleftcosetreps(W,[0,1,2])
+    # ca=redleftcosetreps(W)
     #wa=[W.coxelmtoword(c) for c in ca]
-    #ls=[W.coxelmlength(c) for c in ca]    # does not work
+    # ls=[W.coxelmlength(c) for c in ca]    # does not work
     lprint('# ==>  seems ok ! ... \n')
     #somechecks.append(ca==[W.wordtocoxelm(w) for w in wa])
-    W=coxeter("B",3)
-    lc=[]
+    W = coxeter("B",3)
+    lc = []
     for i in range(4):
-        kl=klpolynomials(W,[i,1,1,1],v)
+        kl = klpolynomials(W,[i,1,1,1],v)
         lc.append(len(kl['lcells']))
-    somechecks.append(lc==[10,14,16,20])
-    k=[i.matrices(True) for i in klcells(W,1,v)[1]]
+    somechecks.append(lc == [10,14,16,20])
+    k = [i.matrices(True) for i in klcells(W,1,v)[1]]
     somechecks.append(all([type(m) == type([]) for m in k]))
-    k=[i.matrices(True) for i in klcells(W,[3,2,2],v)]
+    k = [i.matrices(True) for i in klcells(W,[3,2,2],v)]
     somechecks.append(all([type(m) == type([]) for m in k]))
-    W=coxeter("I14",2)
-    k=[i.matrices(True) for i in klcells(W,1,v)[1]]
+    W = coxeter("I14",2)
+    k = [i.matrices(True) for i in klcells(W,1,v)[1]]
     somechecks.append(all([type(m) == type([]) for m in k]))
-    k=[i.matrices(True) for i in klcells(W,[5,3],v)]
+    k = [i.matrices(True) for i in klcells(W,[5,3],v)]
     somechecks.append(all([type(m) == type([]) for m in k]))
     # test all conversions:
-    W=coxeter("H",3)
+    W = coxeter("H",3)
     somechecks.append(cellrepcheck1(W,klcellreps(W)))
     somechecks.append(cellrepcheck2(W))
-    gh3=[[[]],[[0],[0,1,0]],[[0,1,0,2,1,0]],[[0,1,0,1,2,1,0,1,0],[0,1,0,1,2,
+    gh3 = [[[]],[[0],[0,1,0]],[[0,1,0,2,1,0]],[[0,1,0,1,2,1,0,1,0],[0,1,0,1,2,
       1,0,1,0,2,1,0]],[[0,1,0,1,0]],[[0,1,0,1,0,2,1,0,1,0],[0,1,0,1,0,2,1,0,
       1,0,2,1,0,1]],[[0,1,0,1,0,2,1,0,1,0,2,1,0,1,2]],[[0,2]],[[0,1,2,1,0],
       [0,1,2,1,0,1,0,2]],[[0,2,1,0,1,0,2]],[[0,1,0,2,1,0,1,0,2,1,0]],[[0,1,
@@ -11669,12 +11663,12 @@ def test():
       [[1,0,1,0,2,1,0,1,0,2,1,0,1]],[[1,2,1],[1,2,1,0,1,2]],[[1,0,2,1,0,1,0,
       2,1]],[[1,0,2,1,0,1,0,2,1,0,1,2],[1,0,1,0,2,1,0,1,0,2,1,0,1,2]],[[2],
       [2,1,0,1,2]],[[2,1,0,1,0,2,1,0,1,2]]]
-    cl=allclasspolynomials(W,v**2)
-    l=[]
+    cl = allclasspolynomials(W,v**2)
+    l = []
     for x in gh3:
-        y=leftcellleadingcoeffs(W,1,v,x,cl)
+        y = leftcellleadingcoeffs(W,1,v,x,cl)
         l.append(y['ti'])
-    somechecks.append(l==[[[('1_r',), [1]]], [[("3_s'",), [1, ir5]],
+    somechecks.append(l == [[[('1_r',), [1]]], [[("3_s'",), [1, ir5]],
        [("overline{3}_s'",), [1, 1-ir5]]], [[('5_r',), [1]]],
        [[("4_r'",), [1, 1]], [('4_r',), [1, -1]]], [[("5_r'",), [1]]],
        [[('3_s',), [ir5, 1]], [('overline{3}_s',), [1-ir5, 1]]],
@@ -11687,44 +11681,44 @@ def test():
        [('4_r',), [1, -1]]], [[("5_r'",), [1]]], [[('3_s',), [ir5, 1]],
        [('overline{3}_s',), [1-ir5, 1]]], [[("3_s'",), [1, ir5]],
        [("overline{3}_s'",), [1, 1-ir5]]], [[('5_r',), [1]]]])
-    c=allcellsleadingcoeffs(W,1,v)
-    c=constructible(W,1)
-    ah=redleftcosetreps(W)
-    ap=[W.coxelmtoperm(c) for c in ah]
-    aw=[W.coxelmtoword(c) for c in ah]
-    am=[W.coxelmtomat(c) for c in ah]
-    alc=[W.coxelmlength(c) for c in ah]
-    alm=[W.matlength(m) for m in am]
-    somechecks.append(alc==[len(w) for w in aw])
-    somechecks.append(alc==alm)
-    somechecks.append(ah==[c[:len(W.rank)] for c in ap])
-    somechecks.append(am==[W.coxelmtomat(c) for c in ah])
-    somechecks.append(aw==[W.coxelmtoword(c) for c in ah])
-    somechecks.append(aw==[W.permtoword(c) for c in ap])
-    somechecks.append(ap==[W.coxelmtoperm(c) for c in ah])
-    somechecks.append(ap==[W.mattoperm(m) for m in am])
-    somechecks.append(ah==[W.mattocoxelm(m) for m in am])
-    somechecks.append(aw==[W.mattoword(m) for m in am])
-    somechecks.append(ah==[W.wordtocoxelm(w) for w in aw])
-    somechecks.append(am==[W.wordtomat(w) for w in aw])
-    somechecks.append(ap==[W.wordtoperm(w) for w in aw])
-    somechecks.append(aw==[W.reducedword(w,W) for w in aw])
-    aa=allwords(W)
-    somechecks.append(set([w in aa for w in aw])==set([True]))
-    aa=[W.stringtoword(x) for x in allwordstrings(W)]
-    somechecks.append(set([w in aa for w in aw])==set([True]))
-    w=W.wordtoperm([0,1,0,2])
-    b1=list(filter(lambda x: bruhatcoxelm(W,x,w),ah))
-    b1a=list(filter(lambda x: bruhat(W,x,w),ah))
-    elms=[W.coxelmtoperm(c) for c in ah]
-    b2=list(filter(lambda x: bruhatperm(W,x,w),elms))
-    b2a=list(filter(lambda x: bruhat(W,x,w),elms))
-    mats=[W.coxelmtomat(c) for c in ah]
-    b3a=list(filter(lambda x: bruhat(W,x,w),elms))
+    c = allcellsleadingcoeffs(W,1,v)
+    c = constructible(W,1)
+    ah = redleftcosetreps(W)
+    ap = [W.coxelmtoperm(c) for c in ah]
+    aw = [W.coxelmtoword(c) for c in ah]
+    am = [W.coxelmtomat(c) for c in ah]
+    alc = [W.coxelmlength(c) for c in ah]
+    alm = [W.matlength(m) for m in am]
+    somechecks.append(alc == [len(w) for w in aw])
+    somechecks.append(alc == alm)
+    somechecks.append(ah == [c[:len(W.rank)] for c in ap])
+    somechecks.append(am == [W.coxelmtomat(c) for c in ah])
+    somechecks.append(aw == [W.coxelmtoword(c) for c in ah])
+    somechecks.append(aw == [W.permtoword(c) for c in ap])
+    somechecks.append(ap == [W.coxelmtoperm(c) for c in ah])
+    somechecks.append(ap == [W.mattoperm(m) for m in am])
+    somechecks.append(ah == [W.mattocoxelm(m) for m in am])
+    somechecks.append(aw == [W.mattoword(m) for m in am])
+    somechecks.append(ah == [W.wordtocoxelm(w) for w in aw])
+    somechecks.append(am == [W.wordtomat(w) for w in aw])
+    somechecks.append(ap == [W.wordtoperm(w) for w in aw])
+    somechecks.append(aw == [W.reducedword(w,W) for w in aw])
+    aa = allwords(W)
+    somechecks.append(set([w in aa for w in aw]) == set([True]))
+    aa = [W.stringtoword(x) for x in allwordstrings(W)]
+    somechecks.append(set([w in aa for w in aw]) == set([True]))
+    w = W.wordtoperm([0,1,0,2])
+    b1 = list(filter(lambda x: bruhatcoxelm(W,x,w),ah))
+    b1a = list(filter(lambda x: bruhat(W,x,w),ah))
+    elms = [W.coxelmtoperm(c) for c in ah]
+    b2 = list(filter(lambda x: bruhatperm(W,x,w),elms))
+    b2a = list(filter(lambda x: bruhat(W,x,w),elms))
+    mats = [W.coxelmtomat(c) for c in ah]
+    b3a = list(filter(lambda x: bruhat(W,x,w),elms))
     somechecks.append([W.coxelmtoword(p)
-                 for p in b2]==[W.coxelmtoword(p) for p in b1])
+                 for p in b2] == [W.coxelmtoword(p) for p in b1])
     somechecks.append([W.coxelmtoword(p)
-                 for p in b2a]==[W.coxelmtoword(p) for p in b1a])
+                 for p in b2a] == [W.coxelmtoword(p) for p in b1a])
     W = coxeter('F',4)
     lusztigfamilies(W, 0)
     lusztigfamilies(W, 1)
@@ -11735,29 +11729,29 @@ def test():
     lprint('#I ')
     p = [3,2,1,0]
     nc = [[W.cartan[i][j] for j in p] for i in p]
-    somechecks.append(nc==cartantypetomat(cartantotype(nc)))
-    aa=redleftcosetreps(W)
-    w1=[0,2,1,0,2,3,2,1,0,2,1,2,3,2,1,0,2,1,2,3]
-    lb4=[]
+    somechecks.append(nc == cartantypetomat(cartantotype(nc)))
+    aa = redleftcosetreps(W)
+    w1 = [0,2,1,0,2,3,2,1,0,2,1,2,3,2,1,0,2,1,2,3]
+    lb4 = []
     for l in range(1,21):
-        l1=len(list(filter(lambda x:bruhatperm(W,W.coxelmtoperm(x),
+        l1 = len(list(filter(lambda x:bruhatperm(W,W.coxelmtoperm(x),
                                            W.wordtoperm(w1[:l])),aa)))
         lb4.append(l1)
         lprint(str(l1)+' ')
     lprint('\n')
-    somechecks.append(lb4==[2,4,8,12,20,40,60,96,132,196,244,272,
+    somechecks.append(lb4 == [2,4,8,12,20,40,60,96,132,196,244,272,
                                      396,456,508,680,720,828,912,972])
-    b5=list(filter(lambda x: W.coxelmlength(x)<=len(w1),aa))
-    somechecks.append(len(b5)==1122)
+    b5 = list(filter(lambda x: W.coxelmlength(x) <= len(w1),aa))
+    somechecks.append(len(b5) == 1122)
     somechecks.append(cellrepcheck1(W,klcellreps(W)))
     somechecks.append(cellrepcheck2(W))
-    W=coxeter("D",4)
+    W = coxeter("D",4)
     somechecks.append(cellrepcheck1(W,klcellreps(W)))
     somechecks.append(cellrepcheck2(W))
-    W=coxeter("E",7)
+    W = coxeter("E",7)
     somechecks.append(cellrepcheck1(W,klcellreps(W)))
     lprint('###############################################\n')
-    lprint('## '+ str(len(somechecks))+' true/false checks performed ')
+    lprint('## ' + str(len(somechecks))+' true/false checks performed ')
     if not all(somechecks):
         lprint(' ==> !!! There are problems !!!\n')
     else:

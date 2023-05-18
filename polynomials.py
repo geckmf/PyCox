@@ -3,15 +3,17 @@ from math import cos, sin, pi
 
 # F class-lpol: basic support for Laurent polynomials in one variable
 class lpol:
-    """creates a Laurent polynomial in one variable, from a list of
-    coefficients, a valuation and a name. The result is a python
-    class with components:
+    """
+    Creates a Laurent polynomial in one variable, from a list of
+    coefficients, a valuation and a name.
 
-       coeffs     list of coefficients
-       valuation  order of the pole at 0
-       degree     degree of the polynomial
-       vname      name for the variable
-       vcyc       see the help of 'cycldec' for explanation
+    The result is a python class with components:
+
+    - coeffs    -- list of coefficients
+    - valuation -- order of the pole at 0
+    - degree    -- degree of the polynomial
+    - vname     -- name for the variable
+    - vcyc      -- see the help of 'cycldec' for explanation
 
     The usual  operations  (addition,  multiplication, ...)  are
     defined.  If, in the course  of performing such operations a
@@ -22,10 +24,10 @@ class lpol:
     is available; for example, they  could  again be polynomials
     (in a different variable).
 
-    >>> v=lpol([1],1,'v')    # creates the indeterminate v
+    >>> v = lpol([1],1,'v')    # creates the indeterminate v
     >>> (v+1)**2-v**2-2*v-1
     0
-    >>> p=(2*v-1)**3*v**(-2); p
+    >>> p = (2*v-1)**3*v**(-2); p
     -v**(-2)+6*v**(-1)-12+8*v
     >>> print(p)
     lpol([-1, 6, -12, 8],-2,'v')
@@ -36,7 +38,7 @@ class lpol:
     >>> p.value(-1)
     -27
 
-    >>> u=lpol([1],1,'u')   # create another indeterminate
+    >>> u = lpol([1],1,'u')   # create another indeterminate
     >>> lpol([u**2+2,-3,u**(-1)],-17,'v')
     (2+u**2)*v**(-17)-3*v**(-16)+(u**(-1))*v**(-15)
     >>> u+v
@@ -71,10 +73,10 @@ class lpol:
         r = ''
         for i in range(len(self.coeffs)):
             if self.coeffs[i] != 0:
-                if r and not (type(self.coeffs[i]) == type(0) and self.coeffs[i] < 0):
+                if r and not (isinstance(self.coeffs[i], int) and self.coeffs[i] < 0):
                     r += '+'
                 if i + self.val == 0:
-                    if type(self.coeffs[i]) == type(0):
+                    if isinstance(self.coeffs[i], int):
                         r += repr(self.coeffs[i])
                     else:
                         r += '(' + repr(self.coeffs[i]) + ')'
@@ -84,7 +86,7 @@ class lpol:
                     elif self.coeffs[i] == 1:
                         r += self.vname
                     else:
-                        if type(self.coeffs[i]) == type(0):
+                        if isinstance(self.coeffs[i], int):
                             r += repr(self.coeffs[i]) + '*' + self.vname
                         else:
                             r += '(' + repr(self.coeffs[i]) + ')*' + self.vname
@@ -114,14 +116,13 @@ class lpol:
         return lpol([-c for c in self.coeffs], self.val, self.vname)
 
     def __eq__(self, f):
-        if self.coeffs == []:
+        if not self.coeffs:
             return f == 0
-        elif type(self) == type(f) and self.__class__ == f.__class__:
+        if type(self) == type(f) and self.__class__ == f.__class__:
             return self.coeffs == f.coeffs and self.val == f.val and self.vname == f.vname
-        elif type(f) == type(self.coeffs[0]):
+        if type(f) == type(self.coeffs[0]):
             return len(self.coeffs) == 1 and self.val == 0 and self.coeffs[0] == f
-        else:
-            return False
+        return False
 
     def __ne__(self, f):
         return not self == f
@@ -129,7 +130,7 @@ class lpol:
     def __radd__(self, scal):  # scalar addition on left
         if scal == 0:
             return self
-        if self.coeffs == []:
+        if not self.coeffs:
             return scal
         f = self.coeffs[:]
         if self.val < 0:
@@ -236,7 +237,7 @@ class lpol:
 
         The function returns the tuple (v**(f.val-g.val)*q,v**f.val*r).
 
-        >>> v=lpol([1],1,"v")
+        >>> v = lpol([1],1,"v")
         >>> divmod(v**2+2,-v**3*(v+v**(-1)))
         (-v**(-2), 1)
 
@@ -248,7 +249,7 @@ class lpol:
         r = v**(-self.val) * self
         # if type(g)==type(self.coeffs[0]) or type(g)==type(int(self.coeffs[0]))\
         #     or (type(self.coeffs[0])==type(10000000000) and type(g)==type(0)):
-        if type(g) == type(0):
+        if isinstance(g, int):
             if all(c % g == 0 for c in r.coeffs):
                 return (lpol([c // g for c in self.coeffs], self.val, self.vname), 0)
             else:
@@ -275,17 +276,15 @@ class lpol:
 
 
 def evalpol(f, x):
-    if type(f) == type(0):
+    if isinstance(f, int):
         return f
-    else:
-        return f.value(x)
+    return f.value(x)
 
 
 v = lpol([1], 1, "v")    # polynomial v
 
+
 # F cyclpol
-
-
 def cyclpol(n, u):
     """returns the n-th cyclotomic polynomial in the variable u.
     """
@@ -300,25 +299,26 @@ def cyclpol(n, u):
             f = divmod(f, cyclpol(d, u))[0]
     return f
 
+
 # F cyclpol5
-
-
 def cyclpol5(u):
     """returns those cyclotomic polynomials over the number field
     generated by (1+sqrt(5))/2 which are  relevant for Coxeter
     groups of type H_3 and H_4.
     """
     ir5 = ir(5)
-    return {'5a': u**2 + ir5 * u + 1, '5b': u**2 + (1 - ir5) * u + 1, '10a': u**2 - ir5 * u + 1,
-            '10b': u**2 + (ir5 - 1) * u + 1, '15a': u**4 - ir5 * u**3 + ir5 * u**2 - ir5 * u + 1,
+    return {'5a': u**2 + ir5 * u + 1,
+            '5b': u**2 + (1 - ir5) * u + 1,
+            '10a': u**2 - ir5 * u + 1,
+            '10b': u**2 + (ir5 - 1) * u + 1,
+            '15a': u**4 - ir5 * u**3 + ir5 * u**2 - ir5 * u + 1,
             '15b': u**4 + (ir5 - 1) * u**3 + (1 - ir5) * u**2 + (ir5 - 1) * u + 1,
             '20a': u**4 - ir5 * u**2 + 1, '20b': u**4 + (ir5 - 1) * u**2 + 1,
             '30a': u**4 + ir5 * u**3 + ir5 * u**2 + ir5 * u + 1,
             '30b': u**4 + (1 - ir5) * u**3 + (1 - ir5) * u**2 + (1 - ir5) * u + 1}
 
+
 # F class-lpolmod: truncated polynomials
-
-
 class lpolmod:
     """creates a polynomial in one variable with integer coefficients,
     similar to 'lpol'  but where  all arithmetic is  done  modulo a
@@ -358,15 +358,15 @@ class lpolmod:
             self.truncated = False
 
     def __repr__(self):
-        if self.coeffs == []:
+        if not self.coeffs:
             return '0'
         r = ''
         for i in range(len(self.coeffs)):
             if self.coeffs[i] != 0:
-                if r != '' and not (type(self.coeffs[i]) == type(0) and self.coeffs[i] < 0):
+                if r != '' and not (isinstance(self.coeffs[i], int) and self.coeffs[i] < 0):
                     r += '+'
                 if i + self.val == 0:
-                    if type(self.coeffs[i]) == type(0):
+                    if isinstance(self.coeffs[i], int):
                         r += repr(self.coeffs[i])
                     else:
                         r += '(' + repr(self.coeffs[i]) + ')'
@@ -376,7 +376,7 @@ class lpolmod:
                     elif self.coeffs[i] == 1:
                         r += self.zname
                     else:
-                        if type(self.coeffs[i]) == type(0):
+                        if isinstance(self.coeffs[i], int):
                             r += repr(self.coeffs[i]) + '*' + self.zname
                         else:
                             r += '(' + repr(self.coeffs[i]) + ')*' + self.zname
@@ -393,36 +393,34 @@ class lpolmod:
     def truncate(self):
         if self.truncated:
             return self
-        else:
-            v = lpol([1], 1, self.phi.vname)
-            r = lpol(self.coeffs, self.val, self.phi.vname)
-            while type(r) == type(v) and r.degree >= self.phi.degree:
-                r -= r.coeffs[-1] * v**(r.degree - self.phi.degree) * self.phi
-            if type(r) == type(0):
-                return r
-            elif r.coeffs == []:
-                return 0
-            elif r.val == 0 and len(r.coeffs) == 1:
-                return r.coeffs[0]
-            else:
-                return lpolmod(r.coeffs, r.val, self.phi, self.zname)
+
+        v = lpol([1], 1, self.phi.vname)
+        r = lpol(self.coeffs, self.val, self.phi.vname)
+        while type(r) == type(v) and r.degree >= self.phi.degree:
+            r -= r.coeffs[-1] * v**(r.degree - self.phi.degree) * self.phi
+        if isinstance(r, int):
+            return r
+        if not r.coeffs:
+            return 0
+        if r.val == 0 and len(r.coeffs) == 1:
+            return r.coeffs[0]
+        return lpolmod(r.coeffs, r.val, self.phi, self.zname)
 
     def value(self, x):
         """evaluates a truncated polynomial.
         """
-        if self.coeffs == []:
+        if not self.coeffs:
             return 0
         y = 0
         for i in range(len(self.coeffs)):
             y = x * y + self.coeffs[-i - 1]
         if self.val < 0 and x in [-1, 1]:
             return y * x**(-self.val)
-        else:
-            return y * x**self.val
+        return y * x**self.val
 
     def __eq__(self, f):
-        if type(f) == type(0):
-            if self.coeffs == []:
+        if isinstance(f, int):
+            if not self.coeffs:
                 return f == 0
             else:
                 return self.val == 0 and len(self.coeffs) == 1 and self.coeffs[0] == f
@@ -437,7 +435,7 @@ class lpolmod:
 
     def __gt__(self, f):
         z = self - f
-        if type(z) == type(0):
+        if isinstance(z, int):
             return z > 0
         elif z.zname[0] == 'E':
             n = int(z.zname[2:-1])
@@ -452,7 +450,7 @@ class lpolmod:
 
     def __lt__(self, f):
         z = f - self
-        if type(z) == type(0):
+        if isinstance(z, int):
             return z > 0
         elif z.zname[0] == 'E':
             n = int(z.zname[2:-1])
@@ -476,7 +474,7 @@ class lpolmod:
 
     def __add__(self, f):
         x = lpol(self.coeffs, self.val, self.phi.vname)
-        if type(f) == type(0):
+        if isinstance(f, int):
             r = x + lpol([f], 0, self.phi.vname)
             if r == 0:
                 return 0
@@ -502,7 +500,7 @@ class lpolmod:
 
     def __mul__(self, f):
         x = lpol(self.coeffs, self.val, self.phi.vname)
-        if type(f) == type(0):
+        if isinstance(f, int):
             r = x * lpol([f], 0, self.phi.vname)
             if r == 0:
                 return 0
@@ -554,7 +552,7 @@ class lpolmod:
     def __mod__(self, d):
         """(Only works if d is an integer.)
         """
-        if type(d) == type(0):
+        if isinstance(d, int):
             g = d
         elif type(d) == type(self) and d.val == 0 and d.degree == 0:
             g = d.coeffs[0]
@@ -566,7 +564,7 @@ class lpolmod:
     def __floordiv__(self, d):
         """(Only works if d is an integer.)
         """
-        if type(d) == type(0):
+        if isinstance(d, int):
             g = d
         elif type(d) == type(self) and d.val == 0 and d.degree == 0:
             g = d.coeffs[0]
@@ -598,7 +596,7 @@ def rootof1(n):
     >>> z=rootof1(4)
     >>> z**2
     -1
-    >>> from chv1r6180 import cartanmat, coxeter
+    >>> from coxeter import cartanmat, coxeter
     >>> A = cartanmat("I8",2); A
     [[2, -1], [-2-E(8)+E(8)**3, 2]]
 
@@ -620,27 +618,24 @@ def rootof1(n):
     return lpolmod([1], 1, cyclpol(n, lpol([1], 1, 'unity' + str(n))), 'E(' + str(n) + ')')
 
 
-def E(n):
-    return rootof1(n)
+E = rootof1
 
 
 def ir(m):
     from zeta5 import zeta5
     if m == 2:
         return 0
-    elif m == 3:
+    if m == 3:
         return 1
-    elif m == 5:
+    if m == 5:
         return zeta5(0, 1)
-    else:
-        return (rootof1(2 * m) + rootof1(2 * m)**-1).truncate()
+    return (rootof1(2 * m) + rootof1(2 * m)**-1).truncate()
 
 
 ir5 = ir(5)
 
+
 # F cycldec
-
-
 def cycldec(pol, maxe=1000):
     """checks if a polynomial is a product of  cyclotomic polynomials,
     up to a constant and a power of the  indeterminate.  If this is
@@ -660,7 +655,8 @@ def cycldec(pol, maxe=1000):
     For  example, all  the Schur elements of  generic Iwahori-Hecke
     algebras admit such a decomposition.
 
-    >>> from chv1r6180 import poincarepol, coxeter
+    >>> from coxeter import coxeter
+    >>> from pycox import poincarepol
     >>> p = poincarepol(coxeter("F",4),v); p
     1+4*v+9*v**2+16*v**3+25*v**4+36*v**5+48*v**6+60*v**7+71*v**8+80*v**9+87*v**10+92*v**11+94*v**12+92*v**13+87*v**14+80*v**15+71*v**16+60*v**17+48*v**18+36*v**19+25*v**20+16*v**21+9*v**22+4*v**23+v**24
     >>> p.vcyc
@@ -691,12 +687,10 @@ def cycldec(pol, maxe=1000):
     if np.degree == 0:
         pol.vcyc = [np.coeffs[0], pol.val, li[:]]
         return pol.vcyc
-    else:
-        return False
+    return False
+
 
 # F lcmcyclpol
-
-
 def lcmcyclpol(pols):
     """returns the least common multiple of a list of polynomials which
     have a decomposition as returned by 'cycldec'.
@@ -719,9 +713,8 @@ def lcmcyclpol(pols):
             p *= cyclpol(i, q)**res[i]
     return p
 
+
 # F interpolate polynomial
-
-
 def interpolatepol(v, x, y):
     """returns the unique polynomial in  v of degree less than n  which has
     value y[i] at x[i] for all i=0,...n-1. (Taken from the gap-library).
@@ -731,7 +724,7 @@ def interpolatepol(v, x, y):
     (Fraction(15, 1))+(Fraction(-121, 6))*v+(Fraction(19, 2))*v**2+(Fraction(-4, 3))*v**3
     >>> y=[p.value(x) for x in [1,2,3,4]]; y
     [Fraction(3, 1), Fraction(2, 1), Fraction(4, 1), Fraction(1, 1)]
-    >>> y==[3,2,4,1]
+    >>> y == [3,2,4,1]
     True
     """
     from fractions import Fraction
@@ -746,5 +739,4 @@ def interpolatepol(v, x, y):
         p = p * (v - x[i]) + a[i]
     if all(c.denominator == 1 for c in p.coeffs):
         return lpol([c.numerator for c in p.coeffs], p.val, p.vname)
-    else:
-        return p
+    return p
