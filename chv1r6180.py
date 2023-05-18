@@ -2846,16 +2846,17 @@ def poincarepol(W,paramL):
     is 1, in which case the function returns the group order.
 
     >>> W = coxeter("G",2)
-    >>> v=lpol([1],1,'v')
-    >>> p=poincarepol(W,v); p
+    >>> v = lpol([1],1,'v')
+    >>> p = poincarepol(W,v); p
     1+2*v+2*v**2+2*v**3+2*v**4+2*v**5+v**6
+    >>> from polynomials import cycldec
     >>> cycldec(p)           # factorise into cyclotomic polynomials
     [1, 0, [[2, 2], [3, 1], [6, 1]]]
 
     See also 'heckechartable'.  (Note that the parameters used there
     are square roots of the parameters used here.)
     """
-    if type(paramL) == type([]):
+    if isinstance(paramL, list):
         vs=paramL[:]
     else:
         vs=len(W.rank)*[paramL]

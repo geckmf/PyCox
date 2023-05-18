@@ -867,7 +867,7 @@ class coxeter:
             self.cartantype = cartantotype(typ)
         else:
             self.cartan = cartanmat(typ, rank)
-            self.rank = range(rank)
+            self.rank = list(range(rank))
             if rank == 1:
                 self.cartantype = [['A', [0]]]
             elif rank == 2 and typ == 'D':
@@ -1540,18 +1540,17 @@ def longestperm(W, J=0):
         J = W.rank
     if J == W.rank and 'longestperm' in dir(W):
         return W.longestperm
-    else:
-        p = list(range(2 * W.N))
-        while any(p[t] < W.N for t in J):
-            s = 0
-            while p[J[s]] >= W.N:
-                s += 1
-            p = [p[i] for i in W.permgens[J[s]]]
-        if J == list(W.rank):
-            W.longestperm = tuple(p)
-            return W.longestperm
-        else:
-            return tuple(p)
+
+    p = list(range(2 * W.N))
+    while any(p[t] < W.N for t in J):
+        s = 0
+        while p[J[s]] >= W.N:
+            s += 1
+        p = [p[i] for i in W.permgens[J[s]]]
+    if J == list(W.rank):
+        W.longestperm = tuple(p)
+        return W.longestperm
+    return tuple(p)
 
 # F bruhatmat
 
@@ -1801,7 +1800,7 @@ def reflectionsubgroup(W, J):
     >>> W.cartanname
     'F4c0c1c2c3'
     >>> W.fusions              # W only has the fusion into itself
-    {'F4c0c1c2c3': {'subJ': [0,1,2,3], 'parabolic': True}}
+    {'F4c0c1c2c3': {'parabolic': True, 'subJ': [0, 1, 2, 3]}}
 
     >>> H = reflectionsubgroup(W,[1,2,3,23])
     >>> H.cartantype
@@ -1885,7 +1884,7 @@ def reflectionsubgroup(W, J):
             cartanJ = [[(sum(W.roots[j]) - sum(W.roots[refls[i][j]])) // sum(W.roots[i])
                         for j in fundJ] for i in fundJ]
     return coxeter(cartanJ, fusion=[W.cartanname, {'subJ': fundJ[:],
-                                                   'parabolic':para}])
+                                                   'parabolic': para}])
 # F reducedunique
 
 
@@ -2066,18 +2065,28 @@ def redrightcosetreps(W, H):
     increasing length.
 
     >>> W = coxeter("A",4)
-    >>> a=redrightcosetreps(W,[0,1,2]); a
+    >>> H = reflectionsubgroup(W,[0,1,2])
+    >>> a=redrightcosetreps(W, H); a
     [(0, 1, 2, 3), (0, 1, 6, 13), (0, 5, 3, 16), (4, 2, 3, 18), (1, 2, 3, 19)]
     >>> [W.coxelmtoword(c) for c in a]
-    [[], [3], [3,2], [3,2,1], [3,2,1,0]]
+    [[], [3], [3, 2], [3, 2, 1], [3, 2, 1, 0]]
 
     >>> W = coxeter("F",4);
     >>> H = reflectionsubgroup(W,[3,1,2,W.N-1]);H.cartantype   # non-parabolic
     [['C', [0, 1, 2]], ['A', [3]]]
     >>> [W.coxelmtoword(p) for p in redrightcosetreps(W,H)]
-    [[], [0], [0, 1], [0, 1, 2], [0, 1, 2, 3], [0, 1, 2, 1], [0, 1, 2, 1, 3],
-    [0, 1, 2, 1, 0], [0, 1, 2, 1, 0, 3], [0, 1, 2, 1, 3, 2],
-    [0, 1, 2, 1, 0, 3, 2], [0, 1, 2, 1, 3, 2, 1]]
+    [[],
+     [0],
+     [0, 1],
+     [0, 1, 2],
+     [0, 1, 2, 1],
+     [0, 1, 2, 3],
+     [0, 1, 2, 1, 0],
+     [0, 1, 2, 1, 3],
+     [0, 1, 2, 1, 0, 3],
+     [0, 1, 2, 1, 3, 2],
+     [0, 1, 2, 1, 0, 3, 2],
+     [0, 1, 2, 1, 3, 2, 1]]
 
     See also 'redinrightcoset' and 'redleftcosetreps'.
     """
@@ -2632,14 +2641,14 @@ def coxeterclasses(W):
     subsets of S are described by bit strings.
 
     >>> coxeterclasses(coxeter("A",3))         #I 5 coxeter classes
-    {'010': {'J': [1], 'class': 1, 'w0J': [0, 1, 2]},
-     '011': {'J': [1, 2], 'class': 2, 'w0J': [0, 2, 1]},
+    {'000': {'J': [], 'class': 0, 'w0J': [0, 1, 2]},
      '001': {'J': [2], 'class': 1, 'w0J': [0, 1, 2]},
-     '000': {'J': [], 'class': 0, 'w0J': [0, 1, 2]},
-     '111': {'J': [0, 1, 2], 'class': 4, 'w0J': [2, 1, 0]},
-     '110': {'J': [0, 1], 'class': 2, 'w0J': [1, 0, 2]},
+     '010': {'J': [1], 'class': 1, 'w0J': [0, 1, 2]},
+     '011': {'J': [1, 2], 'class': 2, 'w0J': [0, 2, 1]},
      '100': {'J': [0], 'class': 1, 'w0J': [0, 1, 2]},
      '101': {'J': [0, 2], 'class': 3, 'w0J': [0, 1, 2]},
+     '110': {'J': [0, 1], 'class': 2, 'w0J': [1, 0, 2]},
+     '111': {'J': [0, 1, 2], 'class': 4, 'w0J': [2, 1, 0]},
      'coxclassreps': ['000', '100', '110', '101', '111']}
 
     Thus, the bit strings  '010','011','001',.... correspond to the
@@ -3037,10 +3046,14 @@ def conjugacyclasses(W):
     components using 'W.cartantype'.
 
     >>> conjugacyclasses(coxeter("G",2))
-    {'reps'        : [[],[1],[0],[0,1],[0,1,0,1],[0,1,0,1,0,1]],
-     'classlengths': [1,3,3,2,2,1],
-     'classnames'  : [(' ',),('~A_1',),('A_1',),('G_2',),
-                      ('A_2',),('A_1+~A_1',)]}
+    {'classlengths': [1, 3, 3, 2, 2, 1],
+     'classnames': [(' ',),
+      ('~A_1',),
+      ('A_1',),
+      ('G_2',),
+      ('A_2',),
+      ('A_1+~A_1',)],
+     'reps': [[], [1], [0], [0, 1], [0, 1, 0, 1], [0, 1, 0, 1, 0, 1]]}
 
     >>> W = coxeter([[2,0,-1,0],[0,2,0,-2],[-1,0,2,0],[0,-1,0,2]])
     >>> W.cartantype
@@ -3248,8 +3261,8 @@ def fusionconjugacyclasses(H, W):
     >>> H = reflectionsubgroup(W,[0,1,2]); print(H.cartantype)
     [['H', [0, 1, 2]]]
     >>> H.fusions
-    {'H4c0c1c2c3': {'subJ':[0,1,2], 'parabolic':True},
-     'H3c0c1c2'  : {'subJ':[0,1,2], 'parabolic':True}}
+    {'H3c0c1c2': {'parabolic': True, 'subJ': [0, 1, 2]},
+     'H4c0c1c2c3': {'parabolic': True, 'subJ': [0, 1, 2]}}
     >>> len(conjugacyclasses(W)['reps']); len(conjugacyclasses(H)['reps'])
     34
     10
@@ -3258,9 +3271,10 @@ def fusionconjugacyclasses(H, W):
     >>> f==identifyclasses(W,conjugacyclasses(H)['reps'],minrep=True)
     True
     >>> H.fusions
-    {'H4c0c1c2c3': {'classes':[0,1,2,3,4,5,9,11,15,19],
-                                     'subJ':[0,1,2],'parabolic':True},
-     'H3c0c1c2'  : {'subJ':[0,1,2], 'parabolic':True}}
+    {'H3c0c1c2': {'parabolic': True, 'subJ': [0, 1, 2]},
+     'H4c0c1c2c3': {'classes': [0, 1, 2, 3, 4, 5, 9, 11, 15, 19],
+      'parabolic': True,
+      'subJ': [0, 1, 2]}}
 
     (Now H.fusions has an additional entry containing the fusion
     of conjugacyclasses.)
