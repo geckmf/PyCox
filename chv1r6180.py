@@ -11439,10 +11439,9 @@ def timer(func,*pargs,**kargs):
     >>> t=timer(klcells,coxeter("F",4),1,v)  # random
     1.02
     """
-    start=time.time()
-    ret=func(*pargs,**kargs)
-    elapsed=time.time()-start
-    print(elapsed)
+    start = time.time()
+    ret = func(*pargs,**kargs)
+    print(time.time() - start)
     return ret
 
 #F checksh
