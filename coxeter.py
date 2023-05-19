@@ -12,7 +12,7 @@ from matrices import (permmult, perminverse, decomposemat, flatlist,
 
 def cartanmatA(n):
     """
-    Cartan matrix of type A.
+    Cartan matrix of type A as a list of lists.
 
     >>> cartanmatA(2)
     [[2, -1], [-1, 2]]
@@ -704,7 +704,7 @@ class coxeter:
     matrix (see 'cartanmat') or from a pair (typ,r) where typ is a
     string specifying the type and r specifies the rank.
 
-    >>> c=cartanmat("G",2); c
+    >>> c = cartanmat("G",2); c
     [[2, -1], [-3, 2]]
     >>> W = coxeter(c)
     >>> W.N                             # number of positive roots
@@ -783,7 +783,7 @@ class coxeter:
     list into a string; this is conveniently done using the Python
     function 'join' (and its inverse 'split'):
 
-    >>> w='.'.join(str(i) for i in [0,1,4,3,2]); w
+    >>> w = '.'.join(str(i) for i in [0,1,4,3,2]); w
     '0.1.4.3.2'
     >>> [int(i) for i in w.split('.')]
     [0, 1, 4, 3, 2]
@@ -1265,8 +1265,6 @@ def lmultgenmat(W, s, m):
     return tuple([tuple([m[t][u] - W.cartan[s][t] * m[s][u] for u in W.rank])
                   for t in W.rank])
 
-# F conjgenmat
-
 
 def conjgenmat(W, s, m):
     """conjugates an element (given as a matrix) by a generator.
@@ -1278,8 +1276,6 @@ def conjgenmat(W, s, m):
         nw[t][s] -= sum(nw[t][u] * W.cartan[s][u] for u in W.rank
                         if W.cartan[s][u] != 0)
     return tuple([tuple(l) for l in nw])
-
-# F conjgencoxelm
 
 
 def conjgencoxelm(W, s, w):
@@ -1356,6 +1352,11 @@ def involutions(W):
 def cyclicshiftorbit(W, pw):
     """returns the orbit of an element under cyclic shift.
 
+    sage: W = coxeter("A",2)
+    sage: w = W.wordtoperm([0,1])
+    sage: cyclicshiftorbit(W, w)
+    [(5, 0, 4, 2, 3, 1), (1, 5, 3, 4, 2, 0)]
+
     See also 'testcyclicshift'.
     """
     bahn = [pw[:]]
@@ -1364,7 +1365,7 @@ def cyclicshiftorbit(W, pw):
         for s in W.rank:
             nw = tuple([W.permgens[s][b[W.permgens[s][r]]]
                         for r in range(2 * W.N)])
-            if len([i for i in nw[:W.N] if i >= W.N]) == l and nw not in bahn:
+            if len([1 for i in nw[:W.N] if i >= W.N]) == l and nw not in bahn:
                 bahn.append(nw)
     return bahn
 
@@ -1392,7 +1393,7 @@ def testcyclicshift(W, pw):
         for s in W.rank:
             nw = tuple([W.permgens[s][b[W.permgens[s][r]]]
                         for r in range(2 * W.N)])
-            lnw = len([i for i in nw[:W.N] if i >= W.N])
+            lnw = len([1 for i in nw[:W.N] if i >= W.N])
             if lnw < l:
                 return [nw, s]
             elif lnw == l and nw not in bahn:
@@ -1490,8 +1491,6 @@ def classmin(W, w, minl=True, verbose=False):
     #  return False
     return cl
 
-# F longestperm
-
 
 def longestperm(W, J=0):
     """returns  the unique element of maximal length in W  (where W is
@@ -1513,8 +1512,11 @@ def longestperm(W, J=0):
     """
     if J == 0:
         J = W.rank
-    if J == W.rank and 'longestperm' in dir(W):
-        return W.longestperm
+    if J == W.rank:
+        try:
+            return W.longestperm
+        except AttributeError:
+            pass
 
     p = list(range(2 * W.N))
     while any(p[t] < W.N for t in J):
@@ -1526,8 +1528,6 @@ def longestperm(W, J=0):
         W.longestperm = tuple(p)
         return W.longestperm
     return tuple(p)
-
-# F bruhatmat
 
 
 def bruhatmat(W, y, w):
@@ -1684,8 +1684,6 @@ def bruhat(W, y, w) -> bool:
         return bruhatperm(W, y, w)
     if isinstance(y[0], (tuple, list)):                  # matrices
         return bruhatmat(W, y, w)
-
-# F reflections
 
 
 def reflections(W):
@@ -1981,7 +1979,7 @@ def redleftcosetreps(W, J=[]):
     coxelms, ordered by increasing length.
 
     >>> W = coxeter("A",4)
-    >>> a=redleftcosetreps(W,[0,1,2])
+    >>> a = redleftcosetreps(W,[0,1,2])
     >>> a
     [(0, 1, 2, 3), (0, 1, 6, 13), (0, 8, 16, 2), (9, 18, 1, 2), (19, 0, 1, 2)]
     >>> [W.coxelmtoword(c) for c in a]
@@ -2005,8 +2003,6 @@ def redleftcosetreps(W, J=[]):
             l.extend(ol)
     return l
 
-# F redrightcosetreps
-
 
 def redrightcosetreps(W, H):
     """returns the list of  distinguished right  coset representatives
@@ -2018,7 +2014,7 @@ def redrightcosetreps(W, H):
 
     >>> W = coxeter("A",4)
     >>> H = reflectionsubgroup(W,[0,1,2])
-    >>> a=redrightcosetreps(W, H); a
+    >>> a = redrightcosetreps(W, H); a
     [(0, 1, 2, 3), (0, 1, 6, 13), (0, 5, 3, 16), (4, 2, 3, 18), (1, 2, 3, 19)]
     >>> [W.coxelmtoword(c) for c in a]
     [[], [3], [3, 2], [3, 2, 1], [3, 2, 1, 0]]
@@ -2062,8 +2058,6 @@ def redrightcosetreps(W, H):
             l.extend(list(ol))
     return [p[:len(W.rank)] for p in l]
 
-# F redinrightcoset
-
 
 def redinrightcoset(W, H, w):
     """returns the unique reduced element in the coset H*w; this is
@@ -2095,8 +2089,6 @@ def redinrightcoset(W, H, w):
         nw = [nw[i] for i in refls[J[s]]]
     return tuple(nw[:l])
 
-# F allelmchain(W)
-
 
 def allelmchain(W, depth=1):
     """returns a  sequence  (corresponding to a chain of parabolic subgroups)
@@ -2111,7 +2103,7 @@ def allelmchain(W, depth=1):
     large rank (including all the groups of exceptional type).
 
     >>> W = coxeter("A",5)
-    >>> a=allelmchain(W,depth=3); a
+    >>> a = allelmchain(W,depth=3); a
     [[[],
       [2],
       [1],
@@ -2177,8 +2169,6 @@ def allelmchain(W, depth=1):
         return "mist"
     return el[::-1]
 
-# F allelmchain1
-
 
 def allelmchain1(W):
     """returns a sequence  (corresponding to a chain of parabolic subgroups)
@@ -2192,7 +2182,7 @@ def allelmchain1(W):
     even for groups of relatively large rank, e.g., type E_8.
 
     >>> W = coxeter("A",5)
-    >>> a=allelmchain(W); a
+    >>> a = allelmchain(W); a
     [[[],[4],[3,4],[2,3,4],[1,2,3,4],[0,1,2,3,4]],
      [[],[3],[2,3],[1,2,3],[0,1,2,3]],
      [[],[0],[1],[2],[0,1],[2,1],[0,2],[1,2],[1,0],[0,1,0],[0,1,2],[1,0,2],
@@ -2230,8 +2220,6 @@ def allelmchain1(W):
         print("mist !")
         return "mist"
     return el
-
-# F allelmsproperty
 
 
 def allelmsproperty(W, f, elm="word", verbose=False):
@@ -2282,8 +2270,6 @@ def allelmsproperty(W, f, elm="word", verbose=False):
     if verbose:
         print('🄸 Number of elements = ' + str(len(el)) + '\n')
     return el
-
-# F allwords
 
 
 def allwords(W, maxl=-1):
@@ -2338,8 +2324,6 @@ def allwords(W, maxl=-1):
     el.sort(key=(lambda x: len(x)))
     return el
 
-# F allwordslength
-
 
 def allwordslength(W, l=-1):
     """returns all elements of a finite Coxeter group, as reduced
@@ -2381,8 +2365,6 @@ def allwordslength(W, l=-1):
                                 el1.append(e)
                     el.extend(el1)
     return el
-
-# F allwordstrings
 
 
 def allwordstrings(W, maxl=-1):
@@ -2426,8 +2408,6 @@ def allwordstrings(W, maxl=-1):
     el.sort(key=(lambda x: len(x)))
     return el
 
-# F allbitcoxelms
-
 
 def allbitcoxelms(W, maxl=-1, verbose=False):
     """returns all elements of a finite Coxeter group, as coxelm bit
@@ -2469,8 +2449,6 @@ def allbitcoxelms(W, maxl=-1, verbose=False):
     if verbose:
         print('\n')
     return l
-
-# F allbitwords
 
 
 def allbitwords(W, maxl=-1, verbose=False):
@@ -2565,8 +2543,6 @@ def longestcoxelm(W, J):
             weiter = False
     return [J[l.index(-1)] for l in m]
 
-# F w0conjugation
-
 
 def w0conjugation(cmat):
     """returns the permutations of the simple reflections induced by
@@ -2583,7 +2559,7 @@ def w0conjugation(cmat):
             pt = t1[::-1]
             for i in range(len(t1)):
                 p[t1[i]] = pt[i]
-        if t[0] == 'D' and len(t1) % 2 == 1:
+        if t[0] == 'D' and len(t1) % 2:
             x = t1[0]
             p[t1[0]] = t1[1]
             p[t1[1]] = x
@@ -2594,13 +2570,11 @@ def w0conjugation(cmat):
             y = t1[2]
             p[t1[2]] = 4
             p[t1[4]] = y
-        if t[0][0] == 'I' and int(t[0][-1]) % 2 == 1:
+        if t[0][0] == 'I' and int(t[0][-1]) % 2:
             x = t1[0]
             p[t1[0]] = t1[1]
             p[t1[1]] = x
     return p
-
-# F coxeterclasses
 
 
 def coxeterclasses(W):
@@ -2630,8 +2604,10 @@ def coxeterclasses(W):
     representative coxclassreps[i]. In the above example (type An),
     Coxeter classes correspond to the partitions of n+1.
     """
-    if 'coxeterclasses' in dir(W):
+    try:
         return W.coxeterclasses
+    except AttributeError:
+        pass
     W.coxeterclasses = {}
     rest = []
     for s in cartesian(len(W.rank) * [[0, 1]]):
@@ -2683,6 +2659,7 @@ def coxeterclasses(W):
 def conjclassdata(typ, n):
     """returns representatives of minimal length for all the conjugacy
     classes of the finite Coxeter group of type 'typ' and rank 'n'.
+
     The data are taken from the corresponding files in gap-chevie.
     """
     reps = []
@@ -2993,8 +2970,6 @@ def conjclassdata(typ, n):
     return {'reps': [[s - 1 for s in w] for w in reps],
             'centralisers': cents[:], 'names': names[:]}
 
-# F conjugacyclasses
-
 
 def conjugacyclasses(W):
     """returns  representatives  of   minimal length  in the  conjugacy
@@ -3125,8 +3100,7 @@ def identifyclasses(W, elms, minrep=False, verbose=False):
         fpw += str(clcl[bw]['class'])
         for o in W.rootorbits:
             fpw += 'o'
-            # fpw+=str(len(list(filter(lambda i:i in o,w))))
-            fpw += str(len([i for i in w if i in o]))
+            fpw += str(len([1 for i in w if i in o]))
         invW.append(fpw)
     invH = []
     if minrep:
@@ -3146,8 +3120,7 @@ def identifyclasses(W, elms, minrep=False, verbose=False):
         fpw += str(clcl[bw]['class'])
         for o in W.rootorbits:
             fpw += 'o'
-            # fpw+=str(len(list(filter(lambda i:i in o,w))))
-            fpw += str(len([i for i in w if i in o]))
+            fpw += str(len([1 for i in w if i in o]))
         invH.append(fpw)
     check = [invW.count(f) for f in invH]
     if set(check) == set([1]):
@@ -3155,10 +3128,8 @@ def identifyclasses(W, elms, minrep=False, verbose=False):
     else:
         if verbose:
             print('🄸 using also traces ...')
-        # troubleH=list(filter(lambda i:check[i]>1,range(len(elms1))))
         troubleH = [i for i in range(len(elms1)) if check[i] > 1]
         troublefp = [invH[i] for i in troubleH]
-        # troubleW=list(filter(lambda i:invW[i] in troublefp,range(len(clW))))
         troubleW = [i for i in range(len(clW)) if invW[i] in troublefp]
         matsH = []
         for i in troubleH:
@@ -3233,9 +3204,9 @@ def fusionconjugacyclasses(H, W):
     >>> len(conjugacyclasses(W)['reps']); len(conjugacyclasses(H)['reps'])
     34
     10
-    >>> f=fusionconjugacyclasses(H,W); f
+    >>> f = fusionconjugacyclasses(H,W); f
     [0, 1, 2, 3, 4, 5, 9, 11, 15, 19]
-    >>> f==identifyclasses(W,conjugacyclasses(H)['reps'],minrep=True)
+    >>> f == identifyclasses(W,conjugacyclasses(H)['reps'],minrep=True)
     True
     >>> H.fusions
     {'H3c0c1c2': {'parabolic': True, 'subJ': [0, 1, 2]},
@@ -3243,8 +3214,8 @@ def fusionconjugacyclasses(H, W):
       'parabolic': True,
       'subJ': [0, 1, 2]}}
 
-    (Now H.fusions has an additional entry containing the fusion
-    of conjugacyclasses.)
+    Now H.fusions has an additional entry containing the fusion
+    of conjugacyclasses.
 
     >>> W = coxeter("B",6)
     >>> H = reflectionsubgroup(W,[1,2,3,4,5,11])
@@ -3280,7 +3251,7 @@ def fusionconjugacyclasses(H, W):
 
 def cliffordB(W, w):
     """returns the  Clifford decomposition of an  element w in a
-    Coxeter group of  type B_n,  as defined by Bonnafe-Iancu:
+    Coxeter group of  type B_n,  as defined by Bonnafé-Iancu:
 
                w = a_w * a_l * sigma * b_w^(-1)
 
@@ -3303,7 +3274,7 @@ def cliffordB(W, w):
     aw1 = redinrightcoset(W, H, perminverse(pw))
     aw = permmult(perminverse(aw1), al)
     sigma1 = permmult(aw1, pw)
-    if lt > 0 and lt < len(W.rank):
+    if 0 < lt < len(W.rank):
         J1.remove(lt)
     H1 = reflectionsubgroup(W, J1)
     bw = perminverse(redinrightcoset(W, H1, sigma1))

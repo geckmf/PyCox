@@ -570,10 +570,8 @@ def wordtopermB(n,w):
     sp = pw[:n]     # now roots
     return sp
 
-# F chartablehalfC
 
-
-def chartablehalfC(n,other=False):
+def chartablehalfC(n, other=False):
     """returns the part of the character table  of a  Coxeter group of
     type B whose rows are labelled by all bipartitions (alpha,beta)
     where alpha is empty (or beta is empty if the optional argument
@@ -581,23 +579,20 @@ def chartablehalfC(n,other=False):
     """
     ti = transposemat(chartablesymmetric(n))
     p = partitions(n)
-    pt = partitiontuples(n,2)
     if other:
-        cw = conjugacyclasses(coxeter("C",n))['reps']
+        cw = conjugacyclasses(coxeter("C", n))['reps']
     nti = []
-    for mu in range(len(pt)):
-        a = flatlist(pt[mu])
+    for mu, pt_mu in enumerate(partitiontuples(n, 2)):
+        a = flatlist(pt_mu)
         a.sort(reverse=True)
         if not other:
             nti.append(ti[p.index(a)])
         else:
-            if cw[mu].count(0) % 2 == 0:
+            if not cw[mu].count(0) % 2:
                 nti.append(ti[p.index(a)])
             else:
                 nti.append([-x for x in ti[p.index(a)]])
     return transposemat(nti)
-
-# F chartableB
 
 
 def chartableB(n, verbose=False):
@@ -611,7 +606,7 @@ def chartableB(n, verbose=False):
     (The implementation is less efficient than that in  gap3 but it
     reasonably works for  values  of n  up to around 10.)
 
-    >>> partitiontuples(3,2)
+    >>> list(partitiontuples(3,2))
     [[[1, 1, 1], []], [[1, 1], [1]], [[1], [1, 1]], [[], [1, 1, 1]],
      [[2, 1], []], [[1], [2]], [[2], [1]], [[], [2, 1]], [[3], []], [[], [3]]]
     >>> chartableB(3)
@@ -628,15 +623,15 @@ def chartableB(n, verbose=False):
 
     See also 'heckevalueB'.
     """
-    W = coxeter("C",n)     # use C_n because of B_2=C_2 convention.
-    pt = partitiontuples(n,2)
+    W = coxeter("C", n)     # use C_n because of B_2=C_2 convention.
+    pt = list(partitiontuples(n, 2))
     refls = reflections(W)
     wrho = [[0]]
     for i in range(n-1):
         wrho.append([i+1]+wrho[i]+[i+1])
     rho = [refls.index(W.wordtoperm(p)) for p in wrho]
     ti = chartablehalfC(n)
-    labels = [[p,[]] for p in partitions(n)]
+    labels = [[p, []] for p in partitions(n)]
     if n >= 10:
         if verbose:
             lprint('#I +')
@@ -645,7 +640,8 @@ def chartableB(n, verbose=False):
         l0 = len(H.cartantype[0][1])
         l1 = len(H.cartantype[1][1])
         fus = []  # much faster than fusionconjugacyclasses
-        for t in cartesian(partitiontuples(l0,2),partitiontuples(l1,2)):
+        for t in cartesian(list(partitiontuples(l0, 2)),
+                           list(partitiontuples(l1, 2))):
             x = flatlist(t[0][0]+t[1][0])
             x.sort(reverse=True)
             y = flatlist(t[0][1]+t[1][1])
@@ -653,7 +649,7 @@ def chartableB(n, verbose=False):
             fus.append(pt.index([x,y]))
         H.fusions[W.cartanname]['classes'] = fus[:]
         if 0 in H.cartantype[0][1]:
-            f0,f1 = False,True
+            f0, f1 = False, True
             labels.extend([[p[0],p[1]] for p in cartesian(partitions(l0),
                                                           partitions(l1))])
         else:
@@ -697,7 +693,7 @@ def chartableBold(n):
     rho.append([n-1]+rho[n-2]+[n-1])
     rho = [refls.index(W.wordtoperm(p)) for p in rho]
     trho = [refls.index(W.wordtoperm(p)) for p in trho]
-    pt = partitiontuples(n,2)
+    pt = list(partitiontuples(n, 2))
     binv = [2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
                      for i in range(len(mu[1])))+sum(mu[1]) for mu in pt]
     nn = list(range(len(binv)))
@@ -833,12 +829,11 @@ def chartableD(n):
         suba.remove(0)
     cw = conjugacyclasses(W)
     cl = cw['classlengths']
-    pt = partitiontuples(n,2)
+    pt = partitiontuples(n, 2)
     fus = []  # faster than fusionconjugacyclasses
-    for i in range(len(pt)):
-        mu = pt[i]
-        if len(mu[1]) % 2 == 0:
-            if mu[1] == [] and all(x % 2 == 0 for x in mu[0]):
+    for i, mu in enumerate(pt):
+        if not len(mu[1]) % 2:
+            if not mu[1] and all(not x % 2 for x in mu[0]):
                 fus.append(i)
                 fus.append(i)
             else:
@@ -923,7 +918,7 @@ def irrchardata(typ,n,chars=True):
         if chars:
             ti = chartableB(n)
         binv,ainv,nam = [],[],[]
-        for mu in partitiontuples(n,2):
+        for mu in partitiontuples(n, 2):
             binv.append(2*sum(i*mu[0][i] for i in range(len(mu[0])))
                     + 2*sum(i*mu[1][i] for i in range(len(mu[1])))+sum(mu[1]))
             ainv.append(ainvbipartition(n,1,1,mu))
@@ -932,7 +927,7 @@ def irrchardata(typ,n,chars=True):
         if chars:
             ti = chartableD(n)
         binv,ainv,nam = [],[],[]
-        for mu in partitiontuples(n,2):
+        for mu in partitiontuples(n, 2):
             if sum(mu[0]) >= sum(mu[1]):
                 b = (2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
                                             for i in range(len(mu[1])))+sum(mu[1]))
@@ -2332,7 +2327,7 @@ def dimBu(W):
             db.append([2,1,4,0,1])
         if ct[0] == 'B' and len(ct[1]) > 2:
             d = []
-            for param in partitiontuples(len(ct[1]),2):
+            for param in partitiontuples(len(ct[1]), 2):
                 symb = symbol2b(param)
                 x = 0
                 for i in range(len(symb[0])):
@@ -2350,7 +2345,7 @@ def dimBu(W):
             db.append(d)
         if ct[0] == 'C' and len(ct[1]) > 2:
             d = []
-            for param in partitiontuples(len(ct[1]),2):
+            for param in partitiontuples(len(ct[1]), 2):
                 symb = symbol2c(param)
                 x = 0
                 for i in range(len(symb[0])):
@@ -2368,7 +2363,7 @@ def dimBu(W):
             db.append(d)
         if ct[0] == 'D':
             d = []
-            for mu in partitiontuples(len(ct[1]),2):
+            for mu in partitiontuples(len(ct[1]), 2):
                 symb = symbol2d(mu)
                 if mu[0] == mu[1] or mu[0] < mu[1]:
                     x = 0
@@ -3109,7 +3104,7 @@ def heckevalueB(n,q,Q,gamma,pi):
 
     In particular, the commands:
 
-      >>> p=partitiontuples(n,2)    # not tested
+      >>> p = list(partitiontuples(n,2))    # not tested
       >>> [[heckevalueB(n,q,Q,a,b) for b in p] for a in p]    # not tested
 
     will yield the complete character table (with the same ordering
@@ -3161,13 +3156,13 @@ def heckevalueB(n,q,Q,gamma,pi):
     return val
 
 
-def heckeB(n,q,Q):
-    p = partitiontuples(n,2)
-    return [[heckevalueB(n,q,Q,a,b) for b in p] for a in p]
+def heckeB(n, q, Q):
+    p = list(partitiontuples(n, 2))
+    return [[heckevalueB(n, q, Q, a, b) for b in p] for a in p]
 
 
-def heckeD(n,v):
-    W1 = coxeter("B",n)
+def heckeD(n, v):
+    W1 = coxeter("B", n)
     r1 = reflections(W1)
     W = reflectionsubgroup(W1,list(range(1,n)) +
                    [r1.index(W1.wordtoperm([0,1,0]))])
@@ -3179,7 +3174,7 @@ def heckeD(n,v):
     else:
         print("Mist!")
         return False
-    pt = partitiontuples(n,2)
+    pt = list(partitiontuples(n, 2))
     t1 = []   # table of restrictions
     for i in range(len(pt)):
         mu = pt[i]
@@ -3267,7 +3262,7 @@ def heckeirrdata(typ,n,paramL):
     if (typ[0] == 'B' or typ[0] == 'C') and n >= 3:
         v = paramL[0]**2
         u = paramL[1]**2  # v == u -- u -- ... --- u
-        p = partitiontuples(n,2)
+        p = list(partitiontuples(n, 2))
         cc = [i for i in range(len(p)) if p[i][0] == []]
         ch = list(range(len(p)))
         t1 = [[heckevalueB(n,u,v,a,p[b]) for b in cc] for a in p]
@@ -3290,7 +3285,7 @@ def heckeirrdata(typ,n,paramL):
             else:
                 print("Mist!")
                 return False
-            pt = partitiontuples(n,2)
+            pt = list(partitiontuples(n, 2))
             t1 = []   # table of restrictions
             for i in range(len(pt)):
                 mu = pt[i]
@@ -4214,14 +4209,14 @@ def schurelmdata(typ,n,vs):
     if typ[0] == 'A':
         return [schurelmA(alpha,vs[0]) for alpha in partitions(n+1)]
     if typ[0] == 'B' and n == 2:
-        return [schurelmB(mu,vs[1],vs[0]) for mu in partitiontuples(2,2)]
+        return [schurelmB(mu,vs[1],vs[0]) for mu in partitiontuples(2, 2)]
     if typ[0] == 'C' and n == 2:
-        return [schurelmB(mu,vs[0],vs[1]) for mu in partitiontuples(2,2)]
+        return [schurelmB(mu,vs[0],vs[1]) for mu in partitiontuples(2, 2)]
     if (typ[0] == 'B' or typ[0] == 'C') and n >= 3:
-        return [schurelmB(mu,vs[0],vs[1]) for mu in partitiontuples(n,2)]
+        return [schurelmB(mu,vs[0],vs[1]) for mu in partitiontuples(n, 2)]
     if typ[0] == 'D':
         vcyc = []
-        for mu in partitiontuples(n,2):
+        for mu in partitiontuples(n, 2):
             s = schurelmB(mu,vs[0]**0,vs[0])
             if mu[0] == mu[1]:
                 vcyc.append(s)
@@ -4605,7 +4600,7 @@ def schurelms(W,paramL):
     the parameters) and 'lcmschurelms'.
 
     >>> W = coxeter("B",2)
-    >>> v=lpol([1],1,'v')       # the built-in Lauent polynomials
+    >>> v = lpol([1],1,'v')       # the built-in Lauent polynomials
 
     >>> schurelms(W,v)          # equal parameters
     [2*v**(-2)+4+2*v**2,
