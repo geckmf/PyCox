@@ -2054,7 +2054,7 @@ def redrightcosetreps(W, H):
                         nl.append(nw)
         ol1 = list(ol)
         ol = set(nl)
-        if len(ol) > 0:
+        if ol:
             l.extend(list(ol))
     return [p[:len(W.rank)] for p in l]
 

@@ -3113,13 +3113,11 @@ def heckevalueB(n,q,Q,gamma,pi):
     the ordinary character table of W(B_n).
 
     >>> heckevalueB(20,v**2,v**3,[[8,6,2],[2,2]],[[4,4,4],[4,4]])
-    -30*v**24+324*v**26-1620*v**28+4500*v**30-7719*v**32+8499*v**34
-    -5940*v**36+2778*v**38-1608*v**40+1590*v**42-1050*v**44
-    +210*v**46+141*v**48-93*v**50+18*v**52
+    -30*v**24+324*v**26-1620*v**28+4500*v**30-7719*v**32+8499*v**34-5940*v**36+2778*v**38-1608*v**40+1590*v**42-1050*v**44+210*v**46+141*v**48-93*v**50+18*v**52
     >>> heckevalueB(20,1,1,[[8,6,2],[2,2]],[[4,4,4],[4,4]])
     0
 
-    (The whole table for n=20 has 24842 rows and columns.)
+    The whole table for n=20 has 24842 rows and columns.
 
     See also 'chartableB' and 'heckechartable'.
     """
@@ -11110,7 +11108,7 @@ def cellreplstars(W, verbose=False):
         for orb in cellrepstarorbit(W,c):
             rest = orb['elms'].copy()
             reps = []
-            while len(rest) > 0:
+            while rest:
                 o = [x[:len(W.rank)] for x in leftklstarorbitelm(W,
                                                 W.coxelmtoperm(next(iter(rest))))]
                 alls += len(o)
