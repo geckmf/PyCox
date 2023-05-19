@@ -559,16 +559,15 @@ def oldsymm(n):
 # F cyclepermB
 
 
-def wordtopermB(n,w):
-    pw = range(2*n)  # first signed permutation
+def wordtopermB(n, w):
+    pw = range(2 * n)  # first signed permutation
     for i in w:
         if i == 0:
-            pw[i],pw[n+i] = pw[n+i],pw[i]
+            pw[i], pw[n+i] = pw[n+i], pw[i]
         else:
-            pw[i-1],pw[i] = pw[i],pw[i-1]
-            pw[n+i-1],pw[n+i] = pw[n+i],pw[n+i-1]
-    sp = pw[:n]     # now roots
-    return sp
+            pw[i-1], pw[i] = pw[i], pw[i-1]
+            pw[n+i-1], pw[n+i] = pw[n+i], pw[n+i-1]
+    return pw[:n]     # now roots
 
 
 def chartablehalfC(n, other=False):
@@ -891,7 +890,7 @@ def chartableD(n):
 # F irrchardata
 
 
-def irrchardata(typ,n,chars=True):
+def irrchardata(typ, n, chars=True):
     """returns the irreducible characters of the finite Coxeter
     group of  type 'typ' and  rank 'n'.  The data  are taken
     from the corresponding files in gap-chevie.
@@ -1930,7 +1929,7 @@ def irrchardata(typ,n,chars=True):
 # F chartable
 
 
-def chartable(W,chars=True):
+def chartable(W, chars=True):
     """returns the  ordinary  character table  of W,  together with related
     additional information.
 
@@ -2054,10 +2053,8 @@ def displaychartable(ti):
         cols = ['|'.join(c) for c in ti['classnames']]
     displaymat(ti['irreducibles'], rows, cols)
 
-# F inductiontable
 
-
-def inductiontable(H,W,display=False,invchar=False):
+def inductiontable(H, W, display=False, invchar=False):
     """computes  the decomposition  of the  induced characters from the
     subgroup H into irreducible characters of W. The rows correspond
     to the characters of  W,  the  columns to those of the subgroup.
@@ -2133,25 +2130,25 @@ def inductiontable(H,W,display=False,invchar=False):
     return tab
 
 
-def checkrepr(W,perms):
-    res = True
+def checkrepr(W, perms):
+    """
+    Check the Coxeter relations.
+    """
     eins = tuple(range(len(perms[0])))
     for s in W.rank:
-        if permmult(perms[s],perms[s]) != eins:
-            res = False
+        if permmult(perms[s], perms[s]) != eins:
+            return False
         for t in range(s):
-            p1 = permmult(perms[s],perms[t])
+            p1 = permmult(perms[s], perms[t])
             p = p1[:]
-            for i in range(W.coxetermat[s][t]-1):
-                p = permmult(p,p1)
+            for i in range(W.coxetermat[s][t] - 1):
+                p = permmult(p, p1)
             if p != eins:
-                res = False
-    return res
-
-# F involutionmodel
+                return False
+    return True
 
 
-def involutionmodel(W,poids=1, verbose=False):
+def involutionmodel(W, poids=1, verbose=False):
     """returns the characters afforded by Kottwitz's involution module.
     This is equivalent  to the characters later described by Lusztig
     and Vogan.  Let  M be a  vector space with a basis {a_w} where w
@@ -2187,20 +2184,20 @@ def involutionmodel(W,poids=1, verbose=False):
 
     See also 'involutions' and 'conjugacyclasses'.
     """
-    if type(poids) == type(1):
-        lp = len(W.rank)*[poids]
+    if isinstance(poids, int):
+        lp = len(W.rank) * [poids]
     else:
         lp = poids
     rr = conjugacyclasses(W)['reps']
     ti = chartable(W)
-    cl = [w for w in rr if W.wordtocoxelm(2*w) == tuple(W.rank)]
+    cl = [w for w in rr if W.wordtocoxelm(2 * w) == tuple(W.rank)]
     # cl=[w for w in rr if conjugacyclasses(W)['classlengths'][rr.index(w)]==
     #                                                      len(classmin(W,w))]
     # cl=rr
     # lprint('# Number of involutions = '+str(sum([len(l) for l in cl]))+'\n')
     chisigma = {}
     for x in cl:
-        inv = conjugacyclass(W,W.wordtoperm(x))
+        inv = conjugacyclass(W, W.wordtoperm(x))
         cinv = [bytes(y[:len(W.rank)]) for y in inv]
         perms = []
         if verbose:
@@ -2446,14 +2443,14 @@ def ainvariants(W,weightL=0):
     [6, 3, 3, 6, 2, 1, 1, 2, 0, 0]
     """
     cw = conjugacyclasses(W)['reps']
-    if type(weightL) == type(0):
-        poids = len(W.rank)*[weightL]
+    if isinstance(weightL, int):
+        poids = len(W.rank) * [weightL]
     else:
         poids = weightL
     if all(p == 0 for p in poids):
-        return len(cw)*[0]
+        return len(cw) * [0]
     if len(set(poids)) == 1:
-        return [poids[0]*i for i in chartable(W,chars=False)['a']]
+        return [poids[0] * i for i in chartable(W, chars=False)['a']]
     gens = [j for j in range(len(cw)) if len(cw[j]) == 1]
     ti = chartable(W)
     irr = ti['irreducibles']
@@ -2584,12 +2581,12 @@ def constructible(W,weightL=1,display=True):
     # 2_2 + 4_5
     # 1_4
     """
-    if type(weightL) == type(0):
-        poids = len(W.rank)*[weightL]
+    if isinstance(weightL, int):
+        poids = len(W.rank) * [weightL]
     else:
         poids = weightL
     if len(W.rank) == 0:
-        return {'constructibles':[[1]],'families':[[0]]}
+        return {'constructibles': [[1]], 'families': [[0]]}
     # if len(W.rank)==1:
     #  if poids[0]==0:
     #    return [[1,1]]
@@ -2755,13 +2752,14 @@ def lusztigfamilies(W, weightL=1, verbose=False):
     'ainv'    : [0, 1, 2, 3, 6],
     'hasse'   : [[0, 1], [1, 2], [2, 3], [3, 4]]}
     """
-    if type(weightL) == type(0):
-        poids = len(W.rank)*[weightL]
+    if isinstance(weightL, int):
+        poids = len(W.rank) * [weightL]
     else:
         poids = weightL
     ti = chartable(W)
     if len(W.rank) == 0:
-        return {'hasse':[],'ainv':[0],'families':[[0]],'names':[['[1]']]}
+        return {'hasse': [], 'ainv': [0],
+                'families': [[0]], 'names': [['[1]']]}
     if len(W.rank) == 1:
         if poids[0] == 0:
             return {'hasse':[],'ainv':[0],'families':[[0,1]],
@@ -2770,10 +2768,10 @@ def lusztigfamilies(W, weightL=1, verbose=False):
             return {'hasse':[[0,1]],'ainv':[0,1],'families':[[1],[0]],
                                                 'names':[['[2]'],['[1,1]']]}
 
-    ag = ainvariants(W,poids)
+    ag = ainvariants(W, poids)
     if verbose:
         lprint('#I ')
-    fam = lusztigpreceq(W,poids,display=True)
+    fam = lusztigpreceq(W, poids, display=True)
     check = True
     fam1 = []
     rest = list(range(len(ag)))
@@ -2907,11 +2905,11 @@ def classpolynomials(W,paramL,pw):
     polynomials for several elements,  or  elements  of  relatively big
     length.
     """
-    if type(paramL) == type([]):
+    if isinstance(paramL, list):
         vs = paramL[:]
     else:
-        vs = len(W.rank)*[paramL]
-    t = testcyclicshift(W,pw)
+        vs = len(W.rank) * [paramL]
+    t = testcyclicshift(W, pw)
     if t:
         cp = len(conjugacyclasses(W)['reps'])*[0]
         cp[identifyclasses(W,[W.permtoword(pw)],minrep=True)[0]] = 1
@@ -2944,7 +2942,7 @@ def testcyclicshift1(W,w,pw):
             if lnw == l and cnw not in cbahn:
                 bahn.append(nw)
                 cbahn.add(cnw)
-    #bahn=[b[:len(W.rank)] for b in bahn]
+    # bahn=[b[:len(W.rank)] for b in bahn]
     if minr == 1:
         return [1,bahn,identifyclasses(W,[w],minrep=True)[0]]
     else:
@@ -3198,8 +3196,8 @@ def heckeD(n, v):
                 tr.append([sum(i[j]*nti1[j][fus.index(c)]
                               for j in range(len(nti1))) for i in ind])
                 cc.append(c)
-    #fint=transposemat([tr[cc.index(i)] for i in range(len(cc))])
-    #fint1=[[evalpol(f,1) for f in l] for l in fint]
+    # fint=transposemat([tr[cc.index(i)] for i in range(len(cc))])
+    # fint1=[[evalpol(f,1) for f in l] for l in fint]
     # return [fint[fint1.index(c)] for c in chartable("D",n)['irreducibles']]
     return transposemat([tr[cc.index(i)] for i in range(len(cc))])
 
@@ -3235,7 +3233,7 @@ def heckeirrdata(typ,n,paramL):
         t1 = [[1]]
     if typ[0] == 'A' and n >= 1:
         # v=paramL[0]
-        #cl=[centraliserpartition(n+1,p) for p in partitions(n+1)]
+        # cl=[centraliserpartition(n+1,p) for p in partitions(n+1)]
         # sti=starkey(n+1,paramL[0])
         # cc=list(range(len(cl)))
         # ch=cc[:]
@@ -3911,17 +3909,18 @@ def heckechartable(W,paramL=1):
     returned by 'chartable(W)').
 
     >>> heckechartable(coxeter("B",2),[v**3,v**2])
-    {'irreducibles': [[1,    v**4,     v**8,      -1, -v**4],
-                      [2, -1+v**4, -2*v**10, -1+v**6,     0],
-                      [1,      -1,        1,      -1,     1],
-                      [1,    v**4,    v**20,    v**6, v**10],
-                      [1,      -1,    v**12,    v**6, -v**6]],
-     'coxeter': coxeter('B',2), 'params': [v**3, v**2]}
+    {'coxeter': coxeter('B',2),
+     'irreducibles': [[1, v**4, v**8, -1, -v**4],
+      [2, -1+v**4, -2*v**10, -1+v**6, 0],
+      [1, -1, 1, -1, 1],
+      [1, v**4, v**20, v**6, v**10],
+      [1, -1, v**12, v**6, -v**6]],
+     'params': [v**3, v**2]}
 
     See also 'classpolynomials', 'heckecharvalues', 'schurelms' and
     'displaychartable'.
     """
-    if type(paramL) == type([]):
+    if isinstance(paramL, list):
         vs = paramL[:]
     else:
         vs = len(W.rank)*[paramL]
@@ -3955,7 +3954,7 @@ def heckechartable(W,paramL=1):
                 else:
                     ivs.append(vs[s]**(-1))
             tt1 = heckeirrdata(ct[0],len(ct[1]),ivs)[2]
-            #tt1=heckeirrdata(ct[0],len(ct[1]),[1//vs[s] for s in ct[1]])[2]
+            # tt1=heckeirrdata(ct[0],len(ct[1]),[1//vs[s] for s in ct[1]])[2]
             nch = ch[:]
             for i in range(len(ch)):
                 i1 = ti['permsgn'][ch[i]]
@@ -4032,7 +4031,7 @@ def heckecharvalues(W,paramL,lw,clpols=[]):
 
     See also 'heckechartable' and 'classpolynomials'.
     """
-    if type(paramL) == type([]):
+    if isinstance(paramL, list):
         vs = paramL[:]
     else:
         vs = len(W.rank)*[paramL]
@@ -4081,7 +4080,7 @@ def heckecentraltable(W,paramL):
      [0, 0, 0, 1+v**2+v**4+2*v**6+v**8+v**10+v**12, 0],
      [0, 0, 0, 0, v**(-2)+2+2*v**2+2*v**4+v**6]]
     """
-    if type(paramL) == type([]):
+    if isinstance(paramL, list):
         vs = paramL[:]
     else:
         vs = len(W.rank)*[paramL]
@@ -4627,7 +4626,7 @@ def schurelms(W,paramL):
     [0, 0, -4+4*E(6), 0, 0, 2, 1, 0, 0, -2, 4*E(6), 0, -4*E(6),
                                            0, 4-4*E(6), 0, 0, 2, 0, 0]
     """
-    if type(paramL) == type([]):
+    if isinstance(paramL, list):
         vs = paramL[:]
     else:
         vs = len(W.rank)*[paramL]
@@ -4673,7 +4672,7 @@ def lcmschurelms(W,paramL):
 
     See also 'schurelms' and 'poincarepol'.
     """
-    if type(paramL) == type([]):
+    if isinstance(paramL, list):
         vs = paramL[:]
     else:
         vs = len(W.rank)*[paramL]
@@ -4907,7 +4906,7 @@ def blockLR(mat,bl,diag,p):
                     Pij = matsubp(Pij,matmultp(P[i][k],matmultp(L[k],
                                               transposemat(P[j][k]),p),p),p)
                 P[i][j] = matmultp([[(x*d1) % p for x in r] for r in Pij],invj,p)
-    #mat1=[[mat[r][s] for s in fbl] for r in fbl]
+    # mat1=[[mat[r][s] for s in fbl] for r in fbl]
     # if not all(x%p==0 for x in flatlist(matsubp(matmult(resP,
     #                    matmult(resL,transposemat(resP))),mat1)),p):
     #  print("grosser mist!")
@@ -5142,8 +5141,8 @@ class wgraph:
     """
 
     def __init__(self,W,weightL,xset,v,isets=None,mmat=[],mues=[],xrep=[]):
-        if type(weightL) == type(0):
-            self.weights = len(W.rank)*[weightL]
+        if isinstance(weightL, int):
+            self.weights = len(W.rank) * [weightL]
         else:
             self.weights = weightL
         uneq = not all(i == 1 for i in self.weights)
@@ -5159,7 +5158,7 @@ class wgraph:
             ap = [W.wordtoperm(w) for w in xset['elms']]
             ll = [W.permlength(p) for p in ap]
             self.Isets = [W.leftdescentsetperm(p) for p in ap]
-            nmues = [[0,1] for s in W.rank]
+            nmues = [[0, 1] for s in W.rank]
             mm = {}
             for y in range(len(ap)):
                 for x in range(y):
@@ -5227,7 +5226,7 @@ class wgraph:
                                     mm[(y,syi)] += 'c1'
                                 else:
                                     mm[(y,syi)] += 'c0'
-            #self.X=[W.permtoword(p) for p in ap]
+            # self.X = [W.permtoword(p) for p in ap]
             self.X = [w[:] for w in xset['elms']]
             self.Xrep = [p[:len(W.rank)] for p in ap]
             self.mpols = nmues
@@ -5246,7 +5245,7 @@ class wgraph:
         Otherwise, a generic 'sort' will be applied.
         """
         lx = self.X[:]
-        if type(self.X[0]) == type([]):
+        if isinstance(self.X[0], list):
             lx.sort(key=(lambda x:len(x)))
         else:
             lx.sort()
@@ -5433,7 +5432,7 @@ def reflectionwgraph(W,weightL,v):
 
     See also 'wgraph'.
     """
-    if type(weightL) == type(0):
+    if isinstance(weightL, int):
         poids = len(W.rank)*[weightL]
     else:
         poids = weightL
@@ -5468,48 +5467,42 @@ def reflectionwgraph(W,weightL,v):
 
 
 def pospart(f):
-    if type(f) == type(0):
+    if isinstance(f, int):
         return 0
-    elif f.val > 0:
+    if f.val > 0:
         return f
-    elif len(f.coeffs) > -f.val:
+    if len(f.coeffs) > -f.val:
         return lpol([f.coeffs[i] for i in range(-f.val+1,len(f.coeffs))],
-                                                                1,f.vname)
-    else:
-        return 0
+                    1, f.vname)
+    return 0
 
 
 def nonnegpart(f):
-    if type(f) == type(0):
+    if isinstance(f, int):
         return f
-    elif f.val >= 0:
+    if f.val >= 0:
         return f
-    elif len(f.coeffs) >= -f.val:
+    if len(f.coeffs) >= -f.val:
         return lpol([f.coeffs[i] for i in range(-f.val,len(f.coeffs))],
-                                                              0,f.vname)
-    else:
-        return 0
+                    0,f.vname)
+    return 0
 
 
 def zeropart(f):
-    if type(f) == type(0):
+    if isinstance(f, int):
         return f
-    elif f.val <= 0 and len(f.coeffs) > -f.val:
+    if f.val <= 0 and len(f.coeffs) > -f.val:
         return f.coeffs[-f.val]
-    else:
-        return 0
+    return 0
 
 
 def barpart(f):
-    if type(f) == type(0):
+    if isinstance(f, int):
         return f
-    else:
-        return lpol(f.coeffs[::-1],-f.degree,f.vname)
-
-# klpolynomials
+    return lpol(f.coeffs[::-1], -f.degree, f.vname)
 
 
-def klpolynomials(W,weightL, v, verbose=False):
+def klpolynomials(W, weightL, v, verbose=False):
     """returns the matrix of all Kazhdan-Lusztig  polynomials,  and further
     information on the corresponding left cells, with respect to a given
     weight function. The result is a dictionary with components:
@@ -5602,7 +5595,7 @@ def klpolynomials(W,weightL, v, verbose=False):
 
     See also 'klcells', 'relklpols' and 'wgraph'.
     """
-    if type(weightL) == type([]):
+    if isinstance(weightL, list):
         poids = weightL
     else:
         poids = len(W.rank)*[weightL]
@@ -5876,19 +5869,16 @@ def klpoly1(W, weightL, v):
                        for w in range(len(c))]} for c in k['lcells']]
 
 
-def relmue(lw,ly,p):
+def relmue(lw, ly, p):
     if p == 0:
         return 0
-    if type(p) == type(0):
-        if lw-ly == 1:
+    if isinstance(p, int):
+        if lw - ly == 1:
             return p
-        else:
-            return 0
-    if p.degree == lw-ly-1:
+        return 0
+    if p.degree == lw - ly - 1:
         return p.coeffs[-1]
     return 0
-
-# F relklpols
 
 
 def relklpols(W,W1,cell1,weightL,q):
@@ -6193,7 +6183,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
 
     See also 'relklpols'.
     """
-    if type(weightL) == type([]):
+    if isinstance(weightL, list):
         poids = weightL
     else:
         poids = len(W.rank)*[weightL]
@@ -6532,7 +6522,7 @@ def allrelklpols(W,J,weightL,q, verbose=False):
 
     See also 'klpolynomials' and 'klcells'.
     """
-    if type(weightL) == type([]):
+    if isinstance(weightL, list):
         poids = weightL
     else:
         poids = len(W.rank)*[weightL]
@@ -6768,12 +6758,12 @@ def leftconnected(W, elms, verbose=False):
 
     """
     if type(elms[0]) == type(W.permgens[0]):
-        if len(elms[0]) == 2*W.N:
+        if len(elms[0]) == 2 * W.N:
             pelms = set([w[:len(W.rank)] for w in elms])
         else:
             pelms = set(elms)
     else:
-        pelms = set([W.wordtocoxelm(w) for w in elms])
+        pelms = set(W.wordtocoxelm(w) for w in elms)
     orbs = []
     while pelms:
         w1 = next(iter(pelms))
@@ -6860,7 +6850,7 @@ def klstarorbit(W,l,gens='each'):
     """
     if gens == 'each':
         gens = list(W.rank)
-    #orb=[[W.wordtoperm(x) for x in l]]
+    # orb = [[W.wordtoperm(x) for x in l]]
     if len(l) == 0 or (type(l[0]) == type(W.permgens[0]) and len(l[0]) == 2*W.N):
         orb = [l[:]]
     else:
@@ -6885,7 +6875,7 @@ def klstarorbitperm(W,l,gens='each'):
     """
     if gens == 'each':
         gens = list(W.rank)
-    #orb=[[W.wordtoperm(x) for x in l]]
+    # orb=[[W.wordtoperm(x) for x in l]]
     if len(l) == 0 or (type(l[0]) == type(W.permgens[0]) and len(l[0]) == 2*W.N):
         orb = [l[:]]
     else:
@@ -7363,7 +7353,7 @@ def gentaucells(W,startset, verbose=False, lcells=False,string=False,tlen=False)
             pp.append(tlen(W,pw)+10*len(W.rank))
         rd.append(tuple(pp))
     # old version
-    #rd=[tuple(W.rightdescentsetperm(pw)) for pw in pset]
+    # rd = [tuple(W.rightdescentsetperm(pw)) for pw in pset]
     rest = [[pset[i] for i in range(len(pset)) if rd[i] == s] for s in set(rd)]
     res = []
     weiter = True
@@ -7371,9 +7361,9 @@ def gentaucells(W,startset, verbose=False, lcells=False,string=False,tlen=False)
         if verbose:
             lprint(str(len(res)+len(rest))+' ')
         if not string:
-            cg = [gentauorbit2(W,r) for r in rest]
+            cg = [gentauorbit2(W, r) for r in rest]
         else:
-            cg = [genstringorbit2(W,r) for r in rest]
+            cg = [genstringorbit2(W, r) for r in rest]
         weiter = False
         rest = []
         for i in range(len(cg)):
@@ -7494,10 +7484,10 @@ def wgraphstarorbit(W,wgr,gens='each'):
 
 
 def klcellsun(W, weightL, v, verbose=False):
-    if type(weightL) == type([]):
+    if isinstance(weightL, list):
         poids = weightL
     else:
-        poids = len(W.rank)*[weightL]
+        poids = len(W.rank) * [weightL]
     if len(W.rank) == 0:
         cr1 = [wgraph(W,poids,[[]],v,[[]],{},[],[()])]
     else:
@@ -7659,7 +7649,7 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
     about the limit:  it takes some  58 hours and  9GB  memory to
     compute the 15304 left cells and the corresponding W-graphs.
     """
-    if type(weightL) == type([]):
+    if isinstance(weightL, list):
         poids = weightL
     else:
         poids = len(W.rank)*[weightL]
@@ -7737,7 +7727,7 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
                                 #                  ii.Isets,ii.mmat,ii.mpols,[x[:len(W.rank)]
                                 #                                     for x in o]).normalise()
                                 # nc.append(g)
-                                #for e in g.Xrep:  celms.add(e)
+                                # for e in g.Xrep:  celms.add(e)
                                 if allcells:
                                     nc.append([W.permtoword(x) for x in o])
                                 else:
@@ -7759,7 +7749,7 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
                                     #                 ii0.var,ii0.Isets,ii0.mmat,ii0.mpols,
                                     #                  [x[:len(W.rank)] for x in o]).normalise()
                                     # nc.append(g)
-                                    #for e in g.Xrep:  celms.add(e)
+                                    # for e in g.Xrep:  celms.add(e)
                                     if allcells:
                                         nc.append([W.permtoword(x) for x in o])
                                     else:
@@ -7776,7 +7766,7 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
             lprint('#I '+str(len(nc))+' left cells (')
             lprint(str(len(creps))+' non-equivalent), ')
             lprint('mues: '+','.join([str(i) for i in allmues])+'\n')
-        #nc.sort(key=(lambda c:len(c)))
+        # nc.sort(key=(lambda c:len(c)))
         ct = chartable(W)
         if allcells and len(nc) != sum([ct['irreducibles'][i][0]
                      for i in range(len(ct['a'])) if ct['a'][i] == ct['b'][i]]):
@@ -7802,7 +7792,7 @@ def zeroterm(p):
 
 
 # F leadingcoefficients
-def leadingcoefficients(W,weightL,lw,clpols=[]):
+def leadingcoefficients(W,weightL,lw,clpols=None):
     """returns  the  leading coefficients  (as  defined by  Lusztig)  of the
     character values of the generic Iwahori-Hecke algebra associated with
     W and given list of weights. For an irreducible representation E  and
@@ -7841,15 +7831,15 @@ def leadingcoefficients(W,weightL,lw,clpols=[]):
     See also 'leftcellleadingcoeffs'.
     """
     v = lpol([1],1,'v')
-    if type(weightL) == type(0):
-        poids = len(W.rank)*[weightL]
+    if isinstance(weightL, int):
+        poids = len(W.rank) * [weightL]
     else:
         poids = weightL[:]
-    ti = heckechartable(W,[v**i for i in poids])['irreducibles']
-    ainv = ainvariants(W,poids)
+    ti = heckechartable(W, [v**i for i in poids])['irreducibles']
+    ainv = ainvariants(W, poids)
     maxl = max(len(w) for w in lw)
-    if clpols == []:
-        cpmat = allclasspolynomials(W,[v**(2*p) for p in poids],maxl)
+    if clpols is None:
+        cpmat = allclasspolynomials(W, [v**(2*p) for p in poids], maxl)
     else:
         cpmat = clpols
     lc = []
@@ -7971,7 +7961,7 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
     See  also 'chartable', 'leadingcoeffients', 'klcells',
     'allcellsleadingcoeffs' and 'distinguishedinvolutions'.
     """
-    if type(weightL) == type(0):
+    if isinstance(weightL, int):
         poids = len(W.rank)*[weightL]
     else:
         poids = weightL[:]
@@ -8133,18 +8123,18 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
     such that c_{w,E} is non-zero for some E in Irr(W). Hence, this
     yields the complete table of all leading coefficients c_{w,E}.
     """
-    if type(weightL) == type(0):
-        poids = len(W.rank)*[weightL]
+    if isinstance(weightL, int):
+        poids = len(W.rank) * [weightL]
     else:
         poids = weightL[:]
-    v = lpol([1],1,'v')
-    poin = poincarepol(W,v).coeffs
+    v = lpol([1], 1, 'v')
+    poin = poincarepol(W, v).coeffs
     w0 = longestperm(W)
     ct = chartable(W)
     lcl = [len(w) for w in conjugacyclasses(W)['reps']]
     vs = [v**p for p in poids]
-    ti = heckechartable(W,vs)['irreducibles']
-    schur = schurelms(W,vs)
+    ti = heckechartable(W, vs)['irreducibles']
+    schur = schurelms(W, vs)
     fshi = [s.coeffs[0] for s in schur]
     ainv = [-s.val//2 for s in schur]
     tup = [[i,ainv[i]] for i in range(len(ainv))]
@@ -8261,7 +8251,7 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
                 zael += 1
                 cpv = []
                 for j in range(len(ainv)):
-                    if type(cp[j]) == type(0):
+                    if isinstance(cp[j], int):
                         cpv.append(cp[j])
                     elif cp[j].coeffs == []:
                         cpv.append(0)
@@ -8361,7 +8351,7 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
 
 
 # F starorbitinv (for use in distinguishedinvolutions_eq and libdistinv)
-def starorbitinv(W,pw,lcell=[]):
+def starorbitinv(W, pw, lcell=None):
     """returns the orbit  of a  distinguished involution  (among others,
     for use in 'libdistinv' and in 'cellrepstarorbit') under  N. Xi's
     'double' star operation;  this shows that,  if d is distinguished
@@ -8380,7 +8370,7 @@ def starorbitinv(W,pw,lcell=[]):
     """
     orb = [pw[:]]
     orb1 = set([pw[:len(W.rank)]])
-    if lcell != []:
+    if lcell is not None:
         if type(lcell[0]) == type(W.permgens[0]) and len(lcell[0]) == len(W.rank):
             ncell = [[bytes(W.coxelmtoperm(x)) for x in lcell]]
         elif type(lcell[0]) == type(W.permgens[0]) and len(lcell[0]) == 2*W.N:
@@ -8396,16 +8386,15 @@ def starorbitinv(W,pw,lcell=[]):
                         if not d1[:len(W.rank)] in orb1:
                             orb.append(d1)
                             orb1.add(d1[:len(W.rank)])
-                            if lcell != []:
+                            if lcell is not None:
                                 ncell.append([bytes(x)
                                       for x in klstaroperation(W,s,t,ncell[orb.index(d)])])
                             # if W.permorder(d1)!=2:
                             #  print("Mist!")
                             #  return False
-    if lcell == []:
+    if lcell is None:
         return orb
-    else:
-        return [orb,[[tuple(x[:len(W.rank)]) for x in l] for l in ncell]]
+    return [orb, [[tuple(x[:len(W.rank)]) for x in l] for l in ncell]]
 
 
 def starorbitinv1(W,distinv):
@@ -8584,7 +8573,7 @@ def distinguishedinvolutions_eq(W, verbose=False):
             if W.permorder(pw) == 2 and pw in repsinv and pw not in distinv:
                 cpv = []
                 for j in range(len(ainv)):
-                    if type(cp[j]) == type(0):
+                    if isinstance(cp[j], int):
                         cpv.append(cp[j])
                     elif cp[j].coeffs == []:
                         cpv.append(0)
@@ -8679,10 +8668,8 @@ def distinguishedinvolutions_eq(W, verbose=False):
         lprint('#I Number of distinguished involutions = '+str(len(res))+'\n')
     return [list(l) for l in zip(*res)]
 
-# F allcellsleadingcoeffs
 
-
-def allcellsleadingcoeffs(W,weightL,v,newnorm=False):
+def allcellsleadingcoeffs(W, weightL, v, newnorm=False, verbose=False):
     """returns a list which contains the pairwise different results of
     'leftcellleadingcoeffs' as we run over all left cells of W with
     at least two irreducible components.
@@ -8736,7 +8723,7 @@ def allcellsleadingcoeffs(W,weightL,v,newnorm=False):
 
     See also 'klcells' and 'leftcellleadingcoeffs'.
     """
-    if type(weightL) == type(0):
+    if isinstance(weightL, int):
         poids = len(W.rank)*[weightL]
     else:
         poids = weightL[:]
@@ -8745,13 +8732,15 @@ def allcellsleadingcoeffs(W,weightL,v,newnorm=False):
     else:
         kl = [c.X for c in klcellsun(W,poids,v)]
     cp = allclasspolynomials(W,[v**(2*i) for i in poids])
-    ch = chartable(W,chars=False)['charnames']
+    ch = chartable(W, chars=False)['charnames']
     nlc,dlc = [],[]
     slc = set([])
-    lprint('#I ')
+    if verbose:
+        lprint('#I ')
     for l1 in kl:
         l = leftcellleadingcoeffs(W,poids,v,l1,clpols=cp,newnorm=newnorm)
-        lprint(str(l['nd']))
+        if verbose:
+            lprint(str(l['nd']))
         dlc.append([l['distinv'],l['nd']])
         slc.add(ch.index(l['special']))
         if len(l['ti']) > 1:
@@ -8762,21 +8751,19 @@ def allcellsleadingcoeffs(W,weightL,v,newnorm=False):
                     ok = False
             if ok:
                 nlc.append(tl)
-    lprint('\n')
+    if verbose:
+        lprint('\n')
     slc = list(slc)
     slc.sort()
     slc = [ch[i] for i in slc]
     for l in nlc:
-        # if len(list(filter(lambda i:i in slc,l[0])))!=1:
-        if len([i for i in l[0] if i in slc]) != 1:
+        if len([1 for i in l[0] if i in slc]) != 1:
             print('multiple special in cell')
             return l
-    return [[transposemat(l) for l in nlc],dlc,slc]
-
-# F libdistinv
+    return [[transposemat(l) for l in nlc], dlc, slc]
 
 
-def libdistinv(W,weightL,unpack=True):
+def libdistinv(W, weightL, unpack=True):
     r"""returns a pre-computed and explicitly stored list  of distinguished
     involutions.  Among other properties, these elements  form a set of
     representatives for the left cells of W  with respect  to the given
@@ -8815,8 +8802,8 @@ def libdistinv(W,weightL,unpack=True):
 
     See also 'distinguishedinvolutions' and 'distinva'.
     """
-    if type(weightL) == type(0):
-        poids = len(W.rank)*[weightL]
+    if isinstance(weightL, int):
+        poids = len(W.rank) * [weightL]
     else:
         poids = weightL[:]
     if len(W.cartantype) > 1:
@@ -8825,7 +8812,7 @@ def libdistinv(W,weightL,unpack=True):
         return [[]]
     typ = W.cartantype[0][0]
     rk = list(W.cartantype[0][1])
-    if typ == 'H' and rk == [0,1,2]:
+    if typ == 'H' and rk == [0, 1, 2]:
         l = ['', '0', '1', '2', '02', '121', '1021', '01010', '01210', '010210',
            '1012101', '0210102', '10102101', '010121010', '102101021',
            '2101021012', '01021010210', '1010210102101', '01010210102101',
@@ -9347,22 +9334,22 @@ def distinva(W,weightL=1, verbose=False):
     """
     ti = chartable(W,chars=False)
     ch = ti['charnames']
-    if type(weightL) == type(1):
-        poids = len(W.rank)*[weightL]
+    if isinstance(weightL, int):
+        poids = len(W.rank) * [weightL]
     else:
         poids = weightL
     if len(set(poids)) == 1:
         ainv = ti['a']
-        if W.cartan in [cartanmat("E",6), cartanmat("E",7), cartanmat("E",8)]:
-            d = libdistinv(W,1,unpack=0)
+        if W.cartan in [cartanmat("E", 6), cartanmat("E", 7), cartanmat("E", 8)]:
+            d = libdistinv(W, 1, unpack=0)
             typEH = True
         else:
-            #d=[list(l) for l in zip(*distinguishedinvolutions(W,1))]
+            # d=[list(l) for l in zip(*distinguishedinvolutions(W,1))]
             d = [list(l) for l in zip(*distinguishedinvolutions_eq(W))]
             typEH = False
     else:
-        d = [list(l) for l in zip(*distinguishedinvolutions(W,poids))]
-        ainv = ainvariants(W,poids)
+        d = [list(l) for l in zip(*distinguishedinvolutions(W, poids))]
+        ainv = ainvariants(W, poids)
         typEH = False
     a1 = []
     if verbose:
@@ -10990,7 +10977,7 @@ def klcellrepelm(W, w, verbose=False):
 
     See also 'klcellreps', 'cellrepstarorbit' and 'leftcellelm'.
     """
-    if type(w) == type(W.permgens[0]) and len(w) == 2*W.N:
+    if type(w) == type(W.permgens[0]) and len(w) == 2 * W.N:
         orb = [w]
     else:
         orb = [W.wordtoperm(w)]
@@ -11444,12 +11431,12 @@ def checksh(W,paramL):
     for the general cyclotomic arithmetic are not implemented.)
     """
     p = lcmschurelms(W,paramL)
-    if type(paramL) == type([]):
+    if isinstance(paramL, list):
         vs = paramL[:]
     else:
-        vs = len(W.rank)*[paramL]
-    gd = [divmod(p,s)[0] for s in schurelms(W,vs)]
-    ti = heckechartable(W,vs)['irreducibles']
+        vs = len(W.rank) * [paramL]
+    gd = [divmod(p, s)[0] for s in schurelms(W, vs)]
+    ti = heckechartable(W, vs)['irreducibles']
     res = [sum(gd[i]*ti[i][j] for i in range(len(gd))) for j in range(len(gd))]
     return res[0] == p and all(i == 0 for i in res[1:len(gd)])
 
@@ -11624,10 +11611,10 @@ def test():
     e = allelmchain(W)
     d = redleftcosetreps(W,[0,1,2])
     # ca=redleftcosetreps(W)
-    #wa=[W.coxelmtoword(c) for c in ca]
+    # wa=[W.coxelmtoword(c) for c in ca]
     # ls=[W.coxelmlength(c) for c in ca]    # does not work
     lprint('# ==>  seems ok ! ... \n')
-    #somechecks.append(ca==[W.wordtocoxelm(w) for w in wa])
+    # somechecks.append(ca==[W.wordtocoxelm(w) for w in wa])
     W = coxeter("B",3)
     lc = []
     for i in range(4):
@@ -11635,16 +11622,16 @@ def test():
         lc.append(len(kl['lcells']))
     somechecks.append(lc == [10,14,16,20])
     k = [i.matrices(True) for i in klcells(W,1,v)[1]]
-    somechecks.append(all([type(m) == type([]) for m in k]))
+    somechecks.append(all(isinstance(m, list) for m in k))
     k = [i.matrices(True) for i in klcells(W,[3,2,2],v)]
-    somechecks.append(all([type(m) == type([]) for m in k]))
+    somechecks.append(all(isinstance(m, list) for m in k))
     W = coxeter("I14",2)
     k = [i.matrices(True) for i in klcells(W,1,v)[1]]
-    somechecks.append(all([type(m) == type([]) for m in k]))
+    somechecks.append(all(isinstance(m, list) for m in k))
     k = [i.matrices(True) for i in klcells(W,[5,3],v)]
-    somechecks.append(all([type(m) == type([]) for m in k]))
+    somechecks.append(all(isinstance(m, list) for m in k))
     # test all conversions:
-    W = coxeter("H",3)
+    W = coxeter("H", 3)
     somechecks.append(cellrepcheck1(W,klcellreps(W)))
     somechecks.append(cellrepcheck2(W))
     gh3 = [[[]],[[0],[0,1,0]],[[0,1,0,2,1,0]],[[0,1,0,1,2,1,0,1,0],[0,1,0,1,2,
