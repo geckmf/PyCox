@@ -10,20 +10,20 @@ from matrices import (permmult, perminverse, decomposemat, flatlist,
                       partitions)
 
 
-# F cartanmatA
 def cartanmatA(n):
+    """
+    Cartan matrix of type A.
+
+    >>> cartanmatA(2)
+    [[2, -1], [-1, 2]]
+    """
     if n == 0:
         return [[]]
-    a = [n * [0] for x in range(n)]
-    for x in range(n):
-        a[x][x] = 2
-        if x < n - 1:
-            a[x][x + 1] = -1
-        if x > 0:
-            a[x][x - 1] = -1
+    a = [[2 if i == j else 0 for i in range(n)] for j in range(n)]
+    for i in range(n - 1):
+        a[i][i + 1] = -1
+        a[i + 1][i] = -1
     return a
-
-# F cartanmat
 
 
 def cartanmat(typ, n):
@@ -149,25 +149,21 @@ def cartanmat(typ, n):
         if m % 2 == 0:
             if m == 4:
                 return [[2, -1], [-2, 2]]
-            elif m == 6:
+            if m == 6:
                 return [[2, -1], [-3, 2]]
-            else:
-                return [[2, -1], [-2 - ir(m // 2), 2]]
+            return [[2, -1], [-2 - ir(m // 2), 2]]
         else:
             if m == 3:
                 return [[2, -1], [-1, 2]]
-            elif m == 5:
+            if m == 5:
                 return [[2, -ir(m)], [-ir(m), 2]]
+            d = gcdex(2 + m, 2 * m)['coeff1']
+            z = rootof1(m)
+            if d % 2 == 0:
+                z1 = -z**d - z**(-d)
             else:
-                d = gcdex(2 + m, 2 * m)['coeff1']
-                z = rootof1(m)
-                if d % 2 == 0:
-                    z1 = -z**d - z**(-d)
-                else:
-                    z1 = z**d + z**(-d)
-                return [[2, z1], [z1, 2]]
-
-# F affinecartanmat
+                z1 = z**d + z**(-d)
+            return [[2, z1], [z1, 2]]
 
 
 def affinecartanmat(typ, n):
@@ -261,8 +257,6 @@ def affinecartanmat(typ, n):
                 [0, 0, 0, 0, 0, -1, 2, -1, 0],
                 [0, 0, 0, 0, 0, 0, -1, 2, -1],
                 [0, 0, 0, 0, 0, 0, 0, -1, 2]]
-
-# F typecartanmat
 
 
 def typecartanmat(mat):
@@ -520,8 +514,6 @@ def finitetypemat(mat):
                     p[i + 3] = ps[r][-i - 1]
                 return [typ, p]
 
-# F cartantotype
-
 
 def cartantotype(mat):
     """returns [['U',range(n)]] if mat is a  generalised Cartan matrix
@@ -547,25 +539,22 @@ def cartantotype(mat):
     """
     if mat == [[]]:
         return [['A', []]]
-    else:
-        l = decomposemat(mat)
-        t = []
-        for l1 in l:
-            c = typecartanmat([[mat[i][j] for j in l1] for i in l1])
-            t.append([c[0], [l1[i] for i in c[1]]])
-            if c[0][0] == 'U':      # not of finite type: exit
-                return [['U', list(range(len(mat[0])))]]
-        t.sort()
-        t.sort(key=(lambda x: len(x[1])), reverse=True)  # sort as in gap-chevie
-        for c in t:  # testing
-            if c[0][0] != 'U' and c[0][0] != 'I':
-                if [[mat[i][j] for j in c[1]]
-                        for i in c[1]] != cartanmat(c[0], len(c[1])):
-                    print("mist !")
-                    return "mist"
-            return t
 
-# F cartantypetomat
+    l = decomposemat(mat)
+    t = []
+    for l1 in l:
+        c = typecartanmat([[mat[i][j] for j in l1] for i in l1])
+        t.append([c[0], [l1[i] for i in c[1]]])
+        if c[0][0] == 'U':      # not of finite type: exit
+            return [['U', list(range(len(mat[0])))]]
+    t.sort()
+    t.sort(key=(lambda x: len(x[1])), reverse=True)  # sort as in gap-chevie
+    for c, li in t:  # testing
+        if c[0] != 'U' and c[0] != 'I':
+            if [[mat[i][j] for j in li]
+                    for i in li] != cartanmat(c, len(li)):
+                raise ValueError('something went wrong')
+    return t
 
 
 def cartantypetomat(ct):
@@ -586,13 +575,11 @@ def cartantypetomat(ct):
     """
     b = [[]]
     p = []
-    for c in ct:
-        b = directsummat(b, cartanmat(c[0], len(c[1])))
-        p.extend(c[1])
+    for c, li in ct:
+        b = directsummat(b, cartanmat(c, len(li)))
+        p.extend(li)
     n = range(len(p))
     return [[b[p.index(i)][p.index(j)] for j in n] for i in n]
-
-# F degreesdata
 
 
 def degreesdata(typ, n):
@@ -682,7 +669,7 @@ def roots(cmat):
 def roots1(cmat):
     rng = range(len(cmat[0]))
     l = idmat(rng, 1)
-    elms = [[] for i in rng]
+    elms = [[] for _ in rng]
     i = 0
     while i < len(l):
         for s in rng:
@@ -700,8 +687,6 @@ def roots1(cmat):
     return ([tuple(r) for r in l + [[-x for x in y] for y in l]],
             [elms[l1.index(r)][::-1] for r in l])
 
-# F permroots
-
 
 def permroots(cmat, roots):
     rng = range(len(cmat[0]))
@@ -712,8 +697,6 @@ def permroots(cmat, roots):
             nr[s] -= sum(cmat[s][t] * nr[t] for t in rng if cmat[s][t] != 0)
             gens[s][i] = roots.index(tuple(nr))
     return [tuple(s) for s in gens]
-
-# F class-coxeter
 
 
 class coxeter:
@@ -800,7 +783,7 @@ class coxeter:
     list into a string; this is conveniently done using the Python
     function 'join' (and its inverse 'split'):
 
-    >>> w='.'.join([str(i) for i in [0,1,4,3,2]]); w
+    >>> w='.'.join(str(i) for i in [0,1,4,3,2]); w
     '0.1.4.3.2'
     >>> [int(i) for i in w.split('.')]
     [0, 1, 4, 3, 2]
@@ -825,7 +808,7 @@ class coxeter:
     work in the general case.
 
     >>> W = coxeter("A",3)
-    >>> w0=longestperm(W);   print(w0)        # the longest element
+    >>> w0 = longestperm(W);   print(w0)         # the longest element
     (8, 7, 6, 10, 9, 11, 2, 1, 0, 4, 3, 5)
     >>> W.permlength(w0)                         # the length of w
     6
@@ -875,7 +858,7 @@ class coxeter:
             else:
                 self.cartantype = [[typ, list(range(rank))]]
         if self.cartantype[0][0] == 'U':
-            self.cartanname = str('U')
+            self.cartanname = 'U'
             for l in self.cartan:
                 for i in l:
                     if i < 0:
@@ -990,8 +973,7 @@ class coxeter:
         if (len(ct) == 1 and ct[0][0] != 'U' and list(ct[0][1]) ==
                 list(range(len(ct[0][1])))):
             return "coxeter('" + ct[0][0] + "'," + str(len(ct[0][1])) + ')'
-        else:
-            return 'coxeter(' + str(self.cartan) + ')'
+        return 'coxeter(' + str(self.cartan) + ')'
 
     def coxelmlength(self, elm):
         """returns the length of a coxelm.
@@ -1027,7 +1009,7 @@ class coxeter:
         """returns the length of an element given as a full permutation.
         (Only works for finite W.)
         """
-        return len([i for i in p[:self.N] if i >= self.N])
+        return len([1 for i in p[:self.N] if i >= self.N])
 
     def coxelmtomat(self, elm):      # works for perms and coxelms
         """converts  elm (assumed to be a coxelm)  into  a matrix  with
@@ -1047,7 +1029,6 @@ class coxeter:
         """converts a  coxelm into a  reduced expression  in the simple
         reflections.
         """
-        # m=[list(self.roots[r]) for r in elm[:len(self.rank)]]
         m = [self.roots[r] for r in elm[:len(self.rank)]]
         word = []
         weiter = True
@@ -1056,8 +1037,8 @@ class coxeter:
             while s < len(self.rank) and all(m[s][t] >= 0 for t in self.rank):
                 s += 1
             if s < len(self.rank):
-                m = [[m[t][u] - self.cartan[s][t] * m[s][u] for u in self.rank]
-                     for t in self.rank]
+                m = [[m[t][u] - self.cartan[s][t] * m[s][u]
+                      for u in self.rank] for t in self.rank]
                 word.append(s)
             else:
                 weiter = False
@@ -1073,7 +1054,9 @@ class coxeter:
         (Only works for finite W.)
         """
         return tuple([self.roots.index(tuple([sum([r[i] * mat[i][s]
-                                                   for i in self.rank]) for s in self.rank])) for r in self.roots])
+                                                   for i in self.rank])
+                                              for s in self.rank]))
+                      for r in self.roots])
 
     def mattoword(self, mat):
         """converts  a  matrix to a  reduced expression  in the  simple
@@ -1137,20 +1120,18 @@ class coxeter:
         permutation on the set of roots. (Only works for finite W.)
         """
         l = [list(range(2 * self.N))]
-        if w == []:
+        if not w:
             return tuple(l[0])
-        else:
-            l.extend([self.permgens[s] for s in w])
-            return reduce(permmult, tuple(l))
+        l.extend([self.permgens[s] for s in w])
+        return reduce(permmult, tuple(l))
 
     def stringtoword(self, sw):
         """converts a string (as returned, for example, by the function
         'allwordstrings' into a list.
         """
-        if sw == '':
+        if not sw:
             return []
-        else:
-            return [int(i) for i in sw.split('.')]
+        return [int(i) for i in sw.split('.')]
 
     def reducedword(self, w, W1):
         """converts  any word  in the simple reflections into a reduced
@@ -1198,7 +1179,7 @@ class coxeter:
         for r in self.rootorbits:
             cl = []
             rest = r + [i + self.N for i in r]
-            while rest != []:
+            while rest:
                 c = [rest[0]]
                 for i in c:
                     if not pw[i] in c:
@@ -1213,11 +1194,15 @@ class coxeter:
     def permorder(self, pw):
         """returns the order of an element, given as a full  permutation
         on all roots. (Only works for finite W.)
+
+        >>> W = coxeter('D',4)
+        >>> w = W.wordtoperm([0,1])
+        >>> W.permorder(w)
+        2
         """
-        if pw == ():
+        if not pw:
             return 1
-        else:
-            return intlcmlist(flatlist([list(x) for x in self.cycletyperoots(pw)]))
+        return intlcmlist([y for x in self.cycletyperoots(pw) for y in x])
 
     def leftdescentsetperm(self, pw):
         """returns the left descent set of an element, given as a coxelm
@@ -1244,9 +1229,6 @@ class coxeter:
         """
         m = self.wordtomat(self.mattoword(mw)[::-1])
         return [s for s in self.rank if all(m[s][t] <= 0 for t in self.rank)]
-# end of definition of class coxeter
-
-# F rmultgenmat
 
 
 def rmultgenmat(W, s, m):
@@ -1255,7 +1237,7 @@ def rmultgenmat(W, s, m):
     a matrix.
 
     >>> W = coxeter("B",3)
-    >>> m=rmultgenmat(W,2,W.wordtomat([0,1])); m
+    >>> m = rmultgenmat(W,2,W.wordtomat([0,1])); m
     [[-1, -1, -1], [2, 1, 1], [0, 1, 0]]
     >>> W.mattoword(m)
     [0, 1, 2]
@@ -1263,9 +1245,11 @@ def rmultgenmat(W, s, m):
     See also 'lmultmatgen' and 'conjgenmat'.
     """
     nw = [list(m[x]) for x in W.rank]
+    Wcartan_s = W.cartan[s]
     for t in W.rank:
-        nw[t][s] -= sum(nw[t][u] * W.cartan[s][u] for u in W.rank
-                        if W.cartan[s][u] != 0)
+        nwt = nw[t]
+        nw[t][s] -= sum(nwt[u] * Wcartan_s[u] for u in W.rank
+                        if Wcartan_s[u])
     return nw
 
 # F lmultgenmat  # is slightly faster than rmultgen
@@ -1306,16 +1290,12 @@ def conjgencoxelm(W, s, w):
                                         W.cartan[s][t] * W.roots[w[s]][u]
                                         for u in W.rank])) for t in W.rank]])
 
-# F conjgenperm
-
 
 def conjgenperm(W, s, pw):
     """conjugates an element (given as a full permutation on the set of
     roots by a generator.
     """
     return tuple([W.permgens[s][pw[W.permgens[s][r]]] for r in range(2 * W.N)])
-
-# F conjugacyclass
 
 
 def conjugacyclass(W, pw, verbose=False):
@@ -1351,23 +1331,26 @@ def conjugacyclass(W, pw, verbose=False):
                 cl.append(sxs)
                 cl1.add(bsxs)
     if verbose:
-        print('#I Size of class: ' + str(len(cl)) + '\n')
-    lc = [W.permlength(w) for w in cl]
-    l = list(range(len(cl)))
-    l.sort(key=(lambda i: lc[i]))
-    return [cl[i] for i in l]
-
-# F involutions
+        print(f'🄸 Size of class: {len(cl)}\n')
+    laux = sorted(((w, W.permlength(w)) for w in cl), key=lambda wl: wl[1])
+    return [w for w, l in laux]
 
 
 def involutions(W):
-    """returns the list of involutions in a finite Coxeter groups
+    """returns the list of involutions in a finite Coxeter group
     (as full permutations on the roots).
-    """
-    return flatlist([conjugacyclass(W, W.wordtoperm(w)) for w in
-                     conjugacyclasses(W)['reps'] if W.wordtocoxelm(2 * w) == tuple(W.rank)])
 
-# F cyclicshiftorbit
+    sage: W = coxeter("A",2)
+    sage: involutions(W)
+    [(0, 1, 2, 3, 4, 5),
+    (3, 2, 1, 0, 5, 4),
+    (2, 4, 0, 5, 1, 3),
+    (4, 3, 5, 1, 0, 2)]
+    """
+    t = tuple(W.rank)
+    return flatlist([conjugacyclass(W, W.wordtoperm(w))
+                     for w in conjugacyclasses(W)['reps']
+                     if W.wordtocoxelm(2 * w) == t])
 
 
 def cyclicshiftorbit(W, pw):
@@ -1376,7 +1359,7 @@ def cyclicshiftorbit(W, pw):
     See also 'testcyclicshift'.
     """
     bahn = [pw[:]]
-    l = len([i for i in pw[:W.N] if i >= W.N])
+    l = len([1 for i in pw[:W.N] if i >= W.N])
     for b in bahn:
         for s in W.rank:
             nw = tuple([W.permgens[s][b[W.permgens[s][r]]]
@@ -1384,8 +1367,6 @@ def cyclicshiftorbit(W, pw):
             if len([i for i in nw[:W.N] if i >= W.N]) == l and nw not in bahn:
                 bahn.append(nw)
     return bahn
-
-# F testcyclicshift
 
 
 def testcyclicshift(W, pw):
@@ -1406,7 +1387,7 @@ def testcyclicshift(W, pw):
     See also 'classpolynomials'.
     """
     bahn = [pw[:]]
-    l = len([i for i in pw[:W.N] if i >= W.N])
+    l = len([1 for i in pw[:W.N] if i >= W.N])
     for b in bahn:
         for s in W.rank:
             nw = tuple([W.permgens[s][b[W.permgens[s][r]]]
@@ -1417,8 +1398,6 @@ def testcyclicshift(W, pw):
             elif lnw == l and nw not in bahn:
                 bahn.append(nw)
     return True
-
-# F conjtomin
 
 
 def conjtomin(W, pw):
@@ -1439,8 +1418,6 @@ def conjtomin(W, pw):
         neu = testcyclicshift(W, alt)
     return W.permtoword(alt)
 
-# F classmin
-
 
 def classmin(W, w, minl=True, verbose=False):
     """returns the elements of minimal length in a conjugacy class
@@ -1460,7 +1437,7 @@ def classmin(W, w, minl=True, verbose=False):
     See also 'conjugacyclass', 'cyclicshiftclass' and 'conjtomin'.
     """
     if verbose:
-        print('#I ')
+        print('🄸 ')
     if minl:
         l = len(w)
         J0 = set(w)
@@ -1509,9 +1486,7 @@ def classmin(W, w, minl=True, verbose=False):
         print('Size of Cmin: ' + str(len(cl)) + '\n')
     # test
     # cm=[x for x in conjugacyclass(W,cl[0]) if W.permlength(x)==l]
-    # print(str(len(cm))+' r')
     # if len(cm)!=len(cl) or any(not bytes(x[:len(W.rank)]) in cl1 for x in cm):
-    #  print("mist!")
     #  return False
     return cl
 
@@ -1525,13 +1500,13 @@ def longestperm(W, J=0):
     the longest element in the parabolic subgroup generated by J.
 
     >>> W = coxeter("F",4)
-    >>> w0=longestperm(W); print(w0)
+    >>> w0 = longestperm(W); print(w0)
     (24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44,
      45, 46, 47, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
      20, 21, 22, 23)
     >>> W.permtoword(w0)                   # reduced expression
     [0, 1, 0, 2, 1, 0, 2, 1, 2, 3, 2, 1, 0, 2, 1, 2, 3, 2, 1, 0, 2, 1, 2, 3]
-    >>> [W.roots[i] for i in w0]           # as a matrix
+    >>> [W.roots[i] for i in w0[:4]]           # as a matrix
     [(-1, 0, 0, 0), (0, -1, 0, 0), (0, 0, -1, 0), (0, 0, 0, -1)]
     >>> W.permtoword(longestperm(W,[1,2])) # parabolic of type C_2
     [1, 2, 1, 2]
@@ -1585,10 +1560,8 @@ def bruhatmat(W, y, w):
         else:
             return bruhatmat(W, y, nw)
 
-# F bruhatcoxelm
 
-
-def bruhatcoxelm(W, y, w):
+def bruhatcoxelm(W, y, w) -> bool:
     """returns true or false according to whether y is less than or equal
     to w in the Bruhat-Chevalley order on W. Here, y and w are assumed
     to be coxelms.
@@ -1598,9 +1571,9 @@ def bruhatcoxelm(W, y, w):
     l(sw)=l(w)-1. Then y <= w if and only if sy<=sw  (if l(sy)=l(y)-1)
     or y<=sw  (if l(sy)=l(y)+1).
 
-    >>> W = coxeter("H",3);
-    >>> w=W.wordtocoxelm([0,1,0,2])
-    >>> b=list(filter(lambda y:bruhatcoxelm(W,y,w),redleftcosetreps(W)))
+    >>> W = coxeter("H", 3);
+    >>> w = W.wordtocoxelm([0, 1, 0, 2])
+    >>> b = [y for y in redleftcosetreps(W) if bruhatcoxelm(W,y,w)]
 
     all y in W such that y<=w:
 
@@ -1622,25 +1595,22 @@ def bruhatcoxelm(W, y, w):
     """
     if y == tuple(W.rank) or y == w:
         return True
-    elif w == tuple(W.rank):
+    if w == tuple(W.rank):
         return y == w
+    s = 0
+    while w[s] < W.N:
+        s += 1
+    nw = tuple([W.roots.index(tuple([W.roots[w[t]][u] - W.cartan[s][t] *
+                                     W.roots[w[s]][u] for u in W.rank])) for t in W.rank])
+    if y[s] >= W.N:
+        ny = tuple([W.roots.index(tuple([W.roots[y[t]][u] - W.cartan[s][t] *
+                                         W.roots[y[s]][u] for u in W.rank])) for t in W.rank])
+        return bruhatcoxelm(W, ny, nw)
     else:
-        s = 0
-        while w[s] < W.N:
-            s += 1
-        nw = tuple([W.roots.index(tuple([W.roots[w[t]][u] - W.cartan[s][t] *
-                                         W.roots[w[s]][u] for u in W.rank])) for t in W.rank])
-        if y[s] >= W.N:
-            ny = tuple([W.roots.index(tuple([W.roots[y[t]][u] - W.cartan[s][t] *
-                                             W.roots[y[s]][u] for u in W.rank])) for t in W.rank])
-            return bruhatcoxelm(W, ny, nw)
-        else:
-            return bruhatcoxelm(W, y, nw)
-
-# F bruhatperm
+        return bruhatcoxelm(W, y, nw)
 
 
-def bruhatperm(W, x, y, lx=False, ly=False):
+def bruhatperm(W, x, y, lx=False, ly=False) -> bool:
     """returns true or false according to whether y is less than or equal
     to w in the Bruhat-Chevalley order on W. Here, y and w are assumed
     to be  full permutations on the roots.  The lengths of  y,w can be
@@ -1655,28 +1625,26 @@ def bruhatperm(W, x, y, lx=False, ly=False):
     """
     if x == tuple(range(2 * W.N)) or x == y:
         return True
-    elif y == tuple(range(2 * W.N)):
+    if y == tuple(range(2 * W.N)):
         return x == y
-    else:
-        if lx is False:
-            lx = W.permlength(x)
-        if ly is False:
-            ly = W.permlength(y)
-        while lx < ly and lx != 0 and ly != 0:
-            s = 0
-            while y[s] < W.N:
-                s += 1
-            if x[s] >= W.N:
-                x = tuple([x[r] for r in W.permgens[s]])
-                lx -= 1
-            y = tuple([y[r] for r in W.permgens[s]])
-            ly -= 1
-        return lx == 0 or (lx == ly and x == y)
 
-# F bruhat
+    if lx is False:
+        lx = W.permlength(x)
+    if ly is False:
+        ly = W.permlength(y)
+    while lx < ly and lx != 0 and ly != 0:
+        s = 0
+        while y[s] < W.N:
+            s += 1
+        if x[s] >= W.N:
+            x = tuple([x[r] for r in W.permgens[s]])
+            lx -= 1
+        y = tuple([y[r] for r in W.permgens[s]])
+        ly -= 1
+    return lx == 0 or (lx == ly and x == y)
 
 
-def bruhat(W, y, w):
+def bruhat(W, y, w) -> bool:
     """returns true or false according to whether y is less than or equal
     to w in the Bruhat-Chevally order on W. This is a generic function
     which checks the type of  y and  w  and then calls one of the more
@@ -1687,9 +1655,9 @@ def bruhat(W, y, w):
     l(sw)=l(w)-1.  Then y <= w if and only if sy<=sw (if l(sy)=l(y)-1)
     or y<=sw  (if l(sy)=l(y)+1).
 
-    >>> W = coxeter("H",3);
-    >>> w=W.wordtocoxelm([0,1,0,2])
-    >>> b=list(filter(lambda y:bruhat(W,y,w),redleftcosetreps(W)))
+    >>> W = coxeter("H",3)
+    >>> w = W.wordtocoxelm([0,1,0,2])
+    >>> b = (y for y in redleftcosetreps(W) if bruhat(W,y,w))
     >>> [W.coxelmtoword(y) for y in b]
     [[],
      [1],
@@ -1710,13 +1678,12 @@ def bruhat(W, y, w):
     directly 'bruhatcoxelm(W,y,w)'.  Similarly  for matrices  and full
     permutations.
     """
-    if len(y) == len(W.rank) and isinstance(y[0], int):          # coxelms
+    if len(y) == len(W.rank) and isinstance(y[0], int):  # coxelms
         return bruhatcoxelm(W, y, w)
-    if len(y) == 2 * W.N:                            # full permutations
+    if len(y) == 2 * W.N:                                # full permutations
         return bruhatperm(W, y, w)
-    if isinstance(y[0], (tuple, list)):              # matrices
+    if isinstance(y[0], (tuple, list)):                  # matrices
         return bruhatmat(W, y, w)
-    return "mist !"
 
 # F reflections
 
@@ -1729,7 +1696,7 @@ def reflections(W):
     root is the i-th element of W.roots.
 
     >>> W = coxeter("I5",2)
-    >>> r=reflections(W); r
+    >>> r = reflections(W); r
     [(5, 2, 1, 4, 3, 0, 7, 6, 9, 8),
      (3, 6, 4, 0, 2, 8, 1, 9, 5, 7),
      (9, 3, 7, 1, 5, 4, 8, 2, 6, 0),
@@ -1740,19 +1707,18 @@ def reflections(W):
 
     See also 'reflectionsubgroup'.
     """
-    if 'reflections' in dir(W):
+    try:
         return W.reflections
-    else:
-        refl = []
-        for r in range(W.N):
-            w = W.rootrepelms[r][:]
-            w.append(W.rootorbits1[r])
-            w.extend(W.rootrepelms[r][::-1])
-            refl.append(w[:])
-        W.reflections = [W.wordtoperm(r) for r in refl]
-        return W.reflections
-
-# F innerprodroots
+    except AttributeError:
+        pass
+    refl = []
+    for r in range(W.N):
+        w = W.rootrepelms[r][:]
+        w.append(W.rootorbits1[r])
+        w.extend(W.rootrepelms[r][::-1])
+        refl.append(w[:])
+    W.reflections = [W.wordtoperm(r) for r in refl]
+    return W.reflections
 
 
 def innerprodroots(W, r1, r2):
@@ -1764,8 +1730,6 @@ def innerprodroots(W, r1, r2):
                     p += W.roots[r1][u] * W.symform[u] * \
                         W.cartan[u][v] * W.roots[r2][v]
     return p
-
-# F reflectionsubgroup
 
 
 def reflectionsubgroup(W, J):
@@ -1810,9 +1774,9 @@ def reflectionsubgroup(W, J):
     >>> H.fusions        # H has the fusion into itself and into W
     {'C3c0c1c2A1c3': {'parabolic': True, 'subJ': [0, 1, 2, 3]},
      'F4c0c1c2c3': {'parabolic': False, 'subJ': [1, 2, 3, 23]}}
-    >>> w=longestperm(H); w
+    >>> w = longestperm(H); w[:4]
     (10, 11, 12, 13)
-    >>> w1=H.permtoword(w); w1    # reduced word inside H
+    >>> w1 = H.permtoword(w); w1    # reduced word inside H
     [0, 1, 0, 1, 2, 1, 0, 1, 2, 3]
     >>> H.reducedword(w1,W)   # and now in W, using the fusion map
     [0, 1, 0, 2, 1, 0, 2, 1, 2, 3, 2, 1, 0, 2, 1, 2, 3, 2, 1, 0, 2, 1, 2, 3]
@@ -1842,7 +1806,7 @@ def reflectionsubgroup(W, J):
     'F4c0c1c2c3'
     """
     para = True
-    if J == []:
+    if not J:
         cartanJ = [[]]
         fundJ = []
     elif all(s in W.rank for s in J):
@@ -1885,22 +1849,17 @@ def reflectionsubgroup(W, J):
                         for j in fundJ] for i in fundJ]
     return coxeter(cartanJ, fusion=[W.cartanname, {'subJ': fundJ[:],
                                                    'parabolic': para}])
-# F reducedunique
 
 
-def reducedunique(W, pw):
+def reducedunique(W, pw) -> bool:
     """checks if an element has a unique reduced expression.
     """
     if pw == tuple(range(2 * W.N)):
         return True
-    else:
-        l = W.leftdescentsetperm(pw)
-        if len(l) > 1:
-            return False
-        else:
-            return reducedunique(W, tuple(pw[i] for i in W.permgens[l[0]]))
-
-# F allmats
+    l = W.leftdescentsetperm(pw)
+    if len(l) > 1:
+        return False
+    return reducedunique(W, tuple(pw[i] for i in W.permgens[l[0]]))
 
 
 def allmats(W, maxl=-1, verbose=False):
@@ -1941,7 +1900,7 @@ def allmats(W, maxl=-1, verbose=False):
     l = [[tuple(tuple(l) for l in idmat(W.rank, 1))]]
     poin = [1]
     if verbose:
-        print('#I 1 ')
+        print('🄸 1 ')
     for i in range(maxlen):
         nl = []
         for w in l[i]:
@@ -1963,11 +1922,7 @@ def allmats(W, maxl=-1, verbose=False):
     W.allmats = [l[i] for i in range(maxlen + 1)]
     if verbose:
         print('\n')
-    # if W.cartantype[0][0]!='U' and max!=W.N:
-    #  print('\n#I total = '+str(sum(poin))+'\n')
     return l
-
-# F allcoxelms
 
 
 def allcoxelms(W, maxl=-1, verbose=False):
@@ -1995,7 +1950,7 @@ def allcoxelms(W, maxl=-1, verbose=False):
     poin = [1]
     ll = longestperm(W)
     if verbose:
-        print('#I 1 ')
+        print('🄸 1 ')
     for i in range(maxlen):
         if i < W.N / 2:
             nl = []
@@ -2013,10 +1968,7 @@ def allcoxelms(W, maxl=-1, verbose=False):
             print(str(len(l[i + 1])) + ' ')
     if verbose:
         print('\n')
-    # print('\n#I total = '+str(sum(poin))+'\n')
     return l
-
-# F redleftcosetreps
 
 
 def redleftcosetreps(W, J=[]):
@@ -2310,7 +2262,7 @@ def allelmsproperty(W, f, elm="word", verbose=False):
     else:
         a = allelmchain(W, depth=len(W.rank) - 4)
     if verbose and len(a[0]) > 1:
-        print('#I (' + str(len(a[4])) + ') ')
+        print('🄸 (' + str(len(a[4])) + ') ')
     el = []
     for i4 in a[4]:
         if verbose and len(a[0]) > 1:
@@ -2328,7 +2280,7 @@ def allelmsproperty(W, f, elm="word", verbose=False):
     if verbose and len(a[0]) > 1:
         print('\n')
     if verbose:
-        print('#I Number of elements = ' + str(len(el)) + '\n')
+        print('🄸 Number of elements = ' + str(len(el)) + '\n')
     return el
 
 # F allwords
@@ -2453,7 +2405,7 @@ def allwordstrings(W, maxl=-1):
     for ai in a:
         l = ['']
         for w in ai[1:]:
-            sw = '.'.join([str(i) for i in w])
+            sw = '.'.join(str(i) for i in w)
             sw += '.'
             l.append(sw)
         sa.append(l)
@@ -2498,7 +2450,7 @@ def allbitcoxelms(W, maxl=-1, verbose=False):
     poin = [1]
     ll = longestperm(W)
     if verbose:
-        print('#I 1 ')
+        print('🄸 1 ')
     for i in range(maxlen):
         if i < W.N / 2:
             nl = []
@@ -2543,7 +2495,7 @@ def allbitwords(W, maxl=-1, verbose=False):
         a = allelmchain(W, depth=len(W.rank) - 4)
     el = []
     if verbose:
-        print('#I ')
+        print('🄸 ')
     if maxlen == W.N:
         for i4 in a[4]:
             if verbose:
@@ -2622,7 +2574,7 @@ def w0conjugation(cmat):
     group corresponding to the given Cartan matrix.
     """
     p = list(range(len(cmat)))
-    if p == []:
+    if not p:
         return []
     for l1 in decomposemat(cmat):
         t = finitetypemat([[cmat[i][j] for j in l1] for i in l1])
@@ -2704,7 +2656,7 @@ def coxeterclasses(W):
         rest.append(Jb)
     classes = []
     numb = 0
-    while rest != []:
+    while rest:
         orb = [rest[0]]
         rest.remove(orb[0])
         for subs in orb:
@@ -2714,8 +2666,8 @@ def coxeterclasses(W):
                     l[s] = '1'
                     bigsub = ''.join(l)
                     if W.coxeterclasses[bigsub]['w0J'] != W.rank:
-                        nsubs = ''.join([subs[i]
-                                         for i in W.coxeterclasses[bigsub]['w0J']])
+                        nsubs = ''.join(subs[i]
+                                        for i in W.coxeterclasses[bigsub]['w0J'])
                         if nsubs not in orb:
                             orb.append(nsubs)
                             rest.remove(nsubs)
@@ -2725,10 +2677,7 @@ def coxeterclasses(W):
             W.coxeterclasses[subs]['class'] = numb
         numb += 1
     W.coxeterclasses['coxclassreps'] = classes[:]
-    # print(str(len(classes))+' coxeter classes\n');
     return W.coxeterclasses
-
-# F conjclassdata
 
 
 def conjclassdata(typ, n):
@@ -2799,7 +2748,7 @@ def conjclassdata(typ, n):
                 if w != [] and w[0] == 2:
                     w[0] = 1
                 cent = centralisertuple(n, 2, mu)
-                if mu[1] == [] and all(x % 2 == 0 for x in mu[0]):
+                if not mu[1] and all(x % 2 == 0 for x in mu[0]):
                     reps.append(w)
                     cents.append(cent)
                     names.append('[' + str(mu[0]) + ', +]')
@@ -3032,9 +2981,9 @@ def conjclassdata(typ, n):
                 cl.append(2)
                 x.extend([1, 2])
         cents = [2 * m // c for c in cl]
-    if names == []:
+    if not names:
         for w in reps:
-            if w == []:
+            if not w:
                 names.append(' ')
             else:
                 nn = str(w[0])
@@ -3205,7 +3154,7 @@ def identifyclasses(W, elms, minrep=False, verbose=False):
         fus = [invW.index(f) for f in invH]
     else:
         if verbose:
-            print('#I using also traces ...')
+            print('🄸 using also traces ...')
         # troubleH=list(filter(lambda i:check[i]>1,range(len(elms1))))
         troubleH = [i for i in range(len(elms1)) if check[i] > 1]
         troublefp = [invH[i] for i in troubleH]
@@ -3269,8 +3218,6 @@ def identifyclasses(W, elms, minrep=False, verbose=False):
                 print("mist!")
                 return "mist"
     return fus
-
-# F fusionconjugacyclasses
 
 
 def fusionconjugacyclasses(H, W):
