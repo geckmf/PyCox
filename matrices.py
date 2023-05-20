@@ -835,7 +835,7 @@ def ainvbipartition(n, vs, vt, bip):
 # F displaymat
 
 
-def displaymat(mat, rows=[], cols=[], width=78):
+def displaymat(mat, rows=None, cols=None, width=78):
     """displays a matrix, where the optional arguments 'rows' and 'cols'
     can be used to specify labels for the rows and columns.  There is
     a further  optional  argument by which one can set the 'width' of
@@ -858,17 +858,24 @@ def displaymat(mat, rows=[], cols=[], width=78):
 
     (Values equal to 0 are printed as '.'.)
 
+    >>> displaymat([[1,2],[3,4]],['A','B'],['C','D'], width=10)
+    ──────────
+      C D
+    ──────────
+    A 1 2
+    B 3 4
+
     See also 'displaychartable'.
     """
     m = len(mat)
     n = len(mat[0])
-    csp = [max([len(repr(mat[i][j])) for i in range(m)]) for j in range(n)]
-    if cols != []:
+    csp = [max(len(repr(mat[i][j])) for i in range(m)) for j in range(n)]
+    if cols is not None:
         csp = [max(len(str(cols[j])), csp[j]) + 1 for j in range(n)]
     else:
         csp = [csp[j] + 1 for j in range(n)]
-    if rows != []:
-        maxr = max([len(str(r)) for r in rows])
+    if rows is not None:
+        maxr = max(len(str(r)) for r in rows)
     else:
         maxr = 0
     co = 0
@@ -882,23 +889,22 @@ def displaymat(mat, rows=[], cols=[], width=78):
     if cut[:-1] != n:
         cut.append(n)
     for k in range(len(cut) - 1):
-        if cols != []:
-            print(width * '-')
+        if cols is not None:
+            print(width * '─')
             print(maxr * ' ', end="")
             for j in range(cut[k], cut[k + 1]):
                 print((csp[j] - len(str(cols[j]))) * ' ' + str(cols[j]), end="")
-            print('\n')
-            print(width * '-')
+            print()
+            print(width * '─')
         for i in range(m):
-            if rows != []:
+            if rows is not None:
                 print((maxr - len(str(rows[i]))) * ' ' + str(rows[i]), end="")
             for j in range(cut[k], cut[k + 1]):
                 if mat[i][j] == 0:
-                    print((csp[j] - len(repr(mat[i][j]))) * ' ' + '.')
+                    print((csp[j] - len(repr(mat[i][j]))) * ' ' + '.', end="")
                 elif isinstance(mat[i][j], int):
-                    print((csp[j] - len(repr(mat[i][j]))) * ' ' + str(mat[i][j]))
+                    print((csp[j] - len(repr(mat[i][j]))) * ' ' + str(mat[i][j]), end="")
                 else:
-                    print((csp[j] - len(repr(mat[i][j]))) * ' ' + repr(mat[i][j]))
-            print('\n')
-        print('\n')
+                    print((csp[j] - len(repr(mat[i][j]))) * ' ' + repr(mat[i][j]), end="")
+            print()
     return None
