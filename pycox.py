@@ -466,11 +466,11 @@ def inducedchar(W, H, psi):
     clW = conjugacyclasses(W)['classlengths']
     clH = conjugacyclasses(H)['classlengths']
     fus = fusionconjugacyclasses(H,W)
-    ind = len(clW)*[0]
+    ind = len(clW) * [0]
     for i in range(len(clW)):
         for j in range(len(clH)):
             if i == fus[j] and psi[j] != 0:
-                ind[i] += (W.order*clH[j]*psi[j])//(clW[i]*H.order)
+                ind[i] += (W.order * clH[j] * psi[j]) // (clW[i] * H.order)
     return ind
 
 # chartablesymmetric
@@ -493,7 +493,7 @@ def chartablesymmetric(n):
      [3, 1, -1, 0, -1],
      [1, 1, 1, 1, 1]]
     """
-    W = coxeter("A",n-1)
+    W = coxeter("A",n - 1)
     pt = partitions(n)
     ti = []
     for mu in pt[::-1]:
@@ -501,11 +501,11 @@ def chartablesymmetric(n):
         l = 0
         for i in mu:
             l += i
-            J.remove(l-1)
+            J.remove(l - 1)
         H = reflectionsubgroup(W,J)
         ch = conjugacyclasses(H)
         cl = ch['classlengths']
-        nam = [partitions(len(t[1])+1) for t in H.cartantype]
+        nam = [partitions(len(t[1]) + 1) for t in H.cartantype]
         fus = []  # more efficient than fusionconjugacyclasses
         for st in cartesian(nam):
             p = flatlist(st)
@@ -514,16 +514,16 @@ def chartablesymmetric(n):
                 p.append(1)
             fus.append(pt.index(p))
         H.fusions[W.cartanname]['classes'] = fus[:]
-        neu = inducedchar(W,H,len(cl)*[1])
+        neu = inducedchar(W,H,len(cl) * [1])
         for irr in ti:
-            scal = sum(cl[c]*irr[fus[c]] for c in range(len(cl)))//H.order
-            neu = [neu[i]-scal*irr[i] for i in range(len(neu))]
+            scal = sum(cl[c] * irr[fus[c]] for c in range(len(cl))) // H.order
+            neu = [neu[i] - scal * irr[i] for i in range(len(neu))]
         ti.append(neu[:])
     return ti[::-1]
 
 
 def oldsymm(n):
-    W = coxeter("A",n-1)
+    W = coxeter("A",n - 1)
     pt = partitions(n)
     cw = conjugacyclasses(W)
     tr = []
@@ -532,10 +532,10 @@ def oldsymm(n):
         l = 0
         for i in mu:
             l += i
-            J.remove(l-1)
+            J.remove(l - 1)
         H = reflectionsubgroup(W,J)
         ch = conjugacyclasses(H)
-        nam = [partitions(len(t[1])+1) for t in H.cartantype]
+        nam = [partitions(len(t[1]) + 1) for t in H.cartantype]
         fus = []  # more efficient than fusionconjugacyclasses
         for st in cartesian(nam):
             p = flatlist(st)
@@ -544,15 +544,15 @@ def oldsymm(n):
                 p.append(1)
             fus.append(pt.index(p))
         H.fusions[W.cartanname]['classes'] = fus[:]
-        tr.append(inducedchar(W,H,len(ch['reps'])*[1]))
+        tr.append(inducedchar(W,H,len(ch['reps']) * [1]))
     ti = []
     for i in range(len(tr)):
-        neu = tr[-i-1][:]
+        neu = tr[-i - 1][:]
         for j in range(i):
-            scal = sum(cw['classlengths'][k]*ti[j][k]*neu[k]
-                           for k in range(len(tr)) if neu[k] != 0)//W.order
+            scal = sum(cw['classlengths'][k] * ti[j][k] * neu[k]
+                           for k in range(len(tr)) if neu[k] != 0) // W.order
             for k in range(len(tr)):
-                neu[k] -= scal*ti[j][k]
+                neu[k] -= scal * ti[j][k]
         ti.append(neu)
     return ti[::-1]
 
@@ -563,10 +563,10 @@ def wordtopermB(n, w):
     pw = range(2 * n)  # first signed permutation
     for i in w:
         if i == 0:
-            pw[i], pw[n+i] = pw[n+i], pw[i]
+            pw[i], pw[n + i] = pw[n + i], pw[i]
         else:
-            pw[i-1], pw[i] = pw[i], pw[i-1]
-            pw[n+i-1], pw[n+i] = pw[n+i], pw[n+i-1]
+            pw[i - 1], pw[i] = pw[i], pw[i - 1]
+            pw[n + i - 1], pw[n + i] = pw[n + i], pw[n + i - 1]
     return pw[:n]     # now roots
 
 
@@ -626,8 +626,8 @@ def chartableB(n, verbose=False):
     pt = list(partitiontuples(n, 2))
     refls = reflections(W)
     wrho = [[0]]
-    for i in range(n-1):
-        wrho.append([i+1]+wrho[i]+[i+1])
+    for i in range(n - 1):
+        wrho.append([i + 1] + wrho[i] + [i + 1])
     rho = [refls.index(W.wordtoperm(p)) for p in wrho]
     ti = chartablehalfC(n)
     labels = [[p, []] for p in partitions(n)]
@@ -635,15 +635,15 @@ def chartableB(n, verbose=False):
         if verbose:
             lprint('#I +')
     for a in range(1,n):  # type C_a x C_{n-a}
-        H = reflectionsubgroup(W,list(range(a))+[rho[a]]+list(range(a+1,n)))
+        H = reflectionsubgroup(W,list(range(a)) + [rho[a]] + list(range(a + 1,n)))
         l0 = len(H.cartantype[0][1])
         l1 = len(H.cartantype[1][1])
         fus = []  # much faster than fusionconjugacyclasses
         for t in cartesian(list(partitiontuples(l0, 2)),
                            list(partitiontuples(l1, 2))):
-            x = flatlist(t[0][0]+t[1][0])
+            x = flatlist(t[0][0] + t[1][0])
             x.sort(reverse=True)
-            y = flatlist(t[0][1]+t[1][1])
+            y = flatlist(t[0][1] + t[1][1])
             y.sort(reverse=True)
             fus.append(pt.index([x,y]))
         H.fusions[W.cartanname]['classes'] = fus[:]
@@ -686,21 +686,21 @@ def chartableBold(n):
     refls = reflections(W)
     rho = [[0]]
     trho = [[0,1,0]]
-    for i in range(n-2):
-        rho.append([i+1]+rho[i]+[i+1])
-        trho.append(rho[i+1]+[i+2]+rho[i+1])
-    rho.append([n-1]+rho[n-2]+[n-1])
+    for i in range(n - 2):
+        rho.append([i + 1] + rho[i] + [i + 1])
+        trho.append(rho[i + 1] + [i + 2] + rho[i + 1])
+    rho.append([n - 1] + rho[n - 2] + [n - 1])
     rho = [refls.index(W.wordtoperm(p)) for p in rho]
     trho = [refls.index(W.wordtoperm(p)) for p in trho]
     pt = list(partitiontuples(n, 2))
-    binv = [2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
-                     for i in range(len(mu[1])))+sum(mu[1]) for mu in pt]
+    binv = [2 * sum(i * mu[0][i] for i in range(len(mu[0]))) + 2 * sum(i * mu[1][i]
+                     for i in range(len(mu[1]))) + sum(mu[1]) for mu in pt]
     nn = list(range(len(binv)))
     nn.sort(key=(lambda i:binv[i]),reverse=True)
     ti = []
     for k in nn:
         mu = pt[k]
-        J = list(range(1,n+1))
+        J = list(range(1,n + 1))
         l = 0
         for i in dualpartition(mu[0]):
             if i >= 2:
@@ -717,17 +717,17 @@ def chartableBold(n):
         cl = ch['classlengths']
         f = H.fusions[W.cartanname]['subJ']
         for w in [[f[s] for s in y] for y in ch['reps']]:
-            pw = list(range(2*W.N))
+            pw = list(range(2 * W.N))
             for r in w:
-                for i in range(2*W.N):
+                for i in range(2 * W.N):
                     pw[i] = W.reflections[r][pw[i]]
             fus.append(cycw.index(W.cycletyperoots(tuple(pw))))
         H.fusions[W.cartanname]['classes'] = fus[:]
         sgn = [(-1)**len(w) for w in ch['reps']]
         neu = inducedchar(W,H,sgn)
         for irr in ti:
-            scal = sum(sgn[c]*cl[c]*irr[fus[c]] for c in range(len(cl)))//H.order
-            neu = [neu[i]-scal*irr[i] for i in range(len(neu))]
+            scal = sum(sgn[c] * cl[c] * irr[fus[c]] for c in range(len(cl))) // H.order
+            neu = [neu[i] - scal * irr[i] for i in range(len(neu))]
         ti.append(neu[:])
     return [ti[nn.index(i)] for i in range(len(nn))]
 
@@ -847,11 +847,11 @@ def chartableD(n):
     ti = []   # table of restrictions
     for mu in pt:
         if sum(mu[0]) >= sum(mu[1]):
-            b = (2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
-                                        for i in range(len(mu[1])))+sum(mu[1]))
+            b = (2 * sum(i * mu[0][i] for i in range(len(mu[0]))) + 2 * sum(i * mu[1][i]
+                                        for i in range(len(mu[1]))) + sum(mu[1]))
         else:
-            b = (2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
-                                        for i in range(len(mu[1])))+sum(mu[0]))
+            b = (2 * sum(i * mu[0][i] for i in range(len(mu[0]))) + 2 * sum(i * mu[1][i]
+                                        for i in range(len(mu[1]))) + sum(mu[0]))
         if mu[0] == mu[1]:
             trouble.append([mu[0][:],b])
             pt1.append(mu)
@@ -869,22 +869,22 @@ def chartableD(n):
     for t in trouble:
         J = list(range(n))
         l = 0
-        for i in [2*d for d in dualpartition(t[0])]:
+        for i in [2 * d for d in dualpartition(t[0])]:
             l += i
-            J.remove(l-1)
+            J.remove(l - 1)
         # print(t,J, suba,[suba[j] for j in J])
         H = reflectionsubgroup(W,[suba[j] for j in J])
         neu = inducedchar(W,H,[(-1)**len(w)
                         for w in conjugacyclasses(H)['reps']])
         for i in range(len(cl)):
             if binv[i] > t[1]:
-                scal = sum(cl[k]*ti[i][k]*neu[k] for k in range(len(cl))
-                                                    if neu[k] != 0)//W.order
+                scal = sum(cl[k] * ti[i][k] * neu[k] for k in range(len(cl))
+                                                    if neu[k] != 0) // W.order
                 for k in range(len(cl)):
-                    neu[k] -= scal*ti[i][k]
+                    neu[k] -= scal * ti[i][k]
         i = pt1.index([t[0],t[0]])
-        ti[i+1] = [neu[j] for j in range(len(cl))]
-        ti[i] = [ti[i][j]-neu[j] for j in range(len(cl))]
+        ti[i + 1] = [neu[j] for j in range(len(cl))]
+        ti[i] = [ti[i][j] - neu[j] for j in range(len(cl))]
     return ti
 
 # F irrchardata
@@ -907,10 +907,10 @@ def irrchardata(typ, n, chars=True):
         ainv = [0]
     if typ[0] == 'A' and n >= 1:
         if chars:
-            ti = chartablesymmetric(n+1)
+            ti = chartablesymmetric(n + 1)
         binv,nam = [],[]
-        for mu in partitions(n+1):
-            binv.append(sum(i*mu[i] for i in range(len(mu))))
+        for mu in partitions(n + 1):
+            binv.append(sum(i * mu[i] for i in range(len(mu))))
             nam.append(str(mu))
         ainv = binv[:]
     if typ[0] == 'B' or typ[0] == 'C':
@@ -918,8 +918,8 @@ def irrchardata(typ, n, chars=True):
             ti = chartableB(n)
         binv,ainv,nam = [],[],[]
         for mu in partitiontuples(n, 2):
-            binv.append(2*sum(i*mu[0][i] for i in range(len(mu[0])))
-                    + 2*sum(i*mu[1][i] for i in range(len(mu[1])))+sum(mu[1]))
+            binv.append(2 * sum(i * mu[0][i] for i in range(len(mu[0])))
+                    + 2 * sum(i * mu[1][i] for i in range(len(mu[1]))) + sum(mu[1]))
             ainv.append(ainvbipartition(n,1,1,mu))
             nam.append(str(mu))
     if typ[0] == 'D':
@@ -928,18 +928,18 @@ def irrchardata(typ, n, chars=True):
         binv,ainv,nam = [],[],[]
         for mu in partitiontuples(n, 2):
             if sum(mu[0]) >= sum(mu[1]):
-                b = (2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
-                                            for i in range(len(mu[1])))+sum(mu[1]))
+                b = (2 * sum(i * mu[0][i] for i in range(len(mu[0]))) + 2 * sum(i * mu[1][i]
+                                            for i in range(len(mu[1]))) + sum(mu[1]))
             else:
-                b = (2*sum(i*mu[0][i] for i in range(len(mu[0])))+2*sum(i*mu[1][i]
-                                            for i in range(len(mu[1])))+sum(mu[0]))
+                b = (2 * sum(i * mu[0][i] for i in range(len(mu[0]))) + 2 * sum(i * mu[1][i]
+                                            for i in range(len(mu[1]))) + sum(mu[0]))
             if mu[0] == mu[1]:
                 binv.append(b)
                 ainv.append(ainvbipartition(n,1,0,mu))
-                nam.append('['+str(mu[0])+', +]')
+                nam.append('[' + str(mu[0]) + ', +]')
                 binv.append(b)
                 ainv.append(ainvbipartition(n,1,0,mu))
-                nam.append('['+str(mu[1])+', -]')
+                nam.append('[' + str(mu[1]) + ', -]')
             elif mu[0] < mu[1]:
                 binv.append(b)
                 ainv.append(ainvbipartition(n,1,0,mu))
@@ -1779,10 +1779,10 @@ def irrchardata(typ, n, chars=True):
                 [1,1,1,1,1,1,1,1,1,1],
                 [5,-1,0,1,-1,0,0,1,0,-5],
                 [5,1,0,1,-1,0,0,-1,0,5],
-                [3,-1,ir5,-1,0,1-ir5,1-ir5,0,ir5,3],
-                [3,-1,1-ir5,-1,0,ir5,ir5,0,1-ir5,3],
-                [3,1,ir5,-1,0,ir5-1,1-ir5,0,-ir5,-3],
-                [3,1,1-ir5,-1,0,-ir5,ir5,0,ir5-1,-3],
+                [3,-1,ir5,-1,0,1 - ir5,1 - ir5,0,ir5,3],
+                [3,-1,1 - ir5,-1,0,ir5,ir5,0,1 - ir5,3],
+                [3,1,ir5,-1,0,ir5 - 1,1 - ir5,0,-ir5,-3],
+                [3,1,1 - ir5,-1,0,-ir5,ir5,0,ir5 - 1,-3],
                 [4,0,-1,0,1,1,-1,-1,1,-4],
                 [4,0,-1,0,1,-1,-1,1,-1,4]]
         binv = [15,0,5,2,6,8,1,3,3,4]
@@ -1796,48 +1796,48 @@ def irrchardata(typ, n, chars=True):
                  1,1],
                 [1,-1,1,1,1,-1,-1,-1,-1,1,1,-1,-1,1,1,-1,1,1,1,-1,1,1,1,1,1,1,1,
                  1,1,1,1,1,1,1],
-                [4,2,1+ir5,0,1,ir5,ir5-1,-1,0,2-ir5,ir5-1,1,-ir5,0,ir5,1-ir5,
-                 0,+2*ir5,1,-2,-2+ir5,1-ir5,0,2,-1,-2+2*ir5,-1,-ir5,0,2-2*ir5,
-                 -1-ir5,-2,-2*ir5,-4],
-                [4,-2,1+ir5,0,1,-ir5,1-ir5,1,0,2-ir5,ir5-1,-1,ir5,0,ir5,
-                 ir5-1,0,+2*ir5,1,2,-2+ir5,1-ir5,0,2,-1,-2+2*ir5,-1,-ir5,0,2-2*ir5,
-                 -1-ir5,-2,-2*ir5,-4],
-                [4,2,2-ir5,0,1,1-ir5,-ir5,-1,0,1+ir5,-ir5,1,ir5-1,0,1-ir5,
-                 ir5,0,2-2*ir5,1,-2,-1-ir5,ir5,0,2,-1,-2*ir5,-1,ir5-1,0,+2*ir5,
-                 -2+ir5,-2,-2+2*ir5,-4],
-                [4,-2,2-ir5,0,1,ir5-1,ir5,1,0,1+ir5,-ir5,-1,1-ir5,0,1-ir5,
-                 -ir5,0,2-2*ir5,1,2,-1-ir5,ir5,0,2,-1,-2*ir5,-1,ir5-1,0,+2*ir5,
-                 -2+ir5,-2,-2+2*ir5,-4],
-                [6,0,+2*ir5,-2,0,0,0,0,0,2-2*ir5,1-ir5,0,0,-ir5,ir5,0,-1,
-                 3+ir5,1,0,2-2*ir5,1-ir5,ir5-1,3,0,4-ir5,1,ir5,2,4-ir5,+2*ir5,3,
-                 3+ir5,6],
-                [6,0,2-2*ir5,-2,0,0,0,0,0,+2*ir5,ir5,0,0,ir5-1,1-ir5,0,-1,
-                 4-ir5,1,0,+2*ir5,ir5,-ir5,3,0,3+ir5,1,1-ir5,2,3+ir5,2-2*ir5,3,
-                 4-ir5,6],
+                [4,2,1 + ir5,0,1,ir5,ir5 - 1,-1,0,2 - ir5,ir5 - 1,1,-ir5,0,ir5,1 - ir5,
+                 0,+2 * ir5,1,-2,-2 + ir5,1 - ir5,0,2,-1,-2 + 2 * ir5,-1,-ir5,0,2 - 2 * ir5,
+                 -1 - ir5,-2,-2 * ir5,-4],
+                [4,-2,1 + ir5,0,1,-ir5,1 - ir5,1,0,2 - ir5,ir5 - 1,-1,ir5,0,ir5,
+                 ir5 - 1,0,+2 * ir5,1,2,-2 + ir5,1 - ir5,0,2,-1,-2 + 2 * ir5,-1,-ir5,0,2 - 2 * ir5,
+                 -1 - ir5,-2,-2 * ir5,-4],
+                [4,2,2 - ir5,0,1,1 - ir5,-ir5,-1,0,1 + ir5,-ir5,1,ir5 - 1,0,1 - ir5,
+                 ir5,0,2 - 2 * ir5,1,-2,-1 - ir5,ir5,0,2,-1,-2 * ir5,-1,ir5 - 1,0,+2 * ir5,
+                 -2 + ir5,-2,-2 + 2 * ir5,-4],
+                [4,-2,2 - ir5,0,1,ir5 - 1,ir5,1,0,1 + ir5,-ir5,-1,1 - ir5,0,1 - ir5,
+                 -ir5,0,2 - 2 * ir5,1,2,-1 - ir5,ir5,0,2,-1,-2 * ir5,-1,ir5 - 1,0,+2 * ir5,
+                 -2 + ir5,-2,-2 + 2 * ir5,-4],
+                [6,0,+2 * ir5,-2,0,0,0,0,0,2 - 2 * ir5,1 - ir5,0,0,-ir5,ir5,0,-1,
+                 3 + ir5,1,0,2 - 2 * ir5,1 - ir5,ir5 - 1,3,0,4 - ir5,1,ir5,2,4 - ir5,+2 * ir5,3,
+                 3 + ir5,6],
+                [6,0,2 - 2 * ir5,-2,0,0,0,0,0,+2 * ir5,ir5,0,0,ir5 - 1,1 - ir5,0,-1,
+                 4 - ir5,1,0,+2 * ir5,ir5,-ir5,3,0,3 + ir5,1,1 - ir5,2,3 + ir5,2 - 2 * ir5,3,
+                 4 - ir5,6],
                 [8,0,-2,0,2,0,0,0,0,-2,0,0,0,-1,0,0,1,3,-2,0,-2,0,-1,5,2,3,-2,0,
                  4,3,-2,5,3,8],
                 [8,0,-2,0,2,0,0,0,0,-2,-1,0,0,0,1,0,0,2,-3,0,2,1,0,4,-2,-2,3,-1,
                  0,2,2,-4,-2,-8],
-                [9,3,1+ir5,1,0,ir5,1-ir5,0,-1,2-ir5,0,0,ir5,ir5-1,0,1-ir5,0,
-                 +3*ir5,-1,3,2-ir5,0,-ir5,0,0,3-3*ir5,-1,0,-3,3-3*ir5,1+ir5,0,
-                 +3*ir5,9],
-                [9,-3,1+ir5,1,0,-ir5,ir5-1,0,1,2-ir5,0,0,-ir5,ir5-1,0,ir5-1,
-                 0,+3*ir5,-1,-3,2-ir5,0,-ir5,0,0,3-3*ir5,-1,0,-3,3-3*ir5,
-                 1+ir5,0,+3*ir5,9],
-                [9,3,2-ir5,1,0,1-ir5,ir5,0,-1,1+ir5,0,0,1-ir5,-ir5,0,ir5,0,
-                 3-3*ir5,-1,3,1+ir5,0,ir5-1,0,0,+3*ir5,-1,0,-3,+3*ir5,2-ir5,0,
-                 3-3*ir5,9],
-                [9,-3,2-ir5,1,0,ir5-1,-ir5,0,1,1+ir5,0,0,ir5-1,-ir5,0,-ir5,0,
-                 3-3*ir5,-1,-3,1+ir5,0,ir5-1,0,0,+3*ir5,-1,0,-3,+3*ir5,2-ir5,0,
-                 3-3*ir5,9],
+                [9,3,1 + ir5,1,0,ir5,1 - ir5,0,-1,2 - ir5,0,0,ir5,ir5 - 1,0,1 - ir5,0,
+                 +3 * ir5,-1,3,2 - ir5,0,-ir5,0,0,3 - 3 * ir5,-1,0,-3,3 - 3 * ir5,1 + ir5,0,
+                 +3 * ir5,9],
+                [9,-3,1 + ir5,1,0,-ir5,ir5 - 1,0,1,2 - ir5,0,0,-ir5,ir5 - 1,0,ir5 - 1,
+                 0,+3 * ir5,-1,-3,2 - ir5,0,-ir5,0,0,3 - 3 * ir5,-1,0,-3,3 - 3 * ir5,
+                 1 + ir5,0,+3 * ir5,9],
+                [9,3,2 - ir5,1,0,1 - ir5,ir5,0,-1,1 + ir5,0,0,1 - ir5,-ir5,0,ir5,0,
+                 3 - 3 * ir5,-1,3,1 + ir5,0,ir5 - 1,0,0,+3 * ir5,-1,0,-3,+3 * ir5,2 - ir5,0,
+                 3 - 3 * ir5,9],
+                [9,-3,2 - ir5,1,0,ir5 - 1,-ir5,0,1,1 + ir5,0,0,ir5 - 1,-ir5,0,-ir5,0,
+                 3 - 3 * ir5,-1,-3,1 + ir5,0,ir5 - 1,0,0,+3 * ir5,-1,0,-3,+3 * ir5,2 - ir5,0,
+                 3 - 3 * ir5,9],
                 [10,0,0,2,-2,0,0,0,0,0,-1,0,0,1,-1,0,0,5,0,0,0,-1,1,4,-2,5,0,-1,
                  6,5,0,4,5,10],
-                [16,0,+2*ir5,0,-2,0,0,0,0,2-2*ir5,-ir5,0,0,0,1-ir5,0,0,2+4*ir5,
-                 -1,0,-2+2*ir5,ir5,0,2,2,-6+4*ir5,1,ir5-1,0,6-4*ir5,-2*ir5,-2,
-                 -2-4*ir5,-16],
-                [16,0,2-2*ir5,0,-2,0,0,0,0,+2*ir5,ir5-1,0,0,0,ir5,0,0,6-4*ir5,
-                 -1,0,-2*ir5,1-ir5,0,2,2,-2-4*ir5,1,-ir5,0,2+4*ir5,-2+2*ir5,-2,
-                 -6+4*ir5,-16],
+                [16,0,+2 * ir5,0,-2,0,0,0,0,2 - 2 * ir5,-ir5,0,0,0,1 - ir5,0,0,2 + 4 * ir5,
+                 -1,0,-2 + 2 * ir5,ir5,0,2,2,-6 + 4 * ir5,1,ir5 - 1,0,6 - 4 * ir5,-2 * ir5,-2,
+                 -2 - 4 * ir5,-16],
+                [16,0,2 - 2 * ir5,0,-2,0,0,0,0,+2 * ir5,ir5 - 1,0,0,0,ir5,0,0,6 - 4 * ir5,
+                 -1,0,-2 * ir5,1 - ir5,0,2,2,-2 - 4 * ir5,1,-ir5,0,2 + 4 * ir5,-2 + 2 * ir5,-2,
+                 -6 + 4 * ir5,-16],
                 [16,4,1,0,1,1,-1,1,0,1,1,-1,-1,0,-1,1,0,4,-1,-4,-1,-1,0,-4,-1,-4,
                  1,1,0,4,-1,4,-4,-16],
                 [16,-4,1,0,1,-1,1,-1,0,1,1,1,1,0,-1,-1,0,4,-1,4,-1,-1,0,-4,-1,-4,
@@ -1848,24 +1848,24 @@ def irrchardata(typ, n, chars=True):
                  -1,0,-4,1,4,-4,16],
                 [18,0,-2,2,0,0,0,0,0,-2,0,0,0,-1,0,0,0,3,3,0,-2,0,-1,0,0,3,3,0,
                  -6,3,-2,0,3,18],
-                [24,0,-2*ir5,0,0,0,0,0,0,-2+2*ir5,1,0,0,0,-1,0,0,-2+6*ir5,1,0,
-                 2-2*ir5,-1,0,6,0,-4+6*ir5,-1,1,0,4-6*ir5,+2*ir5,-6,2-6*ir5,-24],
-                [24,0,-2+2*ir5,0,0,0,0,0,0,-2*ir5,1,0,0,0,-1,0,0,4-6*ir5,1,0,
-                 +2*ir5,-1,0,6,0,2-6*ir5,-1,1,0,-2+6*ir5,2-2*ir5,-6,-4+6*ir5,-24],
-                [24,0,-2*ir5,0,0,0,0,0,0,-2+2*ir5,1-ir5,0,0,1,ir5,0,-1,-3+4*ir5,
-                 -1,0,-2+2*ir5,1-ir5,1,3,0,1-4*ir5,-1,ir5,-4,1-4*ir5,-2*ir5,3,
-                 -3+4*ir5,24],
-                [24,0,-2+2*ir5,0,0,0,0,0,0,-2*ir5,ir5,0,0,1,1-ir5,0,-1,1-4*ir5,
-                 -1,0,-2*ir5,ir5,1,3,0,-3+4*ir5,-1,1-ir5,-4,-3+4*ir5,-2+2*ir5,3,
-                 1-4*ir5,24],
+                [24,0,-2 * ir5,0,0,0,0,0,0,-2 + 2 * ir5,1,0,0,0,-1,0,0,-2 + 6 * ir5,1,0,
+                 2 - 2 * ir5,-1,0,6,0,-4 + 6 * ir5,-1,1,0,4 - 6 * ir5,+2 * ir5,-6,2 - 6 * ir5,-24],
+                [24,0,-2 + 2 * ir5,0,0,0,0,0,0,-2 * ir5,1,0,0,0,-1,0,0,4 - 6 * ir5,1,0,
+                 +2 * ir5,-1,0,6,0,2 - 6 * ir5,-1,1,0,-2 + 6 * ir5,2 - 2 * ir5,-6,-4 + 6 * ir5,-24],
+                [24,0,-2 * ir5,0,0,0,0,0,0,-2 + 2 * ir5,1 - ir5,0,0,1,ir5,0,-1,-3 + 4 * ir5,
+                 -1,0,-2 + 2 * ir5,1 - ir5,1,3,0,1 - 4 * ir5,-1,ir5,-4,1 - 4 * ir5,-2 * ir5,3,
+                 -3 + 4 * ir5,24],
+                [24,0,-2 + 2 * ir5,0,0,0,0,0,0,-2 * ir5,ir5,0,0,1,1 - ir5,0,-1,1 - 4 * ir5,
+                 -1,0,-2 * ir5,ir5,1,3,0,-3 + 4 * ir5,-1,1 - ir5,-4,-3 + 4 * ir5,-2 + 2 * ir5,3,
+                 1 - 4 * ir5,24],
                 [25,5,0,1,1,0,0,-1,1,0,0,-1,0,0,0,0,-1,0,0,5,0,0,0,-5,1,0,0,0,5,
                  0,0,-5,0,25],
                 [25,-5,0,1,1,0,0,1,-1,0,0,1,0,0,0,0,-1,0,0,-5,0,0,0,-5,1,0,0,0,5,
                  0,0,-5,0,25],
-                [30,0,0,-2,0,0,0,0,0,0,ir5-1,0,0,1-ir5,-ir5,0,1,+5*ir5,0,0,0,
-                 ir5-1,ir5,-3,0,5-5*ir5,0,-ir5,-2,5-5*ir5,0,-3,+5*ir5,30],
-                [30,0,0,-2,0,0,0,0,0,0,-ir5,0,0,ir5,ir5-1,0,1,5-5*ir5,0,0,0,-ir5,
-                 1-ir5,-3,0,+5*ir5,0,ir5-1,-2,+5*ir5,0,-3,5-5*ir5,30],
+                [30,0,0,-2,0,0,0,0,0,0,ir5 - 1,0,0,1 - ir5,-ir5,0,1,+5 * ir5,0,0,0,
+                 ir5 - 1,ir5,-3,0,5 - 5 * ir5,0,-ir5,-2,5 - 5 * ir5,0,-3,+5 * ir5,30],
+                [30,0,0,-2,0,0,0,0,0,0,-ir5,0,0,ir5,ir5 - 1,0,1,5 - 5 * ir5,0,0,0,-ir5,
+                 1 - ir5,-3,0,+5 * ir5,0,ir5 - 1,-2,+5 * ir5,0,-3,5 - 5 * ir5,30],
                 [36,6,1,0,0,-1,1,0,0,1,0,0,1,0,0,-1,0,-6,-1,-6,-1,0,0,0,0,6,1,0,
                  0,-6,-1,0,6,-36],
                 [36,-6,1,0,0,1,-1,0,0,1,0,0,-1,0,0,1,0,-6,-1,6,-1,0,0,0,0,6,1,0,
@@ -1889,7 +1889,7 @@ def irrchardata(typ, n, chars=True):
         if m == 5:
             if chars:
                 ti = [[1,1,1,1],[1,-1,1,1],
-                    [2,0,ir(5)-1,-ir(5)],[2,0,-ir(5),ir(5)-1]]
+                    [2,0,ir(5) - 1,-ir(5)],[2,0,-ir(5),ir(5) - 1]]
             binv = [0,5,1,2]
             ainv = [0,5,1,1]
             nam = ["phi_{1,0}","phi_{1,5}","phi_{2,1}","phi_{2,2}"]
@@ -1897,31 +1897,31 @@ def irrchardata(typ, n, chars=True):
             c = conjclassdata(typ,n)['reps']
             z = rootof1(m)
             if m % 2 == 0:
-                binv = [0,m//2,m//2,m]
+                binv = [0,m // 2,m // 2,m]
                 ainv = [0,1,1,m]
-                nam = ["phi_{1,0}","phi_{1,"+str(m//2)+"}'","phi_{1,"+str(m//2)+"}''",
-                     "phi_{1,"+str(m)+"}"]
-                ti = [len(c)*[1],[(-1)**i.count(1) for i in c],[(-1)**i.count(0)
+                nam = ["phi_{1,0}","phi_{1," + str(m // 2) + "}'","phi_{1," + str(m // 2) + "}''",
+                     "phi_{1," + str(m) + "}"]
+                ti = [len(c) * [1],[(-1)**i.count(1) for i in c],[(-1)**i.count(0)
                                            for i in c],[(-1)**len(i) for i in c]]
-                for j in range(1,(m-2)//2+1):
+                for j in range(1,(m - 2) // 2 + 1):
                     binv.append(j)
                     ainv.append(1)
-                    nam.append("phi_{2,"+str(j)+"}")
+                    nam.append("phi_{2," + str(j) + "}")
                     chi = [2,0,0]
-                    chi.extend([z**(j*len(i)//2)+z**(-j*len(i)//2)
+                    chi.extend([z**(j * len(i) // 2) + z**(-j * len(i) // 2)
                                for i in c[3:]])
                     ti.append(chi)
             else:
                 binv = [0,m]
                 ainv = [0,m]
-                nam = ["phi_{1,0}","phi_{1,"+str(m)+"}"]
-                ti = [len(c)*[1],[(-1)**len(i) for i in c]]
-                for j in range(1,(m-1)//2+1):
+                nam = ["phi_{1,0}","phi_{1," + str(m) + "}"]
+                ti = [len(c) * [1],[(-1)**len(i) for i in c]]
+                for j in range(1,(m - 1) // 2 + 1):
                     binv.append(j)
                     ainv.append(1)
-                    nam.append("phi_{2,"+str(j)+"}")
+                    nam.append("phi_{2," + str(j) + "}")
                     chi = [2,0]
-                    chi.extend([z**(j*len(i)//2)+z**(-j*len(i)//2)
+                    chi.extend([z**(j * len(i) // 2) + z**(-j * len(i) // 2)
                                for i in c[2:]])
                     ti.append(chi)
     return {'irreducibles':ti, 'names':nam, 'b':binv, 'a1':ainv}
@@ -2007,7 +2007,7 @@ def chartable(W, chars=True):
           'classreps':cw['reps'],'b':nb,'a':na1}
     if chars:
         sgn = [(-1)**len(w) for w in cw['reps']]
-        sp = [mat.index([l[j]*sgn[j] for j in range(len(cw['reps']))])
+        sp = [mat.index([l[j] * sgn[j] for j in range(len(cw['reps']))])
                       for l in mat]
         if len(W.cartantype) > 1:
             prf = False
@@ -2018,7 +2018,7 @@ def chartable(W, chars=True):
             else:
                 prf = prefl.index((len(W.rank),1))
         W.chartable['irreducibles'] = mat
-        W.chartable['position_id'] = mat.index(len(cw['reps'])*[1])
+        W.chartable['position_id'] = mat.index(len(cw['reps']) * [1])
         W.chartable['position_sgn'] = mat.index(sgn)
         W.chartable['position_refl'] = prf
         W.chartable['permsgn'] = sp
@@ -2103,14 +2103,14 @@ def inductiontable(H, W, display=False, invchar=False):
     mat = []
     for t in chartable(W)['irreducibles']:
         res = [t[f[k]] for k in range(m)]
-        norm = sum(res[k]*res[k]*ch['classlengths'][k]
-                 for k in range(m))//H.order
-        vec = m*[0]
+        norm = sum(res[k] * res[k] * ch['classlengths'][k]
+                 for k in range(m)) // H.order
+        vec = m * [0]
         norm1 = 0
         j = 0
         while j < m and norm1 < norm:
-            vec[j] = sum(res[k]*ch['irreducibles'][j][k] *
-                      ch['classlengths'][k] for k in range(m))//H.order
+            vec[j] = sum(res[k] * ch['irreducibles'][j][k] *
+                      ch['classlengths'][k] for k in range(m)) // H.order
             # vec[j]=int(0.5+sum(res[k]*ch['irreducibles'][j][k]*
             #          ch['classlengths'][k] for k in range(m))//H.order)
             norm1 += vec[j]**2
@@ -2204,16 +2204,16 @@ def involutionmodel(W, poids=1, verbose=False):
             lprint('#I ')
         for s in W.rank:
             if verbose:
-                lprint(str(s)+' ')
-            p = (2*len(inv))*[0]
+                lprint(str(s) + ' ')
+            p = (2 * len(inv)) * [0]
             for i in range(len(inv)):
                 i1 = cinv.index(bytes(conjgenperm(W,s,inv[i])[:len(W.rank)]))
                 if i == i1 and inv[i][s] >= W.N and lp[s] % 2 == 1:
-                    p[i] = len(inv)+i1
-                    p[len(inv)+i] = i1
+                    p[i] = len(inv) + i1
+                    p[len(inv) + i] = i1
                 else:
                     p[i] = i1
-                    p[len(inv)+i] = len(inv)+i1
+                    p[len(inv) + i] = len(inv) + i1
             perms.append(p)
         char = []
         for w in rr:
@@ -2227,11 +2227,11 @@ def involutionmodel(W, poids=1, verbose=False):
                 for i in range(len(inv)):
                     if p[i] == i:
                         c += 1
-                    if p[i] == len(inv)+i:
+                    if p[i] == len(inv) + i:
                         c -= 1
                 char.append(c)
-        chisigma[str(x)] = [sum([char[j]*chi[j]*ti['classlengths'][j]
-              for j in range(len(rr))])//W.order for chi in ti['irreducibles']]
+        chisigma[str(x)] = [sum([char[j] * chi[j] * ti['classlengths'][j]
+              for j in range(len(rr))]) // W.order for chi in ti['irreducibles']]
         if verbose:
             lprint('\n')
     if verbose:
@@ -2246,44 +2246,44 @@ def involutionmodel(W, poids=1, verbose=False):
 
 def symbol2c(dblpart):
     a,b = dblpart[0][:],dblpart[1][:]
-    if len(a) > len(b)+1:
-        b.extend((len(a)-len(b)-1)*[0])
-    elif len(b)+1 > len(a):
-        a.extend((len(b)-len(a)+1)*[0])
+    if len(a) > len(b) + 1:
+        b.extend((len(a) - len(b) - 1) * [0])
+    elif len(b) + 1 > len(a):
+        a.extend((len(b) - len(a) + 1) * [0])
     a.sort()
     b.sort()
     for i in range(1,len(a)):
-        a[i] += 2*i
-        b[i-1] += 2*i-1
+        a[i] += 2 * i
+        b[i - 1] += 2 * i - 1
     return [a,b]
 
 
 def symbol2b(dblpart):
     a,b = dblpart[0][:],dblpart[1][:]
-    if len(a) > len(b)+1:
-        b.extend((len(a)-len(b)-1)*[0])
-    elif len(b)+1 > len(a):
-        a.extend((len(b)-len(a)+1)*[0])
+    if len(a) > len(b) + 1:
+        b.extend((len(a) - len(b) - 1) * [0])
+    elif len(b) + 1 > len(a):
+        a.extend((len(b) - len(a) + 1) * [0])
     a.sort()
     b.sort()
     for i in range(1,len(b)):
-        a[i] += 2*i
-        b[i] += 2*i
-    a[-1] = a[-1]+2*len(b)
+        a[i] += 2 * i
+        b[i] += 2 * i
+    a[-1] = a[-1] + 2 * len(b)
     return [a,b]
 
 
 def symbol2d(dblpart):
     a,b = dblpart[0][:],dblpart[1][:]
     if len(a) > len(b):
-        b.extend((len(a)-len(b))*[0])
+        b.extend((len(a) - len(b)) * [0])
     elif len(b) > len(a):
-        a.extend((len(b)-len(a))*[0])
+        a.extend((len(b) - len(a)) * [0])
     a.sort()
     b.sort()
     for i in range(1,len(b)):
-        a[i] += 2*i
-        b[i] += 2*i
+        a[i] += 2 * i
+        b[i] += 2 * i
     return [a,b]
 
 # F dimBu
@@ -2338,7 +2338,7 @@ def dimBu(W):
                                 x += symb[0][i]
                             else:
                                 x += symb[1][j]
-                d.append(x-len(symb[1])*(4*len(symb[1])+1)*(len(symb[1])-1)//3)
+                d.append(x - len(symb[1]) * (4 * len(symb[1]) + 1) * (len(symb[1]) - 1) // 3)
             db.append(d)
         if ct[0] == 'C' and len(ct[1]) > 2:
             d = []
@@ -2356,7 +2356,7 @@ def dimBu(W):
                                 x += symb[0][i]
                             else:
                                 x += symb[1][j]
-                d.append(x-len(symb[1])*(4*len(symb[1])*len(symb[1])-1)//3)
+                d.append(x - len(symb[1]) * (4 * len(symb[1]) * len(symb[1]) - 1) // 3)
             db.append(d)
         if ct[0] == 'D':
             d = []
@@ -2367,12 +2367,12 @@ def dimBu(W):
                     for i in range(len(symb[0])):
                         for j in range(len(symb[0])):
                             if i < j:
-                                x += symb[0][i]+symb[1][i]
+                                x += symb[0][i] + symb[1][i]
                             if symb[0][i] <= symb[1][j]:
                                 x += symb[0][i]
                             else:
                                 x += symb[1][j]
-                    x -= len(symb[1])*(len(symb[1])-1)*(4*len(symb[1])-5)//3
+                    x -= len(symb[1]) * (len(symb[1]) - 1) * (4 * len(symb[1]) - 5) // 3
                     d.append(x)
                     if mu[0] == mu[1]:
                         d.append(x)
@@ -2454,9 +2454,9 @@ def ainvariants(W,weightL=0):
     gens = [j for j in range(len(cw)) if len(cw[j]) == 1]
     ti = chartable(W)
     irr = ti['irreducibles']
-    omega = [sum(ti['classlengths'][s]*irr[t][s]*poids[cw[s][0]]
-                   for s in gens)//irr[t][0] for t in range(len(cw))]
-    tainv = len(irr)*[0]
+    omega = [sum(ti['classlengths'][s] * irr[t][s] * poids[cw[s][0]]
+                   for s in gens) // irr[t][0] for t in range(len(cw))]
+    tainv = len(irr) * [0]
     for s in W.rank:
         J = list(W.rank)
         J.remove(s)
@@ -2467,12 +2467,12 @@ def ainvariants(W,weightL=0):
             for j in range(len(t['charH'])):
                 if t['scalar'][i][j] != 0 and ainvH[j] > tainv[i]:
                     tainv[i] = ainvH[j]
-    ainv = len(irr)*[0]
+    ainv = len(irr) * [0]
     for t in range(len(irr)):
-        if tainv[ti['permsgn'][t]]-tainv[t] <= omega[t]:
+        if tainv[ti['permsgn'][t]] - tainv[t] <= omega[t]:
             ainv[t] = tainv[t]
         else:
-            ainv[t] = tainv[ti['permsgn'][t]]-omega[t]
+            ainv[t] = tainv[ti['permsgn'][t]] - omega[t]
     return ainv
 
 # F niceprintconstructible
@@ -2482,7 +2482,7 @@ def niceprintconstructible(cnst,chn):
     if len(cnst) == 1:
         lprint('# one constructible character:\n')
     else:
-        lprint('# '+str(len(cnst))+' constructible characters:\n')
+        lprint('# ' + str(len(cnst)) + ' constructible characters:\n')
     for x in cnst:
         lprint('# ')
         z = 0
@@ -2491,7 +2491,7 @@ def niceprintconstructible(cnst,chn):
                 if z == 1:
                     lprint(' + ')
                 if x[i] != 1:
-                    lprint(str(x[i])+'*')
+                    lprint(str(x[i]) + '*')
                 if len(chn[i]) == 1:
                     lprint(chn[i][0])
                 else:
@@ -2610,7 +2610,7 @@ def constructible(W,weightL=1,display=True):
                      display=False)['constructibles'],transposemat(it)):
             if x not in const:
                 const.append(x[:])
-            nx = len(x)*[0]
+            nx = len(x) * [0]
             for i in range(len(nx)):
                 nx[ti['permsgn'][i]] = x[i]
             if nx not in const:
@@ -2805,10 +2805,10 @@ def lusztigfamilies(W, weightL=1, verbose=False):
             check = False
     if verbose:
         if len(fam1) == 1:
-            lprint(' '+str(len(fam1))+' family; ')
+            lprint(' ' + str(len(fam1)) + ' family; ')
         else:
-            lprint(' '+str(len(fam1))+' families; ')
-            lprint(' monotony of a-function is '+str(check)+'\n')
+            lprint(' ' + str(len(fam1)) + ' families; ')
+            lprint(' monotony of a-function is ' + str(check) + '\n')
     return {'families':fam1, 'ainv':[ag[x[0]] for x in fam1],'hasse':hasse,
             'names':[[ti['charnames'][i] for i in f] for f in fam1]}
 
@@ -2846,7 +2846,7 @@ def poincarepol(W,paramL):
     if isinstance(paramL, list):
         vs = paramL[:]
     else:
-        vs = len(W.rank)*[paramL]
+        vs = len(W.rank) * [paramL]
     if len(W.rank) == 0:
         return 1
     else:
@@ -2858,7 +2858,7 @@ def poincarepol(W,paramL):
             for s in W.coxelmtoword(w):
                 p *= vs[s]
             rp += p
-        return po*rp
+        return po * rp
 
 # F classpolynomials
 
@@ -2911,12 +2911,12 @@ def classpolynomials(W,paramL,pw):
         vs = len(W.rank) * [paramL]
     t = testcyclicshift(W, pw)
     if t:
-        cp = len(conjugacyclasses(W)['reps'])*[0]
+        cp = len(conjugacyclasses(W)['reps']) * [0]
         cp[identifyclasses(W,[W.permtoword(pw)],minrep=True)[0]] = 1
     else:
         cp1 = classpolynomials(W,vs,t[0])
         cp2 = classpolynomials(W,vs,[t[0][i] for i in W.permgens[t[1]]])
-        cp = [vs[t[1]]*cp1[i]+(vs[t[1]]-1)*cp2[i] for i in range(len(cp1))]
+        cp = [vs[t[1]] * cp1[i] + (vs[t[1]] - 1) * cp2[i] for i in range(len(cp1))]
     return cp
 
 # F testcyclicshift1
@@ -2933,7 +2933,7 @@ def testcyclicshift1(W,w,pw):
     for b in bahn:
         for s in W.rank:
             nw = tuple([W.permgens[s][b[W.permgens[s][r]]]
-                     for r in range(2*W.N)])
+                     for r in range(2 * W.N)])
             lnw = len([i for i in nw[:W.N] if i >= W.N])
             cnw = bytes(nw[:len(W.rank)])
             if minr == 1 and lnw < l:
@@ -2991,16 +2991,16 @@ def allclasspolynomials(W,paramL,maxl=-1, verbose=False):
     if isinstance(paramL, (list, tuple)):
         vs = paramL[:]
     else:
-        vs = len(W.rank)*[paramL]
+        vs = len(W.rank) * [paramL]
     poin = poincarepol(W,v).coeffs
     cl = conjugacyclasses(W)['reps']
     cpmat = []
-    cp = len(cl)*[0]
+    cp = len(cl) * [0]
     cp[0] = 1
     cpmat.append({tuple(W.rank):cp})
     cps = {}
     for s in W.rank:
-        cp = len(cl)*[0]
+        cp = len(cl) * [0]
         cp[identifyclasses(W,[[s]],minrep=True)[0]] = 1
         cps[W.permgens[s][:len(W.rank)]] = cp
     cpmat.append(cps)
@@ -3008,15 +3008,15 @@ def allclasspolynomials(W,paramL,maxl=-1, verbose=False):
         lprint('#I 0-1-')
     for l in range(1,maxlen):
         if verbose and maxlen > 20:
-            lprint(str(l+1))
+            lprint(str(l + 1))
         nl = set([])
-        ol = set(cpmat[l-1])
+        ol = set(cpmat[l - 1])
         for w in cpmat[l]:
             for s in W.permgens:
                 nw = tuple([s[i] for i in w])
                 if nw not in ol:
                     nl.add(nw)
-            if len(nl) == poin[l+1]:
+            if len(nl) == poin[l + 1]:
                 break
         cps = {}
         if verbose and maxlen > 20:
@@ -3027,12 +3027,12 @@ def allclasspolynomials(W,paramL,maxl=-1, verbose=False):
             pc1 = W.wordtoperm(cw1)
             t = testcyclicshift1(W,cw1,pc1)
             if t[0] == 1:
-                cp = len(cl)*[0]
+                cp = len(cl) * [0]
                 cp[t[2]] = 1
             else:
-                cp1 = cpmat[l-1][t[2]]
+                cp1 = cpmat[l - 1][t[2]]
                 cp2 = cpmat[l][tuple([W.permgens[t[3]][i] for i in t[2]])]
-                cp = [vs[t[3]]*cp1[i]+(vs[t[3]]-1)*cp2[i]
+                cp = [vs[t[3]] * cp1[i] + (vs[t[3]] - 1) * cp2[i]
                                      for i in range(len(cl))]
             for x in t[1]:
                 cx = x[:len(W.rank)]
@@ -3060,19 +3060,19 @@ def starkey(n,u):
     to  produce  the character table  of the  Iwahori-Hecke  algebra of
     type A.
     """
-    W = coxeter("A",n-1)
+    W = coxeter("A",n - 1)
     pt = partitions(n)
-    cl = [W.order//centraliserpartition(n,p) for p in pt]
+    cl = [W.order // centraliserpartition(n,p) for p in pt]
     stk = []
     for mu in range(len(pt)):
         J = list(range(n))
         l = 0
         for i in pt[mu]:
             l += i
-            J.remove(l-1)
+            J.remove(l - 1)
         H = reflectionsubgroup(W,J)
         ch = conjugacyclasses(H)
-        nam = [partitions(len(t[1])+1) for t in H.cartantype]
+        nam = [partitions(len(t[1]) + 1) for t in H.cartantype]
         fus = []  # more efficient than fusionconjugacyclasses
         for st in cartesian(nam):
             p = flatlist(st)
@@ -3081,12 +3081,12 @@ def starkey(n,u):
                 p.append(1)
             fus.append(pt.index(p))
         H.fusions[W.cartanname]['classes'] = fus[:]
-        neu = inducedchar(W,H,len(ch['reps'])*[1])
+        neu = inducedchar(W,H,len(ch['reps']) * [1])
         for i in range(len(pt)):
             if neu[i] != 0:
                 for j in pt[i]:
                     neu[i] *= sum(u**k for k in range(j))
-                neu[i] *= (u-1)**(len(pt[i])-len(pt[mu]))*cl[i]
+                neu[i] *= (u - 1)**(len(pt[i]) - len(pt[mu])) * cl[i]
         stk.append(neu[:])
     return transposemat(stk)
 
@@ -3121,33 +3121,33 @@ def heckevalueB(n,q,Q,gamma,pi):
     """
     if n == 0:
         return q**0
-    val = 0*q
+    val = 0 * q
     if pi[0] != []:
         k = pi[0][0]
-        for alpha in partitiontuples(n-k,2):
+        for alpha in partitiontuples(n - k,2):
             dif = [differencepartitions(gamma[0],alpha[0]),
                               differencepartitions(gamma[1],alpha[1])]
             if dif[0] is not False and dif[1] is not False:
-                dif = {'cc':dif[0]['cc']+dif[1]['cc'],
-                    'll':dif[0]['ll']+dif[1]['ll']}
-                val += (q-1)**(dif['cc']-1)*(-1)**(dif['ll'])*q**(k-dif['ll'] -
-                        dif['cc'])*heckevalueB(n-k,q,Q,alpha,
+                dif = {'cc':dif[0]['cc'] + dif[1]['cc'],
+                    'll':dif[0]['ll'] + dif[1]['ll']}
+                val += (q - 1)**(dif['cc'] - 1) * (-1)**(dif['ll']) * q**(k - dif['ll'] -
+                        dif['cc']) * heckevalueB(n - k,q,Q,alpha,
                             [[pi[0][i] for i in range(1,len(pi[0]))],pi[1]])
     else:
         k = pi[1][0]
         nn = sum(gamma[0])
         if nn >= k:
-            for alpha in partitions(nn-k):
+            for alpha in partitions(nn - k):
                 dif = differencepartitions(gamma[0],alpha)
                 if dif is not False and dif['cc'] == 1:
-                    val += Q*(-1)**(dif['ll'])*q**(n+dif['d'])*heckevalueB(n-k,q,Q,
+                    val += Q * (-1)**(dif['ll']) * q**(n + dif['d']) * heckevalueB(n - k,q,Q,
                       [alpha,gamma[1]],[pi[0],[pi[1][i] for i in range(1,len(pi[1]))]])
         nn = sum(gamma[1])
         if nn >= k:
-            for alpha in partitions(nn-k):
+            for alpha in partitions(nn - k):
                 dif = differencepartitions(gamma[1],alpha)
                 if dif is not False and dif['cc'] == 1:
-                    val += (-1)**(dif['ll']+1)*q**(n+dif['d'])*heckevalueB(n-k,q,Q,
+                    val += (-1)**(dif['ll'] + 1) * q**(n + dif['d']) * heckevalueB(n - k,q,Q,
                       [gamma[0],alpha],[pi[0],[pi[1][i] for i in range(1,len(pi[1]))]])
     return val
 
@@ -3193,7 +3193,7 @@ def heckeD(n, v):
         nti1 = heckechartable(W1,v)['irreducibles']
         for c in fus:
             if c not in cc:
-                tr.append([sum(i[j]*nti1[j][fus.index(c)]
+                tr.append([sum(i[j] * nti1[j][fus.index(c)]
                               for j in range(len(nti1))) for i in ind])
                 cc.append(c)
     # fint=transposemat([tr[cc.index(i)] for i in range(len(cc))])
@@ -3248,13 +3248,13 @@ def heckeirrdata(typ,n,paramL):
         u = paramL[1]**2  # v == u
         cc = [2,4]
         ch = [0,1,2,3,4]
-        t1 = [[u**2,-u],[-2*v*u,0],[1,1],[v**2*u**2,v*u],[v**2,-v]]
+        t1 = [[u**2,-u],[-2 * v * u,0],[1,1],[v**2 * u**2,v * u],[v**2,-v]]
     if typ[0] == 'C' and n == 2:   # u == v
         v = paramL[0]**2
         u = paramL[1]**2  # u == v
         cc = [2,4]
         ch = [0,1,2,3,4]
-        t1 = [[v**2,-v],[-2*v*u,0],[1,1],[v**2*u**2,v*u],[u**2,-u]]
+        t1 = [[v**2,-v],[-2 * v * u,0],[1,1],[v**2 * u**2,v * u],[u**2,-u]]
     if (typ[0] == 'B' or typ[0] == 'C') and n >= 3:
         v = paramL[0]**2
         u = paramL[1]**2  # v == u -- u -- ... --- u
@@ -3297,547 +3297,547 @@ def heckeirrdata(typ,n,paramL):
     if typ[0] == 'G':
         u = paramL[0]**2
         v = paramL[1]**2   # u === v
-        squv = paramL[0]*paramL[1]
+        squv = paramL[0] * paramL[1]
         cc = [3,4,5]
         ch = [0,1,2,3,4,5]
-        t1 = [[v*u,v**2*u**2,v**3*u**3],[1,1,1],[-v,v**2,-v**3],[-u,u**2,-u**3],
-            [squv,-v*u,-2*squv**3],[-squv,-v*u,2*squv**3]]
+        t1 = [[v * u,v**2 * u**2,v**3 * u**3],[1,1,1],[-v,v**2,-v**3],[-u,u**2,-u**3],
+            [squv,-v * u,-2 * squv**3],[-squv,-v * u,2 * squv**3]]
     if typ[0] == 'F':
         u = paramL[0]**2
         v = paramL[2]**2  # u -- u == v -- v
-        cc = [i-1 for i in [2,5,6,8,9,10,11,24,25]]
-        ch = [i-1 for i in [1,2,5,7,9,10,11,14,15,16,17,18,21,23,25]]
-        t1 = [[v**12*u**12,v**6*u**4,v**6*u**6,v**4*u**6,v**8*u**8,v**4*u**4,
-             v**2*u**2,v**7*u**7,v**3*u**3],
+        cc = [i - 1 for i in [2,5,6,8,9,10,11,24,25]]
+        ch = [i - 1 for i in [1,2,5,7,9,10,11,14,15,16,17,18,21,23,25]]
+        t1 = [[v**12 * u**12,v**6 * u**4,v**6 * u**6,v**4 * u**6,v**8 * u**8,v**4 * u**4,
+             v**2 * u**2,v**7 * u**7,v**3 * u**3],
             [u**12,u**4,u**6,u**6,u**8,u**4,u**2,-u**7,-u**3],
-            [2*v**6*u**12,2*v**3*u**4,2*v**3*u**6,-v**2*u**6,
-             -v**4*u**8,-v**2*u**4,-v*u**2,-v**3*u**7+v**4*u**7,0],
-            [2*v**12*u**6,-v**6*u**2,2*v**6*u**3,2*v**4*u**3,
-             -v**8*u**4,-v**4*u**2,-v**2*u,-v**7*u**3+v**7*u**4,0],
-            [4*v**6*u**6,-2*v**3*u**2,4*v**3*u**3,-2*v**2*u**3,v**4*u**4,
-             v**2*u**2,v*u,v**3*u**3-v**3*u**4-v**4*u**3+v**4*u**4,0],
-            [9*v**8*u**8,0,-3*v**4*u**4,0,0,0,0,v**4*u**5+v**5*u**4-v**5*u**5,
-             -v**2*u**2],
-            [9*v**4*u**8,0,-3*v**2*u**4,0,0,0,0,-v**2*u**4+v**2*u**5-v**3*u**5,
-             v*u**2],
-            [6*v**6*u**6,v**2*u**2-2*v**3*u**2+v**4*u**2,2*v**3*u**3,
-             v**2*u**2-2*v**2*u**3+v**2*u**4,3*v**4*u**4,3*v**2*u**2,-v*u,
-             -v**3*u**4-v**4*u**3,0],
-            [6*v**6*u**6,v**2*u**2-2*v**3*u**2+v**4*u**2,2*v**3*u**3,
-             v**2*u**2-2*v**2*u**3+v**2*u**4,3*v**4*u**4,3*v**2*u**2,-v*u,
-             v**3*u**3+v**4*u**4,0],
-            [12*v**6*u**6,-v**2*u**2+2*v**3*u**2-v**4*u**2,4*v**3*u**3,
-             -v**2*u**2+2*v**2*u**3-v**2*u**4,-3*v**4*u**4,-3*v**2*u**2,v*u,
-             v**3*u**3-v**3*u**4-v**4*u**3+v**4*u**4,0],
-            [-4*v**9*u**9,-2*v**4*u**3+v**5*u**3,0,-2*v**3*u**4+v**3*u**5,
-             -2*v**6*u**6,2*v**3*u**3,0,-2*v**5*u**5,0],
-            [-4*v**3*u**9,v*u**3-2*v**2*u**3,0,-2*v*u**4+v*u**5,-2*v**2*u**6,
-             2*v*u**3,0,2*v**2*u**5,0],
-            [-8*v**6*u**9,-v**2*u**3-v**4*u**3,0,2*v**2*u**4-v**2*u**5,
-             2*v**4*u**6,-2*v**2*u**3,0,0,0],
-            [-8*v**9*u**6,2*v**4*u**2-v**5*u**2,0,-v**3*u**2-v**3*u**4,
-             2*v**6*u**4,-2*v**3*u**2,0,0,0],
-            [-16*v**6*u**6,v**2*u**2+v**4*u**2,0,v**2*u**2+v**2*u**4,
-             -2*v**4*u**4,2*v**2*u**2,0,0,0]]
+            [2 * v**6 * u**12,2 * v**3 * u**4,2 * v**3 * u**6,-v**2 * u**6,
+             -v**4 * u**8,-v**2 * u**4,-v * u**2,-v**3 * u**7 + v**4 * u**7,0],
+            [2 * v**12 * u**6,-v**6 * u**2,2 * v**6 * u**3,2 * v**4 * u**3,
+             -v**8 * u**4,-v**4 * u**2,-v**2 * u,-v**7 * u**3 + v**7 * u**4,0],
+            [4 * v**6 * u**6,-2 * v**3 * u**2,4 * v**3 * u**3,-2 * v**2 * u**3,v**4 * u**4,
+             v**2 * u**2,v * u,v**3 * u**3 - v**3 * u**4 - v**4 * u**3 + v**4 * u**4,0],
+            [9 * v**8 * u**8,0,-3 * v**4 * u**4,0,0,0,0,v**4 * u**5 + v**5 * u**4 - v**5 * u**5,
+             -v**2 * u**2],
+            [9 * v**4 * u**8,0,-3 * v**2 * u**4,0,0,0,0,-v**2 * u**4 + v**2 * u**5 - v**3 * u**5,
+             v * u**2],
+            [6 * v**6 * u**6,v**2 * u**2 - 2 * v**3 * u**2 + v**4 * u**2,2 * v**3 * u**3,
+             v**2 * u**2 - 2 * v**2 * u**3 + v**2 * u**4,3 * v**4 * u**4,3 * v**2 * u**2,-v * u,
+             -v**3 * u**4 - v**4 * u**3,0],
+            [6 * v**6 * u**6,v**2 * u**2 - 2 * v**3 * u**2 + v**4 * u**2,2 * v**3 * u**3,
+             v**2 * u**2 - 2 * v**2 * u**3 + v**2 * u**4,3 * v**4 * u**4,3 * v**2 * u**2,-v * u,
+             v**3 * u**3 + v**4 * u**4,0],
+            [12 * v**6 * u**6,-v**2 * u**2 + 2 * v**3 * u**2 - v**4 * u**2,4 * v**3 * u**3,
+             -v**2 * u**2 + 2 * v**2 * u**3 - v**2 * u**4,-3 * v**4 * u**4,-3 * v**2 * u**2,v * u,
+             v**3 * u**3 - v**3 * u**4 - v**4 * u**3 + v**4 * u**4,0],
+            [-4 * v**9 * u**9,-2 * v**4 * u**3 + v**5 * u**3,0,-2 * v**3 * u**4 + v**3 * u**5,
+             -2 * v**6 * u**6,2 * v**3 * u**3,0,-2 * v**5 * u**5,0],
+            [-4 * v**3 * u**9,v * u**3 - 2 * v**2 * u**3,0,-2 * v * u**4 + v * u**5,-2 * v**2 * u**6,
+             2 * v * u**3,0,2 * v**2 * u**5,0],
+            [-8 * v**6 * u**9,-v**2 * u**3 - v**4 * u**3,0,2 * v**2 * u**4 - v**2 * u**5,
+             2 * v**4 * u**6,-2 * v**2 * u**3,0,0,0],
+            [-8 * v**9 * u**6,2 * v**4 * u**2 - v**5 * u**2,0,-v**3 * u**2 - v**3 * u**4,
+             2 * v**6 * u**4,-2 * v**3 * u**2,0,0,0],
+            [-16 * v**6 * u**6,v**2 * u**2 + v**4 * u**2,0,v**2 * u**2 + v**2 * u**4,
+             -2 * v**4 * u**4,2 * v**2 * u**2,0,0,0]]
     if typ[0] == "E" and n == 6:
         v = paramL[0]
         cc = [11]
-        ch = [i-1 for i in [1,3,4,6,7,9,11,13,15,17,18,19,20,22,24]]
-        t1 = [[v**28],[-v**16+2*v**14-v**12],[-2*v**22],[-2*v**14],
-            [v**20+v**16],[v**20],[-v**22+2*v**20],[v**18-2*v**16],
-            [-v**16],[-v**16+2*v**14-v**12],[v**16+v**12],
-            [-v**16+2*v**14-v**12],[-2*v**16+v**14],[0],[0]]
+        ch = [i - 1 for i in [1,3,4,6,7,9,11,13,15,17,18,19,20,22,24]]
+        t1 = [[v**28],[-v**16 + 2 * v**14 - v**12],[-2 * v**22],[-2 * v**14],
+            [v**20 + v**16],[v**20],[-v**22 + 2 * v**20],[v**18 - 2 * v**16],
+            [-v**16],[-v**16 + 2 * v**14 - v**12],[v**16 + v**12],
+            [-v**16 + 2 * v**14 - v**12],[-2 * v**16 + v**14],[0],[0]]
     if typ[0] == "E" and n == 7:
         v = paramL[0]
-        cc = [i-1 for i in [36,38,39,44,47,54,59,60]]
-        ch = [i-1 for i in [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,
+        cc = [i - 1 for i in [36,38,39,44,47,54,59,60]]
+        ch = [i - 1 for i in [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,
             39,41,43,45,47,49,51,53,55,57,59]]
         t1 = [[v**62,v**46,v**66,v**30,v**50,v**34,v**22,v**26],
-            [-v**6+5*v**10,-v**6+2*v**8,3*v**10,2*v**6,2*v**8,v**6,0,-v**4],
-            [5*v**18-5*v**22,-v**14+4*v**16,-3*v**22+2*v**24,0,2*v**16-v**18,
+            [-v**6 + 5 * v**10,-v**6 + 2 * v**8,3 * v**10,2 * v**6,2 * v**8,v**6,0,-v**4],
+            [5 * v**18 - 5 * v**22,-v**14 + 4 * v**16,-3 * v**22 + 2 * v**24,0,2 * v**16 - v**18,
              -v**12,-v**8,0],
-            [10*v**42-5*v**46+v**50,v**30-2*v**32+v**34,3*v**46+2*v**48,v**18,
-             3*v**34,v**24,-v**16,v**18],
-            [v**10+5*v**18,2*v**10-2*v**12,v**18,v**6,v**10-2*v**12,-v**10,
+            [10 * v**42 - 5 * v**46 + v**50,v**30 - 2 * v**32 + v**34,3 * v**46 + 2 * v**48,v**18,
+             3 * v**34,v**24,-v**16,v**18],
+            [v**10 + 5 * v**18,2 * v**10 - 2 * v**12,v**18,v**6,v**10 - 2 * v**12,-v**10,
              v**6,v**6],
-            [9*v**46,0,3*v**50,2*v**22,0,-v**26,0,-v**20],
-            [5*v**22-10*v**26+10*v**30,v**18+2*v**20-v**22,6*v**28+v**30,
-             0,v**18+2*v**24,v**16,v**10,0],
-            [5*v**46,2*v**32,-3*v**46+2*v**48,0,-v**34,v**24,-v**16,0],
-            [v**12+10*v**20,v**12+v**16,0,v**12,-2*v**16,0,0,v**8],
-            [v**18+5*v**26-16*v**28+5*v**30,3*v**18-4*v**20+2*v**22,
-             2*v**30,0,-2*v**20+v**22,0,-v**10,0],
-            [10*v**30-16*v**32,v**22+2*v**26,4*v**36,-v**18,
-             -2*v**26+v**30,0,v**12,-v**14],
-            [-v**14+16*v**24,-2*v**14-v**18,3*v**22+2*v**24,0,
-             -v**14+2*v**18,-v**12,-v**8,0],
-            [-16*v**36+15*v**38+v**46,2*v**26-2*v**28+3*v**30,-3*v**42,
-             0,v**30+v**34,-v**22,0,0],
-            [5*v**30-16*v**32+10*v**34+v**42,3*v**22-2*v**24+2*v**26,
-             -3*v**34,0,v**22+v**26,-v**18,0,0],
-            [16*v**38-5*v**40+5*v**44-v**48,-v**28+4*v**30-3*v**32,0,0,
-             -3*v**32+2*v**34-v**36,0,0,0],
-            [5*v**34+5*v**38-5*v**42+v**46,v**26-6*v**28+2*v**30,0,
-             -2*v**18,4*v**30-2*v**32,0,0,v**16],
-            [9*v**30,0,6*v**36+3*v**38,-v**14,0,-v**20,0,-v**14],
-            [9*v**22,0,-3*v**26,-v**14,0,v**14,0,-v**10],
-            [9*v**30,0,-3*v**26,-v**10,0,v**14,0,-v**10],
-            [10*v**34+5*v**38,-2*v**28+2*v**30,-2*v**42,0,
-             -2*v**32+v**34,0,v**14,0],
-            [-5*v**30-15*v**34+5*v**38,-2*v**22+6*v**24-v**26,6*v**34,0,
-             2*v**24-4*v**26,0,0,0],
-            [-9*v**32,0,0,v**16,0,0,0,v**12],
-            [v**18-5*v**22+15*v**26-16*v**28+15*v**30,4*v**18-6*v**20+3*v**22,
-             0,0,v**18-2*v**20+v**22-2*v**24,0,0,0],
-            [-15*v**32+16*v**34-5*v**36-v**44,-2*v**24+4*v**26-4*v**28,0,
-             0,-v**28+2*v**30-v**32,0,0,0],
-            [-v**18+5*v**22-15*v**26+16*v**28-5*v**30,-3*v**18+6*v**20-3*v**22,
-             -6*v**28+v**30,0,2*v**20-v**22+2*v**24,-v**16,v**10,0],
-            [-5*v**28+16*v**30-10*v**32+5*v**36,-3*v**20+4*v**22-v**24,0,
-             v**12,-v**20+2*v**22-3*v**24,0,0,v**12],
-            [-9*v**26,0,6*v**30,-2*v**14,0,0,0,v**12],
-            [0,0,-6*v**36+3*v**38,0,0,v**20,0,0],
-            [5*v**26-5*v**34,4*v**24-v**26,-4*v**36,0,-v**26+2*v**28,
+            [9 * v**46,0,3 * v**50,2 * v**22,0,-v**26,0,-v**20],
+            [5 * v**22 - 10 * v**26 + 10 * v**30,v**18 + 2 * v**20 - v**22,6 * v**28 + v**30,
+             0,v**18 + 2 * v**24,v**16,v**10,0],
+            [5 * v**46,2 * v**32,-3 * v**46 + 2 * v**48,0,-v**34,v**24,-v**16,0],
+            [v**12 + 10 * v**20,v**12 + v**16,0,v**12,-2 * v**16,0,0,v**8],
+            [v**18 + 5 * v**26 - 16 * v**28 + 5 * v**30,3 * v**18 - 4 * v**20 + 2 * v**22,
+             2 * v**30,0,-2 * v**20 + v**22,0,-v**10,0],
+            [10 * v**30 - 16 * v**32,v**22 + 2 * v**26,4 * v**36,-v**18,
+             -2 * v**26 + v**30,0,v**12,-v**14],
+            [-v**14 + 16 * v**24,-2 * v**14 - v**18,3 * v**22 + 2 * v**24,0,
+             -v**14 + 2 * v**18,-v**12,-v**8,0],
+            [-16 * v**36 + 15 * v**38 + v**46,2 * v**26 - 2 * v**28 + 3 * v**30,-3 * v**42,
+             0,v**30 + v**34,-v**22,0,0],
+            [5 * v**30 - 16 * v**32 + 10 * v**34 + v**42,3 * v**22 - 2 * v**24 + 2 * v**26,
+             -3 * v**34,0,v**22 + v**26,-v**18,0,0],
+            [16 * v**38 - 5 * v**40 + 5 * v**44 - v**48,-v**28 + 4 * v**30 - 3 * v**32,0,0,
+             -3 * v**32 + 2 * v**34 - v**36,0,0,0],
+            [5 * v**34 + 5 * v**38 - 5 * v**42 + v**46,v**26 - 6 * v**28 + 2 * v**30,0,
+             -2 * v**18,4 * v**30 - 2 * v**32,0,0,v**16],
+            [9 * v**30,0,6 * v**36 + 3 * v**38,-v**14,0,-v**20,0,-v**14],
+            [9 * v**22,0,-3 * v**26,-v**14,0,v**14,0,-v**10],
+            [9 * v**30,0,-3 * v**26,-v**10,0,v**14,0,-v**10],
+            [10 * v**34 + 5 * v**38,-2 * v**28 + 2 * v**30,-2 * v**42,0,
+             -2 * v**32 + v**34,0,v**14,0],
+            [-5 * v**30 - 15 * v**34 + 5 * v**38,-2 * v**22 + 6 * v**24 - v**26,6 * v**34,0,
+             2 * v**24 - 4 * v**26,0,0,0],
+            [-9 * v**32,0,0,v**16,0,0,0,v**12],
+            [v**18 - 5 * v**22 + 15 * v**26 - 16 * v**28 + 15 * v**30,4 * v**18 - 6 * v**20 + 3 * v**22,
+             0,0,v**18 - 2 * v**20 + v**22 - 2 * v**24,0,0,0],
+            [-15 * v**32 + 16 * v**34 - 5 * v**36 - v**44,-2 * v**24 + 4 * v**26 - 4 * v**28,0,
+             0,-v**28 + 2 * v**30 - v**32,0,0,0],
+            [-v**18 + 5 * v**22 - 15 * v**26 + 16 * v**28 - 5 * v**30,-3 * v**18 + 6 * v**20 - 3 * v**22,
+             -6 * v**28 + v**30,0,2 * v**20 - v**22 + 2 * v**24,-v**16,v**10,0],
+            [-5 * v**28 + 16 * v**30 - 10 * v**32 + 5 * v**36,-3 * v**20 + 4 * v**22 - v**24,0,
+             v**12,-v**20 + 2 * v**22 - 3 * v**24,0,0,v**12],
+            [-9 * v**26,0,6 * v**30,-2 * v**14,0,0,0,v**12],
+            [0,0,-6 * v**36 + 3 * v**38,0,0,v**20,0,0],
+            [5 * v**26 - 5 * v**34,4 * v**24 - v**26,-4 * v**36,0,-v**26 + 2 * v**28,
              0,-v**12,0],
-            [-5*v**25+5*v**29-16*v**31+5*v**33-5*v**37,2*v**21-8*v**23+2*v**25,
-             0,2*v**15,-2*v**23+4*v**25-2*v**27,0,0,-v**13]]
+            [-5 * v**25 + 5 * v**29 - 16 * v**31 + 5 * v**33 - 5 * v**37,2 * v**21 - 8 * v**23 + 2 * v**25,
+             0,2 * v**15,-2 * v**23 + 4 * v**25 - 2 * v**27,0,0,-v**13]]
     if typ[0] == 'E' and n == 8:
         v = paramL[0]
-        cc = [i-1 for i in [9,13,15,17,24,29,34,39,42,45,47,48,49,54,55,56,58,63]]
-        ch = [i-1 for i in [1,3,5,7,8,10,12,13,15,17,18,20,22,24,26,27,29,31,32,
+        cc = [i - 1 for i in [9,13,15,17,24,29,34,39,42,45,47,48,49,54,55,56,58,63]]
+        ch = [i - 1 for i in [1,3,5,7,8,10,12,13,15,17,18,20,22,24,26,27,29,31,32,
             34,35,37,39,40,42,43,45,47,48,50,51,53,54,56,57,59,
             60,62,64,66,68,70,72,74,76,77,79,81,83,84,86,88,89,
             91,93,95,97,99,100,102,104,105,107,109,111]]
         t1 = [[v**128,v**84,v**88,v**132,v**64,v**88,v**92,v**44,
              v**36,v**68,v**32,v**56,v**28,v**92,v**52,v**44,v**48,v**52],
-            [15*v**92-6*v**100+v**108,v**60-6*v**62+6*v**64,
-             6*v**64-8*v**66+3*v**68,6*v**96+2*v**102,6*v**44-4*v**48+v**52,
-             3*v**64-4*v**66+3*v**68,8*v**68-4*v**70+v**72,2*v**32-v**34,0,
-             v**48+v**50,v**20,v**40,v**20,3*v**68-2*v**70+v**72,
-             3*v**36-v**42,3*v**32-v**34,v**32-2*v**34+v**36-v**38,-v**38+v**40],
-            [20*v**100-6*v**104,-4*v**66+3*v**68,4*v**68-4*v**70+2*v**72,
-             9*v**104-2*v**108,5*v**48,-4*v**70+v**72,4*v**72-2*v**74+v**76,
-             -2*v**34,0,v**52,2*v**24,-v**44,-v**22,-2*v**74,v**44,v**36,
+            [15 * v**92 - 6 * v**100 + v**108,v**60 - 6 * v**62 + 6 * v**64,
+             6 * v**64 - 8 * v**66 + 3 * v**68,6 * v**96 + 2 * v**102,6 * v**44 - 4 * v**48 + v**52,
+             3 * v**64 - 4 * v**66 + 3 * v**68,8 * v**68 - 4 * v**70 + v**72,2 * v**32 - v**34,0,
+             v**48 + v**50,v**20,v**40,v**20,3 * v**68 - 2 * v**70 + v**72,
+             3 * v**36 - v**42,3 * v**32 - v**34,v**32 - 2 * v**34 + v**36 - v**38,-v**38 + v**40],
+            [20 * v**100 - 6 * v**104,-4 * v**66 + 3 * v**68,4 * v**68 - 4 * v**70 + 2 * v**72,
+             9 * v**104 - 2 * v**108,5 * v**48,-4 * v**70 + v**72,4 * v**72 - 2 * v**74 + v**76,
+             -2 * v**34,0,v**52,2 * v**24,-v**44,-v**22,-2 * v**74,v**44,v**36,
              v**40,-v**40],
-            [15*v**56-20*v**64+15*v**72,6*v**40-14*v**42+6*v**44,
-             v**40-8*v**42+18*v**44-8*v**46+v**48,v**60+12*v**66+v**72,
-             v**24-4*v**28+6*v**32-4*v**36+v**40,
-             v**40-4*v**42+9*v**44-4*v**46+v**48,8*v**44-10*v**46+8*v**48,
-             v**20-2*v**22+v**24,0,v**30+v**38,-2*v**16,v**28,v**14,
-             3*v**44-4*v**46+3*v**48,v**20-3*v**26+v**32,v**20-3*v**22+v**24,
-             v**20-v**22+2*v**24-v**26+v**28,v**24-2*v**26+v**28],
-            [-15*v**88+20*v**92,-6*v**58+2*v**60,8*v**60-4*v**62+v**64,
-             4*v**90-9*v**92+3*v**96,0,v**60-4*v**62,-2*v**62+4*v**64-2*v**66,
-             v**32,v**24,-v**46+v**50,-v**24,-v**40,-v**20,v**64,v**34,
-             v**30,-2*v**32,0],
-            [15*v**92+6*v**100,6*v**62-3*v**64,-4*v**64+8*v**66-v**68,
-             2*v**96+2*v**102,4*v**48,-v**64+4*v**66-v**68,-5*v**68+4*v**70,
-             2*v**32-v**34,0,-v**48+v**50,0,0,0,-v**68+2*v**70,-v**36-v**42,
-             -v**32-v**34,2*v**34-v**38,v**38],
-            [24*v**60-60*v**64+24*v**68,6*v**40-6*v**42+6*v**44,
-             3*v**40-4*v**42+8*v**44-4*v**46+3*v**48,
-             v**60-9*v**64+24*v**66-9*v**68+v**72,-4*v**28+6*v**32-4*v**36,
-             v**40+5*v**44+v**48,v**40+v**44-6*v**46+v**48+v**52,
-             v**20-2*v**22+v**24,0,v**30-2*v**34+v**38,0,0,0,-4*v**46,
-             v**20-3*v**26+v**32,v**20-3*v**22+v**24,
-             v**20-v**22+2*v**24-v**26+v**28,-2*v**26],
-            [10*v**72-60*v**76+45*v**80,v**48+12*v**50,
-             v**48+4*v**50-10*v**52+8*v**54+v**56,16*v**78-18*v**80+v**84,0,
-             -10*v**52+4*v**54+v**56,-3*v**52+8*v**54-7*v**56+2*v**58+v**60,
-             v**24-2*v**26+v**28,0,-v**44,v**16,v**32,v**16,2*v**54-3*v**56,
-             -2*v**30+v**36,-2*v**26+v**28,-v**26-v**30+v**32,0],
-            [64*v**86-30*v**88+6*v**96-v**104,-3*v**56+6*v**58-9*v**60,
-             4*v**58-4*v**60+8*v**62-5*v**64,12*v**90-9*v**92+3*v**96,5*v**40,
-             v**60+4*v**62-4*v**64,-2*v**62-2*v**64+4*v**66-2*v**68,v**32,0,
-             v**46-v**50,0,0,0,2*v**64+2*v**66-v**68,-3*v**34,-3*v**30,
-             -v**30+2*v**32-v**34,-v**36],
-            [60*v**60-150*v**64+60*v**68,6*v**40-24*v**42+6*v**44,
-             2*v**40-12*v**42+26*v**44-12*v**46+2*v**48,
-             -18*v**64+48*v**66-18*v**68,v**24-4*v**28+6*v**32-4*v**36+v**40,
-             -4*v**42+16*v**44-4*v**46,-2*v**42+8*v**44-16*v**46+8*v**48-2*v**50,
-             0,0,0,0,0,0,-6*v**46,0,0,0,v**24-2*v**26+v**28],
-            [84*v**80-64*v**82+15*v**84-6*v**92+v**100,
-             6*v**52-18*v**54+15*v**56,v**52-8*v**54+14*v**56-20*v**58+7*v**60,
-             22*v**84-18*v**86+4*v**90,0,9*v**56-8*v**58+5*v**60,
-             3*v**56-4*v**58+10*v**60-8*v**62+2*v**64,v**26+v**30,-v**24,
-             -v**42-v**44,0,0,0,3*v**60-2*v**62+v**64,v**32+v**38,
-             v**28+v**30,-2*v**30+v**34,0],
-            [70*v**72-64*v**78+15*v**80+20*v**84-6*v**88,
-             8*v**48-24*v**50+15*v**52,v**48-12*v**50+24*v**52-20*v**54+6*v**56,
-             9*v**76+18*v**80-v**84,0,-4*v**50+8*v**52-12*v**54+3*v**56,
-             7*v**52-8*v**54+13*v**56-6*v**58+v**60,-v**24,0,v**40-v**44,
-             -v**16,-v**32,-v**16,-2*v**54+3*v**56-2*v**58,-v**36,-v**28,
+            [15 * v**56 - 20 * v**64 + 15 * v**72,6 * v**40 - 14 * v**42 + 6 * v**44,
+             v**40 - 8 * v**42 + 18 * v**44 - 8 * v**46 + v**48,v**60 + 12 * v**66 + v**72,
+             v**24 - 4 * v**28 + 6 * v**32 - 4 * v**36 + v**40,
+             v**40 - 4 * v**42 + 9 * v**44 - 4 * v**46 + v**48,8 * v**44 - 10 * v**46 + 8 * v**48,
+             v**20 - 2 * v**22 + v**24,0,v**30 + v**38,-2 * v**16,v**28,v**14,
+             3 * v**44 - 4 * v**46 + 3 * v**48,v**20 - 3 * v**26 + v**32,v**20 - 3 * v**22 + v**24,
+             v**20 - v**22 + 2 * v**24 - v**26 + v**28,v**24 - 2 * v**26 + v**28],
+            [-15 * v**88 + 20 * v**92,-6 * v**58 + 2 * v**60,8 * v**60 - 4 * v**62 + v**64,
+             4 * v**90 - 9 * v**92 + 3 * v**96,0,v**60 - 4 * v**62,-2 * v**62 + 4 * v**64 - 2 * v**66,
+             v**32,v**24,-v**46 + v**50,-v**24,-v**40,-v**20,v**64,v**34,
+             v**30,-2 * v**32,0],
+            [15 * v**92 + 6 * v**100,6 * v**62 - 3 * v**64,-4 * v**64 + 8 * v**66 - v**68,
+             2 * v**96 + 2 * v**102,4 * v**48,-v**64 + 4 * v**66 - v**68,-5 * v**68 + 4 * v**70,
+             2 * v**32 - v**34,0,-v**48 + v**50,0,0,0,-v**68 + 2 * v**70,-v**36 - v**42,
+             -v**32 - v**34,2 * v**34 - v**38,v**38],
+            [24 * v**60 - 60 * v**64 + 24 * v**68,6 * v**40 - 6 * v**42 + 6 * v**44,
+             3 * v**40 - 4 * v**42 + 8 * v**44 - 4 * v**46 + 3 * v**48,
+             v**60 - 9 * v**64 + 24 * v**66 - 9 * v**68 + v**72,-4 * v**28 + 6 * v**32 - 4 * v**36,
+             v**40 + 5 * v**44 + v**48,v**40 + v**44 - 6 * v**46 + v**48 + v**52,
+             v**20 - 2 * v**22 + v**24,0,v**30 - 2 * v**34 + v**38,0,0,0,-4 * v**46,
+             v**20 - 3 * v**26 + v**32,v**20 - 3 * v**22 + v**24,
+             v**20 - v**22 + 2 * v**24 - v**26 + v**28,-2 * v**26],
+            [10 * v**72 - 60 * v**76 + 45 * v**80,v**48 + 12 * v**50,
+             v**48 + 4 * v**50 - 10 * v**52 + 8 * v**54 + v**56,16 * v**78 - 18 * v**80 + v**84,0,
+             -10 * v**52 + 4 * v**54 + v**56,-3 * v**52 + 8 * v**54 - 7 * v**56 + 2 * v**58 + v**60,
+             v**24 - 2 * v**26 + v**28,0,-v**44,v**16,v**32,v**16,2 * v**54 - 3 * v**56,
+             -2 * v**30 + v**36,-2 * v**26 + v**28,-v**26 - v**30 + v**32,0],
+            [64 * v**86 - 30 * v**88 + 6 * v**96 - v**104,-3 * v**56 + 6 * v**58 - 9 * v**60,
+             4 * v**58 - 4 * v**60 + 8 * v**62 - 5 * v**64,12 * v**90 - 9 * v**92 + 3 * v**96,5 * v**40,
+             v**60 + 4 * v**62 - 4 * v**64,-2 * v**62 - 2 * v**64 + 4 * v**66 - 2 * v**68,v**32,0,
+             v**46 - v**50,0,0,0,2 * v**64 + 2 * v**66 - v**68,-3 * v**34,-3 * v**30,
+             -v**30 + 2 * v**32 - v**34,-v**36],
+            [60 * v**60 - 150 * v**64 + 60 * v**68,6 * v**40 - 24 * v**42 + 6 * v**44,
+             2 * v**40 - 12 * v**42 + 26 * v**44 - 12 * v**46 + 2 * v**48,
+             -18 * v**64 + 48 * v**66 - 18 * v**68,v**24 - 4 * v**28 + 6 * v**32 - 4 * v**36 + v**40,
+             -4 * v**42 + 16 * v**44 - 4 * v**46,-2 * v**42 + 8 * v**44 - 16 * v**46 + 8 * v**48 - 2 * v**50,
+             0,0,0,0,0,0,-6 * v**46,0,0,0,v**24 - 2 * v**26 + v**28],
+            [84 * v**80 - 64 * v**82 + 15 * v**84 - 6 * v**92 + v**100,
+             6 * v**52 - 18 * v**54 + 15 * v**56,v**52 - 8 * v**54 + 14 * v**56 - 20 * v**58 + 7 * v**60,
+             22 * v**84 - 18 * v**86 + 4 * v**90,0,9 * v**56 - 8 * v**58 + 5 * v**60,
+             3 * v**56 - 4 * v**58 + 10 * v**60 - 8 * v**62 + 2 * v**64,v**26 + v**30,-v**24,
+             -v**42 - v**44,0,0,0,3 * v**60 - 2 * v**62 + v**64,v**32 + v**38,
+             v**28 + v**30,-2 * v**30 + v**34,0],
+            [70 * v**72 - 64 * v**78 + 15 * v**80 + 20 * v**84 - 6 * v**88,
+             8 * v**48 - 24 * v**50 + 15 * v**52,v**48 - 12 * v**50 + 24 * v**52 - 20 * v**54 + 6 * v**56,
+             9 * v**76 + 18 * v**80 - v**84,0,-4 * v**50 + 8 * v**52 - 12 * v**54 + 3 * v**56,
+             7 * v**52 - 8 * v**54 + 13 * v**56 - 6 * v**58 + v**60,-v**24,0,v**40 - v**44,
+             -v**16,-v**32,-v**16,-2 * v**54 + 3 * v**56 - 2 * v**58,-v**36,-v**28,
              -v**32,0],
-            [24*v**68+24*v**76-64*v**78+45*v**80+v**96,
-             9*v**48-12*v**50+15*v**52,2*v**48-8*v**50+14*v**52-12*v**54+7*v**56,
-             v**72-9*v**80+v**84,0,v**48+4*v**52-4*v**54+5*v**56,
-             2*v**52-4*v**54+4*v**56-4*v**58+2*v**60,-2*v**26+v**28,0,
-             -v**36+v**40-v**44,0,0,0,v**56+v**60,v**24+v**36,v**24+v**28,
-             v**24+v**32,0],
-            [81*v**80,0,0,9*v**84+9*v**88-3*v**92,4*v**36+4*v**44-v**48,
-             0,0,0,0,-2*v**44+v**48,0,0,0,-3*v**60,0,0,0,2*v**34-v**36],
-            [15*v**56-64*v**58+84*v**60-70*v**64+84*v**68-64*v**70+15*v**72,
-             27*v**40-54*v**42+27*v**44,
-             9*v**40-36*v**42+54*v**44-36*v**46+9*v**48,
-             2*v**60-9*v**64+44*v**66-9*v**68+2*v**72,
-             v**24-4*v**28-4*v**36+v**40,
-             3*v**40-12*v**42+27*v**44-12*v**46+3*v**48,
-             v**40-6*v**42+18*v**44-26*v**46+18*v**48-6*v**50+v**52,
-             -v**20+2*v**22-v**24,0,-2*v**34,0,0,0,3*v**44-6*v**46+3*v**48,
-             -v**20-v**26-v**32,-v**20-v**22-v**24,-v**20+2*v**24-v**28,
-             v**24-2*v**26+v**28],
-            [-24*v**64-60*v**72+64*v**74,-6*v**44+12*v**46-8*v**48,
-             -v**44+12*v**46-8*v**48+8*v**50-4*v**52,
-             2*v**66+14*v**72-18*v**74+2*v**78,0,-v**44-6*v**48+4*v**50-v**52,
-             2*v**46-4*v**48+4*v**50-v**52+2*v**54-v**56,-v**22+2*v**24-2*v**26,
-             0,-v**36-v**38,v**20,v**32,v**16,0,-v**22+2*v**28-v**34,
-             -v**22+2*v**24-v**26,-v**22+v**24+v**28-v**30,0],
-            [24*v**80+30*v**84+v**100,3*v**52-2*v**54+6*v**56,
-             v**52+4*v**56-4*v**58+3*v**60,-18*v**84+18*v**86-4*v**90,0,
-             -v**56+3*v**60,-2*v**56+2*v**60-2*v**62+v**64,-v**26-v**30,0,
-             v**42-v**44,-2*v**20,v**36,v**18,-2*v**60+v**64,3*v**32-v**38,
-             3*v**28-v**30,v**28-2*v**30+v**32-v**34,0],
-            [45*v**56-64*v**58+24*v**60+10*v**64+24*v**68-64*v**70+45*v**72,
-             24*v**40-34*v**42+24*v**44,
-             8*v**40-24*v**42+40*v**44-24*v**46+8*v**48,
-             3*v**60-27*v**64+40*v**66-27*v**68+3*v**72,0,
-             4*v**40-8*v**42+9*v**44-8*v**46+4*v**48,
-             v**40-4*v**42+9*v**44-14*v**46+9*v**48-4*v**50+v**52,-2*v**22,0,
-             v**30-2*v**34+v**38,2*v**16,-v**28,-v**14,v**44+2*v**46+v**48,
-             v**26,v**22,-2*v**24,0],
-            [20*v**68-64*v**74+20*v**80,9*v**44-18*v**46+12*v**48,
-             3*v**44-12*v**46+18*v**48-12*v**50+6*v**52,
-             18*v**70-36*v**72+36*v**74-2*v**78,-5*v**36,
-             -4*v**46+v**48-8*v**50+v**52,
-             -2*v**46+5*v**48-4*v**50+3*v**52-4*v**54+v**56,v**22-2*v**24,0,0,
-             0,0,0,4*v**50,-3*v**28+v**34,-3*v**24+v**26,
-             -v**24+2*v**26-v**28+v**30,v**28],
-            [30*v**56+30*v**72,3*v**40+3*v**44,v**40+4*v**44+v**48,
-             -2*v**60+18*v**64+18*v**68-2*v**72,
-             -v**24+4*v**28-6*v**32+4*v**36-v**40,v**40-4*v**44+v**48,
-             -v**44-v**48,v**20+v**24,0,0,0,0,0,-2*v**44-2*v**48,v**20+v**32,
-             v**20+v**24,v**20+v**28,-v**24+2*v**26-v**28],
-            [0,0,0,-18*v**74+30*v**76-18*v**78+6*v**82,4*v**32-6*v**36-v**44,
-             0,0,0,-v**20,v**38+v**40,0,0,0,0,0,0,0,v**30-v**32],
-            [-60*v**72+60*v**76+15*v**80,3*v**48-12*v**50+6*v**52,
-             v**48-4*v**50+14*v**52-8*v**54+3*v**56,
-             9*v**76-32*v**78+18*v**80-5*v**84,0,10*v**52-4*v**54+v**56,
-             3*v**52-8*v**54+7*v**56-2*v**58+v**60,v**24-2*v**26+v**28,0,
-             v**40-v**44,0,0,0,-4*v**54+3*v**56,-2*v**30+v**36,
-             -2*v**26+v**28,-v**26-v**30+v**32,0],
-            [20*v**52-10*v**64+20*v**76,9*v**40-24*v**42+9*v**44,
-             3*v**40-12*v**42+30*v**44-12*v**46+3*v**48,
-             -18*v**64+16*v**66-18*v**68,0,-8*v**42+6*v**44-8*v**46,
-             -2*v**42+9*v**44-12*v**46+9*v**48-2*v**50,v**20+v**24,0,0,0,0,0,
-             -2*v**46,-2*v**26,-2*v**22,-v**22-v**26,0],
-            [60*v**74-24*v**78+64*v**80-15*v**82-v**98,
-             -6*v**50+12*v**52-12*v**54,
-             -2*v**50+4*v**52-14*v**54+12*v**56-6*v**58,0,
-             -4*v**34+6*v**38-4*v**42+v**46,-8*v**54+4*v**56-4*v**58,
-             -v**54+6*v**56-9*v**58+4*v**60-2*v**62,0,0,0,0,0,0,
-             4*v**56-3*v**58-v**62,0,0,0,-2*v**32+v**34],
-            [-15*v**56-64*v**58+60*v**60-10*v**64+60*v**68-64*v**70-15*v**72,
-             18*v**40-48*v**42+18*v**44,
-             5*v**40-32*v**42+42*v**44-32*v**46+5*v**48,
-             4*v**60-36*v**64+64*v**66-36*v**68+4*v**72,
-             v**24+6*v**32+v**40,v**40-12*v**42+18*v**44-12*v**46+v**48,
-             -6*v**42+14*v**44-20*v**46+14*v**48-6*v**50,v**20-4*v**22+v**24,0,
-             0,0,0,0,v**44-2*v**46+v**48,v**20-2*v**26+v**32,
-             v**20-2*v**22+v**24,v**20-v**22-v**26+v**28,v**24+v**28],
-            [10*v**72+60*v**76-64*v**78+30*v**80+20*v**84-6*v**88,
-             11*v**48-36*v**50+21*v**52,
-             2*v**48-16*v**50+38*v**52-28*v**54+9*v**56,
-             -18*v**76+32*v**78-36*v**80+6*v**84,0,
-             -4*v**50+10*v**52-16*v**54+4*v**56,
-             6*v**52-16*v**54+16*v**56-8*v**58+2*v**60,2*v**26-v**28,0,0,-v**16,
-             -v**32,-v**16,2*v**54+2*v**56-2*v**58,2*v**30,2*v**26,v**26+v**30,0],
-            [100*v**72-60*v**76+64*v**78-20*v**84+6*v**88,
-             -9*v**48+36*v**50-18*v**52,-v**48+16*v**50-36*v**52+28*v**54-7*v**56,
-             -9*v**76+16*v**78+4*v**84,0,4*v**50-14*v**52+16*v**54-3*v**56,
-             -8*v**52+16*v**54-18*v**56+8*v**58-v**60,v**24-2*v**26+v**28,0,
-             v**40,0,0,0,4*v**54-4*v**56+2*v**58,-2*v**30+v**36,
-             -2*v**26+v**28,-v**26-v**30+v**32,0],
-            [30*v**56-64*v**58+24*v**60-70*v**64+24*v**68-64*v**70+30*v**72,
-             18*v**40-18*v**42+18*v**44,
-             7*v**40-16*v**42+18*v**44-16*v**46+7*v**48,
-             2*v**60-9*v**64+36*v**66-9*v**68+2*v**72,0,
-             3*v**40-4*v**42-v**44-4*v**46+3*v**48,
-             v**40-4*v**42+v**44-2*v**46+v**48-4*v**50+v**52,-v**20+2*v**22-v**24,
-             0,2*v**34,0,0,0,-2*v**44+2*v**46-2*v**48,-v**20+3*v**26-v**32,
-             -v**20+3*v**22-v**24,-v**20+v**22-2*v**24+v**26-v**28,0],
-            [64*v**62+10*v**68-24*v**72+64*v**74-45*v**76+6*v**84,
-             -18*v**44+36*v**46-24*v**48,
-             -5*v**44+20*v**46-36*v**48+32*v**50-8*v**52,
-             2*v**66+26*v**72-18*v**74+2*v**78,0,
-             -v**44+8*v**46-10*v**48+12*v**50-5*v**52,
-             2*v**46-7*v**48+12*v**50-16*v**52+8*v**54-v**56,
-             -v**22+2*v**24-2*v**26,0,v**36-v**38,0,0,0,
-             2*v**50-v**52+2*v**54,-v**22+2*v**28-v**34,-v**22+2*v**24-v**26,
-             -v**22+v**24+v**28-v**30,0],
-            [-15*v**56-90*v**64-15*v**72,3*v**40-18*v**42+3*v**44,
-             -8*v**42+22*v**44-8*v**46,
-             -3*v**60+27*v**64-24*v**66+27*v**68-3*v**72,
-             0,-4*v**42+7*v**44-4*v**46,5*v**44-14*v**46+5*v**48,2*v**22,0,
-             -v**30+2*v**34-v**38,0,0,0,v**44-2*v**46+v**48,3*v**26,3*v**22,
-             v**22-2*v**24+v**26,0],
-            [-20*v**70-24*v**74+64*v**76-30*v**78+6*v**86,
-             -12*v**46+20*v**48-18*v**50,
-             -4*v**46+12*v**48-18*v**50+20*v**52-8*v**54,0,-5*v**34,
-             4*v**48+8*v**52-4*v**54,
-             2*v**48+v**50+2*v**52-7*v**54+6*v**56-2*v**58,0,0,0,2*v**18,
-             -v**32,-v**16,-4*v**52+2*v**54+2*v**56,0,0,0,v**30],
-            [-30*v**56+64*v**58-24*v**60-100*v**64-24*v**68+64*v**70-30*v**72,
-             -18*v**40+16*v**42-18*v**44,
-             -7*v**40+16*v**42-14*v**44+16*v**46-7*v**48,
-             4*v**60-36*v**64+64*v**66-36*v**68+4*v**72,
-             -v**24+4*v**28-6*v**32+4*v**36-v**40,
-             -3*v**40+4*v**42+2*v**44+4*v**46-3*v**48,
-             -v**40+4*v**42-v**44-v**48+4*v**50-v**52,
-             v**20-4*v**22+v**24,0,0,-2*v**16,v**28,v**14,
-             2*v**44-4*v**46+2*v**48,v**20-2*v**26+v**32,v**20-2*v**22+v**24,
-             v**20-v**22-v**26+v**28,-v**24+2*v**26-v**28],
-            [81*v**68,0,0,18*v**74-42*v**76+18*v**78-6*v**82,
-             v**28-4*v**40+v**44,0,0,0,0,-v**38+v**40,0,0,0,-3*v**52,0,
-             0,0,v**28-v**30+v**32],
-            [15*v**56-64*v**58+84*v**60-70*v**64+84*v**68-64*v**70+15*v**72,
-             27*v**40-54*v**42+27*v**44,
-             9*v**40-36*v**42+54*v**44-36*v**46+9*v**48,
-             -v**60+9*v**64-40*v**66+9*v**68-v**72,6*v**32,
-             3*v**40-12*v**42+27*v**44-12*v**46+3*v**48,
-             v**40-6*v**42+18*v**44-26*v**46+18*v**48-6*v**50+v**52,
-             -v**20+2*v**22-v**24,0,-v**30+2*v**34-v**38,0,0,0,
-             3*v**44-6*v**46+3*v**48,-v**20-v**26-v**32,-v**20-v**22-v**24,
-             -v**20+2*v**24-v**28,0],
-            [-81*v**64,0,0,27*v**68-48*v**70+27*v**72-3*v**76,5*v**32,
-             0,0,0,0,-2*v**36+v**40,0,0,0,3*v**48,0,0,0,-v**28],
-            [-15*v**56+64*v**58-84*v**60+70*v**64-84*v**68+64*v**70-15*v**72,
-             -27*v**40+54*v**42-27*v**44,
-             -9*v**40+36*v**42-54*v**44+36*v**46-9*v**48,v**60+4*v**66+v**72,
-             v**24-4*v**28+6*v**32-4*v**36+v**40,
-             -3*v**40+12*v**42-27*v**44+12*v**46-3*v**48,
-             -v**40+6*v**42-18*v**44+26*v**46-18*v**48+6*v**50-v**52,
-             v**20-2*v**22+v**24,0,-v**30-v**38,0,0,0,
-             -3*v**44+6*v**46-3*v**48,v**20+v**26+v**32,v**20+v**22+v**24,
-             v**20-2*v**24+v**28,v**24-2*v**26+v**28],
-            [15*v**58+10*v**66-60*v**70+15*v**74-20*v**78,
-             -10*v**42+36*v**44-12*v**46,
-             -2*v**42+20*v**44-38*v**46+20*v**48-4*v**50,0,0,
-             8*v**44-12*v**46+12*v**48,
-             2*v**44-12*v**46+18*v**48-10*v**50+4*v**52,0,v**18,0,
-             -v**14,-v**28,-v**14,-v**46+2*v**48-v**50,0,0,0,0],
-            [60*v**65-10*v**69+84*v**73-64*v**75-6*v**85,
-             16*v**45-48*v**47+24*v**49,
-             4*v**45-24*v**47+44*v**49-40*v**51+8*v**53,0,
-             -v**27-6*v**35+4*v**39-v**43,-8*v**47+20*v**49-16*v**51+4*v**53,
-             -2*v**47+9*v**49-20*v**51+22*v**53-10*v**55+v**57,0,v**21,0,v**15,
-             v**30,v**15,-2*v**51+4*v**53-2*v**55,0,0,0,-v**27+v**29-v**31],
-            [-60*v**64+90*v**68-60*v**72,-6*v**44+30*v**46-9*v**48,
-             -v**44+12*v**46-32*v**48+20*v**50-2*v**52,
-             -18*v**70+44*v**72-36*v**74+2*v**78,0,
-             4*v**46-17*v**48+8*v**50-v**52,-8*v**48+20*v**50-13*v**52+4*v**54,
-             -v**22+2*v**24,0,0,0,0,0,2*v**50-4*v**52,-v**28-v**34,-v**24-v**26,
-             2*v**26-v**30,0],
-            [0,0,0,-3*v**64+9*v**68-48*v**70+36*v**72-3*v**76,0,0,0,
-             0,-v**20,v**32-v**36+v**40,0,0,0,0,0,0,0,0],
-            [-6*v**110+v**118,-2*v**72+3*v**74,-4*v**76+2*v**78,
-             -4*v**114,-4*v**54+v**58,-2*v**76+2*v**78,-4*v**80+v**82,0,
-             -v**30,-2*v**58,-2*v**26,-v**48,v**24,-2*v**80+v**82,-2*v**44,
-             2*v**38,-2*v**40+v**42,-v**44+v**46],
-            [-20*v**74+15*v**82-6*v**90,3*v**50-12*v**52+7*v**54,
-             -4*v**52+12*v**54-12*v**56+2*v**58,-4*v**78-8*v**84,
-             -4*v**34+6*v**38-4*v**42+v**46,-2*v**52+6*v**54-6*v**56+2*v**58,
-             -10*v**56+8*v**58-4*v**60,0,0,-2*v**40,v**22,-v**36,v**18,
-             -4*v**56+3*v**58-2*v**60,-2*v**28+2*v**34,2*v**26-2*v**28,
-             v**26-2*v**28+2*v**30-v**32,-2*v**32+v**34],
-            [-30*v**92-v**108,-v**60-3*v**64,-2*v**64-2*v**68,-8*v**96,
-             -6*v**44-v**52,2*v**64-2*v**68,v**68-v**72,0,0,0,-v**20,v**40,
-             -v**20,2*v**68-v**72,2*v**36,-2*v**32,-v**32-v**36,-v**40],
-            [-64*v**86+15*v**88+20*v**92-6*v**96+v**104,
-             3*v**56-12*v**58+11*v**60,-4*v**58+12*v**60-12*v**62+6*v**64,
-             -16*v**90,-5*v**40,4*v**60-8*v**62+4*v**64,
-             -8*v**62+6*v**64-6*v**66+2*v**68,0,v**24,0,-v**24,v**40,-v**20,
-             3*v**64-2*v**66+v**68,-2*v**34,2*v**30,v**30+v**34,v**36],
-            [15*v**56-64*v**58+70*v**64-64*v**70+15*v**72,
-             15*v**40-28*v**42+15*v**44,
-             4*v**40-20*v**42+28*v**44-20*v**46+4*v**48,-32*v**66,
-             v**24+v**40,2*v**40-8*v**42+12*v**44-8*v**46+2*v**48,
-             -4*v**42+9*v**44-16*v**46+9*v**48-4*v**50,0,0,0,2*v**16,v**28,
-             -v**14,3*v**44-2*v**46+3*v**48,2*v**26,-2*v**22,-v**22-v**26,
-             v**24+v**28],
-            [60*v**80-64*v**82-15*v**84-6*v**92,3*v**52-16*v**54+9*v**56,
-             -8*v**54+10*v**56-16*v**58+4*v**60,8*v**84,0,
-             6*v**56-8*v**58+2*v**60,v**56-4*v**58+8*v**60-6*v**62+v**64,0,
-             -v**24,0,2*v**20,v**36,-v**18,v**60-2*v**62,-2*v**32,2*v**28,
-             v**28+v**32,0],
-            [-10*v**74-24*v**78+64*v**80-45*v**82-v**98,-6*v**50-10*v**54,
-             -2*v**50+4*v**52+2*v**54+4*v**56-6*v**58,0,6*v**38-4*v**42,
-             4*v**54-4*v**58,-v**54-6*v**56+5*v**58+4*v**60-2*v**62,0,0,0,
-             -v**22,v**36,-v**18,-2*v**56+3*v**58-v**62,0,0,0,-v**32],
-            [-60*v**82-20*v**90+6*v**94,-2*v**54+18*v**56-9*v**58,
-             4*v**56-18*v**58+16*v**60-4*v**62,-8*v**90,-5*v**42,
-             -8*v**58+10*v**60-2*v**62,10*v**60-12*v**62+6*v**64-v**66,0,0,0,
-             v**18,-v**36,v**18,-4*v**62+2*v**64,2*v**36,-2*v**30,
-             2*v**32-v**34,v**34],
-            [-64*v**58+84*v**60+20*v**64+84*v**68-64*v**70,
-             21*v**40-36*v**42+21*v**44,
-             8*v**40-28*v**42+28*v**44-28*v**46+8*v**48,-32*v**66,
-             v**24-4*v**28+12*v**32-4*v**36+v**40,
-             2*v**40-8*v**42+12*v**44-8*v**46+2*v**48,
-             v**40-6*v**42+10*v**44-4*v**46+10*v**48-6*v**50+v**52,0,0,0,0,0,
-             0,4*v**46,2*v**26,-2*v**22,-v**22-v**26,v**24-2*v**26+v**28],
-            [-70*v**70+84*v**74-64*v**76+15*v**78+20*v**82-6*v**86,
-             15*v**46-42*v**48+24*v**50,
-             4*v**46-20*v**48+44*v**50-32*v**52+10*v**54,-8*v**72-12*v**78,
-             5*v**34,-6*v**48+18*v**50-16*v**52+4*v**54,
-             -2*v**48+8*v**50-22*v**52+19*v**54-8*v**56+2*v**58,0,0,2*v**40,0,0,
-             0,-6*v**52+3*v**54-2*v**56,2*v**26,-2*v**24,-v**24+2*v**26,-v**30],
-            [-90*v**74-24*v**78+64*v**80-45*v**82+6*v**90-v**98,
-             -9*v**50+18*v**52-18*v**54,
-             -2*v**50+8*v**52-18*v**54+20*v**56-8*v**58,
-             -8*v**78,-4*v**34+v**46,2*v**52-4*v**54+8*v**56-6*v**58,
-             -v**54+6*v**56-8*v**58+8*v**60-2*v**62,0,0,0,0,0,0,
-             -2*v**56-v**58+2*v**60-v**62,2*v**28,-2*v**26,-v**26+2*v**28,
-             -v**32+v**34],
-            [-15*v**56+60*v**60+60*v**68-15*v**72,9*v**40-36*v**42+9*v**44,
-             2*v**40-20*v**42+36*v**44-20*v**46+2*v**48,-16*v**66,
-             v**24-4*v**28-4*v**36+v**40,-8*v**42+16*v**44-8*v**46,
-             -2*v**42+13*v**44-16*v**46+13*v**48-2*v**50,0,0,0,0,0,0,
-             v**44+v**48,-2*v**26,2*v**22,v**22+v**26,v**24-2*v**26+v**28],
-            [-81*v**68,0,0,-24*v**76,-v**28+4*v**32-6*v**36+4*v**40-2*v**44,0,
-             0,0,-v**20,0,0,0,0,3*v**52,0,0,0,-v**28+2*v**30-2*v**32],
-            [90*v**70-60*v**74+15*v**78-20*v**82,-3*v**46+22*v**48-6*v**50,
-             8*v**48-26*v**50+12*v**52-2*v**54,-8*v**72+12*v**78,0,
-             2*v**48-10*v**50+8*v**52,-5*v**50+12*v**52-12*v**54+2*v**56,0,0,
-             2*v**40,-2*v**18,-v**32,v**16,2*v**52-v**54,2*v**26,-2*v**24,
-             -v**24+2*v**26,0],
-            [-80*v**74+24*v**78-64*v**80+30*v**82-6*v**90+v**98,
-             9*v**50-24*v**52+19*v**54,2*v**50-8*v**52+26*v**54-24*v**56+8*v**58,
-             -4*v**78+8*v**84,0,-2*v**52+6*v**54-10*v**56+6*v**58,
-             v**54-8*v**56+13*v**58-8*v**60+2*v**62,0,0,2*v**40,v**22,-v**36,
-             v**18,2*v**58-2*v**60+v**62,-2*v**28-2*v**34,2*v**26+2*v**28,
-             v**26-2*v**28-2*v**30+v**32,0],
-            [-15*v**58-24*v**62+10*v**66-60*v**70+64*v**72-15*v**74-20*v**78,
-             -18*v**42+42*v**44-21*v**46,
-             -4*v**42+28*v**44-46*v**46+24*v**48-8*v**50,-16*v**72,0,
-             -2*v**42+8*v**44-18*v**46+14*v**48-2*v**50,
-             4*v**44-14*v**46+24*v**48-14*v**50+4*v**52-v**54,0,v**18,0,0,0,
-             0,-3*v**46+2*v**48-3*v**50,-2*v**30,2*v**24,-2*v**26+v**28,0],
-            [-64*v**62+24*v**64-10*v**68+84*v**72-128*v**74+45*v**76-6*v**84,
-             24*v**44-48*v**46+32*v**48,
-             6*v**44-32*v**46+44*v**48-40*v**50+12*v**52,24*v**72,0,
-             2*v**44-8*v**46+16*v**48-16*v**50+6*v**52,
-             -4*v**46+11*v**48-16*v**50+17*v**52-10*v**54+2*v**56,0,0,0,-v**20,
-             v**32,-v**16,-2*v**50+v**52-2*v**54,0,0,0,0],
-            [30*v**56-64*v**58+84*v**60-90*v**64+84*v**68-64*v**70+30*v**72,
-             33*v**40-68*v**42+33*v**44,
-             10*v**40-44*v**42+72*v**44-44*v**46+10*v**48,-16*v**66,0,
-             4*v**40-16*v**42+24*v**44-16*v**46+4*v**48,
-             v**40-6*v**42+22*v**44-28*v**46+22*v**48-6*v**50+v**52,0,0,0,
-             -2*v**16,-v**28,v**14,2*v**44-2*v**46+2*v**48,-2*v**26,2*v**22,
-             v**22+v**26,0],
-            [-81*v**74,0,0,12*v**74,5*v**38,0,0,0,v**22,-2*v**38,
-             0,0,0,3*v**54,0,0,0,-v**30],
-            [60*v**64-70*v**68+60*v**72-64*v**74+20*v**80,
-             15*v**44-48*v**46+21*v**48,
-             4*v**44-24*v**46+50*v**48-32*v**50+8*v**52,
-             16*v**72,-5*v**36,-8*v**46+22*v**48-16*v**50+2*v**52,
-             -2*v**46+13*v**48-24*v**50+20*v**52-8*v**54+v**56,0,0,0,0,0,0,
-             -6*v**50+4*v**52,2*v**28,-2*v**24,-v**24-v**28,v**28],
-            [45*v**56-36*v**60+110*v**64-36*v**68+45*v**72,32*v**42,
-             2*v**40+16*v**42-28*v**44+16*v**46+2*v**48,0,-4*v**28-4*v**36,
-             2*v**40+8*v**42-20*v**44+8*v**46+2*v**48,
-             v**40+2*v**42-13*v**44+20*v**46-13*v**48+2*v**50+v**52,0,0,0,
-             2*v**16,v**28,-v**14,-3*v**44+6*v**46-3*v**48,0,0,0,-2*v**26],
-            [-60*v**65+10*v**69-84*v**73+64*v**75+6*v**85,
-             -16*v**45+48*v**47-24*v**49,
-             -4*v**45+24*v**47-44*v**49+40*v**51-8*v**53,0,
-             v**27+6*v**35-4*v**39+v**43,8*v**47-20*v**49+16*v**51-4*v**53,
-             2*v**47-9*v**49+20*v**51-22*v**53+10*v**55-v**57,0,-v**21,0,-v**15,
-             v**30,-v**15,2*v**51-4*v**53+2*v**55,0,0,0,v**27-v**29+v**31],
-            [64*v**60-24*v**62+40*v**66-24*v**70+64*v**72-45*v**74,
-             -21*v**42+30*v**44-24*v**46,
-             -8*v**42+20*v**44-32*v**46+24*v**48-10*v**50,-4*v**66,0,
-             -2*v**42+6*v**44-8*v**46+8*v**48-4*v**50,
-             -v**42+2*v**44-8*v**46+8*v**48-8*v**50+6*v**52-2*v**54,0,0,2*v**34,
-             0,0,0,-v**50,-2*v**24,2*v**22,v**22-2*v**24,0],
-            [81*v**70,0,0,-12*v**74,-v**26+4*v**30-6*v**34+8*v**38-v**42,0,0,0,
-             0,-2*v**38,0,0,0,-3*v**50,0,0,0,-v**26+3*v**28-v**30],
-            [-30*v**58-24*v**62+64*v**72-30*v**74,-8*v**42+6*v**44-9*v**46,
-             -2*v**42+8*v**44-8*v**46+4*v**48-4*v**50,16*v**72,0,
-             -2*v**42+2*v**46+2*v**48-2*v**50,2*v**44-2*v**46-2*v**48-v**54,0,0,
-             0,v**14,-v**28,v**14,2*v**46+2*v**50,2*v**30,-2*v**24,
-             2*v**26-v**28,0]]
+            [24 * v**68 + 24 * v**76 - 64 * v**78 + 45 * v**80 + v**96,
+             9 * v**48 - 12 * v**50 + 15 * v**52,2 * v**48 - 8 * v**50 + 14 * v**52 - 12 * v**54 + 7 * v**56,
+             v**72 - 9 * v**80 + v**84,0,v**48 + 4 * v**52 - 4 * v**54 + 5 * v**56,
+             2 * v**52 - 4 * v**54 + 4 * v**56 - 4 * v**58 + 2 * v**60,-2 * v**26 + v**28,0,
+             -v**36 + v**40 - v**44,0,0,0,v**56 + v**60,v**24 + v**36,v**24 + v**28,
+             v**24 + v**32,0],
+            [81 * v**80,0,0,9 * v**84 + 9 * v**88 - 3 * v**92,4 * v**36 + 4 * v**44 - v**48,
+             0,0,0,0,-2 * v**44 + v**48,0,0,0,-3 * v**60,0,0,0,2 * v**34 - v**36],
+            [15 * v**56 - 64 * v**58 + 84 * v**60 - 70 * v**64 + 84 * v**68 - 64 * v**70 + 15 * v**72,
+             27 * v**40 - 54 * v**42 + 27 * v**44,
+             9 * v**40 - 36 * v**42 + 54 * v**44 - 36 * v**46 + 9 * v**48,
+             2 * v**60 - 9 * v**64 + 44 * v**66 - 9 * v**68 + 2 * v**72,
+             v**24 - 4 * v**28 - 4 * v**36 + v**40,
+             3 * v**40 - 12 * v**42 + 27 * v**44 - 12 * v**46 + 3 * v**48,
+             v**40 - 6 * v**42 + 18 * v**44 - 26 * v**46 + 18 * v**48 - 6 * v**50 + v**52,
+             -v**20 + 2 * v**22 - v**24,0,-2 * v**34,0,0,0,3 * v**44 - 6 * v**46 + 3 * v**48,
+             -v**20 - v**26 - v**32,-v**20 - v**22 - v**24,-v**20 + 2 * v**24 - v**28,
+             v**24 - 2 * v**26 + v**28],
+            [-24 * v**64 - 60 * v**72 + 64 * v**74,-6 * v**44 + 12 * v**46 - 8 * v**48,
+             -v**44 + 12 * v**46 - 8 * v**48 + 8 * v**50 - 4 * v**52,
+             2 * v**66 + 14 * v**72 - 18 * v**74 + 2 * v**78,0,-v**44 - 6 * v**48 + 4 * v**50 - v**52,
+             2 * v**46 - 4 * v**48 + 4 * v**50 - v**52 + 2 * v**54 - v**56,-v**22 + 2 * v**24 - 2 * v**26,
+             0,-v**36 - v**38,v**20,v**32,v**16,0,-v**22 + 2 * v**28 - v**34,
+             -v**22 + 2 * v**24 - v**26,-v**22 + v**24 + v**28 - v**30,0],
+            [24 * v**80 + 30 * v**84 + v**100,3 * v**52 - 2 * v**54 + 6 * v**56,
+             v**52 + 4 * v**56 - 4 * v**58 + 3 * v**60,-18 * v**84 + 18 * v**86 - 4 * v**90,0,
+             -v**56 + 3 * v**60,-2 * v**56 + 2 * v**60 - 2 * v**62 + v**64,-v**26 - v**30,0,
+             v**42 - v**44,-2 * v**20,v**36,v**18,-2 * v**60 + v**64,3 * v**32 - v**38,
+             3 * v**28 - v**30,v**28 - 2 * v**30 + v**32 - v**34,0],
+            [45 * v**56 - 64 * v**58 + 24 * v**60 + 10 * v**64 + 24 * v**68 - 64 * v**70 + 45 * v**72,
+             24 * v**40 - 34 * v**42 + 24 * v**44,
+             8 * v**40 - 24 * v**42 + 40 * v**44 - 24 * v**46 + 8 * v**48,
+             3 * v**60 - 27 * v**64 + 40 * v**66 - 27 * v**68 + 3 * v**72,0,
+             4 * v**40 - 8 * v**42 + 9 * v**44 - 8 * v**46 + 4 * v**48,
+             v**40 - 4 * v**42 + 9 * v**44 - 14 * v**46 + 9 * v**48 - 4 * v**50 + v**52,-2 * v**22,0,
+             v**30 - 2 * v**34 + v**38,2 * v**16,-v**28,-v**14,v**44 + 2 * v**46 + v**48,
+             v**26,v**22,-2 * v**24,0],
+            [20 * v**68 - 64 * v**74 + 20 * v**80,9 * v**44 - 18 * v**46 + 12 * v**48,
+             3 * v**44 - 12 * v**46 + 18 * v**48 - 12 * v**50 + 6 * v**52,
+             18 * v**70 - 36 * v**72 + 36 * v**74 - 2 * v**78,-5 * v**36,
+             -4 * v**46 + v**48 - 8 * v**50 + v**52,
+             -2 * v**46 + 5 * v**48 - 4 * v**50 + 3 * v**52 - 4 * v**54 + v**56,v**22 - 2 * v**24,0,0,
+             0,0,0,4 * v**50,-3 * v**28 + v**34,-3 * v**24 + v**26,
+             -v**24 + 2 * v**26 - v**28 + v**30,v**28],
+            [30 * v**56 + 30 * v**72,3 * v**40 + 3 * v**44,v**40 + 4 * v**44 + v**48,
+             -2 * v**60 + 18 * v**64 + 18 * v**68 - 2 * v**72,
+             -v**24 + 4 * v**28 - 6 * v**32 + 4 * v**36 - v**40,v**40 - 4 * v**44 + v**48,
+             -v**44 - v**48,v**20 + v**24,0,0,0,0,0,-2 * v**44 - 2 * v**48,v**20 + v**32,
+             v**20 + v**24,v**20 + v**28,-v**24 + 2 * v**26 - v**28],
+            [0,0,0,-18 * v**74 + 30 * v**76 - 18 * v**78 + 6 * v**82,4 * v**32 - 6 * v**36 - v**44,
+             0,0,0,-v**20,v**38 + v**40,0,0,0,0,0,0,0,v**30 - v**32],
+            [-60 * v**72 + 60 * v**76 + 15 * v**80,3 * v**48 - 12 * v**50 + 6 * v**52,
+             v**48 - 4 * v**50 + 14 * v**52 - 8 * v**54 + 3 * v**56,
+             9 * v**76 - 32 * v**78 + 18 * v**80 - 5 * v**84,0,10 * v**52 - 4 * v**54 + v**56,
+             3 * v**52 - 8 * v**54 + 7 * v**56 - 2 * v**58 + v**60,v**24 - 2 * v**26 + v**28,0,
+             v**40 - v**44,0,0,0,-4 * v**54 + 3 * v**56,-2 * v**30 + v**36,
+             -2 * v**26 + v**28,-v**26 - v**30 + v**32,0],
+            [20 * v**52 - 10 * v**64 + 20 * v**76,9 * v**40 - 24 * v**42 + 9 * v**44,
+             3 * v**40 - 12 * v**42 + 30 * v**44 - 12 * v**46 + 3 * v**48,
+             -18 * v**64 + 16 * v**66 - 18 * v**68,0,-8 * v**42 + 6 * v**44 - 8 * v**46,
+             -2 * v**42 + 9 * v**44 - 12 * v**46 + 9 * v**48 - 2 * v**50,v**20 + v**24,0,0,0,0,0,
+             -2 * v**46,-2 * v**26,-2 * v**22,-v**22 - v**26,0],
+            [60 * v**74 - 24 * v**78 + 64 * v**80 - 15 * v**82 - v**98,
+             -6 * v**50 + 12 * v**52 - 12 * v**54,
+             -2 * v**50 + 4 * v**52 - 14 * v**54 + 12 * v**56 - 6 * v**58,0,
+             -4 * v**34 + 6 * v**38 - 4 * v**42 + v**46,-8 * v**54 + 4 * v**56 - 4 * v**58,
+             -v**54 + 6 * v**56 - 9 * v**58 + 4 * v**60 - 2 * v**62,0,0,0,0,0,0,
+             4 * v**56 - 3 * v**58 - v**62,0,0,0,-2 * v**32 + v**34],
+            [-15 * v**56 - 64 * v**58 + 60 * v**60 - 10 * v**64 + 60 * v**68 - 64 * v**70 - 15 * v**72,
+             18 * v**40 - 48 * v**42 + 18 * v**44,
+             5 * v**40 - 32 * v**42 + 42 * v**44 - 32 * v**46 + 5 * v**48,
+             4 * v**60 - 36 * v**64 + 64 * v**66 - 36 * v**68 + 4 * v**72,
+             v**24 + 6 * v**32 + v**40,v**40 - 12 * v**42 + 18 * v**44 - 12 * v**46 + v**48,
+             -6 * v**42 + 14 * v**44 - 20 * v**46 + 14 * v**48 - 6 * v**50,v**20 - 4 * v**22 + v**24,0,
+             0,0,0,0,v**44 - 2 * v**46 + v**48,v**20 - 2 * v**26 + v**32,
+             v**20 - 2 * v**22 + v**24,v**20 - v**22 - v**26 + v**28,v**24 + v**28],
+            [10 * v**72 + 60 * v**76 - 64 * v**78 + 30 * v**80 + 20 * v**84 - 6 * v**88,
+             11 * v**48 - 36 * v**50 + 21 * v**52,
+             2 * v**48 - 16 * v**50 + 38 * v**52 - 28 * v**54 + 9 * v**56,
+             -18 * v**76 + 32 * v**78 - 36 * v**80 + 6 * v**84,0,
+             -4 * v**50 + 10 * v**52 - 16 * v**54 + 4 * v**56,
+             6 * v**52 - 16 * v**54 + 16 * v**56 - 8 * v**58 + 2 * v**60,2 * v**26 - v**28,0,0,-v**16,
+             -v**32,-v**16,2 * v**54 + 2 * v**56 - 2 * v**58,2 * v**30,2 * v**26,v**26 + v**30,0],
+            [100 * v**72 - 60 * v**76 + 64 * v**78 - 20 * v**84 + 6 * v**88,
+             -9 * v**48 + 36 * v**50 - 18 * v**52,-v**48 + 16 * v**50 - 36 * v**52 + 28 * v**54 - 7 * v**56,
+             -9 * v**76 + 16 * v**78 + 4 * v**84,0,4 * v**50 - 14 * v**52 + 16 * v**54 - 3 * v**56,
+             -8 * v**52 + 16 * v**54 - 18 * v**56 + 8 * v**58 - v**60,v**24 - 2 * v**26 + v**28,0,
+             v**40,0,0,0,4 * v**54 - 4 * v**56 + 2 * v**58,-2 * v**30 + v**36,
+             -2 * v**26 + v**28,-v**26 - v**30 + v**32,0],
+            [30 * v**56 - 64 * v**58 + 24 * v**60 - 70 * v**64 + 24 * v**68 - 64 * v**70 + 30 * v**72,
+             18 * v**40 - 18 * v**42 + 18 * v**44,
+             7 * v**40 - 16 * v**42 + 18 * v**44 - 16 * v**46 + 7 * v**48,
+             2 * v**60 - 9 * v**64 + 36 * v**66 - 9 * v**68 + 2 * v**72,0,
+             3 * v**40 - 4 * v**42 - v**44 - 4 * v**46 + 3 * v**48,
+             v**40 - 4 * v**42 + v**44 - 2 * v**46 + v**48 - 4 * v**50 + v**52,-v**20 + 2 * v**22 - v**24,
+             0,2 * v**34,0,0,0,-2 * v**44 + 2 * v**46 - 2 * v**48,-v**20 + 3 * v**26 - v**32,
+             -v**20 + 3 * v**22 - v**24,-v**20 + v**22 - 2 * v**24 + v**26 - v**28,0],
+            [64 * v**62 + 10 * v**68 - 24 * v**72 + 64 * v**74 - 45 * v**76 + 6 * v**84,
+             -18 * v**44 + 36 * v**46 - 24 * v**48,
+             -5 * v**44 + 20 * v**46 - 36 * v**48 + 32 * v**50 - 8 * v**52,
+             2 * v**66 + 26 * v**72 - 18 * v**74 + 2 * v**78,0,
+             -v**44 + 8 * v**46 - 10 * v**48 + 12 * v**50 - 5 * v**52,
+             2 * v**46 - 7 * v**48 + 12 * v**50 - 16 * v**52 + 8 * v**54 - v**56,
+             -v**22 + 2 * v**24 - 2 * v**26,0,v**36 - v**38,0,0,0,
+             2 * v**50 - v**52 + 2 * v**54,-v**22 + 2 * v**28 - v**34,-v**22 + 2 * v**24 - v**26,
+             -v**22 + v**24 + v**28 - v**30,0],
+            [-15 * v**56 - 90 * v**64 - 15 * v**72,3 * v**40 - 18 * v**42 + 3 * v**44,
+             -8 * v**42 + 22 * v**44 - 8 * v**46,
+             -3 * v**60 + 27 * v**64 - 24 * v**66 + 27 * v**68 - 3 * v**72,
+             0,-4 * v**42 + 7 * v**44 - 4 * v**46,5 * v**44 - 14 * v**46 + 5 * v**48,2 * v**22,0,
+             -v**30 + 2 * v**34 - v**38,0,0,0,v**44 - 2 * v**46 + v**48,3 * v**26,3 * v**22,
+             v**22 - 2 * v**24 + v**26,0],
+            [-20 * v**70 - 24 * v**74 + 64 * v**76 - 30 * v**78 + 6 * v**86,
+             -12 * v**46 + 20 * v**48 - 18 * v**50,
+             -4 * v**46 + 12 * v**48 - 18 * v**50 + 20 * v**52 - 8 * v**54,0,-5 * v**34,
+             4 * v**48 + 8 * v**52 - 4 * v**54,
+             2 * v**48 + v**50 + 2 * v**52 - 7 * v**54 + 6 * v**56 - 2 * v**58,0,0,0,2 * v**18,
+             -v**32,-v**16,-4 * v**52 + 2 * v**54 + 2 * v**56,0,0,0,v**30],
+            [-30 * v**56 + 64 * v**58 - 24 * v**60 - 100 * v**64 - 24 * v**68 + 64 * v**70 - 30 * v**72,
+             -18 * v**40 + 16 * v**42 - 18 * v**44,
+             -7 * v**40 + 16 * v**42 - 14 * v**44 + 16 * v**46 - 7 * v**48,
+             4 * v**60 - 36 * v**64 + 64 * v**66 - 36 * v**68 + 4 * v**72,
+             -v**24 + 4 * v**28 - 6 * v**32 + 4 * v**36 - v**40,
+             -3 * v**40 + 4 * v**42 + 2 * v**44 + 4 * v**46 - 3 * v**48,
+             -v**40 + 4 * v**42 - v**44 - v**48 + 4 * v**50 - v**52,
+             v**20 - 4 * v**22 + v**24,0,0,-2 * v**16,v**28,v**14,
+             2 * v**44 - 4 * v**46 + 2 * v**48,v**20 - 2 * v**26 + v**32,v**20 - 2 * v**22 + v**24,
+             v**20 - v**22 - v**26 + v**28,-v**24 + 2 * v**26 - v**28],
+            [81 * v**68,0,0,18 * v**74 - 42 * v**76 + 18 * v**78 - 6 * v**82,
+             v**28 - 4 * v**40 + v**44,0,0,0,0,-v**38 + v**40,0,0,0,-3 * v**52,0,
+             0,0,v**28 - v**30 + v**32],
+            [15 * v**56 - 64 * v**58 + 84 * v**60 - 70 * v**64 + 84 * v**68 - 64 * v**70 + 15 * v**72,
+             27 * v**40 - 54 * v**42 + 27 * v**44,
+             9 * v**40 - 36 * v**42 + 54 * v**44 - 36 * v**46 + 9 * v**48,
+             -v**60 + 9 * v**64 - 40 * v**66 + 9 * v**68 - v**72,6 * v**32,
+             3 * v**40 - 12 * v**42 + 27 * v**44 - 12 * v**46 + 3 * v**48,
+             v**40 - 6 * v**42 + 18 * v**44 - 26 * v**46 + 18 * v**48 - 6 * v**50 + v**52,
+             -v**20 + 2 * v**22 - v**24,0,-v**30 + 2 * v**34 - v**38,0,0,0,
+             3 * v**44 - 6 * v**46 + 3 * v**48,-v**20 - v**26 - v**32,-v**20 - v**22 - v**24,
+             -v**20 + 2 * v**24 - v**28,0],
+            [-81 * v**64,0,0,27 * v**68 - 48 * v**70 + 27 * v**72 - 3 * v**76,5 * v**32,
+             0,0,0,0,-2 * v**36 + v**40,0,0,0,3 * v**48,0,0,0,-v**28],
+            [-15 * v**56 + 64 * v**58 - 84 * v**60 + 70 * v**64 - 84 * v**68 + 64 * v**70 - 15 * v**72,
+             -27 * v**40 + 54 * v**42 - 27 * v**44,
+             -9 * v**40 + 36 * v**42 - 54 * v**44 + 36 * v**46 - 9 * v**48,v**60 + 4 * v**66 + v**72,
+             v**24 - 4 * v**28 + 6 * v**32 - 4 * v**36 + v**40,
+             -3 * v**40 + 12 * v**42 - 27 * v**44 + 12 * v**46 - 3 * v**48,
+             -v**40 + 6 * v**42 - 18 * v**44 + 26 * v**46 - 18 * v**48 + 6 * v**50 - v**52,
+             v**20 - 2 * v**22 + v**24,0,-v**30 - v**38,0,0,0,
+             -3 * v**44 + 6 * v**46 - 3 * v**48,v**20 + v**26 + v**32,v**20 + v**22 + v**24,
+             v**20 - 2 * v**24 + v**28,v**24 - 2 * v**26 + v**28],
+            [15 * v**58 + 10 * v**66 - 60 * v**70 + 15 * v**74 - 20 * v**78,
+             -10 * v**42 + 36 * v**44 - 12 * v**46,
+             -2 * v**42 + 20 * v**44 - 38 * v**46 + 20 * v**48 - 4 * v**50,0,0,
+             8 * v**44 - 12 * v**46 + 12 * v**48,
+             2 * v**44 - 12 * v**46 + 18 * v**48 - 10 * v**50 + 4 * v**52,0,v**18,0,
+             -v**14,-v**28,-v**14,-v**46 + 2 * v**48 - v**50,0,0,0,0],
+            [60 * v**65 - 10 * v**69 + 84 * v**73 - 64 * v**75 - 6 * v**85,
+             16 * v**45 - 48 * v**47 + 24 * v**49,
+             4 * v**45 - 24 * v**47 + 44 * v**49 - 40 * v**51 + 8 * v**53,0,
+             -v**27 - 6 * v**35 + 4 * v**39 - v**43,-8 * v**47 + 20 * v**49 - 16 * v**51 + 4 * v**53,
+             -2 * v**47 + 9 * v**49 - 20 * v**51 + 22 * v**53 - 10 * v**55 + v**57,0,v**21,0,v**15,
+             v**30,v**15,-2 * v**51 + 4 * v**53 - 2 * v**55,0,0,0,-v**27 + v**29 - v**31],
+            [-60 * v**64 + 90 * v**68 - 60 * v**72,-6 * v**44 + 30 * v**46 - 9 * v**48,
+             -v**44 + 12 * v**46 - 32 * v**48 + 20 * v**50 - 2 * v**52,
+             -18 * v**70 + 44 * v**72 - 36 * v**74 + 2 * v**78,0,
+             4 * v**46 - 17 * v**48 + 8 * v**50 - v**52,-8 * v**48 + 20 * v**50 - 13 * v**52 + 4 * v**54,
+             -v**22 + 2 * v**24,0,0,0,0,0,2 * v**50 - 4 * v**52,-v**28 - v**34,-v**24 - v**26,
+             2 * v**26 - v**30,0],
+            [0,0,0,-3 * v**64 + 9 * v**68 - 48 * v**70 + 36 * v**72 - 3 * v**76,0,0,0,
+             0,-v**20,v**32 - v**36 + v**40,0,0,0,0,0,0,0,0],
+            [-6 * v**110 + v**118,-2 * v**72 + 3 * v**74,-4 * v**76 + 2 * v**78,
+             -4 * v**114,-4 * v**54 + v**58,-2 * v**76 + 2 * v**78,-4 * v**80 + v**82,0,
+             -v**30,-2 * v**58,-2 * v**26,-v**48,v**24,-2 * v**80 + v**82,-2 * v**44,
+             2 * v**38,-2 * v**40 + v**42,-v**44 + v**46],
+            [-20 * v**74 + 15 * v**82 - 6 * v**90,3 * v**50 - 12 * v**52 + 7 * v**54,
+             -4 * v**52 + 12 * v**54 - 12 * v**56 + 2 * v**58,-4 * v**78 - 8 * v**84,
+             -4 * v**34 + 6 * v**38 - 4 * v**42 + v**46,-2 * v**52 + 6 * v**54 - 6 * v**56 + 2 * v**58,
+             -10 * v**56 + 8 * v**58 - 4 * v**60,0,0,-2 * v**40,v**22,-v**36,v**18,
+             -4 * v**56 + 3 * v**58 - 2 * v**60,-2 * v**28 + 2 * v**34,2 * v**26 - 2 * v**28,
+             v**26 - 2 * v**28 + 2 * v**30 - v**32,-2 * v**32 + v**34],
+            [-30 * v**92 - v**108,-v**60 - 3 * v**64,-2 * v**64 - 2 * v**68,-8 * v**96,
+             -6 * v**44 - v**52,2 * v**64 - 2 * v**68,v**68 - v**72,0,0,0,-v**20,v**40,
+             -v**20,2 * v**68 - v**72,2 * v**36,-2 * v**32,-v**32 - v**36,-v**40],
+            [-64 * v**86 + 15 * v**88 + 20 * v**92 - 6 * v**96 + v**104,
+             3 * v**56 - 12 * v**58 + 11 * v**60,-4 * v**58 + 12 * v**60 - 12 * v**62 + 6 * v**64,
+             -16 * v**90,-5 * v**40,4 * v**60 - 8 * v**62 + 4 * v**64,
+             -8 * v**62 + 6 * v**64 - 6 * v**66 + 2 * v**68,0,v**24,0,-v**24,v**40,-v**20,
+             3 * v**64 - 2 * v**66 + v**68,-2 * v**34,2 * v**30,v**30 + v**34,v**36],
+            [15 * v**56 - 64 * v**58 + 70 * v**64 - 64 * v**70 + 15 * v**72,
+             15 * v**40 - 28 * v**42 + 15 * v**44,
+             4 * v**40 - 20 * v**42 + 28 * v**44 - 20 * v**46 + 4 * v**48,-32 * v**66,
+             v**24 + v**40,2 * v**40 - 8 * v**42 + 12 * v**44 - 8 * v**46 + 2 * v**48,
+             -4 * v**42 + 9 * v**44 - 16 * v**46 + 9 * v**48 - 4 * v**50,0,0,0,2 * v**16,v**28,
+             -v**14,3 * v**44 - 2 * v**46 + 3 * v**48,2 * v**26,-2 * v**22,-v**22 - v**26,
+             v**24 + v**28],
+            [60 * v**80 - 64 * v**82 - 15 * v**84 - 6 * v**92,3 * v**52 - 16 * v**54 + 9 * v**56,
+             -8 * v**54 + 10 * v**56 - 16 * v**58 + 4 * v**60,8 * v**84,0,
+             6 * v**56 - 8 * v**58 + 2 * v**60,v**56 - 4 * v**58 + 8 * v**60 - 6 * v**62 + v**64,0,
+             -v**24,0,2 * v**20,v**36,-v**18,v**60 - 2 * v**62,-2 * v**32,2 * v**28,
+             v**28 + v**32,0],
+            [-10 * v**74 - 24 * v**78 + 64 * v**80 - 45 * v**82 - v**98,-6 * v**50 - 10 * v**54,
+             -2 * v**50 + 4 * v**52 + 2 * v**54 + 4 * v**56 - 6 * v**58,0,6 * v**38 - 4 * v**42,
+             4 * v**54 - 4 * v**58,-v**54 - 6 * v**56 + 5 * v**58 + 4 * v**60 - 2 * v**62,0,0,0,
+             -v**22,v**36,-v**18,-2 * v**56 + 3 * v**58 - v**62,0,0,0,-v**32],
+            [-60 * v**82 - 20 * v**90 + 6 * v**94,-2 * v**54 + 18 * v**56 - 9 * v**58,
+             4 * v**56 - 18 * v**58 + 16 * v**60 - 4 * v**62,-8 * v**90,-5 * v**42,
+             -8 * v**58 + 10 * v**60 - 2 * v**62,10 * v**60 - 12 * v**62 + 6 * v**64 - v**66,0,0,0,
+             v**18,-v**36,v**18,-4 * v**62 + 2 * v**64,2 * v**36,-2 * v**30,
+             2 * v**32 - v**34,v**34],
+            [-64 * v**58 + 84 * v**60 + 20 * v**64 + 84 * v**68 - 64 * v**70,
+             21 * v**40 - 36 * v**42 + 21 * v**44,
+             8 * v**40 - 28 * v**42 + 28 * v**44 - 28 * v**46 + 8 * v**48,-32 * v**66,
+             v**24 - 4 * v**28 + 12 * v**32 - 4 * v**36 + v**40,
+             2 * v**40 - 8 * v**42 + 12 * v**44 - 8 * v**46 + 2 * v**48,
+             v**40 - 6 * v**42 + 10 * v**44 - 4 * v**46 + 10 * v**48 - 6 * v**50 + v**52,0,0,0,0,0,
+             0,4 * v**46,2 * v**26,-2 * v**22,-v**22 - v**26,v**24 - 2 * v**26 + v**28],
+            [-70 * v**70 + 84 * v**74 - 64 * v**76 + 15 * v**78 + 20 * v**82 - 6 * v**86,
+             15 * v**46 - 42 * v**48 + 24 * v**50,
+             4 * v**46 - 20 * v**48 + 44 * v**50 - 32 * v**52 + 10 * v**54,-8 * v**72 - 12 * v**78,
+             5 * v**34,-6 * v**48 + 18 * v**50 - 16 * v**52 + 4 * v**54,
+             -2 * v**48 + 8 * v**50 - 22 * v**52 + 19 * v**54 - 8 * v**56 + 2 * v**58,0,0,2 * v**40,0,0,
+             0,-6 * v**52 + 3 * v**54 - 2 * v**56,2 * v**26,-2 * v**24,-v**24 + 2 * v**26,-v**30],
+            [-90 * v**74 - 24 * v**78 + 64 * v**80 - 45 * v**82 + 6 * v**90 - v**98,
+             -9 * v**50 + 18 * v**52 - 18 * v**54,
+             -2 * v**50 + 8 * v**52 - 18 * v**54 + 20 * v**56 - 8 * v**58,
+             -8 * v**78,-4 * v**34 + v**46,2 * v**52 - 4 * v**54 + 8 * v**56 - 6 * v**58,
+             -v**54 + 6 * v**56 - 8 * v**58 + 8 * v**60 - 2 * v**62,0,0,0,0,0,0,
+             -2 * v**56 - v**58 + 2 * v**60 - v**62,2 * v**28,-2 * v**26,-v**26 + 2 * v**28,
+             -v**32 + v**34],
+            [-15 * v**56 + 60 * v**60 + 60 * v**68 - 15 * v**72,9 * v**40 - 36 * v**42 + 9 * v**44,
+             2 * v**40 - 20 * v**42 + 36 * v**44 - 20 * v**46 + 2 * v**48,-16 * v**66,
+             v**24 - 4 * v**28 - 4 * v**36 + v**40,-8 * v**42 + 16 * v**44 - 8 * v**46,
+             -2 * v**42 + 13 * v**44 - 16 * v**46 + 13 * v**48 - 2 * v**50,0,0,0,0,0,0,
+             v**44 + v**48,-2 * v**26,2 * v**22,v**22 + v**26,v**24 - 2 * v**26 + v**28],
+            [-81 * v**68,0,0,-24 * v**76,-v**28 + 4 * v**32 - 6 * v**36 + 4 * v**40 - 2 * v**44,0,
+             0,0,-v**20,0,0,0,0,3 * v**52,0,0,0,-v**28 + 2 * v**30 - 2 * v**32],
+            [90 * v**70 - 60 * v**74 + 15 * v**78 - 20 * v**82,-3 * v**46 + 22 * v**48 - 6 * v**50,
+             8 * v**48 - 26 * v**50 + 12 * v**52 - 2 * v**54,-8 * v**72 + 12 * v**78,0,
+             2 * v**48 - 10 * v**50 + 8 * v**52,-5 * v**50 + 12 * v**52 - 12 * v**54 + 2 * v**56,0,0,
+             2 * v**40,-2 * v**18,-v**32,v**16,2 * v**52 - v**54,2 * v**26,-2 * v**24,
+             -v**24 + 2 * v**26,0],
+            [-80 * v**74 + 24 * v**78 - 64 * v**80 + 30 * v**82 - 6 * v**90 + v**98,
+             9 * v**50 - 24 * v**52 + 19 * v**54,2 * v**50 - 8 * v**52 + 26 * v**54 - 24 * v**56 + 8 * v**58,
+             -4 * v**78 + 8 * v**84,0,-2 * v**52 + 6 * v**54 - 10 * v**56 + 6 * v**58,
+             v**54 - 8 * v**56 + 13 * v**58 - 8 * v**60 + 2 * v**62,0,0,2 * v**40,v**22,-v**36,
+             v**18,2 * v**58 - 2 * v**60 + v**62,-2 * v**28 - 2 * v**34,2 * v**26 + 2 * v**28,
+             v**26 - 2 * v**28 - 2 * v**30 + v**32,0],
+            [-15 * v**58 - 24 * v**62 + 10 * v**66 - 60 * v**70 + 64 * v**72 - 15 * v**74 - 20 * v**78,
+             -18 * v**42 + 42 * v**44 - 21 * v**46,
+             -4 * v**42 + 28 * v**44 - 46 * v**46 + 24 * v**48 - 8 * v**50,-16 * v**72,0,
+             -2 * v**42 + 8 * v**44 - 18 * v**46 + 14 * v**48 - 2 * v**50,
+             4 * v**44 - 14 * v**46 + 24 * v**48 - 14 * v**50 + 4 * v**52 - v**54,0,v**18,0,0,0,
+             0,-3 * v**46 + 2 * v**48 - 3 * v**50,-2 * v**30,2 * v**24,-2 * v**26 + v**28,0],
+            [-64 * v**62 + 24 * v**64 - 10 * v**68 + 84 * v**72 - 128 * v**74 + 45 * v**76 - 6 * v**84,
+             24 * v**44 - 48 * v**46 + 32 * v**48,
+             6 * v**44 - 32 * v**46 + 44 * v**48 - 40 * v**50 + 12 * v**52,24 * v**72,0,
+             2 * v**44 - 8 * v**46 + 16 * v**48 - 16 * v**50 + 6 * v**52,
+             -4 * v**46 + 11 * v**48 - 16 * v**50 + 17 * v**52 - 10 * v**54 + 2 * v**56,0,0,0,-v**20,
+             v**32,-v**16,-2 * v**50 + v**52 - 2 * v**54,0,0,0,0],
+            [30 * v**56 - 64 * v**58 + 84 * v**60 - 90 * v**64 + 84 * v**68 - 64 * v**70 + 30 * v**72,
+             33 * v**40 - 68 * v**42 + 33 * v**44,
+             10 * v**40 - 44 * v**42 + 72 * v**44 - 44 * v**46 + 10 * v**48,-16 * v**66,0,
+             4 * v**40 - 16 * v**42 + 24 * v**44 - 16 * v**46 + 4 * v**48,
+             v**40 - 6 * v**42 + 22 * v**44 - 28 * v**46 + 22 * v**48 - 6 * v**50 + v**52,0,0,0,
+             -2 * v**16,-v**28,v**14,2 * v**44 - 2 * v**46 + 2 * v**48,-2 * v**26,2 * v**22,
+             v**22 + v**26,0],
+            [-81 * v**74,0,0,12 * v**74,5 * v**38,0,0,0,v**22,-2 * v**38,
+             0,0,0,3 * v**54,0,0,0,-v**30],
+            [60 * v**64 - 70 * v**68 + 60 * v**72 - 64 * v**74 + 20 * v**80,
+             15 * v**44 - 48 * v**46 + 21 * v**48,
+             4 * v**44 - 24 * v**46 + 50 * v**48 - 32 * v**50 + 8 * v**52,
+             16 * v**72,-5 * v**36,-8 * v**46 + 22 * v**48 - 16 * v**50 + 2 * v**52,
+             -2 * v**46 + 13 * v**48 - 24 * v**50 + 20 * v**52 - 8 * v**54 + v**56,0,0,0,0,0,0,
+             -6 * v**50 + 4 * v**52,2 * v**28,-2 * v**24,-v**24 - v**28,v**28],
+            [45 * v**56 - 36 * v**60 + 110 * v**64 - 36 * v**68 + 45 * v**72,32 * v**42,
+             2 * v**40 + 16 * v**42 - 28 * v**44 + 16 * v**46 + 2 * v**48,0,-4 * v**28 - 4 * v**36,
+             2 * v**40 + 8 * v**42 - 20 * v**44 + 8 * v**46 + 2 * v**48,
+             v**40 + 2 * v**42 - 13 * v**44 + 20 * v**46 - 13 * v**48 + 2 * v**50 + v**52,0,0,0,
+             2 * v**16,v**28,-v**14,-3 * v**44 + 6 * v**46 - 3 * v**48,0,0,0,-2 * v**26],
+            [-60 * v**65 + 10 * v**69 - 84 * v**73 + 64 * v**75 + 6 * v**85,
+             -16 * v**45 + 48 * v**47 - 24 * v**49,
+             -4 * v**45 + 24 * v**47 - 44 * v**49 + 40 * v**51 - 8 * v**53,0,
+             v**27 + 6 * v**35 - 4 * v**39 + v**43,8 * v**47 - 20 * v**49 + 16 * v**51 - 4 * v**53,
+             2 * v**47 - 9 * v**49 + 20 * v**51 - 22 * v**53 + 10 * v**55 - v**57,0,-v**21,0,-v**15,
+             v**30,-v**15,2 * v**51 - 4 * v**53 + 2 * v**55,0,0,0,v**27 - v**29 + v**31],
+            [64 * v**60 - 24 * v**62 + 40 * v**66 - 24 * v**70 + 64 * v**72 - 45 * v**74,
+             -21 * v**42 + 30 * v**44 - 24 * v**46,
+             -8 * v**42 + 20 * v**44 - 32 * v**46 + 24 * v**48 - 10 * v**50,-4 * v**66,0,
+             -2 * v**42 + 6 * v**44 - 8 * v**46 + 8 * v**48 - 4 * v**50,
+             -v**42 + 2 * v**44 - 8 * v**46 + 8 * v**48 - 8 * v**50 + 6 * v**52 - 2 * v**54,0,0,2 * v**34,
+             0,0,0,-v**50,-2 * v**24,2 * v**22,v**22 - 2 * v**24,0],
+            [81 * v**70,0,0,-12 * v**74,-v**26 + 4 * v**30 - 6 * v**34 + 8 * v**38 - v**42,0,0,0,
+             0,-2 * v**38,0,0,0,-3 * v**50,0,0,0,-v**26 + 3 * v**28 - v**30],
+            [-30 * v**58 - 24 * v**62 + 64 * v**72 - 30 * v**74,-8 * v**42 + 6 * v**44 - 9 * v**46,
+             -2 * v**42 + 8 * v**44 - 8 * v**46 + 4 * v**48 - 4 * v**50,16 * v**72,0,
+             -2 * v**42 + 2 * v**46 + 2 * v**48 - 2 * v**50,2 * v**44 - 2 * v**46 - 2 * v**48 - v**54,0,0,
+             0,v**14,-v**28,v**14,2 * v**46 + 2 * v**50,2 * v**30,-2 * v**24,
+             2 * v**26 - v**28,0]]
     if typ[0] == 'H' and n == 3:
         v = paramL[0]
         ir5 = ir(5)
-        cc = [i-1 for i in [6,8,9,10]]
-        ch = [i-1 for i in [1,3,5,6,9]]
-        t1 = [[-1,-1,-1,-1],[0,v**4,0,-5*v**12],[(1-ir5)*v**2,0,ir5*v**6,3*v**10],
-            [ir5*v**2,0,(1-ir5)*v**6,3*v**10],[v**3,-v**5,v**9,-4*v**15]]
+        cc = [i - 1 for i in [6,8,9,10]]
+        ch = [i - 1 for i in [1,3,5,6,9]]
+        t1 = [[-1,-1,-1,-1],[0,v**4,0,-5 * v**12],[(1 - ir5) * v**2,0,ir5 * v**6,3 * v**10],
+            [ir5 * v**2,0,(1 - ir5) * v**6,3 * v**10],[v**3,-v**5,v**9,-4 * v**15]]
     if typ[0] == 'H' and n == 4:
         v = paramL[0]
         ir5 = ir(5)
-        cc = [i-1 for i in [19,21,25,27,31]]
-        ch = [i-1 for i in [1,3,5,7,8,9,10,11,13,15,16,17,18,20,22,23,
+        cc = [i - 1 for i in [19,21,25,27,31]]
+        ch = [i - 1 for i in [1,3,5,7,8,9,10,11,13,15,16,17,18,20,22,23,
                           24,25,26,27,29,30,31,33,34]]
         t1 = [[v**28,v**32,v**44,v**52,v**76],
-            [(1-ir5)*v**20+ir5*v**22,-2*v**22+ir5*v**26,-2*v**32+v**34,
-             -ir5*v**38+(ir5-1)*v**40,-2*v**56+(1-ir5)*v**58],
-            [ir5*v**20+(1-ir5)*v**22,-2*v**22+(1-ir5)*v**26,-2*v**32+v**34,
-             (ir5-1)*v**38-ir5*v**40,-2*v**56+ir5*v**58],
-            [v**12-v**14+v**16,v**12+(-2*ir5)*v**16+v**20,v**20-2*v**22+v**24,
-             v**24-v**26+v**28,v**36+(-2+2*ir5)*v**38+v**40],
-            [v**12-v**14+v**16,v**12+(-2+2*ir5)*v**16+v**20,v**20-2*v**22+v**24,
-             v**24-v**26+v**28,v**36+(-2*ir5)*v**38+v**40],
-            [-2*v**14,-2*v**16,2*v**20-2*v**22+2*v**24,-2*v**26,-2*v**38],
-            [-3*v**14,2*v**16,v**20-4*v**22+v**24,3*v**26,2*v**38],
-            [(-1-ir5)*v**18+ir5*v**20,(2-2*ir5)*v**20+ir5*v**24,0,
-             (-2+ir5)*v**34+(1-ir5)*v**36,(+2*ir5)*v**50+(1-ir5)*v**52],
-            [(-2+ir5)*v**18+(1-ir5)*v**20,(+2*ir5)*v**20+(1-ir5)*v**24,0,
-             (-1-ir5)*v**34+ir5*v**36,(2-2*ir5)*v**50+ir5*v**52],
-            [v**12-2*v**14+v**16,v**12-2*v**16+v**20,v**20-4*v**22+v**24,
-             v**24-2*v**26+v**28,v**36-2*v**38+v**40],
-            [ir5*v**12+(-1-2*ir5)*v**14+ir5*v**16,ir5*v**12-2*v**16+ir5*v**20,
-             v**20+v**24,(ir5-1)*v**24+(3-2*ir5)*v**26+(ir5-1)*v**28,
-             (1-ir5)*v**36-2*v**38+(1-ir5)*v**40],
-            [(1-ir5)*v**12+(-3+2*ir5)*v**14+(1-ir5)*v**16,
-             (1-ir5)*v**12-2*v**16+(1-ir5)*v**20,v**20+v**24,
-             -ir5*v**24+(1+2*ir5)*v**26-ir5*v**28,ir5*v**36-2*v**38+ir5*v**40],
-            [-2*v**17+v**19,-2*v**19+v**23,-v**25+2*v**27-2*v**29,2*v**32-v**34,
-             -2*v**47+v**49],
-            [2*v**17-v**19,2*v**19-v**23,v**25-2*v**27+2*v**29,2*v**32-v**34,
-             2*v**47-v**49],
-            [v**12+v**14+v**16,v**12-4*v**16+v**20,0,v**24+v**26+v**28,
-             v**36-4*v**38+v**40],
-            [ir5*v**12+(1-2*ir5)*v**14+ir5*v**16,
-             ir5*v**12+(2-4*ir5)*v**16+ir5*v**20,2*v**20-4*v**22+2*v**24,
-             (ir5-1)*v**24+(1-2*ir5)*v**26+(ir5-1)*v**28,
-             (1-ir5)*v**36+(-2+4*ir5)*v**38+(1-ir5)*v**40],
-            [(1-ir5)*v**12+(-1+2*ir5)*v**14+(1-ir5)*v**16,
-             (1-ir5)*v**12+(-2+4*ir5)*v**16+(1-ir5)*v**20,
-             2*v**20-4*v**22+2*v**24,-ir5*v**24+(-1+2*ir5)*v**26-ir5*v**28,
-             ir5*v**36+(2-4*ir5)*v**38+ir5*v**40],
-            [(ir5-1)*v**12+(1-2*ir5)*v**14+(ir5-1)*v**16,
-             (ir5-1)*v**12+(ir5-1)*v**20,v**20-2*v**22+v**24,
-             -ir5*v**24+(-1+2*ir5)*v**26-ir5*v**28,-ir5*v**36-ir5*v**40],
-            [-ir5*v**12+(-1+2*ir5)*v**14-ir5*v**16,-ir5*v**12-ir5*v**20,
-             v**20-2*v**22+v**24,(ir5-1)*v**24+(1-2*ir5)*v**26+(ir5-1)*v**28,
-             (ir5-1)*v**36+(ir5-1)*v**40],
-            [0,0,-v**24+4*v**26-2*v**28,0,0],
-            [ir5*v**12+(-2*ir5)*v**14+ir5*v**16,
-             ir5*v**12+(-2*ir5)*v**16+ir5*v**20,-v**20+2*v**22-v**24,
-             (1-ir5)*v**24+(-2+2*ir5)*v**26+(1-ir5)*v**28,
-             (1-ir5)*v**36+(-2+2*ir5)*v**38+(1-ir5)*v**40],
-            [(1-ir5)*v**12+(-2+2*ir5)*v**14+(1-ir5)*v**16,
-             (1-ir5)*v**12+(-2+2*ir5)*v**16+(1-ir5)*v**20,-v**20+2*v**22-v**24,
-             ir5*v**24+(-2*ir5)*v**26+ir5*v**28,
-             ir5*v**36+(-2*ir5)*v**38+ir5*v**40],
-            [-v**14+2*v**16-2*v**18,-v**14+2*v**18-2*v**22,0,
-             v**28-2*v**30+2*v**32,-v**42+2*v**44-2*v**46],
-            [-v**12+2*v**14-v**16,-v**12+2*v**16-v**20,-2*v**22,
-             -v**24+2*v**26-v**28,-v**36+2*v**38-v**40],
-            [v**12+v**16, v**12+v**20,-2*v**20+4*v**22-2*v**24,-v**24-v**28,
-             v**36+v**40]]
+            [(1 - ir5) * v**20 + ir5 * v**22,-2 * v**22 + ir5 * v**26,-2 * v**32 + v**34,
+             -ir5 * v**38 + (ir5 - 1) * v**40,-2 * v**56 + (1 - ir5) * v**58],
+            [ir5 * v**20 + (1 - ir5) * v**22,-2 * v**22 + (1 - ir5) * v**26,-2 * v**32 + v**34,
+             (ir5 - 1) * v**38 - ir5 * v**40,-2 * v**56 + ir5 * v**58],
+            [v**12 - v**14 + v**16,v**12 + (-2 * ir5) * v**16 + v**20,v**20 - 2 * v**22 + v**24,
+             v**24 - v**26 + v**28,v**36 + (-2 + 2 * ir5) * v**38 + v**40],
+            [v**12 - v**14 + v**16,v**12 + (-2 + 2 * ir5) * v**16 + v**20,v**20 - 2 * v**22 + v**24,
+             v**24 - v**26 + v**28,v**36 + (-2 * ir5) * v**38 + v**40],
+            [-2 * v**14,-2 * v**16,2 * v**20 - 2 * v**22 + 2 * v**24,-2 * v**26,-2 * v**38],
+            [-3 * v**14,2 * v**16,v**20 - 4 * v**22 + v**24,3 * v**26,2 * v**38],
+            [(-1 - ir5) * v**18 + ir5 * v**20,(2 - 2 * ir5) * v**20 + ir5 * v**24,0,
+             (-2 + ir5) * v**34 + (1 - ir5) * v**36,(+2 * ir5) * v**50 + (1 - ir5) * v**52],
+            [(-2 + ir5) * v**18 + (1 - ir5) * v**20,(+2 * ir5) * v**20 + (1 - ir5) * v**24,0,
+             (-1 - ir5) * v**34 + ir5 * v**36,(2 - 2 * ir5) * v**50 + ir5 * v**52],
+            [v**12 - 2 * v**14 + v**16,v**12 - 2 * v**16 + v**20,v**20 - 4 * v**22 + v**24,
+             v**24 - 2 * v**26 + v**28,v**36 - 2 * v**38 + v**40],
+            [ir5 * v**12 + (-1 - 2 * ir5) * v**14 + ir5 * v**16,ir5 * v**12 - 2 * v**16 + ir5 * v**20,
+             v**20 + v**24,(ir5 - 1) * v**24 + (3 - 2 * ir5) * v**26 + (ir5 - 1) * v**28,
+             (1 - ir5) * v**36 - 2 * v**38 + (1 - ir5) * v**40],
+            [(1 - ir5) * v**12 + (-3 + 2 * ir5) * v**14 + (1 - ir5) * v**16,
+             (1 - ir5) * v**12 - 2 * v**16 + (1 - ir5) * v**20,v**20 + v**24,
+             -ir5 * v**24 + (1 + 2 * ir5) * v**26 - ir5 * v**28,ir5 * v**36 - 2 * v**38 + ir5 * v**40],
+            [-2 * v**17 + v**19,-2 * v**19 + v**23,-v**25 + 2 * v**27 - 2 * v**29,2 * v**32 - v**34,
+             -2 * v**47 + v**49],
+            [2 * v**17 - v**19,2 * v**19 - v**23,v**25 - 2 * v**27 + 2 * v**29,2 * v**32 - v**34,
+             2 * v**47 - v**49],
+            [v**12 + v**14 + v**16,v**12 - 4 * v**16 + v**20,0,v**24 + v**26 + v**28,
+             v**36 - 4 * v**38 + v**40],
+            [ir5 * v**12 + (1 - 2 * ir5) * v**14 + ir5 * v**16,
+             ir5 * v**12 + (2 - 4 * ir5) * v**16 + ir5 * v**20,2 * v**20 - 4 * v**22 + 2 * v**24,
+             (ir5 - 1) * v**24 + (1 - 2 * ir5) * v**26 + (ir5 - 1) * v**28,
+             (1 - ir5) * v**36 + (-2 + 4 * ir5) * v**38 + (1 - ir5) * v**40],
+            [(1 - ir5) * v**12 + (-1 + 2 * ir5) * v**14 + (1 - ir5) * v**16,
+             (1 - ir5) * v**12 + (-2 + 4 * ir5) * v**16 + (1 - ir5) * v**20,
+             2 * v**20 - 4 * v**22 + 2 * v**24,-ir5 * v**24 + (-1 + 2 * ir5) * v**26 - ir5 * v**28,
+             ir5 * v**36 + (2 - 4 * ir5) * v**38 + ir5 * v**40],
+            [(ir5 - 1) * v**12 + (1 - 2 * ir5) * v**14 + (ir5 - 1) * v**16,
+             (ir5 - 1) * v**12 + (ir5 - 1) * v**20,v**20 - 2 * v**22 + v**24,
+             -ir5 * v**24 + (-1 + 2 * ir5) * v**26 - ir5 * v**28,-ir5 * v**36 - ir5 * v**40],
+            [-ir5 * v**12 + (-1 + 2 * ir5) * v**14 - ir5 * v**16,-ir5 * v**12 - ir5 * v**20,
+             v**20 - 2 * v**22 + v**24,(ir5 - 1) * v**24 + (1 - 2 * ir5) * v**26 + (ir5 - 1) * v**28,
+             (ir5 - 1) * v**36 + (ir5 - 1) * v**40],
+            [0,0,-v**24 + 4 * v**26 - 2 * v**28,0,0],
+            [ir5 * v**12 + (-2 * ir5) * v**14 + ir5 * v**16,
+             ir5 * v**12 + (-2 * ir5) * v**16 + ir5 * v**20,-v**20 + 2 * v**22 - v**24,
+             (1 - ir5) * v**24 + (-2 + 2 * ir5) * v**26 + (1 - ir5) * v**28,
+             (1 - ir5) * v**36 + (-2 + 2 * ir5) * v**38 + (1 - ir5) * v**40],
+            [(1 - ir5) * v**12 + (-2 + 2 * ir5) * v**14 + (1 - ir5) * v**16,
+             (1 - ir5) * v**12 + (-2 + 2 * ir5) * v**16 + (1 - ir5) * v**20,-v**20 + 2 * v**22 - v**24,
+             ir5 * v**24 + (-2 * ir5) * v**26 + ir5 * v**28,
+             ir5 * v**36 + (-2 * ir5) * v**38 + ir5 * v**40],
+            [-v**14 + 2 * v**16 - 2 * v**18,-v**14 + 2 * v**18 - 2 * v**22,0,
+             v**28 - 2 * v**30 + 2 * v**32,-v**42 + 2 * v**44 - 2 * v**46],
+            [-v**12 + 2 * v**14 - v**16,-v**12 + 2 * v**16 - v**20,-2 * v**22,
+             -v**24 + 2 * v**26 - v**28,-v**36 + 2 * v**38 - v**40],
+            [v**12 + v**16, v**12 + v**20,-2 * v**20 + 4 * v**22 - 2 * v**24,-v**24 - v**28,
+             v**36 + v**40]]
     if typ[0] == 'I':
         m = int(typ[1:])
         if m == 5:
@@ -3845,29 +3845,29 @@ def heckeirrdata(typ,n,paramL):
             ir5 = ir(5)
             cc = [3]
             ch = [0,1,2,3]
-            t1 = [[v**8],[1],[-ir5*v**4],[(ir5-1)*v**4]]
+            t1 = [[v**8],[1],[-ir5 * v**4],[(ir5 - 1) * v**4]]
         else:
             c = conjclassdata(typ,n)['reps']
             cc = range(len(c))
             ch = range(len(c))
             z = rootof1(m)
             if m % 2 == 0:
-                t1 = [[paramL[0]**(2*i.count(0))*paramL[1]**(2*i.count(1)) for i in c],
-                    [(-1)**i.count(1)*paramL[0]**(2*i.count(0)) for i in c],
-                    [(-1)**i.count(0)*paramL[1]**(2*i.count(1)) for i in c],
+                t1 = [[paramL[0]**(2 * i.count(0)) * paramL[1]**(2 * i.count(1)) for i in c],
+                    [(-1)**i.count(1) * paramL[0]**(2 * i.count(0)) for i in c],
+                    [(-1)**i.count(0) * paramL[1]**(2 * i.count(1)) for i in c],
                     [(-1)**len(i) for i in c]]
-                for j in range(1,(m-2)//2+1):
-                    chi = [2,paramL[0]**2-1,paramL[1]**2-1]
-                    chi.extend([(paramL[0]*paramL[1])**(len(i)//2)*(z**(j*len(i)//2) +
-                                                  z**(-j*len(i)//2)) for i in c[3:]])
+                for j in range(1,(m - 2) // 2 + 1):
+                    chi = [2,paramL[0]**2 - 1,paramL[1]**2 - 1]
+                    chi.extend([(paramL[0] * paramL[1])**(len(i) // 2) * (z**(j * len(i) // 2) +
+                                                  z**(-j * len(i) // 2)) for i in c[3:]])
                     t1.append(chi)
             else:
-                t1 = [[paramL[0]**(2*len(i))
+                t1 = [[paramL[0]**(2 * len(i))
                                  for i in c], [(-1)**len(i) for i in c]]
-                for j in range(1,(m-1)//2+1):
-                    chi = [2,paramL[0]**2-1]
-                    chi.extend([paramL[0]**len(i)*(z**(j*len(i)//2) +
-                                   z**(-j*len(i)//2)) for i in c[2:]])
+                for j in range(1,(m - 1) // 2 + 1):
+                    chi = [2,paramL[0]**2 - 1]
+                    chi.extend([paramL[0]**len(i) * (z**(j * len(i) // 2) +
+                                   z**(-j * len(i) // 2)) for i in c[2:]])
                     t1.append(chi)
     return [cc,ch,t1]
 
@@ -3923,7 +3923,7 @@ def heckechartable(W,paramL=1):
     if isinstance(paramL, list):
         vs = paramL[:]
     else:
-        vs = len(W.rank)*[paramL]
+        vs = len(W.rank) * [paramL]
     ti = chartable(W)
     if all(x == x**0 for x in vs):
         return ti
@@ -3959,7 +3959,7 @@ def heckechartable(W,paramL=1):
             for i in range(len(ch)):
                 i1 = ti['permsgn'][ch[i]]
                 if i1 > ch[i]:
-                    matv.append([(-1)**lc[cc[j]]*cind[cc[j]]**2*tt1[i][j]
+                    matv.append([(-1)**lc[cc[j]] * cind[cc[j]]**2 * tt1[i][j]
                                                          for j in range(len(cc))])
                     nch.append(i1)
             matv = [matv[nch.index(i)] for i in range(len(nch))]
@@ -3977,8 +3977,8 @@ def heckechartable(W,paramL=1):
                         if x[c] == 0:
                             xv.append(0)
                         else:
-                            xv.append(x[c]*cind[c] *
-                                     vs[ct[1][0]]**((len(cl[c])*x[lc.index(1)])//x[0]))
+                            xv.append(x[c] * cind[c] *
+                                     vs[ct[1][0]]**((len(cl[c]) * x[lc.index(1)]) // x[0]))
                     tr.append(xv[:])
                     cc.append(c)
             s = len(W.rank)
@@ -3992,7 +3992,7 @@ def heckechartable(W,paramL=1):
                 nti1 = heckechartable(W1,[vs[u] for u in J])['irreducibles']
                 for c in fus:
                     if c not in cc:
-                        tr.append([sum(i[j]*nti1[j][fus.index(c)]
+                        tr.append([sum(i[j] * nti1[j][fus.index(c)]
                                       for j in range(len(nti1))) for i in ind])
                         cc.append(c)
             nti['irreducibles'] = transposemat([tr[cc.index(i)]
@@ -4034,7 +4034,7 @@ def heckecharvalues(W,paramL,lw,clpols=[]):
     if isinstance(paramL, list):
         vs = paramL[:]
     else:
-        vs = len(W.rank)*[paramL]
+        vs = len(W.rank) * [paramL]
     ti = heckechartable(W,vs)['irreducibles']
     maxl = max([len(w) for w in lw])
     # elms=allwords(W,maxl)
@@ -4046,7 +4046,7 @@ def heckecharvalues(W,paramL,lw,clpols=[]):
     for w in lw:
         # cp=cpmat[elms.index(w)]
         cp = cpmat[W.wordtocoxelm(w)]
-        lc.append([sum(cp[j]*irr[j] for j in range(len(ti))) for irr in ti])
+        lc.append([sum(cp[j] * irr[j] for j in range(len(ti))) for irr in ti])
     return lc
 
 # F heckecentraltable
@@ -4083,7 +4083,7 @@ def heckecentraltable(W,paramL):
     if isinstance(paramL, list):
         vs = paramL[:]
     else:
-        vs = len(W.rank)*[paramL]
+        vs = len(W.rank) * [paramL]
     indw = []
     aw = allwords(W)
     ivs = []
@@ -4099,7 +4099,7 @@ def heckecentraltable(W,paramL):
         indw.append(cind)
     cpmat = allclasspolynomials(W,[p**2 for p in vs])
     cpmat = [cpmat[W.wordtocoxelm(w)] for w in aw]
-    cpmat = [[indw[i]*cpmat[i][j] for j in range(len(cpmat[0]))]
+    cpmat = [[indw[i] * cpmat[i][j] for j in range(len(cpmat[0]))]
                                         for i in range(len(cpmat))]
     cpmat = matmult(heckechartable(W,vs)['irreducibles'],
                                 matmult(transposemat(cpmat),cpmat))
@@ -4115,18 +4115,18 @@ def schurelmA(alpha,u):
     (Taken from the gap-chevie library.)
     """
     l = len(alpha)
-    lbd = [i+alpha[::-1][i] for i in range(l)]
+    lbd = [i + alpha[::-1][i] for i in range(l)]
     if u == 1 or u == -1:
         u1 = u
     else:
         u1 = u**(-1)
-    res = u**((l*(l-1)*(l-2))//6)
+    res = u**((l * (l - 1) * (l - 2)) // 6)
     for i in lbd:
         for j in range(i):
             if j in lbd:
                 res *= u1**j
             else:
-                res *= sum(u**e for e in range(i-j))
+                res *= sum(u**e for e in range(i - j))
     return res
 
 # F schurelmB
@@ -4149,50 +4149,50 @@ def schurelmB(bip,v,u):
     if m == 0:
         res = 1
     elif m == 1:
-        res = u1*(u+v)
+        res = u1 * (u + v)
     else:
-        res = u**(((2*m+1)*m*(m-2))//3)*v**((m*(m-1))//2)*(u+v)**m
+        res = u**(((2 * m + 1) * m * (m - 2)) // 3) * v**((m * (m - 1)) // 2) * (u + v)**m
     for i in la:
         for j in range(i):
             if j in la:
                 if j in mu:
-                    res *= u1**(2*j)
+                    res *= u1**(2 * j)
                 else:
-                    if i-2*j >= 1:
-                        res *= u**(i-2*j-1)*v+(u1**j)
+                    if i - 2 * j >= 1:
+                        res *= u**(i - 2 * j - 1) * v + (u1**j)
                     else:
-                        res *= (u1**(2*j+1-i))*v+(u1**j)
+                        res *= (u1**(2 * j + 1 - i)) * v + (u1**j)
             else:
                 if j in mu:
-                    res *= sum(u**e for e in range(i-j))*(u1**j)
+                    res *= sum(u**e for e in range(i - j)) * (u1**j)
                 else:
-                    res *= sum(u**e for e in range(i-j))*(u**(i-j-1)*v+1)
+                    res *= sum(u**e for e in range(i - j)) * (u**(i - j - 1) * v + 1)
     for i in mu:
         for j in range(i):
             if j in mu:
                 if j in la:
                     if j == 0:
-                        res *= u*v1
+                        res *= u * v1
                     else:
-                        res *= u1**(2*j-1)*v1
+                        res *= u1**(2 * j - 1) * v1
                 else:
-                    if i-2*j+1 >= 0:
-                        res *= u**(i-2*j+1)*v1+u1**j
+                    if i - 2 * j + 1 >= 0:
+                        res *= u**(i - 2 * j + 1) * v1 + u1**j
                     else:
-                        res *= (u1**(2*j-1-i))*v1+u1**j
+                        res *= (u1**(2 * j - 1 - i)) * v1 + u1**j
             else:
                 if j in la:
                     if j == 0:
-                        res *= sum(u**e for e in range(i))*u*v1
+                        res *= sum(u**e for e in range(i)) * u * v1
                     else:
-                        res *= sum(u**e for e in range(i-j))*(u1**(j-1))*v1
+                        res *= sum(u**e for e in range(i - j)) * (u1**(j - 1)) * v1
                 else:
-                    res *= sum(u**e for e in range(i-j))*(u**(i-j+1)*v1+1)
+                    res *= sum(u**e for e in range(i - j)) * (u**(i - j + 1) * v1 + 1)
         if i in la:
             if i == 0:
-                res = divmod(res,u1*v+1)[0]
+                res = divmod(res,u1 * v + 1)[0]
             else:
-                res = divmod(res,u**(i-1)*v+u**i)[0]
+                res = divmod(res,u**(i - 1) * v + u**i)[0]
     return res
 
 # F schurelmdata
@@ -4204,7 +4204,7 @@ def schurelmdata(typ,n,vs):
     data are taken from the corresponding files in  gap-chevie.
     """
     if typ[0] == 'A':
-        return [schurelmA(alpha,vs[0]) for alpha in partitions(n+1)]
+        return [schurelmA(alpha,vs[0]) for alpha in partitions(n + 1)]
     if typ[0] == 'B' and n == 2:
         return [schurelmB(mu,vs[1],vs[0]) for mu in partitiontuples(2, 2)]
     if typ[0] == 'C' and n == 2:
@@ -4231,12 +4231,12 @@ def schurelmdata(typ,n,vs):
             v1 = v
         else:
             v1 = v**(-1)
-        return [(1+u)*(v+1)*(u*v-squv+1)*(u*v+squv+1),
-                (u1**3)*(v1**3)*(1+u)*(v+1)*(u*v-squv+1)*(u*v+squv+1),
-                (u1**3)*(u-squv+v)*(u+squv+v)*(1+u)*(v+1),
-                (v1**3)*(u-squv+v)*(u+squv+v)*(1+u)*(v+1),
-                2*u1*v1*(u+squv+v)*(u*v-squv+1),
-                2*u1*v1*(u-squv+v)*(u*v+squv+1)]
+        return [(1 + u) * (v + 1) * (u * v - squv + 1) * (u * v + squv + 1),
+                (u1**3) * (v1**3) * (1 + u) * (v + 1) * (u * v - squv + 1) * (u * v + squv + 1),
+                (u1**3) * (u - squv + v) * (u + squv + v) * (1 + u) * (v + 1),
+                (v1**3) * (u - squv + v) * (u + squv + v) * (1 + u) * (v + 1),
+                2 * u1 * v1 * (u + squv + v) * (u * v - squv + 1),
+                2 * u1 * v1 * (u - squv + v) * (u * v + squv + 1)]
     if typ[0] == 'F':
         u,v = vs[0],vs[2]
         if u == 1 or u == -1:
@@ -4247,54 +4247,54 @@ def schurelmdata(typ,n,vs):
             v1 = v
         else:
             v1 = v**(-1)
-        return [(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1)*(u**2*v+1)*(u**2*v**2+1) *
-                                   (u*v**2+1)*(u**2*v**2-u*v+1)*(u*v+1)**2,
-                (v1**12)*(u+v)**2*(u**2-u*v+v**2)*(u**2+v**2)*(u+v**2) *
-                 (u**2+v)*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1),
-                (u1**12)*(u+v)**2*(u**2-u*v+v**2)*(u**2+v**2)*(u+v**2) *
-                 (u**2+v)*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1),
-                (u1**12)*(v1**12)*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1)*(u**2*v
-                 + 1)*(u**2*v**2+1)*(u*v**2+1)*(u**2*v**2-u*v+1)*(u*v+1)**2,
-                (v1**3)*(u+1)**2*(u**2+u+1)*(v**2+v+1)*(u*v+1)*(u**2*v+1) *
-                 (u**2-u+1)*(u+v)*(u**2+v),
-                (u1**12)*(v1**3)*(u+1)**2*(u**2+u+1)*(v**2+v+1)*(u*v+1) *
-                 (u**2*v+1)*(u**2-u+1)*(u+v)*(u**2+v),
-                (u1**3)*(u**2+u+1)*(v+1)**2*(v**2+v+1)*(u*v+1)*(u*v**2+1) *
-                 (v**2-v+1)*(u+v)*(u+v**2),
-                (u1**3)*(v1**12)*(u**2+u+1)*(v+1)**2*(v**2+v+1)*(u*v+1) *
-                 (u*v**2+1)*(v**2-v+1)*(u+v)*(u+v**2),
-                2*(u1**3)*(v1**3)*(u**2+u+1)*(v**2+v+1)*(u*v+1)**2*(u+v)**2,
-                (u1**2)*(v1**2)*(u**2+v)*(u+v**2)*(u+1)*(v+1)*(u**2*v**2+1) *
-                 (u*v+1)**2,
-                (u1**2)*(v1**6)*(u**2+v**2)*(u+v)**2*(u+1)*(v+1)*(u**2*v+1) *
-                 (u*v**2+1),
-                (u1**6)*(v1**2)*(u**2+v**2)*(u+v)**2*(u+1)*(v+1)*(u**2*v+1) *
-                 (u*v**2+1),
-                (u1**6)*(v1**6)*(u**2+v)*(u+v**2)*(u+1)*(v+1)*(u**2*v**2+1) *
-                 (u*v+1)**2,
-                3*(u1**3)*(v1**3)*(u+1)**2*(v+1)**2*(u*v+1)**2 *
-                 (u**2-u*v+v**2),
-                3*(u1**3)*(v1**3)*(u+1)**2*(v+1)**2*(u**2*v**2-u*v+1) *
-                 (u+v)**2,
-                6*(u1**3)*(v1**3)*(u*v+1)**2*(v**2-v+1)*(u**2-u+1)*(u+v)**2,
-                u1*v1*(u+v)*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1) *
-                 (u**2*v**2-u*v+1)*(u*v+1)**2,
-                u1*(v1**7)*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1)*(u*v+1) *
-                 (u+v)**2*(u**2-u*v+v**2),
-                (u1**7)*v1*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1)*(u*v+1) *
-                 (u+v)**2*(u**2-u*v+v**2),
-                u1**7*v1**7*(u+v)*(u+1)*(u**2+u+1)*(v+1)*(v**2+v+1) *
-                 (u**2*v**2-u*v+1)*(u*v+1)**2,
-                u1*(v1**3)*(u+v**2)*(u+1)**2*(u**2-u+1)*(u**2+u+1) *
-                 (v**2+v+1)*(u*v**2+1),
-                (u1**7)*(v1**3)*(u+v**2)*(u+1)**2*(u**2-u+1)*(u**2+u+1) *
-                 (v**2+v+1)*(u*v**2+1),
-                (u1**3)*v1*(u**2+v)*(v+1)**2*(v**2-v+1)*(u**2+u+1) *
-                 (v**2+v+1)*(u**2*v+1),
-                (u1**3)*(v1**7)*(u**2+v)*(v+1)**2*(v**2-v+1)*(u**2+u+1) *
-                 (v**2+v+1)*(u**2*v+1),
-                2*(u1**3)*(v1**3)*(u**2+u+1)*(v**2+v+1)*(u**2*v**2+1) *
-                 (u**2+v**2)]
+        return [(u + 1) * (u**2 + u + 1) * (v + 1) * (v**2 + v + 1) * (u**2 * v + 1) * (u**2 * v**2 + 1) *
+                                   (u * v**2 + 1) * (u**2 * v**2 - u * v + 1) * (u * v + 1)**2,
+                (v1**12) * (u + v)**2 * (u**2 - u * v + v**2) * (u**2 + v**2) * (u + v**2) *
+                 (u**2 + v) * (u + 1) * (u**2 + u + 1) * (v + 1) * (v**2 + v + 1),
+                (u1**12) * (u + v)**2 * (u**2 - u * v + v**2) * (u**2 + v**2) * (u + v**2) *
+                 (u**2 + v) * (u + 1) * (u**2 + u + 1) * (v + 1) * (v**2 + v + 1),
+                (u1**12) * (v1**12) * (u + 1) * (u**2 + u + 1) * (v + 1) * (v**2 + v + 1) * (u**2 * v
+                 + 1) * (u**2 * v**2 + 1) * (u * v**2 + 1) * (u**2 * v**2 - u * v + 1) * (u * v + 1)**2,
+                (v1**3) * (u + 1)**2 * (u**2 + u + 1) * (v**2 + v + 1) * (u * v + 1) * (u**2 * v + 1) *
+                 (u**2 - u + 1) * (u + v) * (u**2 + v),
+                (u1**12) * (v1**3) * (u + 1)**2 * (u**2 + u + 1) * (v**2 + v + 1) * (u * v + 1) *
+                 (u**2 * v + 1) * (u**2 - u + 1) * (u + v) * (u**2 + v),
+                (u1**3) * (u**2 + u + 1) * (v + 1)**2 * (v**2 + v + 1) * (u * v + 1) * (u * v**2 + 1) *
+                 (v**2 - v + 1) * (u + v) * (u + v**2),
+                (u1**3) * (v1**12) * (u**2 + u + 1) * (v + 1)**2 * (v**2 + v + 1) * (u * v + 1) *
+                 (u * v**2 + 1) * (v**2 - v + 1) * (u + v) * (u + v**2),
+                2 * (u1**3) * (v1**3) * (u**2 + u + 1) * (v**2 + v + 1) * (u * v + 1)**2 * (u + v)**2,
+                (u1**2) * (v1**2) * (u**2 + v) * (u + v**2) * (u + 1) * (v + 1) * (u**2 * v**2 + 1) *
+                 (u * v + 1)**2,
+                (u1**2) * (v1**6) * (u**2 + v**2) * (u + v)**2 * (u + 1) * (v + 1) * (u**2 * v + 1) *
+                 (u * v**2 + 1),
+                (u1**6) * (v1**2) * (u**2 + v**2) * (u + v)**2 * (u + 1) * (v + 1) * (u**2 * v + 1) *
+                 (u * v**2 + 1),
+                (u1**6) * (v1**6) * (u**2 + v) * (u + v**2) * (u + 1) * (v + 1) * (u**2 * v**2 + 1) *
+                 (u * v + 1)**2,
+                3 * (u1**3) * (v1**3) * (u + 1)**2 * (v + 1)**2 * (u * v + 1)**2 *
+                 (u**2 - u * v + v**2),
+                3 * (u1**3) * (v1**3) * (u + 1)**2 * (v + 1)**2 * (u**2 * v**2 - u * v + 1) *
+                 (u + v)**2,
+                6 * (u1**3) * (v1**3) * (u * v + 1)**2 * (v**2 - v + 1) * (u**2 - u + 1) * (u + v)**2,
+                u1 * v1 * (u + v) * (u + 1) * (u**2 + u + 1) * (v + 1) * (v**2 + v + 1) *
+                 (u**2 * v**2 - u * v + 1) * (u * v + 1)**2,
+                u1 * (v1**7) * (u + 1) * (u**2 + u + 1) * (v + 1) * (v**2 + v + 1) * (u * v + 1) *
+                 (u + v)**2 * (u**2 - u * v + v**2),
+                (u1**7) * v1 * (u + 1) * (u**2 + u + 1) * (v + 1) * (v**2 + v + 1) * (u * v + 1) *
+                 (u + v)**2 * (u**2 - u * v + v**2),
+                u1**7 * v1**7 * (u + v) * (u + 1) * (u**2 + u + 1) * (v + 1) * (v**2 + v + 1) *
+                 (u**2 * v**2 - u * v + 1) * (u * v + 1)**2,
+                u1 * (v1**3) * (u + v**2) * (u + 1)**2 * (u**2 - u + 1) * (u**2 + u + 1) *
+                 (v**2 + v + 1) * (u * v**2 + 1),
+                (u1**7) * (v1**3) * (u + v**2) * (u + 1)**2 * (u**2 - u + 1) * (u**2 + u + 1) *
+                 (v**2 + v + 1) * (u * v**2 + 1),
+                (u1**3) * v1 * (u**2 + v) * (v + 1)**2 * (v**2 - v + 1) * (u**2 + u + 1) *
+                 (v**2 + v + 1) * (u**2 * v + 1),
+                (u1**3) * (v1**7) * (u**2 + v) * (v + 1)**2 * (v**2 - v + 1) * (u**2 + u + 1) *
+                 (v**2 + v + 1) * (u**2 * v + 1),
+                2 * (u1**3) * (v1**3) * (u**2 + u + 1) * (v**2 + v + 1) * (u**2 * v**2 + 1) *
+                 (u**2 + v**2)]
     if typ[0] == 'I':
         m = int(typ[1:])
         if m == 5:
@@ -4304,11 +4304,11 @@ def schurelmdata(typ,n,vs):
                 u1 = u
             else:
                 u1 = u**(-1)
-            p2 = u+1
-            p5 = u**4+u**3+u**2+u+1
-            p5a = u**2 + ir5*u+1
-            p5b = u**2 + (1-ir5)*u+1
-            vcyc = [u**(0)*p2*p5,(u1**5)*p2*p5,(2+ir5)*u1*p5b,(3-ir5)*u1*p5a]
+            p2 = u + 1
+            p5 = u**4 + u**3 + u**2 + u + 1
+            p5a = u**2 + ir5 * u + 1
+            p5b = u**2 + (1 - ir5) * u + 1
+            vcyc = [u**(0) * p2 * p5,(u1**5) * p2 * p5,(2 + ir5) * u1 * p5b,(3 - ir5) * u1 * p5a]
         else:
             W = coxeter(typ,n)
             ti = heckechartable(W,[vs[0],vs[1]])['irreducibles']
@@ -4319,264 +4319,264 @@ def schurelmdata(typ,n,vs):
     if u == 1:
         W = coxeter(typ,n)
         ti = chartable(W)['irreducibles']
-        return [(W.order//d[0])*u**0 for d in ti]
+        return [(W.order // d[0]) * u**0 for d in ti]
     # p1 = u-1
-    p2 = u+1
-    p3 = u**2+u+1
-    p4 = u**2+1
-    p5 = u**4+u**3+u**2+u+1
-    p6 = u**2-u+1
-    p7 = u**6+u**5+u**4+u**3+u**2+u+1
-    p8 = u**4+1
-    p9 = u**6+u**3+1
-    p10 = u**4-u**3+u**2-u+1
+    p2 = u + 1
+    p3 = u**2 + u + 1
+    p4 = u**2 + 1
+    p5 = u**4 + u**3 + u**2 + u + 1
+    p6 = u**2 - u + 1
+    p7 = u**6 + u**5 + u**4 + u**3 + u**2 + u + 1
+    p8 = u**4 + 1
+    p9 = u**6 + u**3 + 1
+    p10 = u**4 - u**3 + u**2 - u + 1
     # p11 = u**10+u**9+u**8+u**7+u**6+u**5+u**4+u**3+u**2+u+1
-    p12 = u**4-u**2+1
+    p12 = u**4 - u**2 + 1
     # p13 = u**12+u**11+u**10+u**9+u**8+u**7+u**6+u**5+u**4+u**3+u**2+u+1
-    p14 = u**6-u**5+u**4-u**3+u**2-u+1
-    p15 = u**8-u**7+u**5-u**4+u**3-u+1
-    p18 = u**6-u**3+1
-    p20 = u**8-u**6+u**4-u**2+1
-    p24 = u**8-u**4+1
-    p30 = u**8+u**7-u**5-u**4-u**3+u+1
+    p14 = u**6 - u**5 + u**4 - u**3 + u**2 - u + 1
+    p15 = u**8 - u**7 + u**5 - u**4 + u**3 - u + 1
+    p18 = u**6 - u**3 + 1
+    p20 = u**8 - u**6 + u**4 - u**2 + 1
+    p24 = u**8 - u**4 + 1
+    p30 = u**8 + u**7 - u**5 - u**4 - u**3 + u + 1
 
     if typ[0] == 'E' and n == 6:
-        return [u**(0)*p2**4*p3**3*p4**2*p5*p6**2*p8*p9*p12,
-              u**(-36)*p2**4*p3**3*p4**2*p5*p6**2*p8*p9*p12,
-              3*u**(-7)*p2**4*p3**3*p4**2,u**(-1) *
-                    p2**4*p3**3*p4**2*p5*p6**2*p12,
-              u**(-25)*p2**4*p3**3*p4**2*p5*p6**2 *
-                  p12,6*u**(-7)*p2**4*p3**3*p12,
-              2*u**(-3)*p2**4*p3**3*p4**2*p12,2*u**(-15)*p2**4*p3**3*p4**2*p12,
-              2*u**(-3)*p2**4*p3**3*p4**2*p6**2,
-              2*u**(-15)*p2**4*p3**3*p4**2*p6**2,
-              u**(-2)*p2**4*p3**3*p4*p6**2*p9,u**(-20)*p2**4*p3**3*p4*p6**2*p9,
-              u**(-6)*p2**4*p3**3*p5*p6**2,u**(-12)*p2**4*p3**3*p5*p6**2,
-              2*u**(-3)*p2**4*p3**3*p6**2*p8,2*u**(-15)*p2**4*p3**3*p6**2*p8,
-              2*u**(-7)*p2**4*p3**3*p6**2,6*u**(-7)*p3**3*p4**2*p6**2,
-              3*u**(-7)*p2**4*p4**2*p9,u**(-5)*p2**4*p3**3*p4*p6**2,
-              u**(-11)*p2**4*p3**3*p4*p6**2,u**(-4)*p2*p3**3*p5*p9,
-              u**(-13)*p2*p3**3*p5*p9,u**(-6)*p2**4*p4**2*p5*p8,
-              u**(-10)*p2**4*p4**2*p5*p8]
+        return [u**(0) * p2**4 * p3**3 * p4**2 * p5 * p6**2 * p8 * p9 * p12,
+              u**(-36) * p2**4 * p3**3 * p4**2 * p5 * p6**2 * p8 * p9 * p12,
+              3 * u**(-7) * p2**4 * p3**3 * p4**2,u**(-1) *
+                    p2**4 * p3**3 * p4**2 * p5 * p6**2 * p12,
+              u**(-25) * p2**4 * p3**3 * p4**2 * p5 * p6**2 *
+                  p12,6 * u**(-7) * p2**4 * p3**3 * p12,
+              2 * u**(-3) * p2**4 * p3**3 * p4**2 * p12,2 * u**(-15) * p2**4 * p3**3 * p4**2 * p12,
+              2 * u**(-3) * p2**4 * p3**3 * p4**2 * p6**2,
+              2 * u**(-15) * p2**4 * p3**3 * p4**2 * p6**2,
+              u**(-2) * p2**4 * p3**3 * p4 * p6**2 * p9,u**(-20) * p2**4 * p3**3 * p4 * p6**2 * p9,
+              u**(-6) * p2**4 * p3**3 * p5 * p6**2,u**(-12) * p2**4 * p3**3 * p5 * p6**2,
+              2 * u**(-3) * p2**4 * p3**3 * p6**2 * p8,2 * u**(-15) * p2**4 * p3**3 * p6**2 * p8,
+              2 * u**(-7) * p2**4 * p3**3 * p6**2,6 * u**(-7) * p3**3 * p4**2 * p6**2,
+              3 * u**(-7) * p2**4 * p4**2 * p9,u**(-5) * p2**4 * p3**3 * p4 * p6**2,
+              u**(-11) * p2**4 * p3**3 * p4 * p6**2,u**(-4) * p2 * p3**3 * p5 * p9,
+              u**(-13) * p2 * p3**3 * p5 * p9,u**(-6) * p2**4 * p4**2 * p5 * p8,
+              u**(-10) * p2**4 * p4**2 * p5 * p8]
     if typ[0] == 'E' and n == 7:
-        return [u**(0)*p2**7*p3**3*p4**2*p5*p6**3*p7*p8*p9*p10*p12*p14*p18,
-              u**(-63)*p2**7*p3**3*p4**2*p5*p6**3*p7*p8*p9*p10*p12*p14*p18,
-              u**(-46)*p2**7*p3**3*p4**2*p5*p6**3*p8*p9*p10*p18,
-              u**(-1)*p2**7*p3**3*p4**2*p5*p6**3*p8*p9*p10*p18,
-              2*u**(-25)*p2**7*p3**3*p4**2*p6**3*p7,
-              2*u**(-4)*p2**7*p3**3*p4**2*p6**3*p7,
-              2*u**(-3)*p2**7*p3**3*p4**2*p5*p6**3*p18,
-              2*u**(-30)*p2**7*p3**3*p4**2*p5*p6**3*p18,
-              u**(-36)*p2**7*p3**3*p4**2*p5*p6**3*p8*p10*p12,
-              u**(-3)*p2**7*p3**3*p4**2*p5*p6**3*p8*p10*p12,
-              u**(-2)*p2**7*p3*p4**2*p5*p6*p7*p8*p10*p14,
-              u**(-37)*p2**7*p3*p4**2*p5*p6*p7*p8*p10*p14,
-              6*u**(-16)*p2**7*p3**3*p4**2*p18,6*u**(-7)*p2**7*p3**3*p4**2*p18,
-              2*u**(-3)*p2**7*p3**3*p4**2*p6**3*p9*p10,
-              2*u**(-30)*p2**7*p3**3*p4**2*p6**3*p9*p10,
-              2*u**(-30)*p2**3*p3**3*p4**2*p5*p6*p8*p9*p12,
-              2*u**(-3)*p2**3*p3**3*p4**2*p5*p6*p8*p9*p12,
-              3*u**(-16)*p2**7*p3**3*p4**2*p6**3,
-              3*u**(-7)*p2**7*p3**3*p4**2*p6**3,
-              2*u**(-10)*p2**7*p3**3*p5*p6**3,2*u**(-13)*p2**7*p3**3*p5*p6**3,
-              2*u**(-25)*p2**7*p3**3*p4**2*p6**3*p14,
-              2*u**(-4)*p2**7*p3**3*p4**2*p6**3*p14,
-              u**(-6)*p2**7*p3**3*p4**2*p6**3*p8,
-              u**(-21)*p2**7*p3**3*p4**2*p6**3*p8,
-              u**(-12)*p2**7*p3**3*p4**2*p6**3*p8,
-              u**(-15)*p2**7*p3**3*p4**2*p6**3*p8,
-              2*u**(-4)*p2**3*p3**3*p4**2*p6*p7*p8*p12,
-              2*u**(-25)*p2**3*p3**3*p4**2*p6*p7*p8*p12,
-              u**(-6)*p2**7*p3**3*p5*p6**3*p10,
-              u**(-21)*p2**7*p3**3*p5*p6**3*p10,2 *
-                  u**(-8)*p2**7*p3*p4**2*p5*p14,
-              2*u**(-15)*p2**7*p3*p4**2*p5*p14,
-              u**(-22)*p2**7*p3*p4**2*p5*p6*p8*p10,
-              u**(-5)*p2**7*p3*p4**2*p5*p6*p8*p10,
-              u**(-20)*p2**7*p3*p4**2*p5*p6*p8*p10,
-              u**(-7)*p2**7*p3*p4**2*p5*p6*p8*p10,
-              u**(-6)*p2**7*p3**3*p4**2*p6**3*p12,
-              u**(-21)*p2**7*p3**3*p4**2*p6**3*p12,
-              u**(-10)*p2**7*p3**3*p4**2*p6**3,
-              u**(-13)*p2**7*p3**3*p4**2*p6**3,
-              2*u**(-15)*p2**3*p3*p4**2*p5*p7*p8,
-              2*u**(-8)*p2**3*p3*p4**2*p5*p7*p8,3 *
-                    u**(-16)*p2**7*p3**3*p6**3*p12,
-              3*u**(-7)*p2**7*p3**3*p6**3*p12,2 *
-                    u**(-7)*p2**3*p3**3*p4**2*p8*p9,
-              2*u**(-16)*p2**3*p3**3*p4**2*p8*p9,6 *
-                    u**(-16)*p2**7*p4**2*p6**3*p9,
-              6*u**(-7)*p2**7*p4**2*p6**3*p9,
-              2*u**(-13)*p2**3*p3**3*p4**2*p5*p6*p12,
-              2*u**(-10)*p2**3*p3**3*p4**2*p5*p6*p12,
-              u**(-14)*p2**7*p3*p4**2*p5*p6*p10,
-              u**(-9)*p2**7*p3*p4**2*p5*p6*p10,2*u**(-8)*p2**7*p4**2*p6*p7*p10,
-              2*u**(-15)*p2**7*p4**2*p6*p7*p10,2 *
-                    u**(-10)*p2**7*p3**3*p6**3*p10,
-              2*u**(-13)*p2**7*p3**3*p6**3*p10,2*u**(-11)*p3**3*p5*p7*p9,
-              2*u**(-11)*p3**3*p5*p7*p9]
+        return [u**(0) * p2**7 * p3**3 * p4**2 * p5 * p6**3 * p7 * p8 * p9 * p10 * p12 * p14 * p18,
+              u**(-63) * p2**7 * p3**3 * p4**2 * p5 * p6**3 * p7 * p8 * p9 * p10 * p12 * p14 * p18,
+              u**(-46) * p2**7 * p3**3 * p4**2 * p5 * p6**3 * p8 * p9 * p10 * p18,
+              u**(-1) * p2**7 * p3**3 * p4**2 * p5 * p6**3 * p8 * p9 * p10 * p18,
+              2 * u**(-25) * p2**7 * p3**3 * p4**2 * p6**3 * p7,
+              2 * u**(-4) * p2**7 * p3**3 * p4**2 * p6**3 * p7,
+              2 * u**(-3) * p2**7 * p3**3 * p4**2 * p5 * p6**3 * p18,
+              2 * u**(-30) * p2**7 * p3**3 * p4**2 * p5 * p6**3 * p18,
+              u**(-36) * p2**7 * p3**3 * p4**2 * p5 * p6**3 * p8 * p10 * p12,
+              u**(-3) * p2**7 * p3**3 * p4**2 * p5 * p6**3 * p8 * p10 * p12,
+              u**(-2) * p2**7 * p3 * p4**2 * p5 * p6 * p7 * p8 * p10 * p14,
+              u**(-37) * p2**7 * p3 * p4**2 * p5 * p6 * p7 * p8 * p10 * p14,
+              6 * u**(-16) * p2**7 * p3**3 * p4**2 * p18,6 * u**(-7) * p2**7 * p3**3 * p4**2 * p18,
+              2 * u**(-3) * p2**7 * p3**3 * p4**2 * p6**3 * p9 * p10,
+              2 * u**(-30) * p2**7 * p3**3 * p4**2 * p6**3 * p9 * p10,
+              2 * u**(-30) * p2**3 * p3**3 * p4**2 * p5 * p6 * p8 * p9 * p12,
+              2 * u**(-3) * p2**3 * p3**3 * p4**2 * p5 * p6 * p8 * p9 * p12,
+              3 * u**(-16) * p2**7 * p3**3 * p4**2 * p6**3,
+              3 * u**(-7) * p2**7 * p3**3 * p4**2 * p6**3,
+              2 * u**(-10) * p2**7 * p3**3 * p5 * p6**3,2 * u**(-13) * p2**7 * p3**3 * p5 * p6**3,
+              2 * u**(-25) * p2**7 * p3**3 * p4**2 * p6**3 * p14,
+              2 * u**(-4) * p2**7 * p3**3 * p4**2 * p6**3 * p14,
+              u**(-6) * p2**7 * p3**3 * p4**2 * p6**3 * p8,
+              u**(-21) * p2**7 * p3**3 * p4**2 * p6**3 * p8,
+              u**(-12) * p2**7 * p3**3 * p4**2 * p6**3 * p8,
+              u**(-15) * p2**7 * p3**3 * p4**2 * p6**3 * p8,
+              2 * u**(-4) * p2**3 * p3**3 * p4**2 * p6 * p7 * p8 * p12,
+              2 * u**(-25) * p2**3 * p3**3 * p4**2 * p6 * p7 * p8 * p12,
+              u**(-6) * p2**7 * p3**3 * p5 * p6**3 * p10,
+              u**(-21) * p2**7 * p3**3 * p5 * p6**3 * p10,2 *
+                  u**(-8) * p2**7 * p3 * p4**2 * p5 * p14,
+              2 * u**(-15) * p2**7 * p3 * p4**2 * p5 * p14,
+              u**(-22) * p2**7 * p3 * p4**2 * p5 * p6 * p8 * p10,
+              u**(-5) * p2**7 * p3 * p4**2 * p5 * p6 * p8 * p10,
+              u**(-20) * p2**7 * p3 * p4**2 * p5 * p6 * p8 * p10,
+              u**(-7) * p2**7 * p3 * p4**2 * p5 * p6 * p8 * p10,
+              u**(-6) * p2**7 * p3**3 * p4**2 * p6**3 * p12,
+              u**(-21) * p2**7 * p3**3 * p4**2 * p6**3 * p12,
+              u**(-10) * p2**7 * p3**3 * p4**2 * p6**3,
+              u**(-13) * p2**7 * p3**3 * p4**2 * p6**3,
+              2 * u**(-15) * p2**3 * p3 * p4**2 * p5 * p7 * p8,
+              2 * u**(-8) * p2**3 * p3 * p4**2 * p5 * p7 * p8,3 *
+                    u**(-16) * p2**7 * p3**3 * p6**3 * p12,
+              3 * u**(-7) * p2**7 * p3**3 * p6**3 * p12,2 *
+                    u**(-7) * p2**3 * p3**3 * p4**2 * p8 * p9,
+              2 * u**(-16) * p2**3 * p3**3 * p4**2 * p8 * p9,6 *
+                    u**(-16) * p2**7 * p4**2 * p6**3 * p9,
+              6 * u**(-7) * p2**7 * p4**2 * p6**3 * p9,
+              2 * u**(-13) * p2**3 * p3**3 * p4**2 * p5 * p6 * p12,
+              2 * u**(-10) * p2**3 * p3**3 * p4**2 * p5 * p6 * p12,
+              u**(-14) * p2**7 * p3 * p4**2 * p5 * p6 * p10,
+              u**(-9) * p2**7 * p3 * p4**2 * p5 * p6 * p10,2 * u**(-8) * p2**7 * p4**2 * p6 * p7 * p10,
+              2 * u**(-15) * p2**7 * p4**2 * p6 * p7 * p10,2 *
+                    u**(-10) * p2**7 * p3**3 * p6**3 * p10,
+              2 * u**(-13) * p2**7 * p3**3 * p6**3 * p10,2 * u**(-11) * p3**3 * p5 * p7 * p9,
+              2 * u**(-11) * p3**3 * p5 * p7 * p9]
     if typ[0] == 'E' and n == 8:
-        return [u**(0)*p2**8*p3**4*p4**4*p5**2*p6**4*p7*p8**2*p9*p10**2*p12**2 *
-              p14*p15*p18*p20*p24*p30,
-              u**(-120)*p2**8*p3**4*p4**4*p5**2*p6**4*p7*p8**2*p9*p10**2*p12**2 *
-               p14*p15*p18*p20*p24*p30,
-              2*u**(-3)*p2**8*p3**4*p4**2*p5**2*p6**4*p8*p9*p10**2*p12*p30,
-              2*u**(-63)*p2**8*p3**4*p4**2*p5**2*p6**4*p8*p9*p10**2*p12*p30,
-              u**(-2)*p2**8*p3**4*p4**4*p5*p6**4*p8**2*p9*p10*p12**2*p18*p24,
-              u**(-74)*p2**8*p3**4*p4**4*p5*p6**4*p8**2*p9*p10*p12**2*p18*p24,
-              30*u**(-16)*p2**8*p3**4*p4**4*p30,
-              2*u**(-4)*p2**8*p3**4*p4**4*p6**4*p7*p9*p10*p12**2,
-              2*u**(-52)*p2**8*p3**4*p4**4*p6**4*p7*p9*p10*p12**2,
-              2*u**(-3)*p2**8*p3**4*p4**2*p5**2*p6**4*p8*p10**2*p12*p15*p18,
-              2*u**(-63)*p2**8*p3**4*p4**2*p5**2*p6**4*p8*p10**2*p12*p15*p18,
-              8*u**(-16)*p2**8*p3**4*p5**2*p6**4,3*u**(-8)*p2**8*p3**4*p4**4 *
-                p6**4*p8**2,
-              3*u**(-32)*p2**8*p3**4*p4**4*p6**4*p8**2,
-              2*u**(-4)*p2**8*p3**4*p4**4*p5*p6**4*p12**2*p14*p18,
-              2*u**(-52)*p2**8*p3**4*p4**4*p5*p6**4*p12**2*p14*p18,
-              5*u**(-16)*p2**8*p3**4*p4**4*p6**4,
-              2*u**(-6)*p2**8*p3**4*p4**2*p6**4*p7*p8*p12*p18,
-              2*u**(-42)*p2**8*p3**4*p4**2*p6**4*p7*p8*p12*p18,
-              6*u**(-8)*p2**8*p3**4*p4**4*p6**4*p24,6*u**(-32)*p2**8*p3**4 *
-               p4**4*p6**4*p24,
-              u**(-12)*p2**8*p3**4*p4**4*p6**4*p8**2*p12**2,
-              u**(-36)*p2**8*p3**4*p4**4*p6**4*p8**2*p12**2,
-              u**(-6)*p2**8*p3*p4**4*p5**2*p6*p8**2*p10**2*p20,
-              u**(-46)*p2**8*p3*p4**4*p5**2*p6*p8**2*p10**2*p20,
-              6*u**(-16)*p2**8*p4**4*p5**2*p6*p18,
-              2*u**(-13)*p2**8*p3**4*p4**2*p6**4*p8*p9,
-              2*u**(-25)*p2**8*p3**4*p4**2*p6**4*p8*p9,
-              2*u**(-6)*p2**8*p3**4*p4**2*p6**4*p8*p9*p12*p14,
-              2*u**(-42)*p2**8*p3**4*p4**2*p6**4*p8*p9*p12*p14,
-              24*u**(-16)*p2**8*p3**4*p10**2*p12**2,
-              2*u**(-12)*p2**8*p3**4*p4**2*p5*p6**4*p12,
-              2*u**(-24)*p2**8*p3**4*p4**2*p5*p6**4*p12,
-              20*u**(-16)*p2**8*p3**4*p6**4*p20,
-              2*u**(-10)*p2**8*p4**2*p5**2*p6*p7*p8*p10**2,
-              2*u**(-30)*p2**8*p4**2*p5**2*p6*p7*p8*p10**2,
-              2*u**(-8)*p2**8*p3**4*p4**4*p6**4*p12**2,
-              2*u**(-32)*p2**8*p3**4*p4**4*p6**4*p12**2,
-              u**(-20)*p2**8*p3**4*p4**4*p6**4*p12**2,
-              2*u**(-7)*p2**4*p3**4*p4**2*p5**2*p6**2*p8*p12*p15,
-              2*u**(-37)*p2**4*p3**4*p4**2*p5**2*p6**2*p8*p12*p15,
-              8*u**(-16)*p3**4*p4**4*p5**2*p12**2,
-              6*u**(-8)*p2**8*p3**4*p6**4*p8**2*p12**2,
-              6*u**(-32)*p2**8*p3**4*p6**4*p8**2*p12**2,
-              3*u**(-8)*p2**8*p3*p4**4*p6*p8**2*p9*p18,
-              3*u**(-32)*p2**8*p3*p4**4*p6*p8**2*p9*p18,
-              6*u**(-16)*p2**8*p3*p4**4*p9*p10**2,
-              2*u**(-13)*p2**8*p3**4*p4**2*p6**4*p8*p18,
-              2*u**(-25)*p2**8*p3**4*p4**2*p6**4*p8*p18,
-              8*u**(-16)*p2**8*p3**4*p6**4*p10**2,
-              2*u**(-10)*p2**4*p3**4*p4**2*p5*p6**2*p8*p9*p12,
-              2*u**(-28)*p2**4*p3**4*p4**2*p5*p6**2*p8*p9*p12,
-              120*u**(-16)*p3**4*p4**4*p6**4*p10**2,
-              2*u**(-10)*p2**8*p3*p4**2*p5**2*p8*p10**2*p14,
-              2*u**(-30)*p2**8*p3*p4**2*p5**2*p8*p10**2*p14,
-              24*u**(-16)*p2**8*p5**2*p6**4*p12**2,
-              u**(-14)*p2**8*p3*p4**4*p5*p6*p8**2*p10,
-              u**(-22)*p2**8*p3*p4**4*p5*p6*p8**2*p10,
-              30*u**(-16)*p2**8*p4**4*p6**4*p15,
-              2*u**(-15)*p2**4*p3**4*p4**2*p6**2*p7*p9*p12,
-              2*u**(-21)*p2**4*p3**4*p4**2*p6**2*p7*p9*p12,
-              2*u**(-11)*p2*p3**4*p5**2*p7*p9*p15,
-              2*u**(-26)*p2*p3**4*p5**2*p7*p9*p15,
-              2*u**(-12)*p2**8*p3**4*p4**2*p6**4*p10*p12,
-              2*u**(-24)*p2**8*p3**4*p4**2*p6**4*p10*p12,
-              u**(-14)*p2**8*p4**4*p7*p8**2 *
-                  p14,u**(-22)*p2**8*p4**4*p7*p8**2*p14,
-              u**(-1)*p2**8*p3**4*p4**2*p5**2*p6**4*p7*p8*p9*p10**2*p12*p14 *
-               p15*p18*p30,
-              u**(-91)*p2**8*p3**4*p4**2*p5**2*p6**4*p7*p8*p9*p10**2*p12*p14 *
-               p15*p18*p30,
-              6*u**(-7)*p2**8*p3**4*p4**2*p5**2*p6**4*p30,
-              6*u**(-37)*p2**8*p3**4*p4**2*p5**2*p6**4*p30,
-              2*u**(-3)*p2**4*p3**4*p4**4*p5**2*p6**2*p8*p9*p12**2*p15*p20,
-              2*u**(-63)*p2**4*p3**4*p4**4*p5**2*p6**2*p8*p9*p12**2*p15*p20,
-              2*u**(-4)*p2**4*p3**4*p4**2*p5*p6**2*p7*p8**2*p9*p12*p24,
-              2*u**(-52)*p2**4*p3**4*p4**2*p5*p6**2*p7*p8**2*p9*p12*p24,
-              12*u**(-16)*p2**4*p3**4*p4**2*p5**2*p24,
-              2*u**(-6)*p2**4*p3**4*p4**4*p6**2*p7*p8*p9*p12**2,
-              2*u**(-42)*p2**4*p3**4*p4**4*p6**2*p7*p8*p9*p12**2,
-              3*u**(-7)*p2**8*p3**4*p5**2*p6**4*p10**2*p12,
-              3*u**(-37)*p2**8*p3**4*p5**2*p6**4*p10**2*p12,
-              u**(-5)*p2**8*p3**4*p4**2*p5*p6**4*p9*p10*p12*p18,
-              u**(-47)*p2**8*p3**4*p4**2*p5*p6**4*p9*p10*p12*p18,
-              4*u**(-16)*p2**4*p3**4*p4**2*p5**2*p6**2*p12,
-              2*u**(-10)*p2**8*p3**4*p4**2*p5*p6**4*p18,
-              2*u**(-28)*p2**8*p3**4*p4**2*p5*p6**4*p18,
-              3*u**(-7)*p2**8*p3*p4**2*p5**2*p6*p9*p10**2*p18,
-              3*u**(-37)*p2**8*p3*p4**2*p5**2*p6*p9*p10**2*p18,
-              6*u**(-16)*p2**4*p3*p4**2*p5**2*p8**2*p9,
-              2*u**(-10)*p2**4*p3*p4**4*p5**2*p7*p8*p20,
-              2*u**(-30)*p2**4*p3*p4**4*p5**2*p7*p8*p20,
-              2*u**(-10)*p2**8*p3**4*p4**2*p6**4*p9*p10,
-              2*u**(-28)*p2**8*p3**4*p4**2*p6**4*p9*p10,
-              6*u**(-7)*p2**8*p3**4*p4**2*p6**4*p10**2*p15,
-              6*u**(-37)*p2**8*p3**4*p4**2*p6**4*p10**2*p15,
-              2*u**(-15)*p2**8*p3**4*p6**4*p7*p18,
-              2*u**(-21)*p2**8*p3**4*p6**4*p7*p18,
-              2*u**(-13)*p2**4*p3**4*p4**4*p8*p9*p12**2,
-              2*u**(-25)*p2**4*p3**4*p4**4*p8*p9*p12**2,
-              6*u**(-16)*p2**4*p3**4*p4**2*p8**2*p15,
-              u**(-9)*p2**8*p3*p4**2*p5*p6*p7*p8*p10*p14,
-              u**(-31)*p2**8*p3*p4**2*p5*p6*p7*p8*p10*p14,
-              2*u**(-12)*p2**4*p3**4*p4**4*p5*p6**2*p12**2,
-              2*u**(-24)*p2**4*p3**4*p4**4*p5*p6**2*p12**2,
-              12*u**(-16)*p3**4*p5**2*p6**2*p8**2*p12,
-              2*u**(-11)*p2*p3**4*p5**2*p7*p9*p15,
-              2*u**(-26)*p2*p3**4*p5**2*p7*p9*p15,
-              u**(-15)*p2**8*p3**4*p4**2*p6**4*p8*p12,
-              u**(-21)*p2**8*p3**4*p4**2*p6**4*p8*p12,
-              u**(-13)*p2**8*p3*p4**2*p5**2*p6*p8*p10**2,
-              u**(-23)*p2**8*p3*p4**2*p5**2*p6*p8*p10**2,
-              2*u**(-15)*p2**8*p3**4*p6**4*p9*p14,
-              2*u**(-21)*p2**8*p3**4*p6**4*p9*p14]
+        return [u**(0) * p2**8 * p3**4 * p4**4 * p5**2 * p6**4 * p7 * p8**2 * p9 * p10**2 * p12**2 *
+              p14 * p15 * p18 * p20 * p24 * p30,
+              u**(-120) * p2**8 * p3**4 * p4**4 * p5**2 * p6**4 * p7 * p8**2 * p9 * p10**2 * p12**2 *
+               p14 * p15 * p18 * p20 * p24 * p30,
+              2 * u**(-3) * p2**8 * p3**4 * p4**2 * p5**2 * p6**4 * p8 * p9 * p10**2 * p12 * p30,
+              2 * u**(-63) * p2**8 * p3**4 * p4**2 * p5**2 * p6**4 * p8 * p9 * p10**2 * p12 * p30,
+              u**(-2) * p2**8 * p3**4 * p4**4 * p5 * p6**4 * p8**2 * p9 * p10 * p12**2 * p18 * p24,
+              u**(-74) * p2**8 * p3**4 * p4**4 * p5 * p6**4 * p8**2 * p9 * p10 * p12**2 * p18 * p24,
+              30 * u**(-16) * p2**8 * p3**4 * p4**4 * p30,
+              2 * u**(-4) * p2**8 * p3**4 * p4**4 * p6**4 * p7 * p9 * p10 * p12**2,
+              2 * u**(-52) * p2**8 * p3**4 * p4**4 * p6**4 * p7 * p9 * p10 * p12**2,
+              2 * u**(-3) * p2**8 * p3**4 * p4**2 * p5**2 * p6**4 * p8 * p10**2 * p12 * p15 * p18,
+              2 * u**(-63) * p2**8 * p3**4 * p4**2 * p5**2 * p6**4 * p8 * p10**2 * p12 * p15 * p18,
+              8 * u**(-16) * p2**8 * p3**4 * p5**2 * p6**4,3 * u**(-8) * p2**8 * p3**4 * p4**4 *
+                p6**4 * p8**2,
+              3 * u**(-32) * p2**8 * p3**4 * p4**4 * p6**4 * p8**2,
+              2 * u**(-4) * p2**8 * p3**4 * p4**4 * p5 * p6**4 * p12**2 * p14 * p18,
+              2 * u**(-52) * p2**8 * p3**4 * p4**4 * p5 * p6**4 * p12**2 * p14 * p18,
+              5 * u**(-16) * p2**8 * p3**4 * p4**4 * p6**4,
+              2 * u**(-6) * p2**8 * p3**4 * p4**2 * p6**4 * p7 * p8 * p12 * p18,
+              2 * u**(-42) * p2**8 * p3**4 * p4**2 * p6**4 * p7 * p8 * p12 * p18,
+              6 * u**(-8) * p2**8 * p3**4 * p4**4 * p6**4 * p24,6 * u**(-32) * p2**8 * p3**4 *
+               p4**4 * p6**4 * p24,
+              u**(-12) * p2**8 * p3**4 * p4**4 * p6**4 * p8**2 * p12**2,
+              u**(-36) * p2**8 * p3**4 * p4**4 * p6**4 * p8**2 * p12**2,
+              u**(-6) * p2**8 * p3 * p4**4 * p5**2 * p6 * p8**2 * p10**2 * p20,
+              u**(-46) * p2**8 * p3 * p4**4 * p5**2 * p6 * p8**2 * p10**2 * p20,
+              6 * u**(-16) * p2**8 * p4**4 * p5**2 * p6 * p18,
+              2 * u**(-13) * p2**8 * p3**4 * p4**2 * p6**4 * p8 * p9,
+              2 * u**(-25) * p2**8 * p3**4 * p4**2 * p6**4 * p8 * p9,
+              2 * u**(-6) * p2**8 * p3**4 * p4**2 * p6**4 * p8 * p9 * p12 * p14,
+              2 * u**(-42) * p2**8 * p3**4 * p4**2 * p6**4 * p8 * p9 * p12 * p14,
+              24 * u**(-16) * p2**8 * p3**4 * p10**2 * p12**2,
+              2 * u**(-12) * p2**8 * p3**4 * p4**2 * p5 * p6**4 * p12,
+              2 * u**(-24) * p2**8 * p3**4 * p4**2 * p5 * p6**4 * p12,
+              20 * u**(-16) * p2**8 * p3**4 * p6**4 * p20,
+              2 * u**(-10) * p2**8 * p4**2 * p5**2 * p6 * p7 * p8 * p10**2,
+              2 * u**(-30) * p2**8 * p4**2 * p5**2 * p6 * p7 * p8 * p10**2,
+              2 * u**(-8) * p2**8 * p3**4 * p4**4 * p6**4 * p12**2,
+              2 * u**(-32) * p2**8 * p3**4 * p4**4 * p6**4 * p12**2,
+              u**(-20) * p2**8 * p3**4 * p4**4 * p6**4 * p12**2,
+              2 * u**(-7) * p2**4 * p3**4 * p4**2 * p5**2 * p6**2 * p8 * p12 * p15,
+              2 * u**(-37) * p2**4 * p3**4 * p4**2 * p5**2 * p6**2 * p8 * p12 * p15,
+              8 * u**(-16) * p3**4 * p4**4 * p5**2 * p12**2,
+              6 * u**(-8) * p2**8 * p3**4 * p6**4 * p8**2 * p12**2,
+              6 * u**(-32) * p2**8 * p3**4 * p6**4 * p8**2 * p12**2,
+              3 * u**(-8) * p2**8 * p3 * p4**4 * p6 * p8**2 * p9 * p18,
+              3 * u**(-32) * p2**8 * p3 * p4**4 * p6 * p8**2 * p9 * p18,
+              6 * u**(-16) * p2**8 * p3 * p4**4 * p9 * p10**2,
+              2 * u**(-13) * p2**8 * p3**4 * p4**2 * p6**4 * p8 * p18,
+              2 * u**(-25) * p2**8 * p3**4 * p4**2 * p6**4 * p8 * p18,
+              8 * u**(-16) * p2**8 * p3**4 * p6**4 * p10**2,
+              2 * u**(-10) * p2**4 * p3**4 * p4**2 * p5 * p6**2 * p8 * p9 * p12,
+              2 * u**(-28) * p2**4 * p3**4 * p4**2 * p5 * p6**2 * p8 * p9 * p12,
+              120 * u**(-16) * p3**4 * p4**4 * p6**4 * p10**2,
+              2 * u**(-10) * p2**8 * p3 * p4**2 * p5**2 * p8 * p10**2 * p14,
+              2 * u**(-30) * p2**8 * p3 * p4**2 * p5**2 * p8 * p10**2 * p14,
+              24 * u**(-16) * p2**8 * p5**2 * p6**4 * p12**2,
+              u**(-14) * p2**8 * p3 * p4**4 * p5 * p6 * p8**2 * p10,
+              u**(-22) * p2**8 * p3 * p4**4 * p5 * p6 * p8**2 * p10,
+              30 * u**(-16) * p2**8 * p4**4 * p6**4 * p15,
+              2 * u**(-15) * p2**4 * p3**4 * p4**2 * p6**2 * p7 * p9 * p12,
+              2 * u**(-21) * p2**4 * p3**4 * p4**2 * p6**2 * p7 * p9 * p12,
+              2 * u**(-11) * p2 * p3**4 * p5**2 * p7 * p9 * p15,
+              2 * u**(-26) * p2 * p3**4 * p5**2 * p7 * p9 * p15,
+              2 * u**(-12) * p2**8 * p3**4 * p4**2 * p6**4 * p10 * p12,
+              2 * u**(-24) * p2**8 * p3**4 * p4**2 * p6**4 * p10 * p12,
+              u**(-14) * p2**8 * p4**4 * p7 * p8**2 *
+                  p14,u**(-22) * p2**8 * p4**4 * p7 * p8**2 * p14,
+              u**(-1) * p2**8 * p3**4 * p4**2 * p5**2 * p6**4 * p7 * p8 * p9 * p10**2 * p12 * p14 *
+               p15 * p18 * p30,
+              u**(-91) * p2**8 * p3**4 * p4**2 * p5**2 * p6**4 * p7 * p8 * p9 * p10**2 * p12 * p14 *
+               p15 * p18 * p30,
+              6 * u**(-7) * p2**8 * p3**4 * p4**2 * p5**2 * p6**4 * p30,
+              6 * u**(-37) * p2**8 * p3**4 * p4**2 * p5**2 * p6**4 * p30,
+              2 * u**(-3) * p2**4 * p3**4 * p4**4 * p5**2 * p6**2 * p8 * p9 * p12**2 * p15 * p20,
+              2 * u**(-63) * p2**4 * p3**4 * p4**4 * p5**2 * p6**2 * p8 * p9 * p12**2 * p15 * p20,
+              2 * u**(-4) * p2**4 * p3**4 * p4**2 * p5 * p6**2 * p7 * p8**2 * p9 * p12 * p24,
+              2 * u**(-52) * p2**4 * p3**4 * p4**2 * p5 * p6**2 * p7 * p8**2 * p9 * p12 * p24,
+              12 * u**(-16) * p2**4 * p3**4 * p4**2 * p5**2 * p24,
+              2 * u**(-6) * p2**4 * p3**4 * p4**4 * p6**2 * p7 * p8 * p9 * p12**2,
+              2 * u**(-42) * p2**4 * p3**4 * p4**4 * p6**2 * p7 * p8 * p9 * p12**2,
+              3 * u**(-7) * p2**8 * p3**4 * p5**2 * p6**4 * p10**2 * p12,
+              3 * u**(-37) * p2**8 * p3**4 * p5**2 * p6**4 * p10**2 * p12,
+              u**(-5) * p2**8 * p3**4 * p4**2 * p5 * p6**4 * p9 * p10 * p12 * p18,
+              u**(-47) * p2**8 * p3**4 * p4**2 * p5 * p6**4 * p9 * p10 * p12 * p18,
+              4 * u**(-16) * p2**4 * p3**4 * p4**2 * p5**2 * p6**2 * p12,
+              2 * u**(-10) * p2**8 * p3**4 * p4**2 * p5 * p6**4 * p18,
+              2 * u**(-28) * p2**8 * p3**4 * p4**2 * p5 * p6**4 * p18,
+              3 * u**(-7) * p2**8 * p3 * p4**2 * p5**2 * p6 * p9 * p10**2 * p18,
+              3 * u**(-37) * p2**8 * p3 * p4**2 * p5**2 * p6 * p9 * p10**2 * p18,
+              6 * u**(-16) * p2**4 * p3 * p4**2 * p5**2 * p8**2 * p9,
+              2 * u**(-10) * p2**4 * p3 * p4**4 * p5**2 * p7 * p8 * p20,
+              2 * u**(-30) * p2**4 * p3 * p4**4 * p5**2 * p7 * p8 * p20,
+              2 * u**(-10) * p2**8 * p3**4 * p4**2 * p6**4 * p9 * p10,
+              2 * u**(-28) * p2**8 * p3**4 * p4**2 * p6**4 * p9 * p10,
+              6 * u**(-7) * p2**8 * p3**4 * p4**2 * p6**4 * p10**2 * p15,
+              6 * u**(-37) * p2**8 * p3**4 * p4**2 * p6**4 * p10**2 * p15,
+              2 * u**(-15) * p2**8 * p3**4 * p6**4 * p7 * p18,
+              2 * u**(-21) * p2**8 * p3**4 * p6**4 * p7 * p18,
+              2 * u**(-13) * p2**4 * p3**4 * p4**4 * p8 * p9 * p12**2,
+              2 * u**(-25) * p2**4 * p3**4 * p4**4 * p8 * p9 * p12**2,
+              6 * u**(-16) * p2**4 * p3**4 * p4**2 * p8**2 * p15,
+              u**(-9) * p2**8 * p3 * p4**2 * p5 * p6 * p7 * p8 * p10 * p14,
+              u**(-31) * p2**8 * p3 * p4**2 * p5 * p6 * p7 * p8 * p10 * p14,
+              2 * u**(-12) * p2**4 * p3**4 * p4**4 * p5 * p6**2 * p12**2,
+              2 * u**(-24) * p2**4 * p3**4 * p4**4 * p5 * p6**2 * p12**2,
+              12 * u**(-16) * p3**4 * p5**2 * p6**2 * p8**2 * p12,
+              2 * u**(-11) * p2 * p3**4 * p5**2 * p7 * p9 * p15,
+              2 * u**(-26) * p2 * p3**4 * p5**2 * p7 * p9 * p15,
+              u**(-15) * p2**8 * p3**4 * p4**2 * p6**4 * p8 * p12,
+              u**(-21) * p2**8 * p3**4 * p4**2 * p6**4 * p8 * p12,
+              u**(-13) * p2**8 * p3 * p4**2 * p5**2 * p6 * p8 * p10**2,
+              u**(-23) * p2**8 * p3 * p4**2 * p5**2 * p6 * p8 * p10**2,
+              2 * u**(-15) * p2**8 * p3**4 * p6**4 * p9 * p14,
+              2 * u**(-21) * p2**8 * p3**4 * p6**4 * p9 * p14]
     ir5 = ir(5)
-    p5a = u**2 + ir5*u+1
-    p5b = u**2 + (1-ir5)*u+1
-    p10a = u**2-ir5*u+1
-    p10b = u**2+(ir5-1)*u+1
-    p15a = u**4-ir5*u**3+ir5*u**2-ir5*u+1
-    p15b = u**4+(ir5-1)*u**3 + (1-ir5)*u**2+(ir5-1)*u+1
-    p20a = u**4-ir5*u**2+1
-    p20b = u**4+(ir5-1)*u**2+1
-    p30a = u**4+ir5*u**3+ir5*u**2+ir5*u+1
-    p30b = u**4+(1-ir5)*u**3+(1-ir5)*u**2+(1-ir5)*u+1
+    p5a = u**2 + ir5 * u + 1
+    p5b = u**2 + (1 - ir5) * u + 1
+    p10a = u**2 - ir5 * u + 1
+    p10b = u**2 + (ir5 - 1) * u + 1
+    p15a = u**4 - ir5 * u**3 + ir5 * u**2 - ir5 * u + 1
+    p15b = u**4 + (ir5 - 1) * u**3 + (1 - ir5) * u**2 + (ir5 - 1) * u + 1
+    p20a = u**4 - ir5 * u**2 + 1
+    p20b = u**4 + (ir5 - 1) * u**2 + 1
+    p30a = u**4 + ir5 * u**3 + ir5 * u**2 + ir5 * u + 1
+    p30b = u**4 + (1 - ir5) * u**3 + (1 - ir5) * u**2 + (1 - ir5) * u + 1
     if typ[0] == 'H' and n == 3:
-        return [u**(-15)*p2**3*p3*p5*p6*p10,u**(0)*p2**3*p3*p5*p6*p10,
-              u**(-5)*p2**3*p3*p6,u**(-2)*p2**3*p3*p6,
-              (2+ir5)*u**(-6)*p2**3*p10a*p5a,(3-ir5)*u**(-6)*p2**3*p10b*p5b,
-              (2+ir5)*u**(-1)*p2**3*p10a*p5a,(3-ir5)*u**(-1)*p2**3*p10b*p5b,
-              2*u**(-3)*p3*p5,2*u**(-3)*p3*p5]
+        return [u**(-15) * p2**3 * p3 * p5 * p6 * p10,u**(0) * p2**3 * p3 * p5 * p6 * p10,
+              u**(-5) * p2**3 * p3 * p6,u**(-2) * p2**3 * p3 * p6,
+              (2 + ir5) * u**(-6) * p2**3 * p10a * p5a,(3 - ir5) * u**(-6) * p2**3 * p10b * p5b,
+              (2 + ir5) * u**(-1) * p2**3 * p10a * p5a,(3 - ir5) * u**(-1) * p2**3 * p10b * p5b,
+              2 * u**(-3) * p3 * p5,2 * u**(-3) * p3 * p5]
     if typ[0] == 'H' and n == 4:
-        return [u**(0)*p2**4*p3**2*p4**2*p5**2*p6**2*p10**2*p12*p15*p20*p30,
-              u**(-60)*p2**4*p3**2*p4**2*p5**2*p6**2*p10**2*p12*p15*p20*p30,
-              (2+ir5)*u**(-1)*p2**4*p3**2*p5*p6**2*p10*p10b*p15b*p30b*p5b,
-              (2+ir5)*u**(-31)*p2**4*p3**2*p5*p6**2*p10*p10b*p15b*p30b*p5b,
-              (3-ir5)*u**(-1)*p2**4*p3**2*p5*p6**2*p10*p10a*p15a*p30a*p5a,
-              (3-ir5)*u**(-31)*p2**4*p3**2*p5*p6**2*p10*p10a*p15a*p30a*p5a,
-              (30+30*ir5)*u**(-6)*p2**4*p30b*p5a**2,
-              (60-30*ir5)*u**(-6)*p2**4*p30a*p5b**2,
-              8*u**(-6)*p3**2*p5**2,10*u**(-6)*p3**2*p4**2*p5,
-              (2+ir5)*u**(-2)*p2**4*p4**2*p5*p10*p10b*p20a*p5b,
-              (2+ir5)*u**(-22)*p2**4*p4**2*p5*p10*p10b*p20a*p5b,
-              (3-ir5)*u**(-2)*p2**4*p4**2*p5*p10*p10a*p20b*p5a,
-              (3-ir5)*u**(-22)*p2**4*p4**2*p5*p10*p10a*p20b*p5a,
-              10*u**(-6)*p2**4*p3**2*p10,20*u**(-6)*p3**2*p20a*p5a**2,
-              20*u**(-6)*p3**2*p20b*p5b**2,2*u**(-3)*p2*p3**2*p5**2*p15,
-              2*u**(-18)*p2*p3**2*p5**2*p15,2*u**(-3)*p2*p3**2*p5**2*p15,
-              2*u**(-18)*p2*p3**2*p5**2*p15,10*u**(-6)*p2**4*p5*p6**2,
-              (150-90*ir5)*u**(-6)*p4**2*p15b*p5a**2,
-              (60+90*ir5)*u**(-6)*p4**2*p15a*p5b**2,
-              (1560-960*ir5)*u**(-6)*p6**2*p10b**2*p5a**2,
-              (600+960*ir5)*u**(-6)*p6**2*p10a**2*p5b**2,
-              u**(-4)*p2**4*p3**2*p4**2*p6**2*p12,
-              u**(-16)*p2**4*p3**2*p4**2*p6**2*p12,
-              (60-30*ir5)*u**(-6)*p2**4*p10b**2*p15a,
-              (30+30*ir5)*u**(-6)*p2**4*p10a**2*p15b,
-              u**(-5)*p2**4*p5**2*p10**2,u**(-15)*p2**4*p5**2*p10**2,
-              40*u**(-6)*p3**2*p10**2,12*u**(-6)*p5**2*p12]
+        return [u**(0) * p2**4 * p3**2 * p4**2 * p5**2 * p6**2 * p10**2 * p12 * p15 * p20 * p30,
+              u**(-60) * p2**4 * p3**2 * p4**2 * p5**2 * p6**2 * p10**2 * p12 * p15 * p20 * p30,
+              (2 + ir5) * u**(-1) * p2**4 * p3**2 * p5 * p6**2 * p10 * p10b * p15b * p30b * p5b,
+              (2 + ir5) * u**(-31) * p2**4 * p3**2 * p5 * p6**2 * p10 * p10b * p15b * p30b * p5b,
+              (3 - ir5) * u**(-1) * p2**4 * p3**2 * p5 * p6**2 * p10 * p10a * p15a * p30a * p5a,
+              (3 - ir5) * u**(-31) * p2**4 * p3**2 * p5 * p6**2 * p10 * p10a * p15a * p30a * p5a,
+              (30 + 30 * ir5) * u**(-6) * p2**4 * p30b * p5a**2,
+              (60 - 30 * ir5) * u**(-6) * p2**4 * p30a * p5b**2,
+              8 * u**(-6) * p3**2 * p5**2,10 * u**(-6) * p3**2 * p4**2 * p5,
+              (2 + ir5) * u**(-2) * p2**4 * p4**2 * p5 * p10 * p10b * p20a * p5b,
+              (2 + ir5) * u**(-22) * p2**4 * p4**2 * p5 * p10 * p10b * p20a * p5b,
+              (3 - ir5) * u**(-2) * p2**4 * p4**2 * p5 * p10 * p10a * p20b * p5a,
+              (3 - ir5) * u**(-22) * p2**4 * p4**2 * p5 * p10 * p10a * p20b * p5a,
+              10 * u**(-6) * p2**4 * p3**2 * p10,20 * u**(-6) * p3**2 * p20a * p5a**2,
+              20 * u**(-6) * p3**2 * p20b * p5b**2,2 * u**(-3) * p2 * p3**2 * p5**2 * p15,
+              2 * u**(-18) * p2 * p3**2 * p5**2 * p15,2 * u**(-3) * p2 * p3**2 * p5**2 * p15,
+              2 * u**(-18) * p2 * p3**2 * p5**2 * p15,10 * u**(-6) * p2**4 * p5 * p6**2,
+              (150 - 90 * ir5) * u**(-6) * p4**2 * p15b * p5a**2,
+              (60 + 90 * ir5) * u**(-6) * p4**2 * p15a * p5b**2,
+              (1560 - 960 * ir5) * u**(-6) * p6**2 * p10b**2 * p5a**2,
+              (600 + 960 * ir5) * u**(-6) * p6**2 * p10a**2 * p5b**2,
+              u**(-4) * p2**4 * p3**2 * p4**2 * p6**2 * p12,
+              u**(-16) * p2**4 * p3**2 * p4**2 * p6**2 * p12,
+              (60 - 30 * ir5) * u**(-6) * p2**4 * p10b**2 * p15a,
+              (30 + 30 * ir5) * u**(-6) * p2**4 * p10a**2 * p15b,
+              u**(-5) * p2**4 * p5**2 * p10**2,u**(-15) * p2**4 * p5**2 * p10**2,
+              40 * u**(-6) * p3**2 * p10**2,12 * u**(-6) * p5**2 * p12]
 
 # F schurelms
 
@@ -4629,11 +4629,11 @@ def schurelms(W,paramL):
     if isinstance(paramL, list):
         vs = paramL[:]
     else:
-        vs = len(W.rank)*[paramL]
+        vs = len(W.rank) * [paramL]
     ct = W.cartantype[0]
     if ct[0] == 'G':
         schur = schurelmdata(ct[0],len(ct[1]),[vs[ct[1][0]]**2,vs[ct[1][1]]**2,
-                                                    vs[ct[1][0]]*vs[ct[1][1]]])
+                                                    vs[ct[1][0]] * vs[ct[1][1]]])
     elif ct[0][0] == 'I':
         schur = schurelmdata(ct[0],len(ct[1]),[vs[ct[1][0]],vs[ct[1][1]]])
     else:
@@ -4641,12 +4641,12 @@ def schurelms(W,paramL):
     for ct in W.cartantype[1:]:
         if ct[0] == 'G':
             s1 = schurelmdata(ct[0],len(ct[1]),[vs[ct[1][0]]**2,vs[ct[1][1]]**2,
-                                                      vs[ct[1][0]]*vs[ct[1][1]]])
+                                                      vs[ct[1][0]] * vs[ct[1][1]]])
         elif ct[0][0] == 'I':
             s1 = schurelmdata(ct[0],len(ct[1]),[vs[ct[1][0]],vs[ct[1][1]]])
         else:
             s1 = schurelmdata(ct[0],len(ct[1]),[vs[s]**2 for s in ct[1]])
-        schur = flatlist([[x*sh for sh in s1] for x in schur])
+        schur = flatlist([[x * sh for sh in s1] for x in schur])
     return schur
 
 # F lcmschurelms
@@ -4675,7 +4675,7 @@ def lcmschurelms(W,paramL):
     if isinstance(paramL, list):
         vs = paramL[:]
     else:
-        vs = len(W.rank)*[paramL]
+        vs = len(W.rank) * [paramL]
     lcms = []
     for ct in W.cartantype:
         equ = True
@@ -4697,30 +4697,30 @@ def lcmschurelms(W,paramL):
             p = poincarepol(coxeter(ct[0],len(ct[1])),vs1[0]**2)
             if ct[0] == 'B' or ct[0] == 'C':
                 d = 0
-                while d*(d+1) <= len(ct[1]):
+                while d * (d + 1) <= len(ct[1]):
                     d += 1
-                p = 2**(d-1)*p
+                p = 2**(d - 1) * p
             if ct[0] == 'D':
                 d = 0
-                while d*d <= len(ct[1]):
+                while d * d <= len(ct[1]):
                     d += 1
-                p = 2**(d-2)*p
+                p = 2**(d - 2) * p
             if ct[0] == 'G':
-                p = 6*p
+                p = 6 * p
             if ct[0] == 'F':
-                p = 24*p
+                p = 24 * p
             if ct[0] == 'E' and len(ct[1]) == 6:
-                p = 6*p
+                p = 6 * p
             if ct[0] == 'E' and len(ct[1]) == 7:
-                p = 6*p
+                p = 6 * p
             if ct[0] == 'E' and len(ct[1]) == 8:
-                p = 120*p
+                p = 120 * p
             if ct[0] == 'H' and len(ct[1]) == 3:
-                p = 10*p
+                p = 10 * p
             if ct[0] == 'H' and len(ct[1]) == 4:
-                p = 120*p
+                p = 120 * p
             if ct[0][0] == 'I':
-                p = int(ct[0][1:])*p
+                p = int(ct[0][1:]) * p
         lcms.append(p)
     return lcmcyclpol(lcms)
 
@@ -4729,18 +4729,18 @@ def lcmschurelms(W,paramL):
 
 def cocharpol(W,u):
     c = conjugacyclasses(W)
-    p = (u-1)**len(W.rank)*poincarepol(W,u)
+    p = (u - 1)**len(W.rank) * poincarepol(W,u)
     cp = []
     for i in range(len(c['reps'])):
         m = [list(row) for row in W.wordtomat(c['reps'][i])]
         for k in W.rank:
             for l in W.rank:
                 if k == l:
-                    m[k][k] = u-m[k][k]*u**0
+                    m[k][k] = u - m[k][k] * u**0
                 else:
-                    m[k][l] = -m[k][l]*u**0
+                    m[k][l] = -m[k][l] * u**0
         cp.append(divmod(p,determinantmat(m))[0])
-    return [(-1)**len(c['reps'][i])*c['classlengths'][i]*cp[i]
+    return [(-1)**len(c['reps'][i]) * c['classlengths'][i] * cp[i]
                                             for i in range(len(cp))]
 
 # F fakedegree
@@ -4771,7 +4771,7 @@ def fakedegree(W,u,chars):
     [0, 6, 3, 3, 1, 2]
     """
     cp = cocharpol(W,u)
-    return [divmod(sum(char[i]*cp[i] for i in range(len(cp))),W.order)[0]
+    return [divmod(sum(char[i] * cp[i] for i in range(len(cp))),W.order)[0]
                                                          for char in chars]
 
 # F fakeomega
@@ -4798,13 +4798,13 @@ def fakeomega(W,u):
     """
     ti = chartable(W)
     cp = cocharpol(W,u)
-    om = [len(ti['b'])*[0] for i in ti['b']]
+    om = [len(ti['b']) * [0] for i in ti['b']]
     for i in range(len(ti['b'])):
         for j in range(i,len(ti['b'])):
             char = [ti['irreducibles'][ti['position_sgn']][k] *
-                   ti['irreducibles'][i][k]*ti['irreducibles'][j][k]
+                   ti['irreducibles'][i][k] * ti['irreducibles'][j][k]
                                               for k in range(len(ti['b']))]
-            om[i][j] = u**W.N*divmod(sum(char[i]*cp[i] for i in range(len(cp))),
+            om[i][j] = u**W.N * divmod(sum(char[i] * cp[i] for i in range(len(cp))),
                                                                     W.order)[0]
             if i != j:
                 om[j][i] = om[i][j]
@@ -4815,8 +4815,8 @@ def fakeomega(W,u):
 
 def repintp(n,p):
     m = n % p
-    if m > (p-1)//2:
-        return m-p
+    if m > (p - 1) // 2:
+        return m - p
     else:
         return m
 
@@ -4824,17 +4824,17 @@ def repintp(n,p):
 def powp(x,n,p):
     y = 1
     for i in range(n):
-        y = (y*x) % p
+        y = (y * x) % p
     return y
 
 
 def matsubp(a,b,p):
-    return [[(a[i][j]-b[i][j]) % p for j in range(len(a[0]))]
+    return [[(a[i][j] - b[i][j]) % p for j in range(len(a[0]))]
                                        for i in range(len(a))]
 
 
 def matmultp(a,b,p):
-    return [[(sum((row[k]*b[k][j]) % p for k in range(len(b)))) % p
+    return [[(sum((row[k] * b[k][j]) % p for k in range(len(b)))) % p
                              for j in range(len(b[0]))] for row in a]
 
 
@@ -4843,24 +4843,24 @@ def valuep(f,x,p):
         return 0
     y = 0
     for i in range(len(f.coeffs)):
-        y = ((x*y) % p+f.coeffs[-i-1]) % p
+        y = ((x * y) % p + f.coeffs[-i - 1]) % p
     for i in range(f.val):
-        y = (y*x) % p
+        y = (y * x) % p
     return y
 
 
 def applychinrem(mat1,mat2,m1,m2):
     """apply Chinese Remainder to a matrix of lists.
     """
-    m = m1*m2
+    m = m1 * m2
     g = gcdex(m1,m2)
     for i in range(len(mat1)):
         for j in range(len(mat1)):
             for k in range(len(mat1[i][j])):
-                x = (mat1[i][j][k]*g['coeff2']*m2 +
-                   mat2[i][j][k]*g['coeff1']*m1) % m
-                if x > (m-1)//2:
-                    mat1[i][j][k] = x-m
+                x = (mat1[i][j][k] * g['coeff2'] * m2 +
+                   mat2[i][j][k] * g['coeff1'] * m1) % m
+                if x > (m - 1) // 2:
+                    mat1[i][j][k] = x - m
                 else:
                     mat1[i][j][k] = x
 
@@ -4885,19 +4885,19 @@ def blockLR(mat,bl,diag,p):
         if diag[j] % p == 0:
             return False
         d1 = 1
-        while (d1*diag[j]) % p != 1:
+        while (d1 * diag[j]) % p != 1:
             d1 += 1
         Lj = [[mat[r][s] for s in bl[j]] for r in bl[j]]
         for k in range(j):
             Lj = matsubp(Lj,matmultp(P[j][k],matmultp(L[k],
                                    transposemat(P[j][k]),p),p),p)
-        L[j] = [[(((x*d1) % p)*d1) % p for x in r] for r in Lj]
+        L[j] = [[(((x * d1) % p) * d1) % p for x in r] for r in Lj]
         invj = inversematp(L[j],p)
         if invj is False:
             return False
         for i in range(len(bl)):
             if i < j:
-                P[i][j] = [len(bl[j])*[0] for r in bl[i]]
+                P[i][j] = [len(bl[j]) * [0] for r in bl[i]]
             elif i == j:
                 P[j][j] = idmat(bl[j],diag[j] % p)
             else:
@@ -4905,7 +4905,7 @@ def blockLR(mat,bl,diag,p):
                 for k in range(j):
                     Pij = matsubp(Pij,matmultp(P[i][k],matmultp(L[k],
                                               transposemat(P[j][k]),p),p),p)
-                P[i][j] = matmultp([[(x*d1) % p for x in r] for r in Pij],invj,p)
+                P[i][j] = matmultp([[(x * d1) % p for x in r] for r in Pij],invj,p)
     # mat1=[[mat[r][s] for s in fbl] for r in fbl]
     # if not all(x%p==0 for x in flatlist(matsubp(matmult(resP,
     #                    matmult(resL,transposemat(resP))),mat1)),p):
@@ -4922,29 +4922,29 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0, verbose=False):
     gom = fakeomega(W,u)
     fbl = flatlist(fam)
     if startpr == 0:
-        p = max(2*sum(W.degrees)+2,800)
+        p = max(2 * sum(W.degrees) + 2,800)
     else:
         p = startpr
     fertig = False
     if verbose:
         lprint('#I Prime: ')
     while not fertig:
-        p = nextprime(p+100)
+        p = nextprime(p + 100)
         Ps,Ls = [],[]
         if verbose:
-            lprint(str(p)+'; ')
+            lprint(str(p) + '; ')
         i = 2
         l = []
-        while i <= 2*p and len(l) <= 2*sum(W.degrees)+2:
+        while i <= 2 * p and len(l) <= 2 * sum(W.degrees) + 2:
             omp = [[valuep(f,i,p) for f in row] for row in gom]
             if len(l) % 10 == 0:
                 if verbose:
-                    lprint(str(len(l))+' ')
+                    lprint(str(len(l)) + ' ')
             ap = []
             for a in avals:
                 x = 1
                 for e in range(a):
-                    x = (x*i) % p
+                    x = (x * i) % p
                 ap.append(x)
             bl = blockLR(omp,fam,ap,p)
             if bl is not False:
@@ -4954,7 +4954,7 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0, verbose=False):
             if i > 0:
                 i = -i
             else:
-                i = 1-i
+                i = 1 - i
         if verbose:
             lprint('\n')
             lprint('#I Now interpolating ')
@@ -4978,11 +4978,11 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0, verbose=False):
             i = 0
             while fertig and i < len(fbl):
                 if verbose and i % 5 == 0:
-                    lprint(str(i)+' ')
+                    lprint(str(i) + ' ')
                 j = 0
                 while fertig and j <= i:
-                    x = sum(P[j][s]*sum(P[i][r]*L[r][s] for r in range(i+1)
-                                  if L[r][s] != 0) for s in range(j+1) if P[j][s] != 0)
+                    x = sum(P[j][s] * sum(P[i][r] * L[r][s] for r in range(i + 1)
+                                  if L[r][s] != 0) for s in range(j + 1) if P[j][s] != 0)
                     if x != gom[fbl[i]][fbl[j]]:
                         if verbose:
                             lprint(' ... change prime ...')
@@ -4990,7 +4990,7 @@ def greenalgo(W,u,fam,avals,check=True,startpr=0, verbose=False):
                     j += 1
                 i += 1
         if verbose:
-            lprint(' '+str(fertig)+' ')
+            lprint(' ' + str(fertig) + ' ')
     if verbose:
         lprint('\n')
     return [P, L, fbl]
@@ -5170,25 +5170,25 @@ class wgraph:
                                 if s in self.Isets[x] and s not in self.Isets[y]:
                                     if len(ms) == len(W.rank):
                                         if ms[s] != '' and ms[s] != '0':
-                                            m = -(-1)**(ll[y]+ll[x]) * \
+                                            m = -(-1)**(ll[y] + ll[x]) * \
                                                 xset['mpols'][s][int(ms[s])]
                                             if m in nmues[s]:
                                                 mstr += 'c' + \
                                                     str(nmues[s].index(m))
                                             else:
-                                                mstr += 'c'+str(len(nmues[s]))
+                                                mstr += 'c' + str(len(nmues[s]))
                                                 nmues[s].append(m)
                                         else:
                                             mstr += 'c0'
                                     else:
                                         if ms[0] != '' and ms[0] != '0':
-                                            m = -(-1)**(ll[y]+ll[x]) * \
+                                            m = -(-1)**(ll[y] + ll[x]) * \
                                                 xset['mpols'][int(ms[0])]
                                             if m in nmues[s]:
                                                 mstr += 'c' + \
                                                     str(nmues[s].index(m))
                                             else:
-                                                mstr += 'c'+str(len(nmues[s]))
+                                                mstr += 'c' + str(len(nmues[s]))
                                                 nmues[s].append(m)
                                         else:
                                             mstr += 'c0'
@@ -5198,12 +5198,12 @@ class wgraph:
                             for s in W.rank:
                                 if self.weights[s] > 0:
                                     if ms[s] != '' and ms[s] != '0':
-                                        m = -(-1)**(ll[y]+ll[x]) * \
+                                        m = -(-1)**(ll[y] + ll[x]) * \
                                             xset['mpols'][s][int(ms[s])]
                                         if m in nmues[s]:
-                                            mstr += 'c'+str(nmues[s].index(m))
+                                            mstr += 'c' + str(nmues[s].index(m))
                                         else:
-                                            mstr += 'c'+str(len(nmues[s]))
+                                            mstr += 'c' + str(len(nmues[s]))
                                             nmues[s].append(m)
                                     else:
                                         mstr += 'c0'
@@ -5236,7 +5236,7 @@ class wgraph:
         return self.Xrep == wgr.Xrep
 
     def __repr__(self):
-        return 'wgraph('+repr(self.W)+', '+str(self.weights)+', '+str(self.X)+')'
+        return 'wgraph(' + repr(self.W) + ', ' + str(self.weights) + ', ' + str(self.X) + ')'
 
     def normalise(self):
         """returns  a wgraph  (for the same representation) where the
@@ -5271,21 +5271,21 @@ class wgraph:
         """
         mat = []
         for j in range(len(self.X)):
-            mat.append(['f' for i in range(j+1)])
+            mat.append(['f' for i in range(j + 1)])
         mues = [[0,1] for s in self.W.rank]
         for j in range(len(self.X)):
             for i in range(j):
                 if (j,i) in self.mmat:
                     mstr = 'c0'   # exact value will not be used anywhere
-                    eps = -(-1)**(len(self.X[i])+len(self.X[j]))
+                    eps = -(-1)**(len(self.X[i]) + len(self.X[j]))
                     rk = self.mmat[(j,i)].split('c')[1:]
                     for s in self.W.rank:
                         if rk[s] != '':
-                            m = eps*self.mpols[s][int(rk[s])]
+                            m = eps * self.mpols[s][int(rk[s])]
                             if m in mues[s]:
-                                mstr += 'c'+str(mues[s].index(m))
+                                mstr += 'c' + str(mues[s].index(m))
                             else:
-                                mstr += 'c'+str(len(mues[s]))
+                                mstr += 'c' + str(len(mues[s]))
                                 mues[s].append(m)
                         else:
                             mstr += 'c0'
@@ -5348,32 +5348,32 @@ class wgraph:
                     mats[s][y][y] = -1
                 else:
                     if self.weights[s] > 0:
-                        mats[s][y][y] = v**(2*self.weights[s])
+                        mats[s][y][y] = v**(2 * self.weights[s])
                     for x in range(len(self.X)):
                         if self.weights[s] == 0 or s in self.Isets[x]:
                             if (y,x) in self.mmat:
-                                mats[s][y][x] = v**(self.weights[s])*self.mpols[s][
-                                                    int(self.mmat[y,x].split('c')[s+1])]
+                                mats[s][y][x] = v**(self.weights[s]) * self.mpols[s][
+                                                    int(self.mmat[y,x].split('c')[s + 1])]
         if check:
             if verbose:
                 lprint('#I defining relations are ')
             for s in self.W.rank:
-                sq = v**(2*self.weights[s])
+                sq = v**(2 * self.weights[s])
                 if matmult(mats[s],mats[s]) != matadd(idmat(self.X,sq),
-                                              scalmatmult(sq-1,mats[s])):
+                                              scalmatmult(sq - 1,mats[s])):
                     lprint('Mist1!\n')
                     return 'False1'
-                for t in range(s+1,len(self.W.rank)):
+                for t in range(s + 1,len(self.W.rank)):
                     a = matmult(mats[s],mats[t])
                     b = matmult(mats[t],mats[s])
                     m = self.W.coxetermat[s][t]
                     if m % 2 == 0:
                         a1,b1 = a,b
-                        for i in range(m//2-1):
+                        for i in range(m // 2 - 1):
                             a1,b1 = matmult(a1,a),matmult(b1,b)
                     else:
                         a1,b1 = a,b
-                        for i in range((m-1)//2-1):
+                        for i in range((m - 1) // 2 - 1):
                             a1,b1 = matmult(a1,a),matmult(b1,b)
                         a1,b1 = matmult(a1,mats[s]),matmult(b1,mats[t])
                     if a1 != b1:
@@ -5433,7 +5433,7 @@ def reflectionwgraph(W,weightL,v):
     See also 'wgraph'.
     """
     if isinstance(weightL, int):
-        poids = len(W.rank)*[weightL]
+        poids = len(W.rank) * [weightL]
     else:
         poids = weightL
     mues = [[0,1] for s in W.rank]
@@ -5451,12 +5451,12 @@ def reflectionwgraph(W,weightL,v):
                         mmat[(y,x)] += 'c0'
                 for s in W.rank:
                     if s == y:
-                        e = poids[y]-poids[x]
-                        m = (W.cartan[x][y]*W.cartan[y][x]-2)*v**0+v**e+v**(-e)
+                        e = poids[y] - poids[x]
+                        m = (W.cartan[x][y] * W.cartan[y][x] - 2) * v**0 + v**e + v**(-e)
                         if m in mues[s]:
-                            mmat[(x,y)] += 'c'+str(mues[s].index(m))
+                            mmat[(x,y)] += 'c' + str(mues[s].index(m))
                         else:
-                            mmat[(x,y)] += 'c'+str(len(mues[s]))
+                            mmat[(x,y)] += 'c' + str(len(mues[s]))
                             mues[s].append(m)
                     else:
                         mmat[(x,y)] += 'c0'
@@ -5472,7 +5472,7 @@ def pospart(f):
     if f.val > 0:
         return f
     if len(f.coeffs) > -f.val:
-        return lpol([f.coeffs[i] for i in range(-f.val+1,len(f.coeffs))],
+        return lpol([f.coeffs[i] for i in range(-f.val + 1,len(f.coeffs))],
                     1, f.vname)
     return 0
 
@@ -5598,7 +5598,7 @@ def klpolynomials(W, weightL, v, verbose=False):
     if isinstance(weightL, list):
         poids = weightL
     else:
-        poids = len(W.rank)*[weightL]
+        poids = len(W.rank) * [weightL]
     if all(i == 1 for i in poids):
         uneq = False
     else:
@@ -5615,9 +5615,9 @@ def klpolynomials(W, weightL, v, verbose=False):
         lprint('#I Initialising (Bruhat-Chevalley order etc.) ')
     lft = [[inva1.index(tuple([s[i] for i in p]))
                                    for s in W.permgens] for p in inva1]
-    mat = [['c0'+len(W.rank)*'c']]
+    mat = [['c0' + len(W.rank) * 'c']]
     for w in range(1,len(a)):
-        if verbose and lw[w] > lw[w-1]:
+        if verbose and lw[w] > lw[w - 1]:
             lprint('.')
         s = 0
         while lft[w][s] > w:
@@ -5626,7 +5626,7 @@ def klpolynomials(W, weightL, v, verbose=False):
         for y in range(1,w):
             if lw[y] == lw[w]:
                 b.append('f')
-            elif lw[w]+lw[y] > W.N:
+            elif lw[w] + lw[y] > W.N:
                 b.append(mat[aw0[y]][aw0[w]])
             else:
                 if (lft[y][s] < y and lft[y][s] <= lft[w][s] and
@@ -5644,8 +5644,8 @@ def klpolynomials(W, weightL, v, verbose=False):
     klstar = [1]
     mues = [[0] for s in W.rank]
     for w in range(1,len(a)):
-        if verbose and lw[w] > lw[w-1]:
-            lprint(str(lw[w])+' ')
+        if verbose and lw[w] > lw[w - 1]:
+            lprint(str(lw[w]) + ' ')
         for y in range(w,-1,-1):
             if mat[w][y][0] == 'c':
                 if y == w:
@@ -5698,15 +5698,15 @@ def klpolynomials(W, weightL, v, verbose=False):
                             else:
                                 h = klpol[int(mat[sw][sy].split('c')[1])]
                                 if y <= sw and mat[sw][y][0] == 'c':
-                                    h += v**(2*poids[s]) * \
+                                    h += v**(2 * poids[s]) * \
                                            klpol[int(mat[sw][y].split('c')[1])]
-                                for z in range(sw-1,y-1,-1):
+                                for z in range(sw - 1,y - 1,-1):
                                     if lft[z][s] < z and mat[z][y][0] == 'c' and mat[sw][z][0] == 'c':
                                         m = mues[s][int(
-                                            mat[sw][z].split('c')[s+2])]
+                                            mat[sw][z].split('c')[s + 2])]
                                         if m != 0:
                                             h -= m * \
-                                                v**(Lw[w]-Lw[z]) * \
+                                                v**(Lw[w] - Lw[z]) * \
                                                 klpol[int(
                                                     mat[z][y].split('c')[1])]
                 if h not in klpol:
@@ -5714,47 +5714,47 @@ def klpolynomials(W, weightL, v, verbose=False):
                     klpol.append(h)
                 else:
                     mat[w][y] += str(klpol.index(h))
-                hstar = v**(Lw[y]-Lw[w])*h
+                hstar = v**(Lw[y] - Lw[w]) * h
                 if hstar not in klstar:
                     klstar.append(hstar)
                 if uneq:   # now mue polynomial
                     for s in W.rank:
                         if poids[s] > 0 and lft[y][s] < y and lft[w][s] > w:
-                            if lw[y]+lw[w] > W.N:
-                                if (lw[w]-lw[y]) % 2 == 0:
-                                    m = -mues[s][int(mat[aw0[y]][aw0[w]].split('c')[s+2])]
+                            if lw[y] + lw[w] > W.N:
+                                if (lw[w] - lw[y]) % 2 == 0:
+                                    m = -mues[s][int(mat[aw0[y]][aw0[w]].split('c')[s + 2])]
                                 else:
                                     m = mues[s][int(
-                                        mat[aw0[y]][aw0[w]].split('c')[s+2])]
+                                        mat[aw0[y]][aw0[w]].split('c')[s + 2])]
                             elif poids[s] == 1:
-                                m = zeropart(v**(1+Lw[y]-Lw[w])*h)
+                                m = zeropart(v**(1 + Lw[y] - Lw[w]) * h)
                             else:
-                                m = nonnegpart(v**(poids[s]+Lw[y]-Lw[w])*h)
-                                for z in range(w-1,y,-1):
+                                m = nonnegpart(v**(poids[s] + Lw[y] - Lw[w]) * h)
+                                for z in range(w - 1,y,-1):
                                     if lft[z][s] < z and mat[z][y][0] == 'c' and mat[w][z][0] == 'c':
                                         mp = pospart(
-                                            mues[s][int(mat[w][z].split('c')[s+2])])
+                                            mues[s][int(mat[w][z].split('c')[s + 2])])
                                         if mp != 0:
-                                            m -= nonnegpart(mp*v**(Lw[y]-Lw[z]) *
+                                            m -= nonnegpart(mp * v**(Lw[y] - Lw[z]) *
                                                         klpol[int(mat[z][y].split('c')[1])])
                                 if m != 0:
-                                    m = barpart(m)+m-zeropart(m)
+                                    m = barpart(m) + m - zeropart(m)
                             if m not in mues[s]:
-                                mat[w][y] += 'c'+str(len(mues[s]))
+                                mat[w][y] += 'c' + str(len(mues[s]))
                                 mues[s].append(m)
                             else:
-                                mat[w][y] += 'c'+str(mues[s].index(m))
+                                mat[w][y] += 'c' + str(mues[s].index(m))
                         else:
                             mat[w][y] += 'c'
                 else:
-                    m = zeropart(v**(1+Lw[y]-Lw[w])*h)
+                    m = zeropart(v**(1 + Lw[y] - Lw[w]) * h)
                     for s in W.rank:
                         if lft[y][s] < y and lft[w][s] > w:
                             if m not in mues[s]:
-                                mat[w][y] += 'c'+str(len(mues[s]))
+                                mat[w][y] += 'c' + str(len(mues[s]))
                                 mues[s].append(m)
                             else:
-                                mat[w][y] += 'c'+str(mues[s].index(m))
+                                mat[w][y] += 'c' + str(mues[s].index(m))
                         else:
                             mat[w][y] += 'c'
     if verbose:
@@ -5767,15 +5767,15 @@ def klpolynomials(W, weightL, v, verbose=False):
         for y in range(w):
             if mat[w][y][0] == 'c':
                 if any(poids[s] > 0 and lft[y][s] < y and lft[w][s] > w and
-                       mues[s][int(mat[w][y].split('c')[s+2])] != 0
+                       mues[s][int(mat[w][y].split('c')[s + 2])] != 0
                        for s in W.rank):
                     pp.append((w,y))
     if verbose:
-        lprint(str(len(pp))+' arrows ')
+        lprint(str(len(pp)) + ' arrows ')
     adelta = []
     ndelta = []
     for w in range(len(a)):
-        p = v**(-Lw[w])*klpol[int(mat[w][0].split('c')[1])]
+        p = v**(-Lw[w]) * klpol[int(mat[w][0].split('c')[1])]
         if p == 0:
             adelta.append(-1)
             ndelta.append(0)
@@ -5818,7 +5818,7 @@ def klpolynomials(W, weightL, v, verbose=False):
         for w in l:
             rest.remove(w)
     if verbose:
-        lprint(' '+str(len(lcells))+' left cells ')
+        lprint(' ' + str(len(lcells)) + ' left cells ')
     lorder = [[d2[0] in pp1[d1[0]] for d2 in duflo] for d1 in duflo]
     for c1 in range(len(lcells)):
         for c2 in range(len(lcells)):
@@ -5850,7 +5850,7 @@ def klpolynomials(W, weightL, v, verbose=False):
         for w in t:
             rest.remove(w)
     if verbose:
-        lprint('> checks are '+str(checks)+'\n')
+        lprint('> checks are ' + str(checks) + '\n')
     return {'elms':ap,'klpols':klpol,'mpols':mues,'klmat':mat,'arrows':pp,
             'lcells':lcells,'duflo':duflo,'lorder':lorder, 'rcells':rcells,
             'tcells':tcells,'klstar':klstar}
@@ -5865,7 +5865,7 @@ def klpoly1(W, weightL, v):
     k = klpolynomials(W,weightL,v)
     return [{'elms':[k['elms'][x] for x in c],
              'mpols':k['mpols'],'klpols':k['klpols'],
-             'klmat':[[k['klmat'][c[w]][c[y]] for y in range(w+1)]
+             'klmat':[[k['klmat'][c[w]][c[y]] for y in range(w + 1)]
                        for w in range(len(c))]} for c in k['lcells']]
 
 
@@ -5966,7 +5966,7 @@ def relklpols(W,W1,cell1,weightL,q):
     if isinstance(weightL, (list, tuple)):
         poids = weightL
     else:
-        poids = len(W.rank)*[weightL]
+        poids = len(W.rank) * [weightL]
     # uneq = not all(i == 1 for i in poids)
     J = W1.fusions[W.cartanname]['subJ']
     X1w = [W.coxelmtoword(c) for c in redleftcosetreps(W,J)]
@@ -5983,7 +5983,7 @@ def relklpols(W,W1,cell1,weightL,q):
                 t = 0
                 while tuple([W.permgens[t][i] for i in w]) != sw:
                     t += 1
-                ls.append(-t-1)
+                ls.append(-t - 1)
         lft.append(ls)
     Lw1 = [sum([poids[J[s]] for s in w]) for w in cell1['elms']]
     p1 = [W1.wordtoperm(w) for w in cell1['elms']]
@@ -6003,18 +6003,18 @@ def relklpols(W,W1,cell1,weightL,q):
     bruhatX = []
     for y in range(len(X1)):
         bruhatX.append([bruhatperm(W,X1[x],X1[y],lx=Lw[x],ly=Lw[y])
-                                                   for x in range(y+1)])
+                                                   for x in range(y + 1)])
     mat = {}
     mues = [0,1]
     for y in range(len(X1)):
         for x in range(y):
             if bruhatX[y][x]:
-                mat[y,x] = [len(p1)*['f'] for i in range(len(p1))]
+                mat[y,x] = [len(p1) * ['f'] for i in range(len(p1))]
                 for v in range(len(p1)):
                     for u in range(len(p1)):
-                        if (x == y and u == v) or Lw[x]+Lw1[u] < Lw[y]+Lw1[v]:
+                        if (x == y and u == v) or Lw[x] + Lw1[u] < Lw[y] + Lw1[v]:
                             mat[y,x][v][u] = 'c'
-        mat[y,y] = [len(p1)*['f'] for i in range(len(p1))]
+        mat[y,y] = [len(p1) * ['f'] for i in range(len(p1))]
         for i in range(len(p1)):
             for j in range(i):
                 if cell1['klmat'][i][j][0] == 'c':
@@ -6026,9 +6026,9 @@ def relklpols(W,W1,cell1,weightL,q):
                     if r < len(rk):
                         m = cell1['mpols'][r][int(rk[r])]
                         if m in mues:
-                            mat[y,y][i][j] += 'c'+str(mues.index(m))
+                            mat[y,y][i][j] += 'c' + str(mues.index(m))
                         else:
-                            mat[y,y][i][j] += 'c'+str(len(mues))
+                            mat[y,y][i][j] += 'c' + str(len(mues))
                             mues.append(m)
                     else:
                         mat[y,y][i][j] += 'c0'
@@ -6037,7 +6037,7 @@ def relklpols(W,W1,cell1,weightL,q):
     for y in range(len(X1)):
         # lprint('+')
         ldy = W.leftdescentsetperm(X1[y])
-        for x in range(y-1,-1,-1):
+        for x in range(y - 1,-1,-1):
             if bruhatX[y][x]:  # and mat[y,x][0][0][0]=='c':
                 fs = [s for s in ldy if lft[s][x] > x]
                 fs1 = [s1 for s1 in ldy if 0 <= lft[s1][x] < x]
@@ -6051,13 +6051,13 @@ def relklpols(W,W1,cell1,weightL,q):
                                         [x]][v][u].split('c')[1]
                                     rk = mat[y,x][v][u].split('c')[1]
                                     if rk != '0':
-                                        m = relmue(Lw[y]+Lw1[v],Lw[x] +
+                                        m = relmue(Lw[y] + Lw1[v],Lw[x] +
                                                  Lw1[u],rklpols[int(rk)])
                                         if m in mues:
                                             mat[y,x][v][u] += 'c' + \
                                                 str(mues.index(m))
                                         else:
-                                            mat[y,x][v][u] += 'c'+str(len(mues))
+                                            mat[y,x][v][u] += 'c' + str(len(mues))
                                             mues.append(m)
                                     else:
                                         mat[y,x][v][u] += 'c0'
@@ -6065,7 +6065,7 @@ def relklpols(W,W1,cell1,weightL,q):
                                     mat[y,x][v][u] += '0c0'
                 else:
                     for u in range(len(p1)):
-                        if any(lft[s1][x] < 0 and u < lft1[-1-lft[s1][x]][u] for s1 in ldy):
+                        if any(lft[s1][x] < 0 and u < lft1[-1 - lft[s1][x]][u] for s1 in ldy):
                             for v in range(len(p1)):
                                 if mat[y,x][v][u][0] == 'c':
                                     mat[y,x][v][u] += '0c0'
@@ -6085,7 +6085,7 @@ def relklpols(W,W1,cell1,weightL,q):
                                         sz = lft[s][z]
                                         if sz < z and bruhatX[sy][z] and bruhatX[z][x]:
                                             for w in range(len(p1)):
-                                                if (sz >= 0 or lft1[-1-sz][w] < w) and (mat[z,x][w][
+                                                if (sz >= 0 or lft1[-1 - sz][w] < w) and (mat[z,x][w][
                                                             u][0] == 'c' and mat[sy,z][v][w][0] == 'c'):
                                                     m = mues[int(
                                                         mat[sy,z][v][w].split('c')[2])]
@@ -6093,21 +6093,21 @@ def relklpols(W,W1,cell1,weightL,q):
                                                         rk = mat[z,x][w][u].split('c')[
                                                                                 1]
                                                         if rk != '0':
-                                                            h -= q**(Lw[y]+Lw1[v]-Lw[z]-Lw1[w])*rklpols[
-                                                                                               int(rk)]*m
+                                                            h -= q**(Lw[y] + Lw1[v] - Lw[z] - Lw1[w]) * rklpols[
+                                                                                               int(rk)] * m
                                     if sx < 0:  # case sx not in X, tu<u
-                                        t = -1-sx
+                                        t = -1 - sx
                                         if mat[sy,x][v][u][0] == 'c':
                                             rk = mat[sy,x][v][u].split('c')[1]
                                             if rk != '0':
-                                                h += (q**2+1)*rklpols[int(rk)]
+                                                h += (q**2 + 1) * rklpols[int(rk)]
                                         if 0 <= lft1[t][u] < len(p1) and mat[sy,x][v][lft1[t][
                                                                                      u]][0] == 'c':
                                             rk = mat[sy,x][v][lft1[t][u]].split('c')[
                                                                               1]
                                             if rk != '0':
                                                 h += rklpols[int(rk)]
-                                        for w in range(u+1,len(p1)):
+                                        for w in range(u + 1,len(p1)):
                                             if lft1[t][w] > w and (mat[sy,x][v][w][0] == 'c' and
                                                                    cell1['klmat'][w][u][0] == 'c'):
                                                 m = mues[int(
@@ -6116,9 +6116,9 @@ def relklpols(W,W1,cell1,weightL,q):
                                                     rk = mat[sy,x][v][w].split('c')[
                                                                              1]
                                                     if rk != '0':
-                                                        h += q**(Lw1[w]-Lw1[u]+1) * \
+                                                        h += q**(Lw1[w] - Lw1[u] + 1) * \
                                                                rklpols[int(
-                                                                   rk)]*m
+                                                                   rk)] * m
                                     else:    # case sx<x
                                         if mat[sy,sx][v][u][0] == 'c':
                                             rk = mat[sy,sx][v][u].split('c')[1]
@@ -6127,7 +6127,7 @@ def relklpols(W,W1,cell1,weightL,q):
                                         if x <= sy and bruhatX[sy][x] and mat[sy,x][v][u][0] == 'c':
                                             rk = mat[sy,x][v][u].split('c')[1]
                                             if rk != '0':
-                                                h += q**2*rklpols[int(rk)]
+                                                h += q**2 * rklpols[int(rk)]
                                     if h == 0:
                                         mat[y,x][v][u] += '0c0'
                                     else:
@@ -6137,18 +6137,18 @@ def relklpols(W,W1,cell1,weightL,q):
                                         else:
                                             mat[y,x][v][u] += str(len(rklpols))
                                             rklpols.append(h)
-                                        m = relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],h)
+                                        m = relmue(Lw[y] + Lw1[v],Lw[x] + Lw1[u],h)
                                         if m in mues:
                                             mat[y,x][v][u] += 'c' + \
                                                 str(mues.index(m))
                                         else:
-                                            mat[y,x][v][u] += 'c'+str(len(mues))
+                                            mat[y,x][v][u] += 'c' + str(len(mues))
                                             mues.append(m)
     # lprint('\n')
     ap = []
     for y in X1w:
         for v in cell1['elms']:
-            ap.append(W.reducedword(y+[J[s] for s in v],W))
+            ap.append(W.reducedword(y + [J[s] for s in v],W))
     ap.sort(key=(lambda x:len(x)))
     ap1 = [W.wordtoperm(w) for w in ap]
     elms1 = [W.wordtoperm([J[s] for s in w1]) for w1 in cell1['elms']]
@@ -6158,9 +6158,9 @@ def relklpols(W,W1,cell1,weightL,q):
             bij[y,v] = ap1.index(permmult(X1[y],elms1[v]))
     nmat = []
     for i in range(len(ap)):
-        nmat.append(['f' for j in range(i+1)])
+        nmat.append(['f' for j in range(i + 1)])
     for y in range(len(X1)):
-        for x in range(y+1):
+        for x in range(y + 1):
             if bruhatX[y][x]:
                 for v in range(len(p1)):
                     for u in range(len(p1)):
@@ -6186,7 +6186,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
     if isinstance(weightL, list):
         poids = weightL
     else:
-        poids = len(W.rank)*[weightL]
+        poids = len(W.rank) * [weightL]
     # uneq = not all(i==1 for i in poids)
     J = W1.fusions[W.cartanname]['subJ']
     X1w = [W.coxelmtoword(c) for c in redleftcosetreps(W,J)]
@@ -6203,7 +6203,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                 t = 0
                 while tuple([W.permgens[t][i] for i in w]) != sw:
                     t += 1
-                ls.append(-t-1)
+                ls.append(-t - 1)
         lft.append(ls)
     Lw1 = [sum([poids[J[s]] for s in w]) for w in cell1['elms']]
     lw1 = [len(w) for w in cell1['elms']]
@@ -6224,34 +6224,34 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
     bruhatX = []
     for y in range(len(X1)):
         bruhatX.append([bruhatperm(W,X1[x],X1[y],lx=len(X1w[x]),
-                                      ly=len(X1w[y])) for x in range(y+1)])
+                                      ly=len(X1w[y])) for x in range(y + 1)])
     mues = [[0,1] for s in W.rank]
     rklpols = [0,1]
     mat = {}
     for y in range(len(X1)):
         for x in range(y):
             if bruhatX[y][x]:
-                mat[y,x] = [len(p1)*['f'] for i in range(len(p1))]
+                mat[y,x] = [len(p1) * ['f'] for i in range(len(p1))]
                 for v in range(len(p1)):
                     for u in range(len(p1)):
-                        if len(X1w[x])+lw1[u] < len(X1w[y])+lw1[v]:
+                        if len(X1w[x]) + lw1[u] < len(X1w[y]) + lw1[v]:
                             mat[y,x][v][u] = 'c'
-        mat[y,y] = [len(p1)*['f'] for i in range(len(p1))]
+        mat[y,y] = [len(p1) * ['f'] for i in range(len(p1))]
         for i in range(len(p1)):
-            mat[y,y][i][i] = 'c1'+len(W.rank)*'c0'
+            mat[y,y][i][i] = 'c1' + len(W.rank) * 'c0'
             for j in range(i):
                 if cell1['klmat'][i][j][0] == 'c':
                     mat[y,y][i][j] = 'c0'
                     for s in W.rank:
                         if poids[s] > 0 and lft[s][y] < 0:
-                            t = -1-lft[s][y]
+                            t = -1 - lft[s][y]
                             if lft1[t][i] > i and lft1[t][j] < j:
                                 m = cell1['mpols'][J.index(t)][int(cell1['klmat'][i][
-                                                         j].split('c')[J.index(t)+2])]
+                                                         j].split('c')[J.index(t) + 2])]
                                 if m in mues[s]:
-                                    mat[y,y][i][j] += 'c'+str(mues[s].index(m))
+                                    mat[y,y][i][j] += 'c' + str(mues[s].index(m))
                                 else:
-                                    mat[y,y][i][j] += 'c'+str(len(mues[s]))
+                                    mat[y,y][i][j] += 'c' + str(len(mues[s]))
                                     mues[s].append(m)
                             else:
                                 mat[y,y][i][j] += 'c0'
@@ -6262,7 +6262,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
         ldy = W.leftdescentsetperm(X1[y])
         ldy.sort(key=(lambda p:poids[p]))
         fs0 = [s0 for s0 in ldy if poids[s0] == 0]
-        for x in range(y-1,-1,-1):
+        for x in range(y - 1,-1,-1):
             if bruhatX[y][x]:  # and mat[y,x][0][0][0]=='c':
                 fs = [s for s in ldy if lft[s][x] > x and poids[s] > 0]
                 fs1 = [s1 for s1 in ldy if 0 <= lft[s1][x] < x and poids[s1] > 0]
@@ -6278,7 +6278,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                                     else:
                                         mat[y,x][v][u] += '0'
                                 else:
-                                    tu = lft1[-1-sx][u]
+                                    tu = lft1[-1 - sx][u]
                                     if 0 <= tu < len(p1):
                                         if x <= sy and bruhatX[sy][x] and mat[sy,x][v][tu][0] == 'c':
                                             mat[y,x][v][u] += mat[sy,
@@ -6299,7 +6299,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                                     mat[y,x][v][u] += '0'
                 else:
                     for u in range(len(p1)):
-                        if any(lft[s1][x] < 0 and u < lft1[-1-lft[s1][x]][u] for s1 in ldy):
+                        if any(lft[s1][x] < 0 and u < lft1[-1 - lft[s1][x]][u] for s1 in ldy):
                             for v in range(len(p1)):
                                 if mat[y,x][v][u][0] == 'c':
                                     mat[y,x][v][u] += '0'
@@ -6319,22 +6319,22 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                                         sz = lft[s][z]
                                         if sz < z and bruhatX[sy][z] and bruhatX[z][x]:
                                             for w in range(len(p1)):
-                                                if (sz >= 0 or lft1[-1-sz][w] < w) and (mat[z,x][w][
+                                                if (sz >= 0 or lft1[-1 - sz][w] < w) and (mat[z,x][w][
                                                             u][0] == 'c' and mat[sy,z][v][w][0] == 'c'):
                                                     m = mues[s][int(
-                                                        mat[sy,z][v][w].split('c')[s+2])]
+                                                        mat[sy,z][v][w].split('c')[s + 2])]
                                                     if m != 0:
                                                         rk = mat[z,x][w][u].split('c')[
                                                                                 1]
                                                         if rk != '0':
-                                                            h -= q**(Lw[y]+Lw1[v]-Lw[z]-Lw1[w])*rklpols[
-                                                                                               int(rk)]*m
+                                                            h -= q**(Lw[y] + Lw1[v] - Lw[z] - Lw1[w]) * rklpols[
+                                                                                               int(rk)] * m
                                     if sx < 0:  # case sx not in X, tu<u
-                                        t = -1-sx
+                                        t = -1 - sx
                                         if mat[sy,x][v][u][0] == 'c':
                                             rk = mat[sy,x][v][u].split('c')[1]
                                             if rk != '0':
-                                                h += (q**(2*poids[s])+1) * \
+                                                h += (q**(2 * poids[s]) + 1) * \
                                                     rklpols[int(rk)]
                                         if 0 <= lft1[t][u] < len(p1) and mat[sy,x][v][lft1[t][
                                                                                      u]][0] == 'c':
@@ -6342,17 +6342,17 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                                                                               1]
                                             if rk != '0':
                                                 h += rklpols[int(rk)]
-                                        for w in range(u+1,len(p1)):
+                                        for w in range(u + 1,len(p1)):
                                             if lft1[t][w] > w and (mat[sy,x][v][w][0] == 'c' and
                                                                    cell1['klmat'][w][u][0] == 'c'):
                                                 m1 = cell1['mpols'][J.index(t)][int(cell1['klmat'][
-                                                                 w][u].split('c')[J.index(t)+2])]
+                                                                 w][u].split('c')[J.index(t) + 2])]
                                                 if m1 != 0:
                                                     rk = mat[sy,x][v][w].split('c')[
                                                                              1]
                                                     if rk != '0':
-                                                        h += q**(Lw1[w]-Lw1[u]+poids[t]
-                                                               )*rklpols[int(rk)]*m1
+                                                        h += q**(Lw1[w] - Lw1[u] + poids[t]
+                                                               ) * rklpols[int(rk)] * m1
                                     else:    # case sx<x
                                         if mat[sy,sx][v][u][0] == 'c':
                                             rk = mat[sy,sx][v][u].split('c')[1]
@@ -6361,7 +6361,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                                         if x <= sy and bruhatX[sy][x] and mat[sy,x][v][u][0] == 'c':
                                             rk = mat[sy,x][v][u].split('c')[1]
                                             if rk != '0':
-                                                h += q**(2*poids[s]) * \
+                                                h += q**(2 * poids[s]) * \
                                                        rklpols[int(rk)]
                                     if h == 0:
                                         mat[y,x][v][u] += '0'
@@ -6377,49 +6377,49 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                         if mat[y,x][v][u][0] == 'c':
                             for r in W.rank:
                                 if poids[r] > 0 and (lft[r][y] > y or (lft[r][y] < 0 and
-                                        v < lft1[-1-lft[r][y]][v])) and (0 <= lft[r][x] < x or
-                                               (lft[r][x] < 0 and lft1[-1-lft[r][x]][u] < u)):
+                                        v < lft1[-1 - lft[r][y]][v])) and (0 <= lft[r][x] < x or
+                                               (lft[r][x] < 0 and lft1[-1 - lft[r][x]][u] < u)):
                                     if poids[r] == 1:
-                                        m = relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],
+                                        m = relmue(Lw[y] + Lw1[v],Lw[x] + Lw1[u],
                                              rklpols[int(mat[y,x][v][u].split('c')[1])])
                                     else:
                                         pis = 0
-                                        for z in range(x+1,y+1):
+                                        for z in range(x + 1,y + 1):
                                             if bruhatX[z][x] and bruhatX[y][z]:
                                                 for w in range(len(p1)):
                                                     if 0 <= lft[r][z] < z or (lft[r][z] < 0 and
-                                                                           lft1[-1-lft[r][z]][w] < w):
+                                                                           lft1[-1 - lft[r][z]][w] < w):
                                                         if mat[z,x][w][u][0] == 'c' and mat[y,
                                                                                      z][v][w][0] == 'c':
                                                             m1 = pospart(mues[r][int(mat[y,z][v][
-                                                                                  w].split('c')[r+2])])
+                                                                                  w].split('c')[r + 2])])
                                                             if m1 != 0:
-                                                                pis += nonnegpart(q**(Lw1[u]+Lw[x]-Lw1[w] -
-                                                                          Lw[z])*rklpols[int(mat[z,x][w][
-                                                                                     u].split('c')[1])]*m1)
+                                                                pis += nonnegpart(q**(Lw1[u] + Lw[x] - Lw1[w] -
+                                                                          Lw[z]) * rklpols[int(mat[z,x][w][
+                                                                                     u].split('c')[1])] * m1)
                                         rk = mat[y,x][v][u].split('c')[1]
                                         if rk != '0':
-                                            pis -= nonnegpart(q**(Lw1[u]+Lw[x]-Lw1[v]-Lw[y] +
-                                                                       poids[r])*rklpols[int(rk)])
+                                            pis -= nonnegpart(q**(Lw1[u] + Lw[x] - Lw1[v] - Lw[y] +
+                                                                       poids[r]) * rklpols[int(rk)])
                                         if lft[r][x] < 0:
-                                            t = -1-lft[r][x]
+                                            t = -1 - lft[r][x]
                                         # if lft1[t][u]>=0 and mat[y,x][v][lft1[t][u]][0]=='c':
                                         #  rk=mat[y,x][v][lft1[t][u]].split('c')[1]
                                         #  if rk!='0':
                                         #    pis-=nonnegpart(q**(Lw1[u]+Lw[x]-Lw1[v]-Lw[y]-
                                         #                           poids[t])*rklpols[int(rk)])
-                                            for w in range(u+1,len(p1)):
+                                            for w in range(u + 1,len(p1)):
                                                 if w < lft1[t][w] and cell1['klmat'][w][u][0] == 'c':
                                                     m1 = pospart(cell1['mpols'][J.index(t)][int(cell1[
-                                                            'klmat'][w][u].split('c')[J.index(t)+2])])
+                                                            'klmat'][w][u].split('c')[J.index(t) + 2])])
                                                     if m1 != 0 and mat[y,x][v][w][0] == 'c':
                                                         rk = mat[y,x][v][w].split('c')[
                                                                                 1]
                                                         if rk != '0':
                                                             pis -= nonnegpart(rklpols[int(rk)] *
-                                                                    q**(Lw1[w]+Lw[x]-Lw1[v]-Lw[y])*m1)
+                                                                    q**(Lw1[w] + Lw[x] - Lw1[v] - Lw[y]) * m1)
                                         if pis != 0:
-                                            pis = barpart(pis)+pis-zeropart(pis)
+                                            pis = barpart(pis) + pis - zeropart(pis)
                                         m = -pis
                                     # if all(p==1 for p in poids):
                                     #  m1=relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],
@@ -6432,7 +6432,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
                                         mat[y,x][v][u] += 'c' + \
                                             str(mues[r].index(m))
                                     else:
-                                        mat[y,x][v][u] += 'c'+str(len(mues[r]))
+                                        mat[y,x][v][u] += 'c' + str(len(mues[r]))
                                         mues[r].append(m)
                                 else:
                                     mat[y,x][v][u] += 'c0'
@@ -6440,7 +6440,7 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
     ap = []
     for y in X1w:
         for v in cell1['elms']:
-            ap.append(W.reducedword(y+[J[s] for s in v],W))
+            ap.append(W.reducedword(y + [J[s] for s in v],W))
     ap.sort(key=(lambda x:len(x)))
     ap1 = [W.wordtoperm(w) for w in ap]
     elms1 = [W.wordtoperm([J[s] for s in w1]) for w1 in cell1['elms']]
@@ -6450,9 +6450,9 @@ def relklpolsuneq(W,W1,cell1,weightL,q):
             bij[y,v] = ap1.index(permmult(X1[y],elms1[v]))
     nmat = []
     for i in range(len(ap)):
-        nmat.append(['f' for j in range(i+1)])
+        nmat.append(['f' for j in range(i + 1)])
     for y in range(len(X1)):
-        for x in range(y+1):
+        for x in range(y + 1):
             if bruhatX[y][x]:
                 for v in range(len(p1)):
                     for u in range(len(p1)):
@@ -6525,7 +6525,7 @@ def allrelklpols(W,J,weightL,q, verbose=False):
     if isinstance(weightL, list):
         poids = weightL
     else:
-        poids = len(W.rank)*[weightL]
+        poids = len(W.rank) * [weightL]
     # uneq = not all(i == 1 for i in poids)
     ap = allwords(W)
     W1 = reflectionsubgroup(W,J)
@@ -6547,7 +6547,7 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                 t = 0
                 while tuple([W.permgens[t][i] for i in w]) != sw:
                     t += 1
-                ls.append(-t-1)
+                ls.append(-t - 1)
         lft.append(ls)
     lft1 = {}
     for t in J:
@@ -6562,15 +6562,15 @@ def allrelklpols(W,J,weightL,q, verbose=False):
         for x in range(y):
             if bruhatperm(W,X1[x],X1[y]):
                 # if x==y or Lw[x]<Lw[y]:
-                mat[y,x] = [len(a1)*['f'] for i in range(len(a1))]
+                mat[y,x] = [len(a1) * ['f'] for i in range(len(a1))]
                 for v in range(len(a1)):
                     for u in range(len(a1)):
                         #         if bruhatperm(W,permmult(X1[x],a1[u]),permmult(X1[y],a1[v])):
-                        if (x == y and u == v) or Lw[x]+Lw1[u] < Lw[y]+Lw1[v]:
+                        if (x == y and u == v) or Lw[x] + Lw1[u] < Lw[y] + Lw1[v]:
                             mat[y,x][v][u] = 'c'
             else:
-                mat[y,x] = [len(a1)*['f'] for i in range(len(a1))]
-        mat[y,y] = [len(a1)*['f'] for i in range(len(a1))]
+                mat[y,x] = [len(a1) * ['f'] for i in range(len(a1))]
+        mat[y,y] = [len(a1) * ['f'] for i in range(len(a1))]
         for i in range(len(a1)):
             for j in range(i):
                 if m1['klmat'][i][j][0] == 'c':
@@ -6578,9 +6578,9 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                     m = relmue(Lw1[i],Lw1[j],m1['klpols'][int(m1['klmat'][i][j
                                                                            ].split('c')[1])])
                     if m in mues:
-                        mat[y,y][i][j] += 'c'+str(mues.index(m))
+                        mat[y,y][i][j] += 'c' + str(mues.index(m))
                     else:
-                        mat[y,y][i][j] += 'c'+str(len(mues))
+                        mat[y,y][i][j] += 'c' + str(len(mues))
                         mues.append(m)
             mat[y,y][i][i] = 'c1c0'
     if verbose:
@@ -6590,7 +6590,7 @@ def allrelklpols(W,J,weightL,q, verbose=False):
         if verbose:
             lprint('+')
         ldy = W.leftdescentsetperm(X1[y])
-        for x in range(y-1,-1,-1):
+        for x in range(y - 1,-1,-1):
             if mat[y,x][0][0][0] == 'c':
                 fs = [s for s in ldy if lft[s][x] > x]
                 fs1 = [s1 for s1 in ldy if 0 <= lft[s1][x] < x]
@@ -6604,13 +6604,13 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                                         [x]][v][u].split('c')[1]
                                     rk = mat[y,x][v][u].split('c')[1]
                                     if rk != '0':
-                                        m = relmue(Lw[y]+Lw1[v],Lw[x] +
+                                        m = relmue(Lw[y] + Lw1[v],Lw[x] +
                                                  Lw1[u],rklpols[int(rk)])
                                         if m in mues:
                                             mat[y,x][v][u] += 'c' + \
                                                 str(mues.index(m))
                                         else:
-                                            mat[y,x][v][u] += 'c'+str(len(mues))
+                                            mat[y,x][v][u] += 'c' + str(len(mues))
                                             mues.append(m)
                                     else:
                                         mat[y,x][v][u] += 'c0'
@@ -6618,7 +6618,7 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                                     mat[y,x][v][u] += '0c0'
                 else:
                     for u in range(len(a1)):
-                        if any(lft[s1][x] < 0 and lft1[-1-lft[s1][x]][u] > u for s1 in ldy):
+                        if any(lft[s1][x] < 0 and lft1[-1 - lft[s1][x]][u] > u for s1 in ldy):
                             for v in range(len(a1)):
                                 if mat[y,x][v][u][0] == 'c':
                                     mat[y,x][v][u] += '0c0'
@@ -6636,7 +6636,7 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                                     for z in range(x,sy):
                                         if lft[s][z] < z:
                                             for w in range(len(a1)):
-                                                if (lft[s][z] >= 0 or lft1[-1-lft[s][z]][w] < w) and (
+                                                if (lft[s][z] >= 0 or lft1[-1 - lft[s][z]][w] < w) and (
                                                    mat[z,x][w][u][0] == 'c' and mat[sy,z][v][w][0] == 'c'):
                                                     m = mues[int(
                                                         mat[sy,z][v][w].split('c')[2])]
@@ -6644,20 +6644,20 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                                                         rk = mat[z,x][w][u].split('c')[
                                                                                 1]
                                                         if rk != '0':
-                                                            h -= q**(Lw[y]+Lw1[v]-Lw[z]-Lw1[w])*rklpols[
-                                                                                               int(rk)]*m
+                                                            h -= q**(Lw[y] + Lw1[v] - Lw[z] - Lw1[w]) * rklpols[
+                                                                                               int(rk)] * m
                                     if sx < 0:  # case sx not in X, tu<u
-                                        t = -1-sx
+                                        t = -1 - sx
                                         if mat[sy,x][v][u][0] == 'c':
                                             rk = mat[sy,x][v][u].split('c')[1]
                                             if rk != '0':
-                                                h += (q**2+1)*rklpols[int(rk)]
+                                                h += (q**2 + 1) * rklpols[int(rk)]
                                         if mat[sy,x][v][lft1[t][u]][0] == 'c':
                                             rk = mat[sy,x][v][lft1[t][u]].split('c')[
                                                                               1]
                                             if rk != '0':
                                                 h += rklpols[int(rk)]
-                                        for w in range(u+1,len(a1)):
+                                        for w in range(u + 1,len(a1)):
                                             if lft1[t][w] > w and (mat[sy,x][v][w][0] == 'c' and
                                                                       m1['klmat'][w][u][0] == 'c'):
                                                 m = mues[int(
@@ -6666,9 +6666,9 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                                                     rk = mat[sy,x][v][w].split('c')[
                                                                              1]
                                                     if rk != '0':
-                                                        h += q**(Lw1[w]-Lw1[u]+1) * \
+                                                        h += q**(Lw1[w] - Lw1[u] + 1) * \
                                                                rklpols[int(
-                                                                   rk)]*m
+                                                                   rk)] * m
                                     else:    # case sx<x
                                         if mat[sy,sx][v][u][0] == 'c':
                                             rk = mat[sy,sx][v][u].split('c')[1]
@@ -6677,7 +6677,7 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                                         if x <= sy and mat[sy,x][v][u][0] == 'c':
                                             rk = mat[sy,x][v][u].split('c')[1]
                                             if rk != '0':
-                                                h += q**2*rklpols[int(rk)]
+                                                h += q**2 * rklpols[int(rk)]
                                     if h == 0:
                                         mat[y,x][v][u] += '0c0'
                                     else:
@@ -6687,12 +6687,12 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                                         else:
                                             mat[y,x][v][u] += str(len(rklpols))
                                             rklpols.append(h)
-                                        m = relmue(Lw[y]+Lw1[v],Lw[x]+Lw1[u],h)
+                                        m = relmue(Lw[y] + Lw1[v],Lw[x] + Lw1[u],h)
                                         if m in mues:
                                             mat[y,x][v][u] += 'c' + \
                                                 str(mues.index(m))
                                         else:
-                                            mat[y,x][v][u] += 'c'+str(len(mues))
+                                            mat[y,x][v][u] += 'c' + str(len(mues))
                                             mues.append(m)
     if verbose:
         lprint('\n#I ')
@@ -6707,21 +6707,21 @@ def allrelklpols(W,J,weightL,q, verbose=False):
             for s in W.rank:
                 if lft[s][y] > y:
                     pp.append((bij[y,v],bij[lft[s][y],v]))
-                elif lft[s][y] < 0 and lft1[-1-lft[s][y]][v] > v:
-                    pp.append((bij[y,v],bij[y,lft1[-1-lft[s][y]][v]]))
-            for x in range(y+1):
+                elif lft[s][y] < 0 and lft1[-1 - lft[s][y]][v] > v:
+                    pp.append((bij[y,v],bij[y,lft1[-1 - lft[s][y]][v]]))
+            for x in range(y + 1):
                 for u in range(len(a1)):
                     rk = mat[y,x][v][u]
                     if rk[0] == 'c' and rk.split('c')[2] != '0':
                         if any((0 <= lft[s][x] < x or (lft[s][x] < 0 and
-                            lft1[-1-lft[s][x]][u] < u)) and (lft[s][y] > y or (lft[s][y] < 0
-                                           and lft1[-1-lft[s][y]][v] > v)) for s in W.rank):
+                            lft1[-1 - lft[s][x]][u] < u)) and (lft[s][y] > y or (lft[s][y] < 0
+                                           and lft1[-1 - lft[s][y]][v] > v)) for s in W.rank):
                             pp.append((bij[y,v],bij[x,u]))
     if verbose:
-        lprint(str(len(pp))+' arrows \n')
+        lprint(str(len(pp)) + ' arrows \n')
     klpols = []
     for y in range(len(X1)):
-        for x in range(y+1):
+        for x in range(y + 1):
             for v in range(len(a1)):
                 for u in range(len(a1)):
                     if x == y and u <= v and m1['klmat'][v][u][0] == 'c':
@@ -6730,12 +6730,12 @@ def allrelklpols(W,J,weightL,q, verbose=False):
                         rk = mat[y,x][v][u]
                         if rk[0] == 'c':
                             h = rklpols[int(rk.split('c')[1])]
-                            for w in range(u+1,len(a1)):
+                            for w in range(u + 1,len(a1)):
                                 rk1 = m1['klmat'][w][u]
                                 if rk1[0] == 'c':
                                     rk2 = mat[y,x][v][w]
                                     if rk2[0] == 'c' and rk2[1] != '0':
-                                        h += m1['klpols'][int(rk1.split('c')[1])]*rklpols[
+                                        h += m1['klpols'][int(rk1.split('c')[1])] * rklpols[
                                                                        int(rk2.split('c')[1])]
                     if h != 0 and h not in klpols:
                         klpols.append(h)
@@ -6779,7 +6779,7 @@ def leftconnected(W, elms, verbose=False):
         for x in orb:
             pelms.remove(x[:len(W.rank)])
     if verbose:
-        lprint('#I '+str(len(orbs))+' left-connected components\n')
+        lprint('#I ' + str(len(orbs)) + ' left-connected components\n')
     return orbs
 
 
@@ -6851,7 +6851,7 @@ def klstarorbit(W,l,gens='each'):
     if gens == 'each':
         gens = list(W.rank)
     # orb = [[W.wordtoperm(x) for x in l]]
-    if len(l) == 0 or (type(l[0]) == type(W.permgens[0]) and len(l[0]) == 2*W.N):
+    if len(l) == 0 or (type(l[0]) == type(W.permgens[0]) and len(l[0]) == 2 * W.N):
         orb = [l[:]]
     else:
         orb = [[W.wordtoperm(x) for x in l]]
@@ -6876,7 +6876,7 @@ def klstarorbitperm(W,l,gens='each'):
     if gens == 'each':
         gens = list(W.rank)
     # orb=[[W.wordtoperm(x) for x in l]]
-    if len(l) == 0 or (type(l[0]) == type(W.permgens[0]) and len(l[0]) == 2*W.N):
+    if len(l) == 0 or (type(l[0]) == type(W.permgens[0]) and len(l[0]) == 2 * W.N):
         orb = [l[:]]
     else:
         orb = [[W.wordtoperm(x) for x in l]]
@@ -6908,7 +6908,7 @@ def klstarorbitchain(W,l,gens='each'):
                     nc = klstaroperation(W,gens[s],gens[t],cell)
                     if nc is not False and not any(nc[0] in c for c in orb):
                         orb.append(nc)
-                        c1.append(str(s)+str(t))
+                        c1.append(str(s) + str(t))
         ch.append(c1)
     return ch
 
@@ -7081,7 +7081,7 @@ def leftrightstarorbit(W, pw, verbose=False):
                         orb.append(nc[0])
                         orb1.add(nc[0][:len(W.rank)])
     if verbose:
-        lprint('#I orbit of length '+str(len(orb))+'\n')
+        lprint('#I orbit of length ' + str(len(orb)) + '\n')
     return orb
 
 
@@ -7114,7 +7114,7 @@ def leftrightstarorbitinv(W, pw, verbose=False):
                         orb.append(nc[0])
                         orb1.add(nc[0][:len(W.rank)])
     if verbose:
-        lprint('#I orbit of length '+str(len(orb))+'\n')
+        lprint('#I orbit of length ' + str(len(orb)) + '\n')
     return orb
 
 # F generalisedtau
@@ -7331,7 +7331,7 @@ def gentaucells(W,startset, verbose=False, lcells=False,string=False,tlen=False)
     See also 'klstarorbit' and 'gentaureps'.
     """
     if type(startset[0]) == type(W.permgens[0]):
-        if len(startset[0]) == 2*W.N:
+        if len(startset[0]) == 2 * W.N:
             aset = startset
         else:
             aset = [W.coxelmtoperm(w) for w in startset]
@@ -7343,14 +7343,14 @@ def gentaucells(W,startset, verbose=False, lcells=False,string=False,tlen=False)
         rset = leftklstarorbits(W,aset,lcells)
         pset = [l[0] for l in rset]
     if verbose:
-        lprint('#I '+str(len(pset))+' tau-cells: ')
+        lprint('#I ' + str(len(pset)) + ' tau-cells: ')
     # new try: use additional function tlen which is constant on left cells
     # and returns a non-negative numerical value
     rd = []
     for pw in pset:
         pp = W.rightdescentsetperm(pw)
         if tlen is not False:
-            pp.append(tlen(W,pw)+10*len(W.rank))
+            pp.append(tlen(W,pw) + 10 * len(W.rank))
         rd.append(tuple(pp))
     # old version
     # rd = [tuple(W.rightdescentsetperm(pw)) for pw in pset]
@@ -7359,7 +7359,7 @@ def gentaucells(W,startset, verbose=False, lcells=False,string=False,tlen=False)
     weiter = True
     while weiter:
         if verbose:
-            lprint(str(len(res)+len(rest))+' ')
+            lprint(str(len(res) + len(rest)) + ' ')
         if not string:
             cg = [gentauorbit2(W, r) for r in rest]
         else:
@@ -7404,7 +7404,7 @@ def gentaureps(W, verbose=False):
     if W.order <= 2:
         nset = [[w] for w in allwords(W)]
     else:
-        J = list(range(len(W.rank)-1))
+        J = list(range(len(W.rank) - 1))
         W1 = reflectionsubgroup(W,J)
         dc = [W.coxelmtoperm(d) for d in redleftcosetreps(W,J)]
         nset = []
@@ -7432,7 +7432,7 @@ def gentaureps(W, verbose=False):
                                 if permmult(e,e)[:len(W.rank)] == tuple(W.rank):
                                     cset.add(e[:len(W.rank)])
         if verbose:
-            lprint(' '+str(len(nset))+' reps\n')
+            lprint(' ' + str(len(nset)) + ' reps\n')
     return nset
 
 # klcellw0
@@ -7495,13 +7495,13 @@ def klcellsun(W, weightL, v, verbose=False):
         if W.cartantype[0][0] == 'E':
             J.remove(0)
         else:
-            J.remove(len(W.rank)-1)
+            J.remove(len(W.rank) - 1)
         W1 = reflectionsubgroup(W,J)
         kk = klcellsun(W1,[poids[s] for s in J],v, verbose=False)
         if verbose and len(W.rank) > 0:
             lprint('#I ')
         if verbose:
-            lprint('('+str(len(kk))+') ')
+            lprint('(' + str(len(kk)) + ') ')
         cr1 = []
         allmues = [[] for s in W.rank]
         for i in kk:
@@ -7520,9 +7520,9 @@ def klcellsun(W, weightL, v, verbose=False):
         if verbose:
             lprint('\n')
     if verbose and len(W.rank) > 0:
-        lprint('#I '+str(len(cr1))+' left cells, mues: ')
+        lprint('#I ' + str(len(cr1)) + ' left cells, mues: ')
         for s in W.rank:
-            lprint('['+', '.join([repr(i) for i in allmues[s]])+'] ')
+            lprint('[' + ', '.join([repr(i) for i in allmues[s]]) + '] ')
         lprint('\n')
     cr1.sort(key=(lambda c:len(c.X)))
     return cr1
@@ -7652,7 +7652,7 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
     if isinstance(weightL, list):
         poids = weightL
     else:
-        poids = len(W.rank)*[weightL]
+        poids = len(W.rank) * [weightL]
     if any(i < 0 for i in poids):
         raise ValueError('all parameters must be non-negative')
     if all(i == 1 for i in poids):
@@ -7666,21 +7666,21 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
             if W.cartantype[0][0] == 'E' and len(W.cartantype[0][1]) == 7:
                 J.remove(0)
             else:
-                J.remove(len(W.rank)-1)
+                J.remove(len(W.rank) - 1)
             W1 = reflectionsubgroup(W,J)
             X1p = [W.coxelmtoword(x1) for x1 in redleftcosetreps(W,J)]
             kk = klcells(W1,[poids[s] for s in J],v,verbose=False,allcells=False)
             if verbose and len(W.rank) > 0:
                 lprint('#I ')
             if verbose:
-                lprint('('+str(len(kk[0]))+':'+str(len(kk[1]))+') ')
+                lprint('(' + str(len(kk[0])) + ':' + str(len(kk[1])) + ') ')
             nc,cr1,creps = [],[],[]
             celms = set()
             i,tot = 0,0
             while tot < W.order:
                 if verbose:
                     lprint('+')
-                pairs = [W.wordtoperm(ci[0]+ci[1]) for ci in cartesian(X1p,
+                pairs = [W.wordtoperm(ci[0] + ci[1]) for ci in cartesian(X1p,
                                       [[J[s] for s in w] for w in kk[1][i].X])]
                 if verbose and all(permmult(pa,pa)[:len(W.rank)] != tuple(W.rank) or
                                    pa[:len(W.rank)] in celms for pa in pairs):
@@ -7692,7 +7692,7 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
                             allmues.append(m)
                     if len(rk['perm']) > 300:
                         if len(rk['perm']) > 1500:
-                            rht = [generalisedtau(W,p,maxd=3*len(W.rank))
+                            rht = [generalisedtau(W,p,maxd=3 * len(W.rank))
                                                 for p in rk['perm']]
                         else:
                             rht = [tuple(W.rightdescentsetperm(p))
@@ -7700,7 +7700,7 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
                         srht = list(set(rht))
                         ind1 = wgraph(W,poids,rk,v)
                         if verbose:
-                            lprint(str(len(srht))+'!')
+                            lprint(str(len(srht)) + '!')
                         ind = []
                         for rh in srht:
                             l = list(filter(lambda x:rht[x] == rh,range(len(rht))))
@@ -7763,9 +7763,9 @@ def klcells(W,weightL, v, allcells=True, verbose=False):
         if verbose:
             lprint('\n')
         if verbose and len(W.rank) > 0:
-            lprint('#I '+str(len(nc))+' left cells (')
-            lprint(str(len(creps))+' non-equivalent), ')
-            lprint('mues: '+','.join([str(i) for i in allmues])+'\n')
+            lprint('#I ' + str(len(nc)) + ' left cells (')
+            lprint(str(len(creps)) + ' non-equivalent), ')
+            lprint('mues: ' + ','.join([str(i) for i in allmues]) + '\n')
         # nc.sort(key=(lambda c:len(c)))
         ct = chartable(W)
         if allcells and len(nc) != sum([ct['irreducibles'][i][0]
@@ -7839,7 +7839,7 @@ def leadingcoefficients(W,weightL,lw,clpols=None):
     ainv = ainvariants(W, poids)
     maxl = max(len(w) for w in lw)
     if clpols is None:
-        cpmat = allclasspolynomials(W, [v**(2*p) for p in poids], maxl)
+        cpmat = allclasspolynomials(W, [v**(2 * p) for p in poids], maxl)
     else:
         cpmat = clpols
     lc = []
@@ -7850,7 +7850,7 @@ def leadingcoefficients(W,weightL,lw,clpols=None):
         cp = cpmat[W.wordtocoxelm(w)]
         # lc.append([zeroterm((-1)**len(w)*v**(ainv[i]-cind)*sum(cp[j]*ti[i][j]
         #        for j in range(len(ainv)))) for i in range(len(ainv))])
-        lc.append([zeroterm(v**(ainv[i]-cind)*sum(cp[j]*ti[i][j]
+        lc.append([zeroterm(v**(ainv[i] - cind) * sum(cp[j] * ti[i][j]
                 for j in range(len(ainv)))) for i in range(len(ainv))])
     return lc
 
@@ -7962,7 +7962,7 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
     'allcellsleadingcoeffs' and 'distinguishedinvolutions'.
     """
     if isinstance(weightL, int):
-        poids = len(W.rank)*[weightL]
+        poids = len(W.rank) * [weightL]
     else:
         poids = weightL[:]
     ch = chartable(W,chars=False)['charnames']
@@ -7970,7 +7970,7 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
     pcell = [W.wordtoperm(w) for w in cell]
     lw = [cell[i] for i in range(len(cell)) if perminverse(pcell[i]) in pcell]
     if clpols == []:
-        cpmat = allclasspolynomials(W,[v**(2*p) for p in poids],
+        cpmat = allclasspolynomials(W,[v**(2 * p) for p in poids],
                                          max([len(w) for w in lw]))
     else:
         cpmat = clpols
@@ -7986,14 +7986,14 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
             if i != j:
                 cf *= fshi[j]
         cof.append(cf)
-    nd = [(-1)**len(lw[w])*sum(cof[i]*lc[ii[i]][w]
-               for i in range(len(ii)))//ftot for w in range(len(lw))]
+    nd = [(-1)**len(lw[w]) * sum(cof[i] * lc[ii[i]][w]
+               for i in range(len(ii))) // ftot for w in range(len(lw))]
     # nd1=[(-1)**len(lw[w])*sum((W.order*lc[i][w])//fshi[i]
     #       for i in range(len(fshi)))//W.order for w in range(len(lw))]
     # if nd1!=nd:
     #  print('mist!')
     #  return False
-    if nd.count(0) != len(nd)-1:
+    if nd.count(0) != len(nd) - 1:
         print("no distinguished involution!")
         return nd
     i = 0
@@ -8009,7 +8009,7 @@ def leftcellleadingcoeffs(W,weightL,v,cell,clpols=[],newnorm=False):
         lc1 = [[-i for i in l] for l in lc]
     else:
         lc1 = lc
-    lc = [[(-1)**len(lw[i])*l[i] for i in range(len(lw))] for l in lc]
+    lc = [[(-1)**len(lw[i]) * l[i] for i in range(len(lw))] for l in lc]
     if not all(l[di] >= 0 for l in lc):
         print('identity not OK for NEW normalisation')
     if not all(l[di] >= 0 for l in lc1):
@@ -8136,7 +8136,7 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
     ti = heckechartable(W, vs)['irreducibles']
     schur = schurelms(W, vs)
     fshi = [s.coeffs[0] for s in schur]
-    ainv = [-s.val//2 for s in schur]
+    ainv = [-s.val // 2 for s in schur]
     tup = [[i,ainv[i]] for i in range(len(ainv))]
     tup.sort(key=(lambda i:i[1]),reverse=True)
     ti = [ti[tup[i][0]] for i in range(len(ainv))]
@@ -8145,15 +8145,15 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
     chn = [ct['charnames'][tup[i][0]] for i in range(len(ainv))]
     ti1 = [ct['irreducibles'][tup[i][0]] for i in range(len(ainv))]
     signchar = [(-1)**lw for lw in lcl]
-    signp = [ti1.index([l[j]*signchar[j] for j in range(len(lcl))]) for l in ti1]
+    signp = [ti1.index([l[j] * signchar[j] for j in range(len(lcl))]) for l in ti1]
     maxl = W.N
     if W.N in lcl:
         iw0 = lcl.index(W.N)
-        eps = [x[iw0]//x[0] for x in ct['irreducibles']]
+        eps = [x[iw0] // x[0] for x in ct['irreducibles']]
         eps = [eps[tup[i][0]] for i in range(len(ainv))]
-        maxl = W.N//2
+        maxl = W.N // 2
     distinv,nvec = [[]],[1]
-    lc = [zeroterm(v**(ainv[i])*ti[i][0]) for i in range(len(ainv))]
+    lc = [zeroterm(v**(ainv[i]) * ti[i][0]) for i in range(len(ainv))]
     char = []
     for i in range(len(ainv)):
         if lc[i] != 0:
@@ -8168,7 +8168,7 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
     else:
         distinv0,nvec0 = [W.permtoword(w0)],[1]
         Lw0 = ainv[ti1.index(signchar)]
-        lc0 = [zeroterm(v**(ainv[i]-Lw0)*ti[i][iw0]) for i in range(len(ainv))]
+        lc0 = [zeroterm(v**(ainv[i] - Lw0) * ti[i][iw0]) for i in range(len(ainv))]
         char0 = []
         for i in range(len(ainv)):
             if lc0[i] != 0:
@@ -8179,7 +8179,7 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
             #  char0.append([chn[i],-lc0[i]])
         charvec0 = [char0[::-1]]
     cpmat = []
-    cp = len(ainv)*[0]
+    cp = len(ainv) * [0]
     cp[0] = 1
     cpmat.append({bytes(W.rank):';'.join([poltostr(f) for f in cp])})
     cps = {}
@@ -8190,20 +8190,20 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
     for l in range(maxl):
         if verbose:
             if l < 9:
-                lprint('#I length  '+str(l+1))
+                lprint('#I length  ' + str(l + 1))
             else:
-                lprint('#I length '+str(l+1))
+                lprint('#I length ' + str(l + 1))
         nl = set([])
         if l == 0:
             ol = []
         else:
-            ol = set(cpmat[l-1])
+            ol = set(cpmat[l - 1])
         for w in cpmat[l]:
             for s in W.permgens:
                 nw = bytes([s[i] for i in w])
                 if nw not in ol:
                     nl.add(nw)
-            if len(nl) == poin[l+1]:
+            if len(nl) == poin[l + 1]:
                 break
         cps = {}
         if verbose:
@@ -8216,20 +8216,20 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
             pw1 = perminverse(pw)
             t = testcyclicshift1(W,w,pw)
             if t[0] == 1:
-                cp = len(ainv)*[0]
+                cp = len(ainv) * [0]
                 cp[t[2]] = 1
             else:
                 cp1 = [strtopol(f,'v')
-                              for f in cpmat[l-1][bytes(t[2])].split(';')]
+                              for f in cpmat[l - 1][bytes(t[2])].split(';')]
                 cp2 = [strtopol(f,'v') for f in cpmat[l][bytes([W.permgens[t[3]][i]
                                                         for i in t[2]])].split(';')]
                 if poids[t[3]] == 1:
-                    cp = [v*cp1[i]+(v-1)*cp2[i] for i in range(len(ainv))]
+                    cp = [v * cp1[i] + (v - 1) * cp2[i] for i in range(len(ainv))]
                 else:
-                    cp = [v**(poids[t[3]])*cp1[i]+(v**(poids[t[3]])-1)*cp2[i]
+                    cp = [v**(poids[t[3]]) * cp1[i] + (v**(poids[t[3]]) - 1) * cp2[i]
                                                      for i in range(len(ainv))]
             strcp = ';'.join(poltostr(f) for f in cp)
-            ic = len(spols)-1
+            ic = len(spols) - 1
             while ic >= 0:
                 if strcp == spols[ic]:
                     break
@@ -8266,7 +8266,7 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
                     if ainv[i] > cind or (nonz != -1 and nonz != ainv[i]):
                         lcc = 0
                     else:
-                        lcc = zeroterm(v**(ainv[i]-cind)*sum(cpv[j]*ti[i][j]
+                        lcc = zeroterm(v**(ainv[i] - cind) * sum(cpv[j] * ti[i][j]
                                           for j in range(len(ainv)) if cpv[j] != 0))
                         if nonz == -1 and lcc != 0:
                             nonz = ainv[i]
@@ -8283,10 +8283,10 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
                             if i != j:
                                 cf *= fshi[j]
                         cof.append(cf)
-                    nd = (-1)**len(w)*sum(cof[i]*lc[ii[i]]
+                    nd = (-1)**len(w) * sum(cof[i] * lc[ii[i]]
                         for i in range(len(ii)))
                     if nd % ftot == 0:
-                        nd = nd//ftot
+                        nd = nd // ftot
                     else:
                         print("Mist!")
                         return False
@@ -8304,11 +8304,11 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
                         charvec.append(char[::-1])
                         if nega is False and nd != 1:
                             nega = True
-                    if maxl == W.N//2 and (W.N % 2 == 1 or l < maxl-1):
-                        nd = sum(eps[ii[i]]*cof[i]*lc[ii[i]]
+                    if maxl == W.N // 2 and (W.N % 2 == 1 or l < maxl - 1):
+                        nd = sum(eps[ii[i]] * cof[i] * lc[ii[i]]
                                for i in range(len(ii)))
                         if nd % ftot == 0:
-                            nd = nd//ftot
+                            nd = nd // ftot
                         else:
                             print("Mist!")
                             return False
@@ -8319,7 +8319,7 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
                             for i in range(len(ainv)):
                                 if lc[i] != 0:
                                     char0.append(
-                                        [signp[i],(-1)**(W.N+len(w))*eps[i]*lc[i]])
+                                        [signp[i],(-1)**(W.N + len(w)) * eps[i] * lc[i]])
                                 # if lc[i]>0:
                                 #  char0.append([signp[i],lc[i]])
                                 # elif lc[i]<0:
@@ -8329,14 +8329,14 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
                             if nega is False and nd != 1:
                                 nega = True
         if verbose:
-            lprint(str(ll)+' elements, '+str(len(spols))+' class polynomials; ')
-            lprint(str(len(distinv)+len(distinv0))+' distinvs\n')
+            lprint(str(ll) + ' elements, ' + str(len(spols)) + ' class polynomials; ')
+            lprint(str(len(distinv) + len(distinv0)) + ' distinvs\n')
         if l > 0:
-            cpmat[l-1] = 0
+            cpmat[l - 1] = 0
         cpmat.append(cps)
-    distinv = distinv+distinv0[::-1]
-    nvec = nvec+nvec0[::-1]
-    charvec = charvec+charvec0[::-1]
+    distinv = distinv + distinv0[::-1]
+    nvec = nvec + nvec0[::-1]
+    charvec = charvec + charvec0[::-1]
     # d1=distinguishedinvolutions(W,poids)
     # d1=libdistinv(W,poids)
     # if not (len(distinv)==len(d1) and all(i in d1 for i in distinv)):
@@ -8345,8 +8345,8 @@ def distinguishedinvolutions(W,weightL,distonly=True, verbose=False):
     # else:
     #  lprint('True')
     if verbose:
-        lprint('#I Number of distinguished involutions = '+str(len(distinv)))
-        lprint(' ('+str(zael)+')\n')
+        lprint('#I Number of distinguished involutions = ' + str(len(distinv)))
+        lprint(' (' + str(zael) + ')\n')
     return [distinv, charvec, nvec] if nega else [distinv, charvec]
 
 
@@ -8373,7 +8373,7 @@ def starorbitinv(W, pw, lcell=None):
     if lcell is not None:
         if type(lcell[0]) == type(W.permgens[0]) and len(lcell[0]) == len(W.rank):
             ncell = [[bytes(W.coxelmtoperm(x)) for x in lcell]]
-        elif type(lcell[0]) == type(W.permgens[0]) and len(lcell[0]) == 2*W.N:
+        elif type(lcell[0]) == type(W.permgens[0]) and len(lcell[0]) == 2 * W.N:
             ncell = [[bytes(x) for x in lcell]]
         else:
             ncell = [[bytes(W.wordtoperm(x)) for x in lcell]]
@@ -8431,7 +8431,7 @@ def starorbitinv2(W):
             rest.remove(x)
         l = [W.permlength(x) for x in orb]
         lmin,lmax = min(l),max(l)
-        if lmin <= W.N-lmax:
+        if lmin <= W.N - lmax:
             r = l.index(lmin)
         else:
             r = l.index(lmax)
@@ -8480,19 +8480,19 @@ def distinguishedinvolutions_eq(W, verbose=False):
             l = [W.permlength(x) for x in orb]
             l1 = min(l)
             l2 = max(l)
-            if l1 <= W.N-l2:
+            if l1 <= W.N - l2:
                 repsinv.append(orb[l.index(l1)])
             else:
                 repsinv.append(permmult(orb[l.index(l2)],w0))
     repsinv.sort(key=(lambda x: W.permlength(x)))
     maxl = W.permlength(repsinv[-1])
     if verbose:
-        lprint('#I maximum length: '+str(maxl)+',')
-        lprint(' number of left cells: '+str(maxn)+'\n')
+        lprint('#I maximum length: ' + str(maxl) + ',')
+        lprint(' number of left cells: ' + str(maxn) + '\n')
     ti = heckechartable(W,v)['irreducibles']
     schur = schurelms(W,v)
     fshi = [s.coeffs[0] for s in schur]
-    ainv = [-s.val//2 for s in schur]
+    ainv = [-s.val // 2 for s in schur]
     tup = [[i,ainv[i]] for i in range(len(ainv))]
     tup.sort(key=(lambda i:i[1]),reverse=True)
     ti = [ti[tup[i][0]] for i in range(len(ainv))]
@@ -8501,16 +8501,16 @@ def distinguishedinvolutions_eq(W, verbose=False):
     chn = [ct['charnames'][tup[i][0]] for i in range(len(ainv))]
     ti1 = [ct['irreducibles'][tup[i][0]] for i in range(len(ainv))]
     signchar = [(-1)**lw for lw in lcl]
-    signp = [ti1.index([l[j]*signchar[j] for j in range(len(lcl))]) for l in ti1]
+    signp = [ti1.index([l[j] * signchar[j] for j in range(len(lcl))]) for l in ti1]
     if W.N in lcl:
         iw0 = lcl.index(W.N)
-        eps = [x[iw0]//x[0] for x in chartable(W)['irreducibles']]
+        eps = [x[iw0] // x[0] for x in chartable(W)['irreducibles']]
         eps = [eps[tup[i][0]] for i in range(len(ainv))]
-    distinv = [list(range(2*W.N)),w0]
-    charvec = [[[chn[ti1.index(len(ainv)*[1])],1]],
+    distinv = [list(range(2 * W.N)),w0]
+    charvec = [[[chn[ti1.index(len(ainv) * [1])],1]],
              [[chn[ti1.index(signchar)],(-1)**W.N]]]
     cpmat = []
-    cp = len(ainv)*[0]
+    cp = len(ainv) * [0]
     cp[0] = 1
     cpmat.append({bytes(W.rank):';'.join([poltostr(f) for f in cp])})
     cps = {}
@@ -8519,20 +8519,20 @@ def distinguishedinvolutions_eq(W, verbose=False):
     for l in range(maxl):
         if verbose:
             if l < 9:
-                lprint('#I length  '+str(l+1))
+                lprint('#I length  ' + str(l + 1))
             else:
-                lprint('#I length '+str(l+1))
+                lprint('#I length ' + str(l + 1))
         nl = set([])
         if l == 0:
             ol = []
         else:
-            ol = set(cpmat[l-1])
+            ol = set(cpmat[l - 1])
         for w in cpmat[l]:
             for s in W.permgens:
                 nw = bytes([s[i] for i in w])
                 if nw not in ol:
                     nl.add(nw)
-            if len(nl) == poin[l+1]:
+            if len(nl) == poin[l + 1]:
                 break
         cps = {}
         if verbose:
@@ -8545,16 +8545,16 @@ def distinguishedinvolutions_eq(W, verbose=False):
             pw1 = perminverse(pw)
             t = testcyclicshift1(W,w,pw)
             if t[0] == 1:
-                cp = len(ainv)*[0]
+                cp = len(ainv) * [0]
                 cp[t[2]] = 1
             else:
                 cp1 = [strtopol(f,'v')
-                              for f in cpmat[l-1][bytes(t[2])].split(';')]
+                              for f in cpmat[l - 1][bytes(t[2])].split(';')]
                 cp2 = [strtopol(f,'v') for f in cpmat[l][bytes([W.permgens[t[3]][i]
                                                         for i in t[2]])].split(';')]
-                cp = [v*cp1[i]+(v-1)*cp2[i] for i in range(len(ainv))]
+                cp = [v * cp1[i] + (v - 1) * cp2[i] for i in range(len(ainv))]
             strcp = ';'.join([poltostr(f) for f in cp])
-            ic = len(spols)-1
+            ic = len(spols) - 1
             while ic >= 0:
                 if strcp == spols[ic]:
                     break
@@ -8585,7 +8585,7 @@ def distinguishedinvolutions_eq(W, verbose=False):
                     if ainv[i] > len(w) or (nonz != -1 and nonz != ainv[i]):
                         lcc = 0
                     else:
-                        lcc = zeroterm(v**(ainv[i]-len(w))*sum(cpv[j]*ti[i][j]
+                        lcc = zeroterm(v**(ainv[i] - len(w)) * sum(cpv[j] * ti[i][j]
                                           for j in range(len(ainv)) if cpv[j] != 0))
                         if nonz == -1 and lcc != 0:
                             nonz = ainv[i]
@@ -8601,9 +8601,9 @@ def distinguishedinvolutions_eq(W, verbose=False):
                         if i != j:
                             cf *= fshi[j]
                     cof.append(cf)
-                nd = (-1)**len(w)*sum(cof[i]*lc[ii[i]] for i in range(len(ii)))
+                nd = (-1)**len(w) * sum(cof[i] * lc[ii[i]] for i in range(len(ii)))
                 if nd % ftot == 0:
-                    nd = nd//ftot
+                    nd = nd // ftot
                 else:
                     print("Mist!")
                     return False
@@ -8625,9 +8625,9 @@ def distinguishedinvolutions_eq(W, verbose=False):
                         charvec.append(char)
                 pw0 = permmult(pw,w0)
                 if all(f % 2 == 0 for f in W.degrees) and pw0 not in distinv:
-                    nd = sum(eps[ii[i]]*cof[i]*lc[ii[i]] for i in range(len(ii)))
+                    nd = sum(eps[ii[i]] * cof[i] * lc[ii[i]] for i in range(len(ii)))
                     if nd % ftot == 0:
-                        nd = nd//ftot
+                        nd = nd // ftot
                     else:
                         print("Mist!")
                         return False
@@ -8638,7 +8638,7 @@ def distinguishedinvolutions_eq(W, verbose=False):
                         for i in range(len(ainv)):
                             if lc[i] != 0:
                                 char0.append(
-                                    [signp[i],(-1)**(W.N+len(w))*eps[i]*lc[i]])
+                                    [signp[i],(-1)**(W.N + len(w)) * eps[i] * lc[i]])
                             # if lc[i]>0:
                             #  char0.append([signp[i],lc[i]])
                             # elif lc[i]<0:
@@ -8648,10 +8648,10 @@ def distinguishedinvolutions_eq(W, verbose=False):
                         for i in sto0:
                             charvec.append(char0)
         if verbose:
-            lprint(str(ll)+' elements, '+str(len(spols))+' class polynomials; ')
-            lprint(str(len(distinv))+' distinvs\n')
+            lprint(str(ll) + ' elements, ' + str(len(spols)) + ' class polynomials; ')
+            lprint(str(len(distinv)) + ' distinvs\n')
         if l > 0:
-            cpmat[l-1] = 0
+            cpmat[l - 1] = 0
         cpmat.append(cps)
         if len(distinv) == maxn:
             break
@@ -8665,7 +8665,7 @@ def distinguishedinvolutions_eq(W, verbose=False):
     # else:
     #  lprint('True')
     if verbose:
-        lprint('#I Number of distinguished involutions = '+str(len(res))+'\n')
+        lprint('#I Number of distinguished involutions = ' + str(len(res)) + '\n')
     return [list(l) for l in zip(*res)]
 
 
@@ -8724,14 +8724,14 @@ def allcellsleadingcoeffs(W, weightL, v, newnorm=False, verbose=False):
     See also 'klcells' and 'leftcellleadingcoeffs'.
     """
     if isinstance(weightL, int):
-        poids = len(W.rank)*[weightL]
+        poids = len(W.rank) * [weightL]
     else:
         poids = weightL[:]
     if all(p == 1 for p in poids):
         kl = [c.X for c in klcells(W,poids,v,allcells=False)[1]]
     else:
         kl = [c.X for c in klcellsun(W,poids,v)]
-    cp = allclasspolynomials(W,[v**(2*i) for i in poids])
+    cp = allclasspolynomials(W,[v**(2 * i) for i in poids])
     ch = chartable(W, chars=False)['charnames']
     nlc,dlc = [],[]
     slc = set([])
@@ -9086,14 +9086,14 @@ def libdistinv(W, weightL, unpack=True):
         if poids[0] == poids[2]:
             return [[int(s) for s in i] for i in l1111]
         elif poids[0] > 0 and poids[2] > poids[0]:
-            if poids[2] == 2*poids[0]:
+            if poids[2] == 2 * poids[0]:
                 return [[int(s) for s in i] for i in l1122]
             else:
                 return [[int(s) for s in i] for i in l1133]
         elif poids[2] > 0 and poids[0] > poids[2]:
             J = [3,2,1,0]
             W = coxeter("F",4)
-            if poids[0] == 2*poids[2]:
+            if poids[0] == 2 * poids[2]:
                 return [W.reducedword([J[int(s)] for s in i],W) for i in l1122]
             else:
                 return [W.reducedword([J[int(s)] for s in i],W) for i in l1133]
@@ -9292,21 +9292,21 @@ def libdistinv(W, weightL, unpack=True):
         if m % 2 == 1:
             if poids[0] > 0:
                 w0 = [0]
-                for i in range((m-1)//2):
+                for i in range((m - 1) // 2):
                     w0.extend([1,0])
                 return [[], [0], [1], w0]
             else:
                 raise NotImplementedError('Sorry, not yet implemented')
         else:
             w1 = []
-            for i in range((m-2)//2):
+            for i in range((m - 2) // 2):
                 w1.extend([0,1])
             if poids[0] == poids[1] and poids[0] > 0:
-                return [[], [0], [1], w1+[0,1]]
+                return [[], [0], [1], w1 + [0,1]]
             elif poids[0] > poids[1] and poids[1] > 0:
-                return [[],[0],[1],[1,0,1],w1+[0],w1+[0,1]]
+                return [[],[0],[1],[1,0,1],w1 + [0],w1 + [0,1]]
             elif poids[0] < poids[1] and poids[0] > 0:
-                return [[],[0],[1],[0,1,0],[1]+w1,w1+[0,1]]
+                return [[],[0],[1],[0,1,0],[1] + w1,w1 + [0,1]]
             else:
                 raise NotImplementedError('Sorry, not yet implemented')
     else:
@@ -9353,7 +9353,7 @@ def distinva(W,weightL=1, verbose=False):
         typEH = False
     a1 = []
     if verbose:
-        lprint('#I '+str(len(d))+' ')
+        lprint('#I ' + str(len(d)) + ' ')
     for i in d:
         a0 = [ainv[ch.index(c[0])] for c in i[1]]
         if len(set(a0)) > 1:
@@ -9385,7 +9385,7 @@ def distinva1(W,weightL):
     ainv = lusztigfamilies(W,weightL)
     aa = ainvariants(W,weightL)
     a1,a2 = [],[]
-    lprint('#I '+str(len(d))+' ')
+    lprint('#I ' + str(len(d)) + ' ')
     for i in d:
         a0 = [ch.index(c[0]) for c in i[1]]
         aa0 = [aa[ch.index(c[0])] for c in i[1]]
@@ -9410,7 +9410,7 @@ def distinva1(W,weightL):
 
 
 def gentaudistcheck(W):
-    J = list(range(len(W.rank)-1))
+    J = list(range(len(W.rank) - 1))
     W1 = reflectionsubgroup(W,J)
     dc = [W.coxelmtoperm(d) for d in redleftcosetreps(W,J)]
     d = distinva(W)
@@ -9448,7 +9448,7 @@ def klupsilonI(W):
     is  taken as  representative,  otherwise,  an element of
     minimal length in the orbit is returned.
     """
-    J = list(range(len(W.rank)-1))
+    J = list(range(len(W.rank) - 1))
     W1 = reflectionsubgroup(W,J)
     dc = [W.coxelmtoperm(d) for d in redleftcosetreps(W,J)]
     gt1 = [c.X for c in klcells(W1,1,lpol([1],1,'v'))[1]]
@@ -9464,7 +9464,7 @@ def klupsilonI(W):
         # nset.extend(gentaucells(W,l,lcells=True))
         n1set = [leftklstarreps(W,l1,dd) for l1 in gentaucells(W,l,lcells=True)]
         nset.extend([[w[:len(W.rank)] for w in nn] for nn in n1set])
-    lprint(str(len(nset))+'\n')
+    lprint(str(len(nset)) + '\n')
     return nset
 
 # F klupsilonI1
@@ -9474,7 +9474,7 @@ def klupsilonI1(W):
     """similar to 'klupsilonI' but returns only those left star
     orbits which need further consideration.
     """
-    J = list(range(len(W.rank)-1))
+    J = list(range(len(W.rank) - 1))
     W1 = reflectionsubgroup(W,J)
     dc = [W.coxelmtoperm(d) for d in redleftcosetreps(W,J)]
     gt1 = [c.X for c in klcells(W1,1,lpol([1],1,'v'))[1]]
@@ -9499,7 +9499,7 @@ def klupsilonI1(W):
                     else:
                         lprint('-')
                         nset.append(lgt[:len(W.rank)])
-    lprint(str(n1)+' Zellen und '+str(len(nset))+' Verbrecher\n')
+    lprint(str(n1) + ' Zellen und ' + str(len(nset)) + ' Verbrecher\n')
     return nset
 
 
@@ -9566,7 +9566,7 @@ def leftcellsinvolutions(W):
             l3 = [x for x in l1 if x in l2]
             if l3:
                 neu.append([W.coxelmtoword(x) for x in l3])
-    lprint('# Number of left cells = '+str(nsp)+'/'+str(len(neu))+'\n')
+    lprint('# Number of left cells = ' + str(nsp) + '/' + str(len(neu)) + '\n')
     return neu
 
 # F twosidedcells
@@ -9789,7 +9789,7 @@ def E7CELLREPcheck():
         if len(g) > 1:
             return False
         # check size
-        d1 = sum([i[1]*t['irreducibles'][ch.index(i[0])][0]
+        d1 = sum([i[1] * t['irreducibles'][ch.index(i[0])][0]
                for i in c['character']])
         d2 = sum([len(leftklstarorbitelm(W,W.wordtoperm(w))) for w in l])
         if not (d1 == d2 == c['size']):
@@ -10797,7 +10797,7 @@ def E8CELLREPcheck():
         if len(g) > 1:
             return False
         # check size
-        d1 = sum([i[1]*t['irreducibles'][ch.index(i[0])][0]
+        d1 = sum([i[1] * t['irreducibles'][ch.index(i[0])][0]
                for i in c['character']])
         d2 = sum([len(leftklstarorbitelm(W,W.wordtoperm(w))) for w in l])
         if not (d1 == d2 == c['size']):
@@ -10852,7 +10852,7 @@ def klcellreps(W, verbose=False):
             klcr = E8KLCELLREPS
         if any((len(l['elms']) == 0 or l['elms'] is False) for l in klcr):
             if verbose:
-                lprint('#I =====> '+str(len(klcr))+' (unpacking data) ')
+                lprint('#I =====> ' + str(len(klcr)) + ' (unpacking data) ')
             for l in range(len(klcr)):
                 c = []
                 for r in [W.wordtoperm([int(i) for i in w])
@@ -10927,11 +10927,11 @@ def cellrepstarorbit(W, c, verbose=False):
     See also 'klcellreps' and 'cellrepcheck2'.
     """
     if verbose:
-        lprint('#I cell of size '+str(c['size'])+'; ')
+        lprint('#I cell of size ' + str(c['size']) + '; ')
     cc = starorbitinv(W,W.wordtoperm([int(s) for s in c['distinv']]),
                                                    list(c['elms']))
     if verbose:
-        lprint('orbit with '+str(len(cc[0]))+' cells\n')
+        lprint('orbit with ' + str(len(cc[0])) + ' cells\n')
     orb = []
     for i in range(len(cc[0])):
         orb.append({'size':c['size'], 'character':c['character'],'a':c['a'],
@@ -10988,7 +10988,7 @@ def klcellrepelm(W, w, verbose=False):
             for c in range(len(e8c)):
                 if y[:len(W.rank)] in e8c[c]['elms']:
                     if verbose:
-                        lprint('#I cell number '+str(c)+'\n')
+                        lprint('#I cell number ' + str(c) + '\n')
                     return {'size':e8c[c]['size'], 'character':e8c[c]['character'],
                             'a':e8c[c]['a'], 'special':e8c[c]['special'],
                             'index':e8c[c]['index'], 'elms': False, 'distinv': False}
@@ -11000,7 +11000,7 @@ def klcellrepelm(W, w, verbose=False):
                             for c in range(len(e8c)):
                                 if nc[0][:len(W.rank)] in e8c[c]['elms']:
                                     if verbose:
-                                        lprint('#I cell number '+str(c)+'\n')
+                                        lprint('#I cell number ' + str(c) + '\n')
                                     return {'size':e8c[c]['size'], 'character':
                                             e8c[c]['character'], 'a':e8c[c]['a'],
                                             'special':e8c[c]['special'],
@@ -11190,13 +11190,13 @@ def leftcellelm(W,w,replstars=False, verbose=False):
         lprint('#I cell of size ')
     if w1[:len(W.rank)] in e8c[c0]['elms']:
         if verbose:
-            lprint(str(e8c[c0]['size'])+'\n')
+            lprint(str(e8c[c0]['size']) + '\n')
         return e8c[c0]
     orb = [W.wordtoperm([int(s) for s in e8c[c0]['distinv']])]
     orb1 = set([orb[0][:len(W.rank)]])
     ncell = [[bytes(W.coxelmtoperm(x)) for x in list(e8c[c0]['elms'])]]
     if verbose:
-        lprint(str(e8c[c0]['size'])+': ')
+        lprint(str(e8c[c0]['size']) + ': ')
     for d in orb:
         for s in W.rank:
             for t in range(s):
@@ -11232,7 +11232,7 @@ def klcellsclasses(W, verbose=False):
     kl1 = klcellreps(W)
     cp = [x for x in conjugacyclasses(W)['reps'] if len(set(x)) == len(W.rank)]
     if verbose:
-        lprint('#I '+str(len(cp))+' cuspidal casses: ')
+        lprint('#I ' + str(len(cp)) + ' cuspidal casses: ')
     t = chartable(W,chars=0)
     sp = [t['charnames'][i][0] for i in range(len(t['a']))
                                              if t['a'][i] == t['b'][i]]
@@ -11240,7 +11240,7 @@ def klcellsclasses(W, verbose=False):
     for c in cp:
         c1 = cyclicshiftorbit(W,W.wordtoperm(c))
         if verbose:
-            lprint(str(len(c1))+' ')
+            lprint(str(len(c1)) + ' ')
         cs = [klcellrepelm(W,x)['special'] for x in c1]
         row = [len([i for i in cs if i == char]) for char in sp]
         mat.append(row)
@@ -11263,7 +11263,7 @@ def cellrepcheck1(W,klcr):
         if len(g) > 1:
             return False
         # check size
-        d1 = sum([i[1]*t['irreducibles'][ch.index(i[0])][0]
+        d1 = sum([i[1] * t['irreducibles'][ch.index(i[0])][0]
                for i in c['character']])
         elms = []
         for w in l:
@@ -11362,7 +11362,7 @@ def checkleftctd(W, verbose=False):
                 lprint(str(lc))
             res.append(lc)
         if verbose:
-            lprint(' (cell no '+str(c)+')')
+            lprint(' (cell no ' + str(c) + ')')
     if verbose:
         lprint('\n')
     return set(res)
@@ -11375,26 +11375,26 @@ def checkkottwitz(W):
     count = 0
     ii = involutionmodel(W)
     rr = conjugacyclasses(W)['reps']
-    invcl = [w for w in rr if W.wordtocoxelm(2*w) == tuple(W.rank)]
+    invcl = [w for w in rr if W.wordtocoxelm(2 * w) == tuple(W.rank)]
     elmscl = [set([x[:len(W.rank)] for x in conjugacyclass(W,W.wordtoperm(i))])
                                                                for i in invcl]
     ti = chartable(W)
     ch = [c[0] for c in ti['charnames']]
     for cell in cellreplstars(W):
         if count % 100 == 0:
-            lprint(str(count)+' ')
+            lprint(str(count) + ' ')
         count += 1
-        char = len(ch)*[0]
+        char = len(ch) * [0]
         for c in cell['character']:
             char[ch.index(c[0])] = c[1]
         inv = []
         for x in cell['replstar']:
             for y in leftklstarorbitelm(W,W.coxelmtoperm(x)):
-                if permmult(y,y) == tuple(range(2*W.N)):
+                if permmult(y,y) == tuple(range(2 * W.N)):
                     inv.append(y)
         for i in range(len(invcl)):
             kott1 = len([w for w in inv if w[:len(W.rank)] in elmscl[i]])
-            kott2 = sum([ii[str(invcl[i])][j]*char[j] for j in range(len(ch))])
+            kott2 = sum([ii[str(invcl[i])][j] * char[j] for j in range(len(ch))])
             check.append(kott1 == kott2)
     print(len(check))
     return set(check)
@@ -11437,7 +11437,7 @@ def checksh(W,paramL):
         vs = len(W.rank) * [paramL]
     gd = [divmod(p, s)[0] for s in schurelms(W, vs)]
     ti = heckechartable(W, vs)['irreducibles']
-    res = [sum(gd[i]*ti[i][j] for i in range(len(gd))) for j in range(len(gd))]
+    res = [sum(gd[i] * ti[i][j] for i in range(len(gd))) for j in range(len(gd))]
     return res[0] == p and all(i == 0 for i in res[1:len(gd)])
 
 # F test
@@ -11474,7 +11474,7 @@ def test():
     somechecks.append(checksh(W,v))
     t = chartable(W)
     somechecks.append(ainvariants(W,1) == t['a'])
-    lprint(str(t['a'])+'\n')
+    lprint(str(t['a']) + '\n')
     W = coxeter('B',5)
     chartable(W)
     W = coxeter('C',2)
@@ -11504,12 +11504,12 @@ def test():
     W = coxeter('I5',2)
     chartable(W)
     somechecks.append(checksh(W,v))
-    somechecks.append(sum(x[1] for x in specialpieces(W,v)) == v**(2*W.N))
+    somechecks.append(sum(x[1] for x in specialpieces(W,v)) == v**(2 * W.N))
     W = coxeter('F',4)
     t = chartable(W)
     somechecks.append(ainvariants(W,1) == t['a'])
     somechecks.append(checksh(W,[v**2,v**2,v,v]))
-    somechecks.append(sum(x[1] for x in specialpieces(W,v)) == v**(2*W.N))
+    somechecks.append(sum(x[1] for x in specialpieces(W,v)) == v**(2 * W.N))
     W = coxeter('I5',2)
     chartable(W)
     W = coxeter('H',3)
@@ -11546,8 +11546,8 @@ def test():
     # mixed finite and affine type:
     W = coxeter([[2,0,-3,0,0,0],[0,2,-1,0,0,0],[-1,-1,2,0,0,0],
                [0,0,0,2,-1,0],[0,0,0,-1,2,-1],[0,0,0,0,-1,2]])
-    lprint(str(W.cartantype)+'\n')
-    lprint(str(W.cartanname)+'\n')
+    lprint(str(W.cartantype) + '\n')
+    lprint(str(W.cartanname) + '\n')
     # check all functions on this example:
     W = coxeter([[2,0,0,0,0,0,0,0,0,0,0,-1,0,0,-2],
                [0,2,0,0,0,0,0,0,-1,0,0,0,-1,-1,0],
@@ -11564,27 +11564,27 @@ def test():
                [0,-1,0,0,0,0,0,0,0,0,0,0,2,0,0],
                [0,-1,0,0,0,0,0,0,0,0,0,0,0,2,0],
                [-1,0,0,-1,0,0,0,0,0,0,0,0,0,0,2]])
-    lprint(str(W.cartantype)+'\n')
-    lprint(str(W.cartanname)+'\n')
-    lprint(str(W.order)+'\n')
+    lprint(str(W.cartantype) + '\n')
+    lprint(str(W.cartanname) + '\n')
+    lprint(str(W.order) + '\n')
     somechecks.append(W.cartan == cartantypetomat(cartantotype(W.cartan)))
     c = conjugacyclasses(W)
     r = reflections(W)
     l = longestperm(W)
     a = allelmchain(W)
-    H = reflectionsubgroup(W,[0,1,2,3,4,5,6,7,W.N-1])
+    H = reflectionsubgroup(W,[0,1,2,3,4,5,6,7,W.N - 1])
     lH = H.permtoword(longestperm(H))
     lW = H.reducedword(lH,W)
     W = coxeter([[2,0,-1,0,0,0,0,0,0],[0,2,0,0,-1,0,0,0,0],
         [-2,0,2,0,0,0,0,0,0],[0,0,0,2,-1,0,-1,0,0],[0,-1,0,-1,2,0,0,-1,0],
         [0,0,0,0,0,2,0,0,-1],[0,0,0,-1,0,0,2,0,0],[0,0,0,0,-1,0,0,2,0],
         [0,0,0,0,0,-3,0,0,2]])
-    lprint(str(W.cartantype)+'\n')
-    lprint(str(W.cartanname)+'\n')
-    lprint(str(W.order)+'\n')
+    lprint(str(W.cartantype) + '\n')
+    lprint(str(W.cartanname) + '\n')
+    lprint(str(W.order) + '\n')
     somechecks.append(W.cartan == cartantypetomat(cartantotype(W.cartan)))
     cl = conjugacyclasses(W)
-    H = reflectionsubgroup(W,[0,1,2,3,4,5,6,7,W.N-1])
+    H = reflectionsubgroup(W,[0,1,2,3,4,5,6,7,W.N - 1])
     # test embedding of reflections
     W = coxeter("F",4)
     c = coxeterclasses(W)
@@ -11649,18 +11649,18 @@ def test():
         y = leftcellleadingcoeffs(W,1,v,x,cl)
         l.append(y['ti'])
     somechecks.append(l == [[[('1_r',), [1]]], [[("3_s'",), [1, ir5]],
-       [("overline{3}_s'",), [1, 1-ir5]]], [[('5_r',), [1]]],
+       [("overline{3}_s'",), [1, 1 - ir5]]], [[('5_r',), [1]]],
        [[("4_r'",), [1, 1]], [('4_r',), [1, -1]]], [[("5_r'",), [1]]],
-       [[('3_s',), [ir5, 1]], [('overline{3}_s',), [1-ir5, 1]]],
+       [[('3_s',), [ir5, 1]], [('overline{3}_s',), [1 - ir5, 1]]],
        [[("1_r'",), [1]]], [[('5_r',), [1]]], [[("4_r'",), [1, 1]],
        [('4_r',), [1, -1]]], [[("5_r'",), [1]]], [[("5_r'",), [1]]],
-       [[('3_s',), [ir5, 1]], [('overline{3}_s',), [1-ir5, 1]]],
-       [[("3_s'",), [1, ir5]], [("overline{3}_s'",), [1, 1-ir5]]],
+       [[('3_s',), [ir5, 1]], [('overline{3}_s',), [1 - ir5, 1]]],
+       [[("3_s'",), [1, ir5]], [("overline{3}_s'",), [1, 1 - ir5]]],
        [[('5_r',), [1]]], [[("4_r'",), [1, 1]], [('4_r',), [1, -1]]],
        [[('5_r',), [1]]], [[("5_r'",), [1]]], [[("4_r'",), [1, 1]],
        [('4_r',), [1, -1]]], [[("5_r'",), [1]]], [[('3_s',), [ir5, 1]],
-       [('overline{3}_s',), [1-ir5, 1]]], [[("3_s'",), [1, ir5]],
-       [("overline{3}_s'",), [1, 1-ir5]]], [[('5_r',), [1]]]])
+       [('overline{3}_s',), [1 - ir5, 1]]], [[("3_s'",), [1, ir5]],
+       [("overline{3}_s'",), [1, 1 - ir5]]], [[('5_r',), [1]]]])
     c = allcellsleadingcoeffs(W,1,v)
     c = constructible(W,1)
     ah = redleftcosetreps(W)
@@ -11717,7 +11717,7 @@ def test():
         l1 = len(list(filter(lambda x:bruhatperm(W,W.coxelmtoperm(x),
                                            W.wordtoperm(w1[:l])),aa)))
         lb4.append(l1)
-        lprint(str(l1)+' ')
+        lprint(str(l1) + ' ')
     lprint('\n')
     somechecks.append(lb4 == [2,4,8,12,20,40,60,96,132,196,244,272,
                                      396,456,508,680,720,828,912,972])
@@ -11731,7 +11731,7 @@ def test():
     W = coxeter("E",7)
     somechecks.append(cellrepcheck1(W,klcellreps(W)))
     lprint('###############################################\n')
-    lprint('## ' + str(len(somechecks))+' true/false checks performed ')
+    lprint('## ' + str(len(somechecks)) + ' true/false checks performed ')
     if not all(somechecks):
         lprint(' ==> !!! There are problems !!!\n')
     else:
