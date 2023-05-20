@@ -798,8 +798,8 @@ def chartableD(n):
      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
     >>> H = reflectionsubgroup(W, [1, 2, 3]); H.cartantype
     [['A', [0, 1, 2]]]
-    >>> t=inductiontable(H, W)
-    >>> t1=transposemat(t['scalar'])
+    >>> t = inductiontable(H, W)
+    >>> t1 = transposemat(t['scalar'])
     >>> t['charH']
     [('[1, 1, 1, 1]',), ('[2, 1, 1]',), ('[2, 2]',), ('[3, 1]',), ('[4]',)]
     >>> chartable(W)['b']
@@ -2041,9 +2041,9 @@ def displaychartable(ti):
     labelling of the classes and characters is included.
 
     >>> displaychartable(heckechartable(coxeter("G", 2), [v, v**2]))
-    --------------------------------------------------------------
-                     ~A_1     A_1   G_2   A_2 A_1+~A_1
-    --------------------------------------------------------------
+    ──────────────────────────────────────────────────────────────────────────────
+                      ~A_1     A_1   G_2   A_2 A_1+~A_1
+    ──────────────────────────────────────────────────────────────────────────────
       phi_{1, 0} 1    v**4    v**2  v**6 v**12    v**18
       phi_{1, 6} 1      -1      -1     1     1        1
      phi_{1, 3}' 1    v**4      -1 -v**4  v**8   -v**12
@@ -4060,7 +4060,7 @@ def heckecharvalues(W, paramL, lw, clpols=[]):
     else:
         vs = len(W.rank) * [paramL]
     ti = heckechartable(W, vs)['irreducibles']
-    maxl = max([len(w) for w in lw])
+    maxl = max(len(w) for w in lw)
     # elms=allwords(W, maxl)
     if clpols == []:
         cpmat = allclasspolynomials(W, [p**2 for p in vs], maxl)
@@ -5001,7 +5001,7 @@ def greenalgo(W, u, fam, avals, check=True, startpr=0, verbose=False):
                 lprint('\n#I Checking: ')
             i = 0
             while fertig and i < len(fbl):
-                if verbose and i % 5 == 0:
+                if verbose and not i % 5:
                     lprint(str(i) + ' ')
                 j = 0
                 while fertig and j <= i:
@@ -6371,8 +6371,7 @@ def relklpolsuneq(W, W1, cell1, weightL, q):
                                                 m1 = cell1['mpols'][J.index(t)][int(cell1['klmat'][
                                                     w][u].split('c')[J.index(t) + 2])]
                                                 if m1 != 0:
-                                                    rk = mat[sy, x][v][w].split('c')[
-                                                                             1]
+                                                    rk = mat[sy, x][v][w].split('c')[1]
                                                     if rk != '0':
                                                         h += q**(Lw1[w] - Lw1[u] + poids[t]
                                                                  ) * rklpols[int(rk)] * m1
@@ -6384,8 +6383,7 @@ def relklpolsuneq(W, W1, cell1, weightL, q):
                                         if x <= sy and bruhatX[sy][x] and mat[sy, x][v][u][0] == 'c':
                                             rk = mat[sy, x][v][u].split('c')[1]
                                             if rk != '0':
-                                                h += q**(2 * poids[s]) * \
-                                                       rklpols[int(rk)]
+                                                h += q**(2 * poids[s]) * rklpols[int(rk)]
                                     if h == 0:
                                         mat[y, x][v][u] += '0'
                                     else:
@@ -6415,11 +6413,11 @@ def relklpolsuneq(W, W1, cell1, weightL, q):
                                                         if mat[z, x][w][u][0] == 'c' and mat[y,
                                                                                      z][v][w][0] == 'c':
                                                             m1 = pospart(mues[r][int(mat[y, z][v][
-                                                                                  w].split('c')[r + 2])])
+                                                                w].split('c')[r + 2])])
                                                             if m1 != 0:
                                                                 pis += nonnegpart(q**(Lw1[u] + Lw[x] - Lw1[w] -
                                                                           Lw[z]) * rklpols[int(mat[z, x][w][
-                                                                                     u].split('c')[1])] * m1)
+                                                                              u].split('c')[1])] * m1)
                                         rk = mat[y, x][v][u].split('c')[1]
                                         if rk != '0':
                                             pis -= nonnegpart(q**(Lw1[u] + Lw[x] - Lw1[v] - Lw[y] +
@@ -6434,10 +6432,10 @@ def relklpolsuneq(W, W1, cell1, weightL, q):
                                             for w in range(u + 1, len(p1)):
                                                 if w < lft1[t][w] and cell1['klmat'][w][u][0] == 'c':
                                                     m1 = pospart(cell1['mpols'][J.index(t)][int(cell1[
-                                                            'klmat'][w][u].split('c')[J.index(t) + 2])])
+                                                        'klmat'][w][u].split('c')[J.index(t) + 2])])
                                                     if m1 != 0 and mat[y, x][v][w][0] == 'c':
                                                         rk = mat[y, x][v][w].split('c')[
-                                                                                1]
+                                                            1]
                                                         if rk != '0':
                                                             pis -= nonnegpart(rklpols[int(rk)] *
                                                                     q**(Lw1[w] + Lw[x] - Lw1[v] - Lw[y]) * m1)
@@ -6459,7 +6457,6 @@ def relklpolsuneq(W, W1, cell1, weightL, q):
                                         mues[r].append(m)
                                 else:
                                     mat[y, x][v][u] += 'c0'
-    # lprint('\n')
     ap = []
     for y in X1w:
         for v in cell1['elms']:
@@ -6664,10 +6661,10 @@ def allrelklpols(W, J, weightL, q, verbose=False):
                                                         mat[sy, z][v][w].split('c')[2])]
                                                     if m != 0:
                                                         rk = mat[z, x][w][u].split('c')[
-                                                                                1]
+                                                            1]
                                                         if rk != '0':
                                                             h -= q**(Lw[y] + Lw1[v] - Lw[z] - Lw1[w]) * rklpols[
-                                                                                               int(rk)] * m
+                                                                int(rk)] * m
                                     if sx < 0:  # case sx not in X, tu<u
                                         t = -1 - sx
                                         if mat[sy, x][v][u][0] == 'c':
@@ -6676,7 +6673,7 @@ def allrelklpols(W, J, weightL, q, verbose=False):
                                                 h += (q**2 + 1) * rklpols[int(rk)]
                                         if mat[sy, x][v][lft1[t][u]][0] == 'c':
                                             rk = mat[sy, x][v][lft1[t][u]].split('c')[
-                                                                              1]
+                                                1]
                                             if rk != '0':
                                                 h += rklpols[int(rk)]
                                         for w in range(u + 1, len(a1)):
@@ -6686,11 +6683,11 @@ def allrelklpols(W, J, weightL, q, verbose=False):
                                                     mat[0, 0][w][u].split('c')[2])]
                                                 if m != 0:
                                                     rk = mat[sy, x][v][w].split('c')[
-                                                                             1]
+                                                        1]
                                                     if rk != '0':
                                                         h += q**(Lw1[w] - Lw1[u] + 1) * \
-                                                               rklpols[int(
-                                                                   rk)] * m
+                                                            rklpols[int(
+                                                                rk)] * m
                                     else:    # case sx<x
                                         if mat[sy, sx][v][u][0] == 'c':
                                             rk = mat[sy, sx][v][u].split('c')[1]
@@ -6758,7 +6755,7 @@ def allrelklpols(W, J, weightL, q, verbose=False):
                                     rk2 = mat[y, x][v][w]
                                     if rk2[0] == 'c' and rk2[1] != '0':
                                         h += m1['klpols'][int(rk1.split('c')[1])] * rklpols[
-                                                                       int(rk2.split('c')[1])]
+                                            int(rk2.split('c')[1])]
                     if h != 0 and h not in klpols:
                         klpols.append(h)
     return {'allelms': ap, 'elmsJ': wa1, 'elmsX': X1w, 'rklpols': rklpols,
@@ -6779,7 +6776,7 @@ def leftconnected(W, elms, verbose=False):
          precisely the left cells in that two-sided cell.
 
     """
-    if type(elms[0]) == type(W.permgens[0]):
+    if isinstance(elms[0], tuple):  # type of W.permgens
         if len(elms[0]) == 2 * W.N:
             pelms = set([w[:len(W.rank)] for w in elms])
         else:
@@ -6873,7 +6870,7 @@ def klstarorbit(W, l, gens='each'):
     if gens == 'each':
         gens = list(W.rank)
     # orb = [[W.wordtoperm(x) for x in l]]
-    if len(l) == 0 or (type(l[0]) == type(W.permgens[0]) and len(l[0]) == 2 * W.N):
+    if len(l) == 0 or (isinstance(l[0], tuple) and len(l[0]) == 2 * W.N):
         orb = [l[:]]
     else:
         orb = [[W.wordtoperm(x) for x in l]]
@@ -6898,7 +6895,7 @@ def klstarorbitperm(W, l, gens='each'):
     if gens == 'each':
         gens = list(W.rank)
     # orb=[[W.wordtoperm(x) for x in l]]
-    if len(l) == 0 or (type(l[0]) == type(W.permgens[0]) and len(l[0]) == 2 * W.N):
+    if len(l) == 0 or (isinstance(l[0], tuple) and len(l[0]) == 2 * W.N):
         orb = [l[:]]
     else:
         orb = [[W.wordtoperm(x) for x in l]]
@@ -7352,7 +7349,7 @@ def gentaucells(W, startset, verbose=False, lcells=False, string=False, tlen=Fal
 
     See also 'klstarorbit' and 'gentaureps'.
     """
-    if type(startset[0]) == type(W.permgens[0]):
+    if isinstance(startset[0], tuple):
         if len(startset[0]) == 2 * W.N:
             aset = startset
         else:
@@ -7520,7 +7517,7 @@ def klcellsun(W, weightL, v, verbose=False):
             J.remove(len(W.rank) - 1)
         W1 = reflectionsubgroup(W, J)
         kk = klcellsun(W1, [poids[s] for s in J], v, verbose=False)
-        if verbose and len(W.rank) > 0:
+        if verbose and W.rank:
             lprint('#I ')
         if verbose:
             lprint('(' + str(len(kk)) + ') ')
@@ -7541,10 +7538,10 @@ def klcellsun(W, weightL, v, verbose=False):
                 cr1.append(ii)
         if verbose:
             lprint('\n')
-    if verbose and len(W.rank) > 0:
+    if verbose and W.rank:
         lprint('#I ' + str(len(cr1)) + ' left cells, mues: ')
         for s in W.rank:
-            lprint('[' + ', '.join([repr(i) for i in allmues[s]]) + '] ')
+            lprint('[' + ', '.join(repr(i) for i in allmues[s]) + '] ')
         lprint('\n')
     cr1.sort(key=(lambda c: len(c.X)))
     return cr1
@@ -7690,7 +7687,7 @@ def klcells(W, weightL, v, allcells=True, verbose=False):
             W1 = reflectionsubgroup(W, J)
             X1p = [W.coxelmtoword(x1) for x1 in redleftcosetreps(W, J)]
             kk = klcells(W1, [poids[s] for s in J], v, verbose=False, allcells=False)
-            if verbose and len(W.rank) > 0:
+            if verbose and W.rank:
                 lprint('#I ')
             if verbose:
                 lprint('(' + str(len(kk[0])) + ':' + str(len(kk[1])) + ') ')
@@ -7723,7 +7720,7 @@ def klcells(W, weightL, v, allcells=True, verbose=False):
                             lprint(str(len(srht)) + '!')
                         ind = []
                         for rh in srht:
-                            l = list(filter(lambda x: rht[x] == rh, range(len(rht))))
+                            l = [x for x in range(len(rht)) if rht[x] == rh]
                             x1 = [ind1.X[ih] for ih in l]
                             x1r = [ind1.Xrep[ih] for ih in l]
                             i1 = [ind1.Isets[ih] for ih in l]
@@ -7782,10 +7779,10 @@ def klcells(W, weightL, v, allcells=True, verbose=False):
                 i += 1
         if verbose:
             lprint('\n')
-        if verbose and len(W.rank) > 0:
+        if verbose and W.rank:
             lprint('#I ' + str(len(nc)) + ' left cells (')
             lprint(str(len(creps)) + ' non-equivalent), ')
-            lprint('mues: ' + ', '.join([str(i) for i in allmues]) + '\n')
+            lprint('mues: ' + ', '.join(str(i) for i in allmues) + '\n')
         # nc.sort(key=(lambda c:len(c)))
         ct = chartable(W)
         if allcells and len(nc) != sum([ct['irreducibles'][i][0]
@@ -7991,7 +7988,7 @@ def leftcellleadingcoeffs(W, weightL, v, cell, clpols=[], newnorm=False):
     lw = [cell[i] for i in range(len(cell)) if perminverse(pcell[i]) in pcell]
     if clpols == []:
         cpmat = allclasspolynomials(W, [v**(2 * p) for p in poids],
-                                    max([len(w) for w in lw]))
+                                    max(len(w) for w in lw))
     else:
         cpmat = clpols
     lc = transposemat(leadingcoefficients(W, weightL, lw, cpmat))
@@ -8389,11 +8386,12 @@ def starorbitinv(W, pw, lcell=None):
     represented as 'coxelms').
     """
     orb = [pw[:]]
-    orb1 = set([pw[:len(W.rank)]])
+    n = len(W.rank)
+    orb1 = set([pw[:n]])
     if lcell is not None:
-        if type(lcell[0]) == type(W.permgens[0]) and len(lcell[0]) == len(W.rank):
+        if isinstance(lcell[0], tuple) and len(lcell[0]) == n:
             ncell = [[bytes(W.coxelmtoperm(x)) for x in lcell]]
-        elif type(lcell[0]) == type(W.permgens[0]) and len(lcell[0]) == 2 * W.N:
+        elif isinstance(lcell[0], tuple) and len(lcell[0]) == 2 * W.N:
             ncell = [[bytes(x) for x in lcell]]
         else:
             ncell = [[bytes(W.wordtoperm(x)) for x in lcell]]
@@ -8479,7 +8477,7 @@ def distinguishedinvolutions_eq(W, verbose=False):
     poin = poincarepol(W, v).coeffs
     lcl = [len(w) for w in conjugacyclasses(W)['reps']]
     maxn = sum([ct['irreducibles'][i][0] for i in range(len(ct['a']))
-                                             if ct['a'][i] == ct['b'][i]])
+                if ct['a'][i] == ct['b'][i]])
     rest = involutions(W)
     repsinv = []
     if any(f % 2 == 1 for f in W.degrees):
@@ -8569,11 +8567,11 @@ def distinguishedinvolutions_eq(W, verbose=False):
                 cp[t[2]] = 1
             else:
                 cp1 = [strtopol(f, 'v')
-                              for f in cpmat[l - 1][bytes(t[2])].split(';')]
+                       for f in cpmat[l - 1][bytes(t[2])].split(';')]
                 cp2 = [strtopol(f, 'v') for f in cpmat[l][bytes([W.permgens[t[3]][i]
                                                         for i in t[2]])].split(';')]
                 cp = [v * cp1[i] + (v - 1) * cp2[i] for i in range(len(ainv))]
-            strcp = ';'.join([poltostr(f) for f in cp])
+            strcp = ';'.join(poltostr(f) for f in cp)
             ic = len(spols) - 1
             while ic >= 0:
                 if strcp == spols[ic]:
@@ -9179,7 +9177,7 @@ def libdistinv(W, weightL, unpack=True):
                '48.1c44.2c12.1', '16.1c7.1', '11.1', '2.1', '1.1']
         ch = chartable(W, chars=False)['charnames']
         chars = [[[ch[int(k.split('.')[0])], int(k.split('.')[1])]
-                                  for k in l.split('c')] for l in chrs0]
+                  for k in l.split('c')] for l in chrs0]
         if unpack:
             f = [W.permtoword(x) for x in flatlist([starorbitinv(W,
                      W.wordtoperm([int(i) for i in r])) for r in reps])]
@@ -9242,35 +9240,35 @@ def libdistinv(W, weightL, unpack=True):
               '123120343120324354312032431543265431234576543120324315432654317',
               '1231203431203243543120324315432654312345676543120324315432654317',
               '12312343123454312032431565431203243154320654327654312032431543' +
-                 '265431',
+                '265431',
               '12312343120324354312365431203243154676543120324315432065431237' +
-                 '6543123',
+                '6543123',
               '12312343120345431203243546543120324315432065431234576543120324' +
-                 '31543265431',
+                '31543265431',
               '01203120324312032431543120324315432065431234567654312032431543' +
-                 '206543123457',
+                '206543123457',
               '02032043205431203265431203243156765431203243154320654312345676' +
-                 '54312032435465',
+                '54312032435465',
               '12312343123454312345654312032431543206765431203243154320654312' +
-                 '345676543123456',
+                '345676543123456',
               '01203120324312032431543120324316543120324315432654317654312032' +
-                 '4315432065431234',
+                '4315432065431234',
               '12312034312032435431203243154326543120324315432065431234576543' +
-                 '12032431543265431',
+                '12032431543265431',
               '01203120324312032431543120324315432065431203243154326543176543' +
-                 '1203243154320654312345',
+                '1203243154320654312345',
               '12312032431203243154312032431543206543120324315432076543120324' +
-                 '315432065431234576543120324315432',
+                '315432065431234576543120324315432',
               '12312343123454312032431565431203243154320654327654312032431543' +
-                 '2065431234567654312032431543265431',
+                '2065431234567654312032431543265431',
               '12312343120324315431203243154320654312032431543206543123456765' +
-                 '43120324315432065431234576543120324315432',
+                '43120324315432065431234576543120324315432',
               '01203120324312032431543120324315432065431203243154320654312345' +
-                 '6765431203243154320654312345765431203243154320',
+                '6765431203243154320654312345765431203243154320',
               '01203120324312032431543120324315432065431203243154320654312345' +
-                 '676543120324315432065431234567654312032431543206543123456',
+                '676543120324315432065431234567654312032431543206543123456',
               '01203120324312032431543120324315432065431203243154320654312345' +
-                 '6765431203243154320654312345676543120324315432065431234567']
+                '6765431203243154320654312345676543120324315432065431234567']
         chrs0 = ['0.1', '67.1', '4.1', '71.1c2.1', '71.1c9.1', '73.1c14.1',
                '14.1c7.1', '80.1', '23.1', '28.1c17.1', '76.1c28.1',
                '92.1c78.1c39.1', '92.1c85.1c39.1', '42.1c36.1c12.1',
@@ -10900,7 +10898,7 @@ def klcellreps(W, verbose=False):
             for i in range(len(d1)):
                 if d1[i] in l:
                     res.append(i)
-        neu = [[''.join([str(s) for s in d1[i]]) for i in res],
+        neu = [[''.join(str(s) for s in d1[i]) for i in res],
                [d2[i] for i in res]]
         t = chartable(W)
         sp = [[t['charnames'][i][0], t['a'][i]] for i in range(len(t['a']))
@@ -10908,14 +10906,15 @@ def klcellreps(W, verbose=False):
         klcr1 = []
         for l in range(len(klcr)):
             lrep = leftklstarreps(W, [W.wordtoperm(x) for x in klcr[l]],
-                                             [W.wordtoperm(x) for x in d1])
+                                  [W.wordtoperm(x) for x in d1])
             c = 0
             while not sp[c][0] in [j[0] for j in neu[1][l]]:
                 c += 1
             klcr1.append({'size': len(klcr[l]), 'index': l,
               'elms': set([W.wordtocoxelm(x) for x in klcr[l]]),
               'distinv': neu[0][l], 'character': neu[1][l], 'a': sp[c][1],
-              'replstar': [''.join([str(s) for s in W.permtoword(x)]) for x in lrep],
+              'replstar': [''.join(str(s) for s in W.permtoword(x))
+                           for x in lrep],
               'special': sp[c][0]})
         W.klcellreps = klcr1
         return klcr1
@@ -10949,7 +10948,7 @@ def cellrepstarorbit(W, c, verbose=False):
     if verbose:
         lprint('#I cell of size ' + str(c['size']) + '; ')
     cc = starorbitinv(W, W.wordtoperm([int(s) for s in c['distinv']]),
-                                                   list(c['elms']))
+                      list(c['elms']))
     if verbose:
         lprint('orbit with ' + str(len(cc[0])) + ' cells\n')
     orb = []
@@ -10957,8 +10956,8 @@ def cellrepstarorbit(W, c, verbose=False):
         orb.append({'size': c['size'], 'character': c['character'], 'a': c['a'],
                     'special': c['special'], 'elms': set(cc[1][i]),
                     'index': c['index'],
-                    'distinv': ''.join([str(s) for s in W.permtoword(cc[0][i])])})
-        # 'replstar':[''.join([str(s) for s in W.permtoword(w)])
+                    'distinv': ''.join(str(s) for s in W.permtoword(cc[0][i]))})
+        # 'replstar':[''.join(str(s) for s in W.permtoword(w))
         #                    for w in leftklstarreps(W, cc[1][i])]})
     return orb
 
@@ -10997,7 +10996,7 @@ def klcellrepelm(W, w, verbose=False):
 
     See also 'klcellreps', 'cellrepstarorbit' and 'leftcellelm'.
     """
-    if type(w) == type(W.permgens[0]) and len(w) == 2 * W.N:
+    if isinstance(w, tuple) and len(w) == 2 * W.N:
         orb = [w]
     else:
         orb = [W.wordtoperm(w)]
@@ -11151,13 +11150,13 @@ def leftcellelm(W, w, replstars=False, verbose=False):
     and then give the output as additional argument.
 
     >>> W = coxeter("F", 4)
-    >>> t0=time.time()
-    >>> l0=[leftcellelm(W, x) for x in allwords(W)]
+    >>> t0 = time.time()
+    >>> l0 = [leftcellelm(W, x) for x in allwords(W)]
     >>> time.time()-t0  # random
     9.92
-    >>> r=cellreplstars(W)
-    >>> t0=time.time()
-    >>> l1=[leftcellelm(W, x, r) for x in allwords(W)]
+    >>> r = cellreplstars(W)
+    >>> t0 = time.time()
+    >>> l1 = [leftcellelm(W, x, r) for x in allwords(W)]
     >>> time.time()-t0  # random
     0.22
     >>> [i['distinv'] for i in l0]==[i['distinv'] for i in l1]
@@ -11237,7 +11236,7 @@ def leftcellelm(W, w, replstars=False, verbose=False):
                                     'character': e8c[c0]['character'],
                                     'special': e8c[c0]['special'], 'index': e8c[c0]['index'],
                                     'elms': set([x[:len(W.rank)] for x in n1]),
-                                    'distinv': ''.join([str(s) for s in W.permtoword(d1)])}
+                                    'distinv': ''.join(str(s) for s in W.permtoword(d1))}
                             else:
                                 ncell.append([bytes(x) for x in n1])
 
@@ -11302,7 +11301,7 @@ def cellrepcheck2(W):
     left cells of W  by computing the orbits under the star
     operations of all left cells from 'klcellreps'.
 
-    >>> t=timer(cellrepcheck2, coxeter("E", 7))  # not tested
+    >>> t = timer(cellrepcheck2, coxeter("E", 7))  # not tested
     #I 56 (unpacking data) ...... OK
     #I cell of size 1; orbit with 1 cells
     #I cell of size 1; orbit with 1 cells
@@ -11311,7 +11310,7 @@ def cellrepcheck2(W):
     #I cell of size 1024; orbit with 70 cells
     192.58
 
-    >>> t=timer(cellrepcheck2, coxeter("E", 8))  # not tested
+    >>> t = timer(cellrepcheck2, coxeter("E", 8))  # not tested
     #I 106 (unpacking data) ...... OK
     #I cell of size 1; orbit with 1 cells
     #I cell of size 8; orbit with 8 cells
@@ -11430,7 +11429,7 @@ def timer(func, *pargs, **kargs):
     """returns the result of applying a function and prints the time used
     in seconds. (Taken from M. Lutz's "Learning Python" book.)
 
-    >>> t=timer(klcells, coxeter("F", 4), 1, v)  # random
+    >>> t = timer(klcells, coxeter("F", 4), 1, v)  # random
     1.02
     """
     start = time.time()
@@ -11757,7 +11756,7 @@ def test():
     W = coxeter("E", 7)
     somechecks.append(cellrepcheck1(W, klcellreps(W)))
     lprint('###############################################\n')
-    lprint('## ' + str(len(somechecks)) + ' true/false checks performed ')
+    lprint('# ' + str(len(somechecks)) + ' true/false checks performed ')
     if not all(somechecks):
         lprint(' ==> !!! There are problems !!!\n')
     else:

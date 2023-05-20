@@ -700,7 +700,7 @@ def lcmcyclpol(pols):
         return pols[0]
     q = lpol([1], 1, pols[0].vname)
     ds = [cycldec(p) for p in pols]
-    res = (max([c[2][-1][0] for c in ds]) + 1) * [0]
+    res = (max(c[2][-1][0] for c in ds) + 1) * [0]
     res[0] = 1
     for c in ds:
         res[0] = intlcm(res[0], c[0])

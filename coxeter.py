@@ -146,7 +146,7 @@ def cartanmat(typ, n):
                 [0, 0, -1, 2]]
     if typ[0] == 'I':
         m = int(typ[1:])
-        if m % 2 == 0:
+        if not m % 2:
             if m == 4:
                 return [[2, -1], [-2, 2]]
             if m == 6:
@@ -159,7 +159,7 @@ def cartanmat(typ, n):
                 return [[2, -ir(m)], [-ir(m), 2]]
             d = gcdex(2 + m, 2 * m)['coeff1']
             z = rootof1(m)
-            if d % 2 == 0:
+            if not d % 2:
                 z1 = -z**d - z**(-d)
             else:
                 z1 = z**d + z**(-d)
@@ -289,7 +289,7 @@ def typecartanmat(mat):
             while p1[0][0] != 1 or p1[0][1] != 0 or p1[1][0] != 0 or p1[1][1] != 1:
                 p1 = matmult(p1, p)
                 m += 1
-            if m % 2 == 0 and mat[1][0] == -1:
+            if not m % 2 and mat[1][0] == -1:
                 return ['I' + str(m), [1, 0]]
             else:
                 return ['I' + str(m), [0, 1]]
@@ -1831,11 +1831,11 @@ def reflectionsubgroup(W, J):
             for g in gen:
                 if not g[o] in orb:
                     orb.append(g[o])
-        reflectionsJ = set(filter(lambda x: x < W.N, orb))
+        reflectionsJ = set(x for x in orb if x < W.N)
         fundJ = []
         for r in reflectionsJ:
             pw = refls[r]
-            if len(set(filter(lambda x: pw[x] >= W.N, range(W.N))) & reflectionsJ) == 1:
+            if len(set(x for x in range(W.N) if pw[x] >= W.N) & reflectionsJ) == 1:
                 fundJ.append(r)
         fundJ.sort()
         if max(flatlist(W.coxetermat)) > 5:
@@ -2730,7 +2730,7 @@ def conjclassdata(typ, n):
     if typ[0] == 'D':
         reps = []
         for mu in partitiontuples(n, 2):
-            if len(mu[1]) % 2 == 0:
+            if not len(mu[1]) % 2:
                 w = []
                 i = 1
                 for l in mu[1][::-1]:
