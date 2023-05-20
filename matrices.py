@@ -884,16 +884,14 @@ def displaymat(mat, rows=[], cols=[], width=78):
     for k in range(len(cut) - 1):
         if cols != []:
             print(width * '-')
-            print('\n')
-            print(maxr * ' ')
+            print(maxr * ' ', end="")
             for j in range(cut[k], cut[k + 1]):
-                print((csp[j] - len(str(cols[j]))) * ' ' + str(cols[j]))
+                print((csp[j] - len(str(cols[j]))) * ' ' + str(cols[j]), end="")
             print('\n')
             print(width * '-')
-            print('\n')
         for i in range(m):
             if rows != []:
-                print((maxr - len(str(rows[i]))) * ' ' + str(rows[i]))
+                print((maxr - len(str(rows[i]))) * ' ' + str(rows[i]), end="")
             for j in range(cut[k], cut[k + 1]):
                 if mat[i][j] == 0:
                     print((csp[j] - len(repr(mat[i][j]))) * ' ' + '.')

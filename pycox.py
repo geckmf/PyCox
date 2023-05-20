@@ -457,8 +457,8 @@ def inducedchar(W, H, psi):
 
     >>> W = coxeter("A", 5)
     >>> H = reflectionsubgroup(W, [0, 1, 2, 3])
-    >>> c=conjugacyclasses(H)
-    >>> c=conjugacyclasses(H)['reps']; c
+    >>> c = conjugacyclasses(H)
+    >>> c = conjugacyclasses(H)['reps']; c
     [[], [0], [0, 2], [0, 1], [0, 1, 3], [0, 1, 2], [0, 1, 2, 3]]
     >>> inducedchar(W, H, [(-1)**len(w) for w in c])  # induce sign character
     [6, -4, 2, 0, 3, -1, 0, -2, 0, 1, 0]
@@ -801,21 +801,21 @@ def chartableD(n):
     >>> t=inductiontable(H, W)
     >>> t1=transposemat(t['scalar'])
     >>> t['charH']
-    [('[1, 1, 1, 1]', ), ('[2, 1, 1]', ), ('[2, 2]', ), ('[3, 1]', ), ('[4]', )]
+    [('[1, 1, 1, 1]',), ('[2, 1, 1]',), ('[2, 2]',), ('[3, 1]',), ('[4]',)]
     >>> chartable(W)['b']
     [6, 6, 7, 12, 4, 3, 6, 2, 2, 4, 1, 2, 0]
     >>> [chartable(W)['charnames'][i] for i in [0, 1, 7, 8]]
-    [('[[1, 1], +]', ), ('[[1, 1], -]', ), ('[[2], +]', ), ('[[2], -]', )]
+    [('[[1, 1], +]',), ('[[1, 1], -]',), ('[[2], +]',), ('[[2], -]',)]
 
     >>> t1[0]     # take alpha=(1, 1), position 0 in t['charH']
     [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     >>> t['charW'][1]
-    ('[[1, 1], -]', )
+    ('[[1, 1], -]',)
 
     >>> t1[2]     # take alpha=(2), position 2 in t['charH']
     [0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0]
     >>> t['charW'][8]
-    ('[[2], -]', )
+    ('[[2], -]',)
     """
     W1 = coxeter("B", n)
     r1 = reflections(W1)
@@ -1962,24 +1962,32 @@ def chartable(W, chars=True):
     also 'chartablesymmetric', 'chartableB', 'chartableD'.
 
     >>> chartable(coxeter("G", 2))
-    {'irreducibles'  : [[1, 1, 1, 1, 1, 1],
-                        [1, -1, -1, 1, 1, 1],
-                        [1, 1, -1, -1, 1, -1],
-                        [1, -1, 1, -1, 1, -1],
-                        [2, 0, 0, 1, -1, -2],
-                        [2, 0, 0, -1, -1, 2]],
-      'classnames'   : [(' ', ), ('~A_1', ), ('A_1', ), ('G_2', ), ('A_2', ),
-                        ('A_1+~A_1', )],
-      'classreps'    : [[], [1], [0], [0, 1], [0, 1, 0, 1], [0, 1, 0, 1, 0, 1]],
-      'classlengths' : [1, 3, 3, 2, 2, 1],
-      'b'            : [0, 6, 3, 3, 1, 2],
-      'a'            : [0, 6, 1, 1, 1, 1],
-      'charnames'    : [('phi_{1, 0}', ), ('phi_{1, 6}', ), ("phi_{1, 3}'", ),
-                        ("phi_{1, 3}'', )", ('phi_{2, 1}', ), ('phi_{2, 2}', )]],
-      'position_id'  : 0,
-      'position_sgn  : 1,
-      'position_refl': 4,
-      'permsgn       : [1, 0, 3, 2, 4, 5]}
+    {'a': [0, 6, 1, 1, 1, 1],
+     'b': [0, 6, 3, 3, 1, 2],
+     'charnames': [('phi_{1, 0}',),
+      ('phi_{1, 6}',),
+      ("phi_{1, 3}'",),
+      ("phi_{1, 3}''",),
+      ('phi_{2, 1}',),
+      ('phi_{2, 2}',)],
+     'classlengths': [1, 3, 3, 2, 2, 1],
+     'classnames': [(' ',),
+      ('~A_1',),
+      ('A_1',),
+      ('G_2',),
+      ('A_2',),
+      ('A_1+~A_1',)],
+     'classreps': [[], [1], [0], [0, 1], [0, 1, 0, 1], [0, 1, 0, 1, 0, 1]],
+     'irreducibles': [[1, 1, 1, 1, 1, 1],
+      [1, -1, -1, 1, 1, 1],
+      [1, 1, -1, -1, 1, -1],
+      [1, -1, 1, -1, 1, -1],
+      [2, 0, 0, 1, -1, -2],
+      [2, 0, 0, -1, -1, 2]],
+     'permsgn': [1, 0, 3, 2, 4, 5],
+     'position_id': 0,
+     'position_refl': 4,
+     'position_sgn': 1}
 
     See also 'displaychartable'.
     """
@@ -2064,26 +2072,35 @@ def inductiontable(H, W, display=False, invchar=False):
         charW       : names of the characters of W
         charH       : names of the characters of H
 
-      >>> W = coxeter("B", 3)
-      >>> H = reflectionsubgroup(W, [1, 2, 5]); H.cartantype  # non-parabolic
-      [['A', [0, 1, 2]]]
-      >>> inductiontable(H, W)
-      {'scalar': [[1, 0, 0, 0, 0],
-                  [0, 1, 0, 0, 0],
-                  [0, 1, 0, 0, 0],
-                  [1, 0, 0, 0, 0],
-                  [0, 0, 1, 0, 0],
-                  [0, 0, 0, 1, 0],
-                  [0, 0, 0, 1, 0],
-                  [0, 0, 1, 0, 0],
-                  [0, 0, 0, 0, 1],
-                  [0, 0, 0, 0, 1]],
-       'charH' : [('[1, 1, 1, 1]', ), ('[2, 1, 1]', ), ('[2, 2]', ), ('[3, 1]', ),
-                  ('[4]', )],
-       'charW' : [('[[1, 1, 1], []]', ), ('[[1, 1], [1]]', ), ('[[1], [1, 1]]', ),
-                  ('[[], [1, 1, 1]]', ), ('[[2, 1], []]', ), ('[[1], [2]]', ),
-                  ('[[2], [1]]', ), ('[[], [2, 1]]', ), ('[[3], []]', ),
-                  ('[[], [3]]', )]}
+    >>> W = coxeter("B", 3)
+    >>> H = reflectionsubgroup(W, [1, 2, 5]); H.cartantype  # non-parabolic
+    [['A', [0, 1, 2]]]
+    >>> inductiontable(H, W)
+    {'charH': [('[1, 1, 1, 1]',),
+      ('[2, 1, 1]',),
+      ('[2, 2]',),
+      ('[3, 1]',),
+      ('[4]',)],
+     'charW': [('[[1, 1, 1], []]',),
+      ('[[1, 1], [1]]',),
+      ('[[1], [1, 1]]',),
+      ('[[], [1, 1, 1]]',),
+      ('[[2, 1], []]',),
+      ('[[1], [2]]',),
+      ('[[2], [1]]',),
+      ('[[], [2, 1]]',),
+      ('[[3], []]',),
+      ('[[], [3]]',)],
+     'scalar': [[1, 0, 0, 0, 0],
+      [0, 1, 0, 0, 0],
+      [0, 1, 0, 0, 0],
+      [1, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0],
+      [0, 0, 0, 1, 0],
+      [0, 0, 0, 1, 0],
+      [0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 1],
+      [0, 0, 0, 0, 1]]}
 
     With the optional argument 'invchar' one can specify a numerical
     function  on the  irreducible characters  by which the induction
@@ -2177,10 +2194,19 @@ def involutionmodel(W, poids=1, verbose=False):
     taken from the 'reps' component of 'conjugacyclasses(W)').
 
     >>> involutionmodel(coxeter("H", 3))
-    {'[0, 1, 0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 1, 2]':[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-     '[0, 2]'                          :[0, 0, 0, 1, 1, 1, 0, 0, 0, 1],
-     '[0]'                            :[0, 0, 1, 0, 0, 0, 1, 1, 1, 0],
-     '[]'                             :[0, 1, 0, 0, 0, 0, 0, 0, 0, 0]}
+    {'[0, 1, 0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 1, 2]': [1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0],
+     '[0, 2]': [0, 0, 0, 1, 1, 1, 0, 0, 0, 1],
+     '[0]': [0, 0, 1, 0, 0, 0, 1, 1, 1, 0],
+     '[]': [0, 1, 0, 0, 0, 0, 0, 0, 0, 0]}
 
     See also 'involutions' and 'conjugacyclasses'.
     """
@@ -2727,11 +2753,11 @@ def lusztigfamilies(W, weightL=1, verbose=False):
 
     >>> lusztigfamilies(coxeter("H", 3))
     {'families': [[1], [6, 7], [3], [8, 9], [2], [4, 5], [0]],
-    'names'   :  [[('1_r', )], [("3_s'", ), ("overline{3}_s'", )],
-                  [('5_r', )], [("4_r'", ), ('4_r', )], [("5_r'", )],
-                  [('3_s', ), ('overline{3}_s', )], [("1_r'", )]],
-    'ainv'    : [0, 1, 2, 3, 5, 6, 15],
-    'hasse'   : [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6]]}
+    'names':  [[('1_r',)], [("3_s'",), ("overline{3}_s'",)],
+                  [('5_r',)], [("4_r'",), ('4_r',)], [("5_r'",)],
+                  [('3_s',), ('overline{3}_s',)], [("1_r'",)]],
+    'ainv': [0, 1, 2, 3, 5, 6, 15],
+    'hasse': [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6]]}
 
     Thus, there are 7 families in this case, and the partial  order
     is a linear order.
@@ -2739,17 +2765,17 @@ def lusztigfamilies(W, weightL=1, verbose=False):
     >>> W = coxeter("B", 2)
     >>> lusztigfamilies(W)      # equal parameters
     {'families': [[3], [0, 1, 4], [2]],
-    'names'  :  [[('[[2], []]', )], [('[[1, 1], []]', ), ('[[1], [1]]', ),
-                  ('[[], [2]]', )], [('[[], [1, 1]]', )]],
-    'ainv'   : [0, 1, 4],
-    'hasse'  : [[0, 1], [1, 2]]}
+    'names':  [[('[[2], []]',)], [('[[1, 1], []]',), ('[[1], [1]]',),
+                  ('[[], [2]]',)], [('[[], [1, 1]]',)]],
+    'ainv': [0, 1, 4],
+    'hasse': [[0, 1], [1, 2]]}
 
     >>> lusztigfamilies(W, [2, 1])
     {'families': [[3], [0], [1], [4], [2]],
-    'names'   : [[('[[2], []]', )], [('[[1, 1], []]', )], [('[[1], [1]]', )],
-                 [('[[], [2]]', )], [('[[], [1, 1]]', )]]
-    'ainv'    : [0, 1, 2, 3, 6],
-    'hasse'   : [[0, 1], [1, 2], [2, 3], [3, 4]]}
+    'names': [[('[[2], []]',)], [('[[1, 1], []]',)], [('[[1], [1]]',)],
+                 [('[[], [2]]',)], [('[[], [1, 1]]',)]]
+    'ainv': [0, 1, 2, 3, 6],
+    'hasse': [[0, 1], [1, 2], [2, 3], [3, 4]]}
     """
     if isinstance(weightL, int):
         poids = len(W.rank) * [weightL]
@@ -3907,7 +3933,7 @@ def heckechartable(W, paramL=1):
     returned by 'chartable(W)').
 
     >>> heckechartable(coxeter("B", 2), [v**3, v**2])
-    {'coxeter': coxeter('B', 2),
+    {'coxeter': coxeter('B',2),
      'irreducibles': [[1, v**4, v**8, -1, -v**4],
       [2, -1+v**4, -2*v**10, -1+v**6, 0],
       [1, -1, 1, -1, 1],
@@ -5011,13 +5037,13 @@ def specialpieces(W, v, verbose=False):
     >>> W = coxeter("H", 3)
     >>> v=lpol([1], 1, 'v')      # built-in polynomials
     >>> specialpieces(W, v)
-    [[("1_r'", ), 1],
-     [('3_s', ), -1-v**4-v**8+v**10+v**14+v**18],
-     [("5_r'", ), v**4-v**10-v**14+v**20],
-     [("4_r'", ), v**8-v**14-v**18+v**24],
-     [('5_r', ), v**10-v**16-v**20+v**26],
-     [("3_s'", ), -v**10+v**12+v**16-v**18+v**20-v**22-v**26+v**28],
-     [('1_r', ), -v**12+v**14+v**18-v**20+v**22-v**24-v**28+v**30]]
+    [[("1_r'",), 1],
+     [('3_s',), -1-v**4-v**8+v**10+v**14+v**18],
+     [("5_r'",), v**4-v**10-v**14+v**20],
+     [("4_r'",), v**8-v**14-v**18+v**24],
+     [('5_r',), v**10-v**16-v**20+v**26],
+     [("3_s'",), -v**10+v**12+v**16-v**18+v**20-v**22-v**26+v**28],
+     [('1_r',), -v**12+v**14+v**18-v**20+v**22-v**24-v**28+v**30]]
     """
     ti = chartable(W)
     a1 = list(set(ti['a']))
@@ -5104,36 +5130,36 @@ class wgraph:
 
     >>> W = coxeter("G", 2)
     >>> k=klcells(W, 1, v); k[1]
-    [wgraph(coxeter('G', 2), [1, 1], [[]]),
-     wgraph(coxeter('G', 2), [1, 1], [[1], [0, 1], [1, 0, 1], [0, 1, 0, 1], [1, 0, 1, 0, 1]]),
-     wgraph(coxeter('G', 2), [1, 1], [[0], [1, 0], [0, 1, 0], [1, 0, 1, 0], [0, 1, 0, 1, 0]]),
-     wgraph(coxeter('G', 2), [1, 1], [[0, 1, 0, 1, 0, 1]])]
+    [wgraph(coxeter('G',2), [1, 1], [[]]),
+     wgraph(coxeter('G',2), [1, 1], [[1], [0, 1], [1, 0, 1], [0, 1, 0, 1], [1, 0, 1, 0, 1]]),
+     wgraph(coxeter('G',2), [1, 1], [[0], [1, 0], [0, 1, 0], [1, 0, 1, 0], [0, 1, 0, 1, 0]]),
+     wgraph(coxeter('G',2), [1, 1], [[0, 1, 0, 1, 0, 1]])]
 
     The corresponding left cell representations:
 
     >>> [l.matrices(True) for l in k[1]]
     [[[[v**2]], [[v**2]]],
-     [[[v**2,  v,    0,  0,    0],
-       [   0, -1,    0,  0,    0],
-       [   0,  v, v**2,  v,    0],
-       [   0,  0,    0, -1,    0],
-       [   0,  0,    0,  v, v**2]],
-      [[-1,    0, 0, 0, 0],
-       [ v, v**2,  v,    0, 0],
-       [ 0,    0, -1,    0, 0],
-       [ 0,    0,  v, v**2, v],
-       [ 0,    0,  0,    0, -1]]],
-     [[[-1,    0,  0,    0,  0],
-       [ v, v**2,  v,    0,  0],
-       [ 0,    0, -1,    0,  0],
-       [ 0,    0,  v, v**2,  v],
-       [ 0,    0,  0,    0, -1]],
-      [[v**2, v,    0,  0,    0],
-       [   0, -1,   0,  0,    0],
-       [   0, v, v**2,  v,    0],
-       [   0, 0,    0, -1,    0],
-       [   0, 0,    0,  v, v**2]]],
-     [[[-1]], [[-1]]]]
+     [[[-1]], [[-1]]],
+     [[[v**2, v, 0, 0, 0],
+       [0, -1, 0, 0, 0],
+       [0, v, v**2, v, 0],
+       [0, 0, 0, -1, 0],
+       [0, 0, 0, v, v**2]],
+      [[-1, 0, 0, 0, 0],
+       [v, v**2, v, 0, 0],
+       [0, 0, -1, 0, 0],
+       [0, 0, v, v**2, v],
+       [0, 0, 0, 0, -1]]],
+     [[[-1, 0, 0, 0, 0],
+       [v, v**2, v, 0, 0],
+       [0, 0, -1, 0, 0],
+       [0, 0, v, v**2, v],
+       [0, 0, 0, 0, -1]],
+      [[v**2, v, 0, 0, 0],
+       [0, -1, 0, 0, 0],
+       [0, v, v**2, v, 0],
+       [0, 0, 0, -1, 0],
+       [0, 0, 0, v, v**2]]]]
 
     See also 'reflectionwgraph', 'klcells' and 'wgraphstarorbit'.
     """
@@ -5389,7 +5415,7 @@ class wgraph:
         be added as component 'char' to the wgraph class.
 
         >>> W = coxeter("A", 3)
-        >>> [l.character() for l in klcells(W, 1, v)[0]]
+        >>> [l.character() for l in klcells(W, 1, v)[1]]
         [[1, 1, 1, 1, 1], [3, 1, -1, 0, -1], [3, 1, -1, 0, -1], [2, 0, 2, -1, 0],
          [3, -1, -1, 0, 1], [3, 1, -1, 0, -1], [2, 0, 2, -1, 0],
          [3, -1, -1, 0, 1], [3, -1, -1, 0, 1], [1, -1, 1, 1, -1]]
@@ -5944,10 +5970,10 @@ def relklpols(W, W1, cell1, weightL, q):
 
     >>> W = coxeter("A", 3); W1=reflectionsubgroup(W, [0, 1])
     >>> k1=klcells(W1, 1, v); k1[1]
-    [wgraph(coxeter('A', 2), [1, 1], [[]]),
-     wgraph(coxeter('A', 2), [1, 1], [[1], [0, 1]]),
-     wgraph(coxeter('A', 2), [1, 1], [[0], [1, 0]]),
-     wgraph(coxeter('A', 2), [1, 1], [[0, 1, 0]])]
+    [wgraph(coxeter('A',2), [1, 1], [[]]),
+     wgraph(coxeter('A',2), [1, 1], [[1], [0, 1]]),
+     wgraph(coxeter('A',2), [1, 1], [[0], [1, 0]]),
+     wgraph(coxeter('A',2), [1, 1], [[0, 1, 0]])]
 
     (Thus, W1 of type A2 has  4 left cells:  {}, {1, 01}, {0, 10}, {010}.)
     We induce  the first  left cell to  W and  decompose  the associated
@@ -5955,8 +5981,8 @@ def relklpols(W, W1, cell1, weightL, q):
 
     >>> r=relklpols(W, W1, k1[1][0].wgraphtoklmat(), 1, v)
     >>> G=wgraph(W, 1, r, v).decompose(); G
-    [wgraph(coxeter('A', 3), [1, 1, 1], [[]]),
-     wgraph(coxeter('A', 3), [1, 1, 1], [[2], [1, 2], [0, 1, 2]])]
+    [wgraph(coxeter('A',3), [1, 1, 1], [[]]),
+     wgraph(coxeter('A',3), [1, 1, 1], [[2], [1, 2], [0, 1, 2]])]
 
     (Thus, the induced graph has 2 components.)
 
@@ -6835,7 +6861,7 @@ def klstarorbit(W, l, gens='each'):
 
     >>> W = coxeter("A", 3);k=klcells(W, 1, v)
     >>> cell = k[1][3]; cell
-    wgraph(coxeter('A', 3), [1, 1, 1], [[2], [1, 2], [0, 1, 2]])
+    wgraph(coxeter('A',3), [1, 1, 1], [[2], [1, 2], [0, 1, 2]])
     >>> klstarorbit(W, cell.X)
     [[[2], [1, 2], [0, 1, 2]],
      [[2, 1], [1], [0, 1]],
@@ -7461,14 +7487,14 @@ def wgraphstarorbit(W, wgr, gens='each'):
 
     >>> W = coxeter("A", 2); k=klcells(W, 1, v); k
     [[[[]], [[0, 1, 0]], [[1], [0, 1]], [[1, 0], [0]]],
-     [wgraph(coxeter('A', 2), [1, 1], [[]]),
-      wgraph(coxeter('A', 2), [1, 1], [[0, 1, 0]]),
-      wgraph(coxeter('A', 2), [1, 1], [[1], [0, 1]])]]
+     [wgraph(coxeter('A',2), [1, 1], [[]]),
+      wgraph(coxeter('A',2), [1, 1], [[0, 1, 0]]),
+      wgraph(coxeter('A',2), [1, 1], [[1], [0, 1]])]]
     >>> flatlist([wgraphstarorbit(W, g) for g in k[1]])
-    [wgraph(coxeter('A', 2), [1, 1], [[]]),
-     wgraph(coxeter('A', 2), [1, 1], [[0, 1, 0]]),
-     wgraph(coxeter('A', 2), [1, 1], [[1], [0, 1]]),
-     wgraph(coxeter('A', 2), [1, 1], [[0], [1, 0]])]
+    [wgraph(coxeter('A',2), [1, 1], [[]]),
+     wgraph(coxeter('A',2), [1, 1], [[0, 1, 0]]),
+     wgraph(coxeter('A',2), [1, 1], [[1], [0, 1]]),
+     wgraph(coxeter('A',2), [1, 1], [[0], [1, 0]])]
 
     See also 'klstaroperation', 'wgraph' and 'klcells'.
     """
@@ -7550,29 +7576,29 @@ def klcells(W, weightL, v, allcells=True, verbose=False):
     'wgraph', 'gentaucells' and 'twosidedcells'.
 
     >>> klcells(coxeter("B", 3), [2, 1, 1], v)  # unequal parameters
-    [wgraph(coxeter('B', 3), [2, 1, 1], [[]]),
-     wgraph(coxeter('B', 3), [2, 1, 1], [[0], [1, 0], [2, 1, 0]]),
-     wgraph(coxeter('B', 3), [2, 1, 1], [[1], [2, 1]]),
-     wgraph(coxeter('B', 3), [2, 1, 1], [[2], [1, 2]]),
-     wgraph(coxeter('B', 3), [2, 1, 1], [[0, 1], [1, 0, 1], [2, 1, 0, 1]]),
-     wgraph(coxeter('B', 3), [2, 1, 1], [[0, 2], [1, 0, 2], [0, 1, 0, 2],
+    [wgraph(coxeter('B',3), [2, 1, 1], [[]]),
+     wgraph(coxeter('B',3), [2, 1, 1], [[0], [1, 0], [2, 1, 0]]),
+     wgraph(coxeter('B',3), [2, 1, 1], [[1], [2, 1]]),
+     wgraph(coxeter('B',3), [2, 1, 1], [[2], [1, 2]]),
+     wgraph(coxeter('B',3), [2, 1, 1], [[0, 1], [1, 0, 1], [2, 1, 0, 1]]),
+     wgraph(coxeter('B',3), [2, 1, 1], [[0, 2], [1, 0, 2], [0, 1, 0, 2],
                               [1, 2, 1, 0], [0, 1, 2, 1, 0], [1, 0, 1, 2, 1, 0]]),
-     wgraph(coxeter('B', 3), [2, 1, 1], [[0, 1, 0], [0, 2, 1, 0], [1, 0, 2, 1, 0],
+     wgraph(coxeter('B',3), [2, 1, 1], [[0, 1, 0], [0, 2, 1, 0], [1, 0, 2, 1, 0],
                                                     [0, 1, 0, 2, 1, 0]]),
-     wgraph(coxeter('B', 3), [2, 1, 1], [[0, 1, 2], [1, 0, 1, 2], [2, 1, 0, 1, 2]]),
-     wgraph(coxeter('B', 3), [2, 1, 1], [[0, 2, 1], [1, 0, 2, 1], [0, 1, 0, 2, 1],
+     wgraph(coxeter('B',3), [2, 1, 1], [[0, 1, 2], [1, 0, 1, 2], [2, 1, 0, 1, 2]]),
+     wgraph(coxeter('B',3), [2, 1, 1], [[0, 2, 1], [1, 0, 2, 1], [0, 1, 0, 2, 1],
                         [1, 2, 1, 0, 1], [0, 1, 2, 1, 0, 1], [1, 0, 1, 2, 1, 0, 1]]),
-     wgraph(coxeter('B', 3), [2, 1, 1], [[1, 2, 1], [0, 1, 2, 1], [1, 0, 1, 2, 1],
+     wgraph(coxeter('B',3), [2, 1, 1], [[1, 2, 1], [0, 1, 2, 1], [1, 0, 1, 2, 1],
                                                     [1, 2, 1, 0, 1, 2]]),
-     wgraph(coxeter('B', 3), [2, 1, 1], [[0, 1, 0, 1], [0, 2, 1, 0, 1],
+     wgraph(coxeter('B',3), [2, 1, 1], [[0, 1, 0, 1], [0, 2, 1, 0, 1],
                                                     [1, 0, 2, 1, 0, 1]]),
-     wgraph(coxeter('B', 3), [2, 1, 1], [[0, 1, 0, 1, 2], [0, 2, 1, 0, 1, 2],
+     wgraph(coxeter('B',3), [2, 1, 1], [[0, 1, 0, 1, 2], [0, 2, 1, 0, 1, 2],
                                                   [1, 0, 2, 1, 0, 1, 2]]),
-     wgraph(coxeter('B', 3), [2, 1, 1], [[0, 1, 0, 1, 2, 1], [0, 1, 2, 1, 0, 1, 2],
+     wgraph(coxeter('B',3), [2, 1, 1], [[0, 1, 0, 1, 2, 1], [0, 1, 2, 1, 0, 1, 2],
                                                 [1, 0, 1, 2, 1, 0, 1, 2]]),
-     wgraph(coxeter('B', 3), [2, 1, 1], [[0, 1, 0, 1, 2, 1, 0], [0, 1, 0, 2, 1, 0, 1, 2]]),
-     wgraph(coxeter('B', 3), [2, 1, 1], [[0, 1, 0, 2, 1, 0, 1], [0, 1, 0, 1, 2, 1, 0, 1]]),
-     wgraph(coxeter('B', 3), [2, 1, 1], [[0, 1, 0, 1, 2, 1, 0, 1, 2]])]
+     wgraph(coxeter('B',3), [2, 1, 1], [[0, 1, 0, 1, 2, 1, 0], [0, 1, 0, 2, 1, 0, 1, 2]]),
+     wgraph(coxeter('B',3), [2, 1, 1], [[0, 1, 0, 2, 1, 0, 1], [0, 1, 0, 1, 2, 1, 0, 1]]),
+     wgraph(coxeter('B',3), [2, 1, 1], [[0, 1, 0, 1, 2, 1, 0, 1, 2]])]
 
     Here  are some examples for equal parameters,  where the more
     efficient algorithm based on 'relklpols' is used.
@@ -7582,10 +7608,10 @@ def klcells(W, weightL, v, allcells=True, verbose=False):
      [[0, 1, 0, 1, 0]],
      [[1], [0, 1], [1, 0, 1], [0, 1, 0, 1]],
      [[0], [1, 0], [0, 1, 0], [1, 0, 1, 0]]],
-    [wgraph(coxeter('I5', 2), [1, 1], [[]]),
-     wgraph(coxeter('I5', 2), [1, 1], [[0, 1, 0, 1, 0]]),
-     wgraph(coxeter('I5', 2), [1, 1], [[1], [0, 1], [1, 0, 1], [0, 1, 0, 1]]),
-     wgraph(coxeter('I5', 2), [1, 1], [[0], [1, 0], [0, 1, 0], [1, 0, 1, 0]])]]
+    [wgraph(coxeter('I5',2), [1, 1], [[]]),
+     wgraph(coxeter('I5',2), [1, 1], [[0, 1, 0, 1, 0]]),
+     wgraph(coxeter('I5',2), [1, 1], [[1], [0, 1], [1, 0, 1], [0, 1, 0, 1]]),
+     wgraph(coxeter('I5',2), [1, 1], [[0], [1, 0], [0, 1, 0], [1, 0, 1, 0]])]]
 
     >>> k=klcells(coxeter("H", 4), 1, v)     # long time    # takes < 7 minutes
     #I 206 left cells (90 non-equivalent), mues: 1, 2, 3
@@ -7897,31 +7923,31 @@ def leftcellleadingcoeffs(W, weightL, v, cell, clpols=[], newnorm=False):
     >>> W = coxeter("B", 2)
     >>> [leftcellleadingcoeffs(W, 1, v, l)
     ...          for l in klcells(W, 1, v)[0]] # equal parameters
-    [{'elms': [[]], 'nd': 1, 'special': ('[[2], []]', ),
-      'distinv': [], 'ti': [[('[[2], []]', ), [1]]]},
-     {'elms': [[0, 1, 0, 1]], 'nd': 1, 'special': ('[[], [1, 1]]', ),
-      'distinv': [0, 1, 0, 1], 'ti': [[('[[], [1, 1]]', ), [1]]]},
-     {'elms': [[1], [1, 0, 1]], 'nd': 1, 'special': ('[[1], [1]]', ),
-      'distinv': [1], 'ti': [[('[[1], [1]]', ), [1, 1]],
-      [('[[], [2]]', ), [1, -1]]]},
-     {'elms': [[0], [0, 1, 0]], 'nd': 1, 'special': ('[[1], [1]]', ),
-      'distinv': [0], 'ti': [[('[[1, 1], []]', ), [1, -1]],
-      [('[[1], [1]]', ), [1, 1]]]}]
+    [{'elms': [[]], 'nd': 1, 'special': ('[[2], []]',),
+      'distinv': [], 'ti': [[('[[2], []]',), [1]]]},
+     {'elms': [[0, 1, 0, 1]], 'nd': 1, 'special': ('[[], [1, 1]]',),
+      'distinv': [0, 1, 0, 1], 'ti': [[('[[], [1, 1]]',), [1]]]},
+     {'elms': [[1], [1, 0, 1]], 'nd': 1, 'special': ('[[1], [1]]',),
+      'distinv': [1], 'ti': [[('[[1], [1]]',), [1, 1]],
+      [('[[], [2]]',), [1, -1]]]},
+     {'elms': [[0], [0, 1, 0]], 'nd': 1, 'special': ('[[1], [1]]',),
+      'distinv': [0], 'ti': [[('[[1, 1], []]',), [1, -1]],
+      [('[[1], [1]]',), [1, 1]]]}]
 
     >>> [leftcellleadingcoeffs(W, [2, 1], v, l.X)
     ...            for l in klcells(W, [2, 1], v)]  # unequal parameters
-    [{'elms': [[]], 'nd': 1, 'special': ('[[2], []]', ),
-      'distinv': [], 'ti': [[('[[2], []]', ), [1]]]},
-     {'elms': [[0]], 'nd': 1, 'special': ('[[1], [1]]', ),
-      'distinv': [0], 'ti': [[('[[1], [1]]', ), [1]]]},
-      {'elms': [[1]], 'nd': 1, 'special': ('[[], [2]]', ),
-       'distinv': [1], 'ti': [[('[[], [2]]', ), [1]]]},
-      {'elms': [[1, 0, 1]], 'nd': 1, 'special': ('[[1], [1]]', ),
-       'distinv': [1, 0, 1], 'ti': [[('[[1], [1]]', ), [1]]]},
-      {'elms': [[0, 1, 0]], 'nd': -1, 'special': ('[[1, 1], []]', ),
-       'distinv': [0, 1, 0], 'ti': [[('[[1, 1], []]', ), [1]]]},
-      {'elms': [[0, 1, 0, 1]], 'nd': 1, 'special': ('[[], [1, 1]]', ),
-       'distinv': [0, 1, 0, 1], 'ti': [[('[[], [1, 1]]', ), [1]]]}]
+    [{'elms': [[]], 'nd': 1, 'special': ('[[2], []]',),
+      'distinv': [], 'ti': [[('[[2], []]',), [1]]]},
+     {'elms': [[0]], 'nd': 1, 'special': ('[[1], [1]]',),
+      'distinv': [0], 'ti': [[('[[1], [1]]',), [1]]]},
+      {'elms': [[1]], 'nd': 1, 'special': ('[[], [2]]',),
+       'distinv': [1], 'ti': [[('[[], [2]]',), [1]]]},
+      {'elms': [[1, 0, 1]], 'nd': 1, 'special': ('[[1], [1]]',),
+       'distinv': [1, 0, 1], 'ti': [[('[[1], [1]]',), [1]]]},
+      {'elms': [[0, 1, 0]], 'nd': -1, 'special': ('[[1, 1], []]',),
+       'distinv': [0, 1, 0], 'ti': [[('[[1, 1], []]',), [1]]]},
+      {'elms': [[0, 1, 0, 1]], 'nd': 1, 'special': ('[[], [1, 1]]',),
+       'distinv': [0, 1, 0, 1], 'ti': [[('[[], [1, 1]]',), [1]]]}]
 
     (Note the negative value for nd.)
 
@@ -7935,14 +7961,14 @@ def leftcellleadingcoeffs(W, weightL, v, cell, clpols=[], newnorm=False):
 
     >>> W = coxeter("F", 4); k=klcells(W, 1, v)
     >>> l = leftcellleadingcoeffs(W, 1, v, k[0][64]); l['ti']
-    [[('4_1', ), [1, -1, -1, 1, 1, 0, -1, -1, 1]],
-     [('9_2', ), [1, 1, -1, -1, -1, 0, -1, 1, 1]],
-     [('9_3', ), [1, -1, 1, -1, -1, 0, 1, -1, 1]],
-     [('6_2', ), [1, 1, 1, 1, 1, -2, 1, 1, 1]],
-     [('12', ), [1, 1, 1, 1, 1, 4, 1, 1, 1]],
-     [('16', ), [2, 0, 0, 0, 0, 0, 0, 0, -2]]]
+    [[('4_1',), [1, -1, -1, 1, 1, 0, -1, -1, 1]],
+     [('9_2',), [1, 1, -1, -1, -1, 0, -1, 1, 1]],
+     [('9_3',), [1, -1, 1, -1, -1, 0, 1, -1, 1]],
+     [('6_2',), [1, 1, 1, 1, 1, -2, 1, 1, 1]],
+     [('12',), [1, 1, 1, 1, 1, 4, 1, 1, 1]],
+     [('16',), [2, 0, 0, 0, 0, 0, 0, 0, -2]]]
     >>> l['special']
-    ('12', )
+    ('12',)
     >>> t = chartable(W); t['charnames'].index('12')
     15
     >>> t['a'][15]; t['b'][15]
@@ -8085,21 +8111,21 @@ def distinguishedinvolutions(W, weightL, distonly=True, verbose=False):
     >>> W = coxeter("I8", 2)
     >>> distinguishedinvolutions(W, [1, 2])   # unequal parameters
     [[[], [1], [0], [0, 1, 0], [1, 0, 1, 0, 1, 0, 1], [0, 1, 0, 1, 0, 1, 0, 1]],
-     [[[('phi_{1, 0}', ), 1]],
-      [[('phi_{2, 3}', ), -1], [('phi_{2, 2}', ), -1], [('phi_{2, 1}', ), -1]],
-      [[("phi_{1, 4}''", ), -1]],
-      [[('phi_{2, 3}', ), -1], [('phi_{2, 2}', ), -1], [('phi_{2, 1}', ), -1]],
-      [[("phi_{1, 4}'", ), 1]],
-      [[('phi_{1, 8}', ), 1]]],
+     [[[('phi_{1, 0}',), 1]],
+      [[('phi_{2, 3}',), -1], [('phi_{2, 2}',), -1], [('phi_{2, 1}',), -1]],
+      [[("phi_{1, 4}''",), -1]],
+      [[('phi_{2, 3}',), -1], [('phi_{2, 2}',), -1], [('phi_{2, 1}',), -1]],
+      [[("phi_{1, 4}'",), 1]],
+      [[('phi_{1, 8}',), 1]]],
      [1, 1, 1, 1, -1, 1]]
 
     >>> W = coxeter("G", 2)
     >>> distinguishedinvolutions(W, 1)       # equal parameters
     [[[], [1], [0], [0, 1, 0, 1, 0, 1]],
-     [[[('phi_{1, 0}', ), 1]],
-      [[('phi_{2, 2}', ), -1], [('phi_{2, 1}', ), -1], [("phi_{1, 3}''", ), -1]],
-      [[('phi_{2, 2}', ), -1], [('phi_{2, 1}', ), -1], [("phi_{1, 3}'", ), -1]],
-      [[('phi_{1, 6}', ), 1]]]]
+     [[[('phi_{1, 0}',), 1]],
+      [[('phi_{2, 2}',), -1], [('phi_{2, 1}',), -1], [("phi_{1, 3}''",), -1]],
+      [[('phi_{2, 2}',), -1], [('phi_{2, 1}',), -1], [("phi_{1, 3}'",), -1]],
+      [[('phi_{1, 6}',), 1]]]]
 
     (Here, all signs n_d are known to be equal to 1.)
 
@@ -8669,9 +8695,9 @@ def allcellsleadingcoeffs(W, weightL, v, newnorm=False, verbose=False):
     at least two irreducible components.
 
     >>> allcellsleadingcoeffs(coxeter("H", 3), 1, v)
-    [[[[("3_s'", ), 1, ir5], [("overline{3}_s'", ), 1, 1-ir5]],
-      [[('3_s', ), ir5, 1], [('overline{3}_s', ), 1-ir5, 1]],
-      [[("4_r'", ), 1, -1], [('4_r', ), 1, 1]]],
+    [[[[("3_s'",), 1, ir5], [("overline{3}_s'",), 1, 1-ir5]],
+      [[('3_s',), ir5, 1], [('overline{3}_s',), 1-ir5, 1]],
+      [[("4_r'",), 1, -1], [('4_r',), 1, 1]]],
      [[[], 1],         # all distinguished involutions with signs
       [[0, 1, 0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 1, 2], 1],
       [[2, 1, 0, 1, 0, 2, 1, 0, 1, 2], 1],
@@ -8685,16 +8711,16 @@ def allcellsleadingcoeffs(W, weightL, v, newnorm=False, verbose=False):
       [[1, 0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 1, 2], 1],
       [[0], 1], [[1, 2, 1], 1],
       [[0, 1, 0, 1, 2, 1, 0, 1, 0], 1], [[1, 0, 1, 2, 1, 0, 1], 1]],
-     [("5_r'", ), ("3_s'", ), ("1_r'", ), ('3_s', ), # special characters
-      ('1_r', ), ('5_r', ), ("4_r'", )]]
+     [("5_r'",), ("3_s'",), ("1_r'",), ('3_s',), # special characters
+      ('1_r',), ('5_r',), ("4_r'",)]]
 
     >>> allcellsleadingcoeffs(coxeter("B", 3), [2, 1, 1], v)
-    [[[[('[[1, 1], [1]]', ), 1,  1],
-       [('[[1], [2]]', ),    1, -1]],
-      [[('[[1], [2]]', ), 1, -1],
-       [('[[], [3]]', ),  1,  1]],
-      [[('[[1, 1, 1], []]', ), 1, -1],
-       [('[[1, 1], [1]]', ),   1,  1]]],
+    [[[[('[[1, 1], [1]]',), 1,  1],
+       [('[[1], [2]]',),    1, -1]],
+      [[('[[1], [2]]',), 1, -1],
+       [('[[], [3]]',),  1,  1]],
+      [[('[[1, 1, 1], []]',), 1, -1],
+       [('[[1, 1], [1]]',),   1,  1]]],
       [[[], 1],
        [[0], 1],
        [[1], 1],
@@ -8711,9 +8737,9 @@ def allcellsleadingcoeffs(W, weightL, v, newnorm=False, verbose=False):
        [[0, 1, 0, 2, 1, 0, 1, 2], -1],
        [[0, 1, 0, 1, 2, 1, 0, 1], -1],
        [[0, 1, 0, 1, 2, 1, 0, 1, 2], 1]]
-      [('[[1], [2]]', ), ('[[1], [1, 1]]', ), ('[[1, 1, 1], []]', ),
-       ('[[2], [1]]', ), ('[[], [2, 1]]', ), ('[[], [1, 1, 1]]', ),
-       ('[[3], []]', ), ('[[2, 1], []]', )]]
+      [('[[1], [2]]',), ('[[1], [1, 1]]',), ('[[1, 1, 1], []]',),
+       ('[[2], [1]]',), ('[[], [2, 1]]',), ('[[], [1, 1, 1]]',),
+       ('[[3], []]',), ('[[2, 1], []]',)]]
 
     See also 'klcells' and 'leftcellleadingcoeffs'.
     """
@@ -9317,7 +9343,7 @@ def distinva(W, weightL=1, verbose=False):
 
     >>> W = coxeter("G", 2)
     >>> distinva(W)
-    [[(0, 1), (6, 2), (4, 7), (6, 7)], [0, 1, 1, 6]]
+    [[(0, 1), (4, 7), (6, 2), (6, 7)], [0, 1, 1, 6]]
 
     Thus, the 4 involutions have a-invariants  0, 1, 1, 6.
 
@@ -11026,8 +11052,7 @@ def cellreplstars(W, verbose=False):
       'replstar': [(0, 1)],
       'elms': False,
       'special': '[[2], []]',
-      'size': 1},
-     [...]
+      'size': 1},...
      {'a': 1,
       'index': 3,
       'character': [['[[1], [1]]', 1], ['[[1, 1], []]', 1]],
@@ -11282,7 +11307,7 @@ def cellrepcheck2(W):
     #I cell of size 1; orbit with 1 cells
     #I cell of size 1; orbit with 1 cells
     #I cell of size 7; orbit with 7 cells
-    [...]
+    ...
     #I cell of size 1024; orbit with 70 cells
     192.58
 
@@ -11291,15 +11316,15 @@ def cellrepcheck2(W):
     #I cell of size 1; orbit with 1 cells
     #I cell of size 8; orbit with 8 cells
     #I cell of size 35; orbit with 35 cells
-    [...]
+    ...
     #I cell of size 46676; orbit with 1596 cells
     #I cell of size 4900; orbit with 2100 cells
-    [...]
+    ...
     #I cell of size 60396; orbit with 1092 cells
     #I cell of size 3640; orbit with 574 cells
-    [...]
+    ...
     #I cell of size 61824; orbit with 70 cells
-    [...]
+    ...
     #I cell of size 140; orbit with 28 cells
     #I cell of size 35; orbit with 35 cells
     #I cell of size 8; orbit with 8 cells
@@ -11650,19 +11675,19 @@ def test():
     for x in gh3:
         y = leftcellleadingcoeffs(W, 1, v, x, cl)
         l.append(y['ti'])
-    somechecks.append(l == [[[('1_r', ), [1]]], [[("3_s'", ), [1, ir5]],
-       [("overline{3}_s'", ), [1, 1 - ir5]]], [[('5_r', ), [1]]],
-       [[("4_r'", ), [1, 1]], [('4_r', ), [1, -1]]], [[("5_r'", ), [1]]],
-       [[('3_s', ), [ir5, 1]], [('overline{3}_s', ), [1 - ir5, 1]]],
-       [[("1_r'", ), [1]]], [[('5_r', ), [1]]], [[("4_r'", ), [1, 1]],
-       [('4_r', ), [1, -1]]], [[("5_r'", ), [1]]], [[("5_r'", ), [1]]],
-       [[('3_s', ), [ir5, 1]], [('overline{3}_s', ), [1 - ir5, 1]]],
-       [[("3_s'", ), [1, ir5]], [("overline{3}_s'", ), [1, 1 - ir5]]],
-       [[('5_r', ), [1]]], [[("4_r'", ), [1, 1]], [('4_r', ), [1, -1]]],
-       [[('5_r', ), [1]]], [[("5_r'", ), [1]]], [[("4_r'", ), [1, 1]],
-       [('4_r', ), [1, -1]]], [[("5_r'", ), [1]]], [[('3_s', ), [ir5, 1]],
-       [('overline{3}_s', ), [1 - ir5, 1]]], [[("3_s'", ), [1, ir5]],
-       [("overline{3}_s'", ), [1, 1 - ir5]]], [[('5_r', ), [1]]]])
+    somechecks.append(l == [[[('1_r',), [1]]], [[("3_s'",), [1, ir5]],
+       [("overline{3}_s'",), [1, 1 - ir5]]], [[('5_r',), [1]]],
+       [[("4_r'",), [1, 1]], [('4_r',), [1, -1]]], [[("5_r'",), [1]]],
+       [[('3_s',), [ir5, 1]], [('overline{3}_s',), [1 - ir5, 1]]],
+       [[("1_r'",), [1]]], [[('5_r',), [1]]], [[("4_r'",), [1, 1]],
+       [('4_r',), [1, -1]]], [[("5_r'",), [1]]], [[("5_r'",), [1]]],
+       [[('3_s',), [ir5, 1]], [('overline{3}_s',), [1 - ir5, 1]]],
+       [[("3_s'",), [1, ir5]], [("overline{3}_s'",), [1, 1 - ir5]]],
+       [[('5_r',), [1]]], [[("4_r'",), [1, 1]], [('4_r',), [1, -1]]],
+       [[('5_r',), [1]]], [[("5_r'",), [1]]], [[("4_r'",), [1, 1]],
+       [('4_r',), [1, -1]]], [[("5_r'",), [1]]], [[('3_s',), [ir5, 1]],
+       [('overline{3}_s',), [1 - ir5, 1]]], [[("3_s'",), [1, ir5]],
+       [("overline{3}_s'",), [1, 1 - ir5]]], [[('5_r',), [1]]]])
     c = allcellsleadingcoeffs(W, 1, v)
     c = constructible(W, 1)
     ah = redleftcosetreps(W)
