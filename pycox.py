@@ -3033,7 +3033,7 @@ def allclasspolynomials(W, paramL, maxl=-1, verbose=False):
     for l in range(1, maxlen):
         if verbose and maxlen > 20:
             lprint(str(l + 1))
-        nl = set([])
+        nl = set()
         ol = set(cpmat[l - 1])
         for w in cpmat[l]:
             for s in W.permgens:
@@ -3045,7 +3045,7 @@ def allclasspolynomials(W, paramL, maxl=-1, verbose=False):
         cps = {}
         if verbose and maxlen > 20:
             lprint('-')
-        while nl != set([]):
+        while nl:
             cw = next(iter(nl))
             cw1 = W.coxelmtoword(cw)
             pc1 = W.wordtoperm(cw1)
@@ -7427,7 +7427,7 @@ def gentaureps(W, verbose=False):
         W1 = reflectionsubgroup(W, J)
         dc = [W.coxelmtoperm(d) for d in redleftcosetreps(W, J)]
         nset = []
-        cset = set([])
+        cset = set()
         gt1 = gentaureps(W1)
         if verbose:
             lprint('#I ')
@@ -8210,7 +8210,7 @@ def distinguishedinvolutions(W, weightL, distonly=True, verbose=False):
                 lprint('#I length  ' + str(l + 1))
             else:
                 lprint('#I length ' + str(l + 1))
-        nl = set([])
+        nl = set()
         if l == 0:
             ol = []
         else:
@@ -8540,7 +8540,7 @@ def distinguishedinvolutions_eq(W, verbose=False):
                 lprint('#I length  ' + str(l + 1))
             else:
                 lprint('#I length ' + str(l + 1))
-        nl = set([])
+        nl = set()
         if l == 0:
             ol = []
         else:
@@ -8752,7 +8752,7 @@ def allcellsleadingcoeffs(W, weightL, v, newnorm=False, verbose=False):
     cp = allclasspolynomials(W, [v**(2 * i) for i in poids])
     ch = chartable(W, chars=False)['charnames']
     nlc, dlc = [], []
-    slc = set([])
+    slc = set()
     if verbose:
         lprint('#I ')
     for l1 in kl:
@@ -11710,9 +11710,9 @@ def test():
     somechecks.append(ap == [W.wordtoperm(w) for w in aw])
     somechecks.append(aw == [W.reducedword(w, W) for w in aw])
     aa = allwords(W)
-    somechecks.append(set([w in aa for w in aw]) == set([True]))
+    somechecks.append(all(w in aa for w in aw))
     aa = [W.stringtoword(x) for x in allwordstrings(W)]
-    somechecks.append(set([w in aa for w in aw]) == set([True]))
+    somechecks.append(all(w in aa for w in aw))
     w = W.wordtoperm([0, 1, 0, 2])
     b1 = list(filter(lambda x: bruhatcoxelm(W, x, w), ah))
     b1a = list(filter(lambda x: bruhat(W, x, w), ah))
