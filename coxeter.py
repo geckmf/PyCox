@@ -3162,7 +3162,7 @@ def identifyclasses(W, elms, minrep=False, verbose=False):
             mm = W.wordtomat(clW[i])
             matsW.append([list(l) for l in mm])
         for i in range(len(troubleH)):
-            spur = sum([matsH[i][j][j] for j in W.rank])
+            spur = sum(matsH[i][j][j] for j in W.rank)
             if spur < 0:
                 invH[troubleH[i]] += 'm'
                 invH[troubleH[i]] += str(-spur)
@@ -3170,21 +3170,21 @@ def identifyclasses(W, elms, minrep=False, verbose=False):
                 invH[troubleH[i]] += 'p'
                 invH[troubleH[i]] += str(spur)
         for i in range(len(troubleW)):
-            spur = sum([matsW[i][j][j] for j in W.rank])
+            spur = sum(matsW[i][j][j] for j in W.rank)
             if spur < 0:
                 invW[troubleW[i]] += 'm'
                 invW[troubleW[i]] += str(-spur)
             else:
                 invW[troubleW[i]] += 'p'
                 invW[troubleW[i]] += str(spur)
-        newcheck = [invW.count(f) for f in invH]
-        if set(newcheck) == set([1]):
+        newcheck = all(invW.count(f) == 1 for f in invH)
+        if newcheck:
             print(' okay now\n')
             fus = [invW.index(f) for f in invH]
         else:
             print(' and characteristic polynomials \n')
             j = 0
-            while j < len(W.rank) and set(newcheck) != set([1]):
+            while j < len(W.rank) and not newcheck:
                 for i in range(len(troubleH)):
                     for k in W.rank:
                         matsH[i][k][k] += 1
@@ -3203,7 +3203,7 @@ def identifyclasses(W, elms, minrep=False, verbose=False):
                         invW[troubleW[i]] += str(-dd)
                     else:
                         invW[troubleW[i]] += str(dd)
-                newcheck = [invW.count(f) for f in invH]
+                newcheck = all(invW.count(f) == 1 for f in invH)
                 j += 1
             if j <= len(W.rank):
                 fus = [invW.index(f) for f in invH]
