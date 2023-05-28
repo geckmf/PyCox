@@ -97,8 +97,6 @@ def gcdex(m, n):
         return {'gcd': f, 'coeff1': fm, 'coeff2': (f - fm * m) // n, 'coeff3': gm,
                 'coeff4': (0 - gm * m) // n}
 
-# F idmat
-
 
 def idmat(rng, scalar):
     """returns the scalar matrix of size len(rng) with a given scalar
@@ -111,8 +109,6 @@ def idmat(rng, scalar):
     for x in range(len(rng)):
         m[x][x] = scalar
     return m
-
-# F transposemat
 
 
 def transposemat(mat):
