@@ -92,10 +92,12 @@ def gcdex(m, n):
         gm = fm - q * gm
         f, fm = h, hm
     if n == 0:
-        return {'gcd': f, 'coeff1': fm, 'coeff2': 0, 'coeff3': gm, 'coeff4': 1}
-    else:
-        return {'gcd': f, 'coeff1': fm, 'coeff2': (f - fm * m) // n, 'coeff3': gm,
-                'coeff4': (0 - gm * m) // n}
+        return {'gcd': f,
+                'coeff1': fm, 'coeff2': 0,
+                'coeff3': gm, 'coeff4': 1}
+    return {'gcd': f,
+            'coeff1': fm, 'coeff2': (f - fm * m) // n,
+            'coeff3': gm, 'coeff4': (0 - gm * m) // n}
 
 
 def idmat(rng, scalar):

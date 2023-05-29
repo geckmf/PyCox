@@ -1,6 +1,6 @@
 from functools import reduce
 
-from sage.all import matrix, ZZ, CyclotomicField
+from sage.all import matrix, ZZ, CyclotomicField, CC
 from sage.matrix.special import identity_matrix
 from sage.structure.element import Matrix
 
@@ -10,7 +10,7 @@ from matrices import (permmult, perminverse, decomposemat, flatlist,
                       partitions)
 
 
-def idmat(liste, scalar):
+def idmat(liste, scalar) -> Matrix:
     return scalar * identity_matrix(ZZ, len(liste))
 
 
@@ -23,7 +23,7 @@ def ir(m):
     return zeta + ~zeta
 
 
-def cartanmatA(n):
+def cartanmatA(n) -> list:
     """
     Cartan matrix of type A as a list of lists.
 
@@ -31,7 +31,7 @@ def cartanmatA(n):
     [[2, -1], [-1, 2]]
     """
     if n == 0:
-        return matrix(ZZ, 0, 0, [[]])
+        return [[]]
     a = [[2 if i == j else 0 for i in range(n)] for j in range(n)]
     for i in range(n - 1):
         a[i][i + 1] = -1
@@ -39,7 +39,7 @@ def cartanmatA(n):
     return a
 
 
-def cartanmat(typ, n):
+def cartanmat(typ, n) -> Matrix:
     r"""returns a Cartan matrix (of finite Dynkin type) where typ is
     a string specifying  the type.  The  convention is such that
     the (i,j)-entry of this matrix equals::
@@ -183,7 +183,7 @@ def cartanmat(typ, n):
             return matrix([[2, z1], [z1, 2]])
 
 
-def affinecartanmat(typ, n):
+def affinecartanmat(typ, n) -> Matrix:
     """returns a generalised Cartan matrix of affine type, where typ
     is a string specifying the corresponding finite type.
 
@@ -277,7 +277,7 @@ def affinecartanmat(typ, n):
                        [0, 0, 0, 0, 0, 0, 0, -1, 2]])
 
 
-def typecartanmat(mat):
+def typecartanmat(mat: Matrix) -> list:
     """identifies the type of an indecomposable Cartan matrix.
     """
     n = mat.nrows()
@@ -417,7 +417,7 @@ def typecartanmat(mat):
             return ["U", list(range(n))]
 
 
-def finitetypemat(mat):
+def finitetypemat(mat: Matrix) -> list:
     """identifies the type of an indecomposable Cartan matrix, which
     is assumed to be of finite type.
     """
@@ -533,7 +533,7 @@ def finitetypemat(mat):
                 return [typ, p]
 
 
-def cartantotype(mat):
+def cartantotype(mat: Matrix) -> list:
     """returns [['U',range(n)]] if mat is a  generalised Cartan matrix
     which is  not of  finite type, where n is the rank.  Otherwise,
     the function returns a sequence of pairs  (typ,l)  where typ is
@@ -575,7 +575,7 @@ def cartantotype(mat):
     return t
 
 
-def cartantypetomat(ct):
+def cartantypetomat(ct) -> Matrix:
     """reconstructs the  Cartan matrix from its cartan type, if ct
     corresponds to a list of finite type Cartan matrices. Thus,
     if c is a Cartan matrix of finite type, then
@@ -600,7 +600,7 @@ def cartantypetomat(ct):
     return matrix([[b[p.index(i), p.index(j)] for j in n] for i in n])
 
 
-def degreesdata(typ, n):
+def degreesdata(typ, n) -> list:
     """returns  the reflection degrees of the finite Coxeter group
     of type 'typ'  and rank 'n'.  The data  are taken from  the
     corresponding files in  gap-chevie.  By  Solomon's Theorem,
@@ -654,7 +654,34 @@ def degreesdata(typ, n):
 # elms[i] applied to root[i] yields simple root (orbit rep)
 
 
-def roots(cmat):
+def roots(cmat: Matrix) -> tuple:
+    """
+    EXAMPLES::
+
+        sage: W = coxeter("A",3)
+        sage: roots(W.cartan)
+        ([(1, 0, 0),
+          (0, 1, 0),
+          (0, 0, 1),
+          (1, 1, 0),
+          (0, 1, 1),
+          (1, 1, 1),
+          (-1, 0, 0),
+          (0, -1, 0),
+          (0, 0, -1),
+          (-1, -1, 0),
+          (0, -1, -1),
+          (-1, -1, -1)],
+         [[], [0, 1], [1, 2, 0, 1], [1], [2, 0, 1], [2, 1]],
+         [[0, 3, 1, 5, 4, 2]])
+
+    TESTS::
+
+        sage: W = coxeter("I5",2)
+        sage: ct = W.cartan
+        sage: len(roots(ct)[0])
+        10
+    """
     rng = range(cmat.nrows())
     gen = idmat(rng, 1).change_ring(cmat.base_ring()).rows()
     l1, elms, orbits = [], [], []
@@ -666,7 +693,7 @@ def roots(cmat):
             for s in rng:
                 nr = orb[i][:]
                 nr[s] -= sum(cmat[s, t] * nr[t] for t in rng if cmat[s, t] != 0)
-                if nr[s] >= 0 and nr not in orb:
+                if CC(nr[s]).real() >= 0 and nr not in orb:
                     orb.append(nr)
                     w = orbe[i][:]
                     w.append(s)
@@ -684,7 +711,28 @@ def roots(cmat):
             [[l.index(r) for r in orb] for orb in orbits])
 
 
-def roots1(cmat):
+def roots1(cmat: Matrix) -> tuple:
+    """
+    NOT USED IN THIS FILE
+
+    EXAMPLES::
+
+        sage: W = coxeter("A",3)
+        sage: roots1(W.cartan)
+        ([(1, 0, 0),
+          (0, 1, 0),
+          (0, 0, 1),
+          (1, 1, 0),
+          (0, 1, 1),
+          (1, 1, 1),
+          (-1, 0, 0),
+          (0, -1, 0),
+          (0, 0, -1),
+          (-1, -1, 0),
+          (0, -1, -1),
+          (-1, -1, -1)],
+         [[], [], [], [1], [2], [2, 1]])
+    """
     rng = range(cmat.nrows())
     l = idmat(rng, 1).rows()
     elms = [[] for _ in rng]
@@ -706,13 +754,26 @@ def roots1(cmat):
             [elms[l1.index(r)][::-1] for r in l])
 
 
-def permroots(cmat, roots):
+def permroots(cmat: Matrix, roots) -> list:
+    """
+    Transform roots into permutations of roots ?
+
+    EXAMPLES::
+
+        sage: W = coxeter("A",3)
+        sage: ct = W.cartan
+        sage: R = roots(ct)[0]
+        sage: permroots(ct, R)
+        [(6, 3, 2, 1, 5, 4, 0, 9, 8, 7, 11, 10),
+         (3, 7, 4, 0, 2, 5, 9, 1, 10, 6, 8, 11),
+         (0, 4, 8, 5, 1, 3, 6, 10, 2, 11, 7, 9)]
+    """
     rng = range(cmat.nrows())
     gens = [len(roots) * [0] for s in rng]
     for s in rng:
         for i, root_i in enumerate(roots):
             nr = list(root_i)
-            nr[s] -= sum(cmat[s, t] * nr[t] for t in rng if cmat[s, t] != 0)
+            nr[s] -= sum(cmat[s, t] * nr[t] for t in rng if cmat[s, t])
             gens[s][i] = roots.index(tuple(nr))
     return [tuple(s) for s in gens]
 
@@ -862,11 +923,23 @@ class coxeter:
 
     [Ge-Pf] M. Geck and G. Pfeiffer, Characters of finite Coxeter
             groups and Iwahori-Hecke algebras, OUP, Oxford, 2000.
+
+    TESTS::
+
+        sage: W = coxeter("I5",2)
+        sage: W.coxetermat
+        [1 5]
+        [5 1]
+        sage: W = coxeter("H",3)
+        sage: W.coxetermat
+        [1 5 2]
+        [5 1 3]
+        [2 3 1]
     """
 
     def __init__(self, typ, rank=0, split=True, fusion=[], weightL=0, param=1):
         if isinstance(typ, (tuple, list)):
-            print(f"BAD INPUT {typ}")
+            print(f"BAD INPUT {typ}, USE MATRIX INSTEAD")
             typ = matrix(typ)
         if isinstance(typ, Matrix):
             self.cartan = typ
@@ -881,6 +954,7 @@ class coxeter:
                 self.cartantype = [['A', [0]], ['A', [1]]]
             else:
                 self.cartantype = [[typ, list(range(rank))]]
+
         if self.cartantype[0][0] == 'U':
             self.cartanname = 'U'
             for l in self.cartan:
@@ -897,6 +971,7 @@ class coxeter:
                 for i in t[1]:
                     self.cartanname += 'c'
                     self.cartanname += str(i)
+
         self.coxetermat = idmat(self.rank, 1)
         for s in self.rank:
             for t in range(s):
@@ -1038,14 +1113,14 @@ class coxeter:
         """
         return len([1 for i in p[:self.N] if i >= self.N])
 
-    def coxelmtomat(self, elm):      # works for perms and coxelms
+    def coxelmtomat(self, elm) -> Matrix:      # works for perms and coxelms
         """converts  elm (assumed to be a coxelm)  into  a matrix  with
         respect to the  simple reflections.   This also works if elm
         is a full permutation on the roots.
         """
-        return tuple([self.roots[r] for r in elm[:len(self.rank)]])
+        return matrix([self.roots[r] for r in elm[:len(self.rank)]])
 
-    def coxelmtoperm(self, elm):      # works for perms and coxelms
+    def coxelmtoperm(self, elm) -> tuple:      # works for perms and coxelms
         """converts a coxelm to a full permutation on the set of roots.
         (Only works for finite W.)
         """
@@ -1138,7 +1213,7 @@ class coxeter:
             c = [reflex[ci] for ci in c]
         return tuple(c)
 
-    def wordtomat(self, w):
+    def wordtomat(self, w) -> Matrix:
         """converts  any word in the  simple reflections  into a matrix
         with respect to the basis of simple roots.  This  works  for
         arbitrary Coxeter groups.
@@ -1157,7 +1232,7 @@ class coxeter:
                  for t in self.rank]
         return matrix(m)
 
-    def wordtoperm(self, w):
+    def wordtoperm(self, w) -> tuple:
         """converts  any word  in  the  simple reflections  into a full
         permutation on the set of roots. (Only works for finite W.)
 
@@ -1239,7 +1314,7 @@ class coxeter:
             ct.append(tuple(cl))
         return tuple(ct)
 
-    def permorder(self, pw):
+    def permorder(self, pw: tuple) -> int:
         """returns the order of an element, given as a full  permutation
         on all roots. (Only works for finite W.)
 
@@ -1252,26 +1327,26 @@ class coxeter:
             return 1
         return intlcmlist([y for x in self.cycletyperoots(pw) for y in x])
 
-    def leftdescentsetperm(self, pw):
+    def leftdescentsetperm(self, pw: tuple) -> list:
         """returns the left descent set of an element, given as a coxelm
         or a full permutation on all roots.
         """
         return [s for s in self.rank if pw[s] >= self.N]
 
-    def rightdescentsetperm(self, pw):
+    def rightdescentsetperm(self, pw: tuple) -> list:
         """returns the right descent set of an element, given as a full
         permutation on all roots.
         """
         ip = perminverse(pw)
         return [s for s in self.rank if ip[s] >= self.N]
 
-    def leftdescentsetmat(self, mw):
+    def leftdescentsetmat(self, mw: Matrix) -> list:
         """returns the left descent set of an element, given as a matrix
         with respect to the basis of simple roots.
         """
         return [s for s in self.rank if all(mw[s, t] <= 0 for t in self.rank)]
 
-    def rightdescentsetmat(self, mw):
+    def rightdescentsetmat(self, mw: Matrix) -> list:
         """returns the right descent set of an element, given as a matrix
         with respect to the basis of simple roots.
         """
