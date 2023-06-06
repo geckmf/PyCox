@@ -22,7 +22,7 @@ def ir(m):
         return 1
     if m == 5:
         x = polygen(QQ, 'x')
-        phi = RR((1 + QQ(5).sqrt()) / 2)
+        phi = ((1 + QQ(5).sqrt()) / 2).n()
         return NumberField(x**2 - x - 1, 'φ', embedding=phi).gen()
     zeta = CyclotomicField(2 * m).gen()
     return zeta + ~zeta
@@ -584,9 +584,11 @@ def cartantotype(mat: Matrix) -> list:
 
 
 def cartantypetomat(ct) -> Matrix:
-    """reconstructs the  Cartan matrix from its cartan type, if ct
-    corresponds to a list of finite type Cartan matrices. Thus,
-    if c is a Cartan matrix of finite type, then
+    """
+    reconstructs the  Cartan matrix from its cartan type, if ct
+    corresponds to a list of finite type Cartan matrices.
+
+    Thus, if c is a Cartan matrix of finite type, then::
 
           c==cartantypetomat(cartantotype(c)).
 
@@ -611,7 +613,9 @@ def cartantypetomat(ct) -> Matrix:
 def degreesdata(typ, n) -> list:
     """
     Return the reflection degrees of the finite Coxeter group
-    of type 'typ'  and rank 'n'.  The data  are taken from  the
+    of type 'typ'  and rank 'n'.
+
+    The data  are taken from  the
     corresponding files in  gap-chevie.  By  Solomon's Theorem,
     the degrees  d_1, ..., d_r  (where r is the rank of W)  are
     determined by the equation::
@@ -623,6 +627,7 @@ def degreesdata(typ, n) -> list:
     where i runs over 1, ..., r.  In particular, the product of
     all degrees is the order of W. -- When 'coxeter' is called,
     the resulting python class will have a component 'degrees'.
+
     (If W is not irreducible, the degrees of W are the disjoint
     union of the degrees of the irreducible components of W.)
 
@@ -946,7 +951,10 @@ class coxeter:
         [2 3 1]
     """
 
-    def __init__(self, typ, rank=0, split=True, fusion=[], weightL=0, param=1):
+    def __init__(self, typ, rank=0, split=True,
+                 fusion=None, weightL=0, param=1):
+        if fusion is None:
+            fusion = []
         if isinstance(typ, (tuple, list)):
             print(f"BAD INPUT {typ}, USE MATRIX INSTEAD")
             typ = matrix(typ)
@@ -1013,7 +1021,7 @@ class coxeter:
                         print("#W invalid permutation of generators !")
                         self.split = False
         self.fusions = {self.cartanname: {'subJ': self.rank, 'parabolic': True}}
-        if fusion != []:
+        if fusion:
             self.fusions[fusion[0]] = {}
             for k in fusion[1]:
                 self.fusions[fusion[0]][k] = fusion[1][k]
@@ -1494,13 +1502,13 @@ def involutions(W):
             yield from conjugacyclass(W, W.wordtoperm(w))
 
 
-def cyclicshiftorbit(W, pw):
+def cyclicshiftorbit(W, pw) -> list:
     """
     Return the orbit of an element under cyclic shift.
 
     sage: W = coxeter("A",2)
     sage: w = W.wordtoperm([0,1])
-    sage: cyclicshiftorbit(W, w)
+    sage: list(cyclicshiftorbit(W, w))
     [(5, 0, 4, 2, 3, 1), (1, 5, 3, 4, 2, 0)]
 
     See also :func:`testcyclicshift`.
@@ -1517,7 +1525,8 @@ def cyclicshiftorbit(W, pw):
 
 
 def testcyclicshift(W, pw):
-    """tests if an element (given  as a full permutation on the roots)
+    """
+    tests if an element (given  as a full permutation on the roots)
     has minimal length in its conjugacy class; if this is the case,
     True is returned. Otherwise, the function returns a pair  (x,s)
     where  x is an element and s  is a  simple reflection such that
