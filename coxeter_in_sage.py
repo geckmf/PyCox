@@ -45,7 +45,8 @@ def cartanmatA(n) -> list:
 
 
 def cartanmat(typ, n) -> Matrix:
-    r"""returns a Cartan matrix (of finite Dynkin type) where typ is
+    r"""
+    Return a Cartan matrix (of finite Dynkin type) where typ is
     a string specifying  the type.  The  convention is such that
     the (i,j)-entry of this matrix equals::
 
@@ -189,7 +190,8 @@ def cartanmat(typ, n) -> Matrix:
 
 
 def affinecartanmat(typ, n) -> Matrix:
-    """returns a generalised Cartan matrix of affine type, where typ
+    """
+    Return a generalised Cartan matrix of affine type, where typ
     is a string specifying the corresponding finite type.
 
     >>> affinecartanmat("A",1)
@@ -539,7 +541,8 @@ def finitetypemat(mat: Matrix) -> list:
 
 
 def cartantotype(mat: Matrix) -> list:
-    """returns [['U',range(n)]] if mat is a  generalised Cartan matrix
+    """
+    Return [['U',range(n)]] if mat is a  generalised Cartan matrix
     which is  not of  finite type, where n is the rank.  Otherwise,
     the function returns a sequence of pairs  (typ,l)  where typ is
     a string (Cartan type)  and l  is a list of integers  such that
@@ -606,7 +609,8 @@ def cartantypetomat(ct) -> Matrix:
 
 
 def degreesdata(typ, n) -> list:
-    """returns  the reflection degrees of the finite Coxeter group
+    """
+    Return the reflection degrees of the finite Coxeter group
     of type 'typ'  and rank 'n'.  The data  are taken from  the
     corresponding files in  gap-chevie.  By  Solomon's Theorem,
     the degrees  d_1, ..., d_r  (where r is the rank of W)  are
@@ -1083,7 +1087,8 @@ class coxeter:
         return 'coxeter(' + str(self.cartan) + ')'
 
     def coxelmlength(self, elm):
-        """returns the length of a coxelm.
+        """
+        Return the length of a coxelm.
         """
         l = 0
         idm = self.roots[:len(self.rank)]
@@ -1098,7 +1103,8 @@ class coxeter:
         return l
 
     def matlength(self, mat):
-        """returns the length of an element given as a matrix.
+        """
+        Return the length of an element given as a matrix.
         """
         l = 0
         idm = self.roots[:len(self.rank)]
@@ -1113,7 +1119,8 @@ class coxeter:
         return l
 
     def permlength(self, p):
-        """returns the length of an element given as a full permutation.
+        """
+        Return the length of an element given as a full permutation.
         (Only works for finite W.)
         """
         return len([1 for i in p[:self.N] if i >= self.N])
@@ -1299,7 +1306,8 @@ class coxeter:
         return word
 
     def cycletyperoots(self, pw):
-        """returns the cycle type of an element in its action  on  each
+        """
+        Return the cycle type of an element in its action  on  each
         of the root orbits. Here, the element is assumed to be given
         as a full permutation on all the roots.
         """
@@ -1320,7 +1328,8 @@ class coxeter:
         return tuple(ct)
 
     def permorder(self, pw: tuple) -> int:
-        """returns the order of an element, given as a full  permutation
+        """
+        Return the order of an element, given as a full  permutation
         on all roots. (Only works for finite W.)
 
         >>> W = coxeter('D',4)
@@ -1333,26 +1342,30 @@ class coxeter:
         return intlcmlist([y for x in self.cycletyperoots(pw) for y in x])
 
     def leftdescentsetperm(self, pw: tuple) -> list:
-        """returns the left descent set of an element, given as a coxelm
+        """
+        Return the left descent set of an element, given as a coxelm
         or a full permutation on all roots.
         """
         return [s for s in self.rank if pw[s] >= self.N]
 
     def rightdescentsetperm(self, pw: tuple) -> list:
-        """returns the right descent set of an element, given as a full
+        """
+        Return the right descent set of an element, given as a full
         permutation on all roots.
         """
         ip = perminverse(pw)
         return [s for s in self.rank if ip[s] >= self.N]
 
     def leftdescentsetmat(self, mw: Matrix) -> list:
-        """returns the left descent set of an element, given as a matrix
+        """
+        Return the left descent set of an element, given as a matrix
         with respect to the basis of simple roots.
         """
         return [s for s in self.rank if all(mw[s, t] <= 0 for t in self.rank)]
 
     def rightdescentsetmat(self, mw: Matrix) -> list:
-        """returns the right descent set of an element, given as a matrix
+        """
+        Return the right descent set of an element, given as a matrix
         with respect to the basis of simple roots.
         """
         m = self.wordtomat(self.mattoword(mw)[::-1])
@@ -1463,31 +1476,34 @@ def conjugacyclass(W, pw, verbose=False):
 
 
 def involutions(W):
-    """returns the list of involutions in a finite Coxeter group
+    """
+    Return the involutions in a finite Coxeter group.
+
     (as full permutations on the roots).
 
     sage: W = coxeter("A",2)
-    sage: involutions(W)
+    sage: list(involutions(W))
     [(0, 1, 2, 3, 4, 5),
-    (3, 2, 1, 0, 5, 4),
-    (2, 4, 0, 5, 1, 3),
-    (4, 3, 5, 1, 0, 2)]
+     (3, 2, 1, 0, 5, 4),
+     (2, 4, 0, 5, 1, 3),
+     (4, 3, 5, 1, 0, 2)]
     """
     t = tuple(W.rank)
-    return flatlist([conjugacyclass(W, W.wordtoperm(w))
-                     for w in conjugacyclasses(W)['reps']
-                     if W.wordtocoxelm(2 * w) == t])
+    for w in conjugacyclasses(W)['reps']:
+        if W.wordtocoxelm(2 * w) == t:
+            yield from conjugacyclass(W, W.wordtoperm(w))
 
 
 def cyclicshiftorbit(W, pw):
-    """returns the orbit of an element under cyclic shift.
+    """
+    Return the orbit of an element under cyclic shift.
 
     sage: W = coxeter("A",2)
     sage: w = W.wordtoperm([0,1])
     sage: cyclicshiftorbit(W, w)
     [(5, 0, 4, 2, 3, 1), (1, 5, 3, 4, 2, 0)]
 
-    See also 'testcyclicshift'.
+    See also :func:`testcyclicshift`.
     """
     bahn = [pw[:]]
     l = len([1 for i in pw[:W.N] if i >= W.N])
