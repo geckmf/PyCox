@@ -1,6 +1,7 @@
 from functools import reduce
 
-from sage.all import matrix, ZZ, CyclotomicField, CC
+from sage.all import (matrix, ZZ, CyclotomicField, CC, QQ,
+                      NumberField, polygen, RR)
 from sage.matrix.special import identity_matrix
 from sage.structure.element import Matrix
 
@@ -19,6 +20,10 @@ def ir(m):
         return 0
     if m == 3:
         return 1
+    if m == 5:
+        x = polygen(QQ, 'x')
+        phi = RR((1 + QQ(5).sqrt()) / 2)
+        return NumberField(x**2 - x - 1, 'φ', embedding=phi).gen()
     zeta = CyclotomicField(2 * m).gen()
     return zeta + ~zeta
 
@@ -66,8 +71,8 @@ def cartanmat(typ, n) -> Matrix:
     [-2  2 -1]
     [ 0 -1  2]
     >>> cartanmat("I5",2)
-    [                      2 zeta10^3 - zeta10^2 - 1]
-    [zeta10^3 - zeta10^2 - 1                       2]
+    [ 2 -φ]
+    [-φ  2]
 
     The complete list of the graphs  with their labelling is as
     follows::
@@ -1403,6 +1408,8 @@ def conjgenmat(W, s, m):
 
 def conjgencoxelm(W, s, w):
     """conjugates an element (given as a coxelm) by a generator.
+
+    EXAMPLES::
     """
     return tuple([W.permgens[s][r] for r in
                   [W.roots.index(tuple([W.roots[w[t]][u] -
@@ -1962,10 +1969,10 @@ def reflectionsubgroup(W, J):
         fundJ.sort()
         if max(W.coxetermat.coefficients()) > 5:
             mat = [[innerprodroots(W, r1, r2) for r2 in fundJ] for r1 in fundJ]
-            cartanJ = matrix([[(2 * mat[i][j]) // mat[i][i] for j in range(len(mat))]
+            cartanJ = matrix([[(2 * mat[i][j]) / mat[i][i] for j in range(len(mat))]
                               for i in range(len(mat))])
         else:
-            cartanJ = matrix([[(sum(W.roots[j]) - sum(W.roots[refls[i][j]])) // sum(W.roots[i])
+            cartanJ = matrix([[(sum(W.roots[j]) - sum(W.roots[refls[i][j]])) / sum(W.roots[i])
                                for j in fundJ] for i in fundJ])
     return coxeter(cartanJ, fusion=[W.cartanname, {'subJ': fundJ[:],
                                                    'parabolic': para}])
@@ -3100,7 +3107,7 @@ def conjclassdata(typ, n):
     if typ[0] == 'I':
         cl = [1]
         m = int(typ[1:])
-        if m % 2 == 0:
+        if not m % 2:
             reps = [[], [1], [2]]
             cl.extend([m // 2, m // 2])
             x = [1, 2]
