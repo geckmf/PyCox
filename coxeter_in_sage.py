@@ -1,11 +1,11 @@
 from functools import reduce
 
-from sage.all import (matrix, ZZ, CyclotomicField, CC, QQ,
-                      NumberField, polygen, RR)
+from sage.all import (matrix, CyclotomicField, CC, QQ, ZZ,
+                      NumberField, polygen)
 from sage.matrix.special import identity_matrix
 from sage.structure.element import Matrix
 
-from matrices import (permmult, perminverse, decomposemat, flatlist,
+from matrices import (permmult, perminverse, decomposemat,
                       cartesian, intlcmlist, gcdex,
                       partitiontuples, centralisertuple, centraliserpartition,
                       partitions)
@@ -2049,11 +2049,11 @@ def allmats(W, maxl=-1, verbose=False):
     [ 0 -3  2]
     >>> [[W.mattoword(m) for m in l] for l in allmats(W,3)]
     [[[]],
-     [[0], [1], [2]],
-     [[1, 0], [0, 2], [0, 1], [2, 1], [1, 2]],
-     [[0, 1, 0], [2, 1, 0], [1, 0, 2], [0, 2, 1], [1, 2, 1], [0, 1, 2], [2, 1, 2]]]
+     [[1], [0], [2]],
+     [[2, 1], [0, 1], [0, 2], [1, 0], [1, 2]],
+     [[2, 1, 2], [0, 1, 0], [1, 0, 2], [0, 1, 2], [0, 2, 1], [1, 2, 1], [2, 1, 0]]]
 
-    See also 'allcoxelms', 'allwords' and 'allelmsproperty'.
+    See also :func:`allcoxelms`, 'allwords' and 'allelmsproperty'.
     """
     if 'N' in dir(W):
         if maxl == -1:
@@ -2062,7 +2062,7 @@ def allmats(W, maxl=-1, verbose=False):
             maxlen = min(maxl, W.N)
     else:
         maxlen = maxl
-    cryst = all(isinstance(x, int) for x in flatlist(W.cartan))
+    cryst = all(x in ZZ for x in W.cartan.coefficients())
     l = [[idmat(W.rank, 1)]]
     poin = [1]
     if verbose:
@@ -2072,8 +2072,10 @@ def allmats(W, maxl=-1, verbose=False):
         for w in l[i]:
             for s in W.rank:
                 if all(w[s][t] >= 0 for t in W.rank):
-                    nl.append(matrix([[w[t][u] - W.cartan[s, t] * w[s][u]
-                                       for u in W.rank] for t in W.rank]))
+                    m = matrix([[w[t][u] - W.cartan[s, t] * w[s][u]
+                                 for u in W.rank] for t in W.rank],
+                               immutable=True)
+                    nl.append(m)
         if cryst:
             l.append(list(set(nl)))
         else:
@@ -2103,8 +2105,6 @@ def allcoxelms(W, maxl=-1, verbose=False):
     [[(0, 1)], [(3, 2), (2, 4)], [(5, 0), (1, 5)], [(4, 3)]]
     >>> [[W.coxelmtoword(i) for i in l] for l in a]
     [[[]], [[0], [1]], [[0, 1], [1, 0]], [[0, 1, 0]]]
-
-    (Use 'flatlist' to create one long list of the elements.)
 
     See also 'allmats, 'allelmchain' and 'allelmsproperty'.
     """
