@@ -1,14 +1,13 @@
 from functools import reduce
 
 from sage.all import (matrix, CyclotomicField, CC, QQ, ZZ,
-                      NumberField, polygen)
+                      NumberField, polygen, Partitions)
 from sage.matrix.special import identity_matrix
 from sage.structure.element import Matrix
 
 from matrices import (permmult, perminverse, decomposemat,
                       cartesian, intlcmlist, gcdex,
-                      partitiontuples, centralisertuple, centraliserpartition,
-                      partitions)
+                      partitiontuples, centralisertuple, centraliserpartition)
 
 
 def idmat(liste, scalar) -> Matrix:
@@ -2853,12 +2852,67 @@ def conjclassdata(typ, n):
     classes of the finite Coxeter group of type 'typ' and rank 'n'.
 
     The data are taken from the corresponding files in gap-chevie.
+
+    EXAMPLES::
+
+        sage: sorted(conjclassdata('A',2).items())
+        [('centralisers', [6, 2, 3]),
+         ('names', ['[1, 1, 1]', '[2, 1]', '[3]']),
+         ('reps', [[], [0], [0, 1]])]
+        sage: sorted(conjclassdata('B',3).items())
+        [('centralisers', [48, 16, 16, 48, 8, 8, 8, 8, 6, 6]),
+         ('names',
+          ['[[1, 1, 1], []]',
+           '[[1, 1], [1]]',
+           '[[1], [1, 1]]',
+           '[[], [1, 1, 1]]',
+           '[[2, 1], []]',
+           '[[1], [2]]',
+           '[[2], [1]]',
+           '[[], [2, 1]]',
+           '[[3], []]',
+           '[[], [3]]']),
+         ('reps',
+          [[],
+           [0],
+           [0, 1, 0, 1],
+           [0, 1, 0, 1, 2, 1, 0, 1, 2],
+           [1],
+           [0, 1],
+           [0, 2],
+           [0, 1, 0, 1, 2],
+           [1, 2],
+           [0, 1, 2]])]
+        sage: sorted(conjclassdata('H',3).items())
+        [('centralisers', [120, 8, 10, 8, 6, 10, 10, 6, 10, 120]),
+         ('names',
+          [' ',
+           '1',
+           '12',
+           '13',
+           '23',
+           '123',
+           '1212',
+           '12123',
+           '121232123',
+           '121213212132123']),
+         ('reps',
+          [[],
+           [0],
+           [0, 1],
+           [0, 2],
+           [1, 2],
+           [0, 1, 2],
+           [0, 1, 0, 1],
+           [0, 1, 0, 1, 2],
+           [0, 1, 0, 1, 2, 1, 0, 1, 2],
+           [0, 1, 0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 0, 1, 2]])]
     """
     reps = []
     names = []
     cents = []
     if typ[0] == 'A':
-        for mu in partitions(n + 1):
+        for mu in sorted(Partitions(n + 1)):
             w = []
             i = 0
             for l in mu:
