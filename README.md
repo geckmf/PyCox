@@ -9,6 +9,6 @@ available at http://dx.doi.org/10.1090/mcom/2963.
 
 Installing: Inside a Python session, just say
 
->>> from chv1r6180 import *
+>>> from pycox import *
 
 For first help type 'help(coxeter') or 'allfunctions()'.
